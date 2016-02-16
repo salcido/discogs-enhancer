@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var toggleDarkMode = document.getElementById('toggleDarkMode'),
       toggleConditions = document.getElementById('toggleConditions'),
       toggleAlphas = document.getElementById('toggleAlphas'),
-      notify = document.getElementById('notify'),
       prefs = {};
 
 
@@ -14,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function saveChanges(message) {
 
-    message = message || '';
-
     prefs = {
       'darkMode': toggleDarkMode.checked,
       'highlightMedia': toggleConditions.checked,
@@ -24,7 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.set({'prefs': prefs}, function() {
 
-      notify.innerHTML = message;
+      if (message) {
+
+        $('.notify').html(message);
+
+        $('.notifications').removeClass('hide');
+      }
     });
   }
 

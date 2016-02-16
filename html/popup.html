@@ -6,63 +6,68 @@
     <link rel="stylesheet" href="/css/popup.css">
     <script src="../js/popup.js"></script>
     <script src="../js/jquery/jquery-min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Pragati+Narrow:400,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="header">
-      <img src="/img/discogs-white.png" >
-      <h1>Enhancement Suite</h1>
+      <img src="/img/discogs-black.png" >
     </div>
 
-    <hr>
+    <div class="toggle-group">
+      <h3 class="label">Dark theme:</h3>
 
-    <h3 class="label">Dark theme:</h3>
-
-    <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleDarkMode" checked>
-        <label class="onoffswitch-label" for="toggleDarkMode">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-        </label>
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleDarkMode" checked>
+          <label class="onoffswitch-label" for="toggleDarkMode">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
     </div>
 
     <div class="desc">
       <p>Gives Discogs.com a darker look. It's easier on the eyes - <i>especially at night.</i></p>
     </div>
 
-    <hr>
+    <div class="toggle-group">
+      <h3 class="label">Marketplace highlights:</h3>
 
-    <h3 class="label">Marketplace highlights:</h3>
-
-    <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConditions" checked>
-        <label class="onoffswitch-label" for="toggleConditions">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-        </label>
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConditions" checked>
+          <label class="onoffswitch-label" for="toggleConditions">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
     </div>
 
     <div class="desc">
       <p>This will highlight the media and sleeve conditons in the Marketplace. See at a glance which items are in the best condition.</p>
     </div>
 
-    <hr>
+    <div class="toggle-group">
+      <h3 class="label">Sort buttons:</h3>
 
-    <h3 class="label">Sort buttons:</h3>
-
-    <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleAlphas" checked>
-        <label class="onoffswitch-label" for="toggleAlphas">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-        </label>
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleAlphas" checked>
+          <label class="onoffswitch-label" for="toggleAlphas">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
     </div>
 
     <div class="desc">
       <p>Adds a 'Sort A-Z' button to the <b>Genre</b>, <b>Style</b>, <b>Format</b>, <b>Counrty</b> and <b>Decade</b> dialog boxes within the <i>Explore</i> page. It's easier to find the sub-categories you're looking for.</p>
     </div>
 
-    <div class="notifications">
-      <p id="notify"></p>
+    <div class="notifications hide">
+      <div class="icon">
+        <img src="../img/warning.svg" alt="Warning Icon">
+      </div>
+      <div class="warning-text">
+        <p id="notify">Please refresh the page for changes to take effect.</p>
+      </div>
     </div>
     
     <div class="show-credits-wrap">

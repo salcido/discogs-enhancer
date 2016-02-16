@@ -1,13 +1,15 @@
 body {
   width: 300px;
   height: 275px;
-  background-color: #454545;
+  background-color: white;
 }
 
 h1,
 h2,
 h3 {
-  color: #ccc;
+  color: white;
+  font-family: 'Pragati Narrow', sans-serif;
+    font-weight: normal;
 }
 
 h1 {
@@ -18,25 +20,57 @@ h1 {
 }
 
 .header {
-/*  background-color: #1f1f1f;*/
+  background-color: black;
   margin: -10px;
-  padding: 10px 10px 0 10px;
+  padding: 10px 10px 8px 15px;
+}
+
+.toggle-group {
+  background-color: #454545;
+  border-radius: 3px;
+  width: 312px;
+  height: 50px;
+  clear: both;
+  margin: 13px 0 0 -6px;
 }
 
 .label {
   float: left;
+  margin-left: 13px;
+  font-size: 19px;
+  margin-top: 9px;
 }
 
 .onoffswitch {
   float: right;
-  margin-top: 10px;
+  margin-top: 13px;
+  margin-right: 10px;
 }
 
 .notifications {
   clear: both;
-  color: yellow;
   float: left;
   margin-bottom: 8px;
+  font-family: 'Pragati Narrow', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: yellow;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.notifications img {
+  width: 45px;
+}
+
+.notifications .icon {
+  margin: 13px 10px 0 15px;
+  float: left;
+}
+
+.notifications .warning-text {
+  line-height: 18px;
+  margin-top: 15px;
 }
 
 .desc {
@@ -45,13 +79,10 @@ h1 {
 }
 
 .desc p {
-  color: white;
-}
-
-hr {
-  border: 0;
-  height: 1px;
-  background: #666;
+  color: #454545;
+  font-family: 'Pragati Narrow', sans-serif;
+  font-size: 15px;
+  line-height: 18px;
 }
 
 .show-credits-wrap {
@@ -60,12 +91,12 @@ hr {
 }
 
 sup {
-  color: #666;
+  color: #454545;
 }
 
 .credits,
 .show-credits {
-  color: #ccc;
+  color: #454545;
   margin-bottom: 10px;
 }
 
