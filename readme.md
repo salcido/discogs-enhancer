@@ -1,6 +1,9 @@
 # Discogs Enhancement Suite
 Discogs Enhancement Suite is a Chrome extension that adds useful functionality to discogs.com
 
+#### Discogs Enhancement Suite Overview Page
+<http://www.msalcido.com/discogs-enhancement-suite>
+
 ![DES Menu](http://www.msalcido.com/github/DES-shots/menu-2.png?raw=true "The DES menu preview")
 
 ## Features
@@ -33,6 +36,3 @@ Sort the Genre, Style, Format, Country and Decade dialog boxes alphabetically on
 Search Discogs instantly with any highlighted text!
 
 ![Dark theme](http://www.msalcido.com/github/DES-shots/context-menu-zoom.png?raw=true "Contextual menu preview")
-
-#### Discogs Enhancement Suite Overview Page
-<http://www.msalcido.com/discogs-enhancement-suite>
