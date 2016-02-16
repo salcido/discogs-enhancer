@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+
+  "name": "Discogs Enhancement Suite",
+  "description": "This extension adds useful functionality to discogs.com",
+  "version": "1.0",
+  "author": "Matthew Salcido",
+  "homepage_url": "http://www.msalcido.com/discogs-enhancement-suite",
+  "browser_action": {
+    "default_title": "Discogs Enhancement Suite",
+    "default_icon": "img/icon_128.png",
+    "default_popup": "html/popup.html"
+  },
+
+  "content_scripts": [
+      {
+       "matches": ["*://*.discogs.com/*"],
+       "js": ["js/jquery/jquery-min.js", "js/background.js"],
+       "run_at" : "document_start"
+      }
+  ],
+
+  "background": {
+     "scripts": ["js/jquery/jquery-min.js", 
+                 "js/background.js", 
+                 "js/apply-highlights.js", 
+                 "js/alphabetize-lists.js", 
+                 "js/search-contextual-menu.js"]
+   },
+
+  "permissions": [
+    "*://*.discogs.com/*",
+    "storage",
+    "contextMenus",
+    "tabs"
+    ],
+
+    "web_accessible_resources": [
+      "css/dark-mode.css",
+      "css/marketplace-highlights.css",
+      "js/jquery/jquery-min.js",
+      "js/apply-highlights.js",
+      "js/alphabetize-lists.js"
+    ],
+
+    "icons": { 
+              "16": "img/icon_16.png",
+              "32": "img/icon_32.png",
+              "48": "img/icon_48.png",
+              "128": "img/icon_128.png" 
+    }
+}

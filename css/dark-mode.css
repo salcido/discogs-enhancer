@@ -1,0 +1,1522 @@
+*:not(select) {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #CCC !important;
+}
+
+html,
+#quicklister #resultsPane,
+#keyboard_shortcuts_modal, 
+#subform_shortcuts_modal,
+.bulk_actions_section, .bulk_actions_submit,
+.action_block,
+.box-card {
+    background-color: #323334 !important;
+}
+
+body,
+#quicklister .pane .inner_pane,
+.section.recommendations .cards {
+    background: transparent !important;
+}
+
+select[size] {
+    background-color: #2f2f2f !important;
+}
+
+.is_not_mobile .notes_field:hover {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+#youtube_tracklist {
+    outline: none !important
+}
+
+::-webkit-scrollbar {
+    background: #393939 !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+    -webkit-border-radius: 0.5ex;
+    width: 3px;
+}
+
+::-webkit-scrollbar-corner {
+    background: rgb(25, 25, 25) !important;
+}
+
+#quicklister #searchPane .main_search form::-webkit-scrollbar-thumb,
+#quicklister #searchPane .my_upload_wrapper::-webkit-scrollbar-thumb,
+#quicklister #searchPane .my_upload_wrapper ul.searchFields::-webkit-scrollbar-thumb,
+#quicklister #resultsPane .inner_pane::-webkit-scrollbar-thumb,
+#quicklister #resultsPaneDefault .inner_pane::-webkit-scrollbar-thumb,
+#quicklister .releasePreview::-webkit-scrollbar-thumb, #quicklister #postPane::-webkit-scrollbar-thumb,
+#quicklister #postPaneDefault::-webkit-scrollbar-thumb {
+    border-radius: 8px !important;
+    border: 2px solid #454545 !important;
+    background-color: #454545 !important;
+}
+
+body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 8px !important;
+    border: 2px solid red !important;
+    background-color: red !important
+}
+/* Link Colors */
+
+/* Links */
+a, 
+a i,
+.tab_menu a:visited,
+.icon.icon-ellipsis-h,
+.pagination_page_links a,
+span.marketplace_for_sale_count a:visited strong {
+    color: #809bbe !important;
+}
+
+a {
+    outline : none !important;
+}
+
+button:focus {
+    outline:0 !important;
+}
+
+/* Visited Links */
+
+a:visited,
+a:visited:not(.button) i,
+.pagination_page_links a:visited,
+span.marketplace_for_sale_count a:visited strong {
+    color: #a590d0 !important; /* OG: #7d65ae*/
+}
+
+/* Link Hovers */
+
+a:hover:not(.button),
+.footer a:hover i,
+.pagination_page_links a:hover i,
+#site_footer_list li a:hover i,
+span.marketplace_for_sale_count a:hover strong {
+    color: #cae0fa !important;
+}
+
+/* gray text links */
+
+#site_navigation > li > a, 
+#site_navigation > li .nav_group_control,
+#site_navigation > li .nav_group_control i, 
+.site_nav_tray,
+.site_nav_tray h4,
+.site_nav_submenu a,
+.site_nav_tray a,
+.site_nav_submenu a:visited, 
+.site_nav_tray a:visited,
+#site_navigation > li > a:hover i, 
+#site_navigation > li .nav_group_control:hover i,
+#activity_menu > li > a i, 
+#activity_menu > li .nav_group_control i,
+.activity_menu_total,
+#activity_menu > li > a,
+#activity_menu > li > a:hover, 
+#activity_menu > li .nav_group_control:hover,
+#activity_menu > li .nav_group_control,
+#activity_menu > li .nav_group_control span {
+    color: #ccc !important;
+}
+
+#messages_list .messagelist tr.unread_message {
+    background-color: #444 !important;
+    border-bottom: 1px solid #323334 !important;
+}
+
+.menu,
+.ui-menu,
+.site_nav_submenu,
+.site_nav_tray,
+.ac_div .yui-ac-content,
+#feedSubscribeLine .handlersMenuPopup,
+#site_footer_language ul {
+    background: #000 !important;
+}
+
+#site_nav_submenu_account i,
+#site_nav_submenu_account i:visited,
+#site_navigation i,
+#site_navigation i:visited {
+    color: white !important;
+}
+
+.ui-autocomplete a {
+/*    background: #2f2f2f !important;*/
+    border-bottom: 1px #454545 solid !important;
+}
+
+.ui-autocomplete a:hover {
+    background: #323334 !important;
+}
+
+ol#search_tabs li label {
+    background-color: #2f2f2f !important;
+}
+
+ol#search_tabs li input[type="radio"]:checked + label {
+    background-color: #326FB2 !important;
+    color: white !important;
+}
+
+li.ui-menu-item a span.sublabel {
+    color: gray !important;
+}
+
+#site_footer_wrap {
+    border-top: 1px #454545 solid !important;
+}
+
+.site_nav_tray {
+    border: 1px #000 !important;
+    top: 55px !important;
+}
+
+/* Muted Gray */
+
+.muted, 
+.broadcast_table .gutter .icon_wrapper, 
+.facet_count, 
+table.table_block td.empty_row {
+    color: #858585 !important;
+}
+
+blockquote,
+#forum_search_results .search-result-snippet {
+    background-color: #292929 !important;
+    box-shadow: none !important;
+}
+
+mark {
+    background: gray !important;
+    color: #000 !important;
+    margin-left: 3px !important;
+}
+.side_menu a:hover {
+    background-color: #2f2f2f !important;
+}
+
+.order-page-aside,
+.item_actions_well {
+    background-color: #1f1f1f !important;
+}
+
+.box_header_row {
+    border-bottom: 1px #454545 solid !important;
+    background-color: #2f2f2f !important;
+}
+
+.box-card .box-card-header {
+    border-bottom: 1px solid #1f1f1f !important;
+}
+
+.order-user-address {
+    border-left: 4px solid #858585 !important;
+}
+
+table.list tr.new td.status,
+table.cw_releases tr.new td.status,
+table.cards tr.new td.status,
+table.release_list_table tr.new td.status {
+    background: #f2b90d !important
+}
+
+table.mpitems tr,
+aside li > a,
+.no_aside .doc_question > a {
+    border-bottom: 1px dotted #454545 !important;
+}
+
+/* green success message after purchase */
+.cart_page .order_success {
+   background-color: #142e09 !important; 
+}
+
+
+
+/* in collection */
+.cw_block.cw_block_collection {
+    background-color: #142e09 !important;
+    border: 1px solid #60C43F !important;
+}
+
+.cw_block.cw_block_collection div {
+    margin-bottom: 0.2rem;
+}
+
+.cw_block.cw_block_collection h2 {
+    border-color: #60C43F !important;
+}
+
+.cw_block.cw_block_wantlist {
+    background-color: #360d0d !important;
+    border: 1px solid #e7413f !important;
+}
+
+.cw_block.cw_block_wantlist h2 {
+    border-color: #e7413f !important;
+}
+
+.cw_block h2 {
+    color: white !important;
+    border-bottom: 1px solid #454545 !important;
+}
+
+.cw_block .notes_field_label, .notes_add, .notes_text {
+    color: white !important;
+}
+
+a.readmore_toggler {
+    background: #323334 !important;
+}
+
+/* search input */
+#site_search #search_q, 
+.aside_search_form,
+.cw_block .notes_textarea {
+    background: #404040 !important;
+    color: white !important;
+}
+
+#page_aside .selected_facets li a,
+#page_aside .selected_facets li a span,
+#page_aside .selected_facets li a i,
+#page_aside .selected_facets li a i:visited,
+.facets_nav a.selected, 
+.current_filter {
+    background-color: #72a3d8 !important;
+    border-radius: 2px !important;
+    color: white !important;
+}
+
+
+.order_status_icon {
+    background-color: #454545 !important;
+    border: 2px solid #858585 !important;
+}
+
+/* verticle timeline strand on orders */
+.thread.thread_linear .thread_message:before {
+    background-color: #858585 !important;
+}
+
+/* white icons */
+
+.selected_marketplace_filters .icon,
+.icon.icon-cogs,
+.icon.icon-list-alt,
+.icon.icon-font,
+.selected_marketplace_filters a.clear_selected_marketplace_filters i,
+.selected_marketplace_filters a.clear_selected_marketplace_filters i:visited,
+li.current.menu-item a span {
+    color: white !important;
+}
+
+/* white icons on colored buttons */
+a#profile_friends_url,
+button.button_blue i,
+a.button_blue i,
+button.button_green i,
+a.button_green i,
+button.button_red i,
+a.button_red i {
+    color: white !important;
+}
+
+#user_header .user_avatar {
+    border: 3px solid white !important;
+}
+
+.discography_nav span.facet_count {
+    color: white !important;
+}
+
+table.cards tr.sub_first.card.sub, 
+table.cards tr.sub_first.card.sub td {
+    box-shadow: inset 0 10px 5px -8px #202020 !important;
+}
+
+table.cards tr.sub_last.card.sub, 
+table.cards tr.sub_last.card.sub td {
+    box-shadow: inset 0 -10px 5px -8px #202020 !important;
+}
+
+table.cards tr.sub {
+    background-color: #292929 !important;
+}
+
+.section.tracklist table tr.first {
+    border-top: none !important;
+}
+
+.section.tracklist table tr.tracklist_track.track_heading {
+    background-color: #292929 !important;
+}
+
+.module_blocks .dashboard_addmodules,
+ul.module_blocks > li.module_placeholder,
+.uploader {
+    border: 5px dashed #454545 !important;
+}
+
+.has_files #uploader_messaging {
+    background-color: #2f2f2f !important;
+}
+
+.uploader:hover {
+    border-color: #4DD2FF !important;
+}
+
+.vid_list ul {
+   border: 2px dashed #454545 !important; 
+}
+
+#quicklister .pane .inner_pane {
+    border-right: 2px dashed #454545 !important;
+}
+
+#items {
+    border-right: 2px solid #454545 !important;
+}
+
+table.table_block tbody tr.even,
+.cart_page .order_contents tr.even,
+.cart_page .order_suggestions,
+ul.as_table_block li.body_row.even,
+ul.as_table_block li.header, 
+ul.as_table_block li.footer, 
+ol.as_table_block li.header, 
+ol.as_table_block li.footer {
+    background-color: #2f2f2f !important;
+}
+
+.thread .thread_message:first-child {
+    border-top: none !important;
+}
+
+.thread.thread_linear .thread_message {
+    border: none !important;
+}
+
+/* border top standard text */
+
+.thread .thread_message,
+.thread.thread_linear .thread_message .thread_content,
+.section.social .section_content,
+#preview,
+ul.module_blocks .footer,
+.doc_resources,
+.section.tracklist table tr,
+table.sell td,
+.format_descriptions,
+ul.subs_list li,
+.history table tr,
+table.table_block tbody tr.delimit_above {
+    border-top: 1px solid #454545 !important;
+}
+
+ul.subs_list li:hover {
+    background: #292929 !important;
+}
+
+hr {
+    background: #454545 !important;
+}
+
+.order_total_row {
+
+}
+
+#full-width-header,
+.toolbar-wrapper,
+.footer-wrapper {
+    background: #222 !important;
+}
+
+#full-width-header .column-content {
+    background: #323334 !important;
+}
+
+#full-width-header #full-width-header-bar, 
+#user_header #full-width-header-bar {
+    background-color: #000 !important;
+    color: white !important;
+}
+
+#full-width-header #full-width-header-bar a, 
+#user_header #full-width-header-bar a, 
+#full-width-header #full-width-header-bar a:visited, 
+#user_header #full-width-header-bar a:visited {
+    color: white !important;
+}
+
+#full-width-header #full-width-header-navigation li.active_header_section {
+    background-color: #2f2f2f !important;
+    text-decoration: none !important;
+}
+
+#full-width-header #full-width-header-navigation li:last-child,
+.profile_sections.user_profile li:last-child {
+    border-right: 1px solid #454545 !important;
+}
+
+/* gray text on white buttons */
+
+.button, 
+.button i,
+.button span, 
+.toggle_wantlist_add,
+.header-actions a.button:visited, /* settings button on profile page */
+.inline_buttons.no_offer a,
+a.button.inv_add_button,
+.section_content.release_info_buttons a:not(.button_blue) {
+    color: #454545 !important;
+}
+
+.button.button_green[disabled],
+.button.button_green[disabled] i, 
+.button.button_green[disabled]:hover, 
+.button.button_green[disabled]:active, 
+.button.button_green[disabled]:visited, 
+.button.button_green[disabled]:focus, 
+.button.button_blue[disabled], 
+.button.button_blue[disabled]:hover, 
+.button.button_blue[disabled]:active, 
+.button.button_blue[disabled]:visited, 
+.button.button_blue[disabled]:focus, 
+.button.button_red[disabled], 
+.button.button_red[disabled]:hover, 
+.button.button_red[disabled]:active, 
+.button.button_red[disabled]:visited, 
+.button.button_red[disabled]:focus, 
+.button.button_dark[disabled], 
+.button.button_dark[disabled]:hover, 
+.button.button_dark[disabled]:active, 
+.button.button_dark[disabled]:visited, 
+.button.button_dark[disabled]:focus, 
+.button.button_white[disabled], 
+.button.button_white[disabled]:hover, 
+.button.button_white[disabled]:active, 
+.button.button_white[disabled]:visited, 
+.button.button_white[disabled]:focus, 
+.button[disabled],
+.button[disabled] i,
+.button[disabled] span,  
+.button[disabled]:hover, 
+.button[disabled]:active, 
+.button[disabled]:visited, 
+.button[disabled]:focus {
+    cursor: pointer !important;
+    border-color: #dbdbdb !important;
+    border-top-color: #e0e0e0 !important;
+    border-bottom-color: #d3d3d3 !important;
+    background-color: #f2f2f2 !important;
+    background-image: linear-gradient(#f2f2f2, #eaeaea) !important;
+    color: #999 !important;
+}
+
+/* force color overrides on sell release/history links: ^= starts with, $= ends with, *= contains */
+
+div.section_content.release_info_buttons a[href^="/sell/history/"],
+span.marketplace_for_sale_count a[href^="/sell/release/"] strong {
+    color: #809bbe !important;
+}
+
+div.section_content.release_info_buttons a[href^="/sell/history/"]:visited {
+    color: #a590d0 !important;
+}
+
+div.section_content.release_info_buttons a[href^="/sell/history/"]:hover,
+span.marketplace_for_sale_count a[href^="/sell/release/"]:hover strong {
+    color: #cae0fa !important;
+    text-decoration: underline !important;
+    text-decoration-color: #cae0fa !important;
+}
+
+a.inset_button[disabled] {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-color: #2f2f2f !important;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 3px 1px inset !important;
+}
+
+.tag-list a {
+    display: block !important;
+    padding: 2px 5px !important;
+    background: #326FB2 !important;
+    border-radius: 2px !important;
+    color: white !important;
+}
+
+.button.button_green,
+.inline_buttons.no_offer a.button.button_green,
+.button.button_green span {
+    border-color: #4ea332 !important;
+    border-top-color: #52ab34 !important;
+    border-bottom-color: #49972e !important;
+    background-color: #60C43F !important;
+    color: white !important;
+}
+
+.cart_page .order_success {
+    border: 1px solid #9acd89 !important;
+}
+
+.button.button_red,
+.button.button_red span {
+    border-color: #982e2c !important;
+    border-top-color: #902c2a !important;
+    border-bottom-color: #842827 !important;
+    color: white !important;
+}
+
+.button.button_blue {
+    border-color: #3571a6 !important;
+    border-top-color: #3776ae !important;
+    border-bottom-color: #31699b !important;
+    background-color: #4588C4 !important;
+    color: white !important;
+}
+
+.button.button_green .icon, 
+.button.button_red .icon {
+    color: white !important;
+}
+
+/* red add to cart button in shop */
+
+input.btn {
+    background: #f45b4f !important;
+    color: white !important;
+}
+
+a.btn-default,
+a.btn-default i,
+a.btn-default:hover, 
+a.btn-default:focus, 
+a.btn-default:active, 
+a.btn-default.active, 
+.open .dropdown-toggle.btn-default {
+    color: #2f2f2f !important;
+    background-color: #ebebeb !important;
+    border-color: #adadad !important;
+}
+
+.btn-primary,
+.btn-primary:visited {
+    color: white !important;
+    background-color: #428bca !important;
+    border-color: #357ebd !important;
+}
+
+.btn-success,
+.btn-success:visited {
+    color: white !important;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+}
+
+.btn-danger,
+.btn-danger:visited {
+    color: white !important;
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+}
+
+.btn-warning,
+.btn-warning:hover, 
+.btn-warning:focus, 
+.btn-warning.active, 
+.open .dropdown-toggle.btn-warning {
+    color: white !important;
+    background-color: #ed9c28 !important;
+    border-color: #d58512 !important;
+}
+
+button.button.button_white {
+    background-image: none !important;
+    background-color: white !important;
+    color: #595959
+}
+
+button.mr_toggler.button.button_white,
+button.mr_toggler.button.button_white i {
+    background-image: none !important;
+    background-color: gray !important;
+    color: #ccc !important;
+}
+
+.artist_search_form button {
+    background: none !important;
+}
+
+.button.button_white:hover {
+    background-color: #f2f2f2 !important;
+}
+
+.price,
+.price span,
+.cart_page .order_summary_errors,
+#search_results .needs_changes,
+#search_results .needs_changes i,
+a.report_item.mplabel.hide_mobile,
+.required {
+    color: #e7413f !important;
+}
+
+td.price_flag div {
+    border-top: 8px solid red !important;
+    border-right: 8px solid #323334 !important;
+}
+
+div.price_flag_inline {
+    border-top: 8px solid red !important;
+    border-right: 8px solid #454545 !important;
+}
+
+/* weird chrome textarea override */
+
+#review_compose.form_block textarea,
+textarea,
+input,
+.lookup-field.credit-lookup.fake-input
+.lookup-field.credit-lookup.fake-input input {
+    box-shadow: none !important;
+    color: white !important;
+    background: #292929 !important;
+    font-family: "Helvetica Neue", Helvetica, "Nimbus Sans", Arial, sans-serif !important;
+    outline: none !important;
+}
+
+#review_compose.form_block div.review_preview {
+    padding: 5px !important;
+    border: 1px solid #454545 !important;
+    min-height: 10px !important;
+}
+
+.form_block legend {
+    background-color: #2f2f2f !important;
+    border-bottom: 1px solid #454545 !important;
+}
+
+.product-options {
+    border-top: 1px solid #454545 !important;
+    border-bottom: 1px solid #454545 !important;
+}
+
+
+button.lazy_gallery_nav.lazy_gallery_next {
+    background: linear-gradient(to left, #323334, rgba(41, 41, 41, 0)) !important;
+}
+
+button.lazy_gallery_nav.lazy_gallery_prev {
+    background: linear-gradient(to right, #323334, rgba(41, 41, 41, 0)) !important;
+}
+
+/* might have to change this - scroll release thumbs in modal */ 
+.image_gallery_thumbs:after {
+    background: none !important;
+}
+
+.image_gallery_thumb.current {
+    border-color: white !important;
+}
+
+select {
+    background-color: default !important;
+    border-color: default !important;
+}
+
+/* bottom line border rule */
+table.release_list_table tbody tr, 
+.review, 
+.pagination.top,
+#list_details .listitem,
+.order-item-row,
+#youtube_tracklist,
+.react-modal-header,
+#messages_list .messagelist tr,
+table.marketplace-table-react td,
+.cards .card.card_normal, 
+.cards .card.card_text-only,
+#product h3.collection-title,
+.order-page-header,
+table.table_block thead tr, 
+table.table_block tfoot tr,
+.ui-widget-header,
+table.sell tr,
+.doc_resources,
+table.cards tr, div.section h3,
+table.subform_table tr,
+.history_browser_facet_found {
+    border-bottom: 1px solid #454545 !important;
+}
+
+table.release_list_table.table_block thead tr,
+.order_total_row,
+table.table_block thead tr,
+table.table_block tfoot tr,
+.is_not_mobile table.release_list_table tbody tr:hover,
+.doc_resource:first-child,
+li.section-box.section_as_link:hover,
+li.doc_question.section_as_link:hover,
+li.doc_resource.section_as_link:hover,
+.ref_guidelines_list .ref_guidelines_heading:hover,
+.drag_drop_field_list > li,
+.react_drag_drop_field_list .drag_drop_content, 
+.editable_item,
+.history tr.even, .history tr:nth-child(even),
+table.diff th,
+.ui-autocomplete a,
+.rh {
+    background: #2f2f2f !important;
+}
+
+table.release_list_table.layout_med td:nth-child(-n+4), 
+table.release_list_table.layout_med th:nth-child(-n+4) {
+    border-left: none !important; 
+}
+
+table.release_list_table thead th,
+#full-width-header #full-width-header-navigation a, 
+.profile_sections.user_profile a,
+.section-box:nth-child(3n+1), 
+.doc_resource:nth-child(3n+1) {
+    border-left: 1px solid #454545 !important;
+}
+
+table.release_list_table tbody td,
+table.subform_table td,
+.filtergroup {
+    border-left: 1px dotted #454545 !important;
+}
+
+.doc_article {
+   border-right: 1px dotted #454545 !important; 
+}
+
+/*table.table_block thead tr,
+table.table_block tfoot tr {
+    background: #2f2f2f !important;
+}*/
+
+/*.is_not_mobile table.release_list_table tbody tr:hover {
+    background: #2f2f2f !important;
+}*/
+
+.card .card_body .card_status, 
+.card .card_body .card_status a,
+.card .card_body .card_status i {
+    color: gray !important;
+}
+
+.pagination.bottom,
+#cartform table tr td {
+    border-top: 1px solid #454545 !important;
+}
+
+#cartform th,
+#cartform tr td {
+    color: white !important;
+}
+
+#cartform tr td.remove a,
+#cartform tr td strong {
+    color: #e7413f !important;
+}
+
+.order-total-row {
+    border-bottom: 2px solid #454545 !important;
+}
+
+/* green shipped */
+.skittles .skittle.skittle_collection,
+.skittle.skittle_collection,
+.skittle.skittle_collection span,
+#order_process .order_step .order-status-label.order-status-label-shipped,
+.order-status-label.order-status-label-shipped,
+.order-status-label.order-status-label-shipped span,
+.order-status-label.order-status-label-shipped i,
+.order-status-label.order-status-label-new-order {
+    background-color: #60C43F !important;
+    color: white !important;
+}
+
+.icon.icon-li.icon-check.icon-green,
+.icon.icon-check.icon-green {
+    color: #60C43F !important;
+}
+
+#order_process .order_step .order-status-label.order-status-label-shipped span,
+#order_process .order_step .order-status-label.order-status-label-shipped i,
+.order-status-label.order-status-label-new-order span,
+.order-status-label.order-status-label-new-order i,
+.order_status_icon.shipped i,
+.order_status_icon.buyer_contacted i,
+.order_status_icon.cancelled i,
+.order_status_icon.invoice_sent i,
+.order_step.active_step span {
+    color: white !important;
+}
+
+/* blue invoiced */
+.order-status-label.order-status-label-invoice-sent,
+.order-status-label.order-status-label-invoice-sent span,
+.order-status-label.order-status-label-invoice-sent i {
+    background: #407fbf !important;
+    color: white !important;
+    border-color: #3973ac !important;
+}
+
+/* yellow payment recieved */
+.order_status_icon.payment_received,
+ .order_status_icon.payment_received i,
+ .order_status_icon.payment_received span {
+    background: #bf9f40 !important;
+    color: #f9f5ec !important;
+    border-color: white !important;
+}
+
+.order_status_icon.shipped {
+    background: #60bf40 !important;
+    border-color: white !important;
+}
+
+.order_status_icon.buyer_contacted {
+    background: #4580b7 !important;
+    border-color: white !important;
+}
+
+.order_status_icon.invoice_sent {
+    background: #407fbf !important;
+    color: #ecf2f9 !important;
+    border-color: white !important;
+}
+
+/* yellow payment recieved */
+.order-status-label.order-status-label-payment-received,
+.order-status-label.order-status-label-payment-received span,
+.order-status-label.order-status-label-payment-received i {
+    background: #bf9f40 !important;
+    color: #f9f5ec !important;
+    border-color: #ac8f39 !important;
+}
+
+.cart_page .order_shipping_hint {
+    background: #dbedff !important;
+    border: 1px solid #8ac4ff !important;
+}
+
+.order_pay_now span,
+.order_pay_now i {
+    color: white !important;
+}
+
+/* red canceled */
+.order-status-label.order-status-label-cancelled,
+.order-status-label.order-status-label-cancelled span,
+.order-status-label.order-status-label-cancelled i {
+    background: red !important;
+    color: white !important;
+}
+
+.order_status_icon.cancelled {
+    background: red !important;
+    border-color: white !important;
+}
+
+.order-status-label.order-status-label-payment-pending,
+.order-status-label.order-status-label-payment-pending i,
+.order-status-label.order-status-label-payment-pending span,
+.order_status_icon.payment_pending,
+.order_status_icon.payment_pending i,
+.order_status_icon.payment_pending span {
+    background: #f2ecd9 !important;
+    color: #393013 !important;
+    border-color: white !important;
+}
+
+.skittles .skittle.skittle_collection span.count, 
+span.skittle.skittle_wantlist span.count,
+.skittle.skittle_inventory span.count,
+span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
+    color: white !important;
+}
+
+.skittle.skittle_wantlist,
+span.skittle.skittle_wantlist.needs_delegated_tooltip {
+    background-color: #BF3A38 !important;
+}
+
+.skittle.skittle_inventory {
+    background-color: #326FB2 !important;
+}
+
+#site_header_wrap {
+    background-color: #000 !important;
+    border-bottom: none !important;
+}
+
+.icon.icon-search {
+    color: gray !important;
+}
+
+.video-search-js .icon.icon-search {
+    color: white !important;
+}
+
+.pos_rating, 
+.pos_rating i {
+    background: #a8d388 !important;
+    color: #397326 !important;
+}
+
+.pos_rating a, 
+.pos-rating-text strong, 
+.pos-rating-text i {
+    color: #397326 !important;
+}
+
+.neg_rating, 
+.neg_rating i {
+    background: #ec9c9c !important;
+    color: #733326 !important;
+}
+
+.neg_rating a,
+.neg-rating-text strong,
+.neg-rating-text i {
+    color: #822917 !important;
+}
+
+.neu_rating, 
+.neu_rating i {
+    background: #cfcdc9 !important;
+    color: #504e49 !important;
+}
+
+textarea,
+.form_block textarea,
+#review_compose.form_block textarea,
+textarea.thread-compose-message,
+#pw_current,
+#pw_new,
+#pw_confirm_new,
+input[type="text"]:not(#search_q),
+input[type="text"]:not(.image_copy_permalink_text) {
+    box-shadow: none !important;
+    color: white !important;
+    background: #292929 !important;
+    outline: none !important;
+    border: 1px solid #525252 !important;   
+}
+
+table.cards tr.credit_header,
+ul.module_blocks .header,
+table.table_block tfoot tr {
+    background: #454545 !important;
+    border-bottom: 1px solid #454545 !important;
+}
+
+/* x icons on dashboard modules */
+ul.module_blocks .header i {
+    color: #ccc !important;
+}
+
+div.search_result.needschanges div.flag,
+table.cards tr.change td.status,
+table.list tr.change td.status, 
+table.cw_releases tr.change td.status, 
+table.release_list_table tr.change td.status {
+    background: red !important
+}
+
+table.list tr.edit td.status,
+table.cw_releases tr.edit td.status,
+div.search_result.needsvote div.flag,
+table.cards tr.edit td.status,
+table.release_list_table tr.edit td.status {
+    background: #cfcdc9 !important
+}
+
+.tooltip .tooltip-inner {
+    background: #454545 !important;
+}
+.tooltip.top .tooltip-arrow {
+    border-color: #454545 transparent transparent transparent !important
+}
+.tooltip.left .tooltip-arrow {
+    border-color: transparent transparent transparent #454545 !important
+}
+.tooltip.right .tooltip-arrow {
+    border-color: transparent #454545 transparent transparent !important
+}
+.tooltip.bottom .tooltip-arrow {
+    border-color: transparent transparent #454545 transparent !important
+}
+
+/* ghost arrow */
+
+.ui-dialog-arrow-left-top:after,
+.ui-dialog-arrow-left-bottom:after,
+.ui-dialog-arrow-right-top:after,
+.ui-dialog-arrow-right-bottom:after {
+    border-right-color: #323334 !important;
+}
+
+.ui-dialog-arrow-left-top:before, 
+.ui-dialog-arrow-left-bottom:before,
+.ui-dialog-arrow-right-top:before,
+.ui-dialog-arrow-right-bottom:before {
+    border-right-color: white !important;
+}
+
+.ui-dialog-arrow-top-left:before, 
+.ui-dialog-arrow-top-right:before,
+.ui-dialog-arrow-top-left:after, 
+.ui-dialog-arrow-top-right:after {
+    border-right-color: #2f2f2f !important;
+    border-top-color: #2f2f2f !important;
+}
+
+/* all gray border */
+
+input,
+.inset_box, 
+.form_block, 
+.outset_box, 
+.release_stats_group_list, 
+#object_preview, 
+ul.module_blocks > li,
+.tab_menu,
+.cart_page .order_container,
+.cart_page .order_help,
+table.release_list_table,
+.release_list_actions, 
+#releaselist_collection_stats_ranges, 
+.releaselist_stats_range_wrap,
+.video_li,
+table.subform_table,
+.item_actions,
+.history_browser_facet_found,
+.list-group-item,
+.panel-default {
+   border: 1px solid #454545 !important; 
+}
+
+ul.module_blocks > li {
+    background: #323334 !important;
+}
+
+#listadd.form_block {
+    border: none !important;
+}
+
+ul.module_blocks > li.table_body table thead tr {
+    border-bottom: 2px solid #454545 !important;
+}
+
+.panel-success,
+.panel-info,
+.panel-danger,
+.panel-warning {
+    border-color: #454545 !important;
+}
+
+.group-list-group-content {
+    background: rgba(0, 0, 0, 0.6) !important;
+    border-right: 7px solid #323334 !important;
+    border-bottom: 7px solid #323334 !important;
+}
+
+a.list-group-item.heading,
+a.list-group-item.heading:visited {
+    color: white !important;
+    background-color: #2f2f2f !important;
+}
+
+/*.list-group-item,
+.panel-default {
+    border: 1px solid #454545 !important;
+}*/
+
+code {
+    color: #ccc !important;
+    background-color: #000 !important;
+    font-size: 90% !important;
+}
+
+pre {
+    border: 1px solid #454545 !important;
+    background: #000 !important;
+}
+
+pre code {
+    background: #000 !important;
+}
+
+.hljs-string, 
+.hljs-value, 
+.hljs-inheritance, 
+.hljs-header, 
+.ruby .hljs-symbol, 
+.xml .hljs-cdata {
+    color: #718c00 !important;
+}
+
+.hljs-number, 
+.hljs-preprocessor, 
+.hljs-pragma, 
+.hljs-built_in, 
+.hljs-literal, 
+.hljs-params, 
+.hljs-constant {
+    color: #f5871f !important;
+}
+
+.hljs-comment, .hljs-title {
+    color: #8e908c !important;
+}
+
+.hljs-variable, 
+.hljs-attribute, 
+.hljs-tag, 
+.hljs-regexp, 
+.ruby 
+.hljs-constant, 
+.xml .hljs-tag .hljs-title, 
+.xml .hljs-pi, 
+.xml .hljs-doctype, 
+.html .hljs-doctype, 
+.css .hljs-id, 
+.css .hljs-class, 
+.css .hljs-pseudo {
+    color: #c82829 !important;
+}
+
+.hljs-keyword, 
+.javascript .hljs-function {
+    color: #8959a8 !important;
+}
+
+.alert-message.alert-message-info,
+.alert-message.alert-message-info i {
+    background: #c5def7 !important;
+    color: #454545 !important;
+    font-size: 21px !important;
+    line-height: 20px !important;
+}
+
+.alert-message.alert-message-error,
+.alert-message.alert-message-error i {
+    background: #f7cdc5 !important;
+    color: #812512 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+}
+
+.alert-message.alert-message-accept,
+.alert-message.alert-message-accept i,
+.alert-message.alert-message-accept span {
+    background: #d1f7c5 !important;
+    color: #60C43F !important;
+}
+
+.alert-message.alert-message-broadcast {
+    background-color: #2f2f2f !important;
+}
+
+.alert-message.alert-message-news .announcement-title,
+.alert-message a.alert-message-close-icon i,
+.alert-message a.alert-message-close-icon i:visited {
+    color: #ccc !important;
+}
+
+.alert-message.alert-message-warning,
+.alert-message.alert-message-warning i,
+.alert-message.alert-message-warning,
+span.alert-message-text p,
+span.alert-message-content h3,
+span.alert-message-content h4,
+span.alert-message-content ul li a strong,
+span.alert-message-content ul li a small {
+    background: #f7eac5 !important;
+    color: #816612 !important;
+}
+
+
+span.alert-message-text,
+span.alert-message-text strong,
+span.alert-message-text strong a,
+span.alert-message-text strong a:hover {
+    color: #454545 !important;
+}
+
+.tab_menu {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #454545 !important;
+}
+
+.tab_menu li.current {
+    background: #323334 !important;
+    border-left: 1px solid #454545 !important;
+    border-top: 1px solid #454545 !important;
+    border-right: 1px solid #454545 !important;
+    font-weight: bold;
+}
+
+.tab_menu li {
+    border-left: 1px solid transparent !important;
+    border-top: 1px solid transparent !important;
+    border-right: 1px solid transparent !important;
+}
+
+.tab_menu li.current a, 
+.tab_menu li.current a:visited span {
+    color: white !important;
+}
+
+.section-box {
+    border-right: 1px solid #454545 !important;
+    border-top: 1px solid #454545 !important;
+}
+
+.doc_resource {
+    border-left: 1px solid #454545 !important;
+    border-right: 1px solid #454545 !important;
+    border-top: 1px solid #454545 !important;
+}
+
+/*.doc_resource:first-child {
+    background: #2f2f2f !important;
+}*/
+
+/*li.section-box.section_as_link:hover,
+li.doc_question.section_as_link:hover,
+li.doc_resource.section_as_link:hover {
+    background: #2f2f2f !important;
+}*/
+
+.section-box:nth-child(1), 
+.section-box:nth-child(2), 
+.section-box:nth-child(3) {
+    border-top: 0 !important;
+}
+
+/*.section-box:nth-child(3n+1), 
+.doc_resource:nth-child(3n+1) {
+    border-left: 1px solid #454545 !important;
+}*/
+
+/* background bar graph on release stats sidebar */
+.facet-bar {
+    background-color: #454545 !important;
+}
+
+.want_indicator {
+    background-color: #F0D0D0 !important;
+}
+
+.want_indicator.high_want {
+    background-color: #E24242 !important;
+}
+
+.have_indicator {
+    background-color: #B0D0B0 !important;
+}
+
+.have_indicator.high_have {
+    background-color: #12CF12 !important;
+}
+
+.community_number {
+    color: #323334 !important;
+    text-shadow: none !important;
+}
+
+#review_compose.form_block {
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* Yellow */
+.rating_range .icon-star, .star_rating i {
+    color: #f7d06c !important;
+}
+
+/* react modals */
+
+.react-modal-overlay,
+.ui-widget-overlay,
+#image_gallery_modal,
+.full-width-header-cover {
+    background-color: rgba(0,0,0,.75) !important;
+}
+
+div.react-modal,
+.ui-dialog,
+.step_description,
+.orders-user-tooltip,
+.action_menu,
+.releasePreview.push_down,
+ul.dropdown-button-options  {
+    background-color: #323334 !important;
+    border: 2px solid white !important;
+}
+
+.is_not_mobile .action_menu li.menu-item:hover, 
+.is_not_mobile .dropdown-button .dropdown-button-options li.menu-item:hover, 
+.dropdown-button .is_not_mobile .dropdown-button-options li.menu-item:hover {
+    background-color: #2f2f2f !important;
+}
+
+/* price history */
+
+textarea#g-recaptcha-response.g-recaptcha-response {
+    display: none !important;
+}
+
+.ct-grid {
+    stroke: #454545 !important;
+    stroke-width: 1px !important;
+    stroke-dasharray: 2px !important;
+}
+
+.chart-tooltip,
+.chart-tooltip span.tooltip-label,
+.chart-tooltip span.tooltip-name {
+    background: #F4C63D !important;
+    color: #454545 !important;
+}
+
+/* add release page */
+
+/*.ref_guidelines_list .ref_guidelines_heading:hover,
+.drag_drop_field_list > li {
+    background: #2f2f2f !important;
+}*/
+
+.react_drag_drop_field_list .drag_drop_content, 
+.editable_item {
+/*    background: #2f2f2f !important;*/
+    border-top: 1px solid #454545 !important;
+    border-bottom: 1px solid #454545 !important;
+}
+
+.react_drag_drop_field_list .drag_drop_content:hover, 
+.editable_item:hover {
+    background: #292929 !important;
+}
+
+.ref_guidelines_list > li.ref_guidelines_highlight, 
+.ref_guidelines_list > li.ref_guidelines_highlight:hover {
+    background: #454545 !important;
+}
+
+table.subform_table tr.subnotes, 
+table.subform_table tr.collection {
+    background: #1f1f1f !important;
+}  
+
+/* always gray ccc icons */
+
+.ref_guidelines_list .ref_guidelines_heading a,
+.ref_guidelines_list .ref_guidelines_heading a:hover,
+.ref_guidelines_list .ref_guidelines_heading a:visited,
+.ref_guidelines_list .ref_guidelines_heading a i,
+.ref_guidelines_list .ref_guidelines_heading a:hover i,
+.ref_guidelines_list .ref_guidelines_heading a:visited i,
+.ref_guidelines_list .ref_guidelines_heading i,
+.ref_guidelines_list .ref_guidelines_heading i:hover,
+.ref_guidelines_list .ref_guidelines_heading i:visited,
+div.format.collapsible a.collapse i,
+div.format.collapsible a.collapse i:hover,
+.subform_track_actions a i,
+.subform_track_actions a i:hover,
+.subform_track_actions a i:visited,
+span#layout_buttons a.inset_button i,
+span#layout_buttons a.inset_button i:visited {
+    color: #ccc !important;
+}
+
+#ref_arrow {
+    border-right-color: #666 !important;
+}
+
+#ref_arrow div {
+    border-right-color: #323334 !important;
+}
+
+.reference_on #subform {
+     box-shadow: inset -10px -5px 6px -10px #000 !important; 
+}
+
+.ref_mode_toggle {
+    color: #4DD2FF !important;    
+}
+
+/* history form */
+
+.history_form {
+    border-bottom: 2px solid #454545 !important;
+    border-top: 2px solid #454545 !important;
+}
+
+.history_form .actions {
+    border-left: 2px solid #454545 !important;
+}
+
+.history table tr.datarow:hover {
+    background: #322b36 !important;
+}
+
+.history table tr.datarow.highlight {
+    background: #4a3f50 !important;
+}
+
+/*.history tr.even, .history tr:nth-child(even) {
+    background: #2f2f2f !important;
+}*/
+/*
+table.diff th {
+    background: #2f2f2f !important;
+}*/
+
+.vote_info_helper {
+    background-color: white !important;
+    color: #2f2f2f !important;
+}
+
+.hl_added {
+    background-color: #afa !important;
+    color: #2f2f2f !important;
+}
+
+.hl_removed {
+    background-color: #faa !important;
+    color: #2f2f2f !important;
+}
+
+.hl_changed1 {
+    background-color: #ff7 !important;
+    color: #2f2f2f !important;
+}
+
+.hl_changed2 {
+    background-color: #dd7 !important;
+    color: #2f2f2f !important;
+}
+
+.hl_warning {
+    background-color: #9ff !important;
+    color: #2f2f2f !important;
+}
