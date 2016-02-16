@@ -1,5 +1,5 @@
 # Discogs Enhancement Suite
-Adds useful functionality to Chrome for discogs.com
+Discogs Enhancement Suite is a Chrome extension that adds useful functionality to discogs.com
 
 ![DES Menu](http://www.msalcido.com/github/DES-shots/menu-2.png?raw=true "The DES menu preview")
 
@@ -15,6 +15,9 @@ Great for late night browsing.
 ![Dark theme](http://www.msalcido.com/github/DES-shots/release-profile.png?raw=true "Dark theme preview")
 ![Dark theme](http://www.msalcido.com/github/DES-shots/wantlist.png?raw=true "Dark theme preview")
 ![Dark theme](http://www.msalcido.com/github/DES-shots/add-release.png?raw=true "Add release preview")
+![Dark theme](http://www.msalcido.com/github/DES-shots/groups.png?raw=true "Groups preview")
+![Dark theme](http://www.msalcido.com/github/DES-shots/sell.png?raw=true "Sell preview")
+![Dark theme](http://www.msalcido.com/github/DES-shots/api.png?raw=true "Api preview")
 
 ### Highlight release conditions in the Marketplace
 Easily see at a glance which items for sale are in the best condition. 
