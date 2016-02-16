@@ -21,11 +21,14 @@
   ],
 
   "background": {
-     "scripts": ["js/jquery/jquery-min.js", 
-                 "js/background.js", 
-                 "js/apply-highlights.js", 
-                 "js/alphabetize-lists.js", 
-                 "js/search-contextual-menu.js"]
+     "scripts": [
+        "js/jquery/jquery-min.js", 
+        "js/background.js", 
+        "js/apply-highlights.js", 
+        "js/alphabetize-lists.js", 
+        "js/search-contextual-menu.js",
+        "js/release-history-legend.js"
+      ]
    },
 
   "permissions": [
@@ -40,7 +43,8 @@
       "css/marketplace-highlights.css",
       "js/jquery/jquery-min.js",
       "js/apply-highlights.js",
-      "js/alphabetize-lists.js"
+      "js/alphabetize-lists.js",
+      "js/release-history-legend.js"
     ],
 
     "icons": { 

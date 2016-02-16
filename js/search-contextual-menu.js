@@ -6,6 +6,8 @@ var contextMenu = chrome.contextMenus.create({
   "onclick": searchDiscogs
 });
 
+
+
 // Search for stuff
 function searchDiscogs(event, tab) {
 

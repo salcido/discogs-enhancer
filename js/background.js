@@ -14,11 +14,13 @@ var darkMode = null, // boolean; whether dark mode is active
     highlights = null, // boolean; whether media highlights are active
     highlightScript = null, // js/apply-highlights.js
     highlightsElem = null, // marketplace-highlights.css element
+    releaseHistoryScript = null // js/release-history-legend.js
     sortByAlpha = null, // boolean: whether sorting lists is active
     sortByAlphaScript = null, // js/alphabetize-lists.js
     jQ = null, // jQuery element
     prefs = {}; // preferences object
     
+
 
 /**
  * 
@@ -35,6 +37,7 @@ jQ.async = true;
 jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
 (document.head || document.documentElement).appendChild(jQ);
+
 
 
 /**
@@ -86,6 +89,7 @@ chrome.storage.sync.get('prefs', function(result) {
 });
 
 
+
 /**
  * 
  * Highlight Sales Item Conditions
@@ -127,6 +131,7 @@ chrome.storage.sync.get('prefs', function(result) {
 });
 
 
+
 /**
  *
  * Sort lists alphabetically 
@@ -155,6 +160,25 @@ chrome.storage.sync.get('prefs', function(result) {
 
   if (sortByAlpha) {
 
-    return setTimeout(function() { initSortByAlpha() }, 400)
+    return setTimeout(function() { initSortByAlpha() }, 400);
+  }
+});
+
+
+
+// dark-mode.css will override all styles. 
+// This will colorize the legend on the release history page.
+chrome.storage.sync.get('prefs', function(result) {
+
+  if (result.prefs.darkMode) {
+
+    //release-history-legend.js
+    releaseHistoryScript = document.createElement('script');
+
+    releaseHistoryScript.type = 'text/javascript';
+
+    releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
+
+    (document.head || document.documentElement).appendChild(releaseHistoryScript);
   }
 });

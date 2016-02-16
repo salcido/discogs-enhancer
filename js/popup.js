@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
       prefs = {};
 
 
+
   /**
    * Save preferences
    */
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       notify.innerHTML = message;
     });
   }
+
 
 
   /**
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   }
+
 
 
   /**
@@ -76,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+
   /**
    * Toggle ability to sort genres, etc
    */
@@ -98,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+
   /**
    * Get stored preferences for extension menu
    */
@@ -115,8 +120,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+
   // Start it up
   init();
+
 
 
   // Event listeners on toggles
@@ -125,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleConditions.addEventListener('change', toggleHighlights);
 
   toggleAlphas.addEventListener('change', sortGenres);
+
 
 
   // Show credits

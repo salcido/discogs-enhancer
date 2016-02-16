@@ -24,6 +24,8 @@ function applyStyles() {
    // $('span.item_sleeve_condition:contains("Generic")').addClass('generic bold');
 }
 
+
+
 // calls applyStyles on every |ajaxSuccess| method callback
 function callApplyStyles() {
 
@@ -33,6 +35,8 @@ function callApplyStyles() {
    });
 }
 
+
+
 // inits |applystyles| method on DOM load
 setTimeout(function() {
 
@@ -40,4 +44,3 @@ setTimeout(function() {
 
   callApplyStyles();
 }, 200);
-

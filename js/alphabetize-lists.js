@@ -14,22 +14,12 @@ var sortButton = '<div style="text-align: center;">' +
     desc = false;
 
 
-// Map functions to modal dialog buttons
-$('.more_facets_link').click(function() {
-
-  // These are delayed to make sure they exist in 
-  // the DOM first.
-  setTimeout(function() { appendSortButton(); }, 100)
-
-  setTimeout(function() { registerButtonClicks(); },200)
-});
-
-
 // Inject sort button into modal
 function appendSortButton() {
 
   $('.react-modal-header').append(sortButton);
 }
+
 
 
 // Add new button functionality
@@ -55,6 +45,7 @@ function registerButtonClicks() {
 }
 
 
+
 // Link sorter function
 function compareText(a1, a2) {
 
@@ -63,6 +54,7 @@ function compareText(a1, a2) {
 
   return x > y ? 1 : (x < y ? -1 : 0);
 }
+
 
 
 // Sort our lists and create new HTML, then insert
@@ -96,3 +88,15 @@ function sortUnorderedList(ul, sortDescending) {
   // shrink modal to small column size (for looks)
   $('.react-modal.more_facets_dialog').animate({width: "180px"}, 300, 'swing');
 }
+
+
+
+// Map functions to modal dialog buttons
+$('.more_facets_link').click(function() {
+
+  // These are delayed to make sure they exist in 
+  // the DOM first.
+  setTimeout(function() { appendSortButton(); }, 100)
+
+  setTimeout(function() { registerButtonClicks(); },200)
+});
