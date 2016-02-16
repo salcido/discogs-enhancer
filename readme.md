@@ -1,7 +1,7 @@
 # Discogs Enhancement Suite
 Adds useful functionality to Chrome for discogs.com
 
-![DES Menu](http://www.msalcido.com/github/DES-shots/menu.png?raw=true "The DES menu preview")
+![DES Menu](http://www.msalcido.com/github/DES-shots/menu-2.png?raw=true "The DES menu preview")
 
 ## Features
 * Dark Theme
@@ -24,7 +24,7 @@ Easily see at a glance which items for sale are in the best condition.
 ### Sort Explore Dialogs
 Sort the Genre, Style, Format, Country and Decade dialog boxes alphabetically on the Explore page. It will also search in reverse alphabetical order if clicked again.
 
-![Dark theme](http://www.msalcido.com/github/DES-shots/explore-sort.png?raw=true "Sorting preview")
+![Dark theme](http://www.msalcido.com/github/DES-shots/sort-arrow.png?raw=true "Sorting preview")
 
 ### Contextual menu
 Search Discogs instantly with any highlighted text!
