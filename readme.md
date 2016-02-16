@@ -22,7 +22,7 @@ Great for late night browsing.
 ### Highlight release conditions in the Marketplace
 Easily see at a glance which items for sale are in the best condition. 
 
-![Dark theme](http://www.msalcido.com/github/DES-shots/highlights.png?raw=true "Marketplace Highlights preview")
+![Dark theme](http://www.msalcido.com/github/DES-shots/highlights-zoom.png?raw=true "Marketplace Highlights preview")
 
 ### Sort Explore Dialogs
 Sort the Genre, Style, Format, Country and Decade dialog boxes alphabetically on the Explore page. It will also search in reverse alphabetical order if clicked again.
@@ -32,7 +32,7 @@ Sort the Genre, Style, Format, Country and Decade dialog boxes alphabetically on
 ### Contextual menu
 Search Discogs instantly with any highlighted text!
 
-![Dark theme](http://www.msalcido.com/github/DES-shots/context-menu.png?raw=true "Contextual menu preview")
+![Dark theme](http://www.msalcido.com/github/DES-shots/context-menu-zoom.png?raw=true "Contextual menu preview")
 
 #### Discogs Enhancement Suite Overview Page
 <http://www.msalcido.com/discogs-enhancement-suite>
