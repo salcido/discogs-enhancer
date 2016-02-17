@@ -801,15 +801,6 @@ table.subform_table td,
    border-right: 1px dotted #454545 !important; 
 }
 
-/*table.table_block thead tr,
-table.table_block tfoot tr {
-    background: #2f2f2f !important;
-}*/
-
-/*.is_not_mobile table.release_list_table tbody tr:hover {
-    background: #2f2f2f !important;
-}*/
-
 .card .card_body .card_status, 
 .card .card_body .card_status a,
 .card .card_body .card_status i {
@@ -1141,11 +1132,6 @@ a.list-group-item.heading:visited {
     background-color: #2f2f2f !important;
 }
 
-/*.list-group-item,
-.panel-default {
-    border: 1px solid #454545 !important;
-}*/
-
 code {
     color: #ccc !important;
     background-color: #000 !important;
@@ -1209,7 +1195,6 @@ pre code {
 .alert-message.alert-message-info i {
     background: #c5def7 !important;
     color: #454545 !important;
-    font-size: 21px !important;
     line-height: 20px !important;
 }
 
@@ -1252,9 +1237,14 @@ span.alert-message-content ul li a small {
 
 
 span.alert-message-text,
+span.alert-message-text small,
 span.alert-message-text strong,
 span.alert-message-text strong a,
-span.alert-message-text strong a:hover {
+span.alert-message-text strong a:hover,
+span.alert-message-text em,
+span.alert-message-text em a,
+span.alert-message-text em a:hover,
+span.alert-message-text ul li {
     color: #454545 !important;
 }
 
@@ -1295,26 +1285,11 @@ span.alert-message-text strong a:hover {
     border-top: 1px solid #454545 !important;
 }
 
-/*.doc_resource:first-child {
-    background: #2f2f2f !important;
-}*/
-
-/*li.section-box.section_as_link:hover,
-li.doc_question.section_as_link:hover,
-li.doc_resource.section_as_link:hover {
-    background: #2f2f2f !important;
-}*/
-
 .section-box:nth-child(1), 
 .section-box:nth-child(2), 
 .section-box:nth-child(3) {
     border-top: 0 !important;
 }
-
-/*.section-box:nth-child(3n+1), 
-.doc_resource:nth-child(3n+1) {
-    border-left: 1px solid #454545 !important;
-}*/
 
 /* background bar graph on release stats sidebar */
 .facet-bar {
@@ -1400,11 +1375,6 @@ textarea#g-recaptcha-response.g-recaptcha-response {
 
 /* add release page */
 
-/*.ref_guidelines_list .ref_guidelines_heading:hover,
-.drag_drop_field_list > li {
-    background: #2f2f2f !important;
-}*/
-
 .react_drag_drop_field_list .drag_drop_content, 
 .editable_item {
 /*    background: #2f2f2f !important;*/
@@ -1482,14 +1452,6 @@ span#layout_buttons a.inset_button i:visited {
 .history table tr.datarow.highlight {
     background: #4a3f50 !important;
 }
-
-/*.history tr.even, .history tr:nth-child(even) {
-    background: #2f2f2f !important;
-}*/
-/*
-table.diff th {
-    background: #2f2f2f !important;
-}*/
 
 .vote_info_helper {
     background-color: white !important;
