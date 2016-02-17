@@ -1,24 +1,37 @@
 /**
  * 
- * DISCOGS ENHANCEMENT SUITE V 1.0
+ * DISCOGS ENHANCEMENT SUITE
  * @author:  Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
  * @discogs: https://www.discogs.com/user/mattsalcido
  * 
  */
-
-var darkMode = null, // boolean; whether dark mode is active
-    darkModeElem = null, // dark-mode.css element
-    darkStyles = null, // link element by id
-    highlights = null, // boolean; whether media highlights are active
-    highlightScript = null, // js/apply-highlights.js
-    highlightsElem = null, // marketplace-highlights.css element
-    releaseHistoryScript = null // js/release-history-legend.js
-    sortByAlpha = null, // boolean: whether sorting lists is active
-    sortByAlphaScript = null, // js/alphabetize-lists.js
-    jQ = null, // jQuery element
-    prefs = {}; // preferences object
+    
+var 
+    // boolean; whether dark mode is active
+    darkMode = null,  
+    // dark-mode.css element
+    darkModeElem = null,  
+    // link element by id
+    darkStyles = null,  
+    // boolean; whether media highlights are active
+    highlights = null,  
+    // js/apply-highlights.js
+    highlightScript = null,   
+    // marketplace-highlights.css element
+    highlightsElem = null,  
+    // js/release-history-legend.js
+    releaseHistoryScript = null,  
+    // boolean: whether sorting lists is active
+    sortByAlpha = null,   
+    // js/alphabetize-lists.js
+    sortByAlphaScript = null,   
+    // jQuery element
+    jQ = null,  
+    // preferences object
+    prefs = {};   
+    
     
 
 
@@ -96,7 +109,7 @@ chrome.storage.sync.get('prefs', function(result) {
  * 
  */
 
-//Inject marketplace highlight scripts into DOM
+//Inject marketplace highlight script into DOM
 function initHighlights() {
 
   //apply-highlights.js

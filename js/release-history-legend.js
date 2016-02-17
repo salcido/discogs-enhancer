@@ -13,5 +13,5 @@ if (loc.match(releaseHistory)) {
 
     $('td:contains("Added to new version")').attr('style', 'color: #aaffaa !important');
 
-  },100);
+  }, 100);
 }

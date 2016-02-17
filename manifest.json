@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Discogs Enhancement Suite",
-  "description": "This extension adds useful functionality to discogs.com",
-  "version": "1.0.4",
+  "description": "Adds useful features to Discogs and Chrome",
+  "version": "1.0.6",
   "author": "Matthew Salcido",
   "homepage_url": "http://www.msalcido.com/discogs-enhancement-suite",
   "browser_action": {

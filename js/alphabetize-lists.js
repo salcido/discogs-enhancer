@@ -22,30 +22,6 @@ function appendSortButton() {
 
 
 
-// Add new button functionality
-function registerButtonClicks() {
-
-  $('#sortEm').click(function() {
-
-    var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
-
-    sortUnorderedList($('.react-modal-content div'), desc);
-
-    desc = !desc;
-
-    $(this).text(sortName);
-
-    return false;
-  });
-
-  $('.react-modal-close-button-icon').click(function() {
-
-    desc = false;
-  });
-}
-
-
-
 // Link sorter function
 function compareText(a1, a2) {
 
@@ -86,7 +62,30 @@ function sortUnorderedList(ul, sortDescending) {
   }
 
   // shrink modal to small column size (for looks)
-  $('.react-modal.more_facets_dialog').animate({width: "180px"}, 300, 'swing');
+  $('.react-modal.more_facets_dialog').animate({width: '180px'}, 300, 'swing');
+}
+
+
+// Add new button functionality
+function registerButtonClicks() {
+
+  $('#sortEm').click(function() {
+
+    var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
+
+    sortUnorderedList($('.react-modal-content div'), desc);
+
+    desc = !desc;
+
+    $(this).text(sortName);
+
+    return false;
+  });
+
+  $('.react-modal-close-button-icon').click(function() {
+
+    desc = false;
+  });
 }
 
 
