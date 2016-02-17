@@ -4,6 +4,9 @@ Discogs Enhancement Suite is a Chrome extension that adds useful functionality t
 #### Discogs Enhancement Suite Overview Page
 <http://www.msalcido.com/discogs-enhancement-suite>
 
+#### Chrome Webstore Link
+<https://chrome.google.com/webstore/detail/discogs-enhancement-suite/fljfmblajgejeicncojogelbkhbobejn>
+
 ![DES Menu](http://www.msalcido.com/discogs-enhancement-suite/DES-shots/menu-2.png?raw=true "The DES menu preview")
 
 ## Features
