@@ -111,6 +111,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function init() {
 
+    var manifest = chrome.runtime.getManifest();
+
     chrome.storage.sync.get('prefs', function(result) {
 
       toggleDarkMode.checked = result['prefs']['darkMode'];
@@ -119,6 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       toggleAlphas.checked = result['prefs']['alphabetize'];
     });
+
+    $('#version').html('Version ' + manifest.version);
   }
 
 
