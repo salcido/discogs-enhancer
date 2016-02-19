@@ -30,8 +30,8 @@ Easily see at a glance which items for sale are in the best condition.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/DES-shots/highlights-zoom.png?raw=true "Marketplace Highlights preview")
 
-### Sort Explore dialogs & Marketplace filters
-Adds a 'Sort A-Z' button to the Explore and Marketplace pages. Sort things like Genre, Style, Format, Country, Currency, Decade and Media Condition in alphabetical and reverse-alphabetical order.
+### Sort Explore dialogs, Marketplace filters and personal lists
+Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Genre, Style, Format, Country, Currency, Decade and Media Condition in alphabetical and reverse-alphabetical order. Also adds a sort button to the 'Add to list' dialog box allowing the user to sort their lists within the select element.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/DES-shots/sort-arrow.png?raw=true "Sorting preview")
 
