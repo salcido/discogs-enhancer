@@ -25,8 +25,10 @@ var
     releaseHistoryScript = null,  
     // boolean: whether sorting lists is active
     sortByAlpha = null,   
-    // js/alphabetize-lists.js
-    sortByAlphaScript = null,   
+    // js/alphabetize-explore-lists.js
+    sortByAlphaScript = null,
+    // js/alphabetize-marketplace-lists.js
+    sortByAlphaFilterScript = null,   
     // jQuery element
     jQ = null,  
     // preferences object
@@ -153,14 +155,23 @@ chrome.storage.sync.get('prefs', function(result) {
 
 function initSortByAlpha() {
 
-  //alphabetize-lists.js
+  //alphabetize-explore-lists.js
   sortByAlphaScript = document.createElement('script');
 
   sortByAlphaScript.type = 'text/javascript';
 
-  sortByAlphaScript.src = chrome.extension.getURL('js/alphabetize-lists.js');
+  sortByAlphaScript.src = chrome.extension.getURL('js/alphabetize-explore-lists.js');
 
   (document.head || document.documentElement).appendChild(sortByAlphaScript);
+
+  //alphabetize-marketplace-lists.js
+  sortByAlphaFilterScript = document.createElement('script');
+
+  sortByAlphaFilterScript.type = 'text/javascript';
+
+  sortByAlphaFilterScript.src = chrome.extension.getURL('js/alphabetize-marketplace-lists.js');
+
+  (document.head || document.documentElement).appendChild(sortByAlphaFilterScript);
 }
 
 // Get preference and either call initSortByAlpha or not.

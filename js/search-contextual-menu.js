@@ -12,7 +12,7 @@ function searchDiscogs(event) {
 // Create context menu
 chrome.contextMenus.create({
 
-  'title': 'Search for %s on Discogs',
+  'title': 'Search for "%s" on Discogs',
   'contexts': ['selection'],
   'onclick': searchDiscogs
 });

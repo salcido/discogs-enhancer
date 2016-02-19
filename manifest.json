@@ -3,7 +3,7 @@
 
   "name": "Discogs Enhancement Suite",
   "description": "Adds useful features to Discogs and Chrome",
-  "version": "1.0.6",
+  "version": "1.1.1",
   "author": "Matthew Salcido",
   "homepage_url": "http://www.msalcido.com/discogs-enhancement-suite",
   "browser_action": {
@@ -25,7 +25,8 @@
         "js/jquery/jquery-min.js", 
         "js/background.js", 
         "js/apply-highlights.js", 
-        "js/alphabetize-lists.js", 
+        "js/alphabetize-explore-lists.js",
+        "js/alphabetize-marketplace-lists.js", 
         "js/search-contextual-menu.js",
         "js/release-history-legend.js"
       ]
@@ -43,7 +44,8 @@
       "css/marketplace-highlights.css",
       "js/jquery/jquery-min.js",
       "js/apply-highlights.js",
-      "js/alphabetize-lists.js",
+      "js/alphabetize-explore-lists.js",
+      "js/alphabetize-marketplace-lists.js",
       "js/release-history-legend.js"
     ],
 

@@ -1,12 +1,14 @@
 /**
  * 
- * Shamelessly stolen from http://jsfiddle.net/barmar/U7ubX/
- * and modified by me.
+ * These functions are used exclusively for sorting the 
+ * Explore modals (Genre, Style, Format, Country and Decade)
+ * 
+ * Based heavily on http://jsfiddle.net/barmar/U7ubX/
  * 
  */
 
 var sortButton = '<div style="text-align: center;">' +
-                 '<button id="sortEm" ' +
+                 '<button id="sortExplore" ' +
                  'class="button button_blue" ' +
                  'style="margin-bottom: 10px;' + 
                  'width: 100px;">Sort A-Z</button>' +
@@ -23,6 +25,7 @@ function appendSortButton() {
 
 
 // Link sorter function
+// TODO: Move this into a separate file for shared functions
 function compareText(a1, a2) {
 
   var x = $(a1).find('a').attr('href'),
@@ -69,7 +72,7 @@ function sortUnorderedList(ul, sortDescending) {
 // Add new button functionality
 function registerButtonClicks() {
 
-  $('#sortEm').click(function() {
+  $('#sortExplore').click(function() {
 
     var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
 
@@ -93,9 +96,17 @@ function registerButtonClicks() {
 // Map functions to modal dialog buttons
 $('.more_facets_link').click(function() {
 
-  // These are delayed to make sure they exist in 
-  // the DOM first.
-  setTimeout(function() { appendSortButton(); }, 100)
+  var append = setInterval(function() {
 
-  setTimeout(function() { registerButtonClicks(); },200)
+  // Wait for modal to be rendered into the DOM 
+  // then attach our button
+  if ($('.react-modal.more_facets_dialog').length) {
+
+      appendSortButton();
+
+      registerButtonClicks();
+
+      clearInterval(append);
+    }
+  }, 10);
 });

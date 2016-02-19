@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/alphabetize-lists.js'}, function() {
+      chrome.tabs.executeScript(null, {file: 'js/alphabetize-explore-lists.js'}, function() {
         
         saveChanges(response);
       });
