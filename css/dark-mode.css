@@ -540,6 +540,11 @@ span.marketplace_for_sale_count a[href^="/sell/release/"]:hover strong {
     text-decoration-color: #cae0fa !important;
 }
 
+div.multiple_buttons a[href^="/lists/"]:visited,
+div.multiple_buttons a[href^="/lists/"]:visited {
+    color: #454545 !important;
+}
+
 a.inset_button[disabled] {
     background: rgba(0, 0, 0, 0.5) !important;
     border-color: #2f2f2f !important;
@@ -554,6 +559,7 @@ a.inset_button[disabled] {
     color: white !important;
 }
 
+#site_header .button_green.button,
 .button.button_green,
 .inline_buttons.no_offer a.button.button_green,
 .button.button_green span {
@@ -576,6 +582,7 @@ a.inset_button[disabled] {
     color: white !important;
 }
 
+a.button.button_facebook_login span,
 .button.button_blue {
     border-color: #3571a6 !important;
     border-top-color: #3776ae !important;

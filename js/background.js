@@ -28,7 +28,9 @@ var
     // js/alphabetize-explore-lists.js
     sortByAlphaScript = null,
     // js/alphabetize-marketplace-lists.js
-    sortByAlphaFilterScript = null,   
+    sortByAlphaFilterScript = null,
+    // js/alphabetize-personal-lists.js
+    sortPersonalListsScript = null,   
     // jQuery element
     jQ = null,  
     // preferences object
@@ -149,7 +151,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
 /**
  *
- * Sort lists alphabetically 
+ * Sort hella stuff alphabetically 
  * 
  */
 
@@ -172,6 +174,15 @@ function initSortByAlpha() {
   sortByAlphaFilterScript.src = chrome.extension.getURL('js/alphabetize-marketplace-lists.js');
 
   (document.head || document.documentElement).appendChild(sortByAlphaFilterScript);
+
+  // alphabetize-personal-lists.js
+  sortPersonalListsScript = document.createElement('script');
+
+  sortPersonalListsScript.type = 'text/javascript';
+
+  sortPersonalListsScript.src = chrome.extension.getURL('js/alphabetize-personal-lists.js');
+
+  (document.head || document.documentElement).appendChild(sortPersonalListsScript);
 }
 
 // Get preference and either call initSortByAlpha or not.

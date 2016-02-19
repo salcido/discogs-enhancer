@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Show credits
-  $('#showCredits').on('click', function() {
+  $('.header').on('click', function() {
 
     $('.credits').toggleClass('hide');
   })

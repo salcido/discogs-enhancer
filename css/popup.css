@@ -23,6 +23,7 @@ h1 {
   background-color: black;
   margin: -10px;
   padding: 10px 10px 8px 15px;
+  cursor: pointer;
 }
 
 .toggle-group {
@@ -83,11 +84,6 @@ h1 {
   font-family: 'Pragati Narrow', sans-serif;
   font-size: 15px;
   line-height: 18px;
-}
-
-.show-credits-wrap {
-  clear: both;
-  margin-top: 10px;
 }
 
 sup {

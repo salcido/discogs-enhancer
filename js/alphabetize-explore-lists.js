@@ -3,8 +3,6 @@
  * These functions are used exclusively for sorting the 
  * Explore modals (Genre, Style, Format, Country and Decade)
  * 
- * Based heavily on http://jsfiddle.net/barmar/U7ubX/
- * 
  */
 
 var sortButton = '<div style="text-align: center;">' +
@@ -44,10 +42,7 @@ function sortUnorderedList(ul, sortDescending) {
       vals = [],
       newUl = null;
 
-  for (var i = 0, l = lis.length; i < l; i++) {
-
-      vals.push(lis[i]);
-  }
+  vals = lis.map(function() { return this; }).get();
 
   vals.sort(compareText);
 
