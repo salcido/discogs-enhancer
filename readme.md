@@ -12,7 +12,7 @@ Discogs Enhancement Suite is a Chrome extension that adds useful functionality t
 ## Features
 * Dark Theme
 * Marketplace Highlights
-* Sort dialogs alphabetically
+* Sort dialogs & filters alphabetically
 * Contextual menu searching
 
 ### Dark theme
@@ -30,8 +30,8 @@ Easily see at a glance which items for sale are in the best condition.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/DES-shots/highlights-zoom.png?raw=true "Marketplace Highlights preview")
 
-### Sort Explore Dialogs
-Sort the Genre, Style, Format, Country and Decade dialog boxes alphabetically on the Explore page. It will also search in reverse alphabetical order if clicked again.
+### Sort Explore dialogs & Marketplace filters
+Adds a 'Sort A-Z' button to the Explore and Marketplace pages. Sort things like Genre, Style, Format, Country, Currency, Decade and Media Condition in alphabetical and reverse-alphabetical order.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/DES-shots/sort-arrow.png?raw=true "Sorting preview")
 
