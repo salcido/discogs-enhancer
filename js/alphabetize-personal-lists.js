@@ -38,7 +38,7 @@ function sortPersonalLists(options, sortDescending) {
     }
 
     // Select the first option after reordering
-    // Lets the user know something was done
+    // It lets the user know something was done
     // and is just practical ;)
     $('#list_oldpick').val($('#list_oldpick option:first').val());
 
@@ -89,7 +89,7 @@ $('.add_to_list').on('click', function() {
     // Make sure the select exists
     if ($('#list_oldpick option').length) {
 
-      // fire sorting upon first click click 
+      // fire sorting upon first click
       // (would be cool to make this an option in the menu)
       //sortPersonalLists($('#list_oldpick option'), desc);
 

@@ -525,7 +525,8 @@ a.button.inv_add_button,
 /* force color overrides on sell release/history links: ^= starts with, $= ends with, *= contains */
 
 div.section_content.release_info_buttons a[href^="/sell/history/"],
-span.marketplace_for_sale_count a[href^="/sell/release/"] strong {
+span.marketplace_for_sale_count a[href^="/sell/release/"] strong,
+span.marketplace_for_sale_count a[href^="/sell/list?master_id"] strong {
     color: #809bbe !important;
 }
 
@@ -534,7 +535,8 @@ div.section_content.release_info_buttons a[href^="/sell/history/"]:visited {
 }
 
 div.section_content.release_info_buttons a[href^="/sell/history/"]:hover,
-span.marketplace_for_sale_count a[href^="/sell/release/"]:hover strong {
+span.marketplace_for_sale_count a[href^="/sell/release/"]:hover strong,
+span.marketplace_for_sale_count a[href^="/sell/list?master_id"]:hover strong {
     color: #cae0fa !important;
     text-decoration: underline !important;
     text-decoration-color: #cae0fa !important;

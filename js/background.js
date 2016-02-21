@@ -1,7 +1,8 @@
 /**
  * 
  * DISCOGS ENHANCEMENT SUITE
- * @author:  Matthew Salcido (c) 2016
+ * 
+ * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
  * @discogs: https://www.discogs.com/user/mattsalcido
@@ -10,29 +11,41 @@
     
 var 
     // boolean; whether dark mode is active
-    darkMode = null,  
+    darkMode = null,
+
     // dark-mode.css element
-    darkModeElem = null,  
+    darkModeElem = null,
+
     // link element by id
-    darkStyles = null,  
+    darkStyles = null,
+
     // boolean; whether media highlights are active
-    highlights = null,  
+    highlights = null,
+
     // js/apply-highlights.js
-    highlightScript = null,   
+    highlightScript = null,
+
     // marketplace-highlights.css element
-    highlightsElem = null,  
+    highlightsElem = null,
+
     // js/release-history-legend.js
-    releaseHistoryScript = null,  
+    releaseHistoryScript = null,
+
     // boolean: whether sorting lists is active
-    sortByAlpha = null,   
+    sortByAlpha = null,
+
     // js/alphabetize-explore-lists.js
     sortByAlphaScript = null,
+
     // js/alphabetize-marketplace-lists.js
     sortByAlphaFilterScript = null,
+
     // js/alphabetize-personal-lists.js
-    sortPersonalListsScript = null,   
+    sortPersonalListsScript = null,
+
     // jQuery element
-    jQ = null,  
+    jQ = null,
+
     // preferences object
     prefs = {};   
     
