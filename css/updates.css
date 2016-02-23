@@ -1,0 +1,141 @@
+body {
+    background: #313335;
+}
+
+h2 {
+    font-size: 36px;
+    color: white;
+    text-shadow: 1px 2px 3px #000;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+h2._300 {
+    font-family: 'Halant', serif;
+    font-weight: 300;
+}
+
+h2._500 {
+    font-family: 'Halant', serif;
+    font-weight: 500;
+}
+
+h2._600 {
+    font-family: 'Halant', serif;
+    font-weight: 600;
+}
+
+h2.last {
+    margin-bottom: 75px;
+}
+
+h3._600 {
+    font-size: 25px;
+    font-family: 'Halant', serif;
+    color: white;
+    text-shadow: 1px 2px 3px #000;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    font-weight: 600;
+}
+
+ul {
+    margin: 50px 150px;
+}
+
+ul li {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    font-size: 20px; 
+    color: white;
+    line-height: 1.6em;
+    letter-spacing: 1px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+ul li a,
+ul li a:hover,
+ul li a:visited {
+    color: white;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+ul li.no-bullet {
+    list-style-type: none;
+}
+
+p {
+    margin: 15px 0 0 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    font-size: 16px; 
+    color: white;
+    line-height: 1.6em;
+    text-transform: uppercase;
+    letter-spacing: 7px;
+}
+
+
+p.paypal {
+    margin-bottom: 15px;
+}
+
+.divider {
+    margin-bottom: 120px;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    float: left;
+}
+
+div.top {
+    margin-top: 150px;
+}
+
+div.header-bg {
+    background: url('../img/updates/bg-halo.png') no-repeat;
+    background-position: 50% 60%;
+}
+
+.download {
+    margin: 100px 0 200px 0;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-right: -4px;
+}
+
+.copyright {
+    text-align: center;
+}
+
+.copyright p {
+    color: white;
+    font-family: 'Lora', serif;
+    text-shadow: 1px 2px 3px #000;
+    font-weight: 600;
+    font-size: 10px;
+}
+
+.copyright a:hover {
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}

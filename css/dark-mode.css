@@ -8,7 +8,8 @@ html,
 #quicklister #resultsPane,
 #keyboard_shortcuts_modal, 
 #subform_shortcuts_modal,
-.bulk_actions_section, .bulk_actions_submit,
+.bulk_actions_section, 
+.bulk_actions_submit,
 .action_block,
 .box-card {
     background-color: #323334 !important;
@@ -149,7 +150,6 @@ span.marketplace_for_sale_count a:hover strong {
 }
 
 .ui-autocomplete a {
-/*    background: #2f2f2f !important;*/
     border-bottom: 1px #454545 solid !important;
 }
 
@@ -170,8 +170,13 @@ li.ui-menu-item a span.sublabel {
     color: gray !important;
 }
 
-#site_footer_wrap {
+#site_footer_wrap,
+.search_group .group_view_more {
     border-top: 1px #454545 solid !important;
+}
+
+.search_group .group_view_more {
+    background-color: #454545 !important;
 }
 
 .site_nav_tray {
@@ -239,8 +244,6 @@ aside li > a,
    background-color: #142e09 !important; 
 }
 
-
-
 /* in collection */
 .cw_block.cw_block_collection {
     background-color: #142e09 !important;
@@ -295,7 +298,6 @@ a.readmore_toggler {
     border-radius: 2px !important;
     color: white !important;
 }
-
 
 .order_status_icon {
     background-color: #454545 !important;
@@ -719,7 +721,6 @@ input,
     border-bottom: 1px solid #454545 !important;
 }
 
-
 button.lazy_gallery_nav.lazy_gallery_next {
     background: linear-gradient(to left, #323334, rgba(41, 41, 41, 0)) !important;
 }
@@ -1106,7 +1107,8 @@ table.subform_table,
 .item_actions,
 .history_browser_facet_found,
 .list-group-item,
-.panel-default {
+.panel-default,
+.search_group {
    border: 1px solid #454545 !important; 
 }
 
@@ -1463,7 +1465,7 @@ span#layout_buttons a.inset_button i:visited {
 }
 
 .vote_info_helper {
-    background-color: white !important;
+    background-color: #fff2cc !important;
     color: #2f2f2f !important;
 }
 

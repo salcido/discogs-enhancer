@@ -230,3 +230,15 @@ chrome.storage.sync.get('prefs', function(result) {
     (document.head || document.documentElement).appendChild(releaseHistoryScript);
   }
 });
+
+
+
+// Show the update page
+chrome.runtime.onInstalled.addListener(function(details) {
+
+    // Might add one for 'install'
+    if (details.reason === "update") {
+
+        chrome.tabs.create({url: "html/updates.html"});
+    }
+});

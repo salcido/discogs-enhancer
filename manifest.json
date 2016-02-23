@@ -48,7 +48,9 @@
       "js/alphabetize-explore-lists.js",
       "js/alphabetize-marketplace-lists.js",
       "js/alphabetize-personal-lists.js",
-      "js/release-history-legend.js"
+      "js/release-history-legend.js",
+      "html/updated.html",
+      "html/about.html"
     ],
 
     "icons": { 

@@ -1,0 +1,70 @@
+/* About Page Styles */
+
+body {
+  background-color: #313335;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Halant', serif;
+  font-size: 16px;
+  color: white;
+  text-shadow: 1px 2px 3px #000;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  margin-bottom: -20px;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+p {
+  font-family: 'Arial', sans-serif;
+  color: #ccc;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 19px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.about .title img {
+  max-width: 325px;
+  margin: 25px auto;
+}
+
+.about p {
+  text-transform: none;
+}
+
+.about p.bold {
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.about h3 {
+  margin-bottom: 25px;
+}
+
+.about #version {
+  font-size: smaller;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.about .copyright,
+.about .copyright a {
+  text-transform: uppercase;
+  text-align: center;
+  color: #ccc;
+  font-size: 11px;
+  margin-top: 25px;
+}
+
+.about .copyright a:hover {
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color: #ccc;
+}

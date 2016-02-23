@@ -140,10 +140,9 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleAlphas.addEventListener('change', sortGenres);
 
 
+  // Open about tab
+  $('body').on('click', '#about', function() {
 
-  // Show credits
-  $('.header').on('click', function() {
-
-    $('.credits').toggleClass('hide');
-  })
+    chrome.tabs.create({url: '../html/about.html'});
+  });
 });

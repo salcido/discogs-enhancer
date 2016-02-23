@@ -6,15 +6,18 @@
     <link rel="stylesheet" href="/css/popup.css">
     <script src="../js/popup.js"></script>
     <script src="../js/jquery/jquery-min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Pragati+Narrow:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Halant:300,500,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="header">
-      <img src="/img/discogs-black.png" >
+      <div class="title">
+        <img src="../img/header-2x.png">
+      </div>
     </div>
 
     <div class="toggle-group">
-      <h3 class="label">Dark theme:</h3>
+      <p class="label">Dark theme</p>
 
       <div class="onoffswitch">
           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleDarkMode" checked>
@@ -25,12 +28,8 @@
       </div>
     </div>
 
-    <div class="desc">
-      <p>Gives Discogs.com a darker look. It's easier on the eyes - <i>especially at night.</i></p>
-    </div>
-
     <div class="toggle-group">
-      <h3 class="label">Marketplace highlights:</h3>
+      <p class="label">Marketplace highlights</p>
 
       <div class="onoffswitch">
           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConditions" checked>
@@ -41,12 +40,8 @@
       </div>
     </div>
 
-    <div class="desc">
-      <p>This will highlight the media and sleeve conditons in the Marketplace. See at a glance which items are in the best condition.</p>
-    </div>
-
-    <div class="toggle-group">
-      <h3 class="label">Sort buttons:</h3>
+    <div class="toggle-group last">
+      <p class="label">Sort buttons</p>
 
       <div class="onoffswitch">
           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleAlphas" checked>
@@ -57,9 +52,7 @@
       </div>
     </div>
 
-    <div class="desc">
-      <p>Adds a 'Sort A-Z' button to the <i>Explore</i> and <i>Marketplace</i> pages. Sort things like <b>Genre</b>, <b>Style</b>, <b>Format</b>, <b>Country</b>, <b>Currency</b>, <b>Decade</b> and <b>Media Condition</b> in alphabetical and reverse-alphabetical order.</p>
-    </div>
+    <a href="#" class="button button_green" id="about">About</a>
 
     <div class="notifications hide">
       <div class="icon">
