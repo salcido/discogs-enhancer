@@ -233,12 +233,11 @@ chrome.storage.sync.get('prefs', function(result) {
 
 
 
-// Show the update page
-chrome.runtime.onInstalled.addListener(function(details) {
+// // Show the update page
+// chrome.runtime.onInstalled.addListener(function(details) {
 
-    // Might add one for 'install'
-    if (details.reason === "update") {
+//     if (details.reason === "install") {
 
-        chrome.tabs.create({url: "html/updates.html"});
-    }
-});
+//         chrome.tabs.create({url: "html/updates.html"});
+//     }
+// });
