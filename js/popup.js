@@ -121,8 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       toggleAlphas.checked = result['prefs']['alphabetize'];
     });
-
-    $('#version').html('Version ' + manifest.version);
   }
 
 
