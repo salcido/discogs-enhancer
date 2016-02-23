@@ -7,6 +7,8 @@ Discogs Enhancement Suite is a Chrome extension that adds useful functionality t
 #### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancement-suite/fljfmblajgejeicncojogelbkhbobejn>
 
+![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/title.png?raw=true "title image")
+
 ## Features
 * Dark Theme
 * Marketplace Highlights
