@@ -68,3 +68,37 @@ p {
   text-decoration: none;
   color: #ccc;
 }
+
+.about .updates {
+  margin-top: 25px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+
+}
+
+ul li {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    font-size: 12px; 
+    color: white;
+    line-height: 1.6em;
+    letter-spacing: 1px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+ul li a,
+ul li a:hover,
+ul li a:visited {
+    color: white;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+ul li.no-bullet {
+    list-style-type: none;
+}
