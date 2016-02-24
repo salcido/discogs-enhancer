@@ -71,7 +71,7 @@ chrome.storage.sync.get('prefs', function(result) {
     prefs = {
       darkMode: true,
       highlightMedia: true,
-      alphabetize: true
+      sortButtons: true
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -138,58 +138,58 @@ chrome.storage.sync.get('prefs', function(result) {
 
 /**
  *
- * Sort hella stuff alphabetically
+ * Sort hella stuff
  *
  */
 
-function initSortByAlpha() {
+function initSortButtons() {
 
   var
-      sortByAlphaFilterScript = null, // js/alphabetize-marketplace-lists.js
-      sortByAlphaScript = null, // js/alphabetize-explore-lists.js
-      sortPersonalListsScript = null; // js/alphabetize-personal-lists.js
+      sortMarketplaceScript = null, // js/sort-marketplace-lists.js
+      sortExploreScript = null, // js/sort-explore-lists.js
+      sortPersonalListsScript = null; // js/sort-personal-lists.js
 
-  //alphabetize-explore-lists.js
-  sortByAlphaScript = document.createElement('script');
+  //sort-explore-lists.js
+  sortExploreScript = document.createElement('script');
 
-  sortByAlphaScript.type = 'text/javascript';
+  sortExploreScript.type = 'text/javascript';
 
-  sortByAlphaScript.src = chrome.extension.getURL('js/alphabetize-explore-lists.js');
+  sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
 
-  (document.head || document.documentElement).appendChild(sortByAlphaScript);
-
-
-  //alphabetize-marketplace-lists.js
-  sortByAlphaFilterScript = document.createElement('script');
-
-  sortByAlphaFilterScript.type = 'text/javascript';
-
-  sortByAlphaFilterScript.src = chrome.extension.getURL('js/alphabetize-marketplace-lists.js');
-
-  (document.head || document.documentElement).appendChild(sortByAlphaFilterScript);
+  (document.head || document.documentElement).appendChild(sortExploreScript);
 
 
-  // alphabetize-personal-lists.js
+  //sort-marketplace-lists.js
+  sortMarketplaceScript = document.createElement('script');
+
+  sortMarketplaceScript.type = 'text/javascript';
+
+  sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
+
+  (document.head || document.documentElement).appendChild(sortMarketplaceScript);
+
+
+  // sort-personal-lists.js
   sortPersonalListsScript = document.createElement('script');
 
   sortPersonalListsScript.type = 'text/javascript';
 
-  sortPersonalListsScript.src = chrome.extension.getURL('js/alphabetize-personal-lists.js');
+  sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
 
   (document.head || document.documentElement).appendChild(sortPersonalListsScript);
 }
 
-// Get preference and either call initSortByAlpha or not.
+// Get preference and either call initSortButtons or not.
 // This is done via setTimeout because without it, there's no telling
 // when the script will be appended to the DOM and sometimes the necessary
 // page elements have not yet been rendered.
 chrome.storage.sync.get('prefs', function(result) {
 
-  var sortByAlpha = result.prefs.alphabetize;
+  var sortButtons = result.prefs.sortButtons;
 
-  if (sortByAlpha) {
+  if (sortButtons) {
 
-    return setTimeout(function() { initSortByAlpha(); }, 400);
+    return setTimeout(function() { initSortButtons(); }, 400);
   }
 });
 

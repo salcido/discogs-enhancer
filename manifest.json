@@ -25,9 +25,9 @@
         "js/jquery/jquery-min.js", 
         "js/background.js", 
         "js/apply-highlights.js", 
-        "js/alphabetize-explore-lists.js",
-        "js/alphabetize-marketplace-lists.js",
-        "js/alphabetize-personal-lists.js", 
+        "js/sort-explore-lists.js",
+        "js/sort-marketplace-lists.js",
+        "js/sort-personal-lists.js", 
         "js/search-contextual-menu.js",
         "js/release-history-legend.js"
       ]
@@ -45,9 +45,9 @@
       "css/marketplace-highlights.css",
       "js/jquery/jquery-min.js",
       "js/apply-highlights.js",
-      "js/alphabetize-explore-lists.js",
-      "js/alphabetize-marketplace-lists.js",
-      "js/alphabetize-personal-lists.js",
+      "js/sort-explore-lists.js",
+      "js/sort-marketplace-lists.js",
+      "js/sort-personal-lists.js",
       "js/release-history-legend.js",
       "html/about.html"
     ],

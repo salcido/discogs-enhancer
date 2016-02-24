@@ -17,8 +17,7 @@ function appendFilterSortButton() {
   var sortFilterButton = '<div style="text-align: center;">' +
                          '<button id="sortFilters" ' +
                          'class="button button_blue" ' +
-                         'style="margin-bottom: 10px;' +
-                         'width: 100px;">Sort A-Z</button>' +
+                         'style="width: 100px;">Sort A-Z</button>' +
                          '</div>',
       // This is so we only append one filter button at the top of the list
       // Two buttons might be more useful on large lists.
@@ -55,7 +54,7 @@ function sortUnorderedFilterList(ul, sortDescending) {
     }
   });
 
-  // The |compareText| function exists in alphabetize-explore-lists.js
+  // The |compareText| function exists in sort-explore-lists.js
   vals.sort(compareText);
 
   if (sortDescending) { vals.reverse(); }
@@ -69,7 +68,7 @@ function sortUnorderedFilterList(ul, sortDescending) {
   // Hook on to our new list
   newUl = $('ul.facets_nav.modified');
 
-  // Insert newly alphabetized list elements
+  // Insert newly sorted list elements
   $(vals).each(function(index) {
 
     newUl.append(vals[index]);

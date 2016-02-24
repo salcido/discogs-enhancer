@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var toggleDarkMode = document.getElementById('toggleDarkMode'),
       toggleConditions = document.getElementById('toggleConditions'),
-      toggleAlphas = document.getElementById('toggleAlphas'),
+      toggleSortBtns = document.getElementById('toggleSortBtns'),
       prefs = {};
 
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     prefs = {
       darkMode: toggleDarkMode.checked,
       highlightMedia: toggleConditions.checked,
-      alphabetize: toggleAlphas.checked
+      sortButtons: toggleSortBtns.checked
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/alphabetize-explore-lists.js'}, function() {
+      chrome.tabs.executeScript(null, {file: 'js/sort-explore-lists.js'}, function() {
 
         saveChanges(response);
       });
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       toggleConditions.checked = result.prefs.highlightMedia;
 
-      toggleAlphas.checked = result.prefs.alphabetize;
+      toggleSortBtns.checked = result.prefs.sortButtons;
     });
   }
 
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   toggleConditions.addEventListener('change', toggleHighlights);
 
-  toggleAlphas.addEventListener('change', sortGenres);
+  toggleSortBtns.addEventListener('change', sortGenres);
 
 
   // Open about tab
