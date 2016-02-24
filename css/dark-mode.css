@@ -281,11 +281,18 @@ a.readmore_toggler {
 }
 
 /* search input */
-#site_search #search_q, 
 .aside_search_form,
 .cw_block .notes_textarea {
     background: #404040 !important;
     color: white !important;
+}
+
+#site_search {
+    background-color: #292929 !important;
+}
+
+#site_search input#search_q {
+    border: none !important;
 }
 
 #page_aside .selected_facets li a,
@@ -1009,8 +1016,7 @@ textarea.thread-compose-message,
 #pw_current,
 #pw_new,
 #pw_confirm_new,
-input[type="text"]:not(#search_q),
-input[type="text"]:not(.image_copy_permalink_text) {
+input[type="text"]:not(#search_q, .image_copy_permalink_text) {
     box-shadow: none !important;
     color: white !important;
     background: #292929 !important;

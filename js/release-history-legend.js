@@ -1,4 +1,4 @@
-// dark-mode.css will override all styles. 
+// dark-mode.css will override all styles.
 // This will colorize the legend on the release history page.
 var loc = window.location.href,
     releaseHistory = /discogs.com\/history\?/g;

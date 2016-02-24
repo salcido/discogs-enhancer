@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function saveChanges(message) {
 
     prefs = {
-      'darkMode': toggleDarkMode.checked,
-      'highlightMedia': toggleConditions.checked,
-      'alphabetize': toggleAlphas.checked
+      darkMode: toggleDarkMode.checked,
+      highlightMedia: toggleConditions.checked,
+      alphabetize: toggleAlphas.checked
       };
 
-    chrome.storage.sync.set({'prefs': prefs}, function() {
+    chrome.storage.sync.set({prefs: prefs}, function() {
 
       if (message) {
 
@@ -62,12 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function toggleHighlights(event) {
 
-    var response = 'Please refresh the page for changes to take effect';
+    var response = 'Please refresh the page for changes to take effect.';
 
     if (event.target.checked) {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
-        
+
         saveChanges(response);
       });
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (event.target.checked) {
 
       chrome.tabs.executeScript(null, {file: 'js/alphabetize-explore-lists.js'}, function() {
-        
+
         saveChanges(response);
       });
 
@@ -111,15 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function init() {
 
-    var manifest = chrome.runtime.getManifest();
-
     chrome.storage.sync.get('prefs', function(result) {
 
-      toggleDarkMode.checked = result['prefs']['darkMode'];
+      toggleDarkMode.checked = result.prefs.darkMode;
 
-      toggleConditions.checked = result['prefs']['highlightMedia'];
+      toggleConditions.checked = result.prefs.highlightMedia;
 
-      toggleAlphas.checked = result['prefs']['alphabetize'];
+      toggleAlphas.checked = result.prefs.alphabetize;
     });
   }
 

@@ -1,61 +1,26 @@
 /**
- * 
+ *
  * DISCOGS ENHANCEMENT SUITE
- * 
+ *
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
  * @discogs: https://www.discogs.com/user/mattsalcido
- * 
+ *
  */
-    
-var 
-    // boolean; whether dark mode is active
-    darkMode = null,
 
-    // dark-mode.css element
+var
     darkModeElem = null,
-
-    // link element by id
     darkStyles = null,
-
-    // boolean; whether media highlights are active
-    highlights = null,
-
-    // js/apply-highlights.js
-    highlightScript = null,
-
-    // marketplace-highlights.css element
-    highlightsElem = null,
-
-    // js/release-history-legend.js
-    releaseHistoryScript = null,
-
-    // boolean: whether sorting lists is active
-    sortByAlpha = null,
-
-    // js/alphabetize-explore-lists.js
-    sortByAlphaScript = null,
-
-    // js/alphabetize-marketplace-lists.js
-    sortByAlphaFilterScript = null,
-
-    // js/alphabetize-personal-lists.js
-    sortPersonalListsScript = null,
-
-    // jQuery element
     jQ = null,
+    prefs = {};
 
-    // preferences object
-    prefs = {};   
-    
-    
 
 
 /**
- * 
+ *
  * Inject jQuery into DOM
- * 
+ *
  */
 
 jQ = document.createElement('script');
@@ -71,12 +36,12 @@ jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
 
 /**
- * 
+ *
  * CSS Injection Section ;)
- * 
+ *
  */
 
-// create link element... 
+// create link element...
 darkModeElem = document.createElement('link');
 
 darkModeElem.rel = 'stylesheet';
@@ -90,22 +55,26 @@ darkModeElem.id = 'darkModeCss';
 // ...and insert it into the DOM
 (document.head || document.documentElement).appendChild(darkModeElem);
 
-darkStyles = document.getElementById(darkModeElem.id);   
+darkStyles = document.getElementById(darkModeElem.id);
+
+
 
 // Enable/disable newly inserted link element based on saved preferences
 // or create the prefs object if this is the first time it's been
 // run.
 chrome.storage.sync.get('prefs', function(result) {
 
+  var darkMode = null; // boolean; whether dark mode is active
+
   if (!result.prefs) {
 
     prefs = {
-      'darkMode': true,
-      'highlightMedia': true,
-      'alphabetize': true
+      darkMode: true,
+      highlightMedia: true,
+      alphabetize: true
       };
 
-    chrome.storage.sync.set({'prefs': prefs}, function() {
+    chrome.storage.sync.set({prefs: prefs}, function() {
 
       console.log('Preferences created.');
     });
@@ -113,7 +82,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
   darkMode = result.prefs.darkMode;
 
-  return darkMode === true 
+  return darkMode === true
           ? darkStyles.removeAttribute('disabled')
           : darkStyles.setAttribute('disabled', true);
 });
@@ -121,13 +90,18 @@ chrome.storage.sync.get('prefs', function(result) {
 
 
 /**
- * 
+ *
  * Highlight Sales Item Conditions
- * 
+ *
  */
 
 //Inject marketplace highlight script into DOM
 function initHighlights() {
+
+  var
+      highlightScript = null, // js/apply-highlights.js
+      highlightsElem = null; // marketplace-highlights.css element
+
 
   //apply-highlights.js
   highlightScript = document.createElement('script');
@@ -155,7 +129,7 @@ function initHighlights() {
 // Get preference setting and either call initHighlights or not
 chrome.storage.sync.get('prefs', function(result) {
 
-  highlights = result.prefs.highlightMedia;
+  var highlights = result.prefs.highlightMedia;
 
   return highlights === true ? initHighlights() : $.noop();
 });
@@ -164,11 +138,16 @@ chrome.storage.sync.get('prefs', function(result) {
 
 /**
  *
- * Sort hella stuff alphabetically 
- * 
+ * Sort hella stuff alphabetically
+ *
  */
 
 function initSortByAlpha() {
+
+  var
+      sortByAlphaFilterScript = null, // js/alphabetize-marketplace-lists.js
+      sortByAlphaScript = null, // js/alphabetize-explore-lists.js
+      sortPersonalListsScript = null; // js/alphabetize-personal-lists.js
 
   //alphabetize-explore-lists.js
   sortByAlphaScript = document.createElement('script');
@@ -179,6 +158,7 @@ function initSortByAlpha() {
 
   (document.head || document.documentElement).appendChild(sortByAlphaScript);
 
+
   //alphabetize-marketplace-lists.js
   sortByAlphaFilterScript = document.createElement('script');
 
@@ -187,6 +167,7 @@ function initSortByAlpha() {
   sortByAlphaFilterScript.src = chrome.extension.getURL('js/alphabetize-marketplace-lists.js');
 
   (document.head || document.documentElement).appendChild(sortByAlphaFilterScript);
+
 
   // alphabetize-personal-lists.js
   sortPersonalListsScript = document.createElement('script');
@@ -200,23 +181,25 @@ function initSortByAlpha() {
 
 // Get preference and either call initSortByAlpha or not.
 // This is done via setTimeout because without it, there's no telling
-// when the script will be appended to the DOM and sometimes the necessary 
+// when the script will be appended to the DOM and sometimes the necessary
 // page elements have not yet been rendered.
 chrome.storage.sync.get('prefs', function(result) {
 
-  sortByAlpha = result.prefs.alphabetize;
+  var sortByAlpha = result.prefs.alphabetize;
 
   if (sortByAlpha) {
 
-    return setTimeout(function() { initSortByAlpha() }, 400);
+    return setTimeout(function() { initSortByAlpha(); }, 400);
   }
 });
 
 
 
-// dark-mode.css will override all styles. 
+// dark-mode.css will override all styles.
 // This will colorize the legend on the release history page.
 chrome.storage.sync.get('prefs', function(result) {
+
+  var releaseHistoryScript = null; // js/release-history-legend.js
 
   if (result.prefs.darkMode) {
 
@@ -230,14 +213,3 @@ chrome.storage.sync.get('prefs', function(result) {
     (document.head || document.documentElement).appendChild(releaseHistoryScript);
   }
 });
-
-
-
-// // Show the update page
-// chrome.runtime.onInstalled.addListener(function(details) {
-
-//     if (details.reason === "install") {
-
-//         chrome.tabs.create({url: "html/updates.html"});
-//     }
-// });

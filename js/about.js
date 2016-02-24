@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function getVersionAndYear() {
 
-    var 
+    var
         d = new Date(),
         manifest = chrome.runtime.getManifest(),
         version = document.getElementById('version'),
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         yearSpan = document.getElementById('year');
 
     version.innerHTML = 'Version ' + manifest.version;
+
     yearSpan.innerHTML = year;
   }
 

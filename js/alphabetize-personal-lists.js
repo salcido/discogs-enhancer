@@ -1,16 +1,16 @@
 /**
- * 
- * These functions are used exclusively for sorting the 
+ *
+ * These functions are used exclusively for sorting the
  * user's personal lists.
- * 
+ *
  */
 
 function compareOptions(a1, a2) {
 
-    var t1 = $(a1).text(),
-        t2 = $(a2).text();
+  var t1 = $(a1).text(),
+      t2 = $(a2).text();
 
-    return t1 > t2 ? 1 : (t1 < t2 ? -1 : 0);
+  return t1 > t2 ? 1 : (t1 < t2 ? -1 : 0);
 }
 
 
@@ -32,17 +32,17 @@ function sortPersonalLists(options, sortDescending) {
 
     $('#list_oldpick').find('option').remove();
 
-    for (var i = 0, l = optionsArray.length; i < l; i++) {
+    $(optionsArray).each(function(index) {
 
-      $('#list_oldpick').append(optionsArray[i]);
-    }
+      $('#list_oldpick').append(optionsArray[index]);
+    });
 
     // Select the first option after reordering
     // It lets the user know something was done
     // and is just practical ;)
     $('#list_oldpick').val($('#list_oldpick option:first').val());
 
-  }, 150);    
+  }, 150);
 }
 
 
@@ -75,12 +75,12 @@ function registerOptionButtonClicks() {
 
 $('.add_to_list').on('click', function() {
 
-  var desc = false,
+  var
       findList = null,
       sortButton = '<div style="position: absolute; left: 325px; top: 10px;">' +
                    '<button id="sortPLists" ' +
                    'class="button button_blue" ' +
-                   'style="margin-bottom: 10px;' + 
+                   'style="margin-bottom: 10px;' +
                    'width: 65px;">Sort A-Z</button>' +
                    '</div>';
 
@@ -101,7 +101,7 @@ $('.add_to_list').on('click', function() {
         registerOptionButtonClicks();
 
       }, 75);
-      
+
       clearInterval(findList);
     }
   }, 50);

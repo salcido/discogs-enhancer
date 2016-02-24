@@ -1,21 +1,22 @@
 /**
- * 
- * These functions are used exclusively for sorting the 
+ *
+ * These functions are used exclusively for sorting the
  * Explore modals (Genre, Style, Format, Country and Decade)
- * 
+ *
  */
-
-var sortButton = '<div style="text-align: center;">' +
-                 '<button id="sortExplore" ' +
-                 'class="button button_blue" ' +
-                 'style="margin-bottom: 10px;' + 
-                 'width: 100px;">Sort A-Z</button>' +
-                 '</div>',
-    desc = false;
+// TODO: move this into a separate file for shared vars
+var desc = false;
 
 
 // Inject sort button into modal
 function appendSortButton() {
+
+  var sortButton = '<div style="text-align: center;">' +
+                   '<button id="sortExplore" ' +
+                   'class="button button_blue" ' +
+                   'style="margin-bottom: 10px;' +
+                   'width: 100px;">Sort A-Z</button>' +
+                   '</div>';
 
   $('.react-modal-header').append(sortButton);
 }
@@ -93,7 +94,7 @@ $('.more_facets_link').click(function() {
 
   var append = setInterval(function() {
 
-  // Wait for modal to be rendered into the DOM 
+  // Wait for modal to be rendered into the DOM
   // then attach our button
   if ($('.react-modal.more_facets_dialog').length) {
 

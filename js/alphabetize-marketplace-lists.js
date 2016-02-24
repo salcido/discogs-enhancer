@@ -1,29 +1,29 @@
 /**
- * 
- * These functions are used exclusively for sorting the 
- * Marketplace sidebar filters: (Currency, Genre, Style, 
+ *
+ * These functions are used exclusively for sorting the
+ * Marketplace sidebar filters: (Currency, Genre, Style,
  * Format, Media Condition and Year)
  *
  */
-var sortFilterButton = '<div style="text-align: center;">' +
-                       '<button id="sortFilters" ' +
-                       'class="button button_blue" ' +
-                       'style="margin-bottom: 10px;' + 
-                       'width: 100px;">Sort A-Z</button>' +
-                       '</div>',
+var
     filterTarget = null,
-    moreFiltersStorage = null,
-    desc = false;
+    moreFiltersStorage = null;
 
 
 
 // Inject sort button into modal
 function appendFilterSortButton() {
 
-  // This is so we only append one filter button at the top of the list
-  // Two buttons might be more useful on large lists. 
-  // Still thinking that one over.
-  var firstHideMoreFilter = $('.hide_more_filters').first();
+  var sortFilterButton = '<div style="text-align: center;">' +
+                         '<button id="sortFilters" ' +
+                         'class="button button_blue" ' +
+                         'style="margin-bottom: 10px;' +
+                         'width: 100px;">Sort A-Z</button>' +
+                         '</div>',
+      // This is so we only append one filter button at the top of the list
+      // Two buttons might be more useful on large lists.
+      // Still thinking that one over.
+      firstHideMoreFilter = $('.hide_more_filters').first();
 
   $(sortFilterButton).insertAfter(firstHideMoreFilter);
 }
@@ -34,28 +34,26 @@ function appendFilterSortButton() {
 // the newly sorted list array elements.
 function sortUnorderedFilterList(ul, sortDescending) {
 
-  var lis = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
-      vals = [],
+  var
       liHead = null,
-      newUl = null;
+      lis = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
+      newUl = null,
+      vals = [];
 
   // Grab all the list elements and push them into our array
-  for (var i = 0, l = lis.length; i < l; i++) {
-
-      vals.push(lis[i]);
-  }
+  lis.each(function(index) { vals.push(lis[index]); });
 
   // Examine the list elements and remove the no_link element
   // assign that to |liHead| for later use
-  for (var i = 0, l = vals.length; i < l; i++) {
+  $(vals).each(function(index) {
 
-    if ( $(vals[i]).hasClass('no_link') ) {
+    if ( $(vals[index]).hasClass('no_link') ) {
 
-      liHead = vals[i];
+      liHead = vals[index];
 
-      vals.splice(vals[i], 1);
+      vals.splice(vals[index], 1);
     }
-  }
+  });
 
   // The |compareText| function exists in alphabetize-explore-lists.js
   vals.sort(compareText);
@@ -72,12 +70,12 @@ function sortUnorderedFilterList(ul, sortDescending) {
   newUl = $('ul.facets_nav.modified');
 
   // Insert newly alphabetized list elements
-  for (var i = 0, l = vals.length; i < l; i++) {
+  $(vals).each(function(index) {
 
-    newUl.append(vals[i]);
+    newUl.append(vals[index]);
 
     newUl.prepend(liHead);
-  }
+  });
 }
 
 
@@ -95,7 +93,7 @@ function registerFilterButtonClicks() {
     desc = !desc;
 
     $(this).text(sortName);
-    
+
     return false;
   });
 
@@ -105,7 +103,7 @@ function registerFilterButtonClicks() {
     // Tear down the button
     $('#sortFilters').remove();
 
-    // Restore the unfiltered markup 
+    // Restore the unfiltered markup
     $('#more_filters_container').html(moreFiltersStorage);
 
     // Reset |desc| so that subsequent filter calls begin with A-Z
