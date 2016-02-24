@@ -39,11 +39,11 @@ function compareText(a1, a2) {
 // the newly sorted list array elements.
 function sortUnorderedList(ul, sortDescending) {
 
-  var lis = $('.react-modal-content div ul.facets_nav li'),
+  var listElms = $('.react-modal-content div ul.facets_nav li'),
       vals = [],
       newUl = null;
 
-  vals = lis.map(function() { return this; }).get();
+  vals = listElms.map(function() { return this; }).get();
 
   vals.sort(compareText);
 

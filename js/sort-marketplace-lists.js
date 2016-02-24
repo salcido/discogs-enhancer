@@ -5,8 +5,7 @@
  * Format, Media Condition and Year)
  *
  */
-var
-    filterTarget = null,
+var filterTarget = null,
     moreFiltersStorage = null;
 
 
@@ -35,12 +34,12 @@ function sortUnorderedFilterList(ul, sortDescending) {
 
   var
       liHead = null,
-      lis = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
+      listElms = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
       newUl = null,
       vals = [];
 
   // Grab all the list elements and push them into our array
-  lis.each(function(index) { vals.push(lis[index]); });
+  listElms.each(function(index) { vals.push(listElms[index]); });
 
   // Examine the list elements and remove the no_link element
   // assign that to |liHead| for later use

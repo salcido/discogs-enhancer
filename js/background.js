@@ -98,8 +98,7 @@ chrome.storage.sync.get('prefs', function(result) {
 //Inject marketplace highlight script into DOM
 function initHighlights() {
 
-  var
-      highlightScript = null, // js/apply-highlights.js
+  var highlightScript = null, // js/apply-highlights.js
       highlightsElem = null; // marketplace-highlights.css element
 
 
@@ -144,8 +143,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
 function initSortButtons() {
 
-  var
-      sortMarketplaceScript = null, // js/sort-marketplace-lists.js
+  var sortMarketplaceScript = null, // js/sort-marketplace-lists.js
       sortExploreScript = null, // js/sort-explore-lists.js
       sortPersonalListsScript = null; // js/sort-personal-lists.js
 

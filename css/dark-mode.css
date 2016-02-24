@@ -72,6 +72,7 @@ a i,
 .tab_menu a:visited,
 .icon.icon-ellipsis-h,
 .pagination_page_links a,
+a.quote_user *,
 span.marketplace_for_sale_count a:visited strong {
     color: #809bbe !important;
 }
@@ -99,6 +100,8 @@ a:hover:not(.button),
 .footer a:hover i,
 .pagination_page_links a:hover i,
 #site_footer_list li a:hover i,
+a.quote_user .hide_mobile:hover,
+a.quote_user *:hover,
 span.marketplace_for_sale_count a:hover strong {
     color: #cae0fa !important;
 }
@@ -345,6 +348,10 @@ a.button_red i {
 
 .discography_nav span.facet_count {
     color: white !important;
+}
+
+#discography_wrapper .search {
+  padding-right: 0 !important;
 }
 
 table.cards tr.sub_first.card.sub, 

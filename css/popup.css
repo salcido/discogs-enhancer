@@ -103,7 +103,7 @@ a.button_green:hover {
 
 .toggle-group:hover p {
   color: white;
-  margin-left: 15px;
+  margin-left: 20px;
 }
 
 .toggle-group.last {
@@ -128,10 +128,10 @@ a.button_green:hover {
   clear: both;
   float: left;
   margin-bottom: 8px;
-  font-family: 'Pragati Narrow', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   font-size: 14px;
-  background-color: yellow;
+  background-color: #666;
   border-radius: 10px;
   width: 100%;
 }
@@ -150,7 +150,7 @@ a.button_green:hover {
 }
 
 #notify {
-  color: #000;
+  color: #ccc;
   font-weight: 400;
   padding-right: 10px;
   bottom-margin: -10px;

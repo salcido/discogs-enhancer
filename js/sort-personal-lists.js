@@ -15,7 +15,6 @@ function compareOptions(a1, a2) {
 
 
 
-
 function sortPersonalLists(options, sortDescending) {
 
   var optionsArray = [];
@@ -75,8 +74,7 @@ function registerOptionButtonClicks() {
 
 $('.add_to_list').on('click', function() {
 
-  var
-      findList = null,
+  var findList = null,
       sortButton = '<div style="position: absolute; left: 325px; top: 10px;">' +
                    '<button id="sortPLists" ' +
                    'class="button button_blue" ' +
