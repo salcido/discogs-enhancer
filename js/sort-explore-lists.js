@@ -1,14 +1,13 @@
+/**
+ *
+ * These functions are used exclusively for sorting the
+ * Explore modals (Genre, Style, Format, Country and Decade)
+ *
+ */
+
 (function() {
-  /**
-   *
-   * These functions are used exclusively for sorting the
-   * Explore modals (Genre, Style, Format, Country and Decade)
-   *
-   */
-  // TODO: move this into a separate file for shared vars
+
   var desc = false;
-
-
 
   // Inject sort button into modal
   function appendSortButton() {

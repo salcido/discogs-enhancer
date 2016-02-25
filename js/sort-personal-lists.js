@@ -9,8 +9,6 @@
 
   var desc = false;
 
-
-
   // Link sorter function
   function compareOptions(a1, a2) {
 

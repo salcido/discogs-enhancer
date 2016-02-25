@@ -13,7 +13,6 @@
       moreFiltersStorage = null;
 
 
-
   // Inject sort button into modal
   function appendFilterSortButton() {
 
