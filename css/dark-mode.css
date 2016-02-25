@@ -1272,6 +1272,14 @@ span.alert-message-text ul li {
     color: #454545 !important;
 }
 
+/* front page announcements */
+#page_aside span.alert-message-text,
+#page_aside span.alert-message-text strong,
+.alert-message-broadcast span.alert-message-text,
+.alert-message-broadcast span.alert-message-text strong {
+    color: #ccc !important;
+}
+
 .tab_menu {
     border-top: none !important;
     border-left: none !important;

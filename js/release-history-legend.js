@@ -1,17 +1,26 @@
-// dark-mode.css will override all styles.
-// This will colorize the legend on the release history page.
-var loc = window.location.href,
-    releaseHistory = /discogs.com\/history\?/g;
+/**
+ *
+ * dark-mode.css will override all styles.
+ * This will colorize the legend on the release history page.
+ *
+ */
 
-if (loc.match(releaseHistory)) {
+(function() {
 
-  setTimeout(function() {
+  var loc = window.location.href,
+      releaseHistory = /discogs.com\/history\?/g;
 
-    $('td:contains("Removed from old version")').attr('style', 'color: #ffaaaa !important');
+  if (loc.match(releaseHistory)) {
 
-    $('td:contains("changed")').attr('style', 'color: #ffff77 !important');
+    setTimeout(function() {
 
-    $('td:contains("Added to new version")').attr('style', 'color: #aaffaa !important');
+      $('td:contains("Removed from old version")').attr('style', 'color: #ffaaaa !important');
 
-  }, 100);
-}
+      $('td:contains("changed")').attr('style', 'color: #ffff77 !important');
+
+      $('td:contains("Added to new version")').attr('style', 'color: #aaffaa !important');
+
+    }, 100);
+  }
+
+})();

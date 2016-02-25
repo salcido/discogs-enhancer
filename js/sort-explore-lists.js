@@ -1,108 +1,111 @@
-/**
- *
- * These functions are used exclusively for sorting the
- * Explore modals (Genre, Style, Format, Country and Decade)
- *
- */
-// TODO: move this into a separate file for shared vars
-var desc = false;
-
-
-// Inject sort button into modal
-function appendSortButton() {
-
-  var sortButton = '<div style="text-align: center;">' +
-                   '<button id="sortExplore" ' +
-                   'class="button button_blue" ' +
-                   'style="margin-bottom: 10px;' +
-                   'width: 100px;">Sort A-Z</button>' +
-                   '</div>';
-
-  $('.react-modal-header').append(sortButton);
-}
+(function() {
+  /**
+   *
+   * These functions are used exclusively for sorting the
+   * Explore modals (Genre, Style, Format, Country and Decade)
+   *
+   */
+  // TODO: move this into a separate file for shared vars
+  var desc = false;
 
 
 
-// Link sorter function
-// TODO: Move this into a separate file for shared functions
-function compareText(a1, a2) {
+  // Inject sort button into modal
+  function appendSortButton() {
 
-  var x = $(a1).find('a').attr('href'),
-      y = $(a2).find('a').attr('href');
+    var sortButton = '<div style="text-align: center;">' +
+                     '<button id="sortExplore" ' +
+                     'class="button button_blue" ' +
+                     'style="margin-bottom: 10px;' +
+                     'width: 100px;">Sort A-Z</button>' +
+                     '</div>';
 
-  return x > y ? 1 : (x < y ? -1 : 0);
-}
-
-
-
-// Sort our lists and create new HTML, then insert
-// the newly sorted list array elements.
-function sortUnorderedList(ul, sortDescending) {
-
-  var listElms = $('.react-modal-content div ul.facets_nav li'),
-      vals = [],
-      newUl = null;
-
-  vals = listElms.map(function() { return this; }).get();
-
-  vals.sort(compareText);
-
-  if (sortDescending) { vals.reverse(); }
-
-  ul.html('');
-
-  ul.append('<ul class="facets_nav">');
-
-  newUl = $('.react-modal-content div ul.facets_nav');
-
-  for (var i = 0, l = vals.length; i < l; i++) {
-
-    newUl.append(vals[i]);
+    $('.react-modal-header').append(sortButton);
   }
 
-  // shrink modal to small column size (for looks)
-  $('.react-modal.more_facets_dialog').animate({width: '180px'}, 300, 'swing');
-}
 
 
-// Add new button functionality
-function registerButtonClicks() {
+  // Link sorter function
+  function compareText(a1, a2) {
 
-  $('#sortExplore').click(function() {
+    var x = $(a1).find('a').attr('href'),
+        y = $(a2).find('a').attr('href');
 
-    var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
-
-    sortUnorderedList($('.react-modal-content div'), desc);
-
-    desc = !desc;
-
-    $(this).text(sortName);
-
-    return false;
-  });
-
-  $('.react-modal-close-button-icon').click(function() {
-
-    desc = false;
-  });
-}
+    return x > y ? 1 : (x < y ? -1 : 0);
+  }
 
 
 
-// Map functions to modal dialog buttons
-$('.more_facets_link').click(function() {
+  // Sort our lists and create new HTML, then insert
+  // the newly sorted list array elements.
+  function sortUnorderedList(ul, sortDescending) {
 
-  var append = setInterval(function() {
+    var listElms = $('.react-modal-content div ul.facets_nav li'),
+        vals = [],
+        newUl = null;
 
-  // Wait for modal to be rendered into the DOM
-  // then attach our button
-  if ($('.react-modal.more_facets_dialog').length) {
+    vals = listElms.map(function() { return this; }).get();
 
-      appendSortButton();
+    vals.sort(compareText);
 
-      registerButtonClicks();
+    if (sortDescending) { vals.reverse(); }
 
-      clearInterval(append);
+    ul.html('');
+
+    ul.append('<ul class="facets_nav">');
+
+    newUl = $('.react-modal-content div ul.facets_nav');
+
+    for (var i = 0, l = vals.length; i < l; i++) {
+
+      newUl.append(vals[i]);
     }
-  }, 10);
-});
+
+    // shrink modal to small column size (for looks)
+    $('.react-modal.more_facets_dialog').animate({width: '180px'}, 300, 'swing');
+  }
+
+
+  // Add new button functionality
+  function registerButtonClicks() {
+
+    $('#sortExplore').click(function() {
+
+      var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
+
+      sortUnorderedList($('.react-modal-content div'), desc);
+
+      desc = !desc;
+
+      $(this).text(sortName);
+
+      return false;
+    });
+
+    $('.react-modal-close-button-icon').click(function() {
+
+      desc = false;
+    });
+  }
+
+
+
+  // Map functions to modal dialog buttons
+  $('.more_facets_link').click(function() {
+
+    var append = setInterval(function() {
+
+    // Wait for modal to be rendered into the DOM
+    // then attach our button
+    if ($('.react-modal.more_facets_dialog').length) {
+
+        appendSortButton();
+
+        registerButtonClicks();
+
+        clearInterval(append);
+      }
+    }, 10);
+  });
+
+})();

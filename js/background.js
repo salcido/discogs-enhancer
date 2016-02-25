@@ -99,7 +99,7 @@ chrome.storage.sync.get('prefs', function(result) {
 function initHighlights() {
 
   var highlightScript = null, // js/apply-highlights.js
-      highlightsElem = null; // marketplace-highlights.css element
+      highlightCss = null; // marketplace-highlights.css element
 
 
   //apply-highlights.js
@@ -112,17 +112,17 @@ function initHighlights() {
   (document.head || document.documentElement).appendChild(highlightScript);
 
   // marketplace-highlights.css
-  highlightsElem = document.createElement('link');
+  highlightCss = document.createElement('link');
 
-  highlightsElem.rel = 'stylesheet';
+  highlightCss.rel = 'stylesheet';
 
-  highlightsElem.type = 'text/css';
+  highlightCss.type = 'text/css';
 
-  highlightsElem.href = chrome.extension.getURL('css/marketplace-highlights.css');
+  highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
 
-  highlightsElem.id = 'mediaHighLightsCss';
+  highlightCss.id = 'mediaHighLightsCss';
 
-  (document.head || document.documentElement).appendChild(highlightsElem);
+  (document.head || document.documentElement).appendChild(highlightCss);
 }
 
 // Get preference setting and either call initHighlights or not
