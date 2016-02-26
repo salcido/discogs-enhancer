@@ -22,7 +22,8 @@
 
   function sortPersonalLists(options, sortDescending) {
 
-    var optionsArray = [];
+    var listOldPick = $('#list_oldpick'),
+        optionsArray = [];
 
     // The options are rewritten everytime the modal is called
     // so we wait 150ms then sort them.
@@ -34,17 +35,17 @@
 
       if (sortDescending) { optionsArray.reverse(); }
 
-      $('#list_oldpick').find('option').remove();
+      listOldPick.find('option').remove();
 
       $(optionsArray).each(function(index) {
 
-        $('#list_oldpick').append(optionsArray[index]);
+        listOldPick.append(optionsArray[index]);
       });
 
       // Select the first option after reordering
       // It lets the user know something was done
       // and is just practical ;)
-      $('#list_oldpick').val($('#list_oldpick option:first').val());
+      listOldPick.val($('#list_oldpick option:first').val());
 
     }, 150);
   }

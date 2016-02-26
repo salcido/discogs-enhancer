@@ -10,6 +10,7 @@
 
   var desc = false,
       filterTarget = null,
+      moreFiltersContainer = $('#more_filters_container'),
       moreFiltersStorage = null;
 
 
@@ -73,10 +74,10 @@
     if (sortDescending) { vals.reverse(); }
 
     // Clear out old markup
-    $('#more_filters_container').html('');
+    moreFiltersContainer.html('');
 
     // Insert new markup with custom |modified| class to hook on to
-    $('#more_filters_container').append('<ul class="marketplace_filters more_filters marketplace_filters_' + filterTarget + '"><li style="min-width:16%;"><ul class="facets_nav modified">');
+    moreFiltersContainer.append('<ul class="marketplace_filters more_filters marketplace_filters_' + filterTarget + '"><li style="min-width:16%;"><ul class="facets_nav modified">');
 
     // Hook on to our new list
     newUl = $('ul.facets_nav.modified');
@@ -116,7 +117,7 @@
       $('#sortFilters').remove();
 
       // Restore the unfiltered markup
-      $('#more_filters_container').html(moreFiltersStorage);
+      moreFiltersContainer.html(moreFiltersStorage);
 
       // Reset |desc| so that subsequent filter calls begin with A-Z
       desc = false;
@@ -140,7 +141,7 @@
       if ( $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).length ) {
         // Store current markup of #more_filters_container. If the user does not
         // select a filter, it will be restored when .hide_more_filters is clicked
-        moreFiltersStorage = $('#more_filters_container').html();
+        moreFiltersStorage = moreFiltersContainer.html();
 
         clearInterval(checkForMarkup);
       }

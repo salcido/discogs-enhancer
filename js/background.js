@@ -12,17 +12,13 @@
 var
     darkModeElem = null,
     darkStyles = null,
+    elems = [],
+    fragment = null,
     jQ = null,
     prefs = {};
 
 
-
-/**
- *
- * Inject jQuery into DOM
- *
- */
-
+// Create jQuery object
 jQ = document.createElement('script');
 
 jQ.type = 'text/javascript';
@@ -31,17 +27,10 @@ jQ.async = true;
 
 jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
-(document.head || document.documentElement).appendChild(jQ);
+// Push into our array
+elems.push(jQ);
 
-
-
-/**
- *
- * CSS Injection Section ;)
- *
- */
-
-// create link element...
+// create dark theme css element...
 darkModeElem = document.createElement('link');
 
 darkModeElem.rel = 'stylesheet';
@@ -52,16 +41,27 @@ darkModeElem.href = chrome.extension.getURL('css/dark-mode.css');
 
 darkModeElem.id = 'darkModeCss';
 
-// ...and insert it into the DOM
-(document.head || document.documentElement).appendChild(darkModeElem);
+// Push into our array
+elems.push(darkModeElem);
 
-darkStyles = document.getElementById(darkModeElem.id);
+// Append to DOM
+fragment = document.createDocumentFragment();
+
+elems.forEach(function(elm) {
+
+  fragment.appendChild(elm);
+});
+
+(document.head || document.documentElement).appendChild(fragment.cloneNode(true));
 
 
 
 // Enable/disable newly inserted link element based on saved preferences
 // or create the prefs object if this is the first time it's been
 // run.
+
+darkStyles = document.getElementById(darkModeElem.id);
+
 chrome.storage.sync.get('prefs', function(result) {
 
   var darkMode = null; // boolean; whether dark mode is active
@@ -98,8 +98,11 @@ chrome.storage.sync.get('prefs', function(result) {
 //Inject marketplace highlight script into DOM
 function initHighlights() {
 
-  var highlightScript = null, // js/apply-highlights.js
-      highlightCss = null; // marketplace-highlights.css element
+  var
+      highlightElems = [],
+      highlightCss = null, // marketplace-highlights.css element
+      highlightFrag = null,
+      highlightScript = null; // js/apply-highlights.js
 
 
   //apply-highlights.js
@@ -109,7 +112,8 @@ function initHighlights() {
 
   highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
 
-  (document.head || document.documentElement).appendChild(highlightScript);
+  highlightElems.push(highlightScript);
+
 
   // marketplace-highlights.css
   highlightCss = document.createElement('link');
@@ -122,7 +126,18 @@ function initHighlights() {
 
   highlightCss.id = 'mediaHighLightsCss';
 
-  (document.head || document.documentElement).appendChild(highlightCss);
+  highlightElems.push(highlightCss);
+
+
+  // Append to DOM
+  highlightFrag = document.createDocumentFragment();
+
+  highlightElems.forEach(function(elm) {
+
+    highlightFrag.appendChild(elm);
+  });
+
+  (document.head || document.documentElement).appendChild(highlightFrag.cloneNode(true));
 }
 
 // Get preference setting and either call initHighlights or not
@@ -143,7 +158,10 @@ chrome.storage.sync.get('prefs', function(result) {
 
 function initSortButtons() {
 
-  var sortMarketplaceScript = null, // js/sort-marketplace-lists.js
+  var
+      sortElems = [],
+      sortFragment = null,
+      sortMarketplaceScript = null, // js/sort-marketplace-lists.js
       sortExploreScript = null, // js/sort-explore-lists.js
       sortPersonalListsScript = null; // js/sort-personal-lists.js
 
@@ -154,7 +172,7 @@ function initSortButtons() {
 
   sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
 
-  (document.head || document.documentElement).appendChild(sortExploreScript);
+  sortElems.push(sortExploreScript);
 
 
   //sort-marketplace-lists.js
@@ -164,7 +182,7 @@ function initSortButtons() {
 
   sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
 
-  (document.head || document.documentElement).appendChild(sortMarketplaceScript);
+  sortElems.push(sortMarketplaceScript);
 
 
   // sort-personal-lists.js
@@ -174,7 +192,18 @@ function initSortButtons() {
 
   sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
 
-  (document.head || document.documentElement).appendChild(sortPersonalListsScript);
+  sortElems.push(sortPersonalListsScript);
+
+
+  // Append to DOM
+  sortFragment = document.createDocumentFragment();
+
+  sortElems.forEach(function(elm) {
+
+    sortFragment.appendChild(elm);
+  });
+
+  (document.head || document.documentElement).appendChild(sortFragment.cloneNode(true));
 }
 
 // Get preference and either call initSortButtons or not.
