@@ -40,4 +40,4 @@ Search Discogs instantly with any highlighted text!
 ### Release durations
 See total play times for any release that has track time information.
 
-![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/release-duration.png?raw=true "Release duration preview")
+![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/release-durations.png?raw=true "Release duration preview")
