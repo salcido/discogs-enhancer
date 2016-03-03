@@ -14,6 +14,7 @@ Discogs Enhancement Suite is a Chrome extension that adds useful functionality t
 * Marketplace Highlights
 * Sort dialogs & filters alphabetically
 * Contextual menu searching
+* Release durations
 
 ### Dark theme
 Great for late night browsing.
@@ -35,3 +36,8 @@ Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Ge
 Search Discogs instantly with any highlighted text!
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/contextual-menu.png?raw=true "Contextual menu preview")
+
+### Release durations
+See total play times for any release that has track time information.
+
+![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/release-duration.png?raw=true "Release duration preview")
