@@ -8,7 +8,7 @@
 (function() {
 
   var loc = window.location.href,
-      releaseHistory = /discogs.com\/history\?/g;
+      releaseHistory = /discogs.com\/release\//g;
 
   if (loc.match(releaseHistory)) {
 
@@ -20,7 +20,7 @@
 
       $('td:contains("Added to new version")').attr('style', 'color: #aaffaa !important');
 
-    }, 100);
+    }, 200);
   }
 
 })();

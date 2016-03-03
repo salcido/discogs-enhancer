@@ -1,3 +1,10 @@
+var 
+    loc = window.location.href,
+    sellPage = /discogs.com\/sell\/list/g,
+    sellerPage = /discogs.com\/seller/g,
+    sellRelease = /discogs.com\/sell\/release/g,
+    wantsPage = /discogs.com\/sell\/mywants/g;
+
 // Find all Marketplace item conditions and apply classes
 function applyStyles() {
   /* Marketplace Pages */
@@ -31,16 +38,29 @@ function callApplyStyles() {
 
   $(document).ajaxSuccess(function() {
 
-   applyStyles();
+    applyStyles();
   });
 }
 
 
+if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
-// inits |applystyles| method on DOM load
-setTimeout(function() {
+  var count = 0,
+      interval;
 
-  applyStyles();
+  interval = setInterval(function() {
 
-  callApplyStyles();
-}, 200);
+    applyStyles();
+
+    count++;
+
+    if (count > 5) {
+
+      clearInterval(interval);
+
+      callApplyStyles();
+    }
+  }, 100);
+}
+
+

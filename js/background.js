@@ -71,7 +71,8 @@ chrome.storage.sync.get('prefs', function(result) {
     prefs = {
       darkMode: true,
       highlightMedia: true,
-      sortButtons: true
+      sortButtons: true,
+      releaseDurations: true
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -238,5 +239,24 @@ chrome.storage.sync.get('prefs', function(result) {
     releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
 
     (document.head || document.documentElement).appendChild(releaseHistoryScript);
+  }
+});
+
+
+
+// Display release durations
+chrome.storage.sync.get('prefs', function(result) {
+
+  var releaseDurations = null; // js/release-durations.js
+
+  if (result.prefs.releaseDurations) {
+
+    releaseDurations = document.createElement('script');
+
+    releaseDurations.type = 'text/javascript';
+
+    releaseDurations.src = chrome.extension.getURL('js/release-durations.js');
+
+    (document.head || document.documentElement).appendChild(releaseDurations);
   }
 });

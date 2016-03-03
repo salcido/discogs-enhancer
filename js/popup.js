@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var toggleDarkMode = document.getElementById('toggleDarkMode'),
       toggleConditions = document.getElementById('toggleConditions'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
+      toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       prefs = {};
 
 
@@ -16,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
     prefs = {
       darkMode: toggleDarkMode.checked,
       highlightMedia: toggleConditions.checked,
-      sortButtons: toggleSortBtns.checked
+      sortButtons: toggleSortBtns.checked,
+      releaseDurations: toggleReleaseDurations.checked
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -106,6 +108,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
+   * Toggle track totals
+   */
+
+  function trackTotals(event) {
+
+    var response = 'Please refresh the page for changes to take effect.';
+
+    saveChanges(response);
+  }
+
+
+
+  /**
    * Get stored preferences for extension menu
    */
 
@@ -118,6 +133,8 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConditions.checked = result.prefs.highlightMedia;
 
       toggleSortBtns.checked = result.prefs.sortButtons;
+
+      toggleReleaseDurations.checked = result.prefs.releaseDurations;
     });
   }
 
@@ -134,6 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleConditions.addEventListener('change', toggleHighlights);
 
   toggleSortBtns.addEventListener('change', sortGenres);
+
+  toggleReleaseDurations.addEventListener('change', trackTotals);
 
 
   // Open about tab

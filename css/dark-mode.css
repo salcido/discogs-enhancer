@@ -73,6 +73,7 @@ a i,
 .icon.icon-ellipsis-h,
 .pagination_page_links a,
 .row_actions a *,
+a span.rating_count,
 span.marketplace_for_sale_count a:visited strong {
     color: #809bbe !important;
 }
@@ -89,6 +90,7 @@ button:focus {
 
 a:visited,
 a:visited:not(.button) i,
+a:visited span.rating_count,
 .pagination_page_links a:visited,
 .row_actions a:hover *
 span.marketplace_for_sale_count a:visited strong {
@@ -99,6 +101,7 @@ span.marketplace_for_sale_count a:visited strong {
 
 a:hover:not(.button),
 .footer a:hover i,
+a:hover span.rating_count,
 .pagination_page_links a:hover i,
 #site_footer_list li a:hover i,
 .row_actions a:hover *,
@@ -200,6 +203,10 @@ blockquote,
 #forum_search_results .search-result-snippet {
     background-color: #292929 !important;
     box-shadow: none !important;
+}
+
+blockquote .tracklist_extra_artist_span {
+    background-color: #323334 !important;
 }
 
 mark {
