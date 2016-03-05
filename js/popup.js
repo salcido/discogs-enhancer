@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConditions = document.getElementById('toggleConditions'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
+      toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       prefs = {};
 
 
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
       darkMode: toggleDarkMode.checked,
       highlightMedia: toggleConditions.checked,
       sortButtons: toggleSortBtns.checked,
-      releaseDurations: toggleReleaseDurations.checked
+      releaseDurations: toggleReleaseDurations.checked,
+      collectionUi: toggleCollectionUi.checked
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -118,6 +120,26 @@ document.addEventListener('DOMContentLoaded', function () {
     saveChanges(response);
   }
 
+  /**
+   * Toggle better collection UI
+   */
+
+  function enableCollectionUi(event) {
+
+    var response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      chrome.tabs.executeScript(null, {file: 'js/better-collection-ui.js'}, function() {
+
+        saveChanges();
+      });
+
+    } else {
+
+      saveChanges(response);
+    }
+  }
 
 
   /**
@@ -135,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleSortBtns.checked = result.prefs.sortButtons;
 
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
+
+      toggleCollectionUi.checked = result.prefs.collectionUi;
     });
   }
 
@@ -153,6 +177,8 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleSortBtns.addEventListener('change', sortGenres);
 
   toggleReleaseDurations.addEventListener('change', trackTotals);
+
+  toggleCollectionUi.addEventListener('change', enableCollectionUi);
 
 
   // Open about tab

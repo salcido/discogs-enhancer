@@ -15,6 +15,7 @@ Discogs Enhancement Suite is a Chrome extension that adds useful functionality t
 * Sort dialogs & filters alphabetically
 * Contextual menu searching
 * Release durations
+* Better Collection page UI
 
 ### Dark theme
 Great for late night browsing.
@@ -41,3 +42,6 @@ Search Discogs instantly with any highlighted text!
 See total play times for any release that has track time information.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/release-durations.png?raw=true "Release duration preview")
+
+### Better Collection page UI
+This makes the Collection page suck less. It groups the "Random item" link over with the others on the right; it rearranges the "Move Selected" interface so that it reads more clearly; it more clearly specifies which folder you are currently viewing and colorizes the "Remove Selected" and "Move Selected" buttons. It also disables the "Move Selected" button until a selection has been made.

@@ -5,7 +5,7 @@
  *
  */
 
-(function() {
+$(document).ready(function() {
 
   var loc = window.location.href,
       releaseHistory = /discogs.com\/release\//g;
@@ -22,5 +22,4 @@
 
     }, 200);
   }
-
-})();
+});

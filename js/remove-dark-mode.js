@@ -1,5 +1,8 @@
-var id = 'darkModeCss',
-    link = document.getElementById(id),
-    styles = link.getAttribute('disabled');
+(function() {
 
-if (!styles) { link.setAttribute('disabled', true); }
+  var id = 'darkModeCss',
+      link = document.getElementById(id),
+      styles = link.getAttribute('disabled');
+
+  if (!styles) { link.setAttribute('disabled', true); }
+})();

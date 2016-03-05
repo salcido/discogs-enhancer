@@ -1,4 +1,7 @@
-var id = 'mediaHighLightsCss',
-    link = document.getElementById(id);
+(function() {
 
-if (link) { link.setAttribute('disabled', true); }
+  var id = 'mediaHighLightsCss',
+      link = document.getElementById(id);
+
+  if (link) { link.setAttribute('disabled', true); }
+})();

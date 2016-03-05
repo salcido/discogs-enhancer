@@ -10,61 +10,51 @@
  */
 
 var
-    darkModeElem = null,
-    darkStyles = null,
+    collectionUi, // js/better-collection-ui.js
+    darkTheme,
+    darkStyles,
     elems = [],
-    fragment = null,
-    jQ = null,
-    prefs = {};
+    fragment,
+    highlightCss, // css/marketplace-highlights.css element
+    highlightScript, // js/apply-highlights.js
+    initElems = [],
+    initFragment,
+    jQ,
+    prefs = {},
+    releaseDurations, // js/release-durations.js
+    releaseHistoryScript, // js/release-history-legend.js
+    sortExploreScript, // js/sort-explore-lists.js
+    sortMarketplaceScript, // js/sort-marketplace-lists.js
+    sortPersonalListsScript; // js/sort-personal-lists.js
 
 
-// Create jQuery object
-jQ = document.createElement('script');
+function appendFragment() {
 
-jQ.type = 'text/javascript';
+  fragment = document.createDocumentFragment();
 
-jQ.async = true;
+  elems.forEach(function(elm) {
 
-jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
+    fragment.appendChild(elm);
+  });
 
-// Push into our array
-elems.push(jQ);
-
-// create dark theme css element...
-darkModeElem = document.createElement('link');
-
-darkModeElem.rel = 'stylesheet';
-
-darkModeElem.type = 'text/css';
-
-darkModeElem.href = chrome.extension.getURL('css/dark-mode.css');
-
-darkModeElem.id = 'darkModeCss';
-
-// Push into our array
-elems.push(darkModeElem);
-
-// Append to DOM
-fragment = document.createDocumentFragment();
-
-elems.forEach(function(elm) {
-
-  fragment.appendChild(elm);
-});
-
-(document.head || document.documentElement).appendChild(fragment.cloneNode(true));
+  (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
+}
 
 
+function enableDarkTheme(preference) {
 
-// Enable/disable newly inserted link element based on saved preferences
-// or create the prefs object if this is the first time it's been
-// run.
+  darkStyles = document.getElementById(darkTheme.id);
 
-darkStyles = document.getElementById(darkModeElem.id);
+  setTimeout(function() {
+
+    return preference === true ? darkStyles.removeAttribute('disabled') : darkStyles.setAttribute('disabled', true);
+  }, 50);
+}
+
 
 chrome.storage.sync.get('prefs', function(result) {
 
-  var darkMode = null; // boolean; whether dark mode is active
+  var useDarkTheme;
 
   if (!result.prefs) {
 
@@ -72,7 +62,8 @@ chrome.storage.sync.get('prefs', function(result) {
       darkMode: true,
       highlightMedia: true,
       sortButtons: true,
-      releaseDurations: true
+      releaseDurations: true,
+      collectionUi: true
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -81,173 +72,119 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
-  darkMode = result.prefs.darkMode;
+  // jQuery
+  jQ = document.createElement('script');
 
-  return darkMode === true
-          ? darkStyles.removeAttribute('disabled')
-          : darkStyles.setAttribute('disabled', true);
-});
+  jQ.type = 'text/javascript';
 
+  jQ.async = true;
 
+  jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
-/**
- *
- * Highlight Sales Item Conditions
- *
- */
-
-//Inject marketplace highlight script into DOM
-function initHighlights() {
-
-  var
-      highlightElems = [],
-      highlightCss = null, // marketplace-highlights.css element
-      highlightFrag = null,
-      highlightScript = null; // js/apply-highlights.js
+  initElems.push(jQ);
 
 
-  //apply-highlights.js
-  highlightScript = document.createElement('script');
+  // Create dark theme css element...
+  darkTheme = document.createElement('link');
 
-  highlightScript.type = 'text/javascript';
+  darkTheme.rel = 'stylesheet';
 
-  highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
+  darkTheme.type = 'text/css';
 
-  highlightElems.push(highlightScript);
+  darkTheme.href = chrome.extension.getURL('css/dark-mode.css');
 
+  darkTheme.id = 'darkModeCss';
 
-  // marketplace-highlights.css
-  highlightCss = document.createElement('link');
-
-  highlightCss.rel = 'stylesheet';
-
-  highlightCss.type = 'text/css';
-
-  highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
-
-  highlightCss.id = 'mediaHighLightsCss';
-
-  highlightElems.push(highlightCss);
+  initElems.push(darkTheme);
 
 
-  // Append to DOM
-  highlightFrag = document.createDocumentFragment();
+  // Append jQuery and darkmode css
+  initFragment = document.createDocumentFragment();
 
-  highlightElems.forEach(function(elm) {
+  initElems.forEach(function(elm) {
 
-    highlightFrag.appendChild(elm);
+    initFragment.appendChild(elm);
   });
 
-  (document.head || document.documentElement).appendChild(highlightFrag.cloneNode(true));
-}
-
-// Get preference setting and either call initHighlights or not
-chrome.storage.sync.get('prefs', function(result) {
-
-  var highlights = result.prefs.highlightMedia;
-
-  return highlights === true ? initHighlights() : $.noop();
-});
+  (document.head || document.documentElement).appendChild(initFragment.cloneNode(true));
 
 
+  // Enable darkmode if necessary
+  useDarkTheme = result.prefs.darkMode;
 
-/**
- *
- * Sort hella stuff
- *
- */
-
-function initSortButtons() {
-
-  var
-      sortElems = [],
-      sortFragment = null,
-      sortMarketplaceScript = null, // js/sort-marketplace-lists.js
-      sortExploreScript = null, // js/sort-explore-lists.js
-      sortPersonalListsScript = null; // js/sort-personal-lists.js
-
-  //sort-explore-lists.js
-  sortExploreScript = document.createElement('script');
-
-  sortExploreScript.type = 'text/javascript';
-
-  sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
-
-  sortElems.push(sortExploreScript);
+  enableDarkTheme(useDarkTheme);
 
 
-  //sort-marketplace-lists.js
-  sortMarketplaceScript = document.createElement('script');
+  // Assemble remaining stuff for appending
+  if (result.prefs.highlightMedia) {
 
-  sortMarketplaceScript.type = 'text/javascript';
+    // apply-highlights.js
+    highlightScript = document.createElement('script');
 
-  sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
+    highlightScript.type = 'text/javascript';
 
-  sortElems.push(sortMarketplaceScript);
+    highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
 
-
-  // sort-personal-lists.js
-  sortPersonalListsScript = document.createElement('script');
-
-  sortPersonalListsScript.type = 'text/javascript';
-
-  sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
-
-  sortElems.push(sortPersonalListsScript);
+    elems.push(highlightScript);
 
 
-  // Append to DOM
-  sortFragment = document.createDocumentFragment();
+    // marketplace-highlights.css
+    highlightCss = document.createElement('link');
 
-  sortElems.forEach(function(elm) {
+    highlightCss.rel = 'stylesheet';
 
-    sortFragment.appendChild(elm);
-  });
+    highlightCss.type = 'text/css';
 
-  (document.head || document.documentElement).appendChild(sortFragment.cloneNode(true));
-}
+    highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
 
-// Get preference and either call initSortButtons or not.
-// This is done via setTimeout because without it, there's no telling
-// when the script will be appended to the DOM and sometimes the necessary
-// page elements have not yet been rendered.
-chrome.storage.sync.get('prefs', function(result) {
+    highlightCss.id = 'mediaHighLightsCss';
 
-  var sortButtons = result.prefs.sortButtons;
-
-  if (sortButtons) {
-
-    return setTimeout(function() { initSortButtons(); }, 400);
+    elems.push(highlightCss);
   }
-});
+
+  if (result.prefs.sortButtons) {
+
+    // sort-explore-lists.js
+    sortExploreScript = document.createElement('script');
+
+    sortExploreScript.type = 'text/javascript';
+
+    sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
+
+    elems.push(sortExploreScript);
 
 
+    // sort-marketplace-lists.js
+    sortMarketplaceScript = document.createElement('script');
 
-// dark-mode.css will override all styles.
-// This will colorize the legend on the release history page.
-chrome.storage.sync.get('prefs', function(result) {
+    sortMarketplaceScript.type = 'text/javascript';
 
-  var releaseHistoryScript = null; // js/release-history-legend.js
+    sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
+
+    elems.push(sortMarketplaceScript);
+
+
+    // sort-personal-lists.js
+    sortPersonalListsScript = document.createElement('script');
+
+    sortPersonalListsScript.type = 'text/javascript';
+
+    sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
+
+    elems.push(sortPersonalListsScript);
+  }
 
   if (result.prefs.darkMode) {
 
-    //release-history-legend.js
     releaseHistoryScript = document.createElement('script');
 
     releaseHistoryScript.type = 'text/javascript';
 
     releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
 
-    (document.head || document.documentElement).appendChild(releaseHistoryScript);
+    elems.push(releaseHistoryScript);
   }
-});
 
-
-
-// Display release durations
-chrome.storage.sync.get('prefs', function(result) {
-
-  var releaseDurations = null; // js/release-durations.js
 
   if (result.prefs.releaseDurations) {
 
@@ -257,6 +194,23 @@ chrome.storage.sync.get('prefs', function(result) {
 
     releaseDurations.src = chrome.extension.getURL('js/release-durations.js');
 
-    (document.head || document.documentElement).appendChild(releaseDurations);
+    elems.push(releaseDurations);
   }
+
+  if (result.prefs.collectionUi) {
+
+    collectionUi = document.createElement('script');
+
+    collectionUi.type = 'text/javascript';
+
+    collectionUi.src = chrome.extension.getURL('js/better-collection-ui.js');
+
+    elems.push(collectionUi);
+  }
+
+  setTimeout(function() {
+
+    appendFragment(result);
+
+  }, 100);
 });

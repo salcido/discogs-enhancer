@@ -5,9 +5,12 @@
  *
  */
 
-(function() {
+$(document).ready(function() {
 
-  var desc = false;
+  var
+      clicks = 1,
+      desc = false,
+      width = '';
 
   // Inject sort button into modal
   function appendSortButton() {
@@ -68,17 +71,54 @@
   // Add new button functionality
   function registerButtonClicks() {
 
+    var storage = '';
+
     $('#sortExplore').click(function() {
 
-      var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
+      var sortName;
 
-      sortUnorderedList($('.react-modal-content div'), desc);
+      if ($(this).text() === 'Sort A-Z') {
 
-      desc = !desc;
+        sortName = 'Sort Z-A';
 
-      $(this).text(sortName);
+      } else if ($(this).text() === 'Sort Z-A') {
 
-      return false;
+        sortName = 'Undo Sort';
+
+      } else if ($(this).text() === 'Undo Sort') {
+
+        sortName = 'Sort A-Z';
+      }
+
+      if (clicks === 1) {
+
+        storage = $('.react-modal-content div').html();
+      }
+
+      clicks++;
+
+      if (clicks > 3) {
+
+        $('.react-modal.more_facets_dialog').animate({width: width}, 200, 'swing');
+
+        $('.react-modal-content div').html(storage);
+
+        clicks = 1;
+
+        $(this).text(sortName);
+
+        return false;
+
+      } else {
+
+        sortUnorderedList($('.react-modal-content div'), desc);
+
+        desc = !desc;
+
+        $(this).text(sortName);
+
+        return false;
+      }
     });
 
     $('.react-modal-close-button-icon').click(function() {
@@ -98,13 +138,14 @@
     // then attach our button
     if ($('.react-modal.more_facets_dialog').length) {
 
+        width = $('.react-modal.more_facets_dialog').width();
+
         appendSortButton();
 
         registerButtonClicks();
 
         clearInterval(append);
       }
-    }, 10);
+    }, 100);
   });
-
-})();
+});

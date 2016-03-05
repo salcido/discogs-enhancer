@@ -6,9 +6,11 @@
  *
  */
 
-(function() {
+$(document).ready(function() {
 
-  var desc = false,
+  var
+      clicks = 1,
+      desc = false,
       filterTarget = null,
       moreFiltersContainer = $('#more_filters_container'),
       moreFiltersStorage = null;
@@ -96,18 +98,53 @@
   // Add new button functionalities
   function registerFilterButtonClicks() {
 
+    var storage = '';
+
     // Injected 'Sort A-Z' button
     $('#sortFilters').click(function() {
 
-      var sortName = ($(this).text() === 'Sort A-Z') ? 'Sort Z-A' : 'Sort A-Z';
+      var sortName;
 
-      sortUnorderedFilterList($('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav'), desc);
+      if ($(this).text() === 'Sort A-Z') {
 
-      desc = !desc;
+        sortName = 'Sort Z-A';
 
-      $(this).text(sortName);
+      } else if ($(this).text() === 'Sort Z-A') {
 
-      return false;
+        sortName = 'Undo Sort';
+
+      } else if ($(this).text() === 'Undo Sort') {
+
+        sortName = 'Sort A-Z';
+      }
+
+      if (clicks === 1) {
+
+        storage = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).html();
+      }
+
+      clicks++;
+
+      if (clicks > 3) {
+
+        $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).html(storage);
+
+        clicks = 1;
+
+        $(this).text(sortName);
+
+        return false;
+
+      } else {
+
+        sortUnorderedFilterList($('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav'), desc);
+
+        desc = !desc;
+
+        $(this).text(sortName);
+
+        return false;
+      }
     });
 
     // '<- All Filters' page link
@@ -145,11 +182,10 @@
 
         clearInterval(checkForMarkup);
       }
-    }, 10);
+    }, 100);
 
     appendFilterSortButton();
 
     registerFilterButtonClicks();
   });
-
-})();
+});
