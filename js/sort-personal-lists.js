@@ -160,8 +160,6 @@ $(document).ready(function() {
         clearInterval(findList);
       }
     }, 100);
-
-    desc = !desc;
   });
 
 });
