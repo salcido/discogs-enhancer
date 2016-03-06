@@ -91,6 +91,7 @@ $(document).ready(function() {
 
         listOldPick.append($('<option></option>').html('Undoing...'));
 
+        // intentional delay for illustrative purposes only
         setTimeout(function() {
 
           listOldPick.html(storage);

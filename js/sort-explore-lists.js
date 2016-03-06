@@ -10,6 +10,7 @@ $(document).ready(function() {
   var
       clicks = 1,
       desc = false,
+      storage,
       width = '';
 
   // Inject sort button into modal
@@ -35,8 +36,6 @@ $(document).ready(function() {
 
     return x > y ? 1 : (x < y ? -1 : 0);
   }
-
-
 
   // Sort our lists and create new HTML, then insert
   // the newly sorted list array elements.
@@ -71,11 +70,9 @@ $(document).ready(function() {
   // Add new button functionality
   function registerButtonClicks() {
 
-    var storage = '';
+    var sortName;
 
     $('#sortExplore').click(function() {
-
-      var sortName;
 
       if ($(this).text() === 'Sort A-Z') {
 
@@ -90,18 +87,13 @@ $(document).ready(function() {
         sortName = 'Sort A-Z';
       }
 
-      if (clicks === 1) {
-
-        storage = $('.react-modal-content div').html();
-      }
-
       clicks++;
 
       if (clicks > 3) {
 
-        $('.react-modal.more_facets_dialog').animate({width: width}, 200, 'swing');
+        $('.react-modal-content div').html(storage.html());
 
-        $('.react-modal-content div').html(storage);
+        $('.react-modal.more_facets_dialog').animate({width: width}, 200, 'swing');
 
         clicks = 1;
 
@@ -138,7 +130,12 @@ $(document).ready(function() {
     // then attach our button
     if ($('.react-modal.more_facets_dialog').length) {
 
+        desc = false;
+
         width = $('.react-modal.more_facets_dialog').width();
+
+        // Store current state
+        storage = $('.react-modal-content div').clone(true);
 
         appendSortButton();
 

@@ -497,7 +497,8 @@ hr {
 
 /* gray text on white buttons */
 
-.button, 
+.button,
+a.button, 
 .button i,
 .button span, 
 .toggle_wantlist_add,
@@ -613,7 +614,8 @@ a.inset_button[disabled] {
 }
 
 a.button.button_facebook_login span,
-.button.button_blue {
+.button.button_blue,
+.button.button_blue span {
     border-color: #3571a6 !important;
     border-top-color: #3776ae !important;
     border-bottom-color: #31699b !important;

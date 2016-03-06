@@ -4,7 +4,7 @@
   "name": "Discogs Enhancement Suite",
   "short_name": "Discogs Enhancement Suite",
   "description": "Adds useful features to Discogs and Chrome",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Matthew Salcido",
   "homepage_url": "http://www.msalcido.com/discogs-enhancement-suite",
   "browser_action": {

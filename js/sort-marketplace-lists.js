@@ -13,7 +13,8 @@ $(document).ready(function() {
       desc = false,
       filterTarget = null,
       moreFiltersContainer = $('#more_filters_container'),
-      moreFiltersStorage = null;
+      moreFiltersStorage = null,
+      storage;
 
 
   // Inject sort button into modal
@@ -98,12 +99,10 @@ $(document).ready(function() {
   // Add new button functionalities
   function registerFilterButtonClicks() {
 
-    var storage = '';
+    var sortName;
 
     // Injected 'Sort A-Z' button
     $('#sortFilters').click(function() {
-
-      var sortName;
 
       if ($(this).text() === 'Sort A-Z') {
 
@@ -118,16 +117,11 @@ $(document).ready(function() {
         sortName = 'Sort A-Z';
       }
 
-      if (clicks === 1) {
-
-        storage = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).html();
-      }
-
       clicks++;
 
       if (clicks > 3) {
 
-        $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).html(storage);
+        $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).html(storage.html());
 
         clicks = 1;
 
@@ -154,7 +148,7 @@ $(document).ready(function() {
       $('#sortFilters').remove();
 
       // Restore the unfiltered markup
-      moreFiltersContainer.html(moreFiltersStorage);
+      moreFiltersContainer.html(moreFiltersStorage.html());
 
       // Reset |desc| so that subsequent filter calls begin with A-Z
       desc = false;
@@ -166,7 +160,9 @@ $(document).ready(function() {
   // Map functions to modal dialog buttons
   $('.show_more_filters').click(function() {
 
-    var checkForMarkup = null;
+    var checkForMarkup;
+
+    desc = false;
 
     // Find the right UL to filter
     filterTarget = $(this).data('label');
@@ -176,9 +172,12 @@ $(document).ready(function() {
     checkForMarkup = setInterval( function() {
 
       if ( $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).length ) {
+
         // Store current markup of #more_filters_container. If the user does not
         // select a filter, it will be restored when .hide_more_filters is clicked
-        moreFiltersStorage = moreFiltersContainer.html();
+        moreFiltersStorage = moreFiltersContainer.clone(true);
+
+        storage = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).clone(true);
 
         clearInterval(checkForMarkup);
       }
