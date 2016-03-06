@@ -7,8 +7,10 @@
 
 $(document).ready(function() {
 
-  var clicks = 1,
-      desc = false;
+  var
+      clicks = 1,
+      desc = false,
+      storage;
 
   // Link sorter function
   function compareOptions(a1, a2) {
@@ -58,8 +60,7 @@ $(document).ready(function() {
   // Add new button functionality
   function registerOptionButtonClicks() {
 
-    var listOldPick = $('#list_oldpick'),
-        storage = '';
+    var listOldPick = $('#list_oldpick');
 
     $('#sortPLists').click(function() {
 
@@ -78,11 +79,6 @@ $(document).ready(function() {
         sortName = 'Sort A-Z';
       }
 
-      if (clicks === 1) {
-
-        storage = listOldPick.html();
-      }
-
       clicks++;
 
       if (clicks > 3) {
@@ -94,7 +90,7 @@ $(document).ready(function() {
         // intentional delay for illustrative purposes only
         setTimeout(function() {
 
-          listOldPick.html(storage);
+          listOldPick.html(storage.html());
         }, 100);
 
         clicks = 1;
@@ -151,6 +147,8 @@ $(document).ready(function() {
           if ($('#listadd').length) {
 
             clearInterval(findAdd);
+
+            storage = $('#list_oldpick').clone(true);
 
             $(sortButton).insertAfter($('#listadd'));
 

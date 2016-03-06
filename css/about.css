@@ -102,3 +102,23 @@ ul li a:visited {
 ul li.no-bullet {
     list-style-type: none;
 }
+
+table, td, th {
+    color: #666;
+    border-color: #666 !important;
+}
+
+table caption {
+    color: #666;
+    margin: 15px 0 0 0;
+    font-family: sans-serif;
+    font-size: 14px; 
+    line-height: 1.6em;
+    text-transform: uppercase;
+}
+
+.table {
+    margin-top: 25px;
+    font-family: sans-serif;
+    margin-bottom: 150px;
+}

@@ -6,6 +6,7 @@ $(document).ready(function() {
 
     var
         bottomSelectFolder,
+        checkboxes,
         interval,
         moveButtonMarkup,
         moveButtons,
@@ -43,7 +44,9 @@ $(document).ready(function() {
 
             moveButtons = $('[name^="Action.MoveItems"]');
 
-            return $(this).is(':checked') ? moveButtons.prop('disabled', null) : moveButtons.prop('disabled', true);
+            checkboxes = $('input[type="checkbox"]');
+
+            return moveButtons.prop('disabled', checkboxes.filter(':checked').length < 1);
         });
       }
     }, 100);
