@@ -214,3 +214,37 @@ chrome.storage.sync.get('prefs', function(result) {
 
   }, 100);
 });
+
+
+
+// Install/update notifications
+if (typeof chrome.runtime.onInstalled !== 'undefined') {
+
+  chrome.runtime.onInstalled.addListener(function(details) {
+
+    var
+      install = {
+        type: 'basic',
+        title: 'Thanks for installing Discogs Enhancement Suite!',
+        message: 'Please see the "About" page for detailed info on each of the options.',
+        iconUrl: '../img/icon_48.png'
+      },
+      update = {
+        type: 'basic',
+        title: 'DES Update',
+        message: 'Discogs Enhancement Suite has been updated! Check the About page for more details.',
+        iconUrl: '../img/icon_48.png'
+      };
+
+    if (details.reason === 'install') {
+
+      console.log('Welcome to the pleasure dome!');
+
+      chrome.notifications.create('notify', install, null);
+
+    } else if (details.reason === 'update') {
+
+      chrome.notifications.create('notify', update, null);
+    }
+  });
+}

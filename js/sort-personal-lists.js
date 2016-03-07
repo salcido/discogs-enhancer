@@ -132,6 +132,8 @@ $(document).ready(function() {
                      'width: 95px;">Sort A-Z</button>' +
                      '</div>';
 
+    desc = false;
+
     findList = setInterval(function() {
 
       // Make sure the select exists

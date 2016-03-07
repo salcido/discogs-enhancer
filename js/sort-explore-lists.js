@@ -124,13 +124,15 @@ $(document).ready(function() {
   // Map functions to modal dialog buttons
   $('.more_facets_link').click(function() {
 
-    var append = setInterval(function() {
+    var append;
 
-    // Wait for modal to be rendered into the DOM
-    // then attach our button
-    if ($('.react-modal.more_facets_dialog').length) {
+    desc = false;
 
-        desc = false;
+    append = setInterval(function() {
+
+      // Wait for modal to be rendered into the DOM
+      // then attach our button
+      if ($('.react-modal.more_facets_dialog').length) {
 
         width = $('.react-modal.more_facets_dialog').width();
 
