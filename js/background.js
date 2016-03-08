@@ -223,20 +223,19 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
   chrome.runtime.onInstalled.addListener(function(details) {
 
     var
+        install,
+        previousVersion,
+        thisVersion,
+        update;
+
+    if (details.reason === 'install') {
+
       install = {
         type: 'basic',
         title: 'Thanks for installing Discogs Enhancement Suite!',
         message: 'Please see the "About" page for detailed info on each of the options.',
         iconUrl: '../img/icon_48.png'
-      },
-      update = {
-        type: 'basic',
-        title: 'DES Update',
-        message: 'Discogs Enhancement Suite has been updated! Check the About page for more details.',
-        iconUrl: '../img/icon_48.png'
       };
-
-    if (details.reason === 'install') {
 
       console.log('Welcome to the pleasure dome!');
 
@@ -244,7 +243,22 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
     } else if (details.reason === 'update') {
 
-      chrome.notifications.create('notify', update, null);
+      previousVersion = details.previousVersion;
+
+      thisVersion = chrome.runtime.getManifest().version;
+
+      update = {
+        type: 'basic',
+        title: 'DES Update',
+        message: 'Discogs Enhancement Suite has been updated! Check the About page for more details.',
+        iconUrl: '../img/icon_48.png'
+      };
+
+      // Don't show update notice on patches
+      if (thisVersion.substr(0, 3) > previousVersion.substr(0, 3)) {
+
+        chrome.notifications.create('notify', update, null);
+      }
     }
   });
 }

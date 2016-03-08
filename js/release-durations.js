@@ -1,3 +1,10 @@
+/**
+ *
+ * Calculates the total playing time of any relase
+ * if track times are provided.
+ *
+ */
+
 $(document).ready(function() {
 
   if ($('table.playlist').length) {

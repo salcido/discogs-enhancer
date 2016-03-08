@@ -10,6 +10,7 @@ $(document).ready(function() {
   var
       clicks = 1,
       desc = false,
+      sortName,
       storage,
       width = '';
 
@@ -67,25 +68,36 @@ $(document).ready(function() {
   }
 
 
+  // Sets the text of the sort button
+  function setButtonText(elem) {
+
+    if (elem.text() === 'Sort A-Z') {
+
+      sortName = 'Sort Z-A';
+
+      return sortName;
+
+    } else if (elem.text() === 'Sort Z-A') {
+
+      sortName = 'Undo Sort';
+
+      return sortName;
+
+    } else if (elem.text() === 'Undo Sort') {
+
+      sortName = 'Sort A-Z';
+
+      return sortName;
+    }
+  }
+
+
   // Add new button functionality
   function registerButtonClicks() {
 
-    var sortName;
-
     $('#sortExplore').click(function() {
 
-      if ($(this).text() === 'Sort A-Z') {
-
-        sortName = 'Sort Z-A';
-
-      } else if ($(this).text() === 'Sort Z-A') {
-
-        sortName = 'Undo Sort';
-
-      } else if ($(this).text() === 'Undo Sort') {
-
-        sortName = 'Sort A-Z';
-      }
+      setButtonText($(this));
 
       clicks++;
 
@@ -132,7 +144,7 @@ $(document).ready(function() {
 
       // Wait for modal to be rendered into the DOM
       // then attach our button
-      if ($('.react-modal.more_facets_dialog').length) {
+      if ( $('.react-modal.more_facets_dialog').length ) {
 
         width = $('.react-modal.more_facets_dialog').width();
 

@@ -1,3 +1,9 @@
+/**
+ *
+ * Improves the UI of the collection page.
+ *
+ */
+
 $(document).ready(function() {
 
   var loc = window.location.href;

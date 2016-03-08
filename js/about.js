@@ -1,5 +1,4 @@
 // Inserts version and year into the about.html page
-
 document.addEventListener('DOMContentLoaded', function () {
 
   function getVersionAndYear() {

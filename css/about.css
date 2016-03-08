@@ -28,6 +28,18 @@ p {
   transition: all 0.3s ease;
 }
 
+a {
+  color: #809bbe;
+}
+
+a:visited {
+  color: #a590d0;
+}
+
+a:hover {
+  color: #cae0fa;
+}
+
 .about .title img {
   max-width: 325px;
   margin: 25px auto;
@@ -41,6 +53,15 @@ p {
   font-weight: bold;
   color: white;
   text-transform: uppercase;
+}
+
+
+.about p.troubleshoot {
+  color: khaki;
+}
+
+.about p.content {
+  margin-bottom: 30px;
 }
 
 .about h3 {
@@ -59,7 +80,7 @@ p {
   text-align: center;
   color: #ccc;
   font-size: 11px;
-  margin-top: 25px;
+  margin: 25px;
 }
 
 .about .copyright a:hover {
@@ -121,4 +142,50 @@ table caption {
     margin-top: 25px;
     font-family: sans-serif;
     margin-bottom: 150px;
+}
+
+.mint {
+    color: #00b4db !important;
+}
+
+.near-mint {
+  color: #00dbb4 !important;
+}
+
+.very-good-plus {
+  color: #00db1f !important; 
+}
+
+.very-good {
+  color: #85ab11 !important;
+}
+
+.good-plus {
+  color: #f6bf48 !important;
+}
+
+.good {
+  color: #d87307 !important;
+}
+
+.fair {
+  color: #e54803 !important;
+}
+
+.poor {
+  color: #ff0000 !important;
+}
+
+.sort-btn {
+  border-color: #3571a6 !important;
+  border-top-color: #3776ae !important;
+  border-bottom-color: #31699b !important;
+  background-color: #4588C4 !important;
+  color: white !important;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+i {
+  color: white;
 }

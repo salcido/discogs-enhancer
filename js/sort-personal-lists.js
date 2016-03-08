@@ -10,6 +10,7 @@ $(document).ready(function() {
   var
       clicks = 1,
       desc = false,
+      sortName,
       storage;
 
   // Link sorter function
@@ -38,7 +39,7 @@ $(document).ready(function() {
 
     listOldPick.find('option').remove();
 
-    listOldPick.append($('<option></option>').html('Sorting...'));
+    listOldPick.append( $('<option></option>').html('Sorting...') );
 
     // intentional delay for illustrative purposes only
     setTimeout(function(){
@@ -51,10 +52,32 @@ $(document).ready(function() {
       });
 
       // Select the first option after reordering
-      listOldPick.val($('#list_oldpick option:first').val());
+      listOldPick.val( $('#list_oldpick option:first').val() );
     }, 100);
   }
 
+
+  function setButtonText(elem) {
+
+    if ( elem.text() === 'Sort A-Z') {
+
+      sortName = 'Sort Z-A';
+
+      return sortName;
+
+    } else if ( elem.text() === 'Sort Z-A') {
+
+      sortName = 'Most Recent';
+
+      return sortName;
+
+    } else if ( elem.text() === 'Most Recent') {
+
+      sortName = 'Sort A-Z';
+
+      return sortName;
+    }
+  }
 
 
   // Add new button functionality
@@ -64,20 +87,7 @@ $(document).ready(function() {
 
     $('#sortPLists').click(function() {
 
-      var sortName;
-
-      if ($(this).text() === 'Sort A-Z') {
-
-        sortName = 'Sort Z-A';
-
-      } else if ($(this).text() === 'Sort Z-A') {
-
-        sortName = 'Most Recent';
-
-      } else if ($(this).text() === 'Most Recent') {
-
-        sortName = 'Sort A-Z';
-      }
+      setButtonText($(this));
 
       clicks++;
 
@@ -85,7 +95,7 @@ $(document).ready(function() {
 
         listOldPick.find('option').remove();
 
-        listOldPick.append($('<option></option>').html('Undoing...'));
+        listOldPick.append( $('<option></option>').html('Undoing...') );
 
         // intentional delay for illustrative purposes only
         setTimeout(function() {
@@ -101,7 +111,7 @@ $(document).ready(function() {
 
       } else {
 
-        sortPersonalLists($('#list_oldpick option'), desc);
+        sortPersonalLists( $('#list_oldpick option'), desc );
 
         desc = !desc;
 
@@ -137,7 +147,7 @@ $(document).ready(function() {
     findList = setInterval(function() {
 
       // Make sure the select exists
-      if ($('#list_oldpick option').length > 0) {
+      if ( $('#list_oldpick option').length > 0 ) {
 
         // fire sorting upon first click
         // (might be cool to make this an option in the menu)
@@ -146,13 +156,13 @@ $(document).ready(function() {
         // Insert our sort button
         findAdd = setInterval(function() {
 
-          if ($('#listadd').length) {
+          if ( $('#listadd').length ) {
 
             clearInterval(findAdd);
 
             storage = $('#list_oldpick').clone(true);
 
-            $(sortButton).insertAfter($('#listadd'));
+            $(sortButton).insertAfter( $('#listadd') );
 
             registerOptionButtonClicks();
           }

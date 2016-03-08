@@ -11,9 +11,10 @@ $(document).ready(function() {
   var
       clicks = 1,
       desc = false,
-      filterTarget = null,
+      filterTarget,
       moreFiltersContainer = $('#more_filters_container'),
-      moreFiltersStorage = null,
+      moreFiltersStorage,
+      sortName,
       storage;
 
 
@@ -34,7 +35,6 @@ $(document).ready(function() {
   }
 
 
-
   // Link sorter function
   function compareText(a1, a2) {
 
@@ -45,15 +45,14 @@ $(document).ready(function() {
   }
 
 
-
   // Sort our lists and create new HTML, then insert
   // the newly sorted list array elements.
   function sortUnorderedFilterList(ul, sortDescending) {
 
     var
-        liHead = null,
+        liHead,
         listElms = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
-        newUl = null,
+        newUl,
         vals = [];
 
     // Grab all the list elements and push them into our array
@@ -95,27 +94,36 @@ $(document).ready(function() {
   }
 
 
+  function setButtonText(elem) {
+
+    if (elem.text() === 'Sort A-Z') {
+
+      sortName = 'Sort Z-A';
+
+      return sortName;
+
+    } else if (elem.text() === 'Sort Z-A') {
+
+      sortName = 'Undo Sort';
+
+      return sortName;
+
+    } else if (elem.text() === 'Undo Sort') {
+
+      sortName = 'Sort A-Z';
+
+      return sortName;
+    }
+  }
+
 
   // Add new button functionalities
   function registerFilterButtonClicks() {
 
-    var sortName;
-
     // Injected 'Sort A-Z' button
     $('#sortFilters').click(function() {
 
-      if ($(this).text() === 'Sort A-Z') {
-
-        sortName = 'Sort Z-A';
-
-      } else if ($(this).text() === 'Sort Z-A') {
-
-        sortName = 'Undo Sort';
-
-      } else if ($(this).text() === 'Undo Sort') {
-
-        sortName = 'Sort A-Z';
-      }
+      setButtonText($(this));
 
       clicks++;
 
@@ -133,9 +141,9 @@ $(document).ready(function() {
 
         sortUnorderedFilterList($('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav'), desc);
 
-        desc = !desc;
-
         $(this).text(sortName);
+
+        desc = !desc;
 
         return false;
       }
@@ -156,7 +164,6 @@ $(document).ready(function() {
   }
 
 
-
   // Map functions to modal dialog buttons
   $('.show_more_filters').click(function() {
 
@@ -169,7 +176,7 @@ $(document).ready(function() {
 
     // Make sure the correct child element exists in |#more_filters_container|
     // before storing it.
-    checkForMarkup = setInterval( function() {
+    checkForMarkup = setInterval(function() {
 
       if ( $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).length ) {
 
