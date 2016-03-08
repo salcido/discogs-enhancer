@@ -1,6 +1,6 @@
 /**
  *
- * dark-mode.css will override all styles.
+ * dark-theme.css will override all styles.
  * This will colorize the legend on the release history page.
  *
  */

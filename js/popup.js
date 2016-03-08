@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  var toggleDarkMode = document.getElementById('toggleDarkMode'),
+  var toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleConditions = document.getElementById('toggleConditions'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       prefs = {};
-
-
 
   /**
    * Save preferences
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function saveChanges(message) {
 
     prefs = {
-      darkMode: toggleDarkMode.checked,
+      darkTheme: toggleDarkTheme.checked,
       highlightMedia: toggleConditions.checked,
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
@@ -34,31 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-
-
   /**
    * Toggle dark mode on/off
    */
 
-  function toggleDarkness(event) {
+  function useDarkTheme(event) {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/apply-dark-mode.js'}, function() {
+      chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
 
         saveChanges();
       });
 
     } else {
 
-      chrome.tabs.executeScript(null, {file: 'js/remove-dark-mode.js'}, function() {
+      chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
 
         saveChanges();
       });
     }
   }
-
-
 
   /**
    * Toggle release condition highlighting on/off
@@ -84,8 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
-
   /**
    * Toggle ability to sort genres, etc
    */
@@ -106,8 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
       saveChanges(response);
     }
   }
-
-
 
   /**
    * Toggle track totals
@@ -141,6 +131,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Event listeners on toggles
+  toggleDarkTheme.addEventListener('change', useDarkTheme);
+
+  toggleConditions.addEventListener('change', toggleHighlights);
+
+  toggleSortBtns.addEventListener('change', sortGenres);
+
+  toggleReleaseDurations.addEventListener('change', trackTotals);
+
+  toggleCollectionUi.addEventListener('change', enableCollectionUi);
+
+  /**
+   * Open about page.
+   */
+  $('body').on('click', '#about', function() {
+
+    chrome.tabs.create({url: '../html/about.html'});
+  });
 
   /**
    * Get stored preferences for extension menu
@@ -150,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
-      toggleDarkMode.checked = result.prefs.darkMode;
+      toggleDarkTheme.checked = result.prefs.darkTheme;
 
       toggleConditions.checked = result.prefs.highlightMedia;
 
@@ -162,28 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-
-
   // Start it up
   init();
-
-
-
-  // Event listeners on toggles
-  toggleDarkMode.addEventListener('change', toggleDarkness);
-
-  toggleConditions.addEventListener('change', toggleHighlights);
-
-  toggleSortBtns.addEventListener('change', sortGenres);
-
-  toggleReleaseDurations.addEventListener('change', trackTotals);
-
-  toggleCollectionUi.addEventListener('change', enableCollectionUi);
-
-
-  // Open about tab
-  $('body').on('click', '#about', function() {
-
-    chrome.tabs.create({url: '../html/about.html'});
-  });
 });

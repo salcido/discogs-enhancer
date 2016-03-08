@@ -38,7 +38,7 @@
     ],
 
     "web_accessible_resources": [
-      "css/dark-mode.css",
+      "css/dark-theme.css",
       "css/marketplace-highlights.css",
       "js/jquery/jquery-min.js",
       "js/apply-highlights.js",

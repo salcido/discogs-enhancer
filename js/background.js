@@ -12,7 +12,6 @@
 var
     collectionUi, // js/better-collection-ui.js
     darkTheme,
-    darkStyles,
     elems = [],
     fragment,
     highlightCss, // css/marketplace-highlights.css element
@@ -27,7 +26,6 @@ var
     sortMarketplaceScript, // js/sort-marketplace-lists.js
     sortPersonalListsScript; // js/sort-personal-lists.js
 
-
 function appendFragment() {
 
   fragment = document.createDocumentFragment();
@@ -41,25 +39,12 @@ function appendFragment() {
 }
 
 
-function enableDarkTheme(preference) {
-
-  darkStyles = document.getElementById(darkTheme.id);
-
-  setTimeout(function() {
-
-    return preference === true ? darkStyles.removeAttribute('disabled') : darkStyles.setAttribute('disabled', true);
-  }, 50);
-}
-
-
 chrome.storage.sync.get('prefs', function(result) {
-
-  var useDarkTheme;
 
   if (!result.prefs) {
 
     prefs = {
-      darkMode: true,
+      darkTheme: true,
       highlightMedia: true,
       sortButtons: true,
       releaseDurations: true,
@@ -91,14 +76,19 @@ chrome.storage.sync.get('prefs', function(result) {
 
   darkTheme.type = 'text/css';
 
-  darkTheme.href = chrome.extension.getURL('css/dark-mode.css');
+  darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
 
-  darkTheme.id = 'darkModeCss';
+  darkTheme.id = 'darkThemeCss';
+
+  if (!result.prefs.darkTheme) {
+
+    darkTheme.setAttribute('disabled', true);
+  }
 
   initElems.push(darkTheme);
 
 
-  // Append jQuery and darkmode css
+  // Append jQuery and dark-theme css
   initFragment = document.createDocumentFragment();
 
   initElems.forEach(function(elm) {
@@ -108,14 +98,11 @@ chrome.storage.sync.get('prefs', function(result) {
 
   (document.head || document.documentElement).appendChild(initFragment.cloneNode(true));
 
-
-  // Enable darkmode if necessary
-  useDarkTheme = result.prefs.darkMode;
-
-  enableDarkTheme(useDarkTheme);
-
-
-  // Assemble remaining stuff for appending
+  /**
+   *
+   * Create document fragment with preferences
+   *
+   */
   if (result.prefs.highlightMedia) {
 
     // apply-highlights.js
@@ -174,7 +161,7 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(sortPersonalListsScript);
   }
 
-  if (result.prefs.darkMode) {
+  if (result.prefs.darkTheme) {
 
     releaseHistoryScript = document.createElement('script');
 
@@ -184,7 +171,6 @@ chrome.storage.sync.get('prefs', function(result) {
 
     elems.push(releaseHistoryScript);
   }
-
 
   if (result.prefs.releaseDurations) {
 
@@ -214,8 +200,6 @@ chrome.storage.sync.get('prefs', function(result) {
 
   }, 100);
 });
-
-
 
 // Install/update notifications
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
