@@ -220,7 +220,8 @@ chrome.storage.sync.get('prefs', function(result) {
             request: 'updateContextMenu',
             id: 'deejay',
             name: 'DeeJay',
-            method: 'create'
+            method: 'create',
+            fn: 'searchDeeJay'
         });
   }
 
@@ -230,7 +231,8 @@ chrome.storage.sync.get('prefs', function(result) {
             request: 'updateContextMenu',
             id: 'discogs',
             name: 'Discogs',
-            method: 'create'
+            method: 'create',
+            fn: 'searchDiscogs'
         });
   }
 
@@ -240,7 +242,8 @@ chrome.storage.sync.get('prefs', function(result) {
             request: 'updateContextMenu',
             id: 'insound',
             name: 'InSound',
-            method: 'create'
+            method: 'create',
+            fn: 'searchInsound'
         });
   }
 
@@ -250,7 +253,8 @@ chrome.storage.sync.get('prefs', function(result) {
             request: 'updateContextMenu',
             id: 'juno',
             name: 'Juno',
-            method: 'create'
+            method: 'create',
+            fn: 'searchJuno'
         });
   }
 
@@ -260,7 +264,8 @@ chrome.storage.sync.get('prefs', function(result) {
             request: 'updateContextMenu',
             id: 'oye',
             name: 'Oye',
-            method: 'create'
+            method: 'create',
+            fn: 'searchOye'
         });
   }
 
@@ -270,7 +275,8 @@ chrome.storage.sync.get('prefs', function(result) {
             request: 'updateContextMenu',
             id: 'pbvinyl',
             name: 'PBVinyl',
-            method: 'create'
+            method: 'create',
+            fn: 'searchPbvinyl'
         });
   }
 });

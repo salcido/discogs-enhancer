@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function didSeeUpdate(message) {
+  function acknowledgeUpdate(message) {
 
     chrome.storage.sync.set({didUpdate: false}, function() {});
 
@@ -165,45 +165,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * display contextual menu options
+   * display contextual menu options on hover
    */
-
-  // function showContextMenus(event) {
-
-  //   var
-  //       contextMenus = $('#contextMenus'),
-  //       interval,
-  //       toggleGroup = $('.toggle-group.menus');
-
-  //   if (event.target.checked) {
-
-  //     toggleGroup.css({height: '95px'});
-
-  //     interval = setInterval(function() {
-
-  //       if (toggleGroup.height() === 95) {
-
-  //         contextMenus.fadeIn('fast');
-
-  //         clearInterval(interval);
-  //       }
-  //     }, 100);
-
-  //   } else {
-
-  //     contextMenus.fadeOut('fast');
-
-  //     interval = setInterval(function() {
-
-  //       if (contextMenus.is(':hidden')) {
-
-  //         toggleGroup.css({height: '25px'});
-
-  //         clearInterval(interval);
-  //       }
-  //     }, 100);
-  //   }
-  // }
 
   $('.toggle-group.menus').mouseenter(function() {
 
@@ -257,149 +220,30 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /**
-   * Contexual menu functions
+   * Create/destroy contextual menus
    */
 
-  function useDeeJay(event) {
+  function updateMenu(event) {
 
     if (event.target.checked) {
 
       chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'deejay',
-              method: 'create'
-          });
+        request: 'updateContextMenu',
+        id: event.target.id,
+        name: event.target.dataset.name,
+        method: 'create',
+        fn: event.target.dataset.funct
+      });
 
       saveChanges();
 
     } else {
 
       chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'deejay',
-              method: 'remove'
-          });
-
-      saveChanges();
-    }
-  }
-
-  function useDiscogs(event) {
-
-    if (event.target.checked) {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'discogs',
-              method: 'create'
-          });
-
-      saveChanges();
-
-    } else {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'discogs',
-              method: 'remove'
-          });
-
-      saveChanges();
-    }
-  }
-
-
-  function useInsound(event) {
-
-    if (event.target.checked) {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'insound',
-              method: 'create'
-          });
-
-      saveChanges();
-
-    } else {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'insound',
-              method: 'remove'
-          });
-
-      saveChanges();
-    }
-  }
-
-  function useJuno(event) {
-
-    if (event.target.checked) {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'juno',
-              method: 'create'
-          });
-
-      saveChanges();
-
-    } else {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'juno',
-              method: 'remove'
-          });
-
-      saveChanges();
-    }
-  }
-
-  function useOye(event) {
-
-    if (event.target.checked) {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'oye',
-              method: 'create'
-          });
-
-      saveChanges();
-
-    } else {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'oye',
-              method: 'remove'
-          });
-
-      saveChanges();
-    }
-  }
-
-  function usePbvinyl(event) {
-
-    if (event.target.checked) {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'pbvinyl',
-              method: 'create'
-          });
-
-      saveChanges();
-
-    } else {
-
-      chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'pbvinyl',
-              method: 'remove'
-          });
+          request: 'updateContextMenu',
+          id: event.target.id,
+          method: 'remove'
+      });
 
       saveChanges();
     }
@@ -409,12 +253,12 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleCollectionUi.addEventListener('change', enableCollectionUi);
   toggleConditions.addEventListener('change', toggleHighlights);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
-  toggleDeeJay.addEventListener('change', useDeeJay);
-  toggleDiscogs.addEventListener('change', useDiscogs);
-  toggleInsound.addEventListener('change', useInsound);
-  toggleJuno.addEventListener('change', useJuno);
-  toggleOye.addEventListener('change', useOye);
-  togglePbvinyl.addEventListener('change', usePbvinyl);
+  toggleDeeJay.addEventListener('change', updateMenu);
+  toggleDiscogs.addEventListener('change', updateMenu);
+  toggleInsound.addEventListener('change', updateMenu);
+  toggleJuno.addEventListener('change', updateMenu);
+  toggleOye.addEventListener('change', updateMenu);
+  togglePbvinyl.addEventListener('change', updateMenu);
   toggleReleaseDurations.addEventListener('change', trackTotals);
   toggleSortBtns.addEventListener('change', sortGenres);
 
@@ -441,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.tabs.create({url: '../html/about.html'});
 
-    didSeeUpdate();
+    acknowledgeUpdate();
   });
 
 
