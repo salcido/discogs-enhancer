@@ -48,7 +48,13 @@ chrome.storage.sync.get('prefs', function(result) {
       highlightMedia: true,
       sortButtons: true,
       releaseDurations: true,
-      collectionUi: true
+      collectionUi: true,
+      useDeejay: true,
+      useDiscogs: true,
+      useInsound: true,
+      useJuno: true,
+      useOye: true,
+      usePbvinyl: true
       };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -201,29 +207,88 @@ chrome.storage.sync.get('prefs', function(result) {
   }, 100);
 });
 
+/**
+ *
+ * Contextual menu options
+ *
+ */
+chrome.storage.sync.get('prefs', function(result) {
+
+  if (result.prefs.useDeejay) {
+
+    chrome.runtime.sendMessage({
+            request: 'updateContextMenu',
+            id: 'deejay',
+            name: 'DeeJay',
+            method: 'create'
+        });
+  }
+
+  if (result.prefs.useDiscogs) {
+
+    chrome.runtime.sendMessage({
+            request: 'updateContextMenu',
+            id: 'discogs',
+            name: 'Discogs',
+            method: 'create'
+        });
+  }
+
+  if (result.prefs.useInsound) {
+
+    chrome.runtime.sendMessage({
+            request: 'updateContextMenu',
+            id: 'insound',
+            name: 'InSound',
+            method: 'create'
+        });
+  }
+
+  if (result.prefs.useJuno) {
+
+    chrome.runtime.sendMessage({
+            request: 'updateContextMenu',
+            id: 'juno',
+            name: 'Juno',
+            method: 'create'
+        });
+  }
+
+  if (result.prefs.useOye) {
+
+    chrome.runtime.sendMessage({
+            request: 'updateContextMenu',
+            id: 'oye',
+            name: 'Oye',
+            method: 'create'
+        });
+  }
+
+  if (result.prefs.usePbvinyl) {
+
+    chrome.runtime.sendMessage({
+            request: 'updateContextMenu',
+            id: 'pbvinyl',
+            name: 'PBVinyl',
+            method: 'create'
+        });
+  }
+});
+
 // Install/update notifications
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
   chrome.runtime.onInstalled.addListener(function(details) {
 
     var
-        install,
         previousVersion,
-        thisVersion,
-        update;
+        thisVersion;
 
     if (details.reason === 'install') {
 
-      install = {
-        type: 'basic',
-        title: 'Thanks for installing Discogs Enhancement Suite!',
-        message: 'Please see the "About" page for detailed info on each of the options.',
-        iconUrl: '../img/icon_48.png'
-      };
-
       console.log('Welcome to the pleasure dome!');
 
-      chrome.notifications.create('notify', install, null);
+      chrome.storage.sync.set({didUpdate: false}, function() {});
 
     } else if (details.reason === 'update') {
 
@@ -231,17 +296,14 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       thisVersion = chrome.runtime.getManifest().version;
 
-      update = {
-        type: 'basic',
-        title: 'DES Update',
-        message: 'Discogs Enhancement Suite has been updated! Check the About page for more details.',
-        iconUrl: '../img/icon_48.png'
-      };
-
       // Don't show update notice on patches
       if (thisVersion.substr(0, 3) > previousVersion.substr(0, 3)) {
 
-        chrome.notifications.create('notify', update, null);
+        chrome.browserAction.setBadgeText({text: ' '});
+
+        chrome.browserAction.setBadgeBackgroundColor({color: '#4cb749'});
+
+        chrome.storage.sync.set({didUpdate: true}, function() {});
       }
     }
   });

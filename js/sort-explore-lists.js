@@ -28,7 +28,6 @@ $(document).ready(function() {
   }
 
 
-
   // Link sorter function
   function compareText(a1, a2) {
 
@@ -130,7 +129,6 @@ $(document).ready(function() {
       desc = false;
     });
   }
-
 
 
   // Map functions to modal dialog buttons

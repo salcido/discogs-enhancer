@@ -7,10 +7,12 @@
 
 $(document).ready(function() {
 
-  var loc = window.location.href,
+  var
+      artistHistory = /discogs.com\/artist\//g,
+      loc = window.location.href,
       releaseHistory = /discogs.com\/release\//g;
 
-  if (loc.match(releaseHistory)) {
+  if (loc.match(releaseHistory) || loc.match(artistHistory)) {
 
     setTimeout(function() {
 

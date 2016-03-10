@@ -41,6 +41,33 @@ p {
   transition: all 0.3s ease;
 }
 
+a.button_orange {
+  background-color: #f98717;
+  border-color: #eea236;
+  background-image: linear-gradient(#f98717,#f96c17);
+  background-size: 100%;
+  border-bottom-color: #f96c17 !important;
+  border-radius: 3px;
+  border-style: solid;
+  border-top-color: #f98717 !important;
+  border-width: 1px;
+  color: white !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  height: 2em;
+  line-height: 2em;
+  margin: 25px 25% 25px 33%;
+  outline: none;
+  padding: 0 1em;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  vertical-align: middle;
+  width: 25%;
+}
+
 a.button_green {
   background-color: #60C43F !important;
   background-image: linear-gradient(#60c43f,#59ba39);
@@ -111,6 +138,10 @@ a.button_green:hover {
   padding-bottom: 25px;
 }
 
+.toggle-group.menus {
+  height: 25px;
+}
+
 .label {
   float: left;
   margin-left: 8px;
@@ -178,4 +209,33 @@ sup {
 
 .hide {
   display: none;
+}
+
+input[type="checkbox"]:focus {
+  outline:0;
+}
+
+.context-menus {
+  clear:both;
+  margin-top: 55px;
+  overflow:hidden;
+}
+
+.checkbox-group {
+  width: 335px;
+  color: #ccc;
+  float: right;
+}
+
+.checkbox-group input {
+  margin-right: 10px;
+}
+
+.checkbox-group label {
+  margin-right: 15px;
+}
+
+.box-wrap {
+  width: 110px;
+  float: left;
 }
