@@ -49,8 +49,14 @@ chrome.storage.sync.get('prefs', function(result) {
       sortButtons: true,
       releaseDurations: true,
       collectionUi: true,
+      useBandcamp: true,
+      useBoomkat: true,
+      useClone: true,
       useDeejay: true,
       useDiscogs: true,
+      useGramaphone: true,
+      useHalcyon: true,
+      useHardwax: true,
       useInsound: true,
       useJuno: true,
       useOye: true,
@@ -200,6 +206,143 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(collectionUi);
   }
 
+  /**
+   *
+   * Contextual menu options
+   *
+   */
+  if (result.prefs.useBandcamp) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchBandcamp',
+      id: 'bandcamp',
+      method: 'create',
+      name: 'Bandcamp',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useBoomkat) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchBoomkat',
+      id: 'boomkat',
+      method: 'create',
+      name: 'Boomkat',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useClone) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchClone',
+      id: 'clone',
+      method: 'create',
+      name: 'Clone',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useDeejay) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchDeeJay',
+      id: 'deejay',
+      method: 'create',
+      name: 'DeeJay',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useDiscogs) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchDiscogs',
+      id: 'discogs',
+      method: 'create',
+      name: 'Discogs',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useGramaphone) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchGramaphone',
+      id: 'gramaphone',
+      method: 'create',
+      name: 'Gramaphone',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useHalcyon) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchHalcyon',
+      id: 'halcyon',
+      method: 'create',
+      name: 'Halcyon',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useHardwax) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchHardwax',
+      id: 'hardwax',
+      method: 'create',
+      name: 'Hardwax',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useInsound) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchInsound',
+      id: 'insound',
+      method: 'create',
+      name: 'InSound',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useJuno) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchJuno',
+      id: 'juno',
+      method: 'create',
+      name: 'Juno',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useOye) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchOye',
+      id: 'oye',
+      method: 'create',
+      name: 'Oye',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.usePbvinyl) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchPbvinyl',
+      id: 'pbvinyl',
+      method: 'create',
+      name: 'PBVinyl',
+      request: 'updateContextMenu'
+    });
+  }
+
   setTimeout(function() {
 
     appendFragment(result);
@@ -207,79 +350,6 @@ chrome.storage.sync.get('prefs', function(result) {
   }, 100);
 });
 
-/**
- *
- * Contextual menu options
- *
- */
-chrome.storage.sync.get('prefs', function(result) {
-
-  if (result.prefs.useDeejay) {
-
-    chrome.runtime.sendMessage({
-            request: 'updateContextMenu',
-            id: 'deejay',
-            name: 'DeeJay',
-            method: 'create',
-            fn: 'searchDeeJay'
-        });
-  }
-
-  if (result.prefs.useDiscogs) {
-
-    chrome.runtime.sendMessage({
-            request: 'updateContextMenu',
-            id: 'discogs',
-            name: 'Discogs',
-            method: 'create',
-            fn: 'searchDiscogs'
-        });
-  }
-
-  if (result.prefs.useInsound) {
-
-    chrome.runtime.sendMessage({
-            request: 'updateContextMenu',
-            id: 'insound',
-            name: 'InSound',
-            method: 'create',
-            fn: 'searchInsound'
-        });
-  }
-
-  if (result.prefs.useJuno) {
-
-    chrome.runtime.sendMessage({
-            request: 'updateContextMenu',
-            id: 'juno',
-            name: 'Juno',
-            method: 'create',
-            fn: 'searchJuno'
-        });
-  }
-
-  if (result.prefs.useOye) {
-
-    chrome.runtime.sendMessage({
-            request: 'updateContextMenu',
-            id: 'oye',
-            name: 'Oye',
-            method: 'create',
-            fn: 'searchOye'
-        });
-  }
-
-  if (result.prefs.usePbvinyl) {
-
-    chrome.runtime.sendMessage({
-            request: 'updateContextMenu',
-            id: 'pbvinyl',
-            name: 'PBVinyl',
-            method: 'create',
-            fn: 'searchPbvinyl'
-        });
-  }
-});
 
 // Install/update notifications
 if (typeof chrome.runtime.onInstalled !== 'undefined') {

@@ -186,6 +186,6 @@ table caption {
   border-radius: 3px;
 }
 
-i {
-  color: white;
+span.new {
+  color: red;
 }

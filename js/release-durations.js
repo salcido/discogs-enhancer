@@ -1,5 +1,16 @@
 /**
  *
+ * DISCOGS ENHANCEMENT SUITE
+ *
+ * @author: Matthew Salcido (c) 2016
+ * @url: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ * @discogs: https://www.discogs.com/user/mattsalcido
+ *
+ */
+
+/**
+ *
  * Calculates the total playing time of any relase
  * if track times are provided.
  *
@@ -79,7 +90,7 @@ $(document).ready(function() {
       result = hours + ':';
     }
 
-    if (minutes) {
+    if (minutes !== null) { // 0 you falsy bastard!
 
       if (hours) {
 
@@ -95,7 +106,7 @@ $(document).ready(function() {
 
     result += (seconds < 10 ? '0' + seconds : seconds);
 
-    if (result === '00') {
+    if (result === '0:00') {
 
       $.noop();
 

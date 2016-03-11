@@ -1,3 +1,14 @@
+/**
+ *
+ * DISCOGS ENHANCEMENT SUITE
+ *
+ * @author: Matthew Salcido (c) 2016
+ * @url: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ * @discogs: https://www.discogs.com/user/mattsalcido
+ *
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
 
   var
@@ -6,14 +17,21 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConditions = document.getElementById('toggleConditions'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
+      toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
+      toggleSortBtns = document.getElementById('toggleSortBtns'),
+      // contextual menus
+      toggleBandcamp = document.getElementById('bandcamp'),
+      toggleBoomkat = document.getElementById('boomkat'),
+      toggleClone = document.getElementById('clone'),
       toggleDeeJay = document.getElementById('deejay'),
       toggleDiscogs = document.getElementById('discogs'),
+      toggleGramaphone = document.getElementById('gramaphone'),
+      toggleHalcyon = document.getElementById('halcyon'),
+      toggleHardwax = document.getElementById('hardwax'),
       toggleInsound = document.getElementById('insound'),
       toggleJuno = document.getElementById('juno'),
       toggleOye = document.getElementById('oye'),
-      togglePbvinyl = document.getElementById('pbvinyl'),
-      toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
-      toggleSortBtns = document.getElementById('toggleSortBtns');
+      togglePbvinyl = document.getElementById('pbvinyl');
 
 
   /**
@@ -28,13 +46,19 @@ document.addEventListener('DOMContentLoaded', function () {
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
       collectionUi: toggleCollectionUi.checked,
+      useBandcamp: toggleBandcamp.checked,
+      useBoomkat: toggleBoomkat.checked,
+      useClone: toggleClone.checked,
       useDeejay: toggleDeeJay.checked,
       useDiscogs: toggleDiscogs.checked,
+      useGramaphone: toggleGramaphone.checked,
+      useHalcyon: toggleHalcyon.checked,
+      useHardwax: toggleHardwax.checked,
       useInsound: toggleInsound.checked,
       useJuno: toggleJuno.checked,
       useOye: toggleOye.checked,
       usePbvinyl: togglePbvinyl.checked
-      };
+    };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
 
@@ -54,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.browserAction.setBadgeText({text: ''});
   }
 
+
   /**
    * Toggle dark mode on/off
    */
@@ -68,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       chrome.runtime.sendMessage({
-              request: 'updateContextMenu',
-              id: 'oye',
-              method: 'create'
-          });
+        request: 'updateContextMenu',
+        id: 'oye',
+        method: 'create'
+      });
 
     } else {
 
@@ -165,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * display contextual menu options on hover
+   * Display contextual menu options on hover
    */
 
   $('.toggle-group.menus').mouseenter(function() {
@@ -181,13 +206,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (isHovering) {
 
-        $(this).css({height: '95px'});
+        $(this).css({height: '125px'});
       }
     }.bind(this), 300);
 
     interval = setInterval(function() {
 
-      if (toggleGroup.height() === 95) {
+      if (toggleGroup.height() >= 120) {
 
         contextMenus.fadeIn('fast');
 
@@ -196,6 +221,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 100);
 
   });
+
+  /**
+   * Hide contextual menu options on mouseleave
+   */
 
   $('.toggle-group.menus').mouseleave(function() {
 
@@ -219,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 100);
   });
 
+
   /**
    * Create/destroy contextual menus
    */
@@ -228,11 +258,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (event.target.checked) {
 
       chrome.runtime.sendMessage({
-        request: 'updateContextMenu',
+        fn: event.target.dataset.funct,
         id: event.target.id,
-        name: event.target.dataset.name,
         method: 'create',
-        fn: event.target.dataset.funct
+        name: event.target.dataset.name,
+        request: 'updateContextMenu'
       });
 
       saveChanges();
@@ -240,27 +270,39 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
 
       chrome.runtime.sendMessage({
-          request: 'updateContextMenu',
-          id: event.target.id,
-          method: 'remove'
+        id: event.target.id,
+        method: 'remove',
+        request: 'updateContextMenu'
       });
 
       saveChanges();
     }
   }
 
-  // Event listeners on toggles
+  // Toggle event listeners
   toggleCollectionUi.addEventListener('change', enableCollectionUi);
   toggleConditions.addEventListener('change', toggleHighlights);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
+  toggleReleaseDurations.addEventListener('change', trackTotals);
+  toggleSortBtns.addEventListener('change', sortGenres);
+  // contextual menus
+  toggleBandcamp.addEventListener('change', updateMenu);
+  toggleBoomkat.addEventListener('change', updateMenu);
+  toggleClone.addEventListener('change', updateMenu);
   toggleDeeJay.addEventListener('change', updateMenu);
   toggleDiscogs.addEventListener('change', updateMenu);
+  toggleGramaphone.addEventListener('change', updateMenu);
+  toggleHalcyon.addEventListener('change', updateMenu);
+  toggleHardwax.addEventListener('change', updateMenu);
   toggleInsound.addEventListener('change', updateMenu);
   toggleJuno.addEventListener('change', updateMenu);
   toggleOye.addEventListener('change', updateMenu);
   togglePbvinyl.addEventListener('change', updateMenu);
-  toggleReleaseDurations.addEventListener('change', trackTotals);
-  toggleSortBtns.addEventListener('change', sortGenres);
+
+
+  /**
+   * Check for updates, duh!
+   */
 
   function checkForUpdate() {
 
@@ -276,6 +318,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
 
   /**
    * Open about page.
@@ -300,14 +343,21 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConditions.checked = result.prefs.highlightMedia;
       toggleDarkTheme.checked = result.prefs.darkTheme;
+      toggleReleaseDurations.checked = result.prefs.releaseDurations;
+      toggleSortBtns.checked = result.prefs.sortButtons;
+      // contextual menus
+      toggleBandcamp.checked = result.prefs.useBandcamp;
+      toggleBoomkat.checked = result.prefs.useBoomkat;
+      toggleClone.checked = result.prefs.useClone;
       toggleDeeJay.checked = result.prefs.useDeejay;
       toggleDiscogs.checked = result.prefs.useDiscogs;
+      toggleGramaphone.checked = result.prefs.useGramaphone;
+      toggleHalcyon.checked = result.prefs.useHalcyon;
+      toggleHardwax.checked = result.prefs.useHardwax;
       toggleInsound.checked = result.prefs.useInsound;
       toggleJuno.checked = result.prefs.useJuno;
       toggleOye.checked = result.prefs.useOye;
       togglePbvinyl.checked = result.prefs.usePbvinyl;
-      toggleReleaseDurations.checked = result.prefs.releaseDurations;
-      toggleSortBtns.checked = result.prefs.sortButtons;
     });
 
     checkForUpdate();
