@@ -812,6 +812,8 @@ li.doc_resource.section_as_link:hover,
 .history tr.even, .history tr:nth-child(even),
 table.diff th,
 .ui-autocomplete a,
+.subform-lookup-results-list,
+.subform-lookup-results,
 .rh {
     background: #2f2f2f !important;
 }

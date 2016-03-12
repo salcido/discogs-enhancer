@@ -33,6 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleOye = document.getElementById('oye'),
       togglePbvinyl = document.getElementById('pbvinyl');
 
+  /**
+   * Clears the update notifications
+   */
+  function acknowledgeUpdate(message) {
+
+    chrome.storage.sync.set({didUpdate: false}, function() {});
+
+    chrome.browserAction.setBadgeText({text: ''});
+  }
 
   /**
    * Save preferences
@@ -71,13 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function acknowledgeUpdate(message) {
-
-    chrome.storage.sync.set({didUpdate: false}, function() {});
-
-    chrome.browserAction.setBadgeText({text: ''});
-  }
-
 
   /**
    * Toggle dark mode on/off
@@ -90,12 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
       chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
 
         saveChanges();
-      });
-
-      chrome.runtime.sendMessage({
-        request: 'updateContextMenu',
-        id: 'oye',
-        method: 'create'
       });
 
     } else {
@@ -250,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Create/destroy contextual menus
+   * Create/remove contextual menus
    */
 
   function updateMenu(event) {

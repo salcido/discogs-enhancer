@@ -34,7 +34,7 @@ Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Ge
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/sort-buttons.png?raw=true "Sorting preview")
 
 ### Contextual menu
-Search Discogs instantly with any highlighted text!
+Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancement Suite. Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancement-suite/fancypants/chrome-shots/contextual-menu.png?raw=true "Contextual menu preview")
 

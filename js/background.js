@@ -10,21 +10,21 @@
  */
 
 var
-    collectionUi, // js/better-collection-ui.js
+    collectionUi,
     darkTheme,
     elems = [],
     fragment,
-    highlightCss, // css/marketplace-highlights.css element
-    highlightScript, // js/apply-highlights.js
+    highlightCss,
+    highlightScript,
     initElems = [],
     initFragment,
     jQ,
     prefs = {},
-    releaseDurations, // js/release-durations.js
-    releaseHistoryScript, // js/release-history-legend.js
-    sortExploreScript, // js/sort-explore-lists.js
-    sortMarketplaceScript, // js/sort-marketplace-lists.js
-    sortPersonalListsScript; // js/sort-personal-lists.js
+    releaseDurations,
+    releaseHistoryScript,
+    sortExploreScript,
+    sortMarketplaceScript,
+    sortPersonalListsScript;
 
 function appendFragment() {
 
