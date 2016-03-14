@@ -33,9 +33,11 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleOye = document.getElementById('oye'),
       togglePbvinyl = document.getElementById('pbvinyl');
 
+
   /**
    * Clears the update notifications
    */
+
   function acknowledgeUpdate(message) {
 
     chrome.storage.sync.set({didUpdate: false}, function() {});
@@ -43,11 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.browserAction.setBadgeText({text: ''});
   }
 
+
   /**
    * Save preferences
    */
 
-  function saveChanges(message) {
+  function saveChanges(message, event) {
 
     prefs = {
       darkTheme: toggleDarkTheme.checked,
@@ -78,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.notifications').removeClass('hide');
       }
     });
+
+     // Google Analyitcs
+    _gaq.push(['_trackEvent', event.target.id, 'enabled: ' + event.target.checked]);
   }
 
 
@@ -91,14 +97,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
 
-        saveChanges();
+        saveChanges(null, event);
       });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
 
-        saveChanges();
+        saveChanges(null, event);
       });
     }
   }
@@ -116,14 +122,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
 
-        saveChanges(response);
+        saveChanges(response, event);
       });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
 
-        saveChanges();
+        saveChanges(null, event);
       });
     }
   }
@@ -141,12 +147,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/sort-explore-lists.js'}, function() {
 
-        saveChanges(response);
+        saveChanges(response, event);
       });
 
     } else {
 
-      saveChanges(response);
+      saveChanges(response, event);
     }
   }
 
@@ -159,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var response = 'Please refresh the page for changes to take effect.';
 
-    saveChanges(response);
+    saveChanges(response, event);
   }
 
 
@@ -175,12 +181,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/better-collection-ui.js'}, function() {
 
-        saveChanges();
+        saveChanges(null, event);
       });
 
     } else {
 
-      saveChanges(response);
+      saveChanges(response, event);
     }
   }
 
@@ -261,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
         request: 'updateContextMenu'
       });
 
-      saveChanges();
+      saveChanges(null, event);
 
     } else {
 
@@ -271,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
         request: 'updateContextMenu'
       });
 
-      saveChanges();
+      saveChanges(null, event);
     }
   }
 

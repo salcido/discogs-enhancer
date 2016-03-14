@@ -111,9 +111,7 @@ chrome.storage.sync.get('prefs', function(result) {
   (document.head || document.documentElement).appendChild(initFragment.cloneNode(true));
 
   /**
-   *
    * Create document fragment with preferences
-   *
    */
   if (result.prefs.highlightMedia) {
 
@@ -207,9 +205,7 @@ chrome.storage.sync.get('prefs', function(result) {
   }
 
   /**
-   *
    * Contextual menu options
-   *
    */
   if (result.prefs.useBandcamp) {
 
