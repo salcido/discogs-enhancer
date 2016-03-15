@@ -113,6 +113,7 @@ chrome.storage.sync.get('prefs', function(result) {
   /**
    * Create document fragment with preferences
    */
+
   if (result.prefs.highlightMedia) {
 
     // apply-highlights.js
@@ -207,6 +208,7 @@ chrome.storage.sync.get('prefs', function(result) {
   /**
    * Contextual menu options
    */
+
   if (result.prefs.useBandcamp) {
 
     chrome.runtime.sendMessage({

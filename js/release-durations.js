@@ -45,7 +45,6 @@ $(document).ready(function() {
     });
 
 
-
     function convertToSeconds(str) {
 
       var p = str.split(':'),
@@ -72,8 +71,6 @@ $(document).ready(function() {
 
       return curr + next;
     });
-
-
 
     // calculate hours...
     hours = parseInt(totalSeconds / 3600, 10) % 24;

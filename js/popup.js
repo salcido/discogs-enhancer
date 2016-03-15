@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
      // Google Analyitcs
-    _gaq.push(['_trackEvent', event.target.id, 'enabled: ' + event.target.checked]);
+    _gaq.push(['_trackEvent', event.target.id, event.target.id + ' : ' + event.target.checked]);
   }
 
 
