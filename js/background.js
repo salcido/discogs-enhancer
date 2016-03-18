@@ -1,6 +1,6 @@
 /**
  *
- * DISCOGS ENHANCEMENT SUITE
+ * Discogs Enhancer
  *
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
@@ -360,7 +360,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
     if (details.reason === 'install') {
 
-      console.log('Welcome to the pleasure dome!');
+      console.log('Welcome to the pleasuredome!');
 
       chrome.storage.sync.set({didUpdate: false}, function() {});
 

@@ -41,7 +41,7 @@ a:hover {
 }
 
 .about .title img {
-  max-width: 325px;
+  max-width: 370px;
   margin: 25px auto;
 }
 
@@ -104,7 +104,7 @@ hr {
 ul li {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
-    font-size: 12px; 
+    font-size: 12px;
     color: white;
     line-height: 1.6em;
     letter-spacing: 1px;
@@ -133,7 +133,7 @@ table caption {
     color: #666;
     margin: 15px 0 0 0;
     font-family: sans-serif;
-    font-size: 14px; 
+    font-size: 14px;
     line-height: 1.6em;
     text-transform: uppercase;
 }
@@ -153,7 +153,7 @@ table caption {
 }
 
 .very-good-plus {
-  color: #00db1f !important; 
+  color: #00db1f !important;
 }
 
 .very-good {

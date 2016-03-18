@@ -1,6 +1,6 @@
 /**
  *
- * DISCOGS ENHANCEMENT SUITE
+ * Discogs Enhancer
  *
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
@@ -19,7 +19,7 @@ $(document).ready(function() {
 
   var loc = window.location.href;
 
-  if (loc.indexOf('/collection') > -1) {
+  if (loc.indexOf('/collection') > -1 || loc.indexOf('/mywantlist')) {
 
     var
         bottomSelectFolder,
