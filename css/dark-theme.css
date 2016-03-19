@@ -5,13 +5,15 @@
 }
 
 html,
+select option,
 #quicklister #resultsPane,
-#keyboard_shortcuts_modal, 
+#keyboard_shortcuts_modal,
 #subform_shortcuts_modal,
-.bulk_actions_section, 
+.bulk_actions_section,
 .bulk_actions_submit,
 .action_block,
-.box-card {
+.box-card,
+#mr_panel {
     background-color: #323334 !important;
 }
 
@@ -67,7 +69,7 @@ body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb {
 /* Link Colors */
 
 /* Links */
-a, 
+a,
 a i,
 .right li a b,
 .tab_menu a:visited,
@@ -114,22 +116,22 @@ span.marketplace_for_sale_count a:hover strong {
 
 /* gray text links */
 
-#site_navigation > li > a, 
+#site_navigation > li > a,
 #site_navigation > li .nav_group_control,
-#site_navigation > li .nav_group_control i, 
+#site_navigation > li .nav_group_control i,
 .site_nav_tray,
 .site_nav_tray h4,
 .site_nav_submenu a,
 .site_nav_tray a,
-.site_nav_submenu a:visited, 
+.site_nav_submenu a:visited,
 .site_nav_tray a:visited,
-#site_navigation > li > a:hover i, 
+#site_navigation > li > a:hover i,
 #site_navigation > li .nav_group_control:hover i,
-#activity_menu > li > a i, 
+#activity_menu > li > a i,
 #activity_menu > li .nav_group_control i,
 .activity_menu_total,
 #activity_menu > li > a,
-#activity_menu > li > a:hover, 
+#activity_menu > li > a:hover,
 #activity_menu > li .nav_group_control:hover,
 #activity_menu > li .nav_group_control,
 #activity_menu > li .nav_group_control span {
@@ -195,9 +197,9 @@ li.ui-menu-item a span.sublabel {
 
 /* Muted Gray */
 
-.muted, 
-.broadcast_table .gutter .icon_wrapper, 
-.facet_count, 
+.muted,
+.broadcast_table .gutter .icon_wrapper,
+.facet_count,
 table.table_block td.empty_row {
     color: #858585 !important;
 }
@@ -254,7 +256,7 @@ aside li > a,
 
 /* green success message after purchase */
 .cart_page .order_success {
-   background-color: #142e09 !important; 
+   background-color: #142e09 !important;
 }
 
 /* in collection */
@@ -317,7 +319,7 @@ a.readmore_toggler {
 #page_aside .selected_facets li a span,
 #page_aside .selected_facets li a i,
 #page_aside .selected_facets li a i:visited,
-.facets_nav a.selected, 
+.facets_nav a.selected,
 .current_filter {
     background-color: #72a3d8 !important;
     border-radius: 2px !important;
@@ -369,12 +371,12 @@ a.button_red i {
   padding-right: 0 !important;
 }
 
-table.cards tr.sub_first.card.sub, 
+table.cards tr.sub_first.card.sub,
 table.cards tr.sub_first.card.sub td {
     box-shadow: inset 0 10px 5px -8px #202020 !important;
 }
 
-table.cards tr.sub_last.card.sub, 
+table.cards tr.sub_last.card.sub,
 table.cards tr.sub_last.card.sub td {
     box-shadow: inset 0 -10px 5px -8px #202020 !important;
 }
@@ -406,7 +408,7 @@ ul.module_blocks > li.module_placeholder,
 }
 
 .vid_list ul {
-   border: 2px dashed #454545 !important; 
+   border: 2px dashed #454545 !important;
 }
 
 #quicklister .pane .inner_pane {
@@ -421,9 +423,9 @@ table.table_block tbody tr.even,
 .cart_page .order_contents tr.even,
 .cart_page .order_suggestions,
 ul.as_table_block li.body_row.even,
-ul.as_table_block li.header, 
-ul.as_table_block li.footer, 
-ol.as_table_block li.header, 
+ul.as_table_block li.header,
+ul.as_table_block li.footer,
+ol.as_table_block li.header,
 ol.as_table_block li.footer {
     background-color: #2f2f2f !important;
 }
@@ -475,15 +477,15 @@ hr {
     background: #323334 !important;
 }
 
-#full-width-header #full-width-header-bar, 
+#full-width-header #full-width-header-bar,
 #user_header #full-width-header-bar {
     background-color: #000 !important;
     color: white !important;
 }
 
-#full-width-header #full-width-header-bar a, 
-#user_header #full-width-header-bar a, 
-#full-width-header #full-width-header-bar a:visited, 
+#full-width-header #full-width-header-bar a,
+#user_header #full-width-header-bar a,
+#full-width-header #full-width-header-bar a:visited,
 #user_header #full-width-header-bar a:visited {
     color: white !important;
 }
@@ -501,9 +503,9 @@ hr {
 /* gray text on white buttons */
 
 .button,
-a.button, 
+a.button,
 .button i,
-.button span, 
+.button span,
 .toggle_wantlist_add,
 .header-actions a.button:visited, /* settings button on profile page */
 .inline_buttons.no_offer a,
@@ -513,37 +515,37 @@ a.button.inv_add_button,
 }
 
 .button.button_green[disabled],
-.button.button_green[disabled] i, 
-.button.button_green[disabled]:hover, 
-.button.button_green[disabled]:active, 
-.button.button_green[disabled]:visited, 
-.button.button_green[disabled]:focus, 
-.button.button_blue[disabled], 
-.button.button_blue[disabled]:hover, 
-.button.button_blue[disabled]:active, 
-.button.button_blue[disabled]:visited, 
-.button.button_blue[disabled]:focus, 
-.button.button_red[disabled], 
-.button.button_red[disabled]:hover, 
-.button.button_red[disabled]:active, 
-.button.button_red[disabled]:visited, 
-.button.button_red[disabled]:focus, 
-.button.button_dark[disabled], 
-.button.button_dark[disabled]:hover, 
-.button.button_dark[disabled]:active, 
-.button.button_dark[disabled]:visited, 
-.button.button_dark[disabled]:focus, 
-.button.button_white[disabled], 
-.button.button_white[disabled]:hover, 
-.button.button_white[disabled]:active, 
-.button.button_white[disabled]:visited, 
-.button.button_white[disabled]:focus, 
+.button.button_green[disabled] i,
+.button.button_green[disabled]:hover,
+.button.button_green[disabled]:active,
+.button.button_green[disabled]:visited,
+.button.button_green[disabled]:focus,
+.button.button_blue[disabled],
+.button.button_blue[disabled]:hover,
+.button.button_blue[disabled]:active,
+.button.button_blue[disabled]:visited,
+.button.button_blue[disabled]:focus,
+.button.button_red[disabled],
+.button.button_red[disabled]:hover,
+.button.button_red[disabled]:active,
+.button.button_red[disabled]:visited,
+.button.button_red[disabled]:focus,
+.button.button_dark[disabled],
+.button.button_dark[disabled]:hover,
+.button.button_dark[disabled]:active,
+.button.button_dark[disabled]:visited,
+.button.button_dark[disabled]:focus,
+.button.button_white[disabled],
+.button.button_white[disabled]:hover,
+.button.button_white[disabled]:active,
+.button.button_white[disabled]:visited,
+.button.button_white[disabled]:focus,
 .button[disabled],
 .button[disabled] i,
-.button[disabled] span,  
-.button[disabled]:hover, 
-.button[disabled]:active, 
-.button[disabled]:visited, 
+.button[disabled] span,
+.button[disabled]:hover,
+.button[disabled]:active,
+.button[disabled]:visited,
 .button[disabled]:focus {
     cursor: pointer !important;
     border-color: #dbdbdb !important;
@@ -626,7 +628,7 @@ a.button.button_facebook_login span,
     color: white !important;
 }
 
-.button.button_green .icon, 
+.button.button_green .icon,
 .button.button_red .icon {
     color: white !important;
 }
@@ -640,10 +642,10 @@ input.btn {
 
 a.btn-default,
 a.btn-default i,
-a.btn-default:hover, 
-a.btn-default:focus, 
-a.btn-default:active, 
-a.btn-default.active, 
+a.btn-default:hover,
+a.btn-default:focus,
+a.btn-default:active,
+a.btn-default.active,
 .open .dropdown-toggle.btn-default {
     color: #2f2f2f !important;
     background-color: #ebebeb !important;
@@ -672,9 +674,9 @@ a.btn-default.active,
 }
 
 .btn-warning,
-.btn-warning:hover, 
-.btn-warning:focus, 
-.btn-warning.active, 
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning.active,
 .open .dropdown-toggle.btn-warning {
     color: white !important;
     background-color: #ed9c28 !important;
@@ -760,7 +762,7 @@ button.lazy_gallery_nav.lazy_gallery_prev {
     background: linear-gradient(to right, #323334, rgba(41, 41, 41, 0)) !important;
 }
 
-/* might have to change this - scroll release thumbs in modal */ 
+/* might have to change this - scroll release thumbs in modal */
 .image_gallery_thumbs:after {
     background: none !important;
 }
@@ -775,8 +777,8 @@ select {
 }
 
 /* bottom line border rule */
-table.release_list_table tbody tr, 
-.review, 
+table.release_list_table tbody tr,
+.review,
 .pagination.top,
 #list_details .listitem,
 .order-item-row,
@@ -784,11 +786,11 @@ table.release_list_table tbody tr,
 .react-modal-header,
 #messages_list .messagelist tr,
 table.marketplace-table-react td,
-.cards .card.card_normal, 
+.cards .card.card_normal,
 .cards .card.card_text-only,
 #product h3.collection-title,
 .order-page-header,
-table.table_block thead tr, 
+table.table_block thead tr,
 table.table_block tfoot tr,
 .ui-widget-header,
 table.sell tr,
@@ -810,7 +812,7 @@ li.doc_question.section_as_link:hover,
 li.doc_resource.section_as_link:hover,
 .ref_guidelines_list .ref_guidelines_heading:hover,
 .drag_drop_field_list > li,
-.react_drag_drop_field_list .drag_drop_content, 
+.react_drag_drop_field_list .drag_drop_content,
 .editable_item,
 .history tr.even, .history tr:nth-child(even),
 table.diff th,
@@ -821,15 +823,15 @@ table.diff th,
     background: #2f2f2f !important;
 }
 
-table.release_list_table.layout_med td:nth-child(-n+4), 
+table.release_list_table.layout_med td:nth-child(-n+4),
 table.release_list_table.layout_med th:nth-child(-n+4) {
-    border-left: none !important; 
+    border-left: none !important;
 }
 
 table.release_list_table thead th,
-#full-width-header #full-width-header-navigation a, 
+#full-width-header #full-width-header-navigation a,
 .profile_sections.user_profile a,
-.section-box:nth-child(3n+1), 
+.section-box:nth-child(3n+1),
 .doc_resource:nth-child(3n+1) {
     border-left: 1px solid #454545 !important;
 }
@@ -841,10 +843,10 @@ table.subform_table td,
 }
 
 .doc_article {
-   border-right: 1px dotted #454545 !important; 
+   border-right: 1px dotted #454545 !important;
 }
 
-.card .card_body .card_status, 
+.card .card_body .card_status,
 .card .card_body .card_status a,
 .card .card_body .card_status i {
     color: gray !important;
@@ -976,7 +978,7 @@ table.subform_table td,
     border-color: white !important;
 }
 
-.skittles .skittle.skittle_collection span.count, 
+.skittles .skittle.skittle_collection span.count,
 span.skittle.skittle_wantlist span.count,
 .skittle.skittle_inventory span.count,
 span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
@@ -1005,19 +1007,19 @@ span.skittle.skittle_wantlist.needs_delegated_tooltip {
     color: white !important;
 }
 
-.pos_rating, 
+.pos_rating,
 .pos_rating i {
     background: #a8d388 !important;
     color: #397326 !important;
 }
 
-.pos_rating a, 
-.pos-rating-text strong, 
+.pos_rating a,
+.pos-rating-text strong,
 .pos-rating-text i {
     color: #397326 !important;
 }
 
-.neg_rating, 
+.neg_rating,
 .neg_rating i {
     background: #ec9c9c !important;
     color: #733326 !important;
@@ -1029,7 +1031,7 @@ span.skittle.skittle_wantlist.needs_delegated_tooltip {
     color: #822917 !important;
 }
 
-.neu_rating, 
+.neu_rating,
 .neu_rating i {
     background: #cfcdc9 !important;
     color: #504e49 !important;
@@ -1047,7 +1049,7 @@ input[type="text"]:not(#search_q, .image_copy_permalink_text) {
     color: white !important;
     background: #292929 !important;
     outline: none !important;
-    border: 1px solid #525252 !important;   
+    border: 1px solid #525252 !important;
 }
 
 table.cards tr.credit_header,
@@ -1064,8 +1066,8 @@ ul.module_blocks .header i {
 
 div.search_result.needschanges div.flag,
 table.cards tr.change td.status,
-table.list tr.change td.status, 
-table.cw_releases tr.change td.status, 
+table.list tr.change td.status,
+table.cw_releases tr.change td.status,
 table.release_list_table tr.change td.status {
     background: red !important
 }
@@ -1103,16 +1105,16 @@ table.release_list_table tr.edit td.status {
     border-right-color: #323334 !important;
 }
 
-.ui-dialog-arrow-left-top:before, 
+.ui-dialog-arrow-left-top:before,
 .ui-dialog-arrow-left-bottom:before,
 .ui-dialog-arrow-right-top:before,
 .ui-dialog-arrow-right-bottom:before {
     border-right-color: white !important;
 }
 
-.ui-dialog-arrow-top-left:before, 
+.ui-dialog-arrow-top-left:before,
 .ui-dialog-arrow-top-right:before,
-.ui-dialog-arrow-top-left:after, 
+.ui-dialog-arrow-top-left:after,
 .ui-dialog-arrow-top-right:after {
     border-right-color: #2f2f2f !important;
     border-top-color: #2f2f2f !important;
@@ -1121,18 +1123,18 @@ table.release_list_table tr.edit td.status {
 /* all gray border */
 
 input,
-.inset_box, 
-.form_block, 
-.outset_box, 
-.release_stats_group_list, 
-#object_preview, 
+.inset_box,
+.form_block,
+.outset_box,
+.release_stats_group_list,
+#object_preview,
 ul.module_blocks > li,
 .tab_menu,
 .cart_page .order_container,
 .cart_page .order_help,
 table.release_list_table,
-.release_list_actions, 
-#releaselist_collection_stats_ranges, 
+.release_list_actions,
+#releaselist_collection_stats_ranges,
 .releaselist_stats_range_wrap,
 .video_li,
 table.subform_table,
@@ -1141,7 +1143,7 @@ table.subform_table,
 .list-group-item,
 .panel-default,
 .search_group {
-   border: 1px solid #454545 !important; 
+   border: 1px solid #454545 !important;
 }
 
 ul.module_blocks > li {
@@ -1190,21 +1192,21 @@ pre code {
     background: #000 !important;
 }
 
-.hljs-string, 
-.hljs-value, 
-.hljs-inheritance, 
-.hljs-header, 
-.ruby .hljs-symbol, 
+.hljs-string,
+.hljs-value,
+.hljs-inheritance,
+.hljs-header,
+.ruby .hljs-symbol,
 .xml .hljs-cdata {
     color: #718c00 !important;
 }
 
-.hljs-number, 
-.hljs-preprocessor, 
-.hljs-pragma, 
-.hljs-built_in, 
-.hljs-literal, 
-.hljs-params, 
+.hljs-number,
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-built_in,
+.hljs-literal,
+.hljs-params,
 .hljs-constant {
     color: #f5871f !important;
 }
@@ -1213,23 +1215,23 @@ pre code {
     color: #8e908c !important;
 }
 
-.hljs-variable, 
-.hljs-attribute, 
-.hljs-tag, 
-.hljs-regexp, 
-.ruby 
-.hljs-constant, 
-.xml .hljs-tag .hljs-title, 
-.xml .hljs-pi, 
-.xml .hljs-doctype, 
-.html .hljs-doctype, 
-.css .hljs-id, 
-.css .hljs-class, 
+.hljs-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-regexp,
+.ruby
+.hljs-constant,
+.xml .hljs-tag .hljs-title,
+.xml .hljs-pi,
+.xml .hljs-doctype,
+.html .hljs-doctype,
+.css .hljs-id,
+.css .hljs-class,
 .css .hljs-pseudo {
     color: #c82829 !important;
 }
 
-.hljs-keyword, 
+.hljs-keyword,
 .javascript .hljs-function {
     color: #8959a8 !important;
 }
@@ -1320,7 +1322,7 @@ span.alert-message-text ul li {
     border-right: 1px solid transparent !important;
 }
 
-.tab_menu li.current a, 
+.tab_menu li.current a,
 .tab_menu li.current a:visited span {
     color: white !important;
 }
@@ -1336,8 +1338,8 @@ span.alert-message-text ul li {
     border-top: 1px solid #454545 !important;
 }
 
-.section-box:nth-child(1), 
-.section-box:nth-child(2), 
+.section-box:nth-child(1),
+.section-box:nth-child(2),
 .section-box:nth-child(3) {
     border-top: 0 !important;
 }
@@ -1399,8 +1401,8 @@ ul.dropdown-button-options  {
     border: 2px solid white !important;
 }
 
-.is_not_mobile .action_menu li.menu-item:hover, 
-.is_not_mobile .dropdown-button .dropdown-button-options li.menu-item:hover, 
+.is_not_mobile .action_menu li.menu-item:hover,
+.is_not_mobile .dropdown-button .dropdown-button-options li.menu-item:hover,
 .dropdown-button .is_not_mobile .dropdown-button-options li.menu-item:hover {
     background-color: #2f2f2f !important;
 }
@@ -1426,27 +1428,27 @@ textarea#g-recaptcha-response.g-recaptcha-response {
 
 /* add release page */
 
-.react_drag_drop_field_list .drag_drop_content, 
+.react_drag_drop_field_list .drag_drop_content,
 .editable_item {
 /*    background: #2f2f2f !important;*/
     border-top: 1px solid #454545 !important;
     border-bottom: 1px solid #454545 !important;
 }
 
-.react_drag_drop_field_list .drag_drop_content:hover, 
+.react_drag_drop_field_list .drag_drop_content:hover,
 .editable_item:hover {
     background: #292929 !important;
 }
 
-.ref_guidelines_list > li.ref_guidelines_highlight, 
+.ref_guidelines_list > li.ref_guidelines_highlight,
 .ref_guidelines_list > li.ref_guidelines_highlight:hover {
     background: #454545 !important;
 }
 
-table.subform_table tr.subnotes, 
+table.subform_table tr.subnotes,
 table.subform_table tr.collection {
     background: #1f1f1f !important;
-}  
+}
 
 /* always gray ccc icons */
 
@@ -1478,11 +1480,11 @@ span#layout_buttons a.inset_button i:visited {
 }
 
 .reference_on #subform {
-     box-shadow: inset -10px -5px 6px -10px #000 !important; 
+     box-shadow: inset -10px -5px 6px -10px #000 !important;
 }
 
 .ref_mode_toggle {
-    color: #4DD2FF !important;    
+    color: #4DD2FF !important;
 }
 
 /* history form */

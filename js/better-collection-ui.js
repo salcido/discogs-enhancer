@@ -19,12 +19,13 @@ $(document).ready(function() {
 
   var loc = window.location.href;
 
-  if (loc.indexOf('/collection') > -1 || loc.indexOf('/mywantlist')) {
+  if (loc.indexOf('/collection') > -1) {
 
     var
         bottomSelectFolder,
         checkboxes,
         interval,
+        marketPlaceBtn,
         moveButtonMarkup,
         moveButtons,
         topSelectFolder;
@@ -67,5 +68,29 @@ $(document).ready(function() {
         });
       }
     }, 100);
+  }
+
+  if (loc.indexOf('/mywantlist') > -1) {
+
+    marketPlaceBtn = $('ul.table_actions_list.wantlist li:eq(1)').clone();
+
+    $('li a[href^="/sell/mywants?ev=wsim"]').hide();
+
+    $('ul.table_actions_list.wantlist').prepend('<li>' + marketPlaceBtn.html() + '</li>');
+
+    $('.release_list_remove').addClass('button_red');
+
+    $('#random_list_form').css({ float: 'right', marginTop: '5px' });
+
+    $('[name^="Action.MoveToCollection"]').addClass('button_green').prop('disabled', true);
+
+    $('input[type="checkbox"]').change(function() {
+
+        moveButtons = $('[name^="Action.MoveToCollection"]');
+
+        checkboxes = $('input[type="checkbox"]');
+
+        return moveButtons.prop('disabled', checkboxes.filter(':checked').length < 1);
+    });
   }
 });
