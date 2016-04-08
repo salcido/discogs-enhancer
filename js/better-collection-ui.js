@@ -5,30 +5,22 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
- *
- */
-
-/**
- *
- * Improves the UI of the collection page.
  *
  */
 
 $(document).ready(function() {
 
-  var loc = window.location.href;
+  let
+      bottomSelectFolder,
+      checkboxes,
+      interval,
+      loc = window.location.href,
+      marketPlaceBtn,
+      moveButtonMarkup,
+      moveButtons,
+      topSelectFolder;
 
   if (loc.indexOf('/collection') > -1) {
-
-    var
-        bottomSelectFolder,
-        checkboxes,
-        interval,
-        marketPlaceBtn,
-        moveButtonMarkup,
-        moveButtons,
-        topSelectFolder;
 
     interval = setInterval(function() {
 

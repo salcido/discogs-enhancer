@@ -5,22 +5,21 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
 $(document).ready(function() {
 
-  var
+  let
       loc = window.location.href,
       sellPage = /discogs.com\/sell\/list/g,
       sellerPage = /discogs.com\/seller/g,
       sellRelease = /discogs.com\/sell\/release/g,
       wantsPage = /discogs.com\/sell\/mywants/g;
 
+
   // Find all Marketplace item conditions and apply classes
   function applyStyles() {
-    /* Marketplace Pages */
 
     // Media conditions
     $('span.item_media_condition:contains("Mint (M)")').addClass('mint bold');
@@ -41,9 +40,7 @@ $(document).ready(function() {
     $('span.item_sleeve_condition:contains("Good (G)")').addClass('good bold');
     $('span.item_sleeve_condition:contains("Fair (F)")').addClass('fair bold');
     $('span.item_sleeve_condition:contains("Poor (P)")').addClass('poor bold');
-    // $('span.item_sleeve_condition:contains("Generic")').addClass('generic bold');
   }
-
 
 
   // calls applyStyles on every |ajaxSuccess| method callback
@@ -55,26 +52,15 @@ $(document).ready(function() {
     });
   }
 
-  // Applying media highlights is tricky business. It wont reliably stick so
-  // I am making sure it's being applied to the necessary elements via
-  // setInterval(). This seems like a janky way to do things but it works.
+
+  // Apply styles on ready/prev/next clicks
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
-    var count = 0,
-        interval;
+    applyStyles();
 
-    interval = setInterval(function() {
+    $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
-      applyStyles();
-
-      count++;
-
-      if (count > 5) {
-
-        clearInterval(interval);
-
-        callApplyStyles();
-      }
-    }, 100);
+      callApplyStyles();
+    });
   }
 });

@@ -5,7 +5,6 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
@@ -18,7 +17,7 @@
 
 $(document).ready(function() {
 
-  var
+  let
       clicks = 1,
       desc = false,
       sortName,
@@ -27,7 +26,7 @@ $(document).ready(function() {
   // Link sorter function
   function compareOptions(a1, a2) {
 
-    var t1 = $(a1).text(),
+    let t1 = $(a1).text(),
         t2 = $(a2).text();
 
     return t1 > t2 ? 1 : (t1 < t2 ? -1 : 0);
@@ -37,11 +36,11 @@ $(document).ready(function() {
 
   function sortPersonalLists(options, sortDescending) {
 
-    var listOldPick = $('#list_oldpick'),
+    let listOldPick = $('#list_oldpick'),
         optionsArray = [];
 
-    // The options are rewritten everytime the modal is called
-    // so we wait 150ms then sort them.
+    /* The options are rewritten everytime the modal is called
+      so we wait 150ms then sort them. */
     optionsArray = options.map(function() { return this; }).get();
 
     optionsArray.sort(compareOptions);
@@ -68,37 +67,14 @@ $(document).ready(function() {
   }
 
 
-  function setButtonText(elem) {
-
-    if ( elem.text() === 'Sort A-Z') {
-
-      sortName = 'Sort Z-A';
-
-      return sortName;
-
-    } else if ( elem.text() === 'Sort Z-A') {
-
-      sortName = 'Most Recent';
-
-      return sortName;
-
-    } else if ( elem.text() === 'Most Recent') {
-
-      sortName = 'Sort A-Z';
-
-      return sortName;
-    }
-  }
-
-
   // Add new button functionality
   function registerOptionButtonClicks() {
 
-    var listOldPick = $('#list_oldpick');
+    let listOldPick = $('#list_oldpick');
 
     $('#sortPLists').click(function() {
 
-      setButtonText($(this));
+      resourceLibrary.setButtonText($(this));
 
       clicks++;
 
@@ -144,7 +120,7 @@ $(document).ready(function() {
 
   $('.add_to_list').on('click', function() {
 
-    var findList,
+    let findList,
         findAdd,
         sortButton = '<div style="position: absolute; left: 295px; top: 10px;">' +
                      '<button id="sortPLists" ' +
@@ -160,8 +136,9 @@ $(document).ready(function() {
       // Make sure the select exists
       if ( $('#list_oldpick option').length > 0 ) {
 
-        // fire sorting upon first click
-        // (might be cool to make this an option in the menu)
+        /* fire sorting upon first click
+           (might be cool to make this an option in the menu) */
+
         //sortPersonalLists($('#list_oldpick option'), desc);
 
         // Insert our sort button

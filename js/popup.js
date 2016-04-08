@@ -5,13 +5,13 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
 document.addEventListener('DOMContentLoaded', function () {
 
   var
+      userCurrency = document.getElementById('currency'),
       isHovering = false,
       prefs = {},
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
-      // contextual menus
+      togglePrices = document.getElementById('togglePrices'),
+
+      // Contextual menus
       toggleBandcamp = document.getElementById('bandcamp'),
       toggleBoomkat = document.getElementById('boomkat'),
       toggleClone = document.getElementById('clone'),
@@ -34,10 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
       togglePbvinyl = document.getElementById('pbvinyl');
 
 
-  /**
-   * Clears the update notifications
-   */
-
+  // Clears the update notifications
   function acknowledgeUpdate(message) {
 
     chrome.storage.sync.set({didUpdate: false}, function() {});
@@ -46,18 +45,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Save preferences
-   */
-
+  // Save preferences
   function saveChanges(message, event) {
 
     prefs = {
+      userCurrency: userCurrency.value,
       darkTheme: toggleDarkTheme.checked,
       highlightMedia: toggleConditions.checked,
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
       collectionUi: toggleCollectionUi.checked,
+      suggestedPrices: togglePrices.checked,
+
+      // Contextual menus
       useBandcamp: toggleBandcamp.checked,
       useBoomkat: toggleBoomkat.checked,
       useClone: toggleClone.checked,
@@ -76,21 +76,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (message) {
 
-        $('.notify').html(message);
+        $('#notify').html(message);
 
         $('.notifications').removeClass('hide');
       }
     });
 
      // Google Analyitcs
-    _gaq.push(['_trackEvent', event.target.id, event.target.id + ' : ' + event.target.checked]);
+    _gaq.push(['_trackEvent', event.target.id, event.target.id + ' : ' +
+               (event.target.checked || event.target[event.target.selectedIndex].value)]);
   }
 
 
-  /**
-   * Toggle dark mode on/off
-   */
-
+  // Toggle dark mode on/off
   function useDarkTheme(event) {
 
     if (event.target.checked) {
@@ -110,10 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Toggle release condition highlighting on/off
-   */
-
+  // Toggle release condition highlighting on/off
   function toggleHighlights(event) {
 
     var response = 'Please refresh the page for changes to take effect.';
@@ -135,10 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Toggle ability to sort genres, etc
-   */
-
+  // Toggle ability to sort genres, etc
   function sortGenres(event) {
 
     var response = 'Please refresh the page for changes to take effect.';
@@ -157,10 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Toggle track totals
-   */
-
+  // Toggle track totals
   function trackTotals(event) {
 
     var response = 'Please refresh the page for changes to take effect.';
@@ -169,10 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Toggle better collection UI
-   */
-
+  // Toggle better collection UI
   function enableCollectionUi(event) {
 
     var response = 'Please refresh the page for changes to take effect.';
@@ -191,10 +177,73 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Display contextual menu options on hover
-   */
+  // Toggle prices suggestions
+  function showPrices(event) {
 
+    var response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked && userCurrency.value !== '-') {
+
+        userCurrency.disabled = true;
+
+        togglePrices.checked = true;
+
+        userCurrency.className = '';
+
+        saveChanges(response, event);
+
+      } else if (userCurrency.value === '-') {
+
+        $('#notify').html('Please choose a currency from the select box first.');
+
+        $('.notifications').show();
+
+        togglePrices.checked = false;
+
+        userCurrency.className = 'alert';
+
+        return;
+
+      } else {
+
+      userCurrency.disabled = false;
+
+      saveChanges(response, event);
+    }
+  }
+
+
+  // Get/Save currency preferences
+  function getCurrency() {
+
+    chrome.storage.sync.get('prefs', function(result) {
+
+      if (result.prefs.userCurrency) {
+
+        userCurrency.value = result.prefs.userCurrency;
+
+        if (userCurrency.value !== '-' && togglePrices.checked === true) {
+
+          userCurrency.disabled = true;
+        }
+
+      } else {
+
+        togglePrices.checked = false;
+
+        userCurrency.disabled = false;
+      }
+    });
+  }
+
+  // Saves user currency
+  function setCurrency(event) {
+
+    saveChanges(null, event);
+  }
+
+
+  // Display contextual menu options on hover
   $('.toggle-group.menus').mouseenter(function() {
 
     var
@@ -224,10 +273,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   });
 
-  /**
-   * Hide contextual menu options on mouseleave
-   */
 
+  // Hide contextual menu options on mouseleave
   $('.toggle-group.menus').mouseleave(function() {
 
     var
@@ -251,10 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  /**
-   * Create/remove contextual menus
-   */
-
+  // Create/remove contextual menus
   function updateMenu(event) {
 
     if (event.target.checked) {
@@ -282,12 +326,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Toggle event listeners
+  userCurrency.addEventListener('change', setCurrency);
   toggleCollectionUi.addEventListener('change', enableCollectionUi);
   toggleConditions.addEventListener('change', toggleHighlights);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
   toggleReleaseDurations.addEventListener('change', trackTotals);
   toggleSortBtns.addEventListener('change', sortGenres);
-  // contextual menus
+  togglePrices.addEventListener('change', showPrices);
+
+  // Contextual menus
   toggleBandcamp.addEventListener('change', updateMenu);
   toggleBoomkat.addEventListener('change', updateMenu);
   toggleClone.addEventListener('change', updateMenu);
@@ -301,10 +348,6 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleOye.addEventListener('change', updateMenu);
   togglePbvinyl.addEventListener('change', updateMenu);
 
-
-  /**
-   * Check for updates, duh!
-   */
 
   function checkForUpdate() {
 
@@ -322,10 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   * Open about page.
-   */
-
+  // Open the about page
   $('body').on('click', '#about', function() {
 
     chrome.tabs.create({url: '../html/about.html'});
@@ -334,10 +374,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  /**
-   * Get stored preferences for extension menu
-   */
-
+  // Get stored preferences for extension menu
   function init() {
 
     chrome.storage.sync.get('prefs', function(result) {
@@ -347,7 +384,9 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleSortBtns.checked = result.prefs.sortButtons;
-      // contextual menus
+      togglePrices.checked = result.prefs.suggestedPrices;
+
+      // Contextual menus
       toggleBandcamp.checked = result.prefs.useBandcamp;
       toggleBoomkat.checked = result.prefs.useBoomkat;
       toggleClone.checked = result.prefs.useClone;
@@ -363,6 +402,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     checkForUpdate();
+
+    getCurrency();
+
+   console.log(chrome.storage.sync.get());
   }
 
   // Start it up

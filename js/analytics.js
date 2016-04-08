@@ -16,4 +16,4 @@ _gaq.push(['_trackPageview']);
   ga.src = 'https://ssl.google-analytics.com/ga.js';
 
   s.parentNode.insertBefore(ga, s);
-})();
+}());

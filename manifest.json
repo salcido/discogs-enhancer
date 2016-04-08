@@ -4,7 +4,7 @@
   "name": "Discogs Enhancer",
   "short_name": "Discogs Enhancer",
   "description": "Adds a dark theme, marketplace highlights, configurable quick search, total playtimes, sort buttons and more to Discogs and Chrome!",
-  "version": "1.5.12",
+  "version": "1.6.2",
   "author": "Matthew Salcido",
   "homepage_url": "http://www.msalcido.com/discogs-enhancer",
   "browser_action": {
@@ -42,15 +42,22 @@
     "web_accessible_resources": [
       "css/dark-theme.css",
       "css/marketplace-highlights.css",
-      "js/jquery/jquery-min.js",
+      "css/pre-loader.css",
+      "html/about.html",
       "js/apply-highlights.js",
+      "js/better-collection-ui.js",
+      "js/chart/chart.js",
+      "js/jquery/jquery-min.js",
+      "js/release-durations.js",
+      "js/release-history-legend.js",
+      "js/resource-library.js",
       "js/sort-explore-lists.js",
       "js/sort-marketplace-lists.js",
       "js/sort-personal-lists.js",
-      "js/release-history-legend.js",
-      "html/about.html",
-      "js/release-durations.js",
-      "js/better-collection-ui.js"
+      "js/suggested-prices-all.js",
+      "js/suggested-prices-release-page.js",
+      "js/suggested-prices-single.js",
+      "js/update-exchange-rates.js"
     ],
 
     "icons": {

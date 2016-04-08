@@ -5,7 +5,6 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
@@ -14,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function getVersionAndYear() {
 
-    var
+    let
         d = new Date(),
         manifest = chrome.runtime.getManifest(),
         version = document.getElementById('version'),

@@ -189,3 +189,15 @@ table caption {
 span.new {
   color: red;
 }
+
+.prices {
+  max-width: 350px;
+  display: block;
+  margin: 10px auto;
+}
+
+.price-example {
+  max-width: 200px;
+  display: block;
+  margin-bottom: 10px;
+}

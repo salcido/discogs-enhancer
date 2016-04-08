@@ -13,7 +13,9 @@ select option,
 .bulk_actions_submit,
 .action_block,
 .box-card,
-#mr_panel {
+#mr_panel,
+.inline-error,
+.inline-error-with-actions {
     background-color: #323334 !important;
 }
 
@@ -1534,4 +1536,8 @@ span#layout_buttons a.inset_button i:visited {
 .hl_warning {
     background-color: #9ff !important;
     color: #2f2f2f !important;
+}
+
+#namecheckmsg {
+  color: #000 !important;
 }

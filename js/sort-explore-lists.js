@@ -5,7 +5,6 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
@@ -18,7 +17,7 @@
 
 $(document).ready(function() {
 
-  var
+  let
       clicks = 1,
       desc = false,
       sortName,
@@ -28,7 +27,7 @@ $(document).ready(function() {
   // Inject sort button into modal
   function appendSortButton() {
 
-    var sortButton = '<div style="text-align: center;">' +
+    let sortButton = '<div style="text-align: center;">' +
                      '<button id="sortExplore" ' +
                      'class="button button_blue" ' +
                      'style="margin-bottom: 10px;' +
@@ -38,21 +37,20 @@ $(document).ready(function() {
     $('.react-modal-header').append(sortButton);
   }
 
-
   // Link sorter function
   function compareText(a1, a2) {
 
-    var x = $(a1).find('a').attr('href'),
+    let x = $(a1).find('a').attr('href'),
         y = $(a2).find('a').attr('href');
 
     return x > y ? 1 : (x < y ? -1 : 0);
   }
 
-  // Sort our lists and create new HTML, then insert
-  // the newly sorted list array elements.
+  /* Sort our lists and create new HTML, then insert
+     the newly sorted list array elements. */
   function sortUnorderedList(ul, sortDescending) {
 
-    var listElms = $('.react-modal-content div ul.facets_nav li'),
+    let listElms = $('.react-modal-content div ul.facets_nav li'),
         vals = [],
         newUl = null;
 
@@ -68,7 +66,7 @@ $(document).ready(function() {
 
     newUl = $('.react-modal-content div ul.facets_nav');
 
-    for (var i = 0, l = vals.length; i < l; i++) {
+    for (let i = 0, l = vals.length; i < l; i++) {
 
       newUl.append(vals[i]);
     }
@@ -78,36 +76,12 @@ $(document).ready(function() {
   }
 
 
-  // Sets the text of the sort button
-  function setButtonText(elem) {
-
-    if (elem.text() === 'Sort A-Z') {
-
-      sortName = 'Sort Z-A';
-
-      return sortName;
-
-    } else if (elem.text() === 'Sort Z-A') {
-
-      sortName = 'Undo Sort';
-
-      return sortName;
-
-    } else if (elem.text() === 'Undo Sort') {
-
-      sortName = 'Sort A-Z';
-
-      return sortName;
-    }
-  }
-
-
   // Add new button functionality
   function registerButtonClicks() {
 
     $('#sortExplore').click(function() {
 
-      setButtonText($(this));
+      resourceLibrary.setButtonText($(this));
 
       clicks++;
 
@@ -145,14 +119,14 @@ $(document).ready(function() {
   // Map functions to modal dialog buttons
   $('.more_facets_link').click(function() {
 
-    var append;
+    let append;
 
     desc = false;
 
     append = setInterval(function() {
 
-      // Wait for modal to be rendered into the DOM
-      // then attach our button
+      /* Wait for modal to be rendered into the DOM
+         then attach our button */
       if ( $('.react-modal.more_facets_dialog').length ) {
 
         width = $('.react-modal.more_facets_dialog').width();

@@ -5,32 +5,34 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
-var
+let
     collectionUi,
     darkTheme,
     elems = [],
-    fragment,
     highlightCss,
     highlightScript,
     initElems = [],
-    initFragment,
     jQ,
     prefs = {},
+    preloader,
     releaseDurations,
     releaseHistoryScript,
+    resourceLibrary,
     sortExploreScript,
     sortMarketplaceScript,
-    sortPersonalListsScript;
+    sortPersonalListsScript,
+    suggestedPricesSingle,
+    suggestedPricesRelease,
+    updateExchangeRates;
 
-function appendFragment() {
+function appendFragment(source) {
 
-  fragment = document.createDocumentFragment();
+  let fragment = document.createDocumentFragment();
 
-  elems.forEach(function(elm) {
+  source.forEach(function(elm) {
 
     fragment.appendChild(elm);
   });
@@ -44,24 +46,27 @@ chrome.storage.sync.get('prefs', function(result) {
   if (!result.prefs) {
 
     prefs = {
+      collectionUi: true,
       darkTheme: true,
       highlightMedia: true,
-      sortButtons: true,
+      //pieStats: true,
       releaseDurations: true,
-      collectionUi: true,
-      useBandcamp: true,
-      useBoomkat: true,
-      useClone: true,
-      useDeejay: true,
+      sortButtons: true,
+      suggestedPrices: false,
+      userCurrency: null,
+      useBandcamp: false,
+      useBoomkat: false,
+      useClone: false,
+      useDeejay: false,
       useDiscogs: true,
-      useGramaphone: true,
-      useHalcyon: true,
-      useHardwax: true,
-      useInsound: true,
-      useJuno: true,
-      useOye: true,
-      usePbvinyl: true
-      };
+      useGramaphone: false,
+      useHalcyon: false,
+      useHardwax: false,
+      useInsound: false,
+      useJuno: false,
+      useOye: false,
+      usePbvinyl: false
+    };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
 
@@ -80,7 +85,6 @@ chrome.storage.sync.get('prefs', function(result) {
 
   initElems.push(jQ);
 
-
   // Create dark theme css element...
   darkTheme = document.createElement('link');
 
@@ -92,27 +96,25 @@ chrome.storage.sync.get('prefs', function(result) {
 
   darkTheme.id = 'darkThemeCss';
 
-  if (!result.prefs.darkTheme) {
-
-    darkTheme.setAttribute('disabled', true);
-  }
+  // disable if needed
+  if (!result.prefs.darkTheme) { darkTheme.setAttribute('disabled', true); }
 
   initElems.push(darkTheme);
 
+  // resource-library.js
+  resourceLibrary = document.createElement('script');
 
-  // Append jQuery and dark-theme css
-  initFragment = document.createDocumentFragment();
+  resourceLibrary.type = 'text/javascript';
 
-  initElems.forEach(function(elm) {
+  resourceLibrary.src = chrome.extension.getURL('js/resource-library.js');
 
-    initFragment.appendChild(elm);
-  });
+  initElems.push(resourceLibrary);
 
-  (document.head || document.documentElement).appendChild(initFragment.cloneNode(true));
+  // Stick it in
+  appendFragment(initElems);
 
-  /**
-   * Create document fragment with preferences
-   */
+
+  /*   User Prefs   */
 
   if (result.prefs.highlightMedia) {
 
@@ -124,7 +126,6 @@ chrome.storage.sync.get('prefs', function(result) {
     highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
 
     elems.push(highlightScript);
-
 
     // marketplace-highlights.css
     highlightCss = document.createElement('link');
@@ -151,7 +152,6 @@ chrome.storage.sync.get('prefs', function(result) {
 
     elems.push(sortExploreScript);
 
-
     // sort-marketplace-lists.js
     sortMarketplaceScript = document.createElement('script');
 
@@ -160,7 +160,6 @@ chrome.storage.sync.get('prefs', function(result) {
     sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
 
     elems.push(sortMarketplaceScript);
-
 
     // sort-personal-lists.js
     sortPersonalListsScript = document.createElement('script');
@@ -205,9 +204,51 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(collectionUi);
   }
 
-  /**
-   * Contextual menu options
-   */
+  if (result.prefs.suggestedPrices) {
+
+    // update-exchange-rates.js
+    updateExchangeRates = document.createElement('script');
+
+    updateExchangeRates.type = 'text/javascript';
+
+    updateExchangeRates.src = chrome.extension.getURL('js/update-exchange-rates.js');
+
+    elems.push(updateExchangeRates);
+
+    //suggested-prices-release-page.js
+    suggestedPricesRelease = document.createElement('script');
+
+    suggestedPricesRelease.type = 'text/javascript';
+
+    suggestedPricesRelease.src = chrome.extension.getURL('js/suggested-prices-release-page.js');
+
+    elems.push(suggestedPricesRelease);
+
+    //suggested-prices-single.js
+    suggestedPricesSingle = document.createElement('script');
+
+    suggestedPricesSingle.type = 'text/javascript';
+
+    suggestedPricesSingle.src = chrome.extension.getURL('js/suggested-prices-single.js');
+
+    elems.push(suggestedPricesSingle);
+
+    // Preloader css
+    preloader = document.createElement('link');
+
+    preloader.rel = 'stylesheet';
+
+    preloader.type = 'text/css';
+
+    preloader.href = chrome.extension.getURL('css/pre-loader.css');
+
+    preloader.id = 'preloaderCss';
+
+    elems.push(preloader);
+  }
+
+
+  /*  Contextual menu options  */
 
   if (result.prefs.useBandcamp) {
 
@@ -341,20 +382,26 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
+  if (result.prefs.userCurrency) {
+
+    localStorage.setItem('userCurrency', result.prefs.userCurrency);
+  }
+
   setTimeout(function() {
 
-    appendFragment(result);
+    appendFragment(elems);
 
   }, 100);
 });
 
 
-// Install/update notifications
+/*  Install/update notifications  */
+
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
   chrome.runtime.onInstalled.addListener(function(details) {
 
-    var
+    let
         previousVersion,
         thisVersion;
 
@@ -363,6 +410,8 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
       console.log('Welcome to the pleasuredome!');
 
       chrome.storage.sync.set({didUpdate: false}, function() {});
+
+      localStorage.setItem('rates', null);
 
     } else if (details.reason === 'update') {
 

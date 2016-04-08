@@ -4,9 +4,9 @@
     <title>Discogs Enhancer</title>
     <link rel="stylesheet" href="/css/toggle-style.css">
     <link rel="stylesheet" href="/css/popup.css">
-    <script src="../js/popup.js"></script>
     <script src="../js/jquery/jquery-min.js"></script>
     <script src="../js/analytics.js"></script>
+    <script src="../js/popup.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Halant:300,500,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   </head>
@@ -77,6 +77,32 @@
       </div>
     </div>
 
+    <div class="toggle-group">
+      <p class="label">Suggested Prices (beta)</p>
+      <select id="currency">
+        <option value="-">-</option>
+        <option value="AUD">AUD</option>
+        <option value="BRL">BRL</option>
+        <option value="CAD">CAD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="JPY">JPY</option>
+        <option value="MXN">MXN</option>
+        <option value="NZD">NZD</option>
+        <option value="SEK">SEK</option>
+        <option value="USD">USD</option>
+        <option value="ZAR">ZAR</option>
+      </select>
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="togglePrices" checked>
+          <label class="onoffswitch-label" for="togglePrices">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
     <div class="toggle-group menus last">
       <p class="label">Contextual Menu Options</p>
 
@@ -140,7 +166,7 @@
         <img src="../img/warning.svg" alt="Warning Icon">
       </div>
       <div class="warning-text">
-        <p id="notify">Please refresh the page for changes to take effect.</p>
+        <p id="notify"></p>
       </div>
     </div>
 

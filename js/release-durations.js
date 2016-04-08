@@ -5,14 +5,6 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
- *
- */
-
-/**
- *
- * Calculates the total playing time of any relase
- * if track times are provided.
  *
  */
 
@@ -60,7 +52,6 @@ $(document).ready(function() {
 
       return sec;
     }
-
 
 
     // Make a new array with our converted values

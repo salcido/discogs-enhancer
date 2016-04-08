@@ -5,7 +5,6 @@
  * @author: Matthew Salcido (c) 2016
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
- * @discogs: https://www.discogs.com/user/mattsalcido
  *
  */
 
@@ -19,7 +18,7 @@
 
 $(document).ready(function() {
 
-  var
+  let
       clicks = 1,
       desc = false,
       filterTarget,
@@ -32,7 +31,7 @@ $(document).ready(function() {
   // Inject sort button into modal
   function appendFilterSortButton() {
 
-    var sortFilterButton = '<div style="text-align: center;">' +
+    let sortFilterButton = '<div style="text-align: center;">' +
                            '<button id="sortFilters" ' +
                            'class="button button_blue" ' +
                            'style="width: 100px;">Sort A-Z</button>' +
@@ -49,18 +48,18 @@ $(document).ready(function() {
   // Link sorter function
   function compareText(a1, a2) {
 
-    var x = $(a1).find('a').attr('href'),
+    let x = $(a1).find('a').attr('href'),
         y = $(a2).find('a').attr('href');
 
     return x > y ? 1 : (x < y ? -1 : 0);
   }
 
 
-  // Sort our lists and create new HTML, then insert
-  // the newly sorted list array elements.
+  /* Sort our lists and create new HTML, then insert
+  the newly sorted list array elements. */
   function sortUnorderedFilterList(ul, sortDescending) {
 
-    var
+    let
         liHead,
         listElms = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
         newUl,
@@ -69,8 +68,8 @@ $(document).ready(function() {
     // Grab all the list elements and push them into our array
     listElms.each(function(index) { vals.push(listElms[index]); });
 
-    // Examine the list elements and remove the no_link element
-    // assign that to |liHead| for later use
+    /* Examine the list elements and remove the no_link element
+       assign that to |liHead| for later use */
     $(vals).each(function(index) {
 
       if ( $(vals[index]).hasClass('no_link') ) {
@@ -105,36 +104,13 @@ $(document).ready(function() {
   }
 
 
-  function setButtonText(elem) {
-
-    if (elem.text() === 'Sort A-Z') {
-
-      sortName = 'Sort Z-A';
-
-      return sortName;
-
-    } else if (elem.text() === 'Sort Z-A') {
-
-      sortName = 'Undo Sort';
-
-      return sortName;
-
-    } else if (elem.text() === 'Undo Sort') {
-
-      sortName = 'Sort A-Z';
-
-      return sortName;
-    }
-  }
-
-
   // Add new button functionalities
   function registerFilterButtonClicks() {
 
     // Injected 'Sort A-Z' button
     $('#sortFilters').click(function() {
 
-      setButtonText($(this));
+      resourceLibrary.setButtonText($(this));
 
       clicks++;
 
@@ -178,21 +154,21 @@ $(document).ready(function() {
   // Map functions to modal dialog buttons
   $('.show_more_filters').click(function() {
 
-    var checkForMarkup;
+    let checkForMarkup;
 
     desc = false;
 
     // Find the right UL to filter
     filterTarget = $(this).data('label');
 
-    // Make sure the correct child element exists in |#more_filters_container|
-    // before storing it.
+    /* Make sure the correct child element exists in |#more_filters_container|
+       before storing it. */
     checkForMarkup = setInterval(function() {
 
       if ( $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).length ) {
 
-        // Store current markup of #more_filters_container. If the user does not
-        // select a filter, it will be restored when .hide_more_filters is clicked
+        /* Store current markup of #more_filters_container. If the user does not
+           select a filter, it will be restored when .hide_more_filters is clicked */
         moreFiltersStorage = moreFiltersContainer.clone(true);
 
         storage = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).clone(true);

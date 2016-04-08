@@ -239,3 +239,13 @@ input[type="checkbox"]:focus {
   width: 110px;
   float: left;
 }
+
+#currency {
+  margin-top: 16px;
+  margin-left: 15px;
+  outline: none;
+}
+
+#currency.alert {
+  outline: 1px dotted red;
+}
