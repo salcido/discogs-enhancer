@@ -15,28 +15,16 @@ $(document).ready(function() {
   if (loc.indexOf('/sell/release/') > -1) {
 
     let
-        convertedPrices,
-        exchangeArray,
         extract,
-        itemConditions,
-        itemPrices,
         items,
         nodeId,
-        priceObj = {},
+        priceContainer = [],
+        priceKey = {},
         prices,
         releaseId,
         result,
-        sanitizedPrices,
         symbol,
         userCurrency = localStorage.getItem('userCurrency');
-
-    // Remove mobile garbage
-    $('.hide_desktop').remove();
-
-    extract = loc.match(/([\d]+)/g);
-
-    releaseId = extract[0];
-
 
     // Insert preloader animation
     $('td.item_price').each(function(j) {
@@ -47,30 +35,29 @@ $(document).ready(function() {
 
     function getAndAppendPrices() {
 
-      prices.each(function(i) { itemPrices.push(prices[i].innerHTML); });
+      prices.each(function(i) { priceContainer.push({price: prices[i].innerHTML}); });
 
-      items.each(function(i) { itemConditions.push(items[i].innerHTML); });
+      items.each(function(i) { priceContainer[i].mediaCondition = items[i].innerHTML; });
 
-      resourceLibrary.matchSymbols(itemPrices, exchangeArray);
+      resourceLibrary.matchSymbols(priceContainer);
 
-      resourceLibrary.sanitizePrices(itemPrices, sanitizedPrices, null);
+      resourceLibrary.sanitizePrices(priceContainer);
 
-      convertedPrices = resourceLibrary.convertPrices(convertedPrices, exchangeArray, sanitizedPrices);
+      resourceLibrary.convertPrices(priceContainer);
 
       symbol = resourceLibrary.getSymbols(userCurrency, symbol);
-
 
       // Draxx them sklounst
       $('td.item_price').each(function(j) {
 
         let
-            actual = convertedPrices[j].toFixed(2),
+            actual = priceContainer[j].convertedPrice.toFixed(2),
             adj = '',
             border = resourceLibrary.css.border,
             color = '',
             green = resourceLibrary.css.colors.green,
             red = resourceLibrary.css.colors.red,
-            suggested = priceObj['post:suggestedPrices'][itemConditions[j]].toFixed(2),
+            suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition].toFixed(2),
             difference = suggested - actual,
             percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
@@ -116,7 +103,7 @@ $(document).ready(function() {
     function checkForSellerPermissions() {
 
       // User does not have seller setup
-      if ($(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceObj['post:suggestedPrices']) {
+      if ($(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceKey['post:suggestedPrices']) {
 
         $('.de-preloader').remove();
 
@@ -149,19 +136,17 @@ $(document).ready(function() {
           $('.de-price').remove();
 
           // Reset our values
-          convertedPrices = [];
-          exchangeArray = [];
-          itemConditions = [];
-          itemPrices = [];
           items = $('.shortcut_navigable .item_description .item_condition span.item_media_condition');
+
+          priceContainer = [];
+
           prices = $('td.item_price span.price');
-          sanitizedPrices = [];
 
           result = $(response);
 
           nodeId = resourceLibrary.findNode(result);
 
-          priceObj = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
+          priceKey = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
 
           return checkForSellerPermissions();
         }
@@ -181,6 +166,13 @@ $(document).ready(function() {
         }
       });
     });
+
+    // Remove mobile garbage
+    $('.hide_desktop').remove();
+
+    extract = loc.match(/([\d]+)/g);
+
+    releaseId = extract[0];
 
     init();
   }

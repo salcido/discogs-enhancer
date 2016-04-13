@@ -12,6 +12,7 @@ $(document).ready(function() {
 
   let
       d = new Date(),
+      language = $('#i18n_select option:selected').val(),
       lastChecked = localStorage.getItem('lastChecked'),
       rates = JSON.parse(localStorage.getItem('rates')),
       today = d.toISOString().split('T')[0],
@@ -46,6 +47,9 @@ $(document).ready(function() {
 
     } else {
 
-      console.log('Discogs Enhancer: Using cached rates:', lastChecked);
+      console.log('Discogs Enhancer: Using cached rates:', lastChecked, 'language:', language);
     }
+
+    // Store user's lagnuage preference
+    localStorage.setItem('language', language);
 });

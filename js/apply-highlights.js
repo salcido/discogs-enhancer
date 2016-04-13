@@ -12,10 +12,10 @@ $(document).ready(function() {
 
   let
       loc = window.location.href,
-      sellPage = /discogs.com\/sell\/list/g,
-      sellerPage = /discogs.com\/seller/g,
-      sellRelease = /discogs.com\/sell\/release/g,
-      wantsPage = /discogs.com\/sell\/mywants/g;
+      sellPage = /sell\/list/g,
+      sellerPage = /seller/g,
+      sellRelease = /sell\/release/g,
+      wantsPage = /sell\/mywants/g;
 
 
   // Find all Marketplace item conditions and apply classes

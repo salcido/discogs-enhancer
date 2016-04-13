@@ -73,50 +73,31 @@
      * Calculates prices based on user's currency
      *
      * @instance
-     * @param    {array || undefined} source
-     * @param    {array} exchange
-     * @param    {object} rates
-     * @param    {array} pricesArr
-     * @param    {sanitizedPrice} string
-     * @return   {undefined}
+     * @param    {array} source
+     * @return   {array}
      */
 
-    convertPrices: function(source, exchange, pricesArr, sanitizedPrice) {
+    convertPrices: function(source) {
 
       // Current rates from Fixer.io
       let rates = JSON.parse(localStorage.getItem('rates'));
 
-      if (Array.isArray(source)) {
+      source.forEach(function(obj) {
 
-        for (let h = 0; h < pricesArr.length; h++) {
+        for (let h = 0; h < source.length; h++) {
 
-          if (!rates.rates[exchange[h]]) {
+          if (!rates.rates[obj.exchangeName]) {
 
-            source.push(Number(pricesArr[h]));
+            obj.convertedPrice = Number(obj.sanitizedPrice);
 
           } else {
 
-            source.push(pricesArr[h] / rates.rates[exchange[h]]);
+            obj.convertedPrice = (obj.sanitizedPrice / rates.rates[obj.exchangeName]);
           }
         }
+      });
 
-        return source;
-
-      } else {
-
-        if (!rates.rates[exchange]) {
-
-          source = Number(sanitizedPrice);
-
-          return source;
-
-        } else {
-
-          source = sanitizedPrice / rates.rates[exchange];
-
-          return source;
-        }
-      }
+      return source;
     },
 
     /**
@@ -171,99 +152,33 @@
     },
 
     /**
-     * Strips currency symbol from prices
-     *
-     * @instance
-     * @param    {array || string} source
-     * @param    {array} container
-     * @return   {undefined}
-     */
-
-    sanitizePrices: function(source, container, singlePrice) {
-
-      if (Array.isArray(source)) {
-
-        source.forEach(function(price) {
-
-          // extract all digits
-          let digits = price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
-
-          if (digits.indexOf(',') > -1) {
-
-            digits = digits.replace(',', '');
-
-            container.push(digits);
-
-          } else {
-
-            container.push(digits);
-          }
-
-          return container;
-        });
-
-      } else if (typeof singlePrice === 'string') {
-
-        // extract all digits
-        let digits = singlePrice.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
-
-        if (digits.indexOf(',') > -1) {
-
-          digits = digits.replace(',', '');
-
-          return singlePrice = digits;
-        }
-
-        return singlePrice = digits;
-      }
-    },
-
-    /**
      * Maps price symbol to exchange array
      *
      * @instance
-     * @param    {array || string} source
-     * @param    {array} symbolRegex
-     * @param    {array} exchangeArray
-     * @param    {array} exchangeNme
+     * @param    {array} source
      * @return   {undefined}
      */
 
-    matchSymbols: function(source, exchangeArray) {
+    matchSymbols: function(source) {
 
-      if (Array.isArray(source)) {
+       source.forEach((obj, i) => {
 
-        source.forEach((price, i) => {
+         for (i = 0; i < this.symbolRegex.length; i++) {
 
-          for (i = 0; i < this.symbolRegex.length; i++) {
+           if (obj.price.match(this.symbolRegex[i], 'g')) {
 
-            if (price.match(this.symbolRegex[i], 'g')) {
-
-              exchangeArray.push(this.exchangeNme[i]);
-            }
-          }
-        });
-
-        return exchangeArray;
-
-      } else if (typeof source === 'string') {
-
-        for (let i = 0; i < this.symbolRegex.length; i++) {
-
-          if (source.match(this.symbolRegex[i], 'g')) {
-
-            return this.exchangeNme[i];
-          }
-        }
-      }
-    },
+             obj.exchangeName = this.exchangeNme[i];
+           }
+         }
+       });
+     },
 
     /**
-     * Prepares element for parsing into object
+     * Parses element into object
      *
      * @instance
      * @param    {string} element
-     * @return   {string}
+     * @return   {object}
      */
 
     prepareObj: function(element) {
@@ -275,6 +190,30 @@
       element = JSON.parse(element);
 
       return element;
+    },
+
+    /**
+     * Strips currency symbol from prices
+     *
+     * @instance
+     * @param    {array} source
+     * @return   {undefined}
+     */
+
+    sanitizePrices: function(source) {
+
+      source.forEach(function(obj) {
+
+        // extract all digits
+        let digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
+
+        if (digits.indexOf(',') > -1) {
+
+          digits = digits.replace(',', '');
+        }
+
+        obj.sanitizedPrice = digits;
+      });
     },
 
     /**

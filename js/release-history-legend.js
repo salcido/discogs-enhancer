@@ -14,7 +14,7 @@
  * This will colorize the legend on the release history page.
  *
  */
-
+// TODO fix urls for languages
 $(document).ready(function() {
 
   let

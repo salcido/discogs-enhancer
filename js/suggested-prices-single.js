@@ -20,9 +20,9 @@ $(document).ready(function() {
 
     let
         nodeId,
-        priceObj,
+        priceContainer,
+        priceKey,
         result,
-        sanitizedPrice,
         symbol,
         userCurrency = localStorage.getItem('userCurrency');
 
@@ -46,14 +46,12 @@ $(document).ready(function() {
     }
 
     // Inject price comparisons
-    function getAndAppendPrice(releaseId, price, itemCondition, target) {
+    function getAndAppendPrice(releaseId, container, target) {
 
       let
           adj = '',
           border = resourceLibrary.css.border,
           color = '',
-          convertedPrice,
-          exchange,
           green = resourceLibrary.css.colors.green,
           red = resourceLibrary.css.colors.red,
           //
@@ -80,11 +78,10 @@ $(document).ready(function() {
 
           nodeId = resourceLibrary.findNode(result);
 
-          priceObj = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
-
+          priceKey = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
 
           // User does not have seller setup
-          if ($(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceObj['post:suggestedPrices']) {
+          if ($(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceKey['post:suggestedPrices']) {
 
             $('.de-preloader').remove();
 
@@ -93,24 +90,23 @@ $(document).ready(function() {
             return;
           }
 
-          exchange = resourceLibrary.matchSymbols(price, null);
+          resourceLibrary.matchSymbols(priceContainer);
 
-          sanitizedPrice = resourceLibrary.sanitizePrices(null, null, price);
+          resourceLibrary.sanitizePrices(priceContainer);
 
-          convertedPrice = resourceLibrary.convertPrices(convertedPrice, exchange, null, sanitizedPrice);
+          resourceLibrary.convertPrices(priceContainer);
 
 
           // Set up comparions values
-          actual = convertedPrice.toFixed(2);
+          actual = priceContainer[0].convertedPrice.toFixed(2);
 
-          suggested = priceObj['post:suggestedPrices'][itemCondition].toFixed(2);
+          suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition].toFixed(2);
 
           difference = suggested - actual;
 
           percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
           $(target).find('.de-preloader').remove();
-
 
           // Append text to DOM
           if (percentage > 2) {
@@ -154,6 +150,7 @@ $(document).ready(function() {
       });
     }
 
+
     // init it a bit
     $('body').on('click', '.de-price-link', function(event) {
 
@@ -176,7 +173,12 @@ $(document).ready(function() {
           price = link.closest('.shortcut_navigable').find('.price').html(),
           target = $(event.target).closest('.item_price');
 
-      getAndAppendPrice(releaseId, price, itemCondition, target);
+          priceContainer = [{
+                              price: price,
+                              mediaCondition: itemCondition
+                           }];
+
+      getAndAppendPrice(releaseId, priceContainer, target);
     });
 
 

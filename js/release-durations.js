@@ -96,7 +96,7 @@ $(document).ready(function() {
 
     if (result === '0:00') {
 
-      $.noop();
+      return;
 
     } else {
 
