@@ -1,5 +1,19 @@
 (function() {
 
+  /**
+   * Each object in `priceContainer` array
+   * looks something like this:
+
+     {
+      convertedPrice: 17.037037037037038,
+      exchangeName: "EUR",
+      mediaCondition: "Mint (M)",
+      price: "€14.95",
+      sanitizedPrice: "14.95"
+    }
+
+   */
+
   window.resourceLibrary = {
 
     /**
@@ -70,7 +84,7 @@
     },
 
     /**
-     * Calculates prices based on user's currency
+     * Converts prices to user's currency
      *
      * @instance
      * @param    {array} source
@@ -106,7 +120,7 @@
      * @type {Array}
      */
 
-    exchangeNme: ['EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'ZAR', 'MXN', 'BRL', 'USD'],
+    exchangeList: ['EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'ZAR', 'MXN', 'BRL', 'USD'],
 
     /**
      * Finds the `dsdata` node
@@ -140,11 +154,11 @@
 
     getSymbols: function(userCurrency, symbol) {
 
-      this.exchangeNme.forEach((name, f) => {
+      this.exchangeList.forEach((name, f) => {
 
         if (name === userCurrency) {
 
-          symbol = this.symbolPrint[f];
+          symbol = this.printSymbol[f];
         }
       });
 
@@ -167,7 +181,7 @@
 
            if (obj.price.match(this.symbolRegex[i], 'g')) {
 
-             obj.exchangeName = this.exchangeNme[i];
+             obj.exchangeName = this.exchangeList[i];
            }
          }
        });
@@ -252,7 +266,7 @@
      * @type {Array}
      */
 
-    symbolPrint: ['€', '£', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+    printSymbol: ['€', '£', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
 
     /**
      * Regular expressions for detecting what currency a price is listed in.

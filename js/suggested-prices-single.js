@@ -108,8 +108,9 @@ $(document).ready(function() {
 
           $(target).find('.de-preloader').remove();
 
+
           // Append text to DOM
-          if (percentage > 2) {
+          if (percentage > 1) {
 
             difference = (suggested - actual).toFixed(2);
 
@@ -121,7 +122,7 @@ $(document).ready(function() {
 
             $(target).find('.de-price').hide().fadeIn(300);
 
-          } else if (percentage < -2) {
+          } else if (percentage < -1) {
 
             difference = (actual - suggested).toFixed(2);
 
