@@ -99,6 +99,13 @@
 
       source.forEach(function(obj) {
 
+        if (!obj.isJPY) {
+
+          let injectionPoint = obj.sanitizedPrice.length - 2;
+
+          obj.sanitizedPrice = obj.sanitizedPrice.splice(injectionPoint, 0, '.');
+        }
+
         for (let h = 0; h < source.length; h++) {
 
           if (!rates.rates[obj.exchangeName]) {
@@ -181,22 +188,78 @@
 
       let language = localStorage.getItem('language');
 
-      if (language === 'en' ||
-          language === 'ja') {
+      if (language === 'de') {
 
-        return symbol + price;
-      }
+        if (price.length > 6) {
 
-      if (language === 'fr' ||
-          language === 'de' ||
-          language === 'es') {
+          // decimal
+          price = price.replace('.', ',');
+
+          price = price.splice(price.length - 6, 0, '.');
+
+          return price + ' ' + symbol;
+        }
 
         price = price.replace('.', ',');
 
         return price + ' ' + symbol;
       }
 
+      if (language === 'en' || language === 'ja') {
+
+        if (price.length > 6) {
+
+          price = price.splice(price.length - 6, 0, ',');
+
+          return symbol + price;
+        }
+
+        return symbol + price;
+      }
+
+      if (language === 'es') {
+
+        if (price.length > 6) {
+
+          // decimal
+          price = price.replace('.', ',');
+
+          price = price.splice(price.length - 6, 0, '.');
+
+          return price + ' ' + symbol;
+        }
+
+        price = price.replace('.', ',');
+
+        return price + ' ' + symbol;
+      }
+
+      if (language === 'fr') {
+
+        if (price.length > 6) {
+
+          // decimal
+          price = price.replace('.', ',');
+
+          price = price.splice(price.length - 6, 0, ' ');
+
+          return price + ' ' + symbol;
+        }
+
+        return price + ' ' + symbol;
+      }
+
       if (language === 'it') {
+
+        if (price.length > 6) {
+
+          // decimal
+          price = price.replace('.', ',');
+
+          price = price.splice(price.length - 6, 0, '.');
+
+          return symbol + ' ' + price;
+        }
 
         price = price.replace('.', ',');
 
@@ -205,7 +268,7 @@
     },
 
     /**
-     * Maps price symbol to exchange array
+     * Maps price symbol to `exchangeList` array
      *
      * @instance
      * @param    {array} source
@@ -255,34 +318,46 @@
     },
 
     /**
+     * Symbols that will be used in price estimates injected into the DOM
+     *
+     * @type {Array}
+     */
+
+    printSymbol: {
+
+      de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+      en: ['€', '£', '¥', '¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+      es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
+
+      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$']
+    },
+
+    /**
      * Strips currency symbol from prices
      *
      * @instance
      * @param    {array} source
-     * @return   {undefined}
+     * @return   {string}
      */
 
     sanitizePrices: function(source) {
 
       source.forEach(function(obj) {
 
+        obj.price = obj.price.replace('&nbsp;', '');
+
+        obj.price = obj.price.replace(',', '');
+
+        obj.price = obj.price.replace('.', '');
+
         // extract all digits
         let digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
-
-        if (obj && obj.isJPY) {
-
-          obj.price = obj.price.replace('&nbsp;', '');
-
-          digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
-
-          digits = digits.replace(',', '');
-
-          digits = digits.replace('.', '');
-
-        } else if (obj && digits.indexOf(',') > -1 && !obj.isJPY) {
-
-          digits = digits.replace(',', '.');
-        }
 
         return obj.sanitizedPrice = digits;
       });
@@ -319,27 +394,6 @@
     },
 
     /**
-     * An array of symbols that will be used in price estimates injected into the DOM
-     *
-     * @type {Array}
-     */
-
-    printSymbol: {
-
-      de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
-
-      en: ['€', '£', '¥', '¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
-
-      es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
-
-      fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
-
-      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
-
-      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$']
-    },
-
-    /**
      * Regular expressions for determining what currency a price is listed in
      *
      * @type {Array}
@@ -355,4 +409,17 @@
 
     unregistered: 'Please complete your Seller Settings before listing items for sale.'
   };
+
+  // http://www.bennadel.com/blog/2160-adding-a-splice-method-to-the-javascript-string-prototype.htm
+  if ( !('splice' in String.prototype) ) {
+
+    String.prototype.splice = function(index, howManyToDelete, stringToInsert) {
+
+      let characterArray = this.split('');
+
+      Array.prototype.splice.apply(characterArray, arguments);
+
+      return(characterArray.join(''));
+    };
+  }
 }());

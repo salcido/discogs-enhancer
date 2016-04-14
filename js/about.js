@@ -16,11 +16,14 @@ document.addEventListener('DOMContentLoaded', function () {
     let
         d = new Date(),
         manifest = chrome.runtime.getManifest(),
-        version = document.getElementById('version'),
+        version = document.getElementsByClassName('version'),
         year = d.getFullYear(),
         yearSpan = document.getElementById('year');
 
-    version.innerHTML = 'Version ' + manifest.version;
+    for (let i = 0; i < version.length; i++) {
+
+      version[i].innerHTML = 'version ' + manifest.version;
+    }
 
     yearSpan.innerHTML = year;
   }

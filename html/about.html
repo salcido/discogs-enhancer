@@ -21,9 +21,22 @@
 
             <div class="col-lg-4">
               <div class="title center">
+
                 <img src="../img/header-2x.png">
-                <p id="version"></p>
+
+                <p class="version version-header"></p>
+
+                <hr>
+
+                <p id="didUpdate" class="near-mint">New in <span class="version"></span>:
+                  <ul>
+                    <li>Suggested prices are now localized</li>
+                  </ul>
+                </p>
+
               </div>
+
+              <hr>
 
               <div class="content">
 
@@ -37,14 +50,14 @@
                 <p class="content">This adds <span class="sort-btn">Sort A-Z</span> buttons on all kinds of things. You can sort the dialog boxes on the Explore page, your personal lists in the 'Add to list' dialog boxes, and any filter within the Marketplace. The first click sorts A-Z, the second click sorts Z-A and the third click returns the list to its original state (aka undo).</p>
 
                 <p class="bold">Release Durations</p>
-                <p class="content">This will show the total playing time of a release (if provided) at the bottom of the track list.</p>
+                <p class="content">This will show the total playing time of a release (if track times are provided) at the bottom of the track list.</p>
 
 
                 <p class="bold">Better Collection UI</p>
                 <p class="content">This makes the Collection page a little more organized and easier to understand. It groups the "Random item" link over with the others on the right. It rearranges the "Move Selected" interface so that it's easier to understand. It more clearly specifies <i>which</i> folder you are currently viewing and colorizes the "Remove Selected" and "Move Selected" buttons. It also disables the "Move Selected" button until a selection has been made. If this sounds confusing go to your collection page and try turning the option on and off.</p>
 
-                <p class="bold"><span class="near-mint">(New!) </span>Suggested Prices (beta)</p>
-                <p class="content">This will show the prices that Discogs suggests and compare them to the seller's price in your country's currency. Its useful for seeing if an item is overpriced. If the listed price is within 2% of the suggested price, it will say it's "around the same price". <b>In order for this to work you must be registered as a seller.</b>
+                <p class="bold">Suggested Prices (beta)</p>
+                <p class="content">This will show the prices that Discogs suggests and compare them to the seller's price in your country's currency. Its useful for seeing if an item is overpriced. If the listed price is within 1% of the suggested price, it will say it's "around the same price". <em>In order for this to work you must be registered as a seller.</em>
                 <br /><br/>
                 <b>How to use the Suggested Prices feature:</b>
                 <br /><br/>
@@ -59,7 +72,7 @@
                 <img src="../img/about/price-example.png" class="price-example" />
                 You might be wondering why it's necessary to click a link on some pages. This is because on pages with a link, a call to Discogs must be made for each item listed. Depending on your preferences, this could be up to 250 calls per page! In order to keep it to a minimum (and not upset Discogs) the calculations will only happen upon user request.
                 <br /><br />
-                Results are displayed in the currency that is set in your seller settings.<i> <b>Prices are set at the time they are listed and because currencies shift due to global market fluctuations, the recommended price may differ from the listed price.</b></i> I make no claims about the accuracy of these numbers. Exchange rate data comes from <a href="http://www.fixer.io">fixer.io</a> and is updated (at most) once a day or whenever fixer.io updates their data. Discogs likely uses a different exchange service so their exchange rates might differ slightly from fixer.io's rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.
+                Results are displayed in the currency that is set in your seller settings.<i> <em>Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</em></i> I make no claims about the accuracy of these numbers. Exchange rate data comes from <a href="http://www.fixer.io">fixer.io</a> and is updated (at most) once a day or whenever fixer.io updates their data. Discogs likely uses a different exchange service so their exchange rates might differ slightly from fixer.io's rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.
                 <br /><br />
                 This feature is still in beta. It *should* work with currencies outside the US but I cannot test them without screwing up my Discogs seller account. If you have any issues, please let me know!
                 </p>
@@ -80,10 +93,10 @@
                 <div class="updates">
                   <p class="bold">Updates!</p>
                   <ul>
-                    <li>You can now see suggested prices when looking at for sale pages on a release! This is in beta and will not work in all situations. Please read the description above for details.<img src="../img/updates/price-suggestions.png"></li>
+                    <li>Fixed issue where marketplace highlights wouldn't work if language was not English.</li>
+                    <li>Suggested prices will now display in the user's localized format.</li>
+                    <li>You can now see suggested prices! This is in beta and will not work in all situations. Please read the description above for details.<img src="../img/updates/price-suggestions.png"></li>
                     <li>Fixed an issue with select element colors for Windows users. Thanks /u/unowndanger!</li>
-                    <li>Better Collection UI option now styles the wantlist page.</li>
-                    <li>I fixed a few more issues with the dark theme. If you see any, please drop me a line and let me know. Thank you!</li>
                     <li>If you have a lot of lists that you maintain, you can now sort your lists! Look for the sort button on the 'Add to list' dialog boxes.</li>
                     <li>Thanks for reading!</li>
                   </ul>

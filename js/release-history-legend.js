@@ -14,23 +14,23 @@
  * This will colorize the legend on the release history page.
  *
  */
-// TODO fix urls for languages
+
 $(document).ready(function() {
 
   let
-      artistHistory = /discogs.com\/artist\//g,
+      artistHistory = /\/artist\//g,
       loc = window.location.href,
-      releaseHistory = /discogs.com\/release\//g;
+      releaseHistory = /\/release\//g;
 
-  if (loc.match(releaseHistory) || loc.match(artistHistory)) {
+  if (artistHistory.test(loc) || releaseHistory.test(loc)) {
 
     setTimeout(function() {
 
-      $('td:contains("Removed from old version")').attr('style', 'color: #ffaaaa !important');
+      $('td[bgcolor="#ffaaaa"]').attr('style', 'color: #ffaaaa !important');
 
-      $('td:contains("changed")').attr('style', 'color: #ffff77 !important');
+      $('td[bgcolor="#ffff77"]').attr('style', 'color: #ffff77 !important');
 
-      $('td:contains("Added to new version")').attr('style', 'color: #aaffaa !important');
+      $('td[bgcolor="#aaffaa"]').attr('style', 'color: #aaffaa !important');
 
     }, 200);
   }

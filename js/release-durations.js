@@ -94,7 +94,7 @@ $(document).ready(function() {
 
     result += (seconds < 10 ? '0' + seconds : seconds);
 
-    if (result === '0:00') {
+    if (result === '0:00' || result === 'NaN:NaN') {
 
       return;
 

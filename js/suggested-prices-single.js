@@ -111,7 +111,6 @@ $(document).ready(function() {
 
           $(target).find('.de-preloader').remove();
 
-// TODO add localized prices to this
           // Append text to DOM
           if (percentage > 1) {
 

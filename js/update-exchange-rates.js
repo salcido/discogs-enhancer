@@ -47,7 +47,7 @@ $(document).ready(function() {
 
     } else {
 
-      console.log('Discogs Enhancer: Using cached rates:', lastChecked, 'language:', language);
+      console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language);
     }
 
     // Store user's lagnuage preference

@@ -404,8 +404,6 @@ document.addEventListener('DOMContentLoaded', function () {
     checkForUpdate();
 
     getCurrency();
-
-   console.log(chrome.storage.sync.get());
   }
 
   // Start it up
