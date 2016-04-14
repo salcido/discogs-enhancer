@@ -7,6 +7,7 @@
      {
       convertedPrice: 17.037037037037038,
       exchangeName: "EUR",
+      isJPY: false,
       mediaCondition: "Mint (M)",
       price: "€14.95",
       sanitizedPrice: "14.95"
@@ -120,7 +121,7 @@
      * @type {Array}
      */
 
-    exchangeList: ['EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'ZAR', 'MXN', 'BRL', 'USD'],
+    exchangeList: ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'ZAR', 'MXN', 'BRL', 'USD'],
 
     /**
      * Finds the `dsdata` node
@@ -154,15 +155,53 @@
 
     getSymbols: function(userCurrency, symbol) {
 
+      let language = localStorage.getItem('language');
+
       this.exchangeList.forEach((name, f) => {
 
         if (name === userCurrency) {
 
-          symbol = this.printSymbol[f];
+          symbol = this.printSymbol[language][f];
         }
       });
 
       return symbol;
+    },
+
+    /**
+     * Returns price suggestions in user's localized format
+     *
+     * @instance
+     * @param    {string} symbol
+     * @param    {number} price
+     * @return   {string}
+     */
+
+    localizePrice: function(symbol, price) {
+
+      let language = localStorage.getItem('language');
+
+      if (language === 'en' ||
+          language === 'ja') {
+
+        return symbol + price;
+      }
+
+      if (language === 'fr' ||
+          language === 'de' ||
+          language === 'es') {
+
+        price = price.replace('.', ',');
+
+        return price + ' ' + symbol;
+      }
+
+      if (language === 'it') {
+
+        price = price.replace('.', ',');
+
+        return symbol + ' ' + price;
+      }
     },
 
     /**
@@ -180,6 +219,15 @@
          for (i = 0; i < this.symbolRegex.length; i++) {
 
            if (obj.price.match(this.symbolRegex[i], 'g')) {
+
+             if (this.symbolRegex[i] === 's*¥' || this.symbolRegex[i] === 's*￥') {
+
+               obj.isJPY = true;
+
+             } else {
+
+               obj.isJPY = false;
+             }
 
              obj.exchangeName = this.exchangeList[i];
            }
@@ -221,12 +269,22 @@
         // extract all digits
         let digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
 
-        if (digits.indexOf(',') > -1) {
+        if (obj && obj.isJPY) {
+
+          obj.price = obj.price.replace('&nbsp;', '');
+
+          digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
 
           digits = digits.replace(',', '');
+
+          digits = digits.replace('.', '');
+
+        } else if (obj && digits.indexOf(',') > -1 && !obj.isJPY) {
+
+          digits = digits.replace(',', '.');
         }
 
-        obj.sanitizedPrice = digits;
+        return obj.sanitizedPrice = digits;
       });
     },
 
@@ -266,15 +324,28 @@
      * @type {Array}
      */
 
-    printSymbol: ['€', '£', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+    printSymbol: {
+
+      de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+      en: ['€', '£', '¥', '¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+      es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
+
+      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$']
+    },
 
     /**
-     * Regular expressions for detecting what currency a price is listed in.
+     * Regular expressions for determining what currency a price is listed in
      *
      * @type {Array}
      */
 
-    symbolRegex: ['\s*\€', '\s*\£', '\s*\¥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/],
+    symbolRegex: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/],
 
     /**
      * Used to see if user is not yet registered as a seller

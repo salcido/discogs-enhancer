@@ -58,7 +58,8 @@ $(document).ready(function() {
           actual,
           suggested,
           difference,
-          percentage;
+          percentage,
+          printPrice;
 
       $(target).find('.de-price-link').remove();
 
@@ -106,9 +107,11 @@ $(document).ready(function() {
 
           percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
+          printPrice = resourceLibrary.localizePrice(symbol, suggested);
+
           $(target).find('.de-preloader').remove();
 
-
+// TODO add localized prices to this
           // Append text to DOM
           if (percentage > 1) {
 
@@ -118,7 +121,7 @@ $(document).ready(function() {
 
             adj = ' less';
 
-            $(target).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + symbol + suggested);
+            $(target).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + printPrice);
 
             $(target).find('.de-price').hide().fadeIn(300);
 
@@ -130,7 +133,7 @@ $(document).ready(function() {
 
             adj = ' more';
 
-            $(target).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + symbol + suggested);
+            $(target).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + printPrice);
 
             $(target).find('.de-price').hide().fadeIn(300);
 
@@ -138,7 +141,7 @@ $(document).ready(function() {
 
             color = green;
 
-            $(target).append('<span class="converted_price de-price" ' + border + '">about <span style="color:' + color + '!important; font-weight:bold;"> the same price</span><br>' + 'as suggested: <br>' + symbol + suggested);
+            $(target).append('<span class="converted_price de-price" ' + border + '">about <span style="color:' + color + '!important; font-weight:bold;"> the same price</span><br>' + 'as suggested: <br>' + printPrice);
 
             $(target).find('.de-price').hide().fadeIn(300);
           }

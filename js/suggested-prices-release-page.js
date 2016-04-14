@@ -60,6 +60,7 @@ $(document).ready(function() {
             red = resourceLibrary.css.colors.red,
             suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition].toFixed(2),
             difference = suggested - actual,
+            printPrice = resourceLibrary.localizePrice(symbol, suggested),
             percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
         $('.de-preloader').remove();
@@ -72,7 +73,7 @@ $(document).ready(function() {
 
           adj = ' less';
 
-          $(this).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + symbol + suggested);
+          $(this).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + printPrice);
 
           $(this).find('.de-price').hide().fadeIn(300);
 
@@ -84,7 +85,7 @@ $(document).ready(function() {
 
           adj = ' more';
 
-          $(this).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + symbol + suggested);
+          $(this).append('<span class="converted_price de-price" ' + border + '">around <span style="color:' + color + '!important; font-weight:bold;">' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'than suggested: <br>' + printPrice);
 
           $(this).find('.de-price').hide().fadeIn(300);
 
@@ -92,7 +93,7 @@ $(document).ready(function() {
 
           color = green;
 
-          $(this).append('<span class="converted_price de-price" ' + border + '">about <span style="color:' + color + '!important; font-weight:bold;"> the same price</span><br>' + 'as suggested: <br>' + symbol + suggested);
+          $(this).append('<span class="converted_price de-price" ' + border + '">about <span style="color:' + color + '!important; font-weight:bold;"> the same price</span><br>' + 'as suggested: <br>' + printPrice);
 
           $(this).find('.de-price').hide().fadeIn(300);
         }
