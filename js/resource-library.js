@@ -180,88 +180,35 @@
      *
      * @instance
      * @param    {string} symbol
-     * @param    {number} price
+     * @param    {string} price
      * @return   {string}
      */
 
     localizePrice: function(symbol, price) {
 
-      let language = localStorage.getItem('language');
+      let
+          currency = localStorage.getItem('userCurrency'),
+          language = localStorage.getItem('language');
 
-      if (language === 'de') {
+          price = Number(price).toLocaleString(language, {currency: currency});
 
-        if (price.length > 6) {
+      if (language === 'en' ||
+          language === 'ja') {
 
-          // decimal
-          price = price.replace('.', ',');
-
-          price = price.splice(price.length - 6, 0, '.');
-
-          return price + ' ' + symbol;
-        }
-
-        price = price.replace('.', ',');
-
-        return price + ' ' + symbol;
-      }
-
-      if (language === 'en' || language === 'ja') {
-
-        if (price.length > 6) {
-
-          price = price.splice(price.length - 6, 0, ',');
-
-          return symbol + price;
-        }
 
         return symbol + price;
       }
 
-      if (language === 'es') {
+      if (language === 'de' ||
+          language === 'fr' ||
+          language === 'es') {
 
-        if (price.length > 6) {
-
-          // decimal
-          price = price.replace('.', ',');
-
-          price = price.splice(price.length - 6, 0, '.');
-
-          return price + ' ' + symbol;
-        }
-
-        price = price.replace('.', ',');
-
-        return price + ' ' + symbol;
-      }
-
-      if (language === 'fr') {
-
-        if (price.length > 6) {
-
-          // decimal
-          price = price.replace('.', ',');
-
-          price = price.splice(price.length - 6, 0, ' ');
-
-          return price + ' ' + symbol;
-        }
 
         return price + ' ' + symbol;
       }
 
       if (language === 'it') {
 
-        if (price.length > 6) {
-
-          // decimal
-          price = price.replace('.', ',');
-
-          price = price.splice(price.length - 6, 0, '.');
-
-          return symbol + ' ' + price;
-        }
-
-        price = price.replace('.', ',');
 
         return symbol + ' ' + price;
       }
