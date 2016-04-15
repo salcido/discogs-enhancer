@@ -14,11 +14,12 @@ $(document).ready(function() {
       d = new Date(),
       language = $('#i18n_select option:selected').val(),
       lastChecked = localStorage.getItem('lastChecked'),
+      currency = localStorage.getItem('currency'),
       rates = JSON.parse(localStorage.getItem('rates')),
       today = d.toISOString().split('T')[0],
       userCurrency = localStorage.getItem('userCurrency');
 
-    if (!rates || !lastChecked || lastChecked !== today || typeof rates === 'string') {
+    if (!rates || !lastChecked || lastChecked !== today || typeof rates === 'string' || userCurrency !== currency) {
 
       console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked);
 
@@ -35,6 +36,11 @@ $(document).ready(function() {
           rates = JSON.parse(localStorage.getItem('rates'));
 
           localStorage.setItem('lastChecked', today);
+
+          // set last saved currency,
+          // if different from userCurrency will
+          // trigger exchange rates update
+          localStorage.setItem('currency', userCurrency);
         },
 
         error: function() {

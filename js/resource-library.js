@@ -190,11 +190,10 @@
           currency = localStorage.getItem('userCurrency'),
           language = localStorage.getItem('language');
 
-          price = Number(price).toLocaleString(language, {currency: currency});
+      price = Number(price).toLocaleString(language, {currency: currency});
 
       if (language === 'en' ||
           language === 'ja') {
-
 
         return symbol + price;
       }
@@ -203,12 +202,10 @@
           language === 'fr' ||
           language === 'es') {
 
-
         return price + ' ' + symbol;
       }
 
       if (language === 'it') {
-
 
         return symbol + ' ' + price;
       }
@@ -357,7 +354,11 @@
     unregistered: 'Please complete your Seller Settings before listing items for sale.'
   };
 
-  // http://www.bennadel.com/blog/2160-adding-a-splice-method-to-the-javascript-string-prototype.htm
+  /**
+   * Inserts characters into string
+   * Credit: http://www.bennadel.com/blog/2160-adding-a-splice-method-to-the-javascript-string-prototype.htm
+   */
+
   if ( !('splice' in String.prototype) ) {
 
     String.prototype.splice = function(index, howManyToDelete, stringToInsert) {
