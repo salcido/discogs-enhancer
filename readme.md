@@ -12,6 +12,7 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Marketplace Highlights
 * Sort dialogs & filters alphabetically
 * Contextual menu searching
+* Price suggestion comparisons
 * Release durations
 * Better Collection page UI
 
@@ -22,7 +23,7 @@ Great for late night browsing.
 
 
 ### Highlight release conditions in the Marketplace
-Easily see at a glance which items for sale are in the best condition. 
+Easily see at a glance which items for sale are in the best condition.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/marketplace-highlights.png?raw=true "Marketplace Highlights preview")
 
@@ -35,6 +36,9 @@ Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Ge
 Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer. Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/contextual-menu.png?raw=true "Contextual menu preview")
+
+### Price suggestion comparisons
+This will show the prices that Discogs suggests and compare them to the seller's price in your country's currency. Its useful for seeing if an item is overpriced. If the listed price is within 1% of the suggested price, it will say it's "around the same price". In order for this to work you must be registered as a seller on Discogs. Works for any locale that Discogs supports :)
 
 ### Release durations
 See total play times for any release that has track time information.
