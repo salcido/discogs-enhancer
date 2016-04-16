@@ -59,17 +59,51 @@
 
     css: {
 
+      /**
+       * The border that separates prices from suggestion comparisons
+       *
+       * @type {string}
+       */
+
       border: 'style="margin-top: 10px !important;' +
               'padding-top: 10px !important;' +
               'border-top: 1px dotted gray !important;"',
 
+      /**
+       * Common colors used in price comparisons
+       *
+       * @type {Object}
+       */
+
       colors: {
 
         green: '#60C43F',
+
         red: '#e7413f'
       },
 
+      /**
+       * Displayed when Discogs has no price suggestion data on an item
+       *
+       * @type {string}
+       */
+
+      noData: 'Discogs<br>does not have<br>price data on<br>this item.',
+
+      /**
+       * Preloader markup
+       *
+       * @type {string}
+       */
+
       preloader: '<span class="converted_price de-preloader"></span>',
+
+      /**
+       * Displayed when a user has price comparisons enabled but does
+       * not have seller privileges
+       *
+       * @type {string}
+       */
 
       pleaseRegister: '<span class="converted_price" ' +
                       'style="margin-top: 10px !important; ' +
@@ -239,7 +273,8 @@
 
            if (obj.price.match(this.symbolRegex[i], 'g')) {
 
-             if (this.symbolRegex[i] === 's*¥' || this.symbolRegex[i] === 's*￥') {
+             if (this.symbolRegex[i] === 's*¥' ||
+                 this.symbolRegex[i] === 's*￥') {
 
                obj.isJPY = true;
 
@@ -252,6 +287,31 @@
            }
          }
        });
+     },
+
+     /**
+      * Config values for various features
+      *
+      * @type {Object}
+      */
+
+     options: {
+
+       /**
+        * Whether or not to change color prices
+        *
+        * @type {boolean}
+        */
+
+       colorizePrices: false,
+
+       /**
+        * The maximum percentage that an item will be ballpark-estimated with: ±
+        *
+        * @type {number}
+        */
+
+       threshold: 3
      },
 
     /**
@@ -368,6 +428,7 @@
 
   /**
    * Inserts characters into string
+   *
    * Credit: http://www.bennadel.com/blog/2160-adding-a-splice-method-to-the-javascript-string-prototype.htm
    */
 

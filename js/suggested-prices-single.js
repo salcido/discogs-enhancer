@@ -52,8 +52,10 @@ $(document).ready(function() {
           adj = '',
           border = resourceLibrary.css.border,
           color = '',
+          colorizePrices = resourceLibrary.options.colorizePrices,
           green = resourceLibrary.css.colors.green,
           red = resourceLibrary.css.colors.red,
+          threshold = resourceLibrary.options.threshold || 0,
           //
           actual,
           suggested,
@@ -99,9 +101,9 @@ $(document).ready(function() {
 
 
           // Set up comparions values
-          actual = priceContainer[0].convertedPrice.toFixed(2);
+          actual = priceContainer[0].convertedPrice;
 
-          suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition].toFixed(2);
+          suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
 
           difference = suggested - actual;
 
@@ -111,8 +113,16 @@ $(document).ready(function() {
 
           $(target).find('.de-preloader').remove();
 
-          // Append text to DOM
-          if (percentage > 1) {
+          // No data from Discogs
+          if (!isFinite(percentage)) {
+
+            $(target).append('<span class="converted_price de-price" ' + border + '">' + resourceLibrary.css.noData + '<span style="color:' + color + '!important; font-weight:bold;">');
+
+            return $(target).find('.de-price').hide().fadeIn(300);
+          }
+
+          // Less than suggested
+          if (percentage > threshold) {
 
             difference = (suggested - actual).toFixed(2);
 
@@ -124,7 +134,13 @@ $(document).ready(function() {
 
             $(target).find('.de-price').hide().fadeIn(300);
 
-          } else if (percentage < -1) {
+            if (colorizePrices) {
+
+              $(target).find('.price').attr('style', 'color: ' + green + '!important; transition: color 0.3s ease-in-out;');
+            }
+
+          // More than suggested
+          } else if (percentage < -threshold) {
 
             difference = (actual - suggested).toFixed(2);
 
@@ -136,13 +152,19 @@ $(document).ready(function() {
 
             $(target).find('.de-price').hide().fadeIn(300);
 
+          // Within threshold
           } else {
 
             color = green;
 
-            $(target).append('<span class="converted_price de-price" ' + border + '">about <span style="color:' + color + '!important; font-weight:bold;"> the same price</span><br>' + 'as suggested: <br>' + printPrice);
+            $(target).append('<span class="converted_price de-price" ' + border + '">within <span style="color:' + color + '!important; font-weight:bold;">&plusmn; ' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'of suggested: <br>' + printPrice);
 
             $(target).find('.de-price').hide().fadeIn(300);
+
+            if (colorizePrices) {
+
+              $(target).find('.price').attr('style', 'color: ' + green + '!important; transition: color 0.3s ease-in-out;');
+            }
           }
         },
 

@@ -19,7 +19,7 @@ $(document).ready(function() {
       today = d.toISOString().split('T')[0],
       userCurrency = localStorage.getItem('userCurrency');
 
-    if (!rates || !lastChecked || lastChecked !== today || typeof rates === 'string' || userCurrency !== currency) {
+    if (!rates || !lastChecked || lastChecked !== today || typeof rates !== 'object' || userCurrency !== currency) {
 
       console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked);
 

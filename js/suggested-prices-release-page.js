@@ -52,12 +52,14 @@ $(document).ready(function() {
       $('td.item_price').each(function(j) {
 
         let
-            actual = priceContainer[j].convertedPrice.toFixed(2),
+            actual = priceContainer[j].convertedPrice,
             adj = '',
             border = resourceLibrary.css.border,
             color = '',
+            colorizePrices = resourceLibrary.options.colorizePrices,
             green = resourceLibrary.css.colors.green,
             red = resourceLibrary.css.colors.red,
+            threshold = resourceLibrary.options.threshold || 0,
             suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
             difference = suggested - actual,
             printPrice = resourceLibrary.localizePrice(symbol, suggested),
@@ -65,7 +67,16 @@ $(document).ready(function() {
 
         $('.de-preloader').remove();
 
-        if (percentage > 1) {
+        // No data from Discogs
+        if (!isFinite(percentage)) {
+
+          $(this).append('<span class="converted_price de-price" ' + border + '">' + resourceLibrary.css.noData + '<span style="color:' + color + '!important; font-weight:bold;">');
+
+          return $(this).find('.de-price').hide().fadeIn(300);
+        }
+
+        // Less than suggested
+        if (percentage > threshold) {
 
           difference = (suggested - actual).toFixed(2);
 
@@ -77,7 +88,13 @@ $(document).ready(function() {
 
           $(this).find('.de-price').hide().fadeIn(300);
 
-        } else if (percentage < -1) {
+          if (colorizePrices) {
+
+            $(this).find('.price').attr('style', 'color: ' + green + '!important; transition: color 0.3s ease-in-out;');
+          }
+
+        // More than suggested
+        } else if (percentage < -threshold) {
 
           difference = (actual - suggested).toFixed(2);
 
@@ -89,13 +106,19 @@ $(document).ready(function() {
 
           $(this).find('.de-price').hide().fadeIn(300);
 
+        // Within threshold
         } else {
 
           color = green;
 
-          $(this).append('<span class="converted_price de-price" ' + border + '">about <span style="color:' + color + '!important; font-weight:bold;"> the same price</span><br>' + 'as suggested: <br>' + printPrice);
+          $(this).append('<span class="converted_price de-price" ' + border + '">within <span style="color:' + color + '!important; font-weight:bold;">&plusmn; ' + Math.abs(percentage) + '%' + adj + '</span><br>' + 'of suggested: <br>' + printPrice);
 
           $(this).find('.de-price').hide().fadeIn(300);
+
+          if (colorizePrices) {
+
+            $(this).find('.price').attr('style', 'color: ' + green + '!important; transition: color 0.3s ease-in-out;');
+          }
         }
       });
     }
