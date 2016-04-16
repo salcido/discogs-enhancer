@@ -26,6 +26,7 @@ let
     sortPersonalListsScript,
     suggestedPricesSingle,
     suggestedPricesRelease,
+    unitTests,
     updateExchangeRates;
 
 function appendFragment(source) {
@@ -245,6 +246,15 @@ chrome.storage.sync.get('prefs', function(result) {
     preloader.id = 'preloaderCss';
 
     elems.push(preloader);
+
+    // unit-tests.js
+    unitTests = document.createElement('script');
+
+    unitTests.type = 'text/javascript';
+
+    unitTests.src = chrome.extension.getURL('js/unit-tests.js');
+
+    elems.push(unitTests);
   }
 
 

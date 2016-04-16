@@ -60,7 +60,8 @@
       "js/suggested-prices-all.js",
       "js/suggested-prices-release-page.js",
       "js/suggested-prices-single.js",
-      "js/update-exchange-rates.js"
+      "js/update-exchange-rates.js",
+      "js/unit-tests.js"
     ],
 
     "icons": {

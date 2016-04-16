@@ -59,6 +59,7 @@ $(document).ready(function() {
             colorizePrices = resourceLibrary.options.colorizePrices,
             green = resourceLibrary.css.colors.green,
             red = resourceLibrary.css.colors.red,
+            //
             threshold = resourceLibrary.options.threshold || 0,
             suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
             difference = suggested - actual,
@@ -172,7 +173,6 @@ $(document).ready(function() {
           nodeId = resourceLibrary.findNode(result);
 
           priceKey = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
-
           return checkForSellerPermissions();
         }
       });

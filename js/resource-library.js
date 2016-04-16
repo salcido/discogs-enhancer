@@ -1,3 +1,13 @@
+/**
+ *
+ * Discogs Enhancer
+ *
+ * @author: Matthew Salcido (c) 2016
+ * @url: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ *
+ */
+
 (function() {
 
   /**
@@ -126,10 +136,13 @@
      * @return   {array}
      */
 
-    convertPrices: function(source) {
+    convertPrices: function(source, rates) {
 
-      // Current rates from Fixer.io
-      let rates = JSON.parse(localStorage.getItem('rates'));
+      if (!rates) {
+
+        // Current rates from Fixer.io
+        rates = JSON.parse(localStorage.getItem('rates'));
+      }
 
       source.forEach(function(obj) {
 
@@ -235,7 +248,7 @@
 
       } else {
 
-        price = Number(price).toLocaleString(language, {currency: currency});
+        price = Number(price).toLocaleString(language, {currency: currency, maximumFractionDigits: 0});
       }
 
       if (language === 'en' ||
@@ -298,7 +311,7 @@
      options: {
 
        /**
-        * Whether or not to change color prices
+        * Whether or not to change price colors
         *
         * @type {boolean}
         */
@@ -306,12 +319,20 @@
        colorizePrices: false,
 
        /**
-        * The maximum percentage that an item will be ballpark-estimated with: ±
+        * The maximum percentage that an item will be ballpark estimated with: ±
         *
         * @type {number}
         */
 
-       threshold: 3
+       threshold: 3,
+
+       /**
+        * Whether or not to run unit tests
+        *
+        * @type {Boolean}
+        */
+
+       unitTests: true
      },
 
     /**
@@ -380,7 +401,7 @@
     },
 
     /**
-     * Returns text for sort buttons
+     * Sets text for sort buttons
      *
      * @instance
      * @param    {object} elem

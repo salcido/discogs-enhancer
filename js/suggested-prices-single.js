@@ -55,8 +55,8 @@ $(document).ready(function() {
           colorizePrices = resourceLibrary.options.colorizePrices,
           green = resourceLibrary.css.colors.green,
           red = resourceLibrary.css.colors.red,
-          threshold = resourceLibrary.options.threshold || 0,
           //
+          threshold = resourceLibrary.options.threshold || 0,
           actual,
           suggested,
           difference,
