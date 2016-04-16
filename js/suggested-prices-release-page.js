@@ -58,7 +58,7 @@ $(document).ready(function() {
             color = '',
             green = resourceLibrary.css.colors.green,
             red = resourceLibrary.css.colors.red,
-            suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition].toFixed(2),
+            suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
             difference = suggested - actual,
             printPrice = resourceLibrary.localizePrice(symbol, suggested),
             percentage = ( (difference / suggested) * 100 ).toFixed(0);

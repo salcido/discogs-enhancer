@@ -190,7 +190,19 @@
           currency = localStorage.getItem('userCurrency'),
           language = localStorage.getItem('language');
 
-      price = Number(price).toLocaleString(language, {currency: currency});
+      price = String(price);
+
+      // Use fractional values if price is not JPY
+      if (price.indexOf('.') > -1 || price.indexOf(',') > -1) {
+
+        price = Number(price).toLocaleString(language, {currency: currency,
+                                                        maximumFractionDigits: 2,
+                                                        minimumFractionDigits: 2});
+
+      } else {
+
+        price = Number(price).toLocaleString(language, {currency: currency});
+      }
 
       if (language === 'en' ||
           language === 'ja') {
