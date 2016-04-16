@@ -41,7 +41,7 @@ $(document).ready(function() {
             NZD: 1.4475,
             SEK: 8.1445,
             ZAR: 14.571,
-            EUR:0.88621
+            EUR: 0.88621
          }
       },
 
@@ -117,7 +117,14 @@ $(document).ready(function() {
 
     let resultJPYtoUSD = (convertJPYtoUSD[0].convertedPrice === 9.18105031215571) ? 'PASSED' : '*** FAILED ***';
 
-    console.log('1000 JPY to USD result: ', convertJPYtoUSD[0].convertedPrice, resultJPYtoUSD);
+    if (resultJPYtoUSD) {
+
+      console.log('%c PASSED ', 'color: limegreen', '1000 JPY to USD result: ', convertJPYtoUSD[0].convertedPrice);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', '1000 JPY to USD result: ', convertJPYtoUSD[0].convertedPrice);
+    }
 
 
     /* USD to JPY */
@@ -131,7 +138,14 @@ $(document).ready(function() {
 
     let resultUSDtoJPY = (convertUSDtoJPY[0].convertedPrice === 1089.2415611010053) ? 'PASSED' : '*** FAILED ***';
 
-    console.log('10.00 USD to JPY result: ', convertUSDtoJPY[0].convertedPrice, resultUSDtoJPY);
+    if (resultUSDtoJPY) {
+
+      console.log('%c PASSED ', 'color: limegreen', '10.00 USD to JPY result: ', convertUSDtoJPY[0].convertedPrice);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', '10.00 USD to JPY result: ', convertUSDtoJPY[0].convertedPrice);
+    }
 
 
     /* USD to EUR */
@@ -145,7 +159,14 @@ $(document).ready(function() {
 
     let resultUSDtoEUR = (convertUSDtoEUR[0].convertedPrice === 8.862105636299184) ? 'PASSED' : '*** FAILED ***';
 
-    console.log('10.00 USD to EUR result: ', convertUSDtoEUR[0].convertedPrice, resultUSDtoEUR);
+    if (resultUSDtoEUR) {
+
+      console.log('%c PASSED ', 'color: limegreen', '10.00 USD to EUR result: ', convertUSDtoEUR[0].convertedPrice);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', '10.00 USD to EUR result: ', convertUSDtoEUR[0].convertedPrice);
+    }
 
 
     /* EUR to USD */
@@ -159,6 +180,13 @@ $(document).ready(function() {
 
     let resultEURtoUSD = (convertEURtoUSD[0].convertedPrice) === 11.284007176628563 ? 'PASSED' : '*** FAILED ***';
 
-    console.log('10.00 EUR to USD result: ', convertEURtoUSD[0].convertedPrice, resultEURtoUSD);
+    if (resultEURtoUSD) {
+
+      console.log('%c PASSED ', 'color: limegreen', '10.00 EUR to USD result: ', convertEURtoUSD[0].convertedPrice);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', '10.00 EUR to USD result: ', convertEURtoUSD[0].convertedPrice);
+    }
   }
 });

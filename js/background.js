@@ -421,8 +421,6 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       chrome.storage.sync.set({didUpdate: false}, function() {});
 
-      localStorage.setItem('rates', null);
-
     } else if (details.reason === 'update') {
 
       previousVersion = details.previousVersion;
