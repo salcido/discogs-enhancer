@@ -1,19 +1,26 @@
-var _gaq = _gaq || [];
+//localStorage.setItem('development', 'true');
 
-_gaq.push(['_setAccount', 'UA-75073435-1']);
+let development = localStorage.getItem('development');
 
-_gaq.push(['_trackPageview']);
+if (!development) {
 
-(function() {
+  var _gaq = _gaq || [];
 
-  var ga = document.createElement('script'),
-      s = document.getElementsByTagName('script')[0];
+  _gaq.push(['_setAccount', 'UA-75073435-1']);
 
-  ga.type = 'text/javascript';
+  _gaq.push(['_trackPageview']);
 
-  ga.async = true;
+  (function() {
 
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var ga = document.createElement('script'),
+        s = document.getElementsByTagName('script')[0];
 
-  s.parentNode.insertBefore(ga, s);
-}());
+    ga.type = 'text/javascript';
+
+    ga.async = true;
+
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+
+    s.parentNode.insertBefore(ga, s);
+  }());
+}
