@@ -119,7 +119,7 @@ $(document).ready(function() {
 
     let convertJPYtoUSD = resourceLibrary.convertPrices(priceContainerJPY, USD);
 
-    let resultJPYtoUSD = (convertJPYtoUSD[0].convertedPrice === 9.18105031215571) ? 'PASSED' : '*** FAILED ***';
+    let resultJPYtoUSD = (convertJPYtoUSD[0].convertedPrice === 9.18105031215571);
 
     if (resultJPYtoUSD) {
 
@@ -140,7 +140,7 @@ $(document).ready(function() {
 
     var convertUSDtoJPY = resourceLibrary.convertPrices(priceContainerUSD, JPY);
 
-    let resultUSDtoJPY = (convertUSDtoJPY[0].convertedPrice === 1089.2415611010053) ? 'PASSED' : '*** FAILED ***';
+    let resultUSDtoJPY = (convertUSDtoJPY[0].convertedPrice === 1089.2415611010053);
 
     if (resultUSDtoJPY) {
 
@@ -161,7 +161,7 @@ $(document).ready(function() {
 
     let convertUSDtoEUR = resourceLibrary.convertPrices(priceContainerUSD, EUR);
 
-    let resultUSDtoEUR = (convertUSDtoEUR[0].convertedPrice === 8.862105636299184) ? 'PASSED' : '*** FAILED ***';
+    let resultUSDtoEUR = (convertUSDtoEUR[0].convertedPrice === 8.862105636299184);
 
     if (resultUSDtoEUR) {
 
@@ -182,7 +182,7 @@ $(document).ready(function() {
 
     let convertEURtoUSD = resourceLibrary.convertPrices(priceContainerEUR, USD);
 
-    let resultEURtoUSD = (convertEURtoUSD[0].convertedPrice) === 11.284007176628563 ? 'PASSED' : '*** FAILED ***';
+    let resultEURtoUSD = (convertEURtoUSD[0].convertedPrice === 11.284007176628563);
 
     if (resultEURtoUSD) {
 
