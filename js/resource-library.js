@@ -276,7 +276,7 @@
      *
      * @instance
      * @param    {array} source
-     * @return   {undefined}
+     * @return   {obj}
      */
 
     matchSymbols: function(source) {
@@ -298,6 +298,8 @@
              }
 
              obj.exchangeName = this.exchangeList[i];
+
+             return obj;
            }
          }
        });
@@ -365,7 +367,7 @@
 
       de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
 
-      en: ['€', '£', '¥', '¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+      en: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
 
       es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
 

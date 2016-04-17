@@ -287,4 +287,120 @@ $(document).ready(function() {
 
     console.log( '%c FAILED ', 'color: deeppink', 'USD sanitized price 1000, value returned was: ', sanitizeUSD[0].sanitizedPrice);
   }
+
+  /* print symbol tests */
+
+  let printSymbol = {
+
+    de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+    en: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+    es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+    fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
+
+    it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+    ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$']
+  };
+
+  console.log('/// Testing printSymbol arrays ///');
+
+  for (let prop in printSymbol) {
+
+    let count = 0;
+
+    printSymbol[prop].forEach(function(sym, i) {
+
+      if (sym === resourceLibrary.printSymbol[prop][i]) { count++; }
+    });
+
+    if (count === 13) {
+
+      console.log('%c PASSED ', 'color: limegreen', 'All printSymbols were correctly retrieved');
+
+    } else {
+
+      console.log('%c FAILED ', 'color: deeppink', 'Symbols were not retrieved correctly');
+    }
+  }
+
+  /* match symbol tests */
+
+  let
+      AUObj = [{price: 'A$20.00'}],
+      USDObj = [{price: '$20.00'}],
+      JPYobjA = [{price: '￥2000'}],
+      JPYobjB = [{price: '¥2000'}],
+      EURObjA = [{price: '€ 20.00'}],
+      EURObjB = [{price: '20,00 €'}];
+
+  console.log('/// Testing match symbol method ///');
+
+  resourceLibrary.matchSymbols(AUObj);
+
+  if (AUObj[0].exchangeName === 'AUD') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+
+  } else {
+
+    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+  }
+
+  resourceLibrary.matchSymbols(USDObj);
+
+  if (USDObj[0].exchangeName === 'USD') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+
+  } else {
+
+    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+  }
+
+  resourceLibrary.matchSymbols(JPYobjA);
+
+  if (JPYobjA[0].exchangeName === 'JPY') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+
+  } else {
+
+    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+  }
+
+  resourceLibrary.matchSymbols(JPYobjB);
+
+  if (JPYobjB[0].exchangeName === 'JPY') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+
+  } else {
+
+    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+  }
+
+  resourceLibrary.matchSymbols(EURObjA);
+
+  if (EURObjA[0].exchangeName === 'EUR') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+
+  } else {
+
+    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+  }
+
+  resourceLibrary.matchSymbols(EURObjB);
+
+  if (EURObjB[0].exchangeName === 'EUR') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+
+  } else {
+
+    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+  }
 });
