@@ -248,7 +248,7 @@ $(document).ready(function() {
   let
       sanitizeJPY = [{price: '¥1,000'}],
       sanitizeEUR = [{price: '10,00 €'}],
-      sanitizeUSD = [{price: '10,00 €'}];
+      sanitizeUSD = [{price: '$10.99'}];
 
   console.log('/// Testing sanitizePrices method ///');
 
@@ -279,7 +279,7 @@ $(document).ready(function() {
   /* USD */
   resourceLibrary.sanitizePrices(sanitizeUSD);
 
-  if (sanitizeUSD[0].sanitizedPrice === '1000' && typeof sanitizeUSD[0].sanitizedPrice === 'string') {
+  if (sanitizeUSD[0].sanitizedPrice === '1099' && typeof sanitizeUSD[0].sanitizedPrice === 'string') {
 
     console.log('%c PASSED ', 'color: limegreen', 'USD sanitized price: ', sanitizeUSD[0].sanitizedPrice);
 
