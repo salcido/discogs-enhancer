@@ -173,6 +173,7 @@ $(document).ready(function() {
           nodeId = resourceLibrary.findNode(result);
 
           priceKey = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
+
           return checkForSellerPermissions();
         }
       });

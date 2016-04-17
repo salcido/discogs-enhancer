@@ -14,6 +14,9 @@ $(document).ready(function() {
 
   if (unitTests) {
 
+    /**
+     * Price conversion tests
+     */
     let
         priceObjJPY = {},
 
@@ -105,6 +108,7 @@ $(document).ready(function() {
       priceContainerEUR = [priceObjEUR];
     }
 
+    console.log('/// Testing convertPrices method ///');
 
     /* JPY to USD */
     resetPriceObjs();
@@ -188,5 +192,99 @@ $(document).ready(function() {
 
       console.log( '%c FAILED ', 'color: deeppink', '10.00 EUR to USD result: ', convertEURtoUSD[0].convertedPrice);
     }
+
+    /**
+     * localizePrice tests
+     */
+
+    let
+        priceUSD,
+        priceJPY,
+        priceEUR;
+
+    console.log('/// Testing localizePrice method ///');
+
+    /* USD */
+    priceUSD = resourceLibrary.localizePrice('$', '10.00', 'USD', 'en');
+
+    if (priceUSD === '$10.00' && typeof priceUSD === 'string') {
+
+      console.log('%c PASSED ', 'color: limegreen', 'US localizePrice: ', priceUSD);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', 'US localizePrice should be $10.00, value returned was: ', priceUSD);
+    }
+
+    /* EUR */
+    priceEUR = resourceLibrary.localizePrice('€', '10.00', 'EUR', 'de');
+
+    if (priceEUR === '10,00 €' && typeof priceEUR === 'string') {
+
+      console.log('%c PASSED ', 'color: limegreen', 'DE localizePrice: ', priceEUR);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', 'DE localizePrice should be 10,00 €, value returned was: ', priceEUR);
+    }
+
+    /* JPY */
+    priceJPY = resourceLibrary.localizePrice('¥', '1000', 'JPY', 'ja');
+
+    if (priceJPY === '¥1,000' && typeof priceJPY === 'string') {
+
+      console.log('%c PASSED ', 'color: limegreen', 'JA localizePrice: ', priceJPY);
+
+    } else {
+
+      console.log( '%c FAILED ', 'color: deeppink', 'JA localizePrice should be ¥1,000, value returned was: ', priceJPY);
+    }
+  }
+
+  /**
+   * sanitizePrices tests
+   */
+
+  let
+      sanitizeJPY = [{price: '¥1,000'}],
+      sanitizeEUR = [{price: '10,00 €'}],
+      sanitizeUSD = [{price: '10,00 €'}];
+
+  console.log('/// Testing sanitizePrices method ///');
+
+  /* JPY */
+  resourceLibrary.sanitizePrices(sanitizeJPY);
+
+  if (sanitizeJPY[0].sanitizedPrice === '1000' && typeof sanitizeJPY[0].sanitizedPrice === 'string') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'JPY sanitized price: ', sanitizeJPY[0].sanitizedPrice);
+
+  } else {
+
+    console.log( '%c FAILED ', 'color: deeppink', 'JPY sanitized price 1000, value returned was: ', sanitizeJPY[0].sanitizedPrice);
+  }
+
+  /* EUR */
+  resourceLibrary.sanitizePrices(sanitizeEUR);
+
+  if (sanitizeEUR[0].sanitizedPrice === '1000' && typeof sanitizeEUR[0].sanitizedPrice === 'string') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'EUR sanitized price: ', sanitizeEUR[0].sanitizedPrice);
+
+  } else {
+
+    console.log( '%c FAILED ', 'color: deeppink', 'EUR sanitized price 1000, value returned was: ', sanitizeEUR[0].sanitizedPrice);
+  }
+
+  /* USD */
+  resourceLibrary.sanitizePrices(sanitizeUSD);
+
+  if (sanitizeUSD[0].sanitizedPrice === '1000' && typeof sanitizeUSD[0].sanitizedPrice === 'string') {
+
+    console.log('%c PASSED ', 'color: limegreen', 'USD sanitized price: ', sanitizeUSD[0].sanitizedPrice);
+
+  } else {
+
+    console.log( '%c FAILED ', 'color: deeppink', 'USD sanitized price 1000, value returned was: ', sanitizeUSD[0].sanitizedPrice);
   }
 });

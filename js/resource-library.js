@@ -200,10 +200,8 @@
      * Assigns user's currency symbol to price estimates.
      *
      * @instance
-     * @param    {array} arr
      * @param    {string} userCurrency
      * @param    {string} symbol
-     * @param    {array} symbolArray
      * @return   {string} symbol
      */
 
@@ -231,11 +229,14 @@
      * @return   {string}
      */
 
-    localizePrice: function(symbol, price) {
+    localizePrice: function(symbol, price, currency, language) {
 
-      let
-          currency = localStorage.getItem('userCurrency'),
-          language = localStorage.getItem('language');
+      if (!currency && !language) {
+
+        currency = localStorage.getItem('userCurrency');
+
+        language = localStorage.getItem('language');
+      }
 
       price = String(price);
 
@@ -380,12 +381,14 @@
      *
      * @instance
      * @param    {array} source
-     * @return   {string}
+     * @return   {obj}
      */
 
     sanitizePrices: function(source) {
 
       source.forEach(function(obj) {
+
+        obj.price = String(obj.price);
 
         obj.price = obj.price.replace('&nbsp;', '');
 
@@ -396,7 +399,9 @@
         // extract all digits
         let digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
 
-        return obj.sanitizedPrice = digits;
+        obj.sanitizedPrice = digits;
+
+        return obj;
       });
     },
 
