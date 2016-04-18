@@ -164,11 +164,11 @@ $(document).ready(function() {
 
       if (test === expected && typeof test === 'string') {
 
-        console.log('%c PASSED ', 'color: limegreen', 'US localizePrice: ', test);
+        console.log('%c PASSED ', 'color: limegreen', language.toUpperCase() + ' localizePrice: ', test);
 
       } else {
 
-        console.log( '%c FAILED ', 'color: deeppink', 'US localizePrice should be ' + expected, 'value returned was: ', test);
+        console.log( '%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizePrice should be ' + expected, 'value returned was: ', test);
       }
     }
 
