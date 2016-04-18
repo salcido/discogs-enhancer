@@ -260,52 +260,8 @@ $(document).ready(function() {
       }
     }
 
+
     /* match symbol tests */
-
-    let
-        en1 = [{price: 'A$20.00'}],
-        en2 = [{price: '$20.00'}],
-        en3 = [{price: '€20.00'}],
-        en4 = [{price: '£20.00'}],
-        en5 = [{price: 'CA$20.00'}],
-        en6 = [{price: '¥2000'}],
-
-        es1 = [{price: '20,00 US$'}],
-        es2 = [{price: '20,00 AU$'}],
-        es3 = [{price: 'JP¥20.00'}],
-        es4 = [{price: '20,00 €'}],
-        es5 = [{price: '20,00 £'}],
-        es6 = [{price: '20,00 CA$'}],
-
-        de1 = [{price: '20,00 $'}],
-        de2 = [{price: '20,00 A$'}],
-        de3 = [{price: '¥2.000'}],
-        de4 = [{price: '20,00 €'}],
-        de5 = [{price: '20,00 £'}],
-        de6 = [{price: '20,00 CA$'}],
-
-        fr1 = [{price: '20,00 $US'}],
-        fr2 = [{price: '20,00 $AU'}],
-        fr3 = [{price: '¥JP2 000'}],
-        fr4 = [{price: '20,00 €'}],
-        fr5 = [{price: '20,00 £UK'}],
-        fr6 = [{price: '20,00 $CA'}],
-
-        it1 = [{price: 'US$ 20,00'}],
-        it2 = [{price: 'A$ 20,00'}],
-        it3 = [{price: 'JP¥2.000'}],
-        it4 = [{price: '€ 20,00'}],
-        it5 = [{price: '£ 20,00'}],
-        it6 = [{price: 'CA$ 20,00'}],
-
-        ja1 = [{price: '$20.00'}],
-        ja2 = [{price: 'A$20.00'}],
-        ja3 = [{price: '¥2000'}],
-        ja4 = [{price: '€20.00'}],
-        ja5 = [{price: '£20.00'}],
-        ja6 = [{price: 'CA$20.00'}],
-        ja7 = [{price: 'NZ$20.00'}];
-
 
     console.log('/// Testing match symbol method ///');
 
@@ -325,52 +281,52 @@ $(document).ready(function() {
     }
 
     // EN tests
-    testSymbols(en1, 'en', 'AUD');
-    testSymbols(en2, 'en', 'USD');
-    testSymbols(en3, 'en', 'EUR');
-    testSymbols(en4, 'en', 'GBP');
-    testSymbols(en5, 'en', 'CAD');
-    testSymbols(en6, 'en', 'JPY');
+    testSymbols([{price: 'A$20.00'}], 'en', 'AUD');
+    testSymbols([{price: '$20.00'}], 'en', 'USD');
+    testSymbols([{price: '€20.00'}], 'en', 'EUR');
+    testSymbols([{price: '£20.00'}], 'en', 'GBP');
+    testSymbols([{price: 'CA$20.00'}], 'en', 'CAD');
+    testSymbols([{price: '¥2000'}], 'en', 'JPY');
 
     // ES tests
-    testSymbols(es1, 'es', 'USD');
-    testSymbols(es2, 'es', 'AUD');
-    testSymbols(es3, 'es', 'JPY');
-    testSymbols(es4, 'es', 'EUR');
-    testSymbols(es5, 'es', 'GBP');
-    testSymbols(es6, 'es', 'CAD');
+    testSymbols([{price: '20,00 US$'}], 'es', 'USD');
+    testSymbols([{price: '20,00 AU$'}], 'es', 'AUD');
+    testSymbols([{price: 'JP¥20.00'}], 'es', 'JPY');
+    testSymbols([{price: '20,00 €'}], 'es', 'EUR');
+    testSymbols([{price: '20,00 £'}], 'es', 'GBP');
+    testSymbols([{price: '20,00 CA$'}], 'es', 'CAD');
 
     // DE tests
-    testSymbols(de1, 'de', 'USD');
-    testSymbols(de2, 'de', 'AUD');
-    testSymbols(de3, 'de', 'JPY');
-    testSymbols(de4, 'de', 'EUR');
-    testSymbols(de5, 'de', 'GBP');
-    testSymbols(de6, 'de', 'CAD');
+    testSymbols([{price: '20,00 $'}], 'de', 'USD');
+    testSymbols([{price: '20,00 A$'}], 'de', 'AUD');
+    testSymbols([{price: '¥2.000'}], 'de', 'JPY');
+    testSymbols([{price: '20,00 €'}], 'de', 'EUR');
+    testSymbols([{price: '20,00 £'}], 'de', 'GBP');
+    testSymbols([{price: '20,00 CA$'}], 'de', 'CAD');
 
     // FR tests
-    testSymbols(fr1, 'fr', 'USD');
-    testSymbols(fr2, 'fr', 'AUD');
-    testSymbols(fr3, 'fr', 'JPY');
-    testSymbols(fr4, 'fr', 'EUR');
-    testSymbols(fr5, 'fr', 'GBP');
-    testSymbols(fr6, 'fr', 'CAD');
+    testSymbols([{price: '20,00 $US'}], 'fr', 'USD');
+    testSymbols([{price: '20,00 $AU'}], 'fr', 'AUD');
+    testSymbols([{price: '¥JP2 000'}], 'fr', 'JPY');
+    testSymbols([{price: '20,00 €'}], 'fr', 'EUR');
+    testSymbols([{price: '20,00 £UK'}], 'fr', 'GBP');
+    testSymbols([{price: '20,00 $CA'}], 'fr', 'CAD');
 
     // IT tests
-    testSymbols(it1, 'it', 'USD');
-    testSymbols(it2, 'it', 'AUD');
-    testSymbols(it3, 'it', 'JPY');
-    testSymbols(it4, 'it', 'EUR');
-    testSymbols(it5, 'it', 'GBP');
-    testSymbols(it6, 'it', 'CAD');
+    testSymbols([{price: 'US$ 20,00'}], 'it', 'USD');
+    testSymbols([{price: 'A$ 20,00'}], 'it', 'AUD');
+    testSymbols([{price: 'JP¥2.000'}], 'it', 'JPY');
+    testSymbols([{price: '€ 20,00'}], 'it', 'EUR');
+    testSymbols([{price: '£ 20,00'}], 'it', 'GBP');
+    testSymbols([{price: 'CA$ 20,00'}], 'it', 'CAD');
 
     // JA tests
-    testSymbols(ja1, 'ja', 'USD');
-    testSymbols(ja2, 'ja', 'AUD');
-    testSymbols(ja3, 'ja', 'JPY');
-    testSymbols(ja4, 'ja', 'EUR');
-    testSymbols(ja5, 'ja', 'GBP');
-    testSymbols(ja6, 'ja', 'CAD');
-    testSymbols(ja7, 'ja', 'NZD');
+    testSymbols([{price: '$20.00'}], 'ja', 'USD');
+    testSymbols([{price: 'A$20.00'}], 'ja', 'AUD');
+    testSymbols([{price: '¥2000'}], 'ja', 'JPY');
+    testSymbols([{price: '€20.00'}], 'ja', 'EUR');
+    testSymbols([{price: '£20.00'}], 'ja', 'GBP');
+    testSymbols([{price: 'CA$20.00'}], 'ja', 'CAD');
+    testSymbols([{price: 'NZ$20.00'}], 'ja', 'NZD');
   }
 });

@@ -358,7 +358,7 @@
         * @type {Boolean}
         */
 
-       unitTests: false
+       unitTests: true
      },
 
     /**
