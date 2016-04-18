@@ -449,3 +449,42 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
     }
   });
 }
+
+let checkForAnalytics = setInterval(function() {
+
+  var analytics = document.getElementById('analytics');
+
+  function toggleAnalytics() {
+
+    chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
+
+      if (response.enabled) {
+
+        localStorage.setItem('analytics', 'true');
+
+      } else {
+
+        localStorage.setItem('analytics', 'false');
+      }
+    });
+  }
+
+  analytics.addEventListener('change', toggleAnalytics);
+
+  if (analytics) {
+
+    chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
+
+      if (response.enabled === 'true') {
+
+        localStorage.setItem('analytics', 'true');
+
+      } else {
+
+        localStorage.setItem('analytics', 'false');
+      }
+    });
+
+    clearInterval(checkForAnalytics);
+  }
+}, 1000);

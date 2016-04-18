@@ -1,4 +1,6 @@
-let analytics = resourceLibrary.options.analytics;
+let analytics = localStorage.getItem('analytics') || true;
+
+analytics = JSON.parse(analytics);
 
 if (analytics) {
 

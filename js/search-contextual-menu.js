@@ -124,4 +124,18 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     chrome.contextMenus.remove(msg.id);
   }
+
+  if (msg.request === 'analytics' && msg.enabled === true) {
+
+    localStorage.setItem('analytics', 'true');
+
+    sendResponse({enabled: 'true'});
+  }
+
+  if (msg.request === 'analytics' && msg.enabled === false) {
+
+    localStorage.setItem('analytics', 'false');
+
+    sendResponse({enabled: 'false'});
+  }
 });

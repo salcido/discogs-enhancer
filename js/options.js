@@ -55,6 +55,10 @@ $(document).ready(function() {
     if (analytics === 'true') {
 
       $('#analytics').prop('checked', true);
+
+    } else if (analytics === 'false') {
+
+      $('#analytics').prop('checked', false);
     }
 
     if (colorize === 'true') {
@@ -89,7 +93,7 @@ $(document).ready(function() {
         useDebugMessagse = $('#debug').prop('checked'),
         useUnitTests = $('#unittests').prop('checked');
 
-    localStorage.setItem('analytics', useAnalytics);
+    localStorage.setItem('analytics', JSON.stringify(useAnalytics));
 
     localStorage.setItem('colorize', colorizePrices);
 
@@ -128,7 +132,7 @@ $(document).ready(function() {
         $('.options-save').click(function() {
 
           saveOptions();
-        })
+        });
       }
 
       return false;

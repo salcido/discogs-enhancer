@@ -26,7 +26,6 @@
    */
 
   let
-      analytics = localStorage.getItem('analytics') || localStorage.setItem('analytics', 'true'),
       colorize = localStorage.getItem('colorize') || localStorage.setItem('colorize', 'false'),
       debug = localStorage.getItem('debug') || localStorage.setItem('debug', 'false'),
       threshold = localStorage.getItem('threshold') || localStorage.setItem('threshold', '2'),
@@ -340,7 +339,7 @@
         *
         * @type   {boolean}
         */
-       analytics: JSON.parse(analytics.toLowerCase()),
+       //analytics: JSON.parse(analytics.toLowerCase()),
 
        /**
         * Whether or not to change price colors
