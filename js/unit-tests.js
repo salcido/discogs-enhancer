@@ -219,6 +219,8 @@ $(document).ready(function() {
 
     testSanitizer([{price: 'JP¥1 000'}], '1000');
 
+    testSanitizer([{price: '$0.96'}], '096');
+
 
     /* print symbol tests */
 
