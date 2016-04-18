@@ -108,299 +108,259 @@ $(document).ready(function() {
       priceContainerEUR = [priceObjEUR];
     }
 
+
     console.log('/// Testing convertPrices method ///');
+
+
+    function testCurrencyConversion(source, language, exchangeObj, expectedValue) {
+
+      resourceLibrary.matchSymbols(source, language);
+
+      resourceLibrary.sanitizePrices(source);
+
+      let convert = resourceLibrary.convertPrices(source, exchangeObj);
+
+      let result = (convert[0].convertedPrice === expectedValue);
+
+      if (result) {
+
+        console.log('%c PASSED ', 'color: limegreen', 'Price conversion successful.');
+
+      } else {
+
+        console.log( '%c FAILED ', 'color: deeppink', source[0].price);
+      }
+    }
 
     /* JPY to USD */
     resetPriceObjs();
-
-    resourceLibrary.matchSymbols(priceContainerJPY);
-
-    resourceLibrary.sanitizePrices(priceContainerJPY);
-
-    let convertJPYtoUSD = resourceLibrary.convertPrices(priceContainerJPY, USD);
-
-    let resultJPYtoUSD = (convertJPYtoUSD[0].convertedPrice === 9.18105031215571);
-
-    if (resultJPYtoUSD) {
-
-      console.log('%c PASSED ', 'color: limegreen', '1000 JPY to USD result: ', convertJPYtoUSD[0].convertedPrice);
-
-    } else {
-
-      console.log( '%c FAILED ', 'color: deeppink', '1000 JPY to USD result: ', convertJPYtoUSD[0].convertedPrice);
-    }
-
+    testCurrencyConversion(priceContainerJPY, 'en', USD, 9.18105031215571);
 
     /* USD to JPY */
     resetPriceObjs();
-
-    resourceLibrary.matchSymbols(priceContainerUSD);
-
-    resourceLibrary.sanitizePrices(priceContainerUSD);
-
-    var convertUSDtoJPY = resourceLibrary.convertPrices(priceContainerUSD, JPY);
-
-    let resultUSDtoJPY = (convertUSDtoJPY[0].convertedPrice === 1089.2415611010053);
-
-    if (resultUSDtoJPY) {
-
-      console.log('%c PASSED ', 'color: limegreen', '10.00 USD to JPY result: ', convertUSDtoJPY[0].convertedPrice);
-
-    } else {
-
-      console.log( '%c FAILED ', 'color: deeppink', '10.00 USD to JPY result: ', convertUSDtoJPY[0].convertedPrice);
-    }
+    testCurrencyConversion(priceContainerUSD, 'en', JPY, 1089.2415611010053);
 
 
     /* USD to EUR */
     resetPriceObjs();
-
-    resourceLibrary.matchSymbols(priceContainerUSD);
-
-    resourceLibrary.sanitizePrices(priceContainerUSD);
-
-    let convertUSDtoEUR = resourceLibrary.convertPrices(priceContainerUSD, EUR);
-
-    let resultUSDtoEUR = (convertUSDtoEUR[0].convertedPrice === 8.862105636299184);
-
-    if (resultUSDtoEUR) {
-
-      console.log('%c PASSED ', 'color: limegreen', '10.00 USD to EUR result: ', convertUSDtoEUR[0].convertedPrice);
-
-    } else {
-
-      console.log( '%c FAILED ', 'color: deeppink', '10.00 USD to EUR result: ', convertUSDtoEUR[0].convertedPrice);
-    }
+    testCurrencyConversion(priceContainerUSD, 'en', EUR, 8.862105636299184);
 
 
     /* EUR to USD */
     resetPriceObjs();
+    testCurrencyConversion(priceContainerEUR, 'en', USD, 11.284007176628563);
 
-    resourceLibrary.matchSymbols(priceContainerEUR);
-
-    resourceLibrary.sanitizePrices(priceContainerEUR);
-
-    let convertEURtoUSD = resourceLibrary.convertPrices(priceContainerEUR, USD);
-
-    let resultEURtoUSD = (convertEURtoUSD[0].convertedPrice === 11.284007176628563);
-
-    if (resultEURtoUSD) {
-
-      console.log('%c PASSED ', 'color: limegreen', '10.00 EUR to USD result: ', convertEURtoUSD[0].convertedPrice);
-
-    } else {
-
-      console.log( '%c FAILED ', 'color: deeppink', '10.00 EUR to USD result: ', convertEURtoUSD[0].convertedPrice);
-    }
 
     /**
      * localizePrice tests
      */
 
-    let
-        priceUSD,
-        priceJPY,
-        priceEUR;
-
     console.log('/// Testing localizePrice method ///');
 
-    /* USD */
-    priceUSD = resourceLibrary.localizePrice('$', '10.00', 'USD', 'en');
 
-    if (priceUSD === '$10.00' && typeof priceUSD === 'string') {
+    function testLocalization(symbol, value, exchangeName, language, expected) {
 
-      console.log('%c PASSED ', 'color: limegreen', 'US localizePrice: ', priceUSD);
+      let test = resourceLibrary.localizePrice(symbol, value, exchangeName, language, expected);
 
-    } else {
+      if (test === expected && typeof test === 'string') {
 
-      console.log( '%c FAILED ', 'color: deeppink', 'US localizePrice should be $10.00, value returned was: ', priceUSD);
+        console.log('%c PASSED ', 'color: limegreen', 'US localizePrice: ', test);
+
+      } else {
+
+        console.log( '%c FAILED ', 'color: deeppink', 'US localizePrice should be ' + expected, 'value returned was: ', test);
+      }
     }
 
+    /* USD */
+    testLocalization('$', '10.00', 'USD', 'en', '$10.00');
+
     /* EUR */
-    priceEUR = resourceLibrary.localizePrice('€', '10.00', 'EUR', 'de');
+    testLocalization('€', '10.00', 'EUR', 'de', '10,00 €');
 
-    if (priceEUR === '10,00 €' && typeof priceEUR === 'string') {
+    /* JPY */
+    testLocalization('¥', '1000', 'JPY', 'ja','¥1,000');
 
-      console.log('%c PASSED ', 'color: limegreen', 'DE localizePrice: ', priceEUR);
 
-    } else {
+    /**
+     * sanitizePrices tests
+     */
 
-      console.log( '%c FAILED ', 'color: deeppink', 'DE localizePrice should be 10,00 €, value returned was: ', priceEUR);
+    console.log('/// Testing sanitizePrices method ///');
+
+
+    function testSanitizer(array, expected) {
+
+      resourceLibrary.sanitizePrices(array);
+
+      if (array[0].sanitizedPrice === expected && typeof array[0].sanitizedPrice === 'string') {
+
+        console.log('%c PASSED ', 'color: limegreen', 'sanitized price: ', array[0].sanitizedPrice, 'expected: ', expected);
+
+      } else {
+
+        console.log( '%c FAILED ', 'color: deeppink', 'sanitized price: ', array[0].sanitizedPrice, 'should have been: ', expected);
+      }
     }
 
     /* JPY */
-    priceJPY = resourceLibrary.localizePrice('¥', '1000', 'JPY', 'ja');
+    testSanitizer([{price: '¥1,000'}], '1000');
 
-    if (priceJPY === '¥1,000' && typeof priceJPY === 'string') {
+    /* EUR */
+    testSanitizer([{price: '10,00 €'}], '1000');
 
-      console.log('%c PASSED ', 'color: limegreen', 'JA localizePrice: ', priceJPY);
+    /* USD */
+    testSanitizer([{price: '$10.99'}], '1099');
 
-    } else {
+    /* print symbol tests */
 
-      console.log( '%c FAILED ', 'color: deeppink', 'JA localizePrice should be ¥1,000, value returned was: ', priceJPY);
+    let printSymbol = {
+
+      de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+      en: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
+
+      es: ['€', '£', 'JP¥', 'JP¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
+
+      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$']
+    };
+
+    console.log('/// Testing printSymbol arrays ///');
+
+    for (let prop in printSymbol) {
+
+      let count = 0;
+
+      printSymbol[prop].forEach(function(sym, i) {
+
+        if (sym === resourceLibrary.printSymbol[prop][i]) { count++; }
+      });
+
+      if (count === 13) {
+
+        console.log('%c PASSED ', 'color: limegreen', 'All printSymbols were correctly retrieved');
+
+      } else {
+
+        console.log('%c FAILED ', 'color: deeppink', 'Symbols were not retrieved correctly for language: ', prop);
+      }
     }
-  }
 
-  /**
-   * sanitizePrices tests
-   */
+    /* match symbol tests */
 
-  let
-      sanitizeJPY = [{price: '¥1,000'}],
-      sanitizeEUR = [{price: '10,00 €'}],
-      sanitizeUSD = [{price: '$10.99'}];
+    let
+        en1 = [{price: 'A$20.00'}],
+        en2 = [{price: '$20.00'}],
+        en3 = [{price: '€20.00'}],
+        en4 = [{price: '£20.00'}],
+        en5 = [{price: 'CA$20.00'}],
+        en6 = [{price: '¥2000'}],
 
-  console.log('/// Testing sanitizePrices method ///');
+        es1 = [{price: '20,00 US$'}],
+        es2 = [{price: '20,00 AU$'}],
+        es3 = [{price: 'JP¥20.00'}],
+        es4 = [{price: '20,00 €'}],
+        es5 = [{price: '20,00 £'}],
+        es6 = [{price: '20,00 CA$'}],
 
-  /* JPY */
-  resourceLibrary.sanitizePrices(sanitizeJPY);
+        de1 = [{price: '20,00 $'}],
+        de2 = [{price: '20,00 A$'}],
+        de3 = [{price: '¥2.000'}],
+        de4 = [{price: '20,00 €'}],
+        de5 = [{price: '20,00 £'}],
+        de6 = [{price: '20,00 CA$'}],
 
-  if (sanitizeJPY[0].sanitizedPrice === '1000' && typeof sanitizeJPY[0].sanitizedPrice === 'string') {
+        fr1 = [{price: '20,00 $US'}],
+        fr2 = [{price: '20,00 $AU'}],
+        fr3 = [{price: '¥JP2 000'}],
+        fr4 = [{price: '20,00 €'}],
+        fr5 = [{price: '20,00 £UK'}],
+        fr6 = [{price: '20,00 $CA'}],
 
-    console.log('%c PASSED ', 'color: limegreen', 'JPY sanitized price: ', sanitizeJPY[0].sanitizedPrice);
+        it1 = [{price: 'US$ 20,00'}],
+        it2 = [{price: 'A$ 20,00'}],
+        it3 = [{price: 'JP¥2.000'}],
+        it4 = [{price: '€ 20,00'}],
+        it5 = [{price: '£ 20,00'}],
+        it6 = [{price: 'CA$ 20,00'}],
 
-  } else {
+        ja1 = [{price: '$20.00'}],
+        ja2 = [{price: 'A$20.00'}],
+        ja3 = [{price: '¥2000'}],
+        ja4 = [{price: '€20.00'}],
+        ja5 = [{price: '£20.00'}],
+        ja6 = [{price: 'CA$20.00'}],
+        ja7 = [{price: 'NZ$20.00'}];
 
-    console.log( '%c FAILED ', 'color: deeppink', 'JPY sanitized price 1000, value returned was: ', sanitizeJPY[0].sanitizedPrice);
-  }
 
-  /* EUR */
-  resourceLibrary.sanitizePrices(sanitizeEUR);
+    console.log('/// Testing match symbol method ///');
 
-  if (sanitizeEUR[0].sanitizedPrice === '1000' && typeof sanitizeEUR[0].sanitizedPrice === 'string') {
 
-    console.log('%c PASSED ', 'color: limegreen', 'EUR sanitized price: ', sanitizeEUR[0].sanitizedPrice);
+    function testSymbols(obj, language, exchangeName) {
 
-  } else {
+      resourceLibrary.matchSymbols(obj, language);
 
-    console.log( '%c FAILED ', 'color: deeppink', 'EUR sanitized price 1000, value returned was: ', sanitizeEUR[0].sanitizedPrice);
-  }
+      if (obj[0].exchangeName === exchangeName) {
 
-  /* USD */
-  resourceLibrary.sanitizePrices(sanitizeUSD);
+        return console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
 
-  if (sanitizeUSD[0].sanitizedPrice === '1099' && typeof sanitizeUSD[0].sanitizedPrice === 'string') {
+      } else {
 
-    console.log('%c PASSED ', 'color: limegreen', 'USD sanitized price: ', sanitizeUSD[0].sanitizedPrice);
-
-  } else {
-
-    console.log( '%c FAILED ', 'color: deeppink', 'USD sanitized price 1000, value returned was: ', sanitizeUSD[0].sanitizedPrice);
-  }
-
-  /* print symbol tests */
-
-  let printSymbol = {
-
-    de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
-
-    en: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
-
-    es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
-
-    fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
-
-    it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
-
-    ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$']
-  };
-
-  console.log('/// Testing printSymbol arrays ///');
-
-  for (let prop in printSymbol) {
-
-    let count = 0;
-
-    printSymbol[prop].forEach(function(sym, i) {
-
-      if (sym === resourceLibrary.printSymbol[prop][i]) { count++; }
-    });
-
-    if (count === 13) {
-
-      console.log('%c PASSED ', 'color: limegreen', 'All printSymbols were correctly retrieved');
-
-    } else {
-
-      console.log('%c FAILED ', 'color: deeppink', 'Symbols were not retrieved correctly');
+        return console.log('%c FAILED ', 'color: deeppink', 'Exchange name for ' + obj[0].price + ' was not found');
+      }
     }
-  }
 
-  /* match symbol tests */
+    // EN tests
+    testSymbols(en1, 'en', 'AUD');
+    testSymbols(en2, 'en', 'USD');
+    testSymbols(en3, 'en', 'EUR');
+    testSymbols(en4, 'en', 'GBP');
+    testSymbols(en5, 'en', 'CAD');
+    testSymbols(en6, 'en', 'JPY');
 
-  let
-      AUObj = [{price: 'A$20.00'}],
-      USDObj = [{price: '$20.00'}],
-      JPYobjA = [{price: '￥2000'}],
-      JPYobjB = [{price: '¥2000'}],
-      EURObjA = [{price: '€ 20.00'}],
-      EURObjB = [{price: '20,00 €'}];
+    // ES tests
+    testSymbols(es1, 'es', 'USD');
+    testSymbols(es2, 'es', 'AUD');
+    testSymbols(es3, 'es', 'JPY');
+    testSymbols(es4, 'es', 'EUR');
+    testSymbols(es5, 'es', 'GBP');
+    testSymbols(es6, 'es', 'CAD');
 
-  console.log('/// Testing match symbol method ///');
+    // DE tests
+    testSymbols(de1, 'de', 'USD');
+    testSymbols(de2, 'de', 'AUD');
+    testSymbols(de3, 'de', 'JPY');
+    testSymbols(de4, 'de', 'EUR');
+    testSymbols(de5, 'de', 'GBP');
+    testSymbols(de6, 'de', 'CAD');
 
-  resourceLibrary.matchSymbols(AUObj);
+    // FR tests
+    testSymbols(fr1, 'fr', 'USD');
+    testSymbols(fr2, 'fr', 'AUD');
+    testSymbols(fr3, 'fr', 'JPY');
+    testSymbols(fr4, 'fr', 'EUR');
+    testSymbols(fr5, 'fr', 'GBP');
+    testSymbols(fr6, 'fr', 'CAD');
 
-  if (AUObj[0].exchangeName === 'AUD') {
+    // IT tests
+    testSymbols(it1, 'it', 'USD');
+    testSymbols(it2, 'it', 'AUD');
+    testSymbols(it3, 'it', 'JPY');
+    testSymbols(it4, 'it', 'EUR');
+    testSymbols(it5, 'it', 'GBP');
+    testSymbols(it6, 'it', 'CAD');
 
-    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
-
-  } else {
-
-    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
-  }
-
-  resourceLibrary.matchSymbols(USDObj);
-
-  if (USDObj[0].exchangeName === 'USD') {
-
-    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
-
-  } else {
-
-    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
-  }
-
-  resourceLibrary.matchSymbols(JPYobjA);
-
-  if (JPYobjA[0].exchangeName === 'JPY') {
-
-    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
-
-  } else {
-
-    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
-  }
-
-  resourceLibrary.matchSymbols(JPYobjB);
-
-  if (JPYobjB[0].exchangeName === 'JPY') {
-
-    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
-
-  } else {
-
-    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
-  }
-
-  resourceLibrary.matchSymbols(EURObjA);
-
-  if (EURObjA[0].exchangeName === 'EUR') {
-
-    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
-
-  } else {
-
-    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
-  }
-
-  resourceLibrary.matchSymbols(EURObjB);
-
-  if (EURObjB[0].exchangeName === 'EUR') {
-
-    console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
-
-  } else {
-
-    console.log('%c FAILED ', 'color: deeppink', 'Exchange name was not found');
+    // JA tests
+    testSymbols(ja1, 'ja', 'USD');
+    testSymbols(ja2, 'ja', 'AUD');
+    testSymbols(ja3, 'ja', 'JPY');
+    testSymbols(ja4, 'ja', 'EUR');
+    testSymbols(ja5, 'ja', 'GBP');
+    testSymbols(ja6, 'ja', 'CAD');
+    testSymbols(ja7, 'ja', 'NZD');
   }
 });

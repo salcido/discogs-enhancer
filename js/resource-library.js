@@ -279,16 +279,21 @@
      * @return   {obj}
      */
 
-    matchSymbols: function(source) {
+    matchSymbols: function(source, language) {
+
+      if (!language) {
+
+        language = localStorage.getItem('language');
+      }
 
        source.forEach((obj, i) => {
 
-         for (i = 0; i < this.symbolRegex.length; i++) {
+         for (i = 0; i < this.symbolRegex[language].length; i++) {
 
-           if (obj.price.match(this.symbolRegex[i], 'g')) {
+           if (obj.price.match(this.symbolRegex[language][i], 'g')) {
 
-             if (this.symbolRegex[i] === 's*¥' ||
-                 this.symbolRegex[i] === 's*￥') {
+             if (this.symbolRegex[language][i] === 's*¥' ||
+                 this.symbolRegex[language][i] === 's*￥') {
 
                obj.isJPY = true;
 
@@ -298,6 +303,11 @@
              }
 
              obj.exchangeName = this.exchangeList[i];
+
+             if (this.options.debug) {
+
+               console.log(obj.exchangeName);
+             }
 
              return obj;
            }
@@ -320,6 +330,14 @@
         */
 
        colorizePrices: false,
+
+       /**
+        * Whether or not to log values
+        *
+        * @type {Boolean}
+        */
+
+       debug: false,
 
        /**
         * The maximum percentage that an item will be ballpark estimated with: ±
@@ -369,7 +387,7 @@
 
       en: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', '$'],
 
-      es: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
+      es: ['€', '£', 'JP¥', 'JP¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
 
       fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
 
@@ -443,7 +461,20 @@
      * @type {Array}
      */
 
-    symbolRegex: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/],
+    symbolRegex: {
+
+      de: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/],
+
+      en: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/],
+
+      es: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /(AU\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*ZAR', /(MX\$)/, /(R\$)/, /(US\$)/],
+
+      fr: ['\s*\€', '\s*\£UK', '\s*\¥JP', '\s*\￥JP', /([^C]\$AU)/, /(\$CA)/, '\s*CHF', '\s*SEK', /(\$NZ)/, '\s*ZAR', /(MX\$)/, /(R\$)/, /(\$US)/],
+
+      it: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*US\$/],
+
+      ja: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/]
+    },
 
     /**
      * Used to see if user is not yet registered as a seller
