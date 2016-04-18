@@ -353,7 +353,7 @@
         * @type {Boolean}
         */
 
-       unitTests: true
+       unitTests: false
      },
 
     /**
