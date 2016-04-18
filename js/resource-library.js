@@ -142,6 +142,11 @@
 
         // Current rates from Fixer.io
         rates = JSON.parse(localStorage.getItem('rates'));
+
+        if (rates === null) {
+
+          resourceLibrary.appendNotice('Discogs Enhancer: Currency has recently been changed. Please refresh the page one more time.');
+        }
       }
 
       source.forEach(function(obj) {
@@ -345,7 +350,7 @@
         * @type {number}
         */
 
-       threshold: 3,
+       threshold: 2,
 
        /**
         * Whether or not to run unit tests
@@ -389,7 +394,7 @@
 
       es: ['€', '£', 'JP¥', 'JP¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
 
-      fr: ['€', '£UK', 'JP¥', 'JP¥', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
+      fr: ['€', '£UK', '¥JP', '¥JP', '$AU', '$CA', 'CHF', 'SEK', '$NZ', 'ZAR', 'MX$', 'R$', '$US'],
 
       it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', 'ZAR', 'MX$', 'R$', 'US$'],
 

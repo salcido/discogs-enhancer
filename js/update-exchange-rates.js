@@ -21,7 +21,9 @@ $(document).ready(function() {
 
     if (!rates || !lastChecked || lastChecked !== today || typeof rates !== 'object' || userCurrency !== currency) {
 
-      console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked);
+      localStorage.setItem('rates', null);
+
+      console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, 'Currency:', userCurrency);
 
       $.ajax({
 
@@ -53,7 +55,7 @@ $(document).ready(function() {
 
     } else {
 
-      console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language);
+      console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, 'Currency:', userCurrency);
     }
 
     // Store user's lagnuage preference
