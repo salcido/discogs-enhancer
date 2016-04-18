@@ -252,7 +252,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     unitTests.type = 'text/javascript';
 
-    unitTests.src = chrome.extension.getURL('js/unit-tests.js');
+    unitTests.src = chrome.extension.getURL('js/tests/unit-tests.js');
 
     elems.push(unitTests);
   }
