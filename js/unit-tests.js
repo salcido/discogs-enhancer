@@ -203,14 +203,22 @@ $(document).ready(function() {
       }
     }
 
-    /* JPY */
     testSanitizer([{price: '¥1,000'}], '1000');
 
-    /* EUR */
     testSanitizer([{price: '10,00 €'}], '1000');
 
-    /* USD */
     testSanitizer([{price: '$10.99'}], '1099');
+
+    testSanitizer([{price: 'US$ 10.99'}], '1099');
+
+    testSanitizer([{price: '$AU 54,96'}], '5496');
+
+    testSanitizer([{price: '£157,000.65'}], '15700065');
+
+    testSanitizer([{price: 'JP¥1&nbsp;000'}], '1000');
+
+    testSanitizer([{price: 'JP¥1 000'}], '1000');
+
 
     /* print symbol tests */
 

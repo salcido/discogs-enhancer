@@ -412,6 +412,8 @@
 
         obj.price = obj.price.replace('&nbsp;', '');
 
+        obj.price = obj.price.replace(' ', '');
+
         obj.price = obj.price.replace(',', '');
 
         obj.price = obj.price.replace('.', '');
