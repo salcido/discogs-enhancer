@@ -1,8 +1,6 @@
-//localStorage.setItem('development', 'true');
+let analytics = resourceLibrary.options.analytics;
 
-let development = localStorage.getItem('development');
-
-if (!development) {
+if (analytics) {
 
   var _gaq = _gaq || [];
 

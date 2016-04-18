@@ -1541,3 +1541,60 @@ span#layout_buttons a.inset_button i:visited {
 #namecheckmsg {
   color: #000 !important;
 }
+
+/* options modal */
+
+ul.options {
+  list-style-type: none;
+}
+
+ul.options li label {
+  margin-left: 10px;
+}
+
+.options-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4) !important;
+}
+
+.options-modal-content {
+  background-color: #343434 !important;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 25%; /* Could be more or less, depending on screen size */
+}
+
+.options-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.options-close:hover,
+.options-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.options-modal #threshold {
+  width: 40px;
+}
+
+label#thresholdLabel {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.options-save {
+  margin: auto;
+}

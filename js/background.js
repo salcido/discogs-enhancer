@@ -16,6 +16,7 @@ let
     highlightScript,
     initElems = [],
     jQ,
+    options,
     prefs = {},
     preloader,
     releaseDurations,
@@ -246,16 +247,25 @@ chrome.storage.sync.get('prefs', function(result) {
     preloader.id = 'preloaderCss';
 
     elems.push(preloader);
-
-    // unit-tests.js
-    unitTests = document.createElement('script');
-
-    unitTests.type = 'text/javascript';
-
-    unitTests.src = chrome.extension.getURL('js/tests/unit-tests.js');
-
-    elems.push(unitTests);
   }
+
+  // unit-tests.js
+  unitTests = document.createElement('script');
+
+  unitTests.type = 'text/javascript';
+
+  unitTests.src = chrome.extension.getURL('js/tests/unit-tests.js');
+
+  elems.push(unitTests);
+
+  // options.js
+  options = document.createElement('script');
+
+  options.type = 'text/javascript';
+
+  options.src = chrome.extension.getURL('js/options.js');
+
+  elems.push(options);
 
 
   /*  Contextual menu options  */

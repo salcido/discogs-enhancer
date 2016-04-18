@@ -55,7 +55,10 @@ $(document).ready(function() {
 
     } else {
 
-      console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, 'Currency:', userCurrency);
+      if (resourceLibrary.options.debug) {
+
+        console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, 'Currency:', userCurrency);
+      }
     }
 
     // Store user's lagnuage preference

@@ -25,6 +25,13 @@
 
    */
 
+  let
+      analytics = localStorage.getItem('analytics') || localStorage.setItem('analytics', 'true'),
+      colorize = localStorage.getItem('colorize') || localStorage.setItem('colorize', 'false'),
+      debug = localStorage.getItem('debug') || localStorage.setItem('debug', 'false'),
+      threshold = localStorage.getItem('threshold') || localStorage.setItem('threshold', '2'),
+      unitTests = localStorage.getItem('unitTests') || localStorage.setItem('unitTests', 'false');
+
   window.resourceLibrary = {
 
     /**
@@ -329,12 +336,19 @@
      options: {
 
        /**
+        * Whether or not to use analytics
+        *
+        * @type   {boolean}
+        */
+       analytics: JSON.parse(analytics.toLowerCase()),
+
+       /**
         * Whether or not to change price colors
         *
         * @type {boolean}
         */
 
-       colorizePrices: false,
+       colorizePrices: JSON.parse(colorize),
 
        /**
         * Whether or not to log values
@@ -342,7 +356,7 @@
         * @type {Boolean}
         */
 
-       debug: false,
+       debug: JSON.parse(debug.toLowerCase()),
 
        /**
         * The maximum percentage that an item will be ballpark estimated with: ±
@@ -350,7 +364,7 @@
         * @type {number}
         */
 
-       threshold: 2,
+       threshold: Number(threshold),
 
        /**
         * Whether or not to run unit tests
@@ -358,7 +372,7 @@
         * @type {Boolean}
         */
 
-       unitTests: true
+       unitTests: JSON.parse(unitTests.toLowerCase())
      },
 
     /**
