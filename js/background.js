@@ -453,6 +453,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 let checkForAnalytics = setInterval(function() {
 
   var analytics = document.getElementById('analytics');
+      //saveButton = document.getElementById('saveOptions');
 
   function toggleAnalytics() {
 
@@ -469,6 +470,7 @@ let checkForAnalytics = setInterval(function() {
     });
   }
 
+  // Listen for changes.
   analytics.addEventListener('change', toggleAnalytics);
 
   if (analytics) {
