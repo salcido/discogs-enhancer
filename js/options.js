@@ -53,31 +53,15 @@ $(document).ready(function() {
         unitTests = resourceLibrary.options.unitTests();
 
 
-    if (analytics) {
+    if (analytics) { $('#analytics').prop('checked', true); }
 
-      $('#analytics').prop('checked', true);
+    if (colorize) { $('#colorize').prop('checked', true); }
 
-    }
+    if (debug) { $('#debug').prop('checked', true); }
 
-    if (colorize) {
+    if (unitTests) { $('#unittests').prop('checked', true); }
 
-      $('#colorize').prop('checked', true);
-    }
-
-    if (debug) {
-
-      $('#debug').prop('checked', true);
-    }
-
-    if (unitTests) {
-
-      $('#unittests').prop('checked', true);
-    }
-
-    if (threshold) {
-
-      $('#threshold').val(threshold);
-    }
+    if (threshold) { $('#threshold').val(threshold); }
   }
 
 

@@ -451,8 +451,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
 let checkForAnalytics = setInterval(function() {
 
-  var analytics = document.getElementById('analytics');
-      //saveButton = document.getElementById('saveOptions');
+  let analytics = document.getElementById('analytics');
 
   function toggleAnalytics() {
 
