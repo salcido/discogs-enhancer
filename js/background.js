@@ -109,7 +109,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
   resourceLibrary.type = 'text/javascript';
 
-  resourceLibrary.src = chrome.extension.getURL('js/resource-library.js');
+  resourceLibrary.src = chrome.extension.getURL('js/resource-library/resource-library.js');
 
   initElems.push(resourceLibrary);
 
@@ -189,7 +189,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     options.type = 'text/javascript';
 
-    options.src = chrome.extension.getURL('js/options.js');
+    options.src = chrome.extension.getURL('js/options/options.js');
 
     elems.push(options);
   }
