@@ -25,7 +25,9 @@ $(document).ready(function() {
 
       if (resourceLibrary.options.debug()) {
 
-        console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, 'Currency:', userCurrency);
+        console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+
+        console.log('rates', rates);
       }
 
       $.ajax({
@@ -60,7 +62,9 @@ $(document).ready(function() {
 
       if (resourceLibrary.options.debug()) {
 
-        console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, 'Currency:', userCurrency);
+        console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+
+        console.log('rates', rates);
       }
     }
 

@@ -84,6 +84,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
   jQ.async = true;
 
+  jQ.className = 'de-init';
+
   jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
   initElems.push(jQ);
@@ -109,6 +111,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
   resourceLibrary.type = 'text/javascript';
 
+  resourceLibrary.className = 'de-init';
+
   resourceLibrary.src = chrome.extension.getURL('js/resource-library/resource-library.js');
 
   initElems.push(resourceLibrary);
@@ -127,6 +131,8 @@ chrome.storage.sync.get('prefs', function(result) {
     highlightScript.type = 'text/javascript';
 
     highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
+
+    highlightScript.className = 'de-init';
 
     elems.push(highlightScript);
 
@@ -153,6 +159,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
     sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
 
+    sortExploreScript.className = 'de-init';
+
     elems.push(sortExploreScript);
 
     // sort-marketplace-lists.js
@@ -162,6 +170,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
     sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
 
+    sortMarketplaceScript.className = 'de-init';
+
     elems.push(sortMarketplaceScript);
 
     // sort-personal-lists.js
@@ -170,6 +180,8 @@ chrome.storage.sync.get('prefs', function(result) {
     sortPersonalListsScript.type = 'text/javascript';
 
     sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
+
+    sortPersonalListsScript.className = 'de-init';
 
     elems.push(sortPersonalListsScript);
   }
@@ -182,6 +194,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
     releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
 
+    releaseHistoryScript.className = 'de-init';
+
     elems.push(releaseHistoryScript);
 
     // options.js
@@ -190,6 +204,8 @@ chrome.storage.sync.get('prefs', function(result) {
     options.type = 'text/javascript';
 
     options.src = chrome.extension.getURL('js/options/options.js');
+
+    options.className = 'de-init';
 
     elems.push(options);
   }
@@ -202,6 +218,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
     releaseDurations.src = chrome.extension.getURL('js/release-durations.js');
 
+    releaseDurations.className = 'de-init';
+
     elems.push(releaseDurations);
   }
 
@@ -212,6 +230,8 @@ chrome.storage.sync.get('prefs', function(result) {
     collectionUi.type = 'text/javascript';
 
     collectionUi.src = chrome.extension.getURL('js/better-collection-ui.js');
+
+    collectionUi.className = 'de-init';
 
     elems.push(collectionUi);
   }
@@ -225,6 +245,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
     updateExchangeRates.src = chrome.extension.getURL('js/update-exchange-rates.js');
 
+    updateExchangeRates.className = 'de-init';
+
     elems.push(updateExchangeRates);
 
     //suggested-prices-release-page.js
@@ -234,6 +256,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
     suggestedPricesRelease.src = chrome.extension.getURL('js/suggested-prices-release-page.js');
 
+    suggestedPricesRelease.className = 'de-init';
+
     elems.push(suggestedPricesRelease);
 
     //suggested-prices-single.js
@@ -242,6 +266,8 @@ chrome.storage.sync.get('prefs', function(result) {
     suggestedPricesSingle.type = 'text/javascript';
 
     suggestedPricesSingle.src = chrome.extension.getURL('js/suggested-prices-single.js');
+
+    suggestedPricesSingle.className = 'de-init';
 
     elems.push(suggestedPricesSingle);
 
@@ -265,6 +291,8 @@ chrome.storage.sync.get('prefs', function(result) {
   unitTests.type = 'text/javascript';
 
   unitTests.src = chrome.extension.getURL('js/tests/unit-tests.js');
+
+  unitTests.className = 'de-init';
 
   elems.push(unitTests);
 
@@ -492,3 +520,6 @@ checkForAnalytics = setInterval(function() {
     clearInterval(checkForAnalytics);
   }
 }, 1000);
+
+// Clean up on asile 7!
+window.onload = function() { $('.de-init').remove(); };

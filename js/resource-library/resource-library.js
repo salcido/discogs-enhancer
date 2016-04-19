@@ -184,6 +184,8 @@
 
           if (this.options.debug()) {
 
+            console.log('Price before conversion: ', obj.sanitizedPrice);
+
             console.log('Converted Price: ', obj.convertedPrice);
           }
         }
@@ -283,6 +285,11 @@
       if (language === 'en' ||
           language === 'ja') {
 
+        if (this.options.debug()) {
+
+          console.log('Localized Price: ', symbol + price);
+        }
+
         return symbol + price;
       }
 
@@ -290,10 +297,20 @@
           language === 'fr' ||
           language === 'es') {
 
+        if (this.options.debug()) {
+
+          console.log('Localized Price: ', price + ' ' + symbol);
+        }
+
         return price + ' ' + symbol;
       }
 
       if (language === 'it') {
+
+        if (this.options.debug()) {
+
+          console.log('Localized Price: ', symbol + ' ' + price);
+        }
 
         return symbol + ' ' + price;
       }
@@ -335,6 +352,8 @@
              if (this.options.debug()) {
 
                console.log('Exchange Name: ', obj.exchangeName);
+
+               console.log('isJPY: ', obj.isJPY)
              }
 
              return obj;
