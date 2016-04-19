@@ -23,7 +23,10 @@ $(document).ready(function() {
 
       localStorage.setItem('rates', null);
 
-      console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, 'Currency:', userCurrency);
+      if (resourceLibrary.options.debug()) {
+
+        console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, 'Currency:', userCurrency);
+      }
 
       $.ajax({
 
@@ -55,7 +58,7 @@ $(document).ready(function() {
 
     } else {
 
-      if (resourceLibrary.options.debug) {
+      if (resourceLibrary.options.debug()) {
 
         console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, 'Currency:', userCurrency);
       }

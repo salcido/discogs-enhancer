@@ -25,11 +25,15 @@
 
    */
 
-  let
-      colorize = localStorage.getItem('colorize') || localStorage.setItem('colorize', 'false'),
-      debug = localStorage.getItem('debug') || localStorage.setItem('debug', 'false'),
-      threshold = localStorage.getItem('threshold') || localStorage.setItem('threshold', '2'),
-      unitTests = localStorage.getItem('unitTests') || localStorage.setItem('unitTests', 'false');
+  if (!localStorage.getItem('analytics')) { localStorage.setItem('analytics', 'true'); }
+
+  if (!localStorage.getItem('colorize')) { localStorage.setItem('colorize', 'false'); }
+
+  if (!localStorage.getItem('debug')) { localStorage.setItem('debug', 'false'); }
+
+  if (!localStorage.getItem('threshold')) { localStorage.setItem('threshold', '2'); }
+
+  if (!localStorage.getItem('unitTests')) { localStorage.setItem('unitTests', 'false'); }
 
   window.resourceLibrary = {
 
@@ -315,7 +319,7 @@
 
              obj.exchangeName = this.exchangeList[i];
 
-             if (this.options.debug) {
+             if (this.options.debug()) {
 
                console.log(obj.exchangeName);
              }
@@ -339,7 +343,10 @@
         *
         * @type   {boolean}
         */
-       //analytics: JSON.parse(analytics.toLowerCase()),
+       analytics: function() {
+
+         return JSON.parse(localStorage.getItem('analytics'));
+       },
 
        /**
         * Whether or not to change price colors
@@ -347,7 +354,10 @@
         * @type {boolean}
         */
 
-       colorizePrices: JSON.parse(colorize),
+       colorize: function() {
+
+         return JSON.parse(localStorage.getItem('colorize'));
+       },
 
        /**
         * Whether or not to log values
@@ -355,7 +365,10 @@
         * @type {Boolean}
         */
 
-       debug: JSON.parse(debug.toLowerCase()),
+       debug: function() {
+
+         return JSON.parse(localStorage.getItem('debug'));
+       },
 
        /**
         * The maximum percentage that an item will be ballpark estimated with: ±
@@ -363,7 +376,10 @@
         * @type {number}
         */
 
-       threshold: Number(threshold),
+       threshold: function() {
+
+         return Number(localStorage.getItem('threshold'));
+       },
 
        /**
         * Whether or not to run unit tests
@@ -371,7 +387,10 @@
         * @type {Boolean}
         */
 
-       unitTests: JSON.parse(unitTests.toLowerCase())
+       unitTests: function() {
+
+         return JSON.parse(localStorage.getItem('unitTests'));
+       }
      },
 
     /**

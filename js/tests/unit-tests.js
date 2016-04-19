@@ -10,7 +10,7 @@
 
 $(document).ready(function() {
 
-  let unitTests = resourceLibrary.options.unitTests;
+  let unitTests = resourceLibrary.options.unitTests();
 
   if (unitTests) {
 

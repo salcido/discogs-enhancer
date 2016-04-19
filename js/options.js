@@ -46,32 +46,30 @@ $(document).ready(function() {
   function getOptions() {
 
     let
-        analytics = localStorage.getItem('analytics'),
-        colorize = localStorage.getItem('colorize'),
-        debug = localStorage.getItem('debug'),
-        unitTests = localStorage.getItem('unitTests'),
-        threshold = localStorage.getItem('threshold') || 2;
+        analytics = resourceLibrary.options.analytics(),
+        colorize = resourceLibrary.options.colorize(),
+        debug = resourceLibrary.options.debug(),
+        threshold = resourceLibrary.options.threshold(),
+        unitTests = resourceLibrary.options.unitTests();
 
-    if (analytics === 'true') {
+
+    if (analytics) {
 
       $('#analytics').prop('checked', true);
 
-    } else if (analytics === 'false') {
-
-      $('#analytics').prop('checked', false);
     }
 
-    if (colorize === 'true') {
+    if (colorize) {
 
       $('#colorize').prop('checked', true);
     }
 
-    if (debug === 'true') {
+    if (debug) {
 
       $('#debug').prop('checked', true);
     }
 
-    if (unitTests === 'true') {
+    if (unitTests) {
 
       $('#unittests').prop('checked', true);
     }
@@ -87,21 +85,21 @@ $(document).ready(function() {
   function saveOptions() {
 
     let
-        colorizePrices = $('#colorize').prop('checked'),
-        setThreshold = $('#threshold').val(),
-        useAnalytics = $('#analytics').prop('checked'),
-        useDebugMessagse = $('#debug').prop('checked'),
-        useUnitTests = $('#unittests').prop('checked');
+        colorize = $('#colorize').prop('checked'),
+        threshold = $('#threshold').val(),
+        analytics = $('#analytics').prop('checked'),
+        debug = $('#debug').prop('checked'),
+        unitTests = $('#unittests').prop('checked');
 
-    localStorage.setItem('analytics', JSON.stringify(useAnalytics));
+    localStorage.setItem('analytics', JSON.stringify(analytics));
 
-    localStorage.setItem('colorize', colorizePrices);
+    localStorage.setItem('colorize', colorize);
 
-    localStorage.setItem('unitTests', useUnitTests);
+    localStorage.setItem('unitTests', unitTests);
 
-    localStorage.setItem('debug', useDebugMessagse);
+    localStorage.setItem('debug', debug);
 
-    localStorage.setItem('threshold', setThreshold);
+    localStorage.setItem('threshold', threshold);
 
     resourceLibrary.appendNotice('Options have been saved. Please refresh the page.');
   }

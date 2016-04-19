@@ -52,11 +52,11 @@ $(document).ready(function() {
           adj = '',
           border = resourceLibrary.css.border,
           color = '',
-          colorizePrices = resourceLibrary.options.colorizePrices,
+          colorizePrices = resourceLibrary.options.colorize(),
           green = resourceLibrary.css.colors.green,
           red = resourceLibrary.css.colors.red,
           //
-          threshold = resourceLibrary.options.threshold || 0,
+          threshold = resourceLibrary.options.threshold() || 0,
           actual,
           suggested,
           difference,
