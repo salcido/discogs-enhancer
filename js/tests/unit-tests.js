@@ -271,11 +271,11 @@ $(document).ready(function() {
 
       if (obj[0].exchangeName === exchangeName) {
 
-        return console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched for ' + obj[0].exchangeName);
+        return console.log('%c PASSED ', 'color: limegreen', 'Exchange Name found for ' + obj[0].exchangeName + ' in ' + language.toUpperCase());
 
       } else {
 
-        return console.log('%c FAILED ', 'color: deeppink', 'Exchange name for ' + obj[0].price + ' was not found');
+        return console.log('%c FAILED ', 'color: deeppink', 'Exchange name for ' + obj[0].price + ' was not found in locale ' + language.toUpperCase());
       }
     }
 
@@ -341,12 +341,12 @@ $(document).ready(function() {
     testSymbols([{price: '€ 20,00'}], 'it', 'EUR');
     testSymbols([{price: '£ 20,00'}], 'it', 'GBP');
     testSymbols([{price: 'CA$ 20,00'}], 'it', 'CAD');
-    testSymbols([{price: 'R$ 20.00'}], 'it', 'BRL');
-    testSymbols([{price: 'CHF 20.00'}], 'it', 'CHF');
-    testSymbols([{price: 'SEK 20.00'}], 'it', 'SEK');
-    testSymbols([{price: 'NZ$ 20.00'}], 'it', 'NZD');
-    testSymbols([{price: 'MX$ 20.00'}], 'it', 'MXN');
-    testSymbols([{price: 'ZAR 20.00'}], 'it', 'ZAR');
+    testSymbols([{price: 'R$ 20,00'}], 'it', 'BRL');
+    testSymbols([{price: 'CHF 20,00'}], 'it', 'CHF');
+    testSymbols([{price: 'SEK 20,00'}], 'it', 'SEK');
+    testSymbols([{price: 'NZ$ 20,00'}], 'it', 'NZD');
+    testSymbols([{price: 'MX$ 20,00'}], 'it', 'MXN');
+    testSymbols([{price: 'ZAR 20,00'}], 'it', 'ZAR');
 
     // JA tests
     testSymbols([{price: '$20.00'}], 'ja', 'USD');
