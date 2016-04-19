@@ -37,7 +37,7 @@ $(document).ready(function() {
                   '<input id="threshold" name="threshold" type="number" value="" max="10" min="0"/>' +
                   '</li>' +
                   '</ul>' +
-                  '<a href="#" class="options-save button button_green" id="saveOptions">Save options</a>' +
+                  '<a href="#" class="options-save button button_green" id="saveOptions">Save options &amp; refresh</a>' +
                 '</div>' +
               '</div>';
 
@@ -101,7 +101,9 @@ $(document).ready(function() {
 
     localStorage.setItem('threshold', threshold);
 
-    resourceLibrary.appendNotice('Options have been saved. Please refresh the page.');
+    resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
+
+    location.reload();
   }
 
   // event listener

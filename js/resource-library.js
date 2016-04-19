@@ -45,13 +45,13 @@
      * @return   {undefined}
      */
 
-    appendNotice: function(message) {
+    appendNotice: function(message, color) {
 
       let notice = document.createElement('div');
 
       notice.id = 'deAlertNotice';
 
-      notice.style = 'background-color: khaki !important;' +
+      notice.style = 'background-color:' + color + ' !important;' +
                      'text-align: center;' +
                      'color: black !important;' +
                      'font-size: 20px;' +
@@ -155,7 +155,7 @@
 
         if (rates === null) {
 
-          resourceLibrary.appendNotice('Discogs Enhancer: Currency has recently been changed. Please refresh the page one more time.');
+          resourceLibrary.appendNotice('Discogs Enhancer: Currency has recently been changed. Please refresh the page one more time.', 'orange');
         }
       }
 
