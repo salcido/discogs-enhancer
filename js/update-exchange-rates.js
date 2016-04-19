@@ -23,13 +23,6 @@ $(document).ready(function() {
 
       localStorage.setItem('rates', null);
 
-      if (resourceLibrary.options.debug()) {
-
-        console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-
-        console.log('rates', rates);
-      }
-
       $.ajax({
 
         url:'https://api.fixer.io/latest?base=' + userCurrency + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD',
@@ -48,6 +41,13 @@ $(document).ready(function() {
           // if different from userCurrency will
           // trigger exchange rates update
           localStorage.setItem('currency', userCurrency);
+
+          if (resourceLibrary.options.debug()) {
+
+            console.log('Discogs Enhancer: Getting fresh rates. Last update:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+
+            console.log('rates', JSON.parse(localStorage.getItem('rates')));
+          }
         },
 
         error: function() {
@@ -64,7 +64,7 @@ $(document).ready(function() {
 
         console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
 
-        console.log('rates', rates);
+        console.log('rates', JSON.parse(localStorage.getItem('rates')));
       }
     }
 

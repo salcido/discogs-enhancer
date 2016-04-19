@@ -353,7 +353,7 @@
 
                console.log('Exchange Name: ', obj.exchangeName);
 
-               console.log('isJPY: ', obj.isJPY)
+               console.log('isJPY: ', obj.isJPY);
              }
 
              return obj;
