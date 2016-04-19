@@ -61,11 +61,7 @@ $(document).ready(function() {
             red = resourceLibrary.css.colors.red,
             //
             threshold = resourceLibrary.options.threshold() || 0,
-
-            suggested = userCurrency !== 'JPY'
-                        ? priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition].toFixed(2)
-                        : priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
-
+            suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
             difference = suggested - actual,
             printPrice = resourceLibrary.localizePrice(symbol, suggested),
             percentage = ( (difference / suggested) * 100 ).toFixed(0);

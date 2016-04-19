@@ -184,7 +184,7 @@
 
           if (this.options.debug()) {
 
-            console.log('Price before conversion: ', obj.sanitizedPrice);
+            console.log('Pre-conversion: ', obj.sanitizedPrice);
 
             console.log('Converted Price: ', obj.convertedPrice);
           }
@@ -270,24 +270,23 @@
 
       price = String(price);
 
-      // Use fractional values if price is not JPY
-      if (price.indexOf('.') > -1 || price.indexOf(',') > -1) {
 
-        price = Number(price).toLocaleString(language, {currency: currency,
-                                                        maximumFractionDigits: 2,
-                                                        minimumFractionDigits: 2});
+      price = Number(price).toLocaleString(language, {
+                                             currency: currency,
+                                             maximumFractionDigits: 2,
+                                             minimumFractionDigits: 2
+                                          });
 
-      } else {
-
-        price = Number(price).toLocaleString(language, {currency: currency, maximumFractionDigits: 0});
-      }
-
-      if (language === 'en' ||
-          language === 'ja') {
+      if (language === 'en' || language === 'ja') {
 
         if (this.options.debug()) {
 
           console.log('Localized Price: ', symbol + price);
+        }
+
+        if (currency === 'JPY') {
+
+          return symbol + Number(price).toFixed(0);
         }
 
         return symbol + price;
@@ -351,7 +350,9 @@
 
              if (this.options.debug()) {
 
-               console.log('Exchange Name: ', obj.exchangeName);
+               console.log(' ');
+
+               console.log('Exchange name: ', obj.exchangeName);
 
                console.log('isJPY: ', obj.isJPY);
              }

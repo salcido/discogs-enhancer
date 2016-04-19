@@ -49,7 +49,7 @@ $(document).ready(function() {
 
           if (resourceLibrary.options.debug()) {
 
-            console.log('***Fresh rates***');
+            console.log('*** Fresh rates ***');
 
             console.log('Last update:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
 

@@ -103,9 +103,7 @@ $(document).ready(function() {
           // Set up comparions values
           actual = priceContainer[0].convertedPrice;
 
-          suggested = userCurrency !== 'JPY'
-                      ? priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition].toFixed(2)
-                      : priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
+          suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
 
           difference = suggested - actual;
 
