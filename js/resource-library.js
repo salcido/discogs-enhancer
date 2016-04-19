@@ -341,7 +341,7 @@
        /**
         * Whether or not to use analytics
         *
-        * @type   {boolean}
+        * @return {boolean}
         */
        analytics: function() {
 
@@ -351,7 +351,7 @@
        /**
         * Whether or not to change price colors
         *
-        * @type {boolean}
+        * @return {boolean}
         */
 
        colorize: function() {
@@ -362,7 +362,7 @@
        /**
         * Whether or not to log values
         *
-        * @type {Boolean}
+        * @return {Boolean}
         */
 
        debug: function() {
@@ -373,7 +373,7 @@
        /**
         * The maximum percentage that an item will be ballpark estimated with: ±
         *
-        * @type {number}
+        * @return {number}
         */
 
        threshold: function() {
@@ -384,7 +384,7 @@
        /**
         * Whether or not to run unit tests
         *
-        * @type {Boolean}
+        * @return {Boolean}
         */
 
        unitTests: function() {
@@ -415,7 +415,7 @@
     /**
      * Symbols that will be used in price estimates injected into the DOM
      *
-     * @type {Array}
+     * @type {object}
      */
 
     printSymbol: {
@@ -497,7 +497,7 @@
     /**
      * Regular expressions for determining what currency a price is listed in
      *
-     * @type {Array}
+     * @type {object}
      */
 
     symbolRegex: {
@@ -516,7 +516,7 @@
     },
 
     /**
-     * Used to see if user is not yet registered as a seller
+     * Used to determine if user has seller permissions
      *
      * @type {string}
      */

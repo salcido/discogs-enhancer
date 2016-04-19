@@ -182,6 +182,15 @@ chrome.storage.sync.get('prefs', function(result) {
     releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
 
     elems.push(releaseHistoryScript);
+
+    // options.js
+    options = document.createElement('script');
+
+    options.type = 'text/javascript';
+
+    options.src = chrome.extension.getURL('js/options.js');
+
+    elems.push(options);
   }
 
   if (result.prefs.releaseDurations) {
@@ -257,16 +266,6 @@ chrome.storage.sync.get('prefs', function(result) {
   unitTests.src = chrome.extension.getURL('js/tests/unit-tests.js');
 
   elems.push(unitTests);
-
-  // options.js
-  options = document.createElement('script');
-
-  options.type = 'text/javascript';
-
-  options.src = chrome.extension.getURL('js/options.js');
-
-  elems.push(options);
-
 
   /*  Contextual menu options  */
 
