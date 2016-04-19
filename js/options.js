@@ -14,7 +14,7 @@ $(document).ready(function() {
       modal = '<div id="optionsModal" class="options-modal" style="display: none;">' +
                 '<div class="options-modal-content">' +
                   '<span class="options-close">x</span>' +
-                  '<h3>Discogs Enhancer Options:</h3>' +
+                  '<h3>Well, aren\'t you clever!</h3>' +
                   '<ul class="options">' +
                   '<li>' +
                   '<input id="analytics" name="analytics" type="checkbox" value="analytics" />' +
@@ -104,7 +104,7 @@ $(document).ready(function() {
         getOptions();
 
         // Close it
-        $('.options-close').click(function() {
+        $('body').on('click', '.options-close', function() {
 
           $('.options-modal').hide();
 
@@ -112,7 +112,7 @@ $(document).ready(function() {
         });
 
         // Save it
-        $('.options-save').click(function() {
+        $('body').on('click', '.options-save', function() {
 
           saveOptions();
         });

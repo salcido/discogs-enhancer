@@ -25,6 +25,8 @@
 
    */
 
+
+  // instantiate default option values if not present
   if (!localStorage.getItem('analytics')) { localStorage.setItem('analytics', 'true'); }
 
   if (!localStorage.getItem('colorize')) { localStorage.setItem('colorize', 'false'); }
@@ -34,6 +36,7 @@
   if (!localStorage.getItem('threshold')) { localStorage.setItem('threshold', '2'); }
 
   if (!localStorage.getItem('unitTests')) { localStorage.setItem('unitTests', 'false'); }
+
 
   window.resourceLibrary = {
 
@@ -159,7 +162,7 @@
         }
       }
 
-      source.forEach(function(obj) {
+      source.forEach((obj) => {
 
         if (!obj.isJPY) {
 
@@ -177,6 +180,11 @@
           } else {
 
             obj.convertedPrice = (obj.sanitizedPrice / rates.rates[obj.exchangeName]);
+          }
+
+          if (this.options.debug()) {
+
+            console.log('Converted Price: ', obj.convertedPrice);
           }
         }
       });
@@ -231,6 +239,11 @@
           symbol = this.printSymbol[language][f];
         }
       });
+
+      if (this.options.debug()) {
+
+        console.log('Symbol: ', symbol);
+      }
 
       return symbol;
     },
@@ -321,7 +334,7 @@
 
              if (this.options.debug()) {
 
-               console.log(obj.exchangeName);
+               console.log('Exchange Name: ', obj.exchangeName);
              }
 
              return obj;
@@ -443,7 +456,7 @@
 
     sanitizePrices: function(source) {
 
-      source.forEach(function(obj) {
+      source.forEach((obj) => {
 
         obj.price = String(obj.price);
 
@@ -460,6 +473,10 @@
 
         obj.sanitizedPrice = digits;
 
+        if (this.options.debug()) {
+
+          console.log('Sanitized Price:', obj.sanitizedPrice);
+        }
         return obj;
       });
     },
