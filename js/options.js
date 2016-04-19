@@ -93,7 +93,6 @@ $(document).ready(function() {
   // event listener
   document.onkeyup = function(e) {
 
-    // alt + ctrl + 7
     if (e.altKey && e.ctrlKey && e.which === 55) {
 
       if (!visible) {

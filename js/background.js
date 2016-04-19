@@ -9,6 +9,7 @@
  */
 
 let
+    checkForAnalytics,
     collectionUi,
     darkTheme,
     elems = [],
@@ -449,7 +450,10 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
   });
 }
 
-let checkForAnalytics = setInterval(function() {
+
+/* Analytics option */
+
+checkForAnalytics = setInterval(function() {
 
   let analytics = document.getElementById('analytics');
 
@@ -468,10 +472,10 @@ let checkForAnalytics = setInterval(function() {
     });
   }
 
-  // Listen for changes.
-  analytics.addEventListener('change', toggleAnalytics);
-
   if (analytics) {
+
+    // Listen for changes.
+    analytics.addEventListener('change', toggleAnalytics);
 
     chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
 
