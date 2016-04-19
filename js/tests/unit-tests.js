@@ -172,16 +172,15 @@ $(document).ready(function() {
       }
     }
 
-    /* USD */
     testLocalization('$', '10.00', 'USD', 'en', '$10.00');
 
-    /* EUR */
     testLocalization('€', '10.00', 'EUR', 'de', '10,00 €');
 
-    /* JPY */
-    testLocalization('¥', '1000', 'JPY', 'ja','¥1,000');
+    testLocalization('¥', '1000', 'JPY', 'ja', '¥1,000');
 
+    testLocalization('US$', '44.00', 'EUR', 'it', 'US$ 44,00');
 
+    testLocalization('A$', '35.00', 'AUD', 'it', 'A$ 35,00');
     /**
      * sanitizePrices tests
      */
@@ -272,7 +271,7 @@ $(document).ready(function() {
 
       if (obj[0].exchangeName === exchangeName) {
 
-        return console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched');
+        return console.log('%c PASSED ', 'color: limegreen', 'Exchange Name correctly matched for ' + obj[0].exchangeName);
 
       } else {
 
@@ -287,6 +286,12 @@ $(document).ready(function() {
     testSymbols([{price: '£20.00'}], 'en', 'GBP');
     testSymbols([{price: 'CA$20.00'}], 'en', 'CAD');
     testSymbols([{price: '¥2000'}], 'en', 'JPY');
+    testSymbols([{price: 'R$20.00'}], 'en', 'BRL');
+    testSymbols([{price: 'CHF20.00'}], 'en', 'CHF');
+    testSymbols([{price: 'SEK20.00'}], 'en', 'SEK');
+    testSymbols([{price: 'NZ$20.00'}], 'en', 'NZD');
+    testSymbols([{price: 'MX$20.00'}], 'en', 'MXN');
+    testSymbols([{price: 'ZAR20.00'}], 'en', 'ZAR');
 
     // ES tests
     testSymbols([{price: '20,00 US$'}], 'es', 'USD');
@@ -295,6 +300,12 @@ $(document).ready(function() {
     testSymbols([{price: '20,00 €'}], 'es', 'EUR');
     testSymbols([{price: '20,00 £'}], 'es', 'GBP');
     testSymbols([{price: '20,00 CA$'}], 'es', 'CAD');
+    testSymbols([{price: '20,00 R$'}], 'es', 'BRL');
+    testSymbols([{price: '20,00 CHF'}], 'es', 'CHF');
+    testSymbols([{price: '20,00 SEK'}], 'es', 'SEK');
+    testSymbols([{price: '20,00 NZ$'}], 'es', 'NZD');
+    testSymbols([{price: '20,00 MX$'}], 'es', 'MXN');
+    testSymbols([{price: '20,00 ZAR'}], 'es', 'ZAR');
 
     // DE tests
     testSymbols([{price: '20,00 $'}], 'de', 'USD');
@@ -303,6 +314,11 @@ $(document).ready(function() {
     testSymbols([{price: '20,00 €'}], 'de', 'EUR');
     testSymbols([{price: '20,00 £'}], 'de', 'GBP');
     testSymbols([{price: '20,00 CA$'}], 'de', 'CAD');
+    testSymbols([{price: '20,00 R$'}], 'de', 'BRL');
+    testSymbols([{price: '20,00 CHF'}], 'de', 'CHF');
+    testSymbols([{price: '20,00 SEK'}], 'de', 'SEK');
+    testSymbols([{price: '20,00 NZ$'}], 'de', 'NZD');
+    testSymbols([{price: '20,00 ZAR'}], 'de', 'ZAR');
 
     // FR tests
     testSymbols([{price: '20,00 $US'}], 'fr', 'USD');
@@ -311,6 +327,12 @@ $(document).ready(function() {
     testSymbols([{price: '20,00 €'}], 'fr', 'EUR');
     testSymbols([{price: '20,00 £UK'}], 'fr', 'GBP');
     testSymbols([{price: '20,00 $CA'}], 'fr', 'CAD');
+    testSymbols([{price: '20,00 R$'}], 'fr', 'BRL');
+    testSymbols([{price: '20,00 CHF'}], 'fr', 'CHF');
+    testSymbols([{price: '20,00 SEK'}], 'fr', 'SEK');
+    testSymbols([{price: '20,00 $NZ'}], 'fr', 'NZD');
+    testSymbols([{price: '20,00 MX$'}], 'fr', 'MXN');
+    testSymbols([{price: '20,00 ZAR'}], 'fr', 'ZAR');
 
     // IT tests
     testSymbols([{price: 'US$ 20,00'}], 'it', 'USD');
@@ -319,6 +341,12 @@ $(document).ready(function() {
     testSymbols([{price: '€ 20,00'}], 'it', 'EUR');
     testSymbols([{price: '£ 20,00'}], 'it', 'GBP');
     testSymbols([{price: 'CA$ 20,00'}], 'it', 'CAD');
+    testSymbols([{price: 'R$ 20.00'}], 'it', 'BRL');
+    testSymbols([{price: 'CHF 20.00'}], 'it', 'CHF');
+    testSymbols([{price: 'SEK 20.00'}], 'it', 'SEK');
+    testSymbols([{price: 'NZ$ 20.00'}], 'it', 'NZD');
+    testSymbols([{price: 'MX$ 20.00'}], 'it', 'MXN');
+    testSymbols([{price: 'ZAR 20.00'}], 'it', 'ZAR');
 
     // JA tests
     testSymbols([{price: '$20.00'}], 'ja', 'USD');
@@ -328,5 +356,10 @@ $(document).ready(function() {
     testSymbols([{price: '£20.00'}], 'ja', 'GBP');
     testSymbols([{price: 'CA$20.00'}], 'ja', 'CAD');
     testSymbols([{price: 'NZ$20.00'}], 'ja', 'NZD');
+    testSymbols([{price: 'R$20.00'}], 'ja', 'BRL');
+    testSymbols([{price: 'CHF20.00'}], 'ja', 'CHF');
+    testSymbols([{price: 'SEK20.00'}], 'ja', 'SEK');
+    testSymbols([{price: 'MX$20.00'}], 'ja', 'MXN');
+    testSymbols([{price: 'ZAR20.00'}], 'ja', 'ZAR');
   }
 });
