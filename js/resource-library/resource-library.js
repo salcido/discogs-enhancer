@@ -244,7 +244,7 @@
 
       if (this.options.debug()) {
 
-        console.log('Symbol: ', symbol);
+        console.log('Print symbol: ', symbol);
       }
 
       return symbol;

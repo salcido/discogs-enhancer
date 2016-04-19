@@ -76,7 +76,7 @@ $(document).ready(function() {
 
           console.log('Suggested: ', suggested);
 
-          console.log('Difference: ', difference > 0 ? Math.abs(difference) + ' ' + userCurrency + ' less' : Math.abs(difference) + ' ' + userCurrency + ' more');
+          console.log('Difference: ', difference > 0 ? Math.abs(difference).toFixed(3) + ' ' + userCurrency + ' less' : Math.abs(difference).toFixed(3) + ' ' + userCurrency + ' more');
 
           console.log('Percentage: ', percentage > 0 ? Math.abs(percentage) + '% less' : Math.abs(percentage) + '% more');
         }
