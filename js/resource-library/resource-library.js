@@ -268,7 +268,7 @@
         language = localStorage.getItem('language');
       }
 
-      price = String(price);
+      //price = String(price);
 
 
       price = Number(price).toLocaleString(language, {
@@ -281,7 +281,7 @@
 
         if (this.options.debug()) {
 
-          console.log('Localized Price: ', symbol + price);
+          console.log('Localized Suggestion: ', symbol + price);
         }
 
         if (currency === 'JPY') {
@@ -298,7 +298,7 @@
 
         if (this.options.debug()) {
 
-          console.log('Localized Price: ', price + ' ' + symbol);
+          console.log('Localized Suggestion: ', price + ' ' + symbol);
         }
 
         return price + ' ' + symbol;
@@ -308,7 +308,7 @@
 
         if (this.options.debug()) {
 
-          console.log('Localized Price: ', symbol + ' ' + price);
+          console.log('Localized Suggestion: ', symbol + ' ' + price);
         }
 
         return symbol + ' ' + price;

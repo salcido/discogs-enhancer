@@ -160,15 +160,15 @@ $(document).ready(function() {
 
     function testLocalization(symbol, value, exchangeName, language, expected) {
 
-      let test = resourceLibrary.localizePrice(symbol, value, exchangeName, language, expected);
+      let result = resourceLibrary.localizePrice(symbol, value, exchangeName, language, expected);
 
-      if (test === expected && typeof test === 'string') {
+      if (result === expected) {
 
-        console.log('%c PASSED ', 'color: limegreen', language.toUpperCase() + ' localizePrice: ', test);
+        console.log('%c PASSED ', 'color: limegreen', language.toUpperCase() + ' localizePrice: ', result);
 
       } else {
 
-        console.log( '%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizePrice should be ' + expected, 'value returned was: ', test);
+        console.log( '%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizePrice should be ' + expected, 'value returned was: ', result);
       }
     }
 
@@ -176,7 +176,7 @@ $(document).ready(function() {
 
     testLocalization('€', '10.00', 'EUR', 'de', '10,00 €');
 
-    testLocalization('¥', '1000', 'JPY', 'ja', '¥1,000');
+    testLocalization('¥', '1020', 'JPY', 'ja', '¥1,020');
 
     testLocalization('US$', '44.00', 'EUR', 'it', 'US$ 44,00');
 
