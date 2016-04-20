@@ -497,6 +497,7 @@
 
           console.log('Sanitized Price:', obj.sanitizedPrice);
         }
+
         return obj;
       });
     },

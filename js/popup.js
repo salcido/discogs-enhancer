@@ -10,7 +10,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  var
+  let
       userCurrency = document.getElementById('currency'),
       isHovering = false,
       prefs = {},
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toggle release condition highlighting on/off
   function toggleHighlights(event) {
 
-    var response = 'Please refresh the page for changes to take effect.';
+    let response = 'Please refresh the page for changes to take effect.';
 
     if (event.target.checked) {
 
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toggle ability to sort genres, etc
   function sortGenres(event) {
 
-    var response = 'Please refresh the page for changes to take effect.';
+    let response = 'Please refresh the page for changes to take effect.';
 
     if (event.target.checked) {
 
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toggle track totals
   function trackTotals(event) {
 
-    var response = 'Please refresh the page for changes to take effect.';
+    let response = 'Please refresh the page for changes to take effect.';
 
     saveChanges(response, event);
   }
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toggle better collection UI
   function enableCollectionUi(event) {
 
-    var response = 'Please refresh the page for changes to take effect.';
+    let response = 'Please refresh the page for changes to take effect.';
 
     if (event.target.checked) {
 
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toggle prices suggestions
   function showPrices(event) {
 
-    var response = 'Please refresh the page for changes to take effect.';
+    let response = 'Please refresh the page for changes to take effect.';
 
     if (event.target.checked && userCurrency.value !== '-') {
 
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Display contextual menu options on hover
   $('.toggle-group.menus').mouseenter(function() {
 
-    var
+    let
         contextMenus = $('#contextMenus'),
         interval,
         toggleGroup = $('.toggle-group.menus');
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hide contextual menu options on mouseleave
   $('.toggle-group.menus').mouseleave(function() {
 
-    var
+    let
         contextMenus = $('#contextMenus'),
         interval,
         toggleGroup = $('.toggle-group.menus');
