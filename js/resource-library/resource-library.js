@@ -259,22 +259,29 @@
      * @return   {string}
      */
 
+    // TODO rename to 'localizeSuggestion'
     localizePrice: function(symbol, price, userCurrency, language) {
 
-      let maxDigits = (userCurrency === 'JPY') ? 0 : 2;
+      let
+          maxDigits,
+          priceConfig;
 
-      if (!userCurrency && !language) {
+      if (!userCurrency || !language) {
 
         userCurrency = localStorage.getItem('userCurrency');
 
         language = localStorage.getItem('language');
       }
 
-      price = Number(price).toLocaleString(language, {
-                                             currency: userCurrency,
-                                             maximumFractionDigits: maxDigits,
-                                             minimumFractionDigits: maxDigits
-                                          });
+      maxDigits = (userCurrency === 'JPY') ? 0 : 2;
+
+      priceConfig = {
+        currency: userCurrency,
+        maximumFractionDigits: maxDigits,
+        minimumFractionDigits: maxDigits
+      };
+
+      price = Number(price).toLocaleString(language, priceConfig);
 
       if (language === 'en' || language === 'ja') {
 
