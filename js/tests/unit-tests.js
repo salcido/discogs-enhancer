@@ -173,14 +173,23 @@ $(document).ready(function() {
     }
 
     testLocalization('$', '10.00', 'USD', 'en', '$10.00');
+    testLocalization('$', '0.90', 'USD', 'en', '$0.90');
+    testLocalization('$', '120.50', 'USD', 'en', '$120.50');
+    testLocalization('$', '7503.69', 'USD', 'en', '$7,503.69');
 
     testLocalization('€', '10.00', 'EUR', 'de', '10,00 €');
+    testLocalization('€', '0.90', 'EUR', 'de', '0,90 €');
+    testLocalization('€', '120.00', 'EUR', 'de', '120,00 €');
+    testLocalization('€', '7503.69', 'EUR', 'de', '7.503,69 €');
 
     testLocalization('¥', '1020', 'JPY', 'ja', '¥1,020');
+    testLocalization('¥', '600000', 'JPY', 'ja', '¥600,000');
+    testLocalization('¥', '100', 'JPY', 'ja', '¥100');
 
     testLocalization('US$', '44.00', 'EUR', 'it', 'US$ 44,00');
 
     testLocalization('A$', '35.00', 'AUD', 'it', 'A$ 35,00');
+
     /**
      * sanitizePrices tests
      */

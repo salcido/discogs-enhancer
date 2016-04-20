@@ -26,7 +26,8 @@ $(document).ready(function() {
     // Assemble our array of track times to be totaled
     $('td.tracklist_track_duration span').each(function() {
 
-      let metaTimeInfo = /[^\w:]/g,
+      let
+          metaTimeInfo = /[^\w:]/g,
           trackTime = $(this).text();
 
       if ($(this).text() === '') {
