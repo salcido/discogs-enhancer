@@ -259,22 +259,21 @@
      * @return   {string}
      */
 
-    localizePrice: function(symbol, price, currency, language) {
+    localizePrice: function(symbol, price, userCurrency, language) {
 
-      if (!currency && !language) {
+      let maxDigits = (userCurrency === 'JPY') ? 0 : 2;
 
-        currency = localStorage.getItem('userCurrency');
+      if (!userCurrency && !language) {
+
+        userCurrency = localStorage.getItem('userCurrency');
 
         language = localStorage.getItem('language');
       }
 
-      //price = String(price);
-
-
       price = Number(price).toLocaleString(language, {
-                                             currency: currency,
-                                             maximumFractionDigits: 2,
-                                             minimumFractionDigits: 2
+                                             currency: userCurrency,
+                                             maximumFractionDigits: maxDigits,
+                                             minimumFractionDigits: maxDigits
                                           });
 
       if (language === 'en' || language === 'ja') {
@@ -282,11 +281,6 @@
         if (this.options.debug()) {
 
           console.log('Localized Suggestion: ', symbol + price);
-        }
-
-        if (currency === 'JPY') {
-
-          return symbol + Number(price).toFixed(0);
         }
 
         return symbol + price;

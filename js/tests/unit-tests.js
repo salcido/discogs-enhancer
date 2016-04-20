@@ -158,9 +158,9 @@ $(document).ready(function() {
     console.log('/// Testing localizePrice method ///');
 
 
-    function testLocalization(symbol, value, exchangeName, language, expected) {
+    function testLocalization(symbol, price, currency, language, expected) {
 
-      let result = resourceLibrary.localizePrice(symbol, value, exchangeName, language, expected);
+      let result = resourceLibrary.localizePrice(symbol, price, currency, language);
 
       if (result === expected) {
 
