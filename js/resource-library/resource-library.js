@@ -273,6 +273,7 @@
         language = localStorage.getItem('language');
       }
 
+      // Use fracitonal values if user's currency is not JPY
       maxDigits = (userCurrency === 'JPY') ? 0 : 2;
 
       priceConfig = {
@@ -281,8 +282,10 @@
         minimumFractionDigits: maxDigits
       };
 
+      // Pretty awesome that the Number object has this `toLocaleString` method
       price = Number(price).toLocaleString(language, priceConfig);
 
+      // Return price suggestions in user's locale
       if (language === 'en' || language === 'ja') {
 
         if (this.options.debug()) {
