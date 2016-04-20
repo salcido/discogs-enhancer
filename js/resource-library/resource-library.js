@@ -26,7 +26,7 @@
    */
 
 
-  // instantiate default option values if not present
+  // Instantiate default option values if not present
   if (!localStorage.getItem('analytics')) { localStorage.setItem('analytics', 'true'); }
 
   if (!localStorage.getItem('colorize')) { localStorage.setItem('colorize', 'false'); }

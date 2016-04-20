@@ -11,10 +11,11 @@
 $(document).ready(function() {
 
   let
+      currency = localStorage.getItem('currency'),
       d = new Date(),
       language = $('#i18n_select option:selected').val(),
       lastChecked = localStorage.getItem('lastChecked'),
-      currency = localStorage.getItem('currency'),
+      options = resourceLibrary.options.debug(),
       rates = JSON.parse(localStorage.getItem('rates')),
       today = d.toISOString().split('T')[0],
       userCurrency = localStorage.getItem('userCurrency');
@@ -23,7 +24,7 @@ $(document).ready(function() {
 
       localStorage.setItem('rates', null);
 
-      if (resourceLibrary.options.debug()) {
+      if (options) {
 
         console.log('Getting fresh rates... One moment please.');
       }
@@ -47,7 +48,7 @@ $(document).ready(function() {
           // trigger exchange rates update
           localStorage.setItem('currency', userCurrency);
 
-          if (resourceLibrary.options.debug()) {
+          if (options) {
 
             console.log('*** Fresh rates ***');
 
@@ -67,7 +68,7 @@ $(document).ready(function() {
 
     } else {
 
-      if (resourceLibrary.options.debug()) {
+      if (options) {
 
         console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
 

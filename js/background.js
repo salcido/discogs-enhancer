@@ -243,7 +243,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     updateExchangeRates.type = 'text/javascript';
 
-    updateExchangeRates.src = chrome.extension.getURL('js/update-exchange-rates.js');
+    updateExchangeRates.src = chrome.extension.getURL('js/exchange-rates/update-exchange-rates.js');
 
     updateExchangeRates.className = 'de-init';
 

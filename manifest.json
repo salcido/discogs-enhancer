@@ -28,9 +28,9 @@
 
   "background": {
      "scripts": [
+        "js/runtime-messages/runtime-messages.js",
         "js/search-contextual-menu.js",
-        "js/background.js",
-        "js/apply-highlights.js"
+        "js/background.js"
       ]
    },
 
@@ -50,6 +50,7 @@
       "js/apply-highlights.js",
       "js/better-collection-ui.js",
       "js/chart/chart.js",
+      "js/exchange-rates/update-exchange-rates.js",
       "js/jquery/jquery-min.js",
       "js/options/options.js",
       "js/release-durations.js",
@@ -61,7 +62,6 @@
       "js/suggested-prices-all.js",
       "js/suggested-prices-release-page.js",
       "js/suggested-prices-single.js",
-      "js/update-exchange-rates.js",
       "js/tests/unit-tests.js"
     ],
 
