@@ -26,13 +26,19 @@ $(document).ready(function() {
     // Assemble our array of track times to be totaled
     $('td.tracklist_track_duration span').each(function() {
 
+      let metaTimeInfo = /[^\w:]/g,
+          trackTime = $(this).text();
+
       if ($(this).text() === '') {
 
         return arr.push('0');
 
       } else {
 
-        return arr.push($(this).text());
+        // Only push legit trackTime values into array - aka: 05:23 but not (05:23), etc...
+        // See this release for an example of why this is needed:
+        // https://www.discogs.com/The-Orb-The-Orbs-Adventures-Beyond-The-Ultraworld/release/8385901
+        return !metaTimeInfo.test(trackTime) ? arr.push(trackTime) : arr.push('0');
       }
     });
 

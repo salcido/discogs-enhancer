@@ -478,7 +478,6 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
   });
 }
 
-
 /* Analytics option */
 
 checkForAnalytics = setInterval(function() {
@@ -520,6 +519,7 @@ checkForAnalytics = setInterval(function() {
     clearInterval(checkForAnalytics);
   }
 }, 1000);
+
 
 // Clean up on asile 7!
 window.onload = function() { $('.de-init').remove(); };
