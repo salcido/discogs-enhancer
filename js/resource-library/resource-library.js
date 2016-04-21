@@ -23,7 +23,6 @@
       sanitizedPrice: "14.95"
     }
 
-
    */
 
 
