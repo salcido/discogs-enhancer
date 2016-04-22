@@ -1,0 +1,85 @@
+.currency-converter {
+  margin: 10px 0 0 10px;
+  width: 350px;
+  position: fixed;
+  bottom: -256px;
+  right: 0;
+  background-color: white;
+  border: 5px solid grey !important;
+  padding: 20px 20px 0 20px;
+  transition: all 0.3s ease-in-out;
+  color: gray !important;
+  box-shadow: 0 5px 10px #000;
+}
+
+.currency-converter .ui-wrap {
+  margin-bottom: 10px;
+}
+
+.currency-converter .top,
+.currency-converter .bottom {
+  display: block;
+  clear: both;
+}
+
+.currency-converter .currency {
+  float: left;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.currency-converter .currency-select {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.currency-converter #clearBtn {
+  display: inline-block;
+  float: right;
+}
+
+.currency-converter input {
+  margin-top: 10px;
+}
+
+.currency-converter input#input {
+  margin-top: 10px;
+  height: 60px;
+  width: 350px;
+  font-size: 40px;
+  padding-left: 10px;
+}
+
+.currency-converter input#input::-webkit-outer-spin-button,
+.currency-converter input#input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.currency-converter span#output {
+  display: block;
+  font-size: 45px;
+  margin-top: 30px;
+  height: 60px;
+  width: 350px;
+}
+
+.currency-converter #errors {
+  color: red;
+  text-transform: uppercase;
+}
+
+.currency-converter .toggle {
+  position: absolute;
+  top: -30px;
+  right: -5px;
+  background-color: gray !important;
+  padding: 3px 8px;
+  color: white !important;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.show-converter {
+  bottom: 0;
+}

@@ -13,7 +13,7 @@ $(document).ready(function() {
   let
       currency = localStorage.getItem('currency'),
       d = new Date(),
-      language = $('#i18n_select option:selected').val(),
+      language = resourceLibrary.language(),
       lastChecked = localStorage.getItem('lastChecked'),
       options = resourceLibrary.options.debug(),
       rates = JSON.parse(localStorage.getItem('rates')),

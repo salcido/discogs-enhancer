@@ -25,6 +25,8 @@
 
    */
 
+// TODO
+// move all instances of rates to central method here
 
   // Instantiate default option values if not present
   if (!localStorage.getItem('analytics')) { localStorage.setItem('analytics', 'true'); }
@@ -232,7 +234,7 @@
 
     getSymbols: function(userCurrency, symbol) {
 
-      let language = localStorage.getItem('language');
+      let language = this.language();
 
       this.exchangeList.forEach((name, f) => {
 
@@ -248,6 +250,18 @@
       }
 
       return symbol;
+    },
+
+    /**
+     * Returns the currently selected language
+     *
+     * @instance
+     * @return   {string}
+     */
+
+    language: function() {
+
+      return $('#i18n_select option:selected').val();
     },
 
     /**
@@ -270,7 +284,7 @@
 
         userCurrency = localStorage.getItem('userCurrency');
 
-        language = localStorage.getItem('language');
+        language = this.language();
       }
 
       // Use fracitonal values if user's currency is not JPY
@@ -331,7 +345,7 @@
 
       if (!language) {
 
-        language = localStorage.getItem('language');
+        language = this.language();
       }
 
        source.forEach((obj, i) => {
@@ -380,6 +394,7 @@
         *
         * @return {boolean}
         */
+
        analytics: function() {
 
          return JSON.parse(localStorage.getItem('analytics'));

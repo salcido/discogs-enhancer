@@ -43,6 +43,7 @@
     ],
 
     "web_accessible_resources": [
+      "css/currency-converter.css",
       "css/dark-theme.css",
       "css/marketplace-highlights.css",
       "css/pre-loader.css",
@@ -50,6 +51,7 @@
       "js/apply-highlights.js",
       "js/better-collection-ui.js",
       "js/chart/chart.js",
+      "js/currency-converter.js",
       "js/exchange-rates/update-exchange-rates.js",
       "js/jquery/jquery-min.js",
       "js/options/options.js",

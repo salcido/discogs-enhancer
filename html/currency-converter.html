@@ -1,0 +1,61 @@
+<div class="currency-converter">
+  <div class="top">
+    <div class="ui-wrap">
+      <div class="currency">Your currency:</div>
+      <div class="currency-select">
+        <select id="thisCurrency">
+          <option value="-">-</option>
+          <option value="AUD">AUD</option>
+          <option value="BRL">BRL</option>
+          <option value="CAD">CAD</option>
+          <option value="CHF">CHF</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+          <option value="MXN">MXN</option>
+          <option value="NZD">NZD</option>
+          <option value="SEK">SEK</option>
+          <option value="USD">USD</option>
+          <option value="ZAR">ZAR</option>
+        </select>
+      </div>
+      <div class="<value-input></value-input>">
+        <input type="number" id="input" placeholder="100.00" max="999999999" min="0"></input>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="ui-wrap">
+      <div class="currency">Convert to:</div>
+      <div class="currency-select">
+        <select id="thatCurrency">
+          <option value="-">-</option>
+          <option value="AUD">AUD</option>
+          <option value="BRL">BRL</option>
+          <option value="CAD">CAD</option>
+          <option value="CHF">CHF</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+          <option value="MXN">MXN</option>
+          <option value="NZD">NZD</option>
+          <option value="SEK">SEK</option>
+          <option value="USD">USD</option>
+          <option value="ZAR">ZAR</option>
+        </select>
+      </div>
+      <div id="clearBtn">
+        <button id="clear">Clear</button>
+      </div>
+      <div class="value-output">
+        <span id="output"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <span id="errors" ></span>
+  </div>
+</div>

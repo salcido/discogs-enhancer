@@ -92,6 +92,7 @@ $(document).ready(function() {
   }
 
   // event listener
+  // TODO move these to external keyboard commands file
   document.onkeyup = function(e) {
 
     if (e.altKey && e.ctrlKey && e.which === 55) {
@@ -121,6 +122,11 @@ $(document).ready(function() {
 
       return false;
     }
+
+    // if (e.shiftKey && e.ctrlKey && e.which === 67) {
+    //
+    //   $('.currency-converter').toggleClass('show-converter');
+    // }
   };
 
   $('body').append(modal);

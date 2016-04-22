@@ -1598,3 +1598,7 @@ label#thresholdLabel {
 .options-save {
   margin: auto;
 }
+
+.currency-converter {
+  background-color: #333 !important;
+}
