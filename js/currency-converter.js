@@ -8,13 +8,6 @@
  *
  */
 
-// TODO
-// add swap Functionality. If converting EUR to USD, then EUR is changed to USD, USD changes to EUR?
-//
-// stop clearing thatCurrency when thisCurrency changes?
-//
-// pass localeResult stuff into resourceLibrary for locale results
-
 $(document).ready(function() {
 
   let
