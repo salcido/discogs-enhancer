@@ -77,6 +77,63 @@ $(document).ready(function() {
                   '</div>' +
                 '</div>';
 
+  // Draxx them sklounst
+  function convertIt() {
+
+    let
+        errors = $('#errors'),
+        input = $('.currency-converter #input'),
+        output = $('.currency-converter #output'),
+        result,
+        symbol,
+        symbolIndex,
+        thatSelectedCurrency = $('#thatCurrency option:selected').val(),
+        thisCurrency = $('#thisCurrency option:selected').val();
+
+    // Figure out what we are converting to and use that symbol
+    resourceLibrary.exchangeList.forEach(function(exchangeName, i) {
+
+      if (exchangeName === thatSelectedCurrency) {
+
+        return symbolIndex = i;
+      }
+    });
+
+    // Make sure stuff is selected
+    if (thisCurrency === '-' || thatSelectedCurrency === '-') {
+
+      input.val('');
+
+      output.text('');
+
+      return errors.text('Please select two currencies first.');
+    }
+
+    // Calculate the result
+    result = (input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
+
+    // Grab correct symbol from printSymbol array
+    symbol = resourceLibrary.printSymbol[language][symbolIndex];
+
+    // Voilà
+    output.text( resourceLibrary.localizePrice(symbol, result, thatSelectedCurrency, language) );
+
+    // Let's get serious - serious. I want to get seriousssss.
+    if (input.val().length > 10 || input.val() > 9999999) {
+
+      input.val('');
+
+      output.html('&#175;\\\_(&#12484;)_/&#175;');
+
+      return;
+    }
+
+    if (input.val() === '') {
+
+      output.text('');
+    }
+  }
+
   // Update rates
   function getConverterRates(base) {
 
@@ -141,62 +198,6 @@ $(document).ready(function() {
     }
   }
 
-  function convertIt() {
-
-    let
-        errors = $('#errors'),
-        input = $('.currency-converter #input'),
-        output = $('.currency-converter #output'),
-        result,
-        symbol,
-        symbolIndex,
-        thatSelectedCurrency = $('#thatCurrency option:selected').val(),
-        thisCurrency = $('#thisCurrency option:selected').val();
-
-    // Figure out what we are converting to and use that symbol
-    resourceLibrary.exchangeList.forEach(function(exchangeName, i) {
-
-      if (exchangeName === thatSelectedCurrency) {
-
-        return symbolIndex = i;
-      }
-    });
-
-    // Make sure stuff is selected
-    if (thisCurrency === '-' || thatSelectedCurrency === '-') {
-
-      input.val('');
-
-      output.text('');
-
-      return errors.text('Please select two currencies first.');
-    }
-
-    // Calculate the result
-    result = (input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
-
-    // Grab correct symbol from printSymbol array
-    symbol = resourceLibrary.printSymbol[language][symbolIndex];
-
-    // Voilà
-    output.text( resourceLibrary.localizePrice(symbol, result, thatSelectedCurrency, language) );
-
-    // Let's get serious - serious. I want to get seriousssss.
-    if (input.val().length > 10 || input.val() > 9999999) {
-
-      input.val('');
-
-      output.html('&#175;\\\_(&#12484;)_/&#175;');
-
-      return;
-    }
-
-    if (input.val() === '') {
-
-      output.text('');
-    }
-  }
-
   /**
    *
    * DOM Setup
@@ -249,10 +250,7 @@ $(document).ready(function() {
 
   $('.currency-converter #input').on('keyup, keydown', function() {
 
-    setTimeout(function() {
-
-      convertIt();
-    }, 0); // <-- What's a better way to do this?
+    setTimeout(function() { convertIt(); }, 0); // <-- What's a better way to do this?
   });
 
   /**
