@@ -1,3 +1,20 @@
+/**
+ *
+ * Discogs Enhancer
+ *
+ * @author: Matthew Salcido (c) 2016
+ * @url: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ *
+ */
+
+// TODO
+// add swap Functionality. If converting EUR to USD, then EUR is changed to USD, USD changes to EUR?
+//
+// stop clearing thatCurrency when thisCurrency changes?
+//
+// pass localeResult stuff into resourceLibrary for locale results
+
 $(document).ready(function() {
 
   let
@@ -188,7 +205,7 @@ $(document).ready(function() {
 
       localeResult = Number(result).toLocaleString(language, priceConfig);
 
-      // Calculate it
+      // Display it!
       if (language === 'en' || language === 'ja') {
 
         output.text(symbol + localeResult);
