@@ -104,6 +104,8 @@ $(document).ready(function() {
 
         $('.currency-converter #input').attr('placeholder', '');
 
+        convertIt();
+
         if (resourceLibrary.options.debug()) {
 
           console.log(' ');
@@ -164,6 +166,8 @@ $(document).ready(function() {
     if (thisCurrency === '-' || thatSelectedCurrency === '-') {
 
       input.val('');
+
+      output.text('');
 
       return errors.text('Please select two currencies first.');
     }
@@ -346,13 +350,5 @@ $(document).ready(function() {
     convertIt();
 
     localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
-  });
-
-  // Reset form
-  $('body').on('change', '#thisCurrency', function() {
-
-    $('.currency-converter #input').val('');
-
-    $('.currency-converter #output').text('');
   });
 });
