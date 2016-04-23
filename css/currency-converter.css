@@ -1,15 +1,17 @@
 .currency-converter {
-  margin: 10px 0 0 10px;
-  width: 350px;
-  position: fixed;
-  bottom: -256px;
-  right: 0;
   background-color: white;
   border: 5px solid grey !important;
-  padding: 20px 20px 0 20px;
-  transition: all 0.3s ease-in-out;
-  color: gray !important;
+  border-radius: 5px 0 0 5px;
+  bottom: -256px;
   box-shadow: 0 5px 10px #000;
+  color: gray !important;
+  margin: 10px 0 0 10px;
+  padding: 20px 30px 0 20px;
+  position: fixed;
+  right: 0;
+  transition: all 0.3s ease-in-out;
+  width: 350px;
+  z-index: 1;
 }
 
 .currency-converter .ui-wrap {
@@ -18,13 +20,13 @@
 
 .currency-converter .top,
 .currency-converter .bottom {
-  display: block;
   clear: both;
+  display: block;
 }
 
 .currency-converter .currency {
-  float: left;
   display: inline-block;
+  float: left;
   margin-right: 10px;
 }
 
@@ -43,11 +45,11 @@
 }
 
 .currency-converter input#input {
-  margin-top: 10px;
-  height: 60px;
-  width: 350px;
   font-size: 40px;
+  height: 60px;
+  margin-top: 10px;
   padding-left: 10px;
+  width: 350px;
 }
 
 .currency-converter input#input::-webkit-outer-spin-button,
@@ -58,9 +60,9 @@
 
 .currency-converter span#output {
   display: block;
-  font-size: 45px;
-  margin-top: 30px;
+  font-size: 40px;
   height: 60px;
+  margin-top: 30px;
   width: 350px;
 }
 
@@ -70,16 +72,21 @@
 }
 
 .currency-converter .toggle {
-  position: absolute;
-  top: -30px;
-  right: -5px;
   background-color: gray !important;
-  padding: 3px 8px;
   color: white !important;
-  font-size: 10px;
   cursor: pointer;
+  font-size: 10px;
+  padding: 3px 8px;
+  position: absolute;
+  right: -5px;
+  top: -30px;
+  border-radius: 10px 0 0 0;
 }
 
 .show-converter {
   bottom: 0;
+}
+
+.show-converter .toggle {
+  border-radius: 0;
 }
