@@ -146,6 +146,12 @@ $(document).ready(function() {
     }
   }
 
+  /**
+   *
+   * DOM Setup
+   *
+   */
+
   // Append form
   $('body').append(markup);
 
@@ -197,7 +203,6 @@ $(document).ready(function() {
       let
           errors = $('#errors'),
           input = $('.currency-converter #input'),
-          inputLength,
           output = $('.currency-converter #output'),
           result,
           symbol,
@@ -223,7 +228,7 @@ $(document).ready(function() {
       }
 
       // Calculate the result
-      result = ( input.val() * rates.rates[thatSelectedCurrency] ).toFixed(2);
+      result = (input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
 
       // Grab correct symbol from printSymbol array
       symbol = resourceLibrary.printSymbol[language][symbolIndex];
@@ -232,11 +237,11 @@ $(document).ready(function() {
       output.text( resourceLibrary.localizePrice(symbol, result, thisCurrency, language) );
 
       // Let's get serious - serious. I want to get seriousssss.
-      if (inputLength > 10 || input.val() > 9999999) {
+      if (input.val().length > 10 || input.val() > 9999999) {
 
         input.val('');
 
-        output.text('Seriously?');
+        output.html('&#175;\\\_(&#12484;)_/&#175;');
 
         return;
       }
