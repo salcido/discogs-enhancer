@@ -7,7 +7,7 @@ $(document).ready(function() {
       rates,
       thisSelectedCurrency,
       markup = '<div class="currency-converter">' +
-                  '<div class="toggle">$ € ¥</div>' +
+                  '<div class="toggle">¥ € $</div>' +
                   '<div class="top">' +
                     '<div class="ui-wrap">' +
                       '<div class="currency">Convert:</div>' +
@@ -149,13 +149,9 @@ $(document).ready(function() {
     setTimeout(function() {
 
       let
-          errors = $('.currency-converter #errors'),
           input = $('.currency-converter #input'),
           inputLength,
-          localeResult,
-          maxDigits,
           output = $('.currency-converter #output'),
-          priceConfig,
           result,
           symbol,
           symbolIndex,
@@ -172,54 +168,13 @@ $(document).ready(function() {
       });
 
       // Calculate the result
-      result = ( input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
+      result = ( input.val() * rates.rates[thatSelectedCurrency] ).toFixed(2);
 
       // Grab correct symbol from printSymbol array
       symbol = resourceLibrary.printSymbol[language][symbolIndex];
 
-      // Localize result
-      maxDigits = (thatSelectedCurrency === 'JPY') ? 0 : 2;
-
-      priceConfig = {
-        currency: thatSelectedCurrency,
-        maximumFractionDigits: maxDigits,
-        minimumFractionDigits: maxDigits
-      };
-
-      localeResult = Number(result).toLocaleString(language, priceConfig);
-
-      // Calculate it
-      if (language === 'en' || language === 'ja') {
-
-        output.text(symbol + localeResult);
-      }
-
-      if (language === 'de' ||
-          language === 'fr' ||
-          language === 'es') {
-
-        output.text(localeResult + ' ' + symbol);
-      }
-
-      if (language === 'it') {
-
-        output.text(symbol + ' ' + localeResult);
-      }
-
-      // Check our length
-      inputLength = input.val().toString().length;
-
-      // Make sure a currency is selected
-      if (thatSelectedCurrency === '-' || thisCurrency === '-') {
-
-        input.val('');
-
-        errors.text('Please select currencies first.');
-
-      } else {
-
-        errors.text('');
-      }
+      // Voilà
+      output.text( resourceLibrary.localizePrice(symbol, result, thisCurrency, language) );
 
       // Let's get serious - serious. I want to get seriousssss.
       if (inputLength > 10 || input.val() > 9999999) {
@@ -243,7 +198,8 @@ $(document).ready(function() {
 
         output.text('');
       });
-    }, 0);
+
+    }, 0); // <-- What's a better way to do this?
   });
 
   /**
