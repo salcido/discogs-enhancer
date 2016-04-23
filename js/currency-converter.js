@@ -211,9 +211,28 @@ $(document).ready(function() {
   // Clear out all data
   clear.on('click', function() {
 
-    $('.currency-converter #input').val('');
+    // $('.currency-converter #input').val('');
+    //
+    // $('.currency-converter #output').text('');
 
-    $('.currency-converter #output').text('');
+    let disolve;
+
+    disolve = setInterval(function() {
+
+      let
+          input = $('.currency-converter #input'),
+          ilen = input.val(),
+          ival = input.text();
+
+      ival = ilen.substring(0, ilen.length - 1);
+
+      $('.currency-converter #input').val(ival);
+
+      if (ilen <= 0) {
+
+        clearInterval(disolve);
+      }
+    }, 20);
   });
 
 
