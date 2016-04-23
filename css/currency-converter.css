@@ -1,6 +1,7 @@
 .currency-converter {
   background-color: white;
   border: 5px solid grey !important;
+  border-radius: 5px 0 0 5px;
   bottom: -256px;
   box-shadow: 0 5px 10px #000;
   color: gray !important;
@@ -79,8 +80,13 @@
   position: absolute;
   right: -5px;
   top: -30px;
+  border-radius: 10px 0 0 0;
 }
 
 .show-converter {
   bottom: 0;
+}
+
+.show-converter .toggle {
+  border-radius: 0;
 }
