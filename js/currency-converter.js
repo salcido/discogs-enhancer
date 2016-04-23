@@ -121,6 +121,18 @@ $(document).ready(function() {
     });
   }
 
+  // Clear errors
+  function clearErrors() {
+
+    let base = $('#thisCurrency option:selected').val(),
+        thatC = $('#thatCurrency option:selected').val();
+
+    if (base !== '-' && thatC !== '-') {
+
+      return $('#errors').text('');
+    }
+  }
+
   // Append form
   $('body').append(markup);
 
@@ -155,6 +167,10 @@ $(document).ready(function() {
     $('#thatCurrency').val(lastUsedCurrency);
   }
 
+  // Disable ability to select '-' option
+  // so ajax call does not come back 422 (Unprocessable Entity)
+  $('#thisCurrency option[value="-"]').prop('disabled', true);
+
   /**
    *
    * Form Functionality
@@ -166,6 +182,7 @@ $(document).ready(function() {
     setTimeout(function() {
 
       let
+          errors = $('#errors'),
           input = $('.currency-converter #input'),
           inputLength,
           output = $('.currency-converter #output'),
@@ -189,7 +206,7 @@ $(document).ready(function() {
 
         input.val('');
 
-        return $('#errors').text('Please select two currencies first.');
+        return errors.text('Please select two currencies first.');
       }
 
       // Calculate the result
@@ -283,6 +300,8 @@ $(document).ready(function() {
       $('#thatCurrency option:eq(0)').prop('selected', true);
     }
 
+    clearErrors();
+
     // Disable option if used as base currency
     $('#thatCurrency option[value="' + base + '"]').prop('disabled', true).siblings().prop('disabled', false);
 
@@ -314,6 +333,8 @@ $(document).ready(function() {
 
   // Save last known state of #thatCurrency
   $('#thatCurrency').on('change', function() {
+
+    clearErrors();
 
     localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
   });
