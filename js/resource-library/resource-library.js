@@ -261,7 +261,9 @@
 
     language: function() {
 
-      return $('#i18n_select option:selected').val();
+      let id = document.getElementById('i18n_select');
+
+      return id.options[id.selectedIndex].value;
     },
 
     /**

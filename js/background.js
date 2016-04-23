@@ -52,6 +52,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     prefs = {
       collectionUi: true,
+      converter: true,
       darkTheme: true,
       highlightMedia: true,
       //pieStats: true,
@@ -118,17 +119,6 @@ chrome.storage.sync.get('prefs', function(result) {
   resourceLibrary.src = chrome.extension.getURL('js/resource-library/resource-library.js');
 
   initElems.push(resourceLibrary);
-
-  // currency-converter.css
-  converter_css = document.createElement('link');
-
-  converter_css.rel = 'stylesheet';
-
-  converter_css.type = 'text/css';
-
-  converter_css.href = chrome.extension.getURL('css/currency-converter.css');
-
-  initElems.push(converter_css);
 
   // Stick it in
   appendFragment(initElems);
@@ -298,6 +288,31 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(preloader);
   }
 
+  if (result.prefs.converter) {
+
+    // currency-converter.css
+    converter_css = document.createElement('link');
+
+    converter_css.rel = 'stylesheet';
+
+    converter_css.type = 'text/css';
+
+    converter_css.href = chrome.extension.getURL('css/currency-converter.css');
+
+    elems.push(converter_css);
+
+    // currency-converter.js
+    converter = document.createElement('script');
+
+    converter.type = 'text/javascript';
+
+    converter.className = 'de-init';
+
+    converter.src = chrome.extension.getURL('js/currency-converter.js');
+
+    elems.push(converter);
+  }
+
   // unit-tests.js
   unitTests = document.createElement('script');
 
@@ -308,17 +323,6 @@ chrome.storage.sync.get('prefs', function(result) {
   unitTests.className = 'de-init';
 
   elems.push(unitTests);
-
-  // currency-converter.js
-  converter = document.createElement('script');
-
-  converter.type = 'text/javascript';
-
-  converter.className = 'de-init';
-
-  converter.src = chrome.extension.getURL('js/currency-converter.js');
-
-  elems.push(converter);
 
   /*  Contextual menu options  */
 

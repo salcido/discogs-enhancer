@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
       prefs = {},
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConditions = document.getElementById('toggleConditions'),
+      toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     prefs = {
       userCurrency: userCurrency.value,
+      converter: toggleConverter.checked,
       darkTheme: toggleDarkTheme.checked,
       highlightMedia: toggleConditions.checked,
       sortButtons: toggleSortBtns.checked,
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
       useOye: toggleOye.checked,
       usePbvinyl: togglePbvinyl.checked
     };
-
+console.log(prefs)
     chrome.storage.sync.set({prefs: prefs}, function() {
 
       if (message) {
@@ -169,6 +171,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
         saveChanges(null, event);
       });
+
+    } else {
+
+      saveChanges(response, event);
+    }
+  }
+
+  // Toggle Currency Converter
+  function toggleCurrencyConverter(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      //chrome.tabs.executeScript(null, {file: 'js/currency-converter.js'}, function() {
+
+        saveChanges(response, event);
+      //});
 
     } else {
 
@@ -329,6 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
   userCurrency.addEventListener('change', setCurrency);
   toggleCollectionUi.addEventListener('change', enableCollectionUi);
   toggleConditions.addEventListener('change', toggleHighlights);
+  toggleConverter.addEventListener('change', toggleCurrencyConverter);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
   toggleReleaseDurations.addEventListener('change', trackTotals);
   toggleSortBtns.addEventListener('change', sortGenres);
@@ -381,6 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConditions.checked = result.prefs.highlightMedia;
+      toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleSortBtns.checked = result.prefs.sortButtons;
