@@ -24,18 +24,18 @@ $(document).ready(function() {
                       '<div class="currency-select">' +
                         '<select id="thisCurrency">' +
                           '<option value="-">-</option>' +
-                          '<option value="AUD">AUD</option>' +
-                          '<option value="BRL">BRL</option>' +
-                          '<option value="CAD">CAD</option>' +
-                          '<option value="CHF">CHF</option>' +
-                          '<option value="EUR">EUR</option>' +
-                          '<option value="GBP">GBP</option>' +
-                          '<option value="JPY">JPY</option>' +
-                          '<option value="MXN">MXN</option>' +
-                          '<option value="NZD">NZD</option>' +
-                          '<option value="SEK">SEK</option>' +
-                          '<option value="USD">USD</option>' +
-                          '<option value="ZAR">ZAR</option>' +
+                          '<option value="AUD">AUD (A$)</option>' +
+                          '<option value="BRL">BRL (R$)</option>' +
+                          '<option value="CAD">CAD (CA$)</option>' +
+                          '<option value="CHF">CHF (CHF)</option>' +
+                          '<option value="EUR">EUR (€)</option>' +
+                          '<option value="GBP">GBP (£)</option>' +
+                          '<option value="JPY">JPY (¥)</option>' +
+                          '<option value="MXN">MXN (MX$)</option>' +
+                          '<option value="NZD">NZD (NZ$)</option>' +
+                          '<option value="SEK">SEK (SEK)</option>' +
+                          '<option value="USD">USD ($)</option>' +
+                          '<option value="ZAR">ZAR (ZAR)</option>' +
                         '</select>' +
                       '</div>' +
                       '<div class="<value-input></value-input>">' +
@@ -50,18 +50,18 @@ $(document).ready(function() {
                       '<div class="currency-select">' +
                         '<select id="thatCurrency">' +
                           '<option value="-">-</option>' +
-                          '<option value="AUD">AUD</option>' +
-                          '<option value="BRL">BRL</option>' +
-                          '<option value="CAD">CAD</option>' +
-                          '<option value="CHF">CHF</option>' +
-                          '<option value="EUR">EUR</option>' +
-                          '<option value="GBP">GBP</option>' +
-                          '<option value="JPY">JPY</option>' +
-                          '<option value="MXN">MXN</option>' +
-                          '<option value="NZD">NZD</option>' +
-                          '<option value="SEK">SEK</option>' +
-                          '<option value="USD">USD</option>' +
-                          '<option value="ZAR">ZAR</option>' +
+                          '<option value="AUD">AUD (A$)</option>' +
+                          '<option value="BRL">BRL (R$)</option>' +
+                          '<option value="CAD">CAD (CA$)</option>' +
+                          '<option value="CHF">CHF (CHF)</option>' +
+                          '<option value="EUR">EUR (€)</option>' +
+                          '<option value="GBP">GBP (£)</option>' +
+                          '<option value="JPY">JPY (¥)</option>' +
+                          '<option value="MXN">MXN (MX$)</option>' +
+                          '<option value="NZD">NZD (NZ$)</option>' +
+                          '<option value="SEK">SEK (SEK)</option>' +
+                          '<option value="USD">USD ($)</option>' +
+                          '<option value="ZAR">ZAR (ZAR)</option>' +
                         '</select>' +
                       '</div>' +
                       '<div id="clearBtn">' +
@@ -139,6 +139,60 @@ $(document).ready(function() {
     }
   }
 
+  function convertIt() {
+
+    let
+        errors = $('#errors'),
+        input = $('.currency-converter #input'),
+        output = $('.currency-converter #output'),
+        result,
+        symbol,
+        symbolIndex,
+        thatSelectedCurrency = $('#thatCurrency option:selected').val(),
+        thisCurrency = $('#thisCurrency option:selected').val();
+
+    // Figure out what we are converting to and use that symbol
+    resourceLibrary.exchangeList.forEach(function(exchangeName, i) {
+
+      if (exchangeName === thatSelectedCurrency) {
+
+        return symbolIndex = i;
+      }
+    });
+
+    // Make sure stuff is selected
+    if (thisCurrency === '-' || thatSelectedCurrency === '-') {
+
+      input.val('');
+
+      return errors.text('Please select two currencies first.');
+    }
+
+    // Calculate the result
+    result = (input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
+
+    // Grab correct symbol from printSymbol array
+    symbol = resourceLibrary.printSymbol[language][symbolIndex];
+
+    // Voilà
+    output.text( resourceLibrary.localizePrice(symbol, result, thatSelectedCurrency, language) );
+
+    // Let's get serious - serious. I want to get seriousssss.
+    if (input.val().length > 10 || input.val() > 9999999) {
+
+      input.val('');
+
+      output.html('&#175;\\\_(&#12484;)_/&#175;');
+
+      return;
+    }
+
+    if (input.val() === '') {
+
+      output.text('');
+    }
+  }
+
   /**
    *
    * DOM Setup
@@ -193,65 +247,7 @@ $(document).ready(function() {
 
     setTimeout(function() {
 
-      let
-          errors = $('#errors'),
-          input = $('.currency-converter #input'),
-          output = $('.currency-converter #output'),
-          result,
-          symbol,
-          symbolIndex,
-          thatSelectedCurrency = $('#thatCurrency option:selected').val(),
-          thisCurrency = $('#thisCurrency option:selected').val();
-
-      // Figure out what we are converting to and use that symbol
-      resourceLibrary.exchangeList.forEach(function(exchangeName, i) {
-
-        if (exchangeName === thatSelectedCurrency) {
-
-          return symbolIndex = i;
-        }
-      });
-
-      // Make sure stuff is selected
-      if (thisCurrency === '-' || thatSelectedCurrency === '-') {
-
-        input.val('');
-
-        return errors.text('Please select two currencies first.');
-      }
-
-      // Calculate the result
-      result = (input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
-
-      // Grab correct symbol from printSymbol array
-      symbol = resourceLibrary.printSymbol[language][symbolIndex];
-
-      // Voilà
-      output.text( resourceLibrary.localizePrice(symbol, result, thisCurrency, language) );
-
-      // Let's get serious - serious. I want to get seriousssss.
-      if (input.val().length > 10 || input.val() > 9999999) {
-
-        input.val('');
-
-        output.html('&#175;\\\_(&#12484;)_/&#175;');
-
-        return;
-      }
-
-      if (input.val() === '') {
-
-        output.text('');
-      }
-
-      // Reset form
-      $('body').on('change', '#thatCurrency, #thisCurrency', function() {
-
-        input.val('');
-
-        output.text('');
-      });
-
+      convertIt();
     }, 0); // <-- What's a better way to do this?
   });
 
@@ -347,6 +343,16 @@ $(document).ready(function() {
 
     clearErrors();
 
+    convertIt();
+
     localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
+  });
+
+  // Reset form
+  $('body').on('change', '#thisCurrency', function() {
+
+    $('.currency-converter #input').val('');
+
+    $('.currency-converter #output').text('');
   });
 });
