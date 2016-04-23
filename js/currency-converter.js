@@ -226,7 +226,7 @@ $(document).ready(function() {
 
       ival = ilen.substring(0, ilen.length - 1);
 
-      $('.currency-converter #input').val(ival);
+      input.val(ival);
 
       if (ilen <= 0) {
 
