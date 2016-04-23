@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
       useOye: toggleOye.checked,
       usePbvinyl: togglePbvinyl.checked
     };
-console.log(prefs)
+
     chrome.storage.sync.set({prefs: prefs}, function() {
 
       if (message) {

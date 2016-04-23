@@ -163,8 +163,12 @@ a.button_green:hover {
   font-weight: bold;
   font-size: 14px;
   background-color: #666;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   width: 100%;
+  position: fixed;
+  top: -11px;
+  left: 0;
+  z-index: 1;
 }
 
 .notifications img {
