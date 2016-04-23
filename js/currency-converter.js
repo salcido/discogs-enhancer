@@ -110,6 +110,19 @@ $(document).ready(function() {
         $('.currency-converter #input').prop('disabled', false);
 
         $('.currency-converter #input').attr('placeholder', '');
+
+        if (resourceLibrary.options.debug()) {
+
+          console.log(' ');
+
+          console.log('*** Converter Rates ***');
+
+          console.log('Date: ', rates.date);
+
+          console.log('Base: ', rates.base);
+
+          console.log(rates.rates);
+        }
       },
 
       error: function() {
