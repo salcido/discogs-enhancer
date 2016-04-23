@@ -78,7 +78,7 @@ $(document).ready(function() {
                 '</div>';
 
   // Draxx them sklounst
-  function convertIt() {
+  function convertCurrency() {
 
     let
         errors = $('#errors'),
@@ -161,7 +161,7 @@ $(document).ready(function() {
 
         $('.currency-converter #input').attr('placeholder', '');
 
-        convertIt();
+        convertCurrency();
 
         if (resourceLibrary.options.debug()) {
 
@@ -250,7 +250,7 @@ $(document).ready(function() {
 
   $('.currency-converter #input').on('keyup, keydown', function() {
 
-    setTimeout(function() { convertIt(); }, 0); // <-- What's a better way to do this?
+    setTimeout(function() { convertCurrency(); }, 0); // <-- What's a better way to do this?
   });
 
   /**
@@ -345,7 +345,7 @@ $(document).ready(function() {
 
     clearErrors();
 
-    convertIt();
+    convertCurrency();
 
     localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
   });

@@ -1570,6 +1570,8 @@ ul.options li label {
   padding: 20px;
   border: 1px solid #888;
   width: 25%;
+  box-shadow: 0 0 10px #000;
+  border-radius: 5px;
 }
 
 .options-close {
