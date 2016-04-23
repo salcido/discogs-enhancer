@@ -184,6 +184,14 @@ $(document).ready(function() {
         }
       });
 
+      // Make sure stuff is selected
+      if (thisCurrency === '-' || thatSelectedCurrency === '-') {
+
+        input.val('');
+
+        return $('#errors').text('Please select two currencies first.');
+      }
+
       // Calculate the result
       result = ( input.val() * rates.rates[thatSelectedCurrency] ).toFixed(2);
 
@@ -228,24 +236,34 @@ $(document).ready(function() {
   // Clear out all data
   clear.on('click', function() {
 
-    // $('.currency-converter #input').val('');
-    //
-    // $('.currency-converter #output').text('');
+    let disolve,
+        hasDecimal = $('.currency-converter #input').val().indexOf('.');
 
-    let disolve;
+    // Strip decimal to stop Chrome from console.warning on invalid number
+    if (hasDecimal) {
+
+      let amount = $('.currency-converter #input').val();
+
+      amount = amount.replace('.', '');
+
+      $('.currency-converter #input').val(amount);
+    }
 
     disolve = setInterval(function() {
 
       let
           input = $('.currency-converter #input'),
-          ilen = input.val(),
-          ival = input.text();
+          len = input.val(),
+          val = input.text(),
+          output = $('.currency-converter #output');
 
-      ival = ilen.substring(0, ilen.length - 1);
+      val = len.substring(0, len.length - 1);
 
-      input.val(ival);
+      input.val(val);
 
-      if (ilen <= 0) {
+      output.text( input.val() );
+
+      if (len <= 0) {
 
         clearInterval(disolve);
       }
@@ -256,14 +274,19 @@ $(document).ready(function() {
   // Update base value on change
   $('#thisCurrency').on('change', function() {
 
-    let base = $('#thisCurrency option:selected').val();
+    let base = $('#thisCurrency option:selected').val(),
+        thatC = $('#thatCurrency option:selected').val();
 
-    // Reset #thatCurrency
-    $('#thatCurrency option:eq(0)').prop('selected', true);
+    // Reset #thatCurrency if #thisCurrency is the same
+    if (base === thatC) {
+
+      $('#thatCurrency option:eq(0)').prop('selected', true);
+    }
 
     // Disable option if used as base currency
     $('#thatCurrency option[value="' + base + '"]').prop('disabled', true).siblings().prop('disabled', false);
 
+    // Update rates
     getConverterRates(base);
   });
 
@@ -271,10 +294,21 @@ $(document).ready(function() {
   // Show/Hide converter
   $('body').on('click', '.currency-converter .toggle', function() {
 
+    let base = $('#thisCurrency option:selected').val(),
+        thatC = $('#thatCurrency option:selected').val();
+
+    // Reset #thatCurrency if #thisCurrency is the same
+    if (base === thatC) {
+
+      $('#thatCurrency option:eq(0)').prop('selected', true);
+    }
+
     $('.currency-converter').toggleClass('show-converter');
 
     // Clear out errors so hiding continues to work as expected
     $('#errors').text('');
+
+    return $(this).text() === '¥ € $' ? $(this).text('£ € $ $') : $(this).text('¥ € $');
   });
 
 
