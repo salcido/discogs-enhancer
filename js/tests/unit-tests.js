@@ -370,5 +370,30 @@ $(document).ready(function() {
     testSymbols([{price: 'SEK20.00'}], 'ja', 'SEK');
     testSymbols([{price: 'MX$20.00'}], 'ja', 'MXN');
     testSymbols([{price: 'ZAR20.00'}], 'ja', 'ZAR');
+
+    // Check langauge method
+    console.log('/// Testing language method ///');
+
+    function getLanguage() {
+
+      let lang = resourceLibrary.language();
+
+      switch (lang) {
+
+        case 'de':
+        case 'en':
+        case 'es':
+        case 'fr':
+        case 'it':
+
+          return console.log('%c PASSED ', 'color: limegreen', 'Language is ' + lang.toUpperCase());
+
+        default:
+
+          return console.log('%c FAILED ', 'color: deeppink', 'Language could not be returned');
+      }
+    }
+
+    getLanguage();
   }
 });
