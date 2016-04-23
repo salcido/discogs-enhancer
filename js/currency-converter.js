@@ -277,17 +277,17 @@ $(document).ready(function() {
 
       let
           input = $('.currency-converter #input'),
-          len = input.val(),
-          val = input.text(),
+          val = input.val(),
+          text = input.text(),
           output = $('.currency-converter #output');
 
-      val = len.substring(0, len.length - 1);
+      text = val.substring(0, val.length - 1);
 
-      input.val(val);
+      input.val(text);
 
       output.text( input.val() );
 
-      if (len <= 0) {
+      if (val <= 0 && val.length < 1) {
 
         clearInterval(disolve);
       }
