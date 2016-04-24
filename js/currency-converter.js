@@ -11,7 +11,6 @@
 $(document).ready(function() {
 
   let
-      clear,
       language = resourceLibrary.language(),
       lastUsedCurrency = localStorage.getItem('lastUsedCurrency'),
       rates,
@@ -207,9 +206,6 @@ $(document).ready(function() {
   // Append form
   $('body').append(markup);
 
-  // Setup clear button
-  clear = $('.currency-converter #clear');
-
   // Check for existing rates
   if (!JSON.parse(localStorage.getItem('converterRates'))) {
 
@@ -260,9 +256,10 @@ $(document).ready(function() {
    */
 
   // Clear out all data
-  clear.on('click', function() {
+  $('.currency-converter #clear').on('click', function() {
 
-    let disolve,
+    let
+        disolve,
         hasDecimal = $('.currency-converter #ccInput').val().indexOf('.');
 
     // Strip decimal to stop Chrome from console.warning on invalid number
@@ -279,9 +276,9 @@ $(document).ready(function() {
 
       let
           input = $('.currency-converter #ccInput'),
-          val = input.val(),
+          output = $('.currency-converter #ccOutput'),
           text = input.text(),
-          output = $('.currency-converter #ccOutput');
+          val = input.val();
 
       text = val.substring(0, val.length - 1);
 
@@ -300,7 +297,8 @@ $(document).ready(function() {
   // Update base value on change
   $('#thisCurrency').on('change', function() {
 
-    let base = $('#thisCurrency option:selected').val(),
+    let
+        base = $('#thisCurrency option:selected').val(),
         thatC = $('#thatCurrency option:selected').val();
 
     // Reset #thatCurrency if #thisCurrency is the same
@@ -322,7 +320,8 @@ $(document).ready(function() {
   // Show/Hide converter
   $('body').on('click', '.currency-converter .toggle', function() {
 
-    let base = $('#thisCurrency option:selected').val(),
+    let
+        base = $('#thisCurrency option:selected').val(),
         thatC = $('#thatCurrency option:selected').val();
 
     // Reset #thatCurrency if #thisCurrency is the same
@@ -332,6 +331,8 @@ $(document).ready(function() {
     }
 
     $('.currency-converter').toggleClass('show-converter');
+
+    document.getElementById('ccInput').focus();
 
     // Clear out errors so hiding continues to work as expected
     $('#errors').text('');
