@@ -34,9 +34,9 @@ Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Ge
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/sort-buttons.png?raw=true "Sorting preview")
 
 ### On screen currency Converter
-Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency? Have you ever felt annoyed that you'd have to open a new tab and google the exchange rate to see what it would actually cost you?
+Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency? Have you ever felt annoyed by googling the exchange rate to see what it would actually cost?
 
-Now you can find out quickly with the new on screen Currency Converter!
+The Currency Converter can tell you in an instant!
 
 ### Contextual menu
 Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer. Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.
