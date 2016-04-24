@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Save preferences
   function saveChanges(message, event) {
 
+    let manifest = chrome.runtime.getManifest();
+
     prefs = {
       userCurrency: userCurrency.value,
       converter: toggleConverter.checked,
@@ -86,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
      // Google Analyitcs
     _gaq.push(['_trackEvent', event.target.id, event.target.id + ' : ' +
-               (event.target.checked || event.target[event.target.selectedIndex].value)]);
+               (event.target.checked || event.target[event.target.selectedIndex].value), ' version: ' + manifest.version]);
   }
 
 
