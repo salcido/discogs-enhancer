@@ -4,7 +4,7 @@ analytics = JSON.parse(analytics);
 
 if (analytics) {
 
-  let _gaq = _gaq || [];
+  var _gaq = _gaq || [];
 
   _gaq.push(['_setAccount', 'UA-75073435-1']);
 
@@ -12,7 +12,7 @@ if (analytics) {
 
   (function() {
 
-    let ga = document.createElement('script'),
+    var ga = document.createElement('script'),
         s = document.getElementsByTagName('script')[0];
 
     ga.type = 'text/javascript';
