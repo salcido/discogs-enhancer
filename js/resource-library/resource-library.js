@@ -425,6 +425,63 @@
        },
 
        /**
+        * Gets current options state
+        *
+        * @return {undefined}
+        */
+
+       getOptions: function() {
+
+         let
+             analytics = resourceLibrary.options.analytics(),
+             colorize = resourceLibrary.options.colorize(),
+             debug = resourceLibrary.options.debug(),
+             threshold = resourceLibrary.options.threshold(),
+             unitTests = resourceLibrary.options.unitTests();
+
+
+         if (analytics) { $('#analytics').prop('checked', true); }
+
+         if (colorize) { $('#colorize').prop('checked', true); }
+
+         if (debug) { $('#debug').prop('checked', true); }
+
+         if (unitTests) { $('#unittests').prop('checked', true); }
+
+         if (threshold) { $('#threshold').val(threshold); }
+       },
+
+       /**
+        * Saves selected options on options modal
+        *
+        * @return {function}
+        */
+
+       saveOptions: function() {
+
+         let
+             analytics = $('#analytics').prop('checked'),
+             colorize = $('#colorize').prop('checked'),
+             debug = $('#debug').prop('checked'),
+             threshold = $('#threshold').val(),
+             unitTests = $('#unittests').prop('checked');
+
+         localStorage.setItem('analytics', JSON.stringify(analytics));
+
+         localStorage.setItem('colorize', colorize);
+
+         localStorage.setItem('debug', debug);
+
+         localStorage.setItem('threshold', threshold);
+
+         localStorage.setItem('unitTests', unitTests);
+
+         resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
+
+         return location.reload();
+       },
+
+       /**
         * The maximum percentage that an item will be ballpark estimated with: ±
         *
         * @return {number}

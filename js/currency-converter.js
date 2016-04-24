@@ -39,7 +39,7 @@ $(document).ready(function() {
                         '</select>' +
                       '</div>' +
                       '<div class="<value-input></value-input>">' +
-                        '<input type="number" id="input" max="999999999" min="0"></input>' +
+                        '<input type="number" id="ccInput" max="999999999" min="0"></input>' +
                       '</div>' +
                     '</div>' +
                   '</div>' +
@@ -68,7 +68,7 @@ $(document).ready(function() {
                         '<button id="clear" class="button button_blue">Clear</button>' +
                       '</div>' +
                       '<div class="value-output">' +
-                        '<span id="output"></span>' +
+                        '<span id="ccOutput"></span>' +
                       '</div>' +
                     '</div>' +
                   '</div>' +
@@ -82,8 +82,8 @@ $(document).ready(function() {
 
     let
         errors = $('#errors'),
-        input = $('.currency-converter #input'),
-        output = $('.currency-converter #output'),
+        input = $('.currency-converter #ccInput'),
+        output = $('.currency-converter #ccOutput'),
         result,
         symbol,
         symbolIndex,
@@ -139,9 +139,9 @@ $(document).ready(function() {
 
     $('#thatCurrency').prop('disabled', true);
 
-    $('.currency-converter #input').prop('disabled', true);
+    $('.currency-converter #ccInput').prop('disabled', true);
 
-    $('.currency-converter #input').attr('placeholder', 'Updating...');
+    $('.currency-converter #ccInput').attr('placeholder', 'Updating...');
 
     $.ajax({
 
@@ -157,9 +157,9 @@ $(document).ready(function() {
 
         $('#thatCurrency').prop('disabled', false);
 
-        $('.currency-converter #input').prop('disabled', false);
+        $('.currency-converter #ccInput').prop('disabled', false);
 
-        $('.currency-converter #input').attr('placeholder', '');
+        $('.currency-converter #ccInput').attr('placeholder', '');
 
         convertCurrency();
 
@@ -248,7 +248,7 @@ $(document).ready(function() {
    *
    */
 
-  $('.currency-converter #input').on('keyup, keydown', function() {
+  $('.currency-converter #ccInput').on('keyup, keydown', function() {
 
     setTimeout(function() { convertCurrency(); }, 0); // <-- What's a better way to do this?
   });
@@ -263,25 +263,25 @@ $(document).ready(function() {
   clear.on('click', function() {
 
     let disolve,
-        hasDecimal = $('.currency-converter #input').val().indexOf('.');
+        hasDecimal = $('.currency-converter #ccInput').val().indexOf('.');
 
     // Strip decimal to stop Chrome from console.warning on invalid number
     if (hasDecimal) {
 
-      let amount = $('.currency-converter #input').val();
+      let amount = $('.currency-converter #ccInput').val();
 
       amount = amount.replace('.', '');
 
-      $('.currency-converter #input').val(amount);
+      $('.currency-converter #ccInput').val(amount);
     }
 
     disolve = setInterval(function() {
 
       let
-          input = $('.currency-converter #input'),
+          input = $('.currency-converter #ccInput'),
           val = input.val(),
           text = input.text(),
-          output = $('.currency-converter #output');
+          output = $('.currency-converter #ccOutput');
 
       text = val.substring(0, val.length - 1);
 
@@ -348,5 +348,21 @@ $(document).ready(function() {
     convertCurrency();
 
     localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
+  });
+
+  // Keyboard shortcut
+  document.addEventListener('keyup', function(e) {
+
+    // Shift + Ctrl + C
+    if (e.shiftKey && e.ctrlKey && e.which === 67) {
+
+      let tab = $('.currency-converter .toggle');
+
+      $('.currency-converter').toggleClass('show-converter');
+
+      document.getElementById('ccInput').focus();
+
+      return $(tab).text() === '¥ € $' ? $(tab).text('£ € $ $') : $(tab).text('¥ € $');
+    }
   });
 });

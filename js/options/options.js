@@ -15,7 +15,7 @@ $(document).ready(function() {
       modal = '<div id="optionsModal" class="options-modal" style="display: none;">' +
                 '<div class="options-modal-content">' +
                   '<span class="options-close">x</span>' +
-                  '<h3>Well, aren\'t you clever!</h3>' +
+                  '<h3>Super Secret Options Menu</h3>' +
                   '<ul class="options">' +
                     '<li>' +
                       '<input id="analytics" name="analytics" type="checkbox" value="analytics" />' +
@@ -42,59 +42,10 @@ $(document).ready(function() {
                 '</div>' +
               '</div>';
 
+  // Keyboard Shortcut
+  document.addEventListener('keyup', function(e) {
 
-  // Get them options
-  function getOptions() {
-
-    let
-        analytics = resourceLibrary.options.analytics(),
-        colorize = resourceLibrary.options.colorize(),
-        debug = resourceLibrary.options.debug(),
-        threshold = resourceLibrary.options.threshold(),
-        unitTests = resourceLibrary.options.unitTests();
-
-
-    if (analytics) { $('#analytics').prop('checked', true); }
-
-    if (colorize) { $('#colorize').prop('checked', true); }
-
-    if (debug) { $('#debug').prop('checked', true); }
-
-    if (unitTests) { $('#unittests').prop('checked', true); }
-
-    if (threshold) { $('#threshold').val(threshold); }
-  }
-
-
-  // Save them options
-  function saveOptions() {
-
-    let
-        analytics = $('#analytics').prop('checked'),
-        colorize = $('#colorize').prop('checked'),
-        debug = $('#debug').prop('checked'),
-        threshold = $('#threshold').val(),
-        unitTests = $('#unittests').prop('checked');
-
-    localStorage.setItem('analytics', JSON.stringify(analytics));
-
-    localStorage.setItem('colorize', colorize);
-
-    localStorage.setItem('debug', debug);
-
-    localStorage.setItem('threshold', threshold);
-
-    localStorage.setItem('unitTests', unitTests);
-
-    resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
-
-    location.reload();
-  }
-
-  // event listener
-  // TODO move these to external keyboard commands file
-  document.onkeyup = function(e) {
-
+    // Alt + Ctrl + 7
     if (e.altKey && e.ctrlKey && e.which === 55) {
 
       if (!visible) {
@@ -103,7 +54,7 @@ $(document).ready(function() {
 
         $('.options-modal').show();
 
-        getOptions();
+        resourceLibrary.options.getOptions();
 
         // Close it
         $('body').on('click', '.options-close', function() {
@@ -116,20 +67,15 @@ $(document).ready(function() {
         // Save it
         $('body').on('click', '.options-save', function() {
 
-          saveOptions();
+          resourceLibrary.options.saveOptions();
         });
       }
 
       return false;
     }
-
-    // if (e.shiftKey && e.ctrlKey && e.which === 67) {
-    //
-    //   $('.currency-converter').toggleClass('show-converter');
-    // }
-  };
+  });
 
   $('body').append(modal);
 
-  getOptions();
+  resourceLibrary.options.getOptions();
 });
