@@ -106,7 +106,7 @@ $(document).ready(function() {
 
       output.text('');
 
-      return errors.text('Please select two currencies first.');
+      return errors.text('Please select two currencies.');
     }
 
     // Calculate the result
