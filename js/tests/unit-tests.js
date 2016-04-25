@@ -385,6 +385,7 @@ $(document).ready(function() {
         case 'es':
         case 'fr':
         case 'it':
+        case 'ja':
 
           return console.log('%c PASSED ', 'color: limegreen', 'Language is ' + lang.toUpperCase());
 

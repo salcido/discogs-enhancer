@@ -238,6 +238,7 @@ $(document).ready(function() {
   // so ajax call does not come back 422 (Unprocessable Entity)
   $('#thisCurrency option[value="-"]').prop('disabled', true);
 
+
   /**
    *
    * Form Functionality
@@ -248,6 +249,7 @@ $(document).ready(function() {
 
     setTimeout(function() { convertCurrency(); }, 0); // <-- What's a better way to do this?
   });
+
 
   /**
    *
@@ -350,6 +352,7 @@ $(document).ready(function() {
 
     localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
   });
+
 
   // Keyboard shortcut
   document.addEventListener('keyup', function(e) {
