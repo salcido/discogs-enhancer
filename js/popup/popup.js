@@ -46,6 +46,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+  function checkForUpdate() {
+
+    chrome.storage.sync.get('didUpdate', function(result) {
+
+      if (result.didUpdate) {
+
+        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
+
+      } else {
+
+        $('#about').text('About').removeClass('button_orange').addClass('button_green');
+      }
+    });
+  }
+
+
   // Save preferences
   function saveChanges(message, event) {
 
@@ -92,76 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Toggle dark mode on/off
-  function useDarkTheme(event) {
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
-
-        saveChanges(null, event);
-      });
-
-    } else {
-
-      chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
-
-        saveChanges(null, event);
-      });
-    }
-  }
-
-
-  // Toggle release condition highlighting on/off
-  function toggleHighlights(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
-
-        saveChanges(response, event);
-      });
-
-    } else {
-
-      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
-
-        saveChanges(null, event);
-      });
-    }
-  }
-
-
-  // Toggle ability to sort genres, etc
-  function sortGenres(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/sort-explore-lists.js'}, function() {
-
-        saveChanges(response, event);
-      });
-
-    } else {
-
-      saveChanges(response, event);
-    }
-  }
-
-
-  // Toggle track totals
-  function trackTotals(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    saveChanges(response, event);
-  }
-
-
   // Toggle better collection UI
   function enableCollectionUi(event) {
 
@@ -180,22 +126,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Toggle Currency Converter
-  function toggleCurrencyConverter(event) {
 
-    let response = 'Please refresh the page for changes to take effect.';
+  // Get/Save currency preferences
+  function getCurrency() {
 
-    if (event.target.checked) {
+    chrome.storage.sync.get('prefs', function(result) {
 
-      //chrome.tabs.executeScript(null, {file: 'js/currency-converter.js'}, function() {
+      if (result.prefs.userCurrency) {
 
-        saveChanges(response, event);
-      //});
+        userCurrency.value = result.prefs.userCurrency;
 
-    } else {
+        if (userCurrency.value !== '-' && togglePrices.checked === true) {
 
-      saveChanges(response, event);
-    }
+          userCurrency.disabled = true;
+        }
+
+      } else {
+
+        togglePrices.checked = false;
+
+        userCurrency.disabled = false;
+      }
+    });
   }
 
 
@@ -235,34 +187,162 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Get/Save currency preferences
-  function getCurrency() {
+  // Toggle ability to sort genres, etc
+  function sortGenres(event) {
 
-    chrome.storage.sync.get('prefs', function(result) {
+    let response = 'Please refresh the page for changes to take effect.';
 
-      if (result.prefs.userCurrency) {
+    if (event.target.checked) {
 
-        userCurrency.value = result.prefs.userCurrency;
+      chrome.tabs.executeScript(null, {file: 'js/sort-explore-lists.js'}, function() {
 
-        if (userCurrency.value !== '-' && togglePrices.checked === true) {
+        saveChanges(response, event);
+      });
 
-          userCurrency.disabled = true;
-        }
+    } else {
 
-      } else {
-
-        togglePrices.checked = false;
-
-        userCurrency.disabled = false;
-      }
-    });
+      saveChanges(response, event);
+    }
   }
+
 
   // Saves user currency
   function setCurrency(event) {
 
     saveChanges(null, event);
   }
+
+
+  // Toggle Currency Converter
+  function toggleCurrencyConverter(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      //chrome.tabs.executeScript(null, {file: 'js/currency-converter.js'}, function() {
+
+        saveChanges(response, event);
+      //});
+
+    } else {
+
+      saveChanges(response, event);
+    }
+  }
+
+
+  // Toggle release condition highlighting on/off
+  function toggleHighlights(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
+
+        saveChanges(response, event);
+      });
+
+    } else {
+
+      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
+
+        saveChanges(null, event);
+      });
+    }
+  }
+
+
+  // Toggle track totals
+  function trackTotals(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    saveChanges(response, event);
+  }
+
+
+  // Create/remove contextual menus
+  function updateMenu(event) {
+
+    if (event.target.checked) {
+
+      chrome.runtime.sendMessage({
+        fn: event.target.dataset.funct,
+        id: event.target.id,
+        method: 'create',
+        name: event.target.dataset.name,
+        request: 'updateContextMenu'
+      });
+
+      saveChanges(null, event);
+
+    } else {
+
+      chrome.runtime.sendMessage({
+        id: event.target.id,
+        method: 'remove',
+        request: 'updateContextMenu'
+      });
+
+      saveChanges(null, event);
+    }
+  }
+
+
+  // Toggle dark mode on/off
+  function useDarkTheme(event) {
+
+    if (event.target.checked) {
+
+      chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
+
+        saveChanges(null, event);
+      });
+
+    } else {
+
+      chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
+
+        saveChanges(null, event);
+      });
+    }
+  }
+
+
+  // Toggle event listeners
+  userCurrency.addEventListener('change', setCurrency);
+  toggleCollectionUi.addEventListener('change', enableCollectionUi);
+  toggleConditions.addEventListener('change', toggleHighlights);
+  toggleConverter.addEventListener('change', toggleCurrencyConverter);
+  toggleDarkTheme.addEventListener('change', useDarkTheme);
+  toggleReleaseDurations.addEventListener('change', trackTotals);
+  toggleSortBtns.addEventListener('change', sortGenres);
+  togglePrices.addEventListener('change', showPrices);
+
+  // Contextual menus
+  toggleBandcamp.addEventListener('change', updateMenu);
+  toggleBoomkat.addEventListener('change', updateMenu);
+  toggleClone.addEventListener('change', updateMenu);
+  toggleDeeJay.addEventListener('change', updateMenu);
+  toggleDiscogs.addEventListener('change', updateMenu);
+  toggleGramaphone.addEventListener('change', updateMenu);
+  toggleHalcyon.addEventListener('change', updateMenu);
+  toggleHardwax.addEventListener('change', updateMenu);
+  toggleInsound.addEventListener('change', updateMenu);
+  toggleJuno.addEventListener('change', updateMenu);
+  toggleOye.addEventListener('change', updateMenu);
+  togglePbvinyl.addEventListener('change', updateMenu);
+
+
+  // Open the about page
+  $('body').on('click', '#about', function() {
+
+    chrome.tabs.create({url: '../html/about.html'});
+
+    acknowledgeUpdate();
+  });
 
 
   // Display contextual menu options on hover
@@ -317,83 +397,6 @@ document.addEventListener('DOMContentLoaded', function () {
         clearInterval(interval);
       }
     }, 100);
-  });
-
-
-  // Create/remove contextual menus
-  function updateMenu(event) {
-
-    if (event.target.checked) {
-
-      chrome.runtime.sendMessage({
-        fn: event.target.dataset.funct,
-        id: event.target.id,
-        method: 'create',
-        name: event.target.dataset.name,
-        request: 'updateContextMenu'
-      });
-
-      saveChanges(null, event);
-
-    } else {
-
-      chrome.runtime.sendMessage({
-        id: event.target.id,
-        method: 'remove',
-        request: 'updateContextMenu'
-      });
-
-      saveChanges(null, event);
-    }
-  }
-
-  // Toggle event listeners
-  userCurrency.addEventListener('change', setCurrency);
-  toggleCollectionUi.addEventListener('change', enableCollectionUi);
-  toggleConditions.addEventListener('change', toggleHighlights);
-  toggleConverter.addEventListener('change', toggleCurrencyConverter);
-  toggleDarkTheme.addEventListener('change', useDarkTheme);
-  toggleReleaseDurations.addEventListener('change', trackTotals);
-  toggleSortBtns.addEventListener('change', sortGenres);
-  togglePrices.addEventListener('change', showPrices);
-
-  // Contextual menus
-  toggleBandcamp.addEventListener('change', updateMenu);
-  toggleBoomkat.addEventListener('change', updateMenu);
-  toggleClone.addEventListener('change', updateMenu);
-  toggleDeeJay.addEventListener('change', updateMenu);
-  toggleDiscogs.addEventListener('change', updateMenu);
-  toggleGramaphone.addEventListener('change', updateMenu);
-  toggleHalcyon.addEventListener('change', updateMenu);
-  toggleHardwax.addEventListener('change', updateMenu);
-  toggleInsound.addEventListener('change', updateMenu);
-  toggleJuno.addEventListener('change', updateMenu);
-  toggleOye.addEventListener('change', updateMenu);
-  togglePbvinyl.addEventListener('change', updateMenu);
-
-
-  function checkForUpdate() {
-
-    chrome.storage.sync.get('didUpdate', function(result) {
-
-      if (result.didUpdate) {
-
-        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
-
-      } else {
-
-        $('#about').text('About').removeClass('button_orange').addClass('button_green');
-      }
-    });
-  }
-
-
-  // Open the about page
-  $('body').on('click', '#about', function() {
-
-    chrome.tabs.create({url: '../html/about.html'});
-
-    acknowledgeUpdate();
   });
 
 
