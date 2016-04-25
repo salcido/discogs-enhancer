@@ -302,36 +302,37 @@
       price = Number(price).toLocaleString(language, priceConfig);
 
       // Return price suggestions in user's locale
-      if (language === 'en' || language === 'ja') {
+      switch (language) {
 
-        if (this.options.debug()) {
+        case 'en':
+        case 'ja':
 
-          console.log('Localized Suggestion: ', symbol + price);
-        }
+          if (this.options.debug()) {
 
-        return symbol + price;
-      }
+            console.log('Localized Suggestion: ', symbol + price);
+          }
 
-      if (language === 'de' ||
-          language === 'fr' ||
-          language === 'es') {
+          return symbol + price;
 
-        if (this.options.debug()) {
+        case 'de':
+        case 'fr':
+        case 'es':
 
-          console.log('Localized Suggestion: ', price + ' ' + symbol);
-        }
+          if (this.options.debug()) {
 
-        return price + ' ' + symbol;
-      }
+            console.log('Localized Suggestion: ', price + ' ' + symbol);
+          }
 
-      if (language === 'it') {
+          return price + ' ' + symbol;
 
-        if (this.options.debug()) {
+        case 'it':
 
-          console.log('Localized Suggestion: ', symbol + ' ' + price);
-        }
+          if (this.options.debug()) {
 
-        return symbol + ' ' + price;
+            console.log('Localized Suggestion: ', symbol + ' ' + price);
+          }
+
+          return symbol + ' ' + price;
       }
     },
 
