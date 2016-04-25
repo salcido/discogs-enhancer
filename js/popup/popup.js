@@ -46,24 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  function checkForUpdate() {
-
-    chrome.storage.sync.get('didUpdate', function(result) {
-
-      if (result.didUpdate) {
-
-        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
-
-      } else {
-
-        $('#about').text('About').removeClass('button_orange').addClass('button_green');
-      }
-    });
-  }
-
-
   // Save preferences
-  function saveChanges(message, event) {
+  function applySave(message, event) {
 
     let manifest = chrome.runtime.getManifest();
 
@@ -108,6 +92,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+  function checkForUpdate() {
+
+    chrome.storage.sync.get('didUpdate', function(result) {
+
+      if (result.didUpdate) {
+
+        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
+
+      } else {
+
+        $('#about').text('About').removeClass('button_orange').addClass('button_green');
+      }
+    });
+  }
+
+
   // Toggle better collection UI
   function enableCollectionUi(event) {
 
@@ -117,12 +117,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/better-collection-ui.js'}, function() {
 
-        saveChanges(null, event);
+        applySave(null, event);
       });
 
     } else {
 
-      saveChanges(response, event);
+      applySave(response, event);
     }
   }
 
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         userCurrency.className = '';
 
-        saveChanges(response, event);
+        applySave(response, event);
 
       } else if (userCurrency.value === '-') {
 
@@ -182,7 +182,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
       userCurrency.disabled = false;
 
-      saveChanges(response, event);
+      applySave(response, event);
+    }
+  }
+
+
+  // Saves user currency
+  function setCurrency(event) {
+
+    applySave(null, event);
+  }
+
+
+  // Toggle Currency Converter
+  function toggleCurrencyConverter(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      //chrome.tabs.executeScript(null, {file: 'js/currency-converter.js'}, function() {
+
+        applySave(response, event);
+      //});
+
+    } else {
+
+      applySave(response, event);
     }
   }
 
@@ -196,38 +222,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/sort-explore-lists.js'}, function() {
 
-        saveChanges(response, event);
+        applySave(response, event);
       });
 
     } else {
 
-      saveChanges(response, event);
-    }
-  }
-
-
-  // Saves user currency
-  function setCurrency(event) {
-
-    saveChanges(null, event);
-  }
-
-
-  // Toggle Currency Converter
-  function toggleCurrencyConverter(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      //chrome.tabs.executeScript(null, {file: 'js/currency-converter.js'}, function() {
-
-        saveChanges(response, event);
-      //});
-
-    } else {
-
-      saveChanges(response, event);
+      applySave(response, event);
     }
   }
 
@@ -241,14 +241,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
 
-        saveChanges(response, event);
+        applySave(response, event);
       });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
 
-        saveChanges(null, event);
+        applySave(null, event);
       });
     }
   }
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let response = 'Please refresh the page for changes to take effect.';
 
-    saveChanges(response, event);
+    applySave(response, event);
   }
 
 
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         request: 'updateContextMenu'
       });
 
-      saveChanges(null, event);
+      applySave(null, event);
 
     } else {
 
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
         request: 'updateContextMenu'
       });
 
-      saveChanges(null, event);
+      applySave(null, event);
     }
   }
 
@@ -298,14 +298,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
 
-        saveChanges(null, event);
+        applySave(null, event);
       });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
 
-        saveChanges(null, event);
+        applySave(null, event);
       });
     }
   }
