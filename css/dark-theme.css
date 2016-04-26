@@ -1601,6 +1601,9 @@ label#thresholdLabel {
   margin: auto;
 }
 
-.currency-converter {
+.currency-converter, .currency-converter .toggle {
+  background-color: #333 !important;
+  color: white !important;
+  border-bottom: 1px solid #333 !important;
   background-color: #333 !important;
 }

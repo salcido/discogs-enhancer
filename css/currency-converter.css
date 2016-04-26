@@ -1,8 +1,8 @@
 .currency-converter {
   background-color: white;
-  border: 5px solid grey !important;
+  border: 1px solid grey !important;
   border-radius: 5px 0 0 5px;
-  bottom: -256px;
+  bottom: -250px;
   box-shadow: 0 5px 10px #000;
   color: gray !important;
   margin: 10px 0 0 10px;
@@ -76,15 +76,19 @@
 }
 
 .currency-converter .toggle {
-  background-color: gray !important;
-  color: white !important;
+  border-top: 1px solid grey !important;
+  border-left: 1px solid grey !important;
+  border-right: 1px solid grey !important;
+  border-bottom: 1px solid white;
+  background-color: white;
   cursor: pointer;
   font-size: 10px;
   padding: 3px 8px;
   position: absolute;
-  right: -5px;
-  top: -30px;
+  right: -1px;
+  top: -28px;
   border-radius: 10px 0 0 0;
+  z-index: 3;
 }
 
 .show-converter {
