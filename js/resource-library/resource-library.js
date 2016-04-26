@@ -434,6 +434,7 @@
        getOptions: function() {
 
          let
+             doc = document,
              analytics = resourceLibrary.options.analytics(),
              colorize = resourceLibrary.options.colorize(),
              debug = resourceLibrary.options.debug(),
@@ -441,15 +442,15 @@
              unitTests = resourceLibrary.options.unitTests();
 
 
-         if (analytics) { $('#analytics').prop('checked', true); }
+         if (analytics) { doc.getElementById('analytics').checked = true; }
 
-         if (colorize) { $('#colorize').prop('checked', true); }
+         if (colorize) { doc.getElementById('colorize').checked = true; }
 
-         if (debug) { $('#debug').prop('checked', true); }
+         if (debug) { doc.getElementById('debug').checked = true; }
 
-         if (unitTests) { $('#unittests').prop('checked', true); }
+         if (threshold) { doc.getElementById('threshold').value = threshold; }
 
-         if (threshold) { $('#threshold').val(threshold); }
+         if (unitTests) { doc.getElementById('unittests').checked = true; }
        },
 
        /**
@@ -461,11 +462,14 @@
        saveOptions: function() {
 
          let
-             analytics = $('#analytics').prop('checked'),
-             colorize = $('#colorize').prop('checked'),
-             debug = $('#debug').prop('checked'),
-             threshold = $('#threshold').val(),
-             unitTests = $('#unittests').prop('checked');
+             doc = document,
+             analytics = doc.getElementById('analytics').checked,
+             colorize = doc.getElementById('colorize').checked,
+             debug = doc.getElementById('debug').checked,
+             threshold = doc.getElementById('threshold').value,
+             unitTests = doc.getElementById('unittests').checked;
+
+         doc.getElementById('saveOptions').disabled = true;
 
          localStorage.setItem('analytics', JSON.stringify(analytics));
 

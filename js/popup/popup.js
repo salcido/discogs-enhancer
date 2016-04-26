@@ -87,15 +87,14 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-     // Google Analyitcs
-
+    // Google Analyitcs
     if (event.target.checked === true || event.target.checked === false) {
 
       _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
 
     } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
 
-      _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer])
+      _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
     }
   }
 
