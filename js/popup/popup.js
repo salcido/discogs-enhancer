@@ -11,6 +11,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   let
+      chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       isHovering = false,
       prefs = {},
@@ -87,8 +88,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
      // Google Analyitcs
-    _gaq.push(['_trackEvent', event.target.id + ' : ' +
-               (event.target.checked || event.target[event.target.selectedIndex].value), ' version: ' + manifest.version]);
+
+    if (event.target.checked === true || event.target.checked === false) {
+
+      _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
+
+    } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
+
+      _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer])
+    }
   }
 
 
