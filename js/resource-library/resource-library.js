@@ -441,7 +441,6 @@
              threshold = resourceLibrary.options.threshold(),
              unitTests = resourceLibrary.options.unitTests();
 
-
          if (analytics) { doc.getElementById('analytics').checked = true; }
 
          if (colorize) { doc.getElementById('colorize').checked = true; }
