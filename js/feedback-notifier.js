@@ -17,7 +17,7 @@ $(document).ready(function() {
       fbSeller = JSON.parse(localStorage.getItem('fbSeller')),
       d = new Date(),
       language = resourceLibrary.language(),
-      lastChecked = Number(localStorage.getItem('feedbackLastChecked')),
+      lastChecked = Number(localStorage.getItem('fbLastChecked')),
       link,
       timeInMillis = d.getTime(),
       user = $('#site_account_menu').find('.user_image').attr('alt'),
@@ -74,7 +74,7 @@ $(document).ready(function() {
         }
 
         // Set timestamp when checked
-        localStorage.setItem('feedbackLastChecked', timeInMillis);
+        localStorage.setItem('fbLastChecked', timeInMillis);
 
         if (seller > fbSeller.count) {
 
