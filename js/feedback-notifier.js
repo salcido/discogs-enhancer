@@ -42,8 +42,8 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            buyer = $('a[href*="buyer_feedback"]').text(),
-            seller = $('a[href*="seller_feedback"]').text();
+            buyer = $(response).find('a[href*="buyer_feedback"]').text(),
+            seller = $(response).find('a[href*="seller_feedback"]').text();
 
         // inital counts
         if (!countBuyer) {
@@ -63,11 +63,13 @@ $(document).ready(function() {
         if (seller > countSeller) {
 
           console.log('new seller review');
+          localStorage.setItem('countSeller', seller);
         }
 
         if (buyer > countBuyer) {
 
           console.log('new buyer review');
+          localStorage.setItem('countBuyer', buyer);
         }
 
         // TODO clear badges when acknowledged
