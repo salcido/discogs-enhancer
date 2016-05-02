@@ -69,6 +69,8 @@ $(document).ready(function() {
 
           console.log('new buyer review');
         }
+
+        // TODO clear badges when acknowledged
       }
     });
   }
