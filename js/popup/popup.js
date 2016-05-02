@@ -117,25 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Toggle better collection UI
-  function enableCollectionUi(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/better-collection-ui.js'}, function() {
-
-        applySave(null, event);
-      });
-
-    } else {
-
-      applySave(response, event);
-    }
-  }
-
-
   // Get/Save currency preferences
   function getCurrency() {
 
@@ -157,6 +138,37 @@ document.addEventListener('DOMContentLoaded', function () {
         userCurrency.disabled = false;
       }
     });
+  }
+
+
+  // Toggle release condition highlighting on/off
+  function toggleHighlights(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
+
+        applySave(response, event);
+      });
+
+    } else {
+
+      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
+
+        applySave(null, event);
+      });
+    }
+  }
+
+
+  // Call save function
+  function triggerSave(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    applySave(response, event);
   }
 
 
@@ -200,87 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function setCurrency(event) {
 
     applySave(null, event);
-  }
-
-
-  // Toggle Currency Converter
-  function toggleCurrencyConverter(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      applySave(response, event);
-
-    } else {
-
-      applySave(response, event);
-    }
-  }
-
-  // Toggle Feedback Notifications
-  function toggleFeedbackNotifier(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      applySave(response, event);
-
-    } else {
-
-      applySave(response, event);
-    }
-  }
-
-
-  // Toggle ability to sort genres, etc
-  function sortGenres(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/sort-explore-lists.js'}, function() {
-
-        applySave(response, event);
-      });
-
-    } else {
-
-      applySave(response, event);
-    }
-  }
-
-
-  // Toggle release condition highlighting on/off
-  function toggleHighlights(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
-
-        applySave(response, event);
-      });
-
-    } else {
-
-      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
-
-        applySave(null, event);
-      });
-    }
-  }
-
-
-  // Toggle track totals
-  function trackTotals(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    applySave(response, event);
   }
 
 
@@ -334,13 +265,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Toggle event listeners
   userCurrency.addEventListener('change', setCurrency);
-  toggleCollectionUi.addEventListener('change', enableCollectionUi);
+  toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConditions.addEventListener('change', toggleHighlights);
-  toggleConverter.addEventListener('change', toggleCurrencyConverter);
+  toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
-  toggleFeedback.addEventListener('change', toggleFeedbackNotifier);
-  toggleReleaseDurations.addEventListener('change', trackTotals);
-  toggleSortBtns.addEventListener('change', sortGenres);
+  toggleFeedback.addEventListener('change', triggerSave);
+  toggleReleaseDurations.addEventListener('change', triggerSave);
+  toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', showPrices);
 
   // Contextual menus
