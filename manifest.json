@@ -55,6 +55,7 @@
       "js/chart/chart.js",
       "js/currency-converter.js",
       "js/exchange-rates/update-exchange-rates.js",
+      "js/feedback-notifier.js",
       "js/jquery/jquery-min.js",
       "js/options/options.js",
       "js/release-durations.js",

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConditions = document.getElementById('toggleConditions'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
+      toggleFeedback = document.getElementById('toggleFeedback'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       togglePrices = document.getElementById('togglePrices'),
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
       userCurrency: userCurrency.value,
       converter: toggleConverter.checked,
       darkTheme: toggleDarkTheme.checked,
+      feedback: toggleFeedback.checked,
       highlightMedia: toggleConditions.checked,
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
@@ -208,10 +210,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (event.target.checked) {
 
-      //chrome.tabs.executeScript(null, {file: 'js/currency-converter.js'}, function() {
+      applySave(response, event);
 
-        applySave(response, event);
-      //});
+    } else {
+
+      applySave(response, event);
+    }
+  }
+
+  // Toggle Feedback Notifications
+  function toggleFeedbackNotifier(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      applySave(response, event);
 
     } else {
 
@@ -324,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleConditions.addEventListener('change', toggleHighlights);
   toggleConverter.addEventListener('change', toggleCurrencyConverter);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
+  toggleFeedback.addEventListener('change', toggleFeedbackNotifier);
   toggleReleaseDurations.addEventListener('change', trackTotals);
   toggleSortBtns.addEventListener('change', sortGenres);
   togglePrices.addEventListener('change', showPrices);
@@ -416,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConditions.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
+      toggleFeedback.checked = result.prefs.feedback;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleSortBtns.checked = result.prefs.sortButtons;
       togglePrices.checked = result.prefs.suggestedPrices;

@@ -11,14 +11,17 @@
 $(document).ready(function() {
 
   let
-      countBuyer = localStorage.getItem('countBuyer'),
-      countSeller = localStorage.getItem('countSeller'),
+      badge,
+      count,
+      fbBuyer = JSON.parse(localStorage.getItem('fbBuyer')),
+      fbSeller = JSON.parse(localStorage.getItem('fbSeller')),
       d = new Date(),
       language = resourceLibrary.language(),
-      lastChecked = Number(localStorage.getItem('profileCountLastChecked')),
-      tenMins = lastChecked + 600000,
+      lastChecked = Number(localStorage.getItem('feedbackLastChecked')),
+      link,
       timeInMillis = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt');
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      waitTime = lastChecked + 120000;
 
   if (language === 'en') {
 
@@ -29,7 +32,7 @@ $(document).ready(function() {
     language = language + '/';
   }
 
-  if (!lastChecked || timeInMillis > tenMins) {
+  if (!lastChecked || timeInMillis > waitTime || !fbBuyer.hasViewed || !fbSeller.hasViewed) {
 
     $.ajax({
 
@@ -42,38 +45,127 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            buyer = $(response).find('a[href*="buyer_feedback"]').text(),
-            seller = $(response).find('a[href*="seller_feedback"]').text();
+            buyer = $(response).find('a[href*="buyer_feedback"]').text().trim(),
+            seller = $(response).find('a[href*="seller_feedback"]').text().trim();
 
-        // inital counts
-        if (!countBuyer) {
+        // save initial state of feedback
+        if (!fbBuyer || !fbSeller) {
 
-          localStorage.setItem('countBuyer', buyer);
-        }
+          let
+              buyerObj = {
+                count: buyer,
+                hasViewed: true
+              },
 
-        if (!countSeller) {
+              sellerObj = {
+                count: seller,
+                hasViewed: true
+              };
 
-          localStorage.setItem('countSeller', seller);
+          buyerObj = JSON.stringify(buyerObj);
+
+          localStorage.setItem('fbBuyer', buyerObj);
+
+          sellerObj = JSON.stringify(sellerObj);
+
+          localStorage.setItem('fbSeller', sellerObj);
+
+          return;
         }
 
         // Set timestamp when checked
-        localStorage.setItem('profileCountLastChecked', timeInMillis);
+        localStorage.setItem('feedbackLastChecked', timeInMillis);
 
-        // TODO add badges to nav
-        if (seller > countSeller) {
+        if (seller > fbSeller.count) {
 
-          console.log('new seller review');
-          localStorage.setItem('countSeller', seller);
+          let sellerObj = JSON.parse(localStorage.getItem('fbSeller'));
+
+          sellerObj.hasViewed = false;
+
+          sellerObj = JSON.stringify(sellerObj);
+
+          localStorage.setItem('fbSeller', sellerObj);
+
+          count = seller - fbSeller.count;
+
+          badge = '<li>' +
+                    '<a id="de-seller-feedback" class="nav_group_control needs_delegated_tooltip" data-title="New Seller Feedback" aria-label="New Seller Feedback" data-original-title="New Seller Feedback" data-placement="bottom">' +
+                      '<span class="skittle skittle_collection" style="background: #4DD2FF !important; cursor: pointer;">' +
+                        '<span class="count" style="color: white !important; background: #4DD2FF !important;">' + count + '</span>' +
+                      '</span>' +
+                    '</a>' +
+                  '</li>';
+
+          $('#activity_menu').append(badge);
         }
 
-        if (buyer > countBuyer) {
+        if (buyer > fbBuyer.count) {
 
-          console.log('new buyer review');
-          localStorage.setItem('countBuyer', buyer);
+          let buyerObj = JSON.parse(localStorage.getItem('fbBuyer'));
+
+          buyerObj.hasViewed = false;
+
+          buyerObj = JSON.stringify(buyerObj);
+
+          localStorage.setItem('fbBuyer', buyerObj);
+
+          count = buyer - fbBuyer.count;
+
+          badge = '<li>' +
+                    '<a id="de-buyer-feedback" class="nav_group_control needs_delegated_tooltip" data-title="New Buyer Feedback" aria-label="New Buyer Feedback" data-original-title="New Buyer Feedback" data-placement="bottom">' +
+                      '<span class="skittle skittle_collection" style="background: #FF6A23 !important; cursor: pointer;">' +
+                        '<span class="count" style="color: white !important; background: #FF6A23 !important;">' + count + '</span>' +
+                      '</span>' +
+                    '</a>' +
+                  '</li>';
+
+          $('#activity_menu').append(badge);
         }
-
-        // TODO clear badges when acknowledged
       }
     });
   }
+
+  // Save viewed states
+  $('body').on('click', '#de-buyer-feedback, #de-seller-feedback', function() {
+
+    let
+        id = this.id,
+        inc,
+        name,
+        obj;
+
+    if (id === 'de-buyer-feedback') {
+
+      inc = $('#de-buyer-feedback .count').text().trim();
+
+      link = 'https://www.discogs.com/' + language + 'sell/buyer_feedback/' + user;
+
+      name = 'fbBuyer';
+
+      obj = JSON.parse(localStorage.getItem('fbBuyer'));
+    }
+
+    if (id === 'de-seller-feedback') {
+
+      inc = $('#de-seller-feedback .count').text().trim();
+
+      link = 'https://www.discogs.com/' + language + 'sell/seller_feedback/' + user;
+
+      name = 'fbSeller';
+
+      obj = JSON.parse(localStorage.getItem('fbSeller'));
+    }
+
+    // update obj props
+    obj.hasViewed = true;
+
+    obj.count = Number(obj.count) + Number(inc);
+
+    // prep obj for storage
+    obj = JSON.stringify(obj);
+
+    localStorage.setItem(name, obj);
+
+    window.location.href = link;
+  });
 });

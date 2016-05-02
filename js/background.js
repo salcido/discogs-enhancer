@@ -15,6 +15,7 @@ let
     converter_css,
     darkTheme,
     elems = [],
+    feedback,
     highlightCss,
     highlightScript,
     initElems = [],
@@ -54,6 +55,7 @@ chrome.storage.sync.get('prefs', function(result) {
       collectionUi: true,
       converter: true,
       darkTheme: true,
+      feedback: true,
       highlightMedia: true,
       //pieStats: true,
       releaseDurations: true,
@@ -224,6 +226,19 @@ chrome.storage.sync.get('prefs', function(result) {
     releaseDurations.className = 'de-init';
 
     elems.push(releaseDurations);
+  }
+
+  if (result.prefs.feedback) {
+
+    feedback = document.createElement('script');
+
+    feedback.type = 'text/javascript';
+
+    feedback.src = chrome.extension.getURL('js/feedback-notifier.js');
+
+    feedback.className = 'de-init';
+
+    elems.push(feedback);
   }
 
   if (result.prefs.collectionUi) {
