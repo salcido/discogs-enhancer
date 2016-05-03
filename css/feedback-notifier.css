@@ -1,8 +1,8 @@
-#de-seller-feedback:hover ~ .feedback-chart.seller {
+#de-seller-feedback:hover .feedback-chart.seller {
   display: block;
 }
 
-#de-buyer-feedback:hover ~ .feedback-chart.buyer {
+#de-buyer-feedback:hover .feedback-chart.buyer {
   display: block;
 }
 
