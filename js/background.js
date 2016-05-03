@@ -16,6 +16,7 @@ let
     darkTheme,
     elems = [],
     feedback,
+    feedback_css,
     highlightCss,
     highlightScript,
     initElems = [],
@@ -239,6 +240,17 @@ chrome.storage.sync.get('prefs', function(result) {
     feedback.className = 'de-init';
 
     elems.push(feedback);
+
+    // feedback-notifier.css
+    feedback_css = document.createElement('link');
+
+    feedback_css.rel = 'stylesheet';
+
+    feedback_css.type = 'text/css';
+
+    feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
+
+    elems.push(feedback_css);
   }
 
   if (result.prefs.collectionUi) {

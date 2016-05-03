@@ -1,0 +1,65 @@
+#de-seller-feedback:hover ~ .feedback-chart.seller {
+  display: block;
+}
+
+#de-buyer-feedback:hover ~ .feedback-chart.buyer {
+  display: block;
+}
+
+ul.feedback-chart {
+  background-color: black !important;
+  display: none;
+  left: -37px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 110px;
+}
+
+ul.feedback-chart li {
+  border-bottom: 1px solid #333 !important;
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+ul.feedback-chart li:hover {
+  background-color: #333 !important;
+  cursor: pointer;
+}
+
+ul li.last {
+  border-bottom: none;
+}
+
+ul.feedback-chart h2 {
+  color: white !important;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 0 auto;
+  text-align: right;
+  vertical-align: middle;
+  width: 30px;
+}
+
+ul.feedback-chart h3 {
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 12px;
+  margin: 10px 0;
+  width: 60px;
+}
+
+ul.feedback-chart .pos {
+  color: #69c34b !important;
+}
+
+ul.feedback-chart .neu {
+  color: #ccc !important;
+}
+
+ul.feedback-chart .neg {
+  color: #e04526 !important;
+}

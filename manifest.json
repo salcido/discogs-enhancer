@@ -47,6 +47,7 @@
     "web_accessible_resources": [
       "css/currency-converter.css",
       "css/dark-theme.css",
+      "css/feedback-notifier.css",
       "css/marketplace-highlights.css",
       "css/pre-loader.css",
       "html/about.html",
