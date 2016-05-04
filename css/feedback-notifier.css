@@ -6,6 +6,42 @@
   display: block;
 }
 
+/* Skittle hover states */
+
+.de-seller-feedback .skittle.skittle_collection,
+.de-seller-feedback .skittle.skittle_collection span.count {
+  background: #4DD2FF !important;
+}
+
+.de-seller-feedback .skittle.skittle_collection span.count:after {
+  content: 'S';
+}
+
+.de-seller-feedback:hover .skittle.skittle_collection,
+.de-seller-feedback:hover .skittle.skittle_collection span.count {
+  background: #ccc !important;
+}
+
+.de-buyer-feedback .skittle.skittle_collection,
+.de-buyer-feedback .skittle.skittle_collection span.count {
+  background: #FF6A23 !important;
+}
+
+.de-buyer-feedback .skittle.skittle_collection span.count:after {
+  content: 'B';
+}
+
+.de-buyer-feedback:hover .skittle.skittle_collection,
+.de-buyer-feedback:hover .skittle.skittle_collection span.count {
+  background: #ccc !important;
+}
+
+.de-seller-feedback:hover .skittle.skittle_collection span.count:after,
+.de-buyer-feedback:hover .skittle.skittle_collection span.count:after {
+  content: 'X';
+}
+
+
 ul.feedback-chart {
   background-color: black !important;
   display: none;

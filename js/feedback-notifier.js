@@ -13,11 +13,9 @@
 $(document).ready(function() {
 
   let
+      d = new Date(),
       fbBuyer = JSON.parse(localStorage.getItem('fbBuyer')),
       fbSeller = JSON.parse(localStorage.getItem('fbSeller')),
-      colorSeller = '#4DD2FF',
-      colorBuyer = '#FF6A23',
-      d = new Date(),
       language = resourceLibrary.language(),
       lastChecked = Number(localStorage.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
@@ -40,41 +38,35 @@ $(document).ready(function() {
 
     let
         badge,
-        color,
-        id,
-        initial;
+        id;
 
     if (type === 'seller') {
 
-      color = colorSeller;
       id = 'de-seller-feedback';
-      initial = 'S';
     }
 
     if (type === 'buyer') {
 
-      color = colorBuyer;
       id = 'de-buyer-feedback';
-      initial = 'B';
     }
 
     badge = '<li style="position: relative;">' +
               '<span id="' + id + '">' +
                 '<a class="nav_group_control ' + id + '">' +
-                  '<span class="skittle skittle_collection" style="background: ' + color + ' !important; cursor: pointer;">' +
-                    '<span class="count" style="color: white !important; background: ' + color + ' !important;">' + initial + '</span>' +
+                  '<span class="skittle skittle_collection" style="cursor: pointer;">' +
+                    '<span class="count" style="color: white !important;"></span>' +
                   '</span>' +
                 '</a>' +
                 '<ul class="feedback-chart ' + type + '">' +
-                  '<li class="pos-reviews">' +
+                  '<li class="pos-reviews" alt="View Positive reviews">' +
                     '<h3 class="pos">Positive</h3>' +
                     '<h2 class="pos-count">' + posDiff + '</h2>' +
                   '</li>' +
-                  '<li class="neu-reviews">' +
+                  '<li class="neu-reviews" alt="View Neutral reviews">' +
                     '<h3 class="neu">Neutral</h3>' +
                     '<h2 class="neu-count">' + neuDiff + '</h2>' +
                   '</li>' +
-                  '<li class="neg-reviews last">' +
+                  '<li class="neg-reviews last" alt="View negative reviews">' +
                     '<h3 class="neg">Negative</h3>' +
                     '<h2 class="neg-count">' + negDiff + '</h2>' +
                   '</li>' +
@@ -97,10 +89,10 @@ $(document).ready(function() {
   function getUpdates(type, gTotal) {
 
     let
-       nameCaps,
-       obj,
-       objName,
-       url;
+        nameCaps,
+        obj,
+        objName,
+        url;
 
     if (type === 'seller') {
 
@@ -175,88 +167,43 @@ $(document).ready(function() {
     });
   }
 
+
   /**
-   * Updates the `fbBuyer`/`fbSeller` objects after user clicks on notifications
+   * Appends existing notifications if they have not been acknowledged
    *
    * @instance
-   * @param    {string} name
-   * @param    {object} obj
-   * @return   {method}
+   * @param    {string}  type
+   * @return   {function}
    */
 
-  function updateObj(name, obj) {
+  function hasNotification(type) {
 
-    // update obj props; obj.gTotal is set during poll for changes
-    obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
+    let
+        name,
+        negDiff,
+        neuDiff,
+        obj,
+        posDiff;
 
-    obj.posDiff = 0;
+    name = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
+    obj = JSON.parse(localStorage.getItem(name));
+    posDiff = obj.posDiff;
+    neuDiff = obj.neuDiff;
+    negDiff = obj.negDiff;
 
-    obj.neuCount = Number(obj.neuCount) + Number(obj.neuDiff);
+    posDiff = posDiff > 0 ? posDiff : '';
+    neuDiff = neuDiff > 0 ? neuDiff : '';
+    negDiff = negDiff > 0 ? negDiff : '';
 
-    obj.neuDiff = 0;
+    if (resourceLibrary.options.debug()) {
 
-    obj.negCount = Number(obj.negCount) + Number(obj.negDiff);
+      console.log(' ');
 
-    obj.negDiff = 0;
+      console.log(' *** Existing notifications for: ' + type + ' *** ');
+    }
 
-    obj.hasViewed = true;
-
-    // prep obj for storage
-    obj = JSON.stringify(obj);
-
-    // save updated obj
-    return localStorage.setItem(name, obj);
+    return appendBadge(type, posDiff, neuDiff, negDiff);
   }
-
-  /**
-   * [updateObjVals description]
-   * @memberof
-   * @instance
-   * @param    {[type]} type
-   * @return   {[type]}
-   */
-
-  function updateObjVals(type) {
-
-    let name;
-
-    name = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
-
-    $.ajax({
-
-      url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
-
-      type: 'GET',
-
-      dataType: 'html',
-
-      success: function(response) {
-
-        let
-            obj = JSON.parse(localStorage.getItem(name)),
-            neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
-            neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
-            pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
-
-        // assign new values to obj
-        obj.posCount = pos;
-        obj.neuCount = neu;
-        obj.negCount = neg;
-        obj.hasViewed = true;
-
-        // Save obj updates
-        obj = JSON.stringify(obj);
-        localStorage.setItem(name, obj);
-
-        // Set timestamp when checked
-        localStorage.setItem('fbLastChecked', timeStamp);
-      }
-    });
-  }
-
-
-  // Set language for URL formation
-  language = (language === 'en' ? '' : language + '/');
 
 
   /**
@@ -314,9 +261,114 @@ $(document).ready(function() {
         sellerObj = JSON.stringify(sellerObj);
 
         localStorage.setItem('fbSeller', sellerObj);
+
+        if (resourceLibrary.options.debug()) {
+
+          console.log(' ');
+
+          console.log(' *** initializing base object values *** ');
+        }
       }
     });
+
+    return;
   }
+
+
+  /**
+   * Updates the `fbBuyer`/`fbSeller` objects after user clicks on notifications
+   *
+   * @instance
+   * @param    {string} name
+   * @param    {object} obj
+   * @return   {method}
+   */
+
+  function updateObj(name, obj) {
+
+    // update obj props; obj.gTotal is set during poll for changes
+    obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
+
+    obj.posDiff = 0;
+
+    obj.neuCount = Number(obj.neuCount) + Number(obj.neuDiff);
+
+    obj.neuDiff = 0;
+
+    obj.negCount = Number(obj.negCount) + Number(obj.negDiff);
+
+    obj.negDiff = 0;
+
+    obj.hasViewed = true;
+
+    // prep obj for storage
+    obj = JSON.stringify(obj);
+
+    // save updated obj
+    return localStorage.setItem(name, obj);
+  }
+
+  /**
+   * Sets the object with the most recent stats
+   * from the profile page
+   *
+   * @instance
+   * @param    {string} type
+   * @return   {undefined}
+   */
+
+  function updateObjVals(type) {
+
+    let name;
+
+    name = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
+
+    $.ajax({
+
+      url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
+
+      type: 'GET',
+
+      dataType: 'html',
+
+      success: function(response) {
+
+        let
+            obj = JSON.parse(localStorage.getItem(name)),
+            neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
+            neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
+            pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
+
+        // assign new values to obj
+        obj.posCount = pos;
+        obj.neuCount = neu;
+        obj.negCount = neg;
+        obj.hasViewed = true;
+
+        // Save obj updates
+        obj = JSON.stringify(obj);
+        localStorage.setItem(name, obj);
+
+        // Set timestamp when checked
+        localStorage.setItem('fbLastChecked', timeStamp);
+
+        if (resourceLibrary.options.debug()) {
+
+          console.log(' ');
+
+          console.log(' *** updating object values for ' + type + ' *** ');
+
+          console.log(obj);
+        }
+      }
+    });
+
+    return;
+  }
+
+
+  // Set language for URL formation
+  language = (language === 'en' ? '' : language + '/');
 
 
   // Initialize the `fbBuyer` / `fbSeller` objects;
@@ -340,32 +392,19 @@ $(document).ready(function() {
   }
 
 
-  // Appends existing notifications if they have not been acknowledged
   if (!fbSeller.hasViewed) {
 
-    let
-        sellerObj = JSON.parse(localStorage.getItem('fbSeller')),
-        posDiff = sellerObj.posDiff,
-        neuDiff = sellerObj.neuDiff,
-        negDiff = sellerObj.negDiff;
-
-    appendBadge('seller', posDiff, neuDiff, negDiff);
+    hasNotification('seller');
   }
 
   if (!fbBuyer.hasViewed) {
 
-    let
-        buyerObj = JSON.parse(localStorage.getItem('fbBuyer')),
-        posDiff = buyerObj.posDiff,
-        neuDiff = buyerObj.neuDiff,
-        negDiff = buyerObj.negDiff;
-
-    appendBadge('buyer', posDiff, neuDiff, negDiff);
+    hasNotification('buyer');
   }
 
 
   // poll for changes
-  // if user has seen previous updates and its been longer than the waitTime
+  // if user has seen previous updates and its been longer than the `waitTime`
   if (fbBuyer.hasViewed && fbSeller.hasViewed && timeStamp > waitTime) {
 
     $.ajax({
@@ -430,7 +469,7 @@ $(document).ready(function() {
             the one exception (that I anticipate at this point) is a review is left
             and the seller's stats shift on the same day. This would trigger an
             update cycle but the numbers would not reflect the change. I think
-            this would be rare but I obviously need to think of a solution.
+            this would be rare but I need to think of a solution.
 
             (I'm using <= operator in case a user has some reviews removed which would lower
              the `gTotal` count and all hell would break loose.)
@@ -439,12 +478,23 @@ $(document).ready(function() {
 
         if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > lastChecked + updateBaseVals) {
 
+          if (resourceLibrary.options.debug()) {
+
+            console.log(' ');
+
+            console.log(' *** Resetting Buyer/Seller base values *** ');
+          }
+
           let p = new Promise(function(resolve, reject) {
 
-            resolve(updateObjVals('buyer'));
+            resolve(initObjVals());
           });
 
           p.then(function() {
+
+            return updateObjVals('buyer');
+
+          }).then(function() {
 
             return updateObjVals('seller');
           });
@@ -490,62 +540,46 @@ $(document).ready(function() {
 
     let
         elem = this.className,
-        id = $(this).parent().parent().attr('id');
+        id = $(this).parent().parent().attr('id'),
+        name,
+        obj,
+        type;
 
     if (id === 'de-seller-feedback') {
 
-      let
-          name = 'fbSeller',
-          obj = JSON.parse(localStorage.getItem('fbSeller'));
-
-      switch (elem) {
-
-        case 'pos-reviews':
-
-          updateObj(name, obj);
-
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/seller_feedback/' + user + '?show=Positive';
-
-        case 'neu-reviews':
-
-          updateObj(name, obj);
-
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/seller_feedback/' + user + '?show=Neutral';
-
-        case 'neg-reviews':
-
-          updateObj(name, obj);
-
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/seller_feedback/' + user + '?show=Negative';
-      }
+      name = 'fbSeller';
+      type = 'seller';
     }
 
     if (id === 'de-buyer-feedback') {
 
-      let
-          name = 'fbBuyer',
-          obj = JSON.parse(localStorage.getItem('fbBuyer'));
+      name = 'fbBuyer';
+      type = 'buyer';
+    }
 
-      switch (elem) {
+    obj = JSON.parse(localStorage.getItem(name));
 
-        case 'pos-reviews':
+    switch (elem) {
 
-          updateObj(name, obj);
+      case 'pos-reviews':
 
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/buyer_feedback/' + user + '?show=Positive';
+        updateObj(name, obj);
 
-        case 'neu-reviews':
+        // These hrefs are declared here because I need to be able to update
+        // the object props before the transition
+        return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Positive';
 
-          updateObj(name, obj);
+      case 'neu-reviews':
 
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/buyer_feedback/' + user + '?show=Neutral';
+        updateObj(name, obj);
 
-        case 'neg-reviews':
+        return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Neutral';
 
-          updateObj(name, obj);
+      case 'neg-reviews last':
 
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/buyer_feedback/' + user + '?show=Negative';
-      }
+        updateObj(name, obj);
+
+        return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Negative';
     }
   });
 });
