@@ -8,8 +8,9 @@
  *
  */
 
-// TODO write function to hit profile page, get totals, look for differences, then hit buyer/seller pages for updates if necessary. Checking total on profile will return all ratings. Buyer/Seller pages only have data from last 12 months...
+// TODO add get/set localStorage methods to resourceLibrary for easy parsing/stringification
 
+// TODO add reset method that runs once a day/week/month and resets baseline values so values that drop off do not affect counts.
 $(document).ready(function() {
 
   let
@@ -28,11 +29,10 @@ $(document).ready(function() {
    * Appends badges to menu bar
    *
    * @instance
-   * @param    {number} posDiff
-   * @param    {number} neuDiff
-   * @param    {number} negDiff
-   * @param    {string} color
-   * @param    {string} id
+   * @param    {string} type
+   * @param    {number | string} posDiff
+   * @param    {number | string} neuDiff
+   * @param    {number | string} negDiff
    * @return   {undefined}
    */
   function appendBadge(type, posDiff, neuDiff, negDiff) {
@@ -45,15 +45,15 @@ $(document).ready(function() {
 
     if (type === 'seller') {
 
-      id = 'de-seller-feedback';
       color = colorSeller;
+      id = 'de-seller-feedback';
       initial = 'S';
     }
 
     if (type === 'buyer') {
 
-      id = 'de-buyer-feedback';
       color = colorBuyer;
+      id = 'de-buyer-feedback';
       initial = 'B';
     }
 
@@ -73,7 +73,7 @@ $(document).ready(function() {
                     '<h3 class="neu">Neutral</h3>' +
                     '<h2 class="neu-count">' + neuDiff + '</h2>' +
                   '</li>' +
-                  '<li class="neg-reviews">' +
+                  '<li class="neg-reviews last">' +
                     '<h3 class="neg">Negative</h3>' +
                     '<h2 class="neg-count">' + negDiff + '</h2>' +
                   '</li>' +
@@ -134,9 +134,7 @@ $(document).ready(function() {
            neuDiff = neu - obj.neuCount,
 
            pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() ),
-           posDiff = pos - obj.posCount,
-
-           total = pos + neu + neg;
+           posDiff = pos - obj.posCount;
 
         // assign new diff values to obj
         obj.posDiff = posDiff;
@@ -165,7 +163,7 @@ $(document).ready(function() {
 
           console.log('*** Got ' + nameCaps + ' Updates ***');
 
-          console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg, 'total: ', total);
+          console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
 
           console.log(objName + ' obj: ', JSON.parse(localStorage.getItem(objName)));
         }
@@ -214,9 +212,11 @@ $(document).ready(function() {
    * Creates the fbBuyer/fbSeller objects when none exist.
    *
    * @instance
-   * @param    {object} !fbBuyer || !fbSeller
+   * @param    {object} fbBuyer | fbSeller
    * @return   {undefined}
    */
+
+  // TODO modify so these gets use one function template.
   if (!fbBuyer || !fbSeller) {
 
     $.ajax({
@@ -335,7 +335,7 @@ $(document).ready(function() {
     return;
   }
 
-  // TODO create method to append badges if have not been acknowledged
+  // Appends existing notifications if they have not been acknowledged
   if (!fbSeller.hasViewed) {
 
     let
@@ -360,7 +360,7 @@ $(document).ready(function() {
 
   // poll for changes
   // if user has seen previous updates and its been longer than the waitTime
-  if (fbBuyer.hasViewed && fbSeller.hasViewed || timeStamp > waitTime) {
+  if (fbBuyer.hasViewed && fbSeller.hasViewed && timeStamp > waitTime) {
 
     $.ajax({
 
@@ -440,7 +440,11 @@ $(document).ready(function() {
       name = 'fbSeller';
     }
 
-    return updateObj(name, obj);
+    updateObj(name, obj);
+
+    $(this).parent().hide();
+
+    return;  // TODO change initial to 'X', color to gray on hover;
   });
 
   // Menu interactions
@@ -449,7 +453,6 @@ $(document).ready(function() {
     let
         elem = this.className,
         id = $(this).parent().parent().attr('id');
-
 
     if (id === 'de-seller-feedback') {
 

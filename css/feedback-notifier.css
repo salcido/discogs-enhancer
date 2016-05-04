@@ -14,6 +14,9 @@ ul.feedback-chart {
   padding: 0;
   position: absolute;
   width: 110px;
+  border-left: 1px solid black !important;
+  border-right: 1px solid black !important;
+  border-bottom: 1px solid black !important;
 }
 
 ul.feedback-chart li {
@@ -28,7 +31,7 @@ ul.feedback-chart li:hover {
 }
 
 ul li.last {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 ul.feedback-chart h2 {
