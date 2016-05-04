@@ -40,15 +40,7 @@ $(document).ready(function() {
         badge,
         id;
 
-    if (type === 'seller') {
-
-      id = 'de-seller-feedback';
-    }
-
-    if (type === 'buyer') {
-
-      id = 'de-buyer-feedback';
-    }
+    id = (type === 'seller' ? 'de-seller-feedback' : 'de-buyer-feedback');
 
     badge = '<li style="position: relative;">' +
               '<span id="' + id + '">' +
@@ -79,6 +71,41 @@ $(document).ready(function() {
 
 
   /**
+   * Updates the `fbBuyer`/`fbSeller` objects hasViewed prop
+   * after user clicks on notifications
+   *
+   * @instance
+   * @param    {string} name
+   * @param    {object} obj
+   * @return   {method}
+   */
+
+  function clearNotification(name, obj) {
+
+    // update obj props; obj.gTotal is set during poll for changes
+    obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
+
+    obj.posDiff = 0;
+
+    obj.neuCount = Number(obj.neuCount) + Number(obj.neuDiff);
+
+    obj.neuDiff = 0;
+
+    obj.negCount = Number(obj.negCount) + Number(obj.negDiff);
+
+    obj.negDiff = 0;
+
+    obj.hasViewed = true;
+
+    // prep obj for storage
+    obj = JSON.stringify(obj);
+
+    // save updated obj
+    return localStorage.setItem(name, obj);
+  }
+
+
+  /**
    * Gets Buyer/Seller number updates from profile
    *
    * @instance
@@ -89,30 +116,16 @@ $(document).ready(function() {
   function getUpdates(type, gTotal) {
 
     let
-        nameCaps,
         obj,
-        objName,
-        url;
-// TODO clean up these var declarations
-    if (type === 'seller') {
+        objName;
 
-      nameCaps = 'Seller';
-      obj = JSON.parse(localStorage.getItem('fbSeller'));
-      objName = 'fbSeller';
-      url = 'https://www.discogs.com/' + language + 'sell/seller_feedback/' + user;
-    }
+    objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
 
-    if (type === 'buyer') {
-
-      nameCaps = 'Buyer';
-      obj = JSON.parse(localStorage.getItem('fbBuyer'));
-      objName = 'fbBuyer';
-      url = 'https://www.discogs.com/' + language + 'sell/buyer_feedback/' + user;
-    }
+    obj = JSON.parse(localStorage.getItem(objName));
 
     $.ajax({
 
-      url: url,
+      url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
 
       type: 'GET',
 
@@ -155,7 +168,7 @@ $(document).ready(function() {
 
           console.log(' ');
 
-          console.log('*** Got ' + nameCaps + ' Updates ***');
+          console.log('*** Got ' + type + ' Updates ***');
 
           console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
 
@@ -179,14 +192,16 @@ $(document).ready(function() {
   function hasNotification(type) {
 
     let
-        name,
+        objName,
         negDiff,
         neuDiff,
         obj,
         posDiff;
 
-    name = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
-    obj = JSON.parse(localStorage.getItem(name));
+    objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
+
+    obj = JSON.parse(localStorage.getItem(objName));
+
     posDiff = obj.posDiff;
     neuDiff = obj.neuDiff;
     negDiff = obj.negDiff;
@@ -228,10 +243,9 @@ $(document).ready(function() {
 
         let
             buyer = Number( $(response).find('a[href*="buyer_feedback"]').text().trim() ),
-            seller = Number( $(response).find('a[href*="seller_feedback"]').text().trim() );
+            seller = Number( $(response).find('a[href*="seller_feedback"]').text().trim() ),
 
-        // save initial feedback objects
-        let
+        // setup initial object states
             buyerObj = {
               posCount: 0,
               posDiff: 0,
@@ -276,39 +290,6 @@ $(document).ready(function() {
 
 
   /**
-   * Updates the `fbBuyer`/`fbSeller` objects after user clicks on notifications
-   *
-   * @instance
-   * @param    {string} name
-   * @param    {object} obj
-   * @return   {method}
-   */
-
-  function updateObj(name, obj) {
-
-    // update obj props; obj.gTotal is set during poll for changes
-    obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
-
-    obj.posDiff = 0;
-
-    obj.neuCount = Number(obj.neuCount) + Number(obj.neuDiff);
-
-    obj.neuDiff = 0;
-
-    obj.negCount = Number(obj.negCount) + Number(obj.negDiff);
-
-    obj.negDiff = 0;
-
-    obj.hasViewed = true;
-
-    // prep obj for storage
-    obj = JSON.stringify(obj);
-
-    // save updated obj
-    return localStorage.setItem(name, obj);
-  }
-
-  /**
    * Sets the object with the most recent stats
    * from the profile page
    *
@@ -319,9 +300,9 @@ $(document).ready(function() {
 
   function updateObjVals(type) {
 
-    let name;
+    let objName;
 
-    name = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
+    objName = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
 
     $.ajax({
 
@@ -334,7 +315,7 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            obj = JSON.parse(localStorage.getItem(name)),
+            obj = JSON.parse(localStorage.getItem(objName)),
             neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
             neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
             pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
@@ -347,7 +328,7 @@ $(document).ready(function() {
 
         // Save obj updates
         obj = JSON.stringify(obj);
-        localStorage.setItem(name, obj);
+        localStorage.setItem(objName, obj);
 
         // Set timestamp when checked
         localStorage.setItem('fbLastChecked', timeStamp);
@@ -471,11 +452,9 @@ $(document).ready(function() {
             update cycle but the numbers would not reflect the change. I think
             this would be rare but I need to think of a solution.
 
-            (I'm using <= operator in case a user has some reviews removed which would lower
-             the `gTotal` count and all hell would break loose.)
-
         */
 
+        // I'm using the <= operator in case a user has some reviews removed which would lower the `gTotal` count
         if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > lastChecked + updateBaseVals) {
 
           if (resourceLibrary.options.debug()) {
@@ -511,24 +490,22 @@ $(document).ready(function() {
 
     let
         elemClass = this.className,
-        name,
+        objName,
         obj;
 
     if (elemClass === 'nav_group_control de-buyer-feedback') {
 
-      obj = JSON.parse(localStorage.getItem('fbBuyer'));
-
-      name = 'fbBuyer';
+      objName = 'fbBuyer';
     }
 
     if (elemClass === 'nav_group_control de-seller-feedback') {
 
-      obj = JSON.parse(localStorage.getItem('fbSeller'));
-
-      name = 'fbSeller';
+      objName = 'fbSeller';
     }
 
-    updateObj(name, obj);
+    obj = JSON.parse(localStorage.getItem(objName));
+
+    clearNotification(objName, obj);
 
     $(this).parent().hide();
 
@@ -541,29 +518,28 @@ $(document).ready(function() {
     let
         elem = this.className,
         id = $(this).parent().parent().attr('id'),
-        name,
+        objName,
         obj,
         type;
 
     if (id === 'de-seller-feedback') {
 
-      name = 'fbSeller';
+      objName = 'fbSeller';
       type = 'seller';
-    }
 
-    if (id === 'de-buyer-feedback') {
+    } else {
 
-      name = 'fbBuyer';
+      objName = 'fbBuyer';
       type = 'buyer';
     }
 
-    obj = JSON.parse(localStorage.getItem(name));
+    obj = JSON.parse(localStorage.getItem(objName));
 
     switch (elem) {
 
       case 'pos-reviews':
 
-        updateObj(name, obj);
+        clearNotification(objName, obj);
 
         // These hrefs are declared here because I need to be able to update
         // the object props before the transition
@@ -571,13 +547,13 @@ $(document).ready(function() {
 
       case 'neu-reviews':
 
-        updateObj(name, obj);
+        clearNotification(objName, obj);
 
         return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Neutral';
 
       case 'neg-reviews last':
 
-        updateObj(name, obj);
+        clearNotification(objName, obj);
 
         return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Negative';
     }
