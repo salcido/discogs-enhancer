@@ -224,6 +224,20 @@
     },
 
     /**
+     * Convenience method so I don't forget to parse
+     * my localStorage objects.
+     *
+     *
+     * @instance
+     * @param    {string} item
+     * @return   {object}
+     */
+    getItem: function(item) {
+
+      return JSON.parse(localStorage.getItem(item));
+    },
+
+    /**
      * Assigns user's currency symbol to price estimates.
      *
      * @instance
@@ -612,6 +626,24 @@
 
         return elem;
       }
+    },
+
+    /**
+     * Convenience method so I don't forget to stringify
+     * my values before setting them.
+     *
+     *
+     * @instance
+     * @param    {string} name
+     * @param    {string|object} value
+     * @return   {object}
+     */
+
+    setItem: function(name, value) {
+
+      value = JSON.stringify(value);
+
+      localStorage.setItem(name, value);
     },
 
     /**

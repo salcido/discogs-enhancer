@@ -8,21 +8,18 @@
  *
  */
 
-// TODO add get/set localStorage methods to resourceLibrary for easy parsing/stringification
-
 $(document).ready(function() {
 
   let
       d = new Date(),
-      fbBuyer = JSON.parse(localStorage.getItem('fbBuyer')),
-      fbSeller = JSON.parse(localStorage.getItem('fbSeller')),
+      fbBuyer = resourceLibrary.getItem('fbBuyer'),
+      fbSeller = resourceLibrary.getItem('fbSeller'),
       language = resourceLibrary.language(),
-      lastChecked = Number(localStorage.getItem('fbLastChecked')),
+      lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
       updateBaseVals = 7200000, // 2 hours
       user = $('#site_account_menu').find('.user_image').attr('alt'),
-      waitTime = lastChecked + 60000; //120000; // 10 mins
-
+      waitTime = lastChecked + 1000; //120000; // 10 mins
   /**
    * Appends badges to menu bar
    *
@@ -97,11 +94,8 @@ $(document).ready(function() {
 
     obj.hasViewed = true;
 
-    // prep obj for storage
-    obj = JSON.stringify(obj);
-
     // save updated obj
-    return localStorage.setItem(name, obj);
+    return resourceLibrary.setItem(name, obj);
   }
 
 
@@ -121,7 +115,7 @@ $(document).ready(function() {
 
     objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
 
-    obj = JSON.parse(localStorage.getItem(objName));
+    obj = resourceLibrary.getItem(objName);
 
     $.ajax({
 
@@ -151,8 +145,7 @@ $(document).ready(function() {
         obj.gTotal = gTotal;
 
         // Save obj updates
-        obj = JSON.stringify(obj);
-        localStorage.setItem(objName, obj);
+        resourceLibrary.setItem(objName, obj);
 
         // Calcuate values to pass to `appendBadge()`
         posDiff = posDiff > 0 ? posDiff : '';
@@ -162,7 +155,7 @@ $(document).ready(function() {
         negDiff = negDiff > 0 ? negDiff : '';
 
         // Set timestamp when checked
-        localStorage.setItem('fbLastChecked', timeStamp);
+        resourceLibrary.setItem('fbLastChecked', timeStamp);
 
         if (resourceLibrary.options.debug()) {
 
@@ -172,7 +165,7 @@ $(document).ready(function() {
 
           console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
 
-          console.log(objName + ' obj: ', JSON.parse(localStorage.getItem(objName)));
+          console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
         }
 
         return appendBadge(type, posDiff, neuDiff, negDiff);
@@ -200,7 +193,7 @@ $(document).ready(function() {
 
     objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
 
-    obj = JSON.parse(localStorage.getItem(objName));
+    obj = resourceLibrary.getItem(objName);
 
     posDiff = obj.posDiff;
     neuDiff = obj.neuDiff;
@@ -268,13 +261,9 @@ $(document).ready(function() {
               hasViewed: true
             };
 
-        buyerObj = JSON.stringify(buyerObj);
+        resourceLibrary.setItem('fbBuyer', buyerObj);
 
-        localStorage.setItem('fbBuyer', buyerObj);
-
-        sellerObj = JSON.stringify(sellerObj);
-
-        localStorage.setItem('fbSeller', sellerObj);
+        resourceLibrary.setItem('fbSeller', sellerObj);
 
         if (resourceLibrary.options.debug()) {
 
@@ -315,7 +304,7 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            obj = JSON.parse(localStorage.getItem(objName)),
+            obj = resourceLibrary.getItem(objName),
             neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
             neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
             pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
@@ -327,11 +316,10 @@ $(document).ready(function() {
         obj.hasViewed = true;
 
         // Save obj updates
-        obj = JSON.stringify(obj);
-        localStorage.setItem(objName, obj);
+        resourceLibrary.setItem(objName, obj);
 
         // Set timestamp when checked
-        localStorage.setItem('fbLastChecked', timeStamp);
+        resourceLibrary.setItem('fbLastChecked', timeStamp);
 
         if (resourceLibrary.options.debug()) {
 
@@ -403,7 +391,7 @@ $(document).ready(function() {
             seller = Number($(response).find('a[href*="seller_feedback"]').text().trim());
 
         // Set timestamp when checked
-        localStorage.setItem('fbLastChecked', timeStamp);
+        resourceLibrary.setItem('fbLastChecked', timeStamp);
 
         if (resourceLibrary.options.debug()) {
 
@@ -503,7 +491,7 @@ $(document).ready(function() {
       objName = 'fbSeller';
     }
 
-    obj = JSON.parse(localStorage.getItem(objName));
+    obj = resourceLibrary.getItem(objName);
 
     clearNotification(objName, obj);
 
@@ -533,7 +521,7 @@ $(document).ready(function() {
       type = 'buyer';
     }
 
-    obj = JSON.parse(localStorage.getItem(objName));
+    obj = resourceLibrary.getItem(objName);
 
     switch (elem) {
 
