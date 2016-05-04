@@ -11,15 +11,18 @@
 $(document).ready(function() {
 
   let
+      baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
+      baseValsInterval = 21600000, // 6 hours
       d = new Date(),
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
       fbSeller = resourceLibrary.getItem('fbSeller'),
       language = resourceLibrary.language(),
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
-      updateBaseVals = 7200000, // 2 hours
       user = $('#site_account_menu').find('.user_image').attr('alt'),
-      waitTime = lastChecked + 1000; //120000; // 10 mins
+      waitTime = lastChecked + 600000; // 10 mins
+
+
   /**
    * Appends badges to menu bar
    *
@@ -340,6 +343,15 @@ $(document).ready(function() {
   language = (language === 'en' ? '' : language + '/');
 
 
+  // Create and assign `baseValsChecked` if it does not exist.
+  if (!baseValsChecked) {
+
+    resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
+
+    baseValsChecked = resourceLibrary.getItem('fbBaseValsChecked');
+  }
+
+
   // Initialize the `fbBuyer` / `fbSeller` objects;
   if (!fbBuyer || !fbSeller) {
 
@@ -443,7 +455,7 @@ $(document).ready(function() {
         */
 
         // I'm using the <= operator in case a user has some reviews removed which would lower the `gTotal` count
-        if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > lastChecked + updateBaseVals) {
+        if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
 
           if (resourceLibrary.options.debug()) {
 
@@ -466,12 +478,18 @@ $(document).ready(function() {
             return updateObjVals('seller');
           });
 
+          // refresh baseValsChecked
+          resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
+
           return;
         }
       }
     });
   }
 
+  /**
+   * UI Functionality
+   */
 
   // Save viewed states and clear notifications
   $('body').on('click', '.de-buyer-feedback, .de-seller-feedback', function() {
