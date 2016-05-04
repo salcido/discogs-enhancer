@@ -10,7 +10,6 @@
 
 // TODO add get/set localStorage methods to resourceLibrary for easy parsing/stringification
 
-// TODO add reset method that runs once a day/week/month and resets baseline values so values that drop off do not affect counts.
 $(document).ready(function() {
 
   let
@@ -22,8 +21,9 @@ $(document).ready(function() {
       language = resourceLibrary.language(),
       lastChecked = Number(localStorage.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
+      updateBaseVals = 1000, //21600000; // 6 hours
       user = $('#site_account_menu').find('.user_image').attr('alt'),
-      waitTime = lastChecked + 10000; //120000;
+      waitTime = lastChecked + 10000; //120000; // 10 mins
 
   /**
    * Appends badges to menu bar
@@ -35,6 +35,7 @@ $(document).ready(function() {
    * @param    {number | string} negDiff
    * @return   {undefined}
    */
+
   function appendBadge(type, posDiff, neuDiff, negDiff) {
 
     let
@@ -92,6 +93,7 @@ $(document).ready(function() {
    * @param    {number} gTotal
    * @return   {function}
    */
+
   function getUpdates(type, gTotal) {
 
     let
@@ -181,6 +183,7 @@ $(document).ready(function() {
    * @param    {object} obj
    * @return   {method}
    */
+
   function updateObj(name, obj) {
 
     // update obj props; obj.gTotal is set during poll for changes
@@ -205,8 +208,56 @@ $(document).ready(function() {
     return localStorage.setItem(name, obj);
   }
 
+  /**
+   * [updateObjVals description]
+   * @memberof
+   * @instance
+   * @param    {[type]} type
+   * @return   {[type]}
+   */
+
+  function updateObjVals(type) {
+
+    let name;
+
+    name = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
+
+    $.ajax({
+
+      url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
+
+      type: 'GET',
+
+      dataType: 'html',
+
+      success: function(response) {
+
+        let
+            obj = JSON.parse(localStorage.getItem(name)),
+            neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
+            neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
+            pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
+
+        // assign new values to obj
+        obj.posCount = pos;
+        obj.neuCount = neu;
+        obj.negCount = neg;
+        obj.hasViewed = true;
+
+        // Save obj updates
+        obj = JSON.stringify(obj);
+        localStorage.setItem(name, obj);
+
+        // Set timestamp when checked
+        localStorage.setItem('fbLastChecked', timeStamp);
+      }
+    });
+  }
+
+
   // Set language for URL formation
   language = (language === 'en' ? '' : language + '/');
+
 
   /**
    * Creates the fbBuyer/fbSeller objects when none exist.
@@ -216,8 +267,7 @@ $(document).ready(function() {
    * @return   {undefined}
    */
 
-  // TODO modify so these gets use one function template.
-  if (!fbBuyer || !fbSeller) {
+  function initObjVals() {
 
     $.ajax({
 
@@ -265,75 +315,30 @@ $(document).ready(function() {
 
         localStorage.setItem('fbSeller', sellerObj);
       }
+    });
+  }
+
+
+  // Initialize the `fbBuyer` / `fbSeller` objects;
+  if (!fbBuyer || !fbSeller) {
+
+    let p = new Promise(function(resolve, reject) {
+
+      resolve(initObjVals());
+    });
+
+    p.then(function() {
+
+      return updateObjVals('buyer');
+
     }).then(function() {
 
-      // Get seller numbers
-      // TODO add check if user is actually a seller.
-      $.ajax({
-
-        url: 'https://www.discogs.com/' + language + 'sell/seller_feedback/' + user,
-
-        type: 'GET',
-
-        dataType: 'html',
-
-        success: function(response) {
-
-          let
-              sellerObj = JSON.parse(localStorage.getItem('fbSeller')),
-              neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
-              neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
-              pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
-
-          // assign new values to obj
-          sellerObj.posCount = pos;
-          sellerObj.neuCount = neu;
-          sellerObj.negCount = neg;
-          sellerObj.hasViewed = true;
-
-          // Save obj updates
-          sellerObj = JSON.stringify(sellerObj);
-          localStorage.setItem('fbSeller', sellerObj);
-        }
-      }).then(function() {
-
-        // Get buyer numbers
-        // TODO add check if user is actually a buyer.
-        $.ajax({
-
-          url: 'https://www.discogs.com/' + language + 'sell/buyer_feedback/' + user,
-
-          type: 'GET',
-
-          dataType: 'html',
-
-          success: function(response) {
-
-            let
-                buyerObj = JSON.parse(localStorage.getItem('fbBuyer')),
-                neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
-                neu = Number( $(response).find('.neu-rating-text').next('td').text().trim() ),
-                pos = Number( $(response).find('.pos-rating-text').next('td').text().trim() );
-
-            // assign new values to obj
-            buyerObj.posCount = pos;
-            buyerObj.neuCount = neu;
-            buyerObj.negCount = neg;
-            buyerObj.hasViewed = true;
-
-            // Save obj updates
-            buyerObj = JSON.stringify(buyerObj);
-            localStorage.setItem('fbBuyer', buyerObj);
-
-            // Set timestamp when checked
-            localStorage.setItem('fbLastChecked', timeStamp);
-          }
-        });
-      });
+      return updateObjVals('seller');
     });
 
     return;
   }
+
 
   // Appends existing notifications if they have not been acknowledged
   if (!fbSeller.hasViewed) {
@@ -357,6 +362,7 @@ $(document).ready(function() {
 
     appendBadge('buyer', posDiff, neuDiff, negDiff);
   }
+
 
   // poll for changes
   // if user has seen previous updates and its been longer than the waitTime
@@ -412,6 +418,38 @@ $(document).ready(function() {
           }
 
           getUpdates('buyer', buyer);
+        }
+
+        /*
+
+            if the `gTotal` has not changed, reset the `fbBuyer` / `fbSeller` objects
+            so that when a user's stats change due to the 3|6|12 month number updates
+            the notifications still (hopefully) correctly identify when a
+            review is posted.
+
+            the one exception (that I anticipate at this point) is a review is left
+            and the seller's stats shift on the same day. This would trigger an
+            update cycle but the numbers would not reflect the change. I think
+            this would be rare but I obviously need to think of a solution.
+
+            (I'm using <= operator in case a user has some reviews removed which would lower
+             the `gTotal` count and all hell would break loose.)
+
+        */
+
+        if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > lastChecked + updateBaseVals) {
+
+          let p = new Promise(function(resolve, reject) {
+
+            resolve(updateObjVals('buyer'));
+          });
+
+          p.then(function() {
+
+            return updateObjVals('seller');
+          });
+
+          return;
         }
       }
     });
