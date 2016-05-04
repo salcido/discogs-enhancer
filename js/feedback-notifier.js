@@ -19,9 +19,9 @@ $(document).ready(function() {
       language = resourceLibrary.language(),
       lastChecked = Number(localStorage.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
-      updateBaseVals = 1000, //21600000; // 6 hours
+      updateBaseVals = 7200000, // 2 hours
       user = $('#site_account_menu').find('.user_image').attr('alt'),
-      waitTime = lastChecked + 10000; //120000; // 10 mins
+      waitTime = lastChecked + 60000; //120000; // 10 mins
 
   /**
    * Appends badges to menu bar
@@ -93,7 +93,7 @@ $(document).ready(function() {
         obj,
         objName,
         url;
-
+// TODO clean up these var declarations
     if (type === 'seller') {
 
       nameCaps = 'Seller';
@@ -532,7 +532,7 @@ $(document).ready(function() {
 
     $(this).parent().hide();
 
-    return;  // TODO change initial to 'X', color to gray on hover;
+    return;
   });
 
   // Menu interactions
