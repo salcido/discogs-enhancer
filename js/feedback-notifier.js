@@ -85,15 +85,12 @@ $(document).ready(function() {
 
     // update obj props; obj.gTotal is set during poll for changes
     obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
-
     obj.posDiff = 0;
 
     obj.neuCount = Number(obj.neuCount) + Number(obj.neuDiff);
-
     obj.neuDiff = 0;
 
     obj.negCount = Number(obj.negCount) + Number(obj.negDiff);
-
     obj.negDiff = 0;
 
     obj.hasViewed = true;
@@ -152,11 +149,25 @@ $(document).ready(function() {
         resourceLibrary.setItem(objName, obj);
 
         // Calcuate values to pass to `appendBadge()`
-        posDiff = posDiff > 0 ? posDiff : '';
+        posDiff = (posDiff > 0 ? posDiff : '');
+        neuDiff = (neuDiff > 0 ? neuDiff : '');
+        negDiff = (negDiff > 0 ? negDiff : '');
 
-        neuDiff = neuDiff > 0 ? neuDiff : '';
+        // Discogs stats seem to shift which causes a false
+        // triggering of the notifications
+        if (posDiff === '' && neuDiff === '' && negDiff === '') {
 
-        negDiff = negDiff > 0 ? negDiff : '';
+          if (resourceLibrary.options.debug()) {
+
+            console.log(' ');
+
+            console.log(' *** False positive triggered *** ');
+
+            console.log(' *** No changes *** ');
+          }
+
+          return clearNotification(objName, obj);
+        }
 
         // Set timestamp when checked
         resourceLibrary.setItem('fbLastChecked', timeStamp);
@@ -203,9 +214,9 @@ $(document).ready(function() {
     neuDiff = obj.neuDiff;
     negDiff = obj.negDiff;
 
-    posDiff = posDiff > 0 ? posDiff : '';
-    neuDiff = neuDiff > 0 ? neuDiff : '';
-    negDiff = negDiff > 0 ? negDiff : '';
+    posDiff = (posDiff > 0 ? posDiff : '');
+    neuDiff = (neuDiff > 0 ? neuDiff : '');
+    negDiff = (negDiff > 0 ? negDiff : '');
 
     if (resourceLibrary.options.debug()) {
 
@@ -374,6 +385,7 @@ $(document).ready(function() {
   }
 
 
+  // Append notifictions if they are unread.
   if (!fbSeller.hasViewed) {
 
     hasNotification('seller');
@@ -410,7 +422,7 @@ $(document).ready(function() {
 
           console.log(' ');
 
-          console.log('*** Polling for changes ***');
+          console.log(' *** Polling for changes *** ');
 
           console.log('buyer count: ', buyer, 'seller count: ', seller);
         }
@@ -422,7 +434,7 @@ $(document).ready(function() {
 
             console.log(' ');
 
-            console.log('*** Changes in Seller stats detected ***');
+            console.log(' *** Changes in Seller stats detected *** ');
           }
 
           // Pass in new grand total from polling (`seller`);
