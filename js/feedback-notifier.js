@@ -29,6 +29,8 @@ $(document).ready(function() {
   /**
    * Appends badges to menu bar
    *
+   * pos/neu/negDiff: the number of new feedback reviews
+   *
    * @instance
    * @param    {string} type
    * @param    {number | string} posDiff
@@ -77,13 +79,16 @@ $(document).ready(function() {
    * Updates the `fbBuyer`/`fbSeller` objects hasViewed prop
    * after user clicks on notifications
    *
+   * objName: the name of the localStorage item
+   * obj: the object written to localStorage
+   *
    * @instance
-   * @param    {string} name
+   * @param    {string} objName
    * @param    {object} obj
    * @return   {method}
    */
 
-  function clearNotification(name, obj) {
+  function clearNotification(objName, obj) {
 
     // update obj props; obj.gTotal is set during poll for changes
     obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
@@ -98,12 +103,14 @@ $(document).ready(function() {
     obj.hasViewed = true;
 
     // save updated obj
-    return resourceLibrary.setItem(name, obj);
+    return resourceLibrary.setItem(objName, obj);
   }
 
 
   /**
    * Gets Buyer/Seller number updates from profile
+   *
+   * gTotal: the grand total of the buyer/seller feedbacks
    *
    * @instance
    * @param    {number} gTotal
@@ -129,7 +136,7 @@ $(document).ready(function() {
       dataType: 'html',
 
       success: function(response) {
-
+// TODO differences may need to be done with Math.abs();
         let
            neg = Number( $(response).find('.neg-rating-text').next('td').text().trim() ),
            negDiff = neg - obj.negCount,
@@ -188,6 +195,8 @@ $(document).ready(function() {
 
   /**
    * Appends existing notifications if they have not been acknowledged
+   *
+   * type: either 'buyer' or 'seller'
    *
    * @instance
    * @param    {string}  type
@@ -308,6 +317,8 @@ $(document).ready(function() {
   /**
    * Sets the object with the most recent stats
    * from the profile page
+   *
+   * type: either 'buyer' or 'seller'
    *
    * @instance
    * @param    {string} type
@@ -444,6 +455,7 @@ $(document).ready(function() {
 
             console.log(' ');
             console.log(' *** Changes in Seller stats detected *** ');
+            console.log(fbSeller);
           }
 
           // Pass in new grand total from polling (`seller`);
@@ -455,7 +467,8 @@ $(document).ready(function() {
           if (resourceLibrary.options.debug()) {
 
             console.log(' ');
-            console.log('*** Changes in Buyer stats detected ***');
+            console.log(' *** Changes in Buyer stats detected *** ');
+            console.log(fbBuyer);
           }
 
           getUpdates('buyer', buyer);
