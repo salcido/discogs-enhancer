@@ -8,11 +8,13 @@
  *
  */
 
+// TODO update project to use getItem/setItem from resourceLibrary
+
 $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 1800000, // 30 mins
+      baseValsInterval = 10000,//1800000, // 30 mins
       d = new Date(),
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
       fbSeller = resourceLibrary.getItem('fbSeller'),
@@ -160,9 +162,7 @@ $(document).ready(function() {
           if (resourceLibrary.options.debug()) {
 
             console.log(' ');
-
             console.log(' *** False positive triggered *** ');
-
             console.log(' *** No changes *** ');
           }
 
@@ -175,11 +175,8 @@ $(document).ready(function() {
         if (resourceLibrary.options.debug()) {
 
           console.log(' ');
-
           console.log('*** Got ' + type + ' Updates ***');
-
           console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
-
           console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
         }
 
@@ -239,6 +236,14 @@ $(document).ready(function() {
 
   function initObjVals() {
 
+    let p;
+
+    if (resourceLibrary.options.debug()) {
+
+      console.log(' ');
+      console.log(' *** initializing base object values *** ');
+    }
+
     $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'user/' + user,
@@ -250,10 +255,9 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            buyer = Number( $(response).find('a[href*="buyer_feedback"]').text().trim() ),
-            seller = Number( $(response).find('a[href*="seller_feedback"]').text().trim() ),
+            buyer = Number( $(response).find('a[href*="buyer_feedback"]').text().trim().replace(',', '') ),
+            seller = Number( $(response).find('a[href*="seller_feedback"]').text().trim().replace(',', '') ),
 
-        // setup initial object states
             buyerObj = {
               posCount: 0,
               posDiff: 0,
@@ -276,15 +280,23 @@ $(document).ready(function() {
               hasViewed: true
             };
 
-        resourceLibrary.setItem('fbBuyer', buyerObj);
+        p = new Promise(function(resolve, reject) {
 
-        resourceLibrary.setItem('fbSeller', sellerObj);
+          resolve(resourceLibrary.setItem('fbBuyer', buyerObj));
+        });
+
+        p.then(function() {
+
+          resourceLibrary.setItem('fbSeller', sellerObj);
+        });
 
         if (resourceLibrary.options.debug()) {
 
+          console.log('Init buyerObj: ');
+          console.log(buyerObj);
           console.log(' ');
-
-          console.log(' *** initializing base object values *** ');
+          console.log('Init sellerObj: ');
+          console.log(sellerObj);
         }
       }
     });
@@ -412,8 +424,8 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            buyer = Number($(response).find('a[href*="buyer_feedback"]').text().trim().replace(',','')),
-            seller = Number($(response).find('a[href*="seller_feedback"]').text().trim().replace(',',''));
+            buyer = Number($(response).find('a[href*="buyer_feedback"]').text().trim().replace(',', '')),
+            seller = Number($(response).find('a[href*="seller_feedback"]').text().trim().replace(',', ''));
 
         // Set timestamp when checked
         resourceLibrary.setItem('fbLastChecked', timeStamp);
@@ -421,9 +433,7 @@ $(document).ready(function() {
         if (resourceLibrary.options.debug()) {
 
           console.log(' ');
-
           console.log(' *** Polling for changes *** ');
-
           console.log('buyer count: ', buyer, 'seller count: ', seller);
         }
 
@@ -433,7 +443,6 @@ $(document).ready(function() {
           if (resourceLibrary.options.debug()) {
 
             console.log(' ');
-
             console.log(' *** Changes in Seller stats detected *** ');
           }
 
@@ -446,7 +455,6 @@ $(document).ready(function() {
           if (resourceLibrary.options.debug()) {
 
             console.log(' ');
-
             console.log('*** Changes in Buyer stats detected ***');
           }
 
@@ -470,25 +478,36 @@ $(document).ready(function() {
         // I'm using the <= operator in case a user has some reviews removed which would lower the `gTotal` count
         if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
 
-          if (resourceLibrary.options.debug()) {
-
-            console.log(' ');
-
-            console.log(' *** Resetting Buyer/Seller base values *** ');
-          }
-
           let p = new Promise(function(resolve, reject) {
+
+            if (resourceLibrary.options.debug()) {
+
+              console.log(' ');
+              console.log(' *** Resetting Buyer/Seller base values *** ');
+            }
 
             resolve(initObjVals());
           });
 
           p.then(function() {
 
-            return updateObjVals('buyer');
+            if (resourceLibrary.options.debug()) {
+
+              console.log(' ');
+              console.log(' *** Resetting Buyer stats *** ');
+            }
+
+            setTimeout(function() {updateObjVals('buyer');}, 100);
 
           }).then(function() {
 
-            return updateObjVals('seller');
+            if (resourceLibrary.options.debug()) {
+
+              console.log(' ');
+              console.log(' *** Resetting Seller stats *** ');
+            }
+
+            setTimeout(function() {updateObjVals('seller');}, 100);
           });
 
           // refresh baseValsChecked
