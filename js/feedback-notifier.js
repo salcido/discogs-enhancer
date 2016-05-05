@@ -12,7 +12,7 @@ $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 21600000, // 6 hours
+      baseValsInterval = 3600000, // 1 hour
       d = new Date(),
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
       fbSeller = resourceLibrary.getItem('fbSeller'),
@@ -20,7 +20,7 @@ $(document).ready(function() {
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
       user = $('#site_account_menu').find('.user_image').attr('alt'),
-      waitTime = lastChecked + 600000; // 10 mins
+      waitTime = lastChecked + 120000; // 2 mins
 
 
   /**
