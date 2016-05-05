@@ -12,15 +12,16 @@ $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 3600000, // 1 hour
+      baseValsInterval = 1800000, // 30 mins
       d = new Date(),
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
       fbSeller = resourceLibrary.getItem('fbSeller'),
       language = resourceLibrary.language(),
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt'),
-      waitTime = lastChecked + 120000; // 2 mins
+      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = 'recordsale-de',
+      waitTime = lastChecked + 3000;//120000; // 2 mins
 
 
   /**
@@ -399,8 +400,8 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            buyer = Number($(response).find('a[href*="buyer_feedback"]').text().trim()),
-            seller = Number($(response).find('a[href*="seller_feedback"]').text().trim());
+            buyer = Number($(response).find('a[href*="buyer_feedback"]').text().trim().replace(',','')),
+            seller = Number($(response).find('a[href*="seller_feedback"]').text().trim().replace(',',''));
 
         // Set timestamp when checked
         resourceLibrary.setItem('fbLastChecked', timeStamp);
