@@ -8,8 +8,6 @@
  *
  */
 
-// TODO update project to use getItem/setItem from resourceLibrary
-// TODO update project with debug var
 // TODO might need `resetComplete` var. Not sure what happens if page is reset before resetting finishes.
 
 $(document).ready(function() {
@@ -24,8 +22,8 @@ $(document).ready(function() {
       language = resourceLibrary.language(),
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
-      user = 'recordsale-de',
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      //user = 'recordsale-de',
       waitTime = lastChecked + 120000; // 2 mins
 
 
@@ -470,15 +468,9 @@ $(document).ready(function() {
         // Call update methods if change in `gTotal` detected
         if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
 
-          let update = new Promise(function(resolve, reject) {
-
-            resolve(getUpdates('seller', seller));
-          });
-
-          update.then(function() {
-
-            return Promise.all(getUpdates('buyer', buyer));
-          }).catch(console.log.bind(console));
+          Promise.resolve(getUpdates('seller', seller))
+                 .then(getUpdates('buyer', buyer))
+                 .catch(console.log.bind(console));
 
           return;
         }
