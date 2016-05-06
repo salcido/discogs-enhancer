@@ -24,7 +24,7 @@ $(document).ready(function() {
       timeStamp = d.getTime(),
       //user = $('#site_account_menu').find('.user_image').attr('alt'),
       user = 'recordsale-de',
-      waitTime = lastChecked + 120000; // 2 mins
+      waitTime = lastChecked + 1000;//120000; // 2 mins
 
 
   /**
@@ -142,75 +142,72 @@ $(document).ready(function() {
 
         type: 'GET',
 
-        dataType: 'html',
+        dataType: 'html'
 
-        success: function(response) {
+      }).done(function(response) {
 
-          let
-              selector = '#page_content .table_block.fright ',
+        let
+            selector = '#page_content .table_block.fright ',
 
-              neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-              negDiff = neg - obj.negCount,
+            neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+            negDiff = neg - obj.negCount,
 
-              neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-              neuDiff = neu - obj.neuCount,
+            neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+            neuDiff = neu - obj.neuCount,
 
-              pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
-              posDiff = pos - obj.posCount;
+            pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
+            posDiff = pos - obj.posCount;
 
-          // assign new diff values to obj
-          obj.posDiff = posDiff;
-          obj.neuDiff = neuDiff;
-          obj.negDiff = negDiff;
-          obj.hasViewed = false;
-          obj.gTotal = gTotal;
+        // assign new diff values to obj
+        obj.posDiff = posDiff;
+        obj.neuDiff = neuDiff;
+        obj.negDiff = negDiff;
+        obj.hasViewed = false;
+        obj.gTotal = gTotal;
 
-          // Save obj updates
-          resourceLibrary.setItem(objName, obj);
+        // Save obj updates
+        resourceLibrary.setItem(objName, obj);
 
-          // Calcuate values to pass to `appendBadge()`
-          posDiff = (posDiff > 0 ? posDiff : '');
-          neuDiff = (neuDiff > 0 ? neuDiff : '');
-          negDiff = (negDiff > 0 ? negDiff : '');
+        // Calcuate values to pass to `appendBadge()`
+        posDiff = (posDiff > 0 ? posDiff : '');
+        neuDiff = (neuDiff > 0 ? neuDiff : '');
+        negDiff = (negDiff > 0 ? negDiff : '');
 
-          // Discogs stats seem to shift which causes a false
-          // triggering of the notifications
-          if (posDiff === '' && neuDiff === '' && negDiff === '') {
-
-            if (debug) {
-
-              console.log(' ');
-              console.log(' *** False positive triggered *** ');
-              console.log(' *** No changes *** ');
-              console.timeEnd('getUpdates');
-            }
-
-            clearNotification(objName, obj);
-
-            resolve();
-
-            return;
-          }
-
-          // Set timestamp when checked
-          resourceLibrary.setItem('fbLastChecked', timeStamp);
+        // Discogs stats seem to shift which causes a false
+        // triggering of the notifications
+        if (posDiff === '' && neuDiff === '' && negDiff === '') {
 
           if (debug) {
 
             console.log(' ');
-            console.log(' *** Got ' + type + ' Updates *** ');
-            console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
-            console.log('Previous stats:');
-            console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
-            console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
+            console.log(' *** False positive triggered *** ');
+            console.log(' *** No changes *** ');
             console.timeEnd('getUpdates');
           }
 
-          appendBadge(type, posDiff, neuDiff, negDiff);
-        }
-      });
+          clearNotification(objName, obj);
 
-      resolve();
+          return resolve();
+        }
+
+        // Set timestamp when checked
+        resourceLibrary.setItem('fbLastChecked', timeStamp);
+
+        if (debug) {
+
+          console.log(' ');
+          console.log(' *** Got ' + type + ' Updates *** ');
+          console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
+          console.log('Previous stats:');
+          console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
+          console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
+          console.timeEnd('getUpdates');
+        }
+
+        appendBadge(type, posDiff, neuDiff, negDiff);
+
+        resolve();
+      });
     });
   }
 
@@ -262,7 +259,6 @@ $(document).ready(function() {
    * @instance
    * @param    {object} fbBuyer | fbSeller
    * @param    {function} action will always be resetObjs();
-   * @return   {function} callback will always be updateObjVals();
    */
 
   function initObjVals(action) {
@@ -276,25 +272,26 @@ $(document).ready(function() {
         console.time('initObjVals');
       }
 
-      $.ajax({
+      return $.ajax({
 
         url: 'https://www.discogs.com/' + language + 'user/' + user,
 
         type: 'GET',
 
-        dataType: 'html',
+        dataType: 'html'
 
-        success: function(response) {
+      }).done(function(response) {
 
-          let
-              selector = '#page_aside .list_no_style.user_marketplace_rating ',
-              buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-              seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
+        let
+            selector = '#page_aside .list_no_style.user_marketplace_rating ',
+            buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
+            seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
 
-          if (debug) { console.timeEnd('initObjVals'); }
+        if (debug) { console.timeEnd('initObjVals'); }
 
-          action(seller, buyer).then(resolve());
-        }
+        action(seller, buyer);
+
+        return resolve();
       });
     });
   }
@@ -373,53 +370,64 @@ $(document).ready(function() {
 
   function updateObjVals(type) {
 
-    return new Promise(function(resolve, reject) {
+    let
+        objName = (type === 'buyer' ? 'fbBuyer' : 'fbSeller'),
+        randomTime = Math.random();
 
-      let objName = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
+    if (debug) {
+
+      console.log(' ');
+      console.log(' *** updating ' + type + ' object stats *** ');
+      console.time(randomTime);
+    }
+
+    $.ajax({
+
+      url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
+
+      type: 'GET',
+
+      dataType: 'html'
+
+    }).done(function(response) {
+
+      let
+          obj = resourceLibrary.getItem(objName),
+          selector = '#page_content .table_block.fright ',
+          neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+          neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+          pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
+
+      // assign new values to obj
+      obj.posCount = pos;
+      obj.neuCount = neu;
+      obj.negCount = neg;
+      obj.hasViewed = true;
+
+      // Save obj updates
+      resourceLibrary.setItem(objName, obj);
+
+      // Set timestamp when checked
+      resourceLibrary.setItem('fbLastChecked', timeStamp);
 
       if (debug) {
-        console.log(' ');
-        console.log(' *** updating object values for ' + type + ' *** ');
-        console.time('updateObjVals');
+
+        console.log(obj);
+        console.timeEnd(randomTime);
       }
 
-      $.ajax({
+      // Gets called the second time around
+      if (type === 'buyer') {
 
-        url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
+        if (debug) {
 
-        type: 'GET',
-
-        dataType: 'html',
-
-        success: function(response) {
-
-          let
-              obj = resourceLibrary.getItem(objName),
-              selector = '#page_content .table_block.fright ',
-              neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-              neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-              pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
-
-          // assign new values to obj
-          obj.posCount = pos;
-          obj.neuCount = neu;
-          obj.negCount = neg;
-          obj.hasViewed = true;
-
-          // Save obj updates
-          resourceLibrary.setItem(objName, obj);
-
-          if (debug) {
-            console.log(obj);
-            console.timeEnd('updateObjVals');
-          }
-
-          // Set timestamp when checked
-          resourceLibrary.setItem('fbLastChecked', timeStamp);
+          return console.timeEnd('reset');
         }
-      });
 
-      resolve();
+        return;
+      }
+
+      return updateObjVals('buyer');
     });
   }
 
@@ -440,7 +448,7 @@ $(document).ready(function() {
   // Initialize the `fbBuyer` / `fbSeller` objects;
   if (!fbBuyer || !fbSeller) {
 
-    return initObjVals(resetObjs).then(updateObjVals('seller')).then(updateObjVals('buyer'));
+    return initObjVals(resetObjs).then(updateObjVals('seller'));
   }
 
 
@@ -468,99 +476,90 @@ $(document).ready(function() {
 
       type: 'GET',
 
-      dataType: 'html',
+      dataType: 'html'
 
-      success: function(response) {
+    }).done(function(response) {
 
-        let
-            selector = '#page_aside .list_no_style.user_marketplace_rating ',
-            buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-            seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
+      let
+          selector = '#page_aside .list_no_style.user_marketplace_rating ',
+          buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
+          seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
 
-        // Set timestamp when checked
-        resourceLibrary.setItem('fbLastChecked', timeStamp);
+      // Set timestamp when checked
+      resourceLibrary.setItem('fbLastChecked', timeStamp);
+
+      if (debug) {
+
+        console.log(' ');
+        console.log(' *** Polling for changes *** ');
+        console.log('buyer count: ', buyer, 'seller count: ', seller);
+        console.timeEnd('poll-time');
+      }
+
+      // Call update methods if change in `gTotal` detected
+      if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
+
+        return getUpdates('seller', seller)
+                 .then(getUpdates('buyer', buyer))
+                 .catch(console.log.bind(console));
+      }
+
+      if (seller > fbSeller.gTotal) {
 
         if (debug) {
 
           console.log(' ');
-          console.log(' *** Polling for changes *** ');
-          console.log('buyer count: ', buyer, 'seller count: ', seller);
-          console.timeEnd('poll-time');
+          console.log(' *** Changes in Seller stats detected *** ');
+          console.log('difference of: ', seller - fbSeller.gTotal);
+          console.log(fbSeller);
         }
 
-        // Call update methods if change in `gTotal` detected
-        if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
+        // Pass in new grand total from polling (`seller`);
+        return getUpdates('seller', seller);
+      }
 
-          getUpdates('seller', seller)
-                 .then(getUpdates('buyer', buyer))
-                 .catch(console.log.bind(console));
+      if (buyer > fbBuyer.gTotal) {
 
-          return;
+        if (debug) {
+
+          console.log(' ');
+          console.log(' *** Changes in Buyer stats detected *** ');
+          console.log('difference of: ', buyer - fbBuyer.gTotal);
+          console.log(fbBuyer);
         }
 
-        if (seller > fbSeller.gTotal) {
+        return getUpdates('buyer', buyer);
+      }
 
-          if (debug) {
+      /*
 
-            console.log(' ');
-            console.log(' *** Changes in Seller stats detected *** ');
-            console.log('difference of: ', seller - fbSeller.gTotal);
-            console.log(fbSeller);
-          }
+          if the `gTotal` has not changed, reset the `fbBuyer` / `fbSeller` objects
+          so that when a user's stats change due to the 3|6|12 month number updates
+          the notifications still (hopefully) correctly identify when a
+          review is posted.
 
-          // Pass in new grand total from polling (`seller`);
-          return getUpdates('seller', seller);
+          the one exception (that I anticipate at this point) is a review is left
+          and the seller's stats shift on the same day. This would trigger an
+          update cycle but the numbers would not reflect the change. I think
+          this would be rare but I need to think of a solution.
+
+      */
+
+      // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
+      if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
+
+        if (debug) {
+
+          console.log(' ');
+          console.log(' *** Resetting Buyer/Seller base values *** ');
+          console.time('reset');
         }
 
-        if (buyer > fbBuyer.gTotal) {
-
-          if (debug) {
-
-            console.log(' ');
-            console.log(' *** Changes in Buyer stats detected *** ');
-            console.log('difference of: ', buyer - fbBuyer.gTotal);
-            console.log(fbBuyer);
-          }
-
-          return getUpdates('buyer', buyer);
-        }
-
-        /*
-
-            if the `gTotal` has not changed, reset the `fbBuyer` / `fbSeller` objects
-            so that when a user's stats change due to the 3|6|12 month number updates
-            the notifications still (hopefully) correctly identify when a
-            review is posted.
-
-            the one exception (that I anticipate at this point) is a review is left
-            and the seller's stats shift on the same day. This would trigger an
-            update cycle but the numbers would not reflect the change. I think
-            this would be rare but I need to think of a solution.
-
-        */
-
-        // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
-        if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
-
-          if (debug) {
-
-            console.log(' ');
-            console.log(' *** Resetting Buyer/Seller base values *** ');
-            console.time('reset');
-          }
-
-          resetObjs(seller, buyer)
+        return resetObjs(seller, buyer)
                  .then(updateObjVals('seller'))
-                 .then(updateObjVals('buyer'))
+                 .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp))
                  .catch(console.log.bind(console));
 
-          // refresh baseValsChecked
-          resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
-
-          if (debug) { console.timeEnd('reset'); }
-
-          return;
-        }
       }
     });
   }
