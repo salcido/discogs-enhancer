@@ -16,7 +16,7 @@ $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 4000,//1800000, // 30 mins
+      baseValsInterval = 90000,//1800000, // 30 mins
       d = new Date(),
       debug = resourceLibrary.options.debug(),
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
@@ -26,7 +26,7 @@ $(document).ready(function() {
       timeStamp = d.getTime(),
       //user = $('#site_account_menu').find('.user_image').attr('alt'),
       user = 'recordsale-de',
-      waitTime = lastChecked + 1000;//120000; // 2 mins
+      waitTime = lastChecked + 120000; // 2 mins
 
 
   /**
@@ -524,6 +524,7 @@ $(document).ready(function() {
 
         */
 // TODO move this into a reset function.
+// TODO fix this promise
         // I'm using the <= operator in case a user has some reviews removed which would lower the `gTotal` count
         if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
 
