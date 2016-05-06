@@ -120,31 +120,29 @@ $(document).ready(function() {
 
   function getUpdates(type, gTotal) {
 
-    return new Promise(function(resolve, reject) {
+    let
+        obj,
+        objName;
 
-      let
-          obj,
-          objName;
+    objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
 
-      objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
+    obj = resourceLibrary.getItem(objName);
 
-      obj = resourceLibrary.getItem(objName);
+    if (debug) {
 
-      if (debug) {
+      console.log(' *** getting updates for ' + type + ' *** ');
+      console.time('getUpdates');
+    }
 
-        console.log(' *** getting updates for ' + type + ' *** ');
-        console.time('getUpdates');
-      }
+    return $.ajax({
 
-      $.ajax({
+      url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
 
-        url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
+      type: 'GET',
 
-        type: 'GET',
+      dataType: 'html',
 
-        dataType: 'html'
-
-      }).done(function(response) {
+      success: function(response) {
 
         let
             selector = '#page_content .table_block.fright ',
@@ -185,9 +183,7 @@ $(document).ready(function() {
             console.timeEnd('getUpdates');
           }
 
-          clearNotification(objName, obj);
-
-          return resolve();
+          return clearNotification(objName, obj);
         }
 
         // Set timestamp when checked
@@ -205,11 +201,10 @@ $(document).ready(function() {
         }
 
         appendBadge(type, posDiff, neuDiff, negDiff);
-
-        resolve();
-      });
+      }
     });
   }
+
 
 
   /**
@@ -261,38 +256,36 @@ $(document).ready(function() {
    * @param    {function} action will always be resetObjs();
    */
 
-  function initObjVals(action) {
+  function initObjVals(action, callback) {
 
-    return new Promise(function(resolve, reject) {
+    if (debug) {
 
-      if (debug) {
+      console.log(' ');
+      console.log(' *** initializing base object values *** ');
+      console.time('initObjVals');
+    }
 
-        console.log(' ');
-        console.log(' *** initializing base object values *** ');
-        console.time('initObjVals');
-      }
+    return $.ajax({
 
-      return $.ajax({
+      url: 'https://www.discogs.com/' + language + 'user/' + user,
 
-        url: 'https://www.discogs.com/' + language + 'user/' + user,
+      type: 'GET',
 
-        type: 'GET',
+      dataType: 'html',
 
-        dataType: 'html'
-
-      }).done(function(response) {
+      success: function(response) {
 
         let
             selector = '#page_aside .list_no_style.user_marketplace_rating ',
             buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
             seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
 
+            response = { seller: seller, buyer: buyer };
+
         if (debug) { console.timeEnd('initObjVals'); }
 
-        action(seller, buyer);
-
-        return resolve();
-      });
+        return action(response).then(callback('seller')).then(callback('buyer'));
+      }
     });
   }
 
@@ -304,7 +297,7 @@ $(document).ready(function() {
    * @param    {string}  buyerVal  [grand total for the user's buyer ratings]
    */
 
-  function resetObjs(sellerVal, buyerVal) {
+  function resetObjs(obj) {
 
     return new Promise(function(resolve, reject) {
 
@@ -316,7 +309,7 @@ $(document).ready(function() {
             neuDiff: 0,
             negCount: 0,
             negDiff: 0,
-            gTotal: buyerVal,
+            gTotal: obj.buyer,
             hasViewed: true
           },
 
@@ -327,7 +320,7 @@ $(document).ready(function() {
             neuDiff: 0,
             negCount: 0,
             negDiff: 0,
-            gTotal: sellerVal,
+            gTotal: obj.seller,
             hasViewed: true
           };
 
@@ -381,53 +374,41 @@ $(document).ready(function() {
       console.time(randomTime);
     }
 
-    $.ajax({
+    return $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
 
       type: 'GET',
 
-      dataType: 'html'
+      dataType: 'html',
 
-    }).done(function(response) {
+      success: function(response) {
 
-      let
-          obj = resourceLibrary.getItem(objName),
-          selector = '#page_content .table_block.fright ',
-          neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-          neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-          pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
+        let
+            obj = resourceLibrary.getItem(objName),
+            selector = '#page_content .table_block.fright ',
+            neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+            neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+            pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
 
-      // assign new values to obj
-      obj.posCount = pos;
-      obj.neuCount = neu;
-      obj.negCount = neg;
-      obj.hasViewed = true;
+        // assign new values to obj
+        obj.posCount = pos;
+        obj.neuCount = neu;
+        obj.negCount = neg;
+        obj.hasViewed = true;
 
-      // Save obj updates
-      resourceLibrary.setItem(objName, obj);
+        // Save obj updates
+        resourceLibrary.setItem(objName, obj);
 
-      // Set timestamp when checked
-      resourceLibrary.setItem('fbLastChecked', timeStamp);
-
-      if (debug) {
-
-        console.log(obj);
-        console.timeEnd(randomTime);
-      }
-
-      // Gets called the second time around
-      if (type === 'buyer') {
+        // Set timestamp when checked
+        resourceLibrary.setItem('fbLastChecked', timeStamp);
 
         if (debug) {
 
-          return console.timeEnd('reset');
+          console.log(obj);
+          console.timeEnd(randomTime);
         }
-
-        return;
       }
-
-      return updateObjVals('buyer');
     });
   }
 
@@ -448,7 +429,7 @@ $(document).ready(function() {
   // Initialize the `fbBuyer` / `fbSeller` objects;
   if (!fbBuyer || !fbSeller) {
 
-    return initObjVals(resetObjs).then(updateObjVals('seller'));
+    return initObjVals(resetObjs, updateObjVals);
   }
 
 
@@ -470,96 +451,97 @@ $(document).ready(function() {
 
     if (debug) { console.time('poll-time'); }
 
-    $.ajax({
+    return $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'user/' + user,
 
       type: 'GET',
 
-      dataType: 'html'
+      dataType: 'html',
 
-    }).done(function(response) {
+      success: function(response) {
 
-      let
-          selector = '#page_aside .list_no_style.user_marketplace_rating ',
-          buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-          seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
+        let
+            selector = '#page_aside .list_no_style.user_marketplace_rating ',
+            buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
+            seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
 
-      // Set timestamp when checked
-      resourceLibrary.setItem('fbLastChecked', timeStamp);
-
-      if (debug) {
-
-        console.log(' ');
-        console.log(' *** Polling for changes *** ');
-        console.log('buyer count: ', buyer, 'seller count: ', seller);
-        console.timeEnd('poll-time');
-      }
-
-      // Call update methods if change in `gTotal` detected
-      if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
-
-        return getUpdates('seller', seller)
-                 .then(getUpdates('buyer', buyer))
-                 .catch(console.log.bind(console));
-      }
-
-      if (seller > fbSeller.gTotal) {
+        // Set timestamp when checked
+        resourceLibrary.setItem('fbLastChecked', timeStamp);
 
         if (debug) {
 
           console.log(' ');
-          console.log(' *** Changes in Seller stats detected *** ');
-          console.log('difference of: ', seller - fbSeller.gTotal);
-          console.log(fbSeller);
+          console.log(' *** Polling for changes *** ');
+          console.log('buyer count: ', buyer, 'seller count: ', seller);
+          console.timeEnd('poll-time');
         }
 
-        // Pass in new grand total from polling (`seller`);
-        return getUpdates('seller', seller);
-      }
+        // Call update methods if change in `gTotal` detected
+        if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
 
-      if (buyer > fbBuyer.gTotal) {
-
-        if (debug) {
-
-          console.log(' ');
-          console.log(' *** Changes in Buyer stats detected *** ');
-          console.log('difference of: ', buyer - fbBuyer.gTotal);
-          console.log(fbBuyer);
+          return getUpdates('seller', seller)
+                   .then(getUpdates('buyer', buyer))
+                   .catch(console.log.bind(console));
         }
 
-        return getUpdates('buyer', buyer);
-      }
+        if (seller > fbSeller.gTotal) {
 
-      /*
+          if (debug) {
 
-          if the `gTotal` has not changed, reset the `fbBuyer` / `fbSeller` objects
-          so that when a user's stats change due to the 3|6|12 month number updates
-          the notifications still (hopefully) correctly identify when a
-          review is posted.
+            console.log(' ');
+            console.log(' *** Changes in Seller stats detected *** ');
+            console.log('difference of: ', seller - fbSeller.gTotal);
+            console.log(fbSeller);
+          }
 
-          the one exception (that I anticipate at this point) is a review is left
-          and the seller's stats shift on the same day. This would trigger an
-          update cycle but the numbers would not reflect the change. I think
-          this would be rare but I need to think of a solution.
-
-      */
-
-      // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
-      if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
-
-        if (debug) {
-
-          console.log(' ');
-          console.log(' *** Resetting Buyer/Seller base values *** ');
-          console.time('reset');
+          // Pass in new grand total from polling (`seller`);
+          return getUpdates('seller', seller);
         }
 
-        return resetObjs(seller, buyer)
-                 .then(updateObjVals('seller'))
-                 .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp))
-                 .catch(console.log.bind(console));
+        if (buyer > fbBuyer.gTotal) {
 
+          if (debug) {
+
+            console.log(' ');
+            console.log(' *** Changes in Buyer stats detected *** ');
+            console.log('difference of: ', buyer - fbBuyer.gTotal);
+            console.log(fbBuyer);
+          }
+
+          return getUpdates('buyer', buyer);
+        }
+
+        /*
+
+            if the `gTotal` has not changed, reset the `fbBuyer` / `fbSeller` objects
+            so that when a user's stats change due to the 3|6|12 month number updates
+            the notifications still (hopefully) correctly identify when a
+            review is posted.
+
+            the one exception (that I anticipate at this point) is a review is left
+            and the seller's stats shift on the same day. This would trigger an
+            update cycle but the numbers would not reflect the change. I think
+            this would be rare but I need to think of a solution.
+
+        */
+
+        // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
+        if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
+
+          if (debug) {
+
+            console.log(' ');
+            console.log(' *** Resetting Buyer/Seller base values *** ');
+            console.time('reset');
+          }
+
+          return resetObjs(seller, buyer)
+                   .then(updateObjVals('seller'))
+                   .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp))
+                   .catch(console.log.bind(console));
+
+        }
       }
     });
   }
