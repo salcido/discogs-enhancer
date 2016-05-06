@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
   let
-      currency = resourceLibrary.getItem('currency', 'string'),
+      currency = resourceLibrary.getItem('currency'),
       d = new Date(),
       language = resourceLibrary.language(),
       lastChecked = resourceLibrary.getItem('lastChecked'),
@@ -46,7 +46,6 @@ $(document).ready(function() {
           // set last saved currency,
           // if different from userCurrency will
           // trigger exchange rates update
-          // TODO fix this!!!!!
           resourceLibrary.setItem('currency', userCurrency);
 
           if (debug) {

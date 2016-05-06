@@ -22,8 +22,8 @@ $(document).ready(function() {
       language = resourceLibrary.language(),
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt'),
-      //user = 'recordsale-de',
+      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = 'recordsale-de',
       waitTime = lastChecked + 120000; // 2 mins
 
 
@@ -120,88 +120,97 @@ $(document).ready(function() {
 
   function getUpdates(type, gTotal) {
 
-    let
-        obj,
-        objName;
+    return new Promise(function(resolve, reject) {
 
-    objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
+      let
+          obj,
+          objName;
 
-    obj = resourceLibrary.getItem(objName);
+      objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
 
-    if (debug) {
+      obj = resourceLibrary.getItem(objName);
 
-      console.log(' *** getting updates for ' + type + ' *** ');
-      console.time('getUpdates');
-    }
+      if (debug) {
 
-    $.ajax({
+        console.log(' *** getting updates for ' + type + ' *** ');
+        console.time('getUpdates');
+      }
 
-      url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
+      $.ajax({
 
-      type: 'GET',
+        url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
 
-      dataType: 'html',
+        type: 'GET',
 
-      success: function(response) {
+        dataType: 'html',
 
-        let
-            selector = '#page_content .table_block.fright ',
+        success: function(response) {
 
-            neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            negDiff = neg - obj.negCount,
+          let
+              selector = '#page_content .table_block.fright ',
 
-            neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            neuDiff = neu - obj.neuCount,
+              neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+              negDiff = neg - obj.negCount,
 
-            pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
-            posDiff = pos - obj.posCount;
+              neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+              neuDiff = neu - obj.neuCount,
 
-        // assign new diff values to obj
-        obj.posDiff = posDiff;
-        obj.neuDiff = neuDiff;
-        obj.negDiff = negDiff;
-        obj.hasViewed = false;
-        obj.gTotal = gTotal;
+              pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
+              posDiff = pos - obj.posCount;
 
-        // Save obj updates
-        resourceLibrary.setItem(objName, obj);
+          // assign new diff values to obj
+          obj.posDiff = posDiff;
+          obj.neuDiff = neuDiff;
+          obj.negDiff = negDiff;
+          obj.hasViewed = false;
+          obj.gTotal = gTotal;
 
-        // Calcuate values to pass to `appendBadge()`
-        posDiff = (posDiff > 0 ? posDiff : '');
-        neuDiff = (neuDiff > 0 ? neuDiff : '');
-        negDiff = (negDiff > 0 ? negDiff : '');
+          // Save obj updates
+          resourceLibrary.setItem(objName, obj);
 
-        // Discogs stats seem to shift which causes a false
-        // triggering of the notifications
-        if (posDiff === '' && neuDiff === '' && negDiff === '') {
+          // Calcuate values to pass to `appendBadge()`
+          posDiff = (posDiff > 0 ? posDiff : '');
+          neuDiff = (neuDiff > 0 ? neuDiff : '');
+          negDiff = (negDiff > 0 ? negDiff : '');
+
+          // Discogs stats seem to shift which causes a false
+          // triggering of the notifications
+          if (posDiff === '' && neuDiff === '' && negDiff === '') {
+
+            if (debug) {
+
+              console.log(' ');
+              console.log(' *** False positive triggered *** ');
+              console.log(' *** No changes *** ');
+              console.timeEnd('getUpdates');
+            }
+
+            clearNotification(objName, obj);
+
+            resolve();
+
+            return;
+          }
+
+          // Set timestamp when checked
+          resourceLibrary.setItem('fbLastChecked', timeStamp);
 
           if (debug) {
 
             console.log(' ');
-            console.log(' *** False positive triggered *** ');
-            console.log(' *** No changes *** ');
+            console.log(' *** Got ' + type + ' Updates *** ');
+            console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
+            console.log('Previous stats:');
+            console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
+            console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
             console.timeEnd('getUpdates');
           }
 
-          return clearNotification(objName, obj);
+          appendBadge(type, posDiff, neuDiff, negDiff);
         }
+      });
 
-        // Set timestamp when checked
-        resourceLibrary.setItem('fbLastChecked', timeStamp);
-
-        if (debug) {
-
-          console.log(' ');
-          console.log(' *** Got ' + type + ' Updates *** ');
-          console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
-          console.log('Previous stats:');
-          console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
-          console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
-          console.timeEnd('getUpdates');
-        }
-
-        return appendBadge(type, posDiff, neuDiff, negDiff);
-      }
+      resolve();
     });
   }
 
@@ -252,39 +261,41 @@ $(document).ready(function() {
    *
    * @instance
    * @param    {object} fbBuyer | fbSeller
-   * @return   {function} callback
+   * @param    {function} action will always be resetObjs();
+   * @return   {function} callback will always be updateObjVals();
    */
 
-  function initObjVals(action, callback) {
+  function initObjVals(action) {
 
-    if (debug) {
+    return new Promise(function(resolve, reject) {
 
-      console.log(' ');
-      console.log(' *** initializing base object values *** ');
-      console.time('initObjVals');
-    }
+      if (debug) {
 
-    $.ajax({
-
-      url: 'https://www.discogs.com/' + language + 'user/' + user,
-
-      type: 'GET',
-
-      dataType: 'html',
-
-      success: function(response) {
-
-        let
-            selector = '#page_aside .list_no_style.user_marketplace_rating ',
-            buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-            seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
-
-        if (debug) { console.timeEnd('initObjVals'); }
-
-        action(seller, buyer);
-
-        return Promise.resolve(callback('seller')).then(callback('buyer'));
+        console.log(' ');
+        console.log(' *** initializing base object values *** ');
+        console.time('initObjVals');
       }
+
+      $.ajax({
+
+        url: 'https://www.discogs.com/' + language + 'user/' + user,
+
+        type: 'GET',
+
+        dataType: 'html',
+
+        success: function(response) {
+
+          let
+              selector = '#page_aside .list_no_style.user_marketplace_rating ',
+              buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
+              seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
+
+          if (debug) { console.timeEnd('initObjVals'); }
+
+          action(seller, buyer).then(resolve());
+        }
+      });
     });
   }
 
@@ -298,45 +309,54 @@ $(document).ready(function() {
 
   function resetObjs(sellerVal, buyerVal) {
 
-    let
-        buyerObj = {
-          posCount: 0,
-          posDiff: 0,
-          neuCount: 0,
-          neuDiff: 0,
-          negCount: 0,
-          negDiff: 0,
-          gTotal: buyerVal,
-          hasViewed: true
-        },
+    return new Promise(function(resolve, reject) {
 
-        sellerObj = {
-          posCount: 0,
-          posDiff: 0,
-          neuCount: 0,
-          neuDiff: 0,
-          negCount: 0,
-          negDiff: 0,
-          gTotal: sellerVal,
-          hasViewed: true
-        };
+      let
+          buyerObj = {
+            posCount: 0,
+            posDiff: 0,
+            neuCount: 0,
+            neuDiff: 0,
+            negCount: 0,
+            negDiff: 0,
+            gTotal: buyerVal,
+            hasViewed: true
+          },
 
-    if (debug) {
+          sellerObj = {
+            posCount: 0,
+            posDiff: 0,
+            neuCount: 0,
+            neuDiff: 0,
+            negCount: 0,
+            negDiff: 0,
+            gTotal: sellerVal,
+            hasViewed: true
+          };
 
-      console.log(' *** Resetting Object Values *** ');
-      console.log('Reset sellerObj: ');
-      console.log(sellerObj);
-      console.log(' ');
-      console.log('Reset buyerObj: ');
-      console.log(buyerObj);
-      console.time('resetObjs');
-    }
+      if (debug) {
 
-    resourceLibrary.setItem('fbSeller', sellerObj);
+        console.log(' *** Resetting Object Values *** ');
+        console.log('Reset sellerObj: ');
+        console.log(sellerObj);
+        console.log(' ');
+        console.log('Reset buyerObj: ');
+        console.log(buyerObj);
+        console.time('resetObjs');
+      }
 
-    resourceLibrary.setItem('fbBuyer', buyerObj);
+      resourceLibrary.setItem('fbSeller', sellerObj);
 
-    return debug ? console.timeEnd('resetObjs') : false;
+      resourceLibrary.setItem('fbBuyer', buyerObj);
+
+      if (debug) {
+
+        console.log('Done resetting buyer/seller objects.');
+        console.timeEnd('resetObjs');
+      }
+
+      resolve();
+    });
   }
 
 
@@ -353,50 +373,53 @@ $(document).ready(function() {
 
   function updateObjVals(type) {
 
-    let objName = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
+    return new Promise(function(resolve, reject) {
 
-    if (debug) {
-      console.log(' ');
-      console.log(' *** updating object values for ' + type + ' *** ');
-      console.time('updateObjVals');
-    }
+      let objName = (type === 'buyer' ? 'fbBuyer' : 'fbSeller');
 
-    $.ajax({
-
-      url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
-
-      type: 'GET',
-
-      dataType: 'html',
-
-      success: function(response) {
-
-        let
-            obj = resourceLibrary.getItem(objName),
-            selector = '#page_content .table_block.fright ',
-            neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
-
-        // assign new values to obj
-        obj.posCount = pos;
-        obj.neuCount = neu;
-        obj.negCount = neg;
-        obj.hasViewed = true;
-
-        // Save obj updates
-        resourceLibrary.setItem(objName, obj);
-
-        if (debug) {
-          console.log(obj);
-          console.timeEnd('updateObjVals');
-        }
-
-        // Set timestamp when checked
-        resourceLibrary.setItem('fbLastChecked', timeStamp);
-
-        return;
+      if (debug) {
+        console.log(' ');
+        console.log(' *** updating object values for ' + type + ' *** ');
+        console.time('updateObjVals');
       }
+
+      $.ajax({
+
+        url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
+
+        type: 'GET',
+
+        dataType: 'html',
+
+        success: function(response) {
+
+          let
+              obj = resourceLibrary.getItem(objName),
+              selector = '#page_content .table_block.fright ',
+              neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+              neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+              pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
+
+          // assign new values to obj
+          obj.posCount = pos;
+          obj.neuCount = neu;
+          obj.negCount = neg;
+          obj.hasViewed = true;
+
+          // Save obj updates
+          resourceLibrary.setItem(objName, obj);
+
+          if (debug) {
+            console.log(obj);
+            console.timeEnd('updateObjVals');
+          }
+
+          // Set timestamp when checked
+          resourceLibrary.setItem('fbLastChecked', timeStamp);
+        }
+      });
+
+      resolve();
     });
   }
 
@@ -417,7 +440,7 @@ $(document).ready(function() {
   // Initialize the `fbBuyer` / `fbSeller` objects;
   if (!fbBuyer || !fbSeller) {
 
-    return initObjVals(resetObjs, updateObjVals);
+    return initObjVals(resetObjs).then(updateObjVals('seller')).then(updateObjVals('buyer'));
   }
 
 
@@ -468,7 +491,7 @@ $(document).ready(function() {
         // Call update methods if change in `gTotal` detected
         if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
 
-          Promise.resolve(getUpdates('seller', seller))
+          getUpdates('seller', seller)
                  .then(getUpdates('buyer', buyer))
                  .catch(console.log.bind(console));
 
@@ -515,8 +538,8 @@ $(document).ready(function() {
             this would be rare but I need to think of a solution.
 
         */
-        // TODO move this into a reset function.
-        // I'm using the <= operator in case a user has some reviews removed which would lower the `gTotal` count
+
+        // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
         if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
 
           if (debug) {
@@ -526,7 +549,7 @@ $(document).ready(function() {
             console.time('reset');
           }
 
-          Promise.resolve(resetObjs(seller, buyer))
+          resetObjs(seller, buyer)
                  .then(updateObjVals('seller'))
                  .then(updateObjVals('buyer'))
                  .catch(console.log.bind(console));
@@ -534,7 +557,9 @@ $(document).ready(function() {
           // refresh baseValsChecked
           resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
 
-          return debug ? console.timeEnd('reset') : true;
+          if (debug) { console.timeEnd('reset'); }
+
+          return;
         }
       }
     });
