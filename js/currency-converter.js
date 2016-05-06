@@ -12,7 +12,7 @@ $(document).ready(function() {
 
   let
       language = resourceLibrary.language(),
-      lastUsedCurrency = localStorage.getItem('lastUsedCurrency'),
+      lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency', true),
       rates,
       thisSelectedCurrency,
       markup = '<div class="currency-converter">' +
@@ -150,9 +150,9 @@ $(document).ready(function() {
 
       success: function(ratesObj) {
 
-        localStorage.setItem('converterRates', JSON.stringify(ratesObj));
+        resourceLibrary.setItem('converterRates', ratesObj);
 
-        rates = JSON.parse(localStorage.getItem('converterRates'));
+        rates = resourceLibrary.getItem('converterRates');
 
         $('#thatCurrency').prop('disabled', false);
 
@@ -207,7 +207,7 @@ $(document).ready(function() {
   $('body').append(markup);
 
   // Check for existing rates
-  if (!JSON.parse(localStorage.getItem('converterRates'))) {
+  if (!resourceLibrary.getItem('converterRates')) {
 
     rates = null;
 
@@ -215,7 +215,7 @@ $(document).ready(function() {
 
   } else {
 
-    rates = JSON.parse(localStorage.getItem('converterRates'));
+    rates = resourceLibrary.getItem('converterRates');
 
     thisSelectedCurrency = rates.base;
   }
@@ -350,7 +350,7 @@ $(document).ready(function() {
 
     convertCurrency();
 
-    localStorage.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
+    resourceLibrary.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
   });
 
 

@@ -24,7 +24,7 @@ $(document).ready(function() {
         priceKey,
         result,
         symbol,
-        userCurrency = localStorage.getItem('userCurrency');
+        userCurrency = resourceLibrary.getItem('userCurrency', true);
 
     // Insert preloader animation
     function injectPriceLinks() {

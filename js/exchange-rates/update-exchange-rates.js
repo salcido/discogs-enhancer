@@ -11,21 +11,21 @@
 $(document).ready(function() {
 
   let
-      currency = localStorage.getItem('currency'),
+      currency = resourceLibrary.getItem('currency', true),
       d = new Date(),
       language = resourceLibrary.language(),
-      lastChecked = localStorage.getItem('lastChecked'),
-      options = resourceLibrary.options.debug(),
-      rates = JSON.parse(localStorage.getItem('rates')),
+      lastChecked = resourceLibrary.getItem('lastChecked', true),
+      debug = resourceLibrary.options.debug(),
+      rates = resourceLibrary.getItem('rates'),
       today = d.toISOString().split('T')[0],
-      userCurrency = localStorage.getItem('userCurrency');
+      userCurrency = resourceLibrary.getItem('userCurrency', true);
 
     if (!rates || !lastChecked || lastChecked !== today || typeof rates !== 'object' || userCurrency !== currency) {
 
-      localStorage.setItem('rates', null);
+      resourceLibrary.setItem('rates', null);
 
-      if (options) {
-
+      if (debug) {
+        console.log(' ');
         console.log('Getting fresh rates... One moment please.');
       }
 
@@ -37,24 +37,22 @@ $(document).ready(function() {
 
         success: function(ratesObj) {
 
-          localStorage.setItem('rates', JSON.stringify(ratesObj));
+          resourceLibrary.setItem('rates', ratesObj);
 
-          rates = JSON.parse(localStorage.getItem('rates'));
+          rates = resourceLibrary.getItem('rates');
 
-          localStorage.setItem('lastChecked', today);
+          resourceLibrary.setItem('lastChecked', today);
 
           // set last saved currency,
           // if different from userCurrency will
           // trigger exchange rates update
-          localStorage.setItem('currency', userCurrency);
+          resourceLibrary.setItem('currency', userCurrency);
 
-          if (options) {
+          if (debug) {
 
             console.log('*** Fresh rates ***');
-
             console.log('Last update:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-
-            console.log('rates', JSON.parse(localStorage.getItem('rates')));
+            console.log('rates', resourceLibrary.getItem('rates'));
           }
         },
 
@@ -68,14 +66,14 @@ $(document).ready(function() {
 
     } else {
 
-      if (options) {
+      if (debug) {
 
+        console.log(' ');
         console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-
-        console.log('rates', JSON.parse(localStorage.getItem('rates')));
+        console.log('rates', resourceLibrary.getItem('rates'));
       }
     }
 
     // Store user's lagnuage preference
-    localStorage.setItem('language', language);
+    resourceLibrary.setItem('language', language);
 });

@@ -25,7 +25,7 @@ $(document).ready(function() {
         releaseId,
         result,
         symbol,
-        userCurrency = localStorage.getItem('userCurrency');
+        userCurrency = resourceLibrary.getItem('userCurrency', true);
 
     // Insert preloader animation
     $('td.item_price').each(function(j) {

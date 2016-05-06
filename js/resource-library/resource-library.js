@@ -227,14 +227,20 @@
      * Convenience method so I don't forget to parse
      * my localStorage objects.
      *
+     * item: the item to get from localStorage
+     *
+     * isString: if the item should be parsed into a boolean/object
      *
      * @instance
      * @param    {string} item
+     * @param    {boolean} isString
      * @return   {object}
      */
-    getItem: function(item) {
+    getItem: function(item, isString) {
 
-      return JSON.parse(localStorage.getItem(item));
+      return !isString
+             ? JSON.parse(localStorage.getItem(item))
+             : localStorage.getItem(item);
     },
 
     /**
@@ -643,7 +649,7 @@
 
       value = JSON.stringify(value);
 
-      localStorage.setItem(name, value);
+      return localStorage.setItem(name, value);
     },
 
     /**
