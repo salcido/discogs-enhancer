@@ -11,14 +11,14 @@
 $(document).ready(function() {
 
   let
-      currency = resourceLibrary.getItem('currency', true),
+      currency = resourceLibrary.getItem('currency', 'string'),
       d = new Date(),
       language = resourceLibrary.language(),
-      lastChecked = resourceLibrary.getItem('lastChecked', true),
+      lastChecked = resourceLibrary.getItem('lastChecked'),
       debug = resourceLibrary.options.debug(),
       rates = resourceLibrary.getItem('rates'),
       today = d.toISOString().split('T')[0],
-      userCurrency = resourceLibrary.getItem('userCurrency', true);
+      userCurrency = resourceLibrary.getItem('userCurrency', 'string');
 
     if (!rates || !lastChecked || lastChecked !== today || typeof rates !== 'object' || userCurrency !== currency) {
 

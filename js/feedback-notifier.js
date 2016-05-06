@@ -132,7 +132,7 @@ $(document).ready(function() {
 
     if (debug) {
 
-      console.log(' *** getting updates for ' + type + '*** ');
+      console.log(' *** getting updates for ' + type + ' *** ');
       console.time('getUpdates');
     }
 
@@ -194,7 +194,7 @@ $(document).ready(function() {
         if (debug) {
 
           console.log(' ');
-          console.log('*** Got ' + type + ' Updates ***');
+          console.log(' *** Got ' + type + ' Updates *** ');
           console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
           console.log('Previous stats:');
           console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
@@ -397,7 +397,7 @@ $(document).ready(function() {
         // Set timestamp when checked
         resourceLibrary.setItem('fbLastChecked', timeStamp);
 
-        return true;
+        return;
       }
     });
   }
@@ -523,48 +523,24 @@ $(document).ready(function() {
             this would be rare but I need to think of a solution.
 
         */
-// TODO move this into a reset function.
-// TODO fix this promise
+        // TODO move this into a reset function.
         // I'm using the <= operator in case a user has some reviews removed which would lower the `gTotal` count
         if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
 
-          let reset = new Promise(function(resolve, reject) {
+          if (debug) {
 
-            if (debug) {
+            console.log(' ');
+            console.log(' *** Resetting Buyer/Seller base values *** ');
+            console.time('reset');
+          }
 
-              console.log(' ');
-              console.log(' *** Resetting Buyer/Seller base values *** ');
-              console.time('reset');
-            }
-
-            resolve(resetObjs(seller, buyer));
-          });
-
-          reset.then(function() {
-
-            if (debug) {
-
-              console.log(' ');
-              console.log(' *** Resetting Seller stats *** ');
-            }
-
-            return Promise.all(updateObjVals('seller'));
-
-          }).then(function() {
-
-            if (debug) {
-
-              console.log(' ');
-              console.log(' *** Resetting Buyer stats *** ');
-            }
-
-            return updateObjVals('buyer');
-          }).catch(console.log.bind(console));
+          Promise.resolve(resetObjs(seller, buyer))
+                 .then(updateObjVals('seller'))
+                 .then(updateObjVals('buyer'))
+                 .catch(console.log.bind(console));
 
           // refresh baseValsChecked
           resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
-
-          //if (debug) { console.timeEnd('reset'); }
 
           return debug ? console.timeEnd('reset') : true;
         }
