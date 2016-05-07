@@ -8,22 +8,27 @@
  *
  */
 
-// TODO might need `resetComplete` var. Not sure what happens if page is reset before resetting finishes.
-
 $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 90000,//1800000, // 30 mins
+      baseValsInterval = 1000,//1800000, // 30 mins
+
       d = new Date(),
+
       debug = resourceLibrary.options.debug(),
+
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
       fbSeller = resourceLibrary.getItem('fbSeller'),
+
       language = resourceLibrary.language(),
+
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
+
       //user = $('#site_account_menu').find('.user_image').attr('alt'),
       user = 'recordsale-de',
+
       waitTime = lastChecked + 1000;//120000; // 2 mins
 
 
@@ -148,15 +153,15 @@ $(document).ready(function() {
             selector = '#page_content .table_block.fright ',
 
             neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            negDiff = neg - obj.negCount,
+            negDiff = (obj.negCount === 0 ? neg : neg - obj.negCount),
 
             neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            neuDiff = neu - obj.neuCount,
+            neuDiff = (obj.neuCount === 0 ? neu : neu - obj.neuCount),
 
             pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
-            posDiff = pos - obj.posCount;
+            posDiff = (obj.posCount === 0 ? pos : pos - obj.posCount);
 
-        // assign new diff values to obj
+        // assign new diff values to obj for reference
         obj.posDiff = posDiff;
         obj.neuDiff = neuDiff;
         obj.negDiff = negDiff;
@@ -167,6 +172,8 @@ $(document).ready(function() {
         resourceLibrary.setItem(objName, obj);
 
         // Calcuate values to pass to `appendBadge()`
+        // so that the badge dropdown does not list 0 as a stat.
+        // I only want to show values greater than 0.
         posDiff = (posDiff > 0 ? posDiff : '');
         neuDiff = (neuDiff > 0 ? neuDiff : '');
         negDiff = (negDiff > 0 ? negDiff : '');
@@ -254,6 +261,7 @@ $(document).ready(function() {
    * @instance
    * @param    {object} fbBuyer | fbSeller
    * @param    {function} action will always be resetObjs();
+   * @param    {function} callback will always be updateObjVals();
    */
 
   function initObjVals(action, callback) {
@@ -293,8 +301,7 @@ $(document).ready(function() {
   /**
    * Resets the objects with the most recent buyer/seller grand total stats
    *
-   * @param    {string}  sellerVal [grand total for the user's seller ratings]
-   * @param    {string}  buyerVal  [grand total for the user's buyer ratings]
+   * @param    {object} obj - {seller: seller, buyer: buyer}
    */
 
   function resetObjs(obj) {
@@ -434,15 +441,9 @@ $(document).ready(function() {
 
 
   // Append notifictions if they are unread.
-  if (!fbSeller.hasViewed) {
+  if (!fbSeller.hasViewed) { hasNotification('seller'); }
 
-    hasNotification('seller');
-  }
-
-  if (!fbBuyer.hasViewed) {
-
-    hasNotification('buyer');
-  }
+  if (!fbBuyer.hasViewed) { hasNotification('buyer'); }
 
 
   // poll for changes
@@ -536,10 +537,11 @@ $(document).ready(function() {
             console.time('reset');
           }
 
-          return resetObjs(seller, buyer)
-                   .then(updateObjVals('seller'))
-                   .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp))
-                   .catch(console.log.bind(console));
+          return $.when(resetObjs( {seller: seller, buyer: buyer} ),
+                        updateObjVals('seller'),
+                        updateObjVals('buyer'))
+
+                        .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp));
 
         }
       }
@@ -590,8 +592,9 @@ $(document).ready(function() {
 
       objName = 'fbSeller';
       type = 'seller';
+    }
 
-    } else {
+    if (id === 'de-buyer-feedback') {
 
       objName = 'fbBuyer';
       type = 'buyer';
@@ -606,7 +609,8 @@ $(document).ready(function() {
         clearNotification(objName, obj);
 
         // These hrefs are declared here because I need to be able to update
-        // the object props before the transition
+        // the object props before the transition. Don't try to pass them into the
+        // appendBadge markup. It won't work.
         return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Positive';
 
       case 'neu-reviews':
