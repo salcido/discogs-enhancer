@@ -12,7 +12,7 @@ $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 1000;//1800000, // 30 mins
+      baseValsInterval = 1000;//900000, // 15 mins
 
   let
       d = new Date();
@@ -32,8 +32,8 @@ $(document).ready(function() {
       timeStamp = d.getTime();
 
   let
-      user = $('#site_account_menu').find('.user_image').attr('alt');
-      //user = 'recordsale-de';
+      //user = $('#site_account_menu').find('.user_image').attr('alt');
+      user = 'recordsale-de';
 
   let
       waitTime = lastChecked + 1000;//120000; // 2 mins
@@ -84,6 +84,8 @@ $(document).ready(function() {
             '</li>';
 
     $('#activity_menu').append(badge);
+
+    return bindUi();
   }
 
 
@@ -122,7 +124,7 @@ $(document).ready(function() {
   /**
    * Gets Buyer/Seller number updates from profile
    *
-   * gTotal: the grand total of the buyer/seller feedbacks
+   * gTotal: the grand total of the buyer/seller f eedbacks
    *
    * @instance
    * @param    {number} gTotal
@@ -431,11 +433,8 @@ $(document).ready(function() {
   // Create and assign `baseValsChecked` if it does not exist.
   if (!baseValsChecked) {
 
-    //resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
-
-    baseValsChecked = resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
-
-    console.log('BASEVALSSSS!!!!!', baseValsChecked);
+    resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
+    baseValsChecked = resourceLibrary.getItem('fbBaseValsChecked');
   }
 
 
@@ -546,78 +545,80 @@ $(document).ready(function() {
   /**
    * UI Functionality
    */
+  function bindUi() {
 
-  // Save viewed states and clear notifications
-  $('body').on('click', '.de-buyer-feedback, .de-seller-feedback', function() {
+    // Save viewed states and clear notifications
+    $('body').on('click', '.de-buyer-feedback, .de-seller-feedback', function() {
 
-    let
-        elemClass = this.className,
-        objName,
-        obj;
+      let
+          elemClass = this.className,
+          objName,
+          obj;
 
-    if (elemClass === 'nav_group_control de-buyer-feedback') {
+      if (elemClass === 'nav_group_control de-buyer-feedback') {
 
-      objName = 'fbBuyer';
-    }
+        objName = 'fbBuyer';
+      }
 
-    if (elemClass === 'nav_group_control de-seller-feedback') {
+      if (elemClass === 'nav_group_control de-seller-feedback') {
 
-      objName = 'fbSeller';
-    }
+        objName = 'fbSeller';
+      }
 
-    obj = resourceLibrary.getItem(objName);
+      obj = resourceLibrary.getItem(objName);
 
-    clearNotification(objName, obj);
+      clearNotification(objName, obj);
 
-    return $(this).parent().hide();
-  });
+      return $(this).parent().hide();
+    });
 
-  // Menu interactions
-  $('body').on('click', '.pos-reviews, .neu-reviews, .neg-reviews', function() {
+    // Menu interactions
+    $('body').on('click', '.pos-reviews, .neu-reviews, .neg-reviews', function() {
 
-    let
-        elem = this.className,
-        id = $(this).parent().parent().attr('id'),
-        objName,
-        obj,
-        type;
+      let
+          elem = this.className,
+          id = $(this).parent().parent().attr('id'),
+          objName,
+          obj,
+          type;
 
-    if (id === 'de-seller-feedback') {
+      if (id === 'de-seller-feedback') {
 
-      objName = 'fbSeller';
-      type = 'seller';
-    }
+        objName = 'fbSeller';
+        type = 'seller';
+      }
 
-    if (id === 'de-buyer-feedback') {
+      if (id === 'de-buyer-feedback') {
 
-      objName = 'fbBuyer';
-      type = 'buyer';
-    }
+        objName = 'fbBuyer';
+        type = 'buyer';
+      }
 
-    obj = resourceLibrary.getItem(objName);
+      obj = resourceLibrary.getItem(objName);
 
-    switch (elem) {
-// TODO for some reason these only work after refresh
-      case 'pos-reviews':
+      switch (elem) {
 
-        clearNotification(objName, obj);
+        case 'pos-reviews':
 
-        // These hrefs are declared here because I need to be able to update
-        // the object props before the transition. Don't try to pass them into the
-        // appendBadge markup. It won't work.
-        return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Positive';
+          clearNotification(objName, obj);
 
-      case 'neu-reviews':
+          // These hrefs are declared here because I need to be able to update
+          // the object props before the transition. Don't try to pass them into the
+          // appendBadge markup. It won't work.
+          return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Positive';
 
-        clearNotification(objName, obj);
+        case 'neu-reviews':
 
-        return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Neutral';
+          clearNotification(objName, obj);
 
-      case 'neg-reviews last':
+          return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Neutral';
 
-        clearNotification(objName, obj);
+        case 'neg-reviews last':
 
-        return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Negative';
-    }
-  });
+          clearNotification(objName, obj);
+
+          return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Negative';
+      }
+    });
+  }
 });
