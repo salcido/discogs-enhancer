@@ -12,23 +12,30 @@ $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 1000,//1800000, // 30 mins
+      baseValsInterval = 1000;//1800000, // 30 mins
 
-      d = new Date(),
+  let
+      d = new Date();
 
-      debug = resourceLibrary.options.debug(),
+  let
+      debug = resourceLibrary.options.debug();
 
+  let
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
-      fbSeller = resourceLibrary.getItem('fbSeller'),
+      fbSeller = resourceLibrary.getItem('fbSeller');
 
-      language = resourceLibrary.language(),
+  let
+      language = resourceLibrary.language();
 
+  let
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
-      timeStamp = d.getTime(),
+      timeStamp = d.getTime();
 
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
-      user = 'recordsale-de',
+  let
+      user = $('#site_account_menu').find('.user_image').attr('alt');
+      //user = 'recordsale-de';
 
+  let
       waitTime = lastChecked + 1000;//120000; // 2 mins
 
 
@@ -47,8 +54,7 @@ $(document).ready(function() {
 
   function appendBadge(type, posDiff, neuDiff, negDiff) {
 
-    let
-        badge,
+    let badge,
         id;
 
     id = (type === 'seller' ? 'de-seller-feedback' : 'de-buyer-feedback');
@@ -85,11 +91,11 @@ $(document).ready(function() {
    * Updates the `fbBuyer`/`fbSeller` objects hasViewed prop
    * after user clicks on notifications
    *
-   * objName: the name of the localStorage item
-   * obj: the object written to localStorage
+   * objName:
    *
    * @instance
-   * @param    {string} objName
+   * @param    {string} objName:  the name of the localStorage item
+   *                              obj: the object written to localStorage
    * @param    {object} obj
    * @return   {method}
    */
@@ -211,7 +217,6 @@ $(document).ready(function() {
       }
     });
   }
-
 
 
   /**
@@ -343,7 +348,6 @@ $(document).ready(function() {
       }
 
       resourceLibrary.setItem('fbSeller', sellerObj);
-
       resourceLibrary.setItem('fbBuyer', buyerObj);
 
       if (debug) {
@@ -427,9 +431,11 @@ $(document).ready(function() {
   // Create and assign `baseValsChecked` if it does not exist.
   if (!baseValsChecked) {
 
-    resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
+    //resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
 
-    baseValsChecked = resourceLibrary.getItem('fbBaseValsChecked');
+    baseValsChecked = resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
+
+    console.log('BASEVALSSSS!!!!!', baseValsChecked);
   }
 
 
@@ -442,7 +448,6 @@ $(document).ready(function() {
 
   // Append notifictions if they are unread.
   if (!fbSeller.hasViewed) { hasNotification('seller'); }
-
   if (!fbBuyer.hasViewed) { hasNotification('buyer'); }
 
 
@@ -455,9 +460,7 @@ $(document).ready(function() {
     return $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'user/' + user,
-
       type: 'GET',
-
       dataType: 'html',
 
       success: function(response) {
@@ -476,14 +479,6 @@ $(document).ready(function() {
           console.log(' *** Polling for changes *** ');
           console.log('buyer count: ', buyer, 'seller count: ', seller);
           console.timeEnd('poll-time');
-        }
-
-        // Call update methods if change in `gTotal` detected
-        if (seller > fbSeller.gTotal && buyer > fbBuyer.gTotal) {
-
-          return getUpdates('seller', seller)
-                   .then(getUpdates('buyer', buyer))
-                   .catch(console.log.bind(console));
         }
 
         if (seller > fbSeller.gTotal) {
@@ -563,8 +558,9 @@ $(document).ready(function() {
     if (elemClass === 'nav_group_control de-buyer-feedback') {
 
       objName = 'fbBuyer';
+    }
 
-    } else {
+    if (elemClass === 'nav_group_control de-seller-feedback') {
 
       objName = 'fbSeller';
     }
@@ -573,9 +569,7 @@ $(document).ready(function() {
 
     clearNotification(objName, obj);
 
-    $(this).parent().hide();
-
-    return;
+    return $(this).parent().hide();
   });
 
   // Menu interactions
@@ -603,7 +597,7 @@ $(document).ready(function() {
     obj = resourceLibrary.getItem(objName);
 
     switch (elem) {
-
+// TODO for some reason these only work after refresh
       case 'pos-reviews':
 
         clearNotification(objName, obj);
