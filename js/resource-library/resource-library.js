@@ -25,8 +25,7 @@
 
    */
 
-// TODO
-// move all instances of rates to central method here
+// TODO move all instances of rates to central method here
 
   // Instantiate default option values if not present
   if (!localStorage.getItem('analytics')) { localStorage.setItem('analytics', 'true'); }
@@ -45,7 +44,6 @@
     /**
      * Appends notification to top of Discogs header
      *
-     * @instance
      * @param    {string} message
      * @return   {undefined}
      */
@@ -146,7 +144,6 @@
     /**
      * Converts prices to user's currency
      *
-     * @instance
      * @param    {array} source
      * @return   {array}
      */
@@ -207,7 +204,6 @@
     /**
      * Finds the `dsdata` node
      *
-     * @instance
      * @param    {object} obj
      * @return   {object}
      */
@@ -231,9 +227,8 @@
      *
      * isString: if the item should be parsed into a boolean/object
      *
-     * @instance
-     * @param    {string} item
-     * @param    {boolean} isString
+     * @param    {string} item: name of the item to be returned
+     * @param    {boolean} isString: if the item should be parsed
      * @return   {object}
      */
     getItem: function(item, isString) {
@@ -246,7 +241,6 @@
     /**
      * Assigns user's currency symbol to price estimates.
      *
-     * @instance
      * @param    {string} userCurrency
      * @param    {string} symbol
      * @return   {string} symbol
@@ -275,7 +269,6 @@
     /**
      * Returns the currently selected language
      *
-     * @instance
      * @return   {string}
      */
 
@@ -289,7 +282,6 @@
     /**
      * Returns price suggestions in user's localized format
      *
-     * @instance
      * @param    {string} symbol
      * @param    {string} price
      * @return   {string}
@@ -359,7 +351,6 @@
     /**
      * Maps price symbol to `exchangeList` array
      *
-     * @instance
      * @param    {array} source
      * @return   {obj}
      */
@@ -531,7 +522,6 @@
     /**
      * Parses element into object
      *
-     * @instance
      * @param    {string} element
      * @return   {object}
      */
@@ -571,7 +561,6 @@
     /**
      * Strips currency symbol from prices
      *
-     * @instance
      * @param    {array} source
      * @return   {obj}
      */
@@ -607,7 +596,6 @@
     /**
      * Sets text for sort buttons
      *
-     * @instance
      * @param    {object} elem
      * @return   {object} elem
      */
@@ -639,7 +627,6 @@
      * my values before setting them.
      *
      *
-     * @instance
      * @param    {string} name
      * @param    {string|object} value
      * @return   {object}

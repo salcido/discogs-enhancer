@@ -31,9 +31,9 @@ $(document).ready(function() {
    * pos/neu/negDiff: the number of new feedback reviews
    *
    * @param    {string} type
-   * @param    {number | string} posDiff
-   * @param    {number | string} neuDiff
-   * @param    {number | string} negDiff
+   * @param    {number | string} posDiff: difference between previous/current stats
+   * @param    {number | string} neuDiff: ""
+   * @param    {number | string} negDiff: ""
    * @return   {undefined}
    */
 
@@ -81,8 +81,7 @@ $(document).ready(function() {
    * objName:
    *
    * @param    {string} objName:  the name of the localStorage item
-   *                              obj: the object written to localStorage
-   * @param    {object} obj
+   * @param    {object} obj: the object written to localStorage
    * @return   {method}
    */
 
@@ -110,7 +109,7 @@ $(document).ready(function() {
    *
    * gTotal: the grand total of the buyer/seller f eedbacks
    *
-   * @param    {number} gTotal
+   * @param    {number} gTotal: total number of all transactions
    * @return   {function}
    */
 
@@ -205,9 +204,7 @@ $(document).ready(function() {
   /**
    * Appends existing notifications if they have not been acknowledged
    *
-   * type: either 'buyer' or 'seller'
-   *
-   * @param    {string}  type
+   * @param    {string}  type: either 'buyer' or 'seller'
    * @return   {function}
    */
 
@@ -246,8 +243,8 @@ $(document).ready(function() {
    * Creates the fbBuyer/fbSeller objects when none exist.
    *
    * @param    {object} fbBuyer | fbSeller
-   * @param    {function} action will always be resetObjs();
-   * @param    {function} callback will always be updateObjVals();
+   * @param    {function} action: will always be resetObjs()
+   * @param    {function} callback: will always be updateObjVals()
    */
 
   function initObjVals(action, callback) {
@@ -271,7 +268,6 @@ $(document).ready(function() {
             selector = '#page_aside .list_no_style.user_marketplace_rating ',
             buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
             seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
-
             response = { seller: seller, buyer: buyer };
 
         if (debug) { console.timeEnd('initObjVals'); }
@@ -285,7 +281,7 @@ $(document).ready(function() {
   /**
    * Resets the objects with the most recent buyer/seller grand total stats
    *
-   * @param    {object} obj - {seller: seller, buyer: buyer}
+   * @param    {object} obj: {seller: seller, buyer: buyer}
    */
 
   function resetObjs(obj) {
@@ -344,9 +340,7 @@ $(document).ready(function() {
    * Sets the object with the most recent stats
    * from the profile page
    *
-   * type: either 'buyer' or 'seller'
-   *
-   * @param    {string} type
+   * @param    {string} type: either 'buyer' or 'seller'
    * @return   {undefined}
    */
 
