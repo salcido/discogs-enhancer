@@ -12,31 +12,17 @@ $(document).ready(function() {
 
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 1000;//900000, // 15 mins
-
-  let
-      d = new Date();
-
-  let
-      debug = resourceLibrary.options.debug();
-
-  let
+      baseValsInterval = 900000, // 15 mins
+      d = new Date(),
+      debug = resourceLibrary.options.debug(),
       fbBuyer = resourceLibrary.getItem('fbBuyer'),
-      fbSeller = resourceLibrary.getItem('fbSeller');
-
-  let
-      language = resourceLibrary.language();
-
-  let
+      fbSeller = resourceLibrary.getItem('fbSeller'),
+      language = resourceLibrary.language(),
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
-      timeStamp = d.getTime();
-
-  let
-      //user = $('#site_account_menu').find('.user_image').attr('alt');
-      user = 'recordsale-de';
-
-  let
-      waitTime = lastChecked + 1000;//120000; // 2 mins
+      timeStamp = d.getTime(),
+      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = 'KISSMYDISC.JP',
+      waitTime = lastChecked + 120000; // 2 mins
 
 
   /**
@@ -44,7 +30,6 @@ $(document).ready(function() {
    *
    * pos/neu/negDiff: the number of new feedback reviews
    *
-   * @instance
    * @param    {string} type
    * @param    {number | string} posDiff
    * @param    {number | string} neuDiff
@@ -95,7 +80,6 @@ $(document).ready(function() {
    *
    * objName:
    *
-   * @instance
    * @param    {string} objName:  the name of the localStorage item
    *                              obj: the object written to localStorage
    * @param    {object} obj
@@ -126,7 +110,6 @@ $(document).ready(function() {
    *
    * gTotal: the grand total of the buyer/seller f eedbacks
    *
-   * @instance
    * @param    {number} gTotal
    * @return   {function}
    */
@@ -150,9 +133,7 @@ $(document).ready(function() {
     return $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
-
       type: 'GET',
-
       dataType: 'html',
 
       success: function(response) {
@@ -226,7 +207,6 @@ $(document).ready(function() {
    *
    * type: either 'buyer' or 'seller'
    *
-   * @instance
    * @param    {string}  type
    * @return   {function}
    */
@@ -265,7 +245,6 @@ $(document).ready(function() {
   /**
    * Creates the fbBuyer/fbSeller objects when none exist.
    *
-   * @instance
    * @param    {object} fbBuyer | fbSeller
    * @param    {function} action will always be resetObjs();
    * @param    {function} callback will always be updateObjVals();
@@ -283,9 +262,7 @@ $(document).ready(function() {
     return $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'user/' + user,
-
       type: 'GET',
-
       dataType: 'html',
 
       success: function(response) {
@@ -369,7 +346,6 @@ $(document).ready(function() {
    *
    * type: either 'buyer' or 'seller'
    *
-   * @instance
    * @param    {string} type
    * @return   {undefined}
    */
@@ -390,9 +366,7 @@ $(document).ready(function() {
     return $.ajax({
 
       url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
-
       type: 'GET',
-
       dataType: 'html',
 
       success: function(response) {
@@ -531,10 +505,9 @@ $(document).ready(function() {
             console.time('reset');
           }
 
-          return $.when(resetObjs( {seller: seller, buyer: buyer} ),
-                        updateObjVals('seller'),
-                        updateObjVals('buyer'))
-
+          return resetObjs( {seller: seller, buyer: buyer} )
+                        .then(updateObjVals('seller'))
+                        .then(updateObjVals('buyer'))
                         .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp));
 
         }
