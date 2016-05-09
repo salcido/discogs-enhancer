@@ -20,8 +20,8 @@ $(document).ready(function() {
       language = resourceLibrary.language(),
       lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
       timeStamp = d.getTime(),
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
-      user = 'KISSMYDISC.JP',
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      //user = 'KISSMYDISC.JP',
       waitTime = lastChecked + 120000; // 2 mins
 
 
@@ -162,6 +162,7 @@ $(document).ready(function() {
         /* Calcuate values to pass to `appendBadge()`
            so that the badge dropdown does not list 0 as a stat.
            I only want to show values greater than 0. */
+
         posDiff = (posDiff > 0 ? posDiff : '');
         neuDiff = (neuDiff > 0 ? neuDiff : '');
         negDiff = (negDiff > 0 ? negDiff : '');
@@ -415,7 +416,8 @@ $(document).ready(function() {
   if (!fbBuyer.hasViewed) { hasNotification('buyer'); }
 
 
-  // poll for changes
+  /*  Poll for changes */
+
   // if user has seen previous updates and its been longer than the `waitTime`
   if (fbBuyer.hasViewed && fbSeller.hasViewed && timeStamp > waitTime) {
 
