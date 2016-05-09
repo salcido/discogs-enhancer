@@ -159,9 +159,9 @@ $(document).ready(function() {
         // Save obj updates
         resourceLibrary.setItem(objName, obj);
 
-        // Calcuate values to pass to `appendBadge()`
-        // so that the badge dropdown does not list 0 as a stat.
-        // I only want to show values greater than 0.
+        /* Calcuate values to pass to `appendBadge()`
+           so that the badge dropdown does not list 0 as a stat.
+           I only want to show values greater than 0. */
         posDiff = (posDiff > 0 ? posDiff : '');
         neuDiff = (neuDiff > 0 ? neuDiff : '');
         negDiff = (negDiff > 0 ? negDiff : '');
@@ -247,7 +247,7 @@ $(document).ready(function() {
    * @param    {function} callback: will always be updateObjVals()
    */
 
-  function initObjVals(action, callback) {
+  function initObjVals() {
 
     if (debug) {
 
@@ -272,7 +272,7 @@ $(document).ready(function() {
 
         if (debug) { console.timeEnd('initObjVals'); }
 
-        return action(response).then(callback('seller')).then(callback('buyer'));
+        return resetObjs(response).then(updateObjVals('seller')).then(updateObjVals('buyer'));
       }
     });
   }
@@ -407,10 +407,7 @@ $(document).ready(function() {
 
 
   // Initialize the `fbBuyer` / `fbSeller` objects;
-  if (!fbBuyer || !fbSeller) {
-
-    return initObjVals(resetObjs, updateObjVals);
-  }
+  if (!fbBuyer || !fbSeller) { return initObjVals(); }
 
 
   // Append notifictions if they are unread.
