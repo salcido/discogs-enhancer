@@ -11,10 +11,14 @@
 $(document).ready(function() {
 
   let
+      converterLastUpdate = resourceLibrary.getItem('converterLastUpdate'),
+      d = new Date(),
+      debug = resourceLibrary.options.debug(),
       language = resourceLibrary.language(),
-      lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency', true),
+      lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency'),
       rates,
       thisSelectedCurrency,
+      today = d.toISOString().split('T')[0],
       markup = '<div class="currency-converter">' +
                   '<div class="toggle">¥ € $</div>' +
                   '<div class="top">' +
@@ -154,6 +158,9 @@ $(document).ready(function() {
 
         rates = resourceLibrary.getItem('converterRates');
 
+        // Set timestamp for last update
+        resourceLibrary.setItem('converterLastUpdate', today);
+
         $('#thatCurrency').prop('disabled', false);
 
         $('.currency-converter #ccInput').prop('disabled', false);
@@ -162,16 +169,12 @@ $(document).ready(function() {
 
         convertCurrency();
 
-        if (resourceLibrary.options.debug()) {
+        if (debug) {
 
           console.log(' ');
-
           console.log('*** Converter Rates ***');
-
           console.log('Date: ', rates.date);
-
           console.log('Base: ', rates.base);
-
           console.log(rates.rates);
         }
       },
@@ -237,6 +240,20 @@ $(document).ready(function() {
   // Disable ability to select '-' option
   // so ajax call does not come back 422 (Unprocessable Entity)
   $('#thisCurrency option[value="-"]').prop('disabled', true);
+
+  // Check to see how old the rates are and update them if needed
+  if (converterLastUpdate !== today || !converterLastUpdate) {
+
+    if (debug) {
+
+      console.log(' ');
+      console.log(' *** Auto-updating Currency Converter rates *** ');
+    }
+
+    rates = resourceLibrary.getItem('converterRates');
+
+    getConverterRates(rates.base);
+  }
 
 
   /**
