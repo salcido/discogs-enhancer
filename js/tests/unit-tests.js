@@ -397,4 +397,6 @@ $(document).ready(function() {
 
     getLanguage();
   }
+
+  //TODO write tests for isJPY prop
 });

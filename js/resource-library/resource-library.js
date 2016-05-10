@@ -382,7 +382,9 @@
            if (obj.price.match(this.symbolRegex[language][i], 'g')) {
 
              if (this.symbolRegex[language][i] === 's*¥' ||
-                 this.symbolRegex[language][i] === 's*￥') {
+                 this.symbolRegex[language][i] === 's*￥' ||
+                 this.symbolRegex[language][i] === 's*JP¥' ||
+                 this.symbolRegex[language][i] === 's*¥JP') {
 
                obj.isJPY = true;
 
@@ -584,13 +586,13 @@
 
         obj.price = String(obj.price);
 
-        obj.price = obj.price.replace('&nbsp;', '');
+        obj.price = obj.price.replace(/&nbsp;/g, '');
 
-        obj.price = obj.price.replace(' ', '');
+        obj.price = obj.price.replace(/ /g, '');
 
-        obj.price = obj.price.replace(',', '');
+        obj.price = obj.price.replace(/,/g, '');
 
-        obj.price = obj.price.replace('.', '');
+        obj.price = obj.price.replace(/\./g, '');
 
         // extract all digits
         let digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
