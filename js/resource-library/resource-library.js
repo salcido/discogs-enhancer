@@ -228,14 +228,27 @@
      * isString: if the item should be parsed into a boolean/object
      *
      * @param    {string} item: name of the item to be returned
-     * @param    {boolean} isString: if the item should be parsed
      * @return   {object}
      */
-    getItem: function(item, isString) {
+    getItem: function(item) {
 
-      return !isString
-             ? JSON.parse(localStorage.getItem(item))
-             : localStorage.getItem(item);
+      try {
+
+        return JSON.parse(localStorage.getItem(item));
+
+      } catch (e) {
+
+        try {
+
+          return localStorage.getItem(item);
+
+        } catch (err) {
+
+          console.log('Could not getItem without errors. Removing item from localStorage');
+
+          return localStorage.removeItem(item);
+        }
+      }
     },
 
     /**

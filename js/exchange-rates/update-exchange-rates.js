@@ -18,7 +18,7 @@ $(document).ready(function() {
       debug = resourceLibrary.options.debug(),
       rates = resourceLibrary.getItem('rates'),
       today = d.toISOString().split('T')[0],
-      userCurrency = resourceLibrary.getItem('userCurrency', 'string');
+      userCurrency = resourceLibrary.getItem('userCurrency');
 
     if (!rates || !lastChecked || lastChecked !== today || typeof rates !== 'object' || userCurrency !== currency) {
 
