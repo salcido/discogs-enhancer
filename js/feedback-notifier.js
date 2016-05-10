@@ -8,17 +8,17 @@
  *
  */
 
+
+
 $(document).ready(function() {
-// TODO move localStorage items into common object
+
   let
-      baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
-      baseValsInterval = 900000, // 15 mins
+      baseValsChecked,
       d = new Date(),
       debug = resourceLibrary.options.debug(),
-      fbBuyer = resourceLibrary.getItem('fbBuyer'),
-      fbSeller = resourceLibrary.getItem('fbSeller'),
+      feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
-      lastChecked = Number(resourceLibrary.getItem('fbLastChecked')),
+      lastChecked = resourceLibrary.getItem('feedbackObj').lastChecked || null,
       timeStamp = d.getTime(),
       user = $('#site_account_menu').find('.user_image').attr('alt'),
       //user = 'KISSMYDISC.JP',
@@ -30,7 +30,7 @@ $(document).ready(function() {
    *
    * pos/neu/negDiff: the number of new feedback reviews
    *
-   * @param    {string} type
+   * @param    {string} type: either buyer or seller
    * @param    {number | string} posDiff: difference between previous/current stats
    * @param    {number | string} neuDiff: ""
    * @param    {number | string} negDiff: ""
@@ -75,17 +75,17 @@ $(document).ready(function() {
 
 
   /**
-   * Updates the `fbBuyer`/`fbSeller` objects hasViewed prop
+   * Updates the `buyer`/`seller` objects hasViewed prop
    * after user clicks on notifications
    *
-   * objName:
-   *
-   * @param    {string} objName:  the name of the localStorage item
+   * @param    {string} type: either buyer or seller
    * @param    {object} obj: the object written to localStorage
    * @return   {method}
    */
 
-  function clearNotification(objName, obj) {
+  function clearNotification(type, obj) {
+
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     // update obj props; obj.gTotal is set during poll for changes
     obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
@@ -100,7 +100,9 @@ $(document).ready(function() {
     obj.hasViewed = true;
 
     // save updated obj
-    return resourceLibrary.setItem(objName, obj);
+    feedbackObj[type] = obj;
+
+    return resourceLibrary.setItem('feedbackObj', feedbackObj);
   }
 
 
@@ -114,13 +116,12 @@ $(document).ready(function() {
 
   function getUpdates(type, gTotal) {
 
-    let
-        obj,
-        objName;
+    let obj;
 
-    objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
 
-    obj = resourceLibrary.getItem(objName);
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
+
+    obj = feedbackObj[type];
 
     if (debug) {
 
@@ -156,7 +157,7 @@ $(document).ready(function() {
         obj.gTotal = gTotal;
 
         // Save obj updates
-        resourceLibrary.setItem(objName, obj);
+        feedbackObj[type] = obj;
 
         /*
            Calcuate values to pass to `appendBadge()`
@@ -179,11 +180,13 @@ $(document).ready(function() {
         //     console.timeEnd('getUpdates');
         //   }
         //
-        //   return clearNotification(objName, obj);
+        //   return clearNotification(type, obj);
         // }
 
         // Set timestamp when checked
-        resourceLibrary.setItem('fbLastChecked', timeStamp);
+        feedbackObj.lastChecked = timeStamp;
+
+        resourceLibrary.setItem('feedbackObj', feedbackObj);
 
         if (debug) {
 
@@ -192,7 +195,7 @@ $(document).ready(function() {
           console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
           console.log('Previous stats:');
           console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
-          console.log(objName + ' obj: ', resourceLibrary.getItem(objName));
+          console.log(type + ' obj: ', feedbackObj[type]);
           console.timeEnd('getUpdates');
         }
 
@@ -212,15 +215,17 @@ $(document).ready(function() {
   function hasNotification(type) {
 
     let
-        objName,
+        //objName,
         negDiff,
         neuDiff,
         obj,
         posDiff;
 
-    objName = (type === 'seller' ? 'fbSeller' : 'fbBuyer');
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
 
-    obj = resourceLibrary.getItem(objName);
+    //objName = (type === 'seller' ? 'seller' : 'buyer');
+
+    obj = feedbackObj[type];
 
     posDiff = obj.posDiff;
     neuDiff = obj.neuDiff;
@@ -241,7 +246,7 @@ $(document).ready(function() {
 
 
   /**
-   * Creates the fbBuyer/fbSeller objects when none exist.
+   * Creates the buyer/seller objects when none exist.
    *
    * @return {function}
    */
@@ -265,9 +270,9 @@ $(document).ready(function() {
 
         let
             selector = '#page_aside .list_no_style.user_marketplace_rating ',
-            buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-            seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
-            response = { seller: seller, buyer: buyer };
+            buyerTotal = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
+            sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
+            response = { seller: sellerTotal, buyer: buyerTotal };
 
         if (debug) { console.timeEnd('initObjVals'); }
 
@@ -289,26 +294,29 @@ $(document).ready(function() {
 
       let
           buyerObj = {
-            posCount: 0,
+            posCount: [],
             posDiff: 0,
-            neuCount: 0,
+            neuCount: [],
             neuDiff: 0,
-            negCount: 0,
+            negCount: [],
             negDiff: 0,
             gTotal: obj.buyer,
             hasViewed: true
           },
 
           sellerObj = {
-            posCount: 0,
+            posCount: [],
             posDiff: 0,
-            neuCount: 0,
+            neuCount: [],
             neuDiff: 0,
-            negCount: 0,
+            negCount: [],
             negDiff: 0,
             gTotal: obj.seller,
             hasViewed: true
           };
+
+      // Get current object state
+      feedbackObj = resourceLibrary.getItem('feedbackObj');
 
       if (debug) {
 
@@ -321,8 +329,11 @@ $(document).ready(function() {
         console.time('resetObjs');
       }
 
-      resourceLibrary.setItem('fbSeller', sellerObj);
-      resourceLibrary.setItem('fbBuyer', buyerObj);
+      feedbackObj.seller = sellerObj;
+      feedbackObj.buyer = buyerObj;
+
+      // Save current state
+      resourceLibrary.setItem('feedbackObj', feedbackObj);
 
       if (debug) {
 
@@ -346,8 +357,10 @@ $(document).ready(function() {
   function updateObjVals(type) {
 
     let
-        objName = (type === 'buyer' ? 'fbBuyer' : 'fbSeller'),
+        //objName = (type === 'buyer' ? 'buyer' : 'seller'),
         randomTime = Math.random();
+
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     if (debug) {
 
@@ -365,12 +378,13 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            obj = resourceLibrary.getItem(objName),
-            selector = '#page_content .table_block.fright ',
+            obj = feedbackObj[type],
+            selector = '',
             neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
             neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
             pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
 
+//console.log($('#page_content .table_block.fright .pos-rating-text').next('td').next('td').text().trim());
         // assign new values to obj
         obj.posCount = pos;
         obj.neuCount = neu;
@@ -378,10 +392,12 @@ $(document).ready(function() {
         obj.hasViewed = true;
 
         // Save obj updates
-        resourceLibrary.setItem(objName, obj);
+        feedbackObj[type] = obj;
 
         // Set timestamp when checked
-        resourceLibrary.setItem('fbLastChecked', timeStamp);
+        feedbackObj.lastChecked = timeStamp;
+
+        resourceLibrary.setItem('feedbackObj', feedbackObj);
 
         if (debug) {
 
@@ -397,27 +413,57 @@ $(document).ready(function() {
   language = (language === 'en' ? '' : language + '/');
 
 
-  // Create and assign `baseValsChecked` if it does not exist.
-  if (!baseValsChecked) {
+  // Create our object if it does not exist
+  if (!resourceLibrary.getItem('feedbackObj')) {
 
-    resourceLibrary.setItem('fbBaseValsChecked', timeStamp);
-    baseValsChecked = resourceLibrary.getItem('fbBaseValsChecked');
+    feedbackObj = {
+      baseValsChecked: null,
+      updateInterval: 900000,
+      buyer: null,
+      seller: null,
+      lastChecked: null
+    };
+
+    // Save it...
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
+
+    // Get newly saved object
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
   }
 
 
-  // Initialize the `fbBuyer` / `fbSeller` objects;
-  if (!fbBuyer || !fbSeller) { return initObjVals(); }
+  // Create and assign `baseValsChecked` if it does not exist.
+  if (!baseValsChecked) {
+
+    // Get object
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
+
+    // Give it a new prop value
+    feedbackObj.baseValsChecked = timeStamp;
+
+    // Save updated object
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
+
+    // Set value on var
+    baseValsChecked = feedbackObj.baseValsChecked;
+  }
+
+
+  // Initialize the `buyer` / `seller` objects;
+  if (!feedbackObj.buyer || !feedbackObj.seller) { return initObjVals(); }
 
 
   // Append notifictions if they are unread.
-  if (!fbSeller.hasViewed) { hasNotification('seller'); }
-  if (!fbBuyer.hasViewed) { hasNotification('buyer'); }
+  if (!feedbackObj.seller.hasViewed) { hasNotification('seller'); }
+  if (!feedbackObj.buyer.hasViewed) { hasNotification('buyer'); }
 
 
   /*  Poll for changes */
 
   // if user has seen previous updates and its been longer than the `waitTime`
-  if (fbBuyer.hasViewed && fbSeller.hasViewed && timeStamp > waitTime) {
+  if (feedbackObj.buyer.hasViewed && feedbackObj.seller.hasViewed && timeStamp > waitTime) {
+
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     if (debug) { console.time('poll-time'); }
 
@@ -431,50 +477,52 @@ $(document).ready(function() {
 
         let
             selector = '#page_aside .list_no_style.user_marketplace_rating ',
-            buyer = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-            seller = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
+            buyerTotal = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
+            sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
 
         // Set timestamp when checked
-        resourceLibrary.setItem('fbLastChecked', timeStamp);
+        feedbackObj.lastChecked = timeStamp;
+
+        resourceLibrary.setItem('feedbackObj', feedbackObj);
 
         if (debug) {
 
           console.log(' ');
           console.log(' *** Polling for changes *** ');
-          console.log('buyer count: ', buyer, 'seller count: ', seller);
+          console.log('buyer count: ', buyerTotal, 'seller count: ', sellerTotal);
           console.timeEnd('poll-time');
         }
 
-        if (seller > fbSeller.gTotal) {
+        if (sellerTotal > feedbackObj.seller.gTotal) {
 
           if (debug) {
 
             console.log(' ');
             console.log(' *** Changes in Seller stats detected *** ');
-            console.log('difference of: ', seller - fbSeller.gTotal);
-            console.log(fbSeller);
+            console.log('difference of: ', sellerTotal - feedbackObj.seller.gTotal);
+            console.log(feedbackObj.seller);
           }
 
-          // Pass in new grand total from polling (`seller`);
-          return getUpdates('seller', seller);
+          // Pass in new grand total from polling;
+          return getUpdates('seller', sellerTotal);
         }
 
-        if (buyer > fbBuyer.gTotal) {
+        if (buyerTotal > feedbackObj.buyer.gTotal) {
 
           if (debug) {
 
             console.log(' ');
             console.log(' *** Changes in Buyer stats detected *** ');
-            console.log('difference of: ', buyer - fbBuyer.gTotal);
-            console.log(fbBuyer);
+            console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
+            console.log(feedbackObj.buyer);
           }
 
-          return getUpdates('buyer', buyer);
+          return getUpdates('buyer', buyerTotal);
         }
 
         /*
 
-            if the `gTotal` has not changed, reset the `fbBuyer` / `fbSeller` objects
+            if the `gTotal` has not changed, reset the `buyer` / `seller` objects
             so that when a user's stats change due to the 3|6|12 month number updates
             the notifications still (hopefully) correctly identify when a
             review is posted.
@@ -486,8 +534,10 @@ $(document).ready(function() {
 
         */
 
+        feedbackObj = resourceLibrary.getItem('feedbackObj');
+
         // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
-        if (buyer <= fbBuyer.gTotal && seller <= fbSeller.gTotal && timeStamp > baseValsChecked + baseValsInterval) {
+        if (buyerTotal <= feedbackObj.buyer.gTotal && sellerTotal <= feedbackObj.seller.gTotal && timeStamp > feedbackObj.baseValsChecked + feedbackObj.updateInterval) {
 
           if (debug) {
 
@@ -496,10 +546,10 @@ $(document).ready(function() {
             console.time('reset');
           }
 
-          return resetObjs( {seller: seller, buyer: buyer} )
+          return resetObjs( {seller: sellerTotal, buyer: buyerTotal} )
                         .then(updateObjVals('seller'))
                         .then(updateObjVals('buyer'))
-                        .then(resourceLibrary.setItem('fbBaseValsChecked', timeStamp));
+                        .then(feedbackObj.baseValsChecked = timeStamp);
 
         }
       }
@@ -516,22 +566,22 @@ $(document).ready(function() {
 
       let
           elemClass = this.className,
-          objName,
+          type,
           obj;
 
       if (elemClass === 'nav_group_control de-buyer-feedback') {
 
-        objName = 'fbBuyer';
+        type = 'buyer';
       }
 
       if (elemClass === 'nav_group_control de-seller-feedback') {
 
-        objName = 'fbSeller';
+        type = 'seller';
       }
 
-      obj = resourceLibrary.getItem(objName);
+      obj = resourceLibrary.getItem('feedbackObj')[type];
 
-      clearNotification(objName, obj);
+      clearNotification(type, obj);
 
       return $(this).parent().hide();
     });
@@ -542,29 +592,26 @@ $(document).ready(function() {
       let
           elem = this.className,
           id = $(this).parent().parent().attr('id'),
-          objName,
           obj,
           type;
 
       if (id === 'de-seller-feedback') {
 
-        objName = 'fbSeller';
         type = 'seller';
       }
 
       if (id === 'de-buyer-feedback') {
 
-        objName = 'fbBuyer';
         type = 'buyer';
       }
 
-      obj = resourceLibrary.getItem(objName);
+      obj = resourceLibrary.getItem('feedbackObj')[type];
 
       switch (elem) {
 
         case 'pos-reviews':
 
-          clearNotification(objName, obj);
+          clearNotification(type, obj);
 
           /*
              These hrefs are declared here because I need to be able to update
@@ -575,13 +622,13 @@ $(document).ready(function() {
 
         case 'neu-reviews':
 
-          clearNotification(objName, obj);
+          clearNotification(type, obj);
 
           return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Neutral';
 
         case 'neg-reviews last':
 
-          clearNotification(objName, obj);
+          clearNotification(type, obj);
 
           return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Negative';
       }

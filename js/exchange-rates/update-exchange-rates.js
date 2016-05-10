@@ -11,11 +11,11 @@
 $(document).ready(function() {
 
   let
-      updateRatesObj = resourceLibrary.getItem('updateRatesObj') || null,
       d = new Date(),
-      language = resourceLibrary.language(),
       debug = resourceLibrary.options.debug(),
+      language = resourceLibrary.language(),
       today = d.toISOString().split('T')[0],
+      updateRatesObj = resourceLibrary.getItem('updateRatesObj') || null,
       userCurrency = resourceLibrary.getItem('userCurrency');
 
   // Create our object if it does not exist
@@ -30,7 +30,7 @@ $(document).ready(function() {
     // Save it...
     resourceLibrary.setItem('updateRatesObj', updateRatesObj);
 
-    // Get it...
+    // Get it again because reasons
     updateRatesObj = resourceLibrary.getItem('updateRatesObj');
   }
 
@@ -42,7 +42,9 @@ $(document).ready(function() {
     case typeof updateRatesObj.rates !== 'object':
     case userCurrency !== updateRatesObj.currency:
 
-      // Remove old prices
+      // Remove old prices.
+      // This will trigger a user alert if something tries to access
+      // these rates before they have been returned from fixer.io
       updateRatesObj.rates = null;
 
       if (debug) {

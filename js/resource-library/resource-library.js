@@ -151,9 +151,8 @@
     convertPrices: function(source, rates) {
 
       if (!rates) {
-
         // Current rates from Fixer.io
-        rates = JSON.parse(localStorage.getItem('updateRatesObj')).rates;
+        rates = this.getItem('updateRatesObj').rates;
 
         if (rates === null) {
 
