@@ -244,7 +244,7 @@
 
         } catch (err) {
 
-          console.log('Could not getItem without errors. Removing item from localStorage');
+          console.warn('Could not getItem without errors. Removing item from localStorage');
 
           return localStorage.removeItem(item);
         }
