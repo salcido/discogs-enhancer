@@ -11,18 +11,39 @@
 $(document).ready(function() {
 
   let
-      currency = resourceLibrary.getItem('currency'),
+      updateRatesObj = resourceLibrary.getItem('updateRatesObj') || null,
       d = new Date(),
       language = resourceLibrary.language(),
-      lastChecked = resourceLibrary.getItem('lastChecked'),
       debug = resourceLibrary.options.debug(),
-      rates = resourceLibrary.getItem('rates'),
       today = d.toISOString().split('T')[0],
       userCurrency = resourceLibrary.getItem('userCurrency');
 
-    if (!rates || !lastChecked || lastChecked !== today || typeof rates !== 'object' || userCurrency !== currency) {
+  // Create our object if it does not exist
+  if (!resourceLibrary.getItem('updateRatesObj')) {
 
-      resourceLibrary.setItem('rates', null);
+    updateRatesObj = {
+      currency: null,
+      lastChecked: null,
+      rates: null
+    };
+
+    // Save it...
+    resourceLibrary.setItem('updateRatesObj', updateRatesObj);
+
+    // Get it...
+    updateRatesObj = resourceLibrary.getItem('updateRatesObj');
+  }
+
+  switch (true) {
+
+    case !updateRatesObj.rates:
+    case !updateRatesObj.lastChecked:
+    case updateRatesObj.lastChecked !== today:
+    case typeof updateRatesObj.rates !== 'object':
+    case userCurrency !== updateRatesObj.currency:
+
+      // Remove old prices
+      updateRatesObj.rates = null;
 
       if (debug) {
         console.log(' ');
@@ -35,25 +56,26 @@ $(document).ready(function() {
 
         type: 'GET',
 
-        success: function(ratesObj) {
+        success: function(response) {
 
-          resourceLibrary.setItem('rates', ratesObj);
+          updateRatesObj.rates = response;
 
-          rates = resourceLibrary.getItem('rates');
-
-          resourceLibrary.setItem('lastChecked', today);
+          updateRatesObj.lastChecked = today;
 
           // set last saved currency,
           // if different from userCurrency will
           // trigger exchange rates update
-          resourceLibrary.setItem('currency', userCurrency);
+          updateRatesObj.currency = userCurrency;
 
           if (debug) {
 
             console.log('*** Fresh rates ***');
-            console.log('Last update:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-            console.log('rates', resourceLibrary.getItem('rates'));
+            console.log('Last update:', updateRatesObj.lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+            console.log('rates', updateRatesObj.rates.rates);
           }
+
+          // Save object to localStorage
+          resourceLibrary.setItem('updateRatesObj', updateRatesObj);
         },
 
         error: function() {
@@ -64,16 +86,20 @@ $(document).ready(function() {
         }
       });
 
-    } else {
+      break;
 
-      if (debug) {
+  default:
 
-        console.log(' ');
-        console.log('Discogs Enhancer: Using cached rates:', lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-        console.log('rates', resourceLibrary.getItem('rates'));
-      }
+    if (debug) {
+
+      console.log(' ');
+      console.log('Discogs Enhancer: Using cached rates:', updateRatesObj.lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+      console.log('rates', updateRatesObj.rates);
     }
 
-    // Store user's lagnuage preference
-    resourceLibrary.setItem('language', language);
+    break;
+  }
+
+  // Store user's lagnuage preference
+  resourceLibrary.setItem('language', language);
 });

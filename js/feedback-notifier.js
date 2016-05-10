@@ -9,7 +9,7 @@
  */
 
 $(document).ready(function() {
-
+// TODO move localStorage items into common object
   let
       baseValsChecked = Number(resourceLibrary.getItem('fbBaseValsChecked')),
       baseValsInterval = 900000, // 15 mins
@@ -169,18 +169,18 @@ $(document).ready(function() {
 
         // Discogs stats seem to shift which causes a false
         // triggering of the notifications
-        if (posDiff === '' && neuDiff === '' && negDiff === '') {
-
-          if (debug) {
-
-            console.log(' ');
-            console.log(' *** False positive triggered *** ');
-            console.log(' *** No changes *** ');
-            console.timeEnd('getUpdates');
-          }
-
-          return clearNotification(objName, obj);
-        }
+        // if (posDiff === '' && neuDiff === '' && negDiff === '') {
+        //
+        //   if (debug) {
+        //
+        //     console.log(' ');
+        //     console.log(' *** False positive triggered *** ');
+        //     console.log(' *** No changes *** ');
+        //     console.timeEnd('getUpdates');
+        //   }
+        //
+        //   return clearNotification(objName, obj);
+        // }
 
         // Set timestamp when checked
         resourceLibrary.setItem('fbLastChecked', timeStamp);

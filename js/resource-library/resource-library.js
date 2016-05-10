@@ -153,7 +153,7 @@
       if (!rates) {
 
         // Current rates from Fixer.io
-        rates = JSON.parse(localStorage.getItem('rates'));
+        rates = JSON.parse(localStorage.getItem('updateRatesObj')).rates;
 
         if (rates === null) {
 
@@ -377,18 +377,22 @@
          for (i = 0; i < this.symbolRegex[language].length; i++) {
 
            if (obj.price.match(this.symbolRegex[language][i], 'g')) {
-//TODO make switch statement
-             if (this.symbolRegex[language][i] === 's*¥' ||
-                 this.symbolRegex[language][i] === 's*￥' ||
-                 this.symbolRegex[language][i] === 's*JP¥' ||
-                 this.symbolRegex[language][i] === 's*¥JP') {
 
-               obj.isJPY = true;
+            switch (true) {
 
-             } else {
+              case this.symbolRegex[language][i] === 's*¥':
+              case this.symbolRegex[language][i] === 's*￥':
+              case this.symbolRegex[language][i] === 's*JP¥':
+              case this.symbolRegex[language][i] === 's*¥JP':
 
-               obj.isJPY = false;
-             }
+                obj.isJPY = true;
+                break;
+
+              default:
+
+                obj.isJPY = false;
+                break;
+            }
 
              obj.exchangeName = this.exchangeList[i];
 
