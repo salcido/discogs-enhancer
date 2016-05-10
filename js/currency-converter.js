@@ -242,7 +242,7 @@ $(document).ready(function() {
   $('#thisCurrency option[value="-"]').prop('disabled', true);
 
   // Check to see how old the rates are and update them if needed
-  if (converterLastUpdate !== today || !converterLastUpdate) {
+  if (rates && converterLastUpdate !== today || rates && !converterLastUpdate) {
 
     if (debug) {
 

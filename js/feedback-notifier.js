@@ -107,8 +107,7 @@ $(document).ready(function() {
   /**
    * Gets Buyer/Seller number updates from profile
    *
-   * gTotal: the grand total of the buyer/seller f eedbacks
-   *
+   * @param    {string} type: either `buyer` or `seller`
    * @param    {number} gTotal: total number of all transactions
    * @return   {function}
    */
@@ -159,10 +158,11 @@ $(document).ready(function() {
         // Save obj updates
         resourceLibrary.setItem(objName, obj);
 
-        /* Calcuate values to pass to `appendBadge()`
+        /*
+           Calcuate values to pass to `appendBadge()`
            so that the badge dropdown does not list 0 as a stat.
-           I only want to show values greater than 0. */
-
+           I only want to show values greater than 0.
+        */
         posDiff = (posDiff > 0 ? posDiff : '');
         neuDiff = (neuDiff > 0 ? neuDiff : '');
         negDiff = (negDiff > 0 ? negDiff : '');
@@ -243,9 +243,7 @@ $(document).ready(function() {
   /**
    * Creates the fbBuyer/fbSeller objects when none exist.
    *
-   * @param    {object} fbBuyer | fbSeller
-   * @param    {function} action: will always be resetObjs()
-   * @param    {function} callback: will always be updateObjVals()
+   * @return {function}
    */
 
   function initObjVals() {
@@ -568,9 +566,11 @@ $(document).ready(function() {
 
           clearNotification(objName, obj);
 
-          // These hrefs are declared here because I need to be able to update
-          // the object props before the transition. Don't try to pass them into the
-          // appendBadge markup. It won't work.
+          /*
+             These hrefs are declared here because I need to be able to update
+             the object props before the transition. Don't try to pass them into the
+             appendBadge markup. It won't work.
+          */
           return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Positive';
 
         case 'neu-reviews':
