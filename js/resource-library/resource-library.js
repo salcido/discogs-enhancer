@@ -223,13 +223,10 @@
      * Convenience method so I don't forget to parse
      * my localStorage objects.
      *
-     * item: the item to get from localStorage
-     *
-     * isString: if the item should be parsed into a boolean/object
-     *
      * @param    {string} item: name of the item to be returned
-     * @return   {object}
+     * @return   {object | string}
      */
+
     getItem: function(item) {
 
       try {
@@ -380,7 +377,7 @@
          for (i = 0; i < this.symbolRegex[language].length; i++) {
 
            if (obj.price.match(this.symbolRegex[language][i], 'g')) {
-
+//TODO make switch statement
              if (this.symbolRegex[language][i] === 's*¥' ||
                  this.symbolRegex[language][i] === 's*￥' ||
                  this.symbolRegex[language][i] === 's*JP¥' ||
