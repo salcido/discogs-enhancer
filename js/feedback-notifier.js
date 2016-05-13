@@ -616,7 +616,7 @@ $(document).ready(function() {
           }
 
           // Pass in new grand total from polling;
-          return getUpdates('seller', sellerTotal);
+          getUpdates('seller', sellerTotal);
         }
 
         if (buyerTotal > feedbackObj.buyer.gTotal) {
@@ -629,7 +629,7 @@ $(document).ready(function() {
             console.log(feedbackObj.buyer);
           }
 
-          return getUpdates('buyer', buyerTotal);
+          getUpdates('buyer', buyerTotal);
         }
       }
     });
