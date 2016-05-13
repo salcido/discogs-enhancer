@@ -301,14 +301,17 @@ $(document).ready(function() {
           Neutral Stats
         */
 
+        // update `totalShift` value if necessary
+        totalShift = totalShift - negAnswer;
+
         neuAnswer = findStatsShift('Negative', oldStats.neuCount, newStats.neuCount, totalShift);
 
         /*
           Positive Stats
         */
 
-        // Find the difference (if any) and assign it to posAnswer
-        totalShift = totalShift - (negAnswer + neuAnswer);
+        // update `totalShift` value if necessary
+        totalShift = totalShift - neuAnswer;
 
         posAnswer = (totalShift > 0 ? totalShift : 0);
 
