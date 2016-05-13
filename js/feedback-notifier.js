@@ -145,7 +145,7 @@ $(document).ready(function() {
     if (oldStat[0] === newStat[0] && oldStat[1] === newStat[1] && oldStat[2] === newStat[2]) {
 
       // No changes were found
-      if (debug) { console.log('No changes in Negative ' + type + ' stats'); }
+      if (debug) { console.log('No changes in ' + type + ' stats'); }
 
       answer = 0;
 
@@ -304,7 +304,7 @@ $(document).ready(function() {
         // update `totalShift` value if necessary
         totalShift = totalShift - negAnswer;
 
-        neuAnswer = findStatsShift('Negative', oldStats.neuCount, newStats.neuCount, totalShift);
+        neuAnswer = findStatsShift('Neutral', oldStats.neuCount, newStats.neuCount, totalShift);
 
         /*
           Positive Stats
