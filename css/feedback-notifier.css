@@ -8,10 +8,10 @@
 
 /* Skittle hover states */
 
-.de-seller-feedback .skittle.skittle_collection,
+/*.de-seller-feedback .skittle.skittle_collection,
 .de-seller-feedback .skittle.skittle_collection span.count {
   background: #4DD2FF !important;
-}
+}*/
 
 .de-seller-feedback .skittle.skittle_collection span.count:after {
   content: 'S';

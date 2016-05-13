@@ -8,41 +8,57 @@
  *
  */
 
-
-
 $(document).ready(function() {
 
   let
-      baseValsChecked,
       d = new Date(),
       debug = resourceLibrary.options.debug(),
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
-      lastChecked = resourceLibrary.getItem('feedbackObj').lastChecked || null,
       timeStamp = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = 'recordsale-de',
       //user = 'KISSMYDISC.JP',
-      waitTime = lastChecked + 120000; // 2 mins
-
+      waitTime = 120000; // 2 mins
 
   /**
    * Appends badges to menu bar
-   *
-   * pos/neu/negDiff: the number of new feedback reviews
+
    *
    * @param    {string} type: either buyer or seller
-   * @param    {number | string} posDiff: difference between previous/current stats
-   * @param    {number | string} neuDiff: ""
-   * @param    {number | string} negDiff: ""
+   * @param    {number | string} pos: the number of new feedback reviews
+   * @param    {number | string} neu: ""
+   * @param    {number | string} neg: ""
    * @return   {undefined}
    */
 
-  function appendBadge(type, posDiff, neuDiff, negDiff) {
+  function appendBadge(type) {
 
-    let badge,
-        id;
+    let
+        obj = resourceLibrary.getItem('feedbackObj')[type],
+        existing = (obj.hasViewed ? false : true),
+        badge,
+        id,
+        neg,
+        neu,
+        pos;
 
     id = (type === 'seller' ? 'de-seller-feedback' : 'de-buyer-feedback');
+
+    if (existing && debug) {
+
+      console.log(' ');
+      console.log(' *** Existing notifications for: ' + type + ' *** ');
+    }
+
+    pos = obj.posDiff[0];
+    neu = obj.neuDiff[0];
+    neg = obj.negDiff[0];
+
+    // Don't show a 0 value in notificaiton
+    pos = (pos > 0 ? pos : '');
+    neu = (neu > 0 ? neu : '');
+    neg = (neg > 0 ? neg : '');
 
     badge = '<li style="position: relative;">' +
               '<span id="' + id + '">' +
@@ -54,19 +70,27 @@ $(document).ready(function() {
                 '<ul class="feedback-chart ' + type + '">' +
                   '<li class="pos-reviews" alt="View Positive reviews">' +
                     '<h3 class="pos">Positive</h3>' +
-                    '<h2 class="pos-count">' + posDiff + '</h2>' +
+                    '<h2 class="pos-count">' + pos + '</h2>' +
                   '</li>' +
                   '<li class="neu-reviews" alt="View Neutral reviews">' +
                     '<h3 class="neu">Neutral</h3>' +
-                    '<h2 class="neu-count">' + neuDiff + '</h2>' +
+                    '<h2 class="neu-count">' + neu + '</h2>' +
                   '</li>' +
                   '<li class="neg-reviews last" alt="View negative reviews">' +
                     '<h3 class="neg">Negative</h3>' +
-                    '<h2 class="neg-count">' + negDiff + '</h2>' +
+                    '<h2 class="neg-count">' + neg + '</h2>' +
                   '</li>' +
                 '</ul>' +
               '</span>' +
             '</li>';
+
+    // Remove if appended already.
+    // This is pretty lazy. I should find a more sophisticated way of
+    // dealing with existing notification skittles.... probs with a promise.
+    if (existing) {
+
+      $('.' + type).parent().remove();
+    }
 
     $('#activity_menu').append(badge);
 
@@ -87,17 +111,12 @@ $(document).ready(function() {
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
-    // update obj props; obj.gTotal is set during poll for changes
-    obj.posCount = Number(obj.posCount) + Number(obj.posDiff);
-    obj.posDiff = 0;
-
-    obj.neuCount = Number(obj.neuCount) + Number(obj.neuDiff);
-    obj.neuDiff = 0;
-
-    obj.negCount = Number(obj.negCount) + Number(obj.negDiff);
-    obj.negDiff = 0;
-
+    /* update obj props. */
+    obj.posDiff = [0, 0, 0];
+    obj.neuDiff = [0, 0, 0];
+    obj.negDiff = [0, 0, 0];
     obj.hasViewed = true;
+    // obj.gTotal is set during 'poll for changes' cycle
 
     // save updated obj
     feedbackObj[type] = obj;
@@ -105,6 +124,86 @@ $(document).ready(function() {
     return resourceLibrary.setItem('feedbackObj', feedbackObj);
   }
 
+  /**
+   * Finds the differences between old/new stats.
+   *
+   * @param    {string}      type        either 'Negative' or 'Neutral'
+   * @param    {array}       oldStat     an array of 3/6/12 month stats
+   * @param    {array}       newStat     an array of 3/6/12 month stats
+   * @param    {number}      totalShift  difference between the old gTotal and the new gTotal
+   * @return   {number}
+   */
+
+  function findStatsShift(type, oldStat, newStat, totalShift) {
+
+    let
+        answer,
+        twelveMonthShift = newStat[2] - oldStat[2],
+        sixMonthShift = newStat[1] - oldStat[1],
+        threeMonthShift = newStat[0] - oldStat[0];
+
+    if (oldStat[0] === newStat[0] && oldStat[1] === newStat[1] && oldStat[2] === newStat[2]) {
+
+      // No changes were found
+      if (debug) { console.log('No changes in Negative ' + type + ' stats'); }
+
+      answer = 0;
+
+      return answer;
+
+    } else if (threeMonthShift > 0) {
+
+      // The total change in stats is equal to the total change overall
+      if (threeMonthShift === totalShift) {
+
+        answer = totalShift;
+
+        return answer;
+
+      } else {
+
+        answer = threeMonthShift;
+
+        return answer;
+      }
+
+    } else if (threeMonthShift === 0 && sixMonthShift > 0) {
+
+      if (sixMonthShift === totalShift) {
+
+        answer = totalShift;
+
+        return answer;
+
+      } else {
+
+        answer = sixMonthShift;
+
+        return answer;
+      }
+
+    } else if (threeMonthShift === 0 && sixMonthShift === 0 && twelveMonthShift > 0) {
+
+      if (twelveMonthShift === totalShift) {
+
+        answer = totalShift;
+
+        return answer;
+
+      } else {
+
+        answer = twelveMonthShift;
+
+        return answer;
+      }
+
+    } else {
+
+      answer = 0;
+
+      return answer;
+    }
+  }
 
   /**
    * Gets Buyer/Seller number updates from profile
@@ -116,16 +215,20 @@ $(document).ready(function() {
 
   function getUpdates(type, gTotal) {
 
-    let obj;
-
+    let obj,
+        newStats,
+        oldStats,
+        totalShift;
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     obj = feedbackObj[type];
 
+    totalShift = gTotal - obj.gTotal;
+
     if (debug) {
 
-      console.log(' *** getting updates for ' + type + ' *** ');
+      console.log(' *** Getting updates for ' + type + ' *** ');
       console.time('getUpdates');
     }
 
@@ -140,110 +243,114 @@ $(document).ready(function() {
         let
             selector = '#page_content .table_block.fright ',
 
-            neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            negDiff = (obj.negCount === 0 ? neg : neg - obj.negCount),
+            // New values (yes, this is ugly. sorry.)
+            pos3 = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
+            pos6 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').text().trim() ),
+            pos12 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').next('td').text().trim() ),
 
-            neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            neuDiff = (obj.neuCount === 0 ? neu : neu - obj.neuCount),
+            neu3 = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+            neu6 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').text().trim() ),
+            neu12 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').next('td').text().trim() ),
 
-            pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
-            posDiff = (obj.posCount === 0 ? pos : pos - obj.posCount);
+            neg3 = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+            neg6 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').text().trim() ),
+            neg12 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').next('td').text().trim() ),
 
-        // assign new diff values to obj for reference
-        obj.posDiff = posDiff;
-        obj.neuDiff = neuDiff;
-        obj.negDiff = negDiff;
+            negAnswer,
+            neuAnswer,
+            posAnswer;
+
+        // Our stats objects
+        newStats = {
+          posCount: [pos3, pos6, pos12],
+          neuCount: [neu3, neu6, neu12],
+          negCount: [neg3, neg6, neg12]
+        };
+
+        oldStats = {
+          posCount: [obj.posCount[0], obj.posCount[1], obj.posCount[2]],
+          neuCount: [obj.neuCount[0], obj.neuCount[1], obj.neuCount[2]],
+          negCount: [obj.negCount[0], obj.negCount[1], obj.negCount[2]]
+        };
+
+
+        /*
+          I am getting Negative stats first, as they are the most important notifications
+          to show the user. If there were multiple stat changes
+          (e.g.: one or more positive and neutral/negative feedbacks left), get the negative & neutral
+          ones first. Subtract those numbers from the overall change in stats (aka `totalShift`).
+          Whatever is left over should be the total number of positive feedbacks since they
+          are the most common.
+
+          This is likely not fool-proof. But since the stats constantly shift because of old feedback
+          stats dropping off after 3/6/12 months, it seems the most reliable way to decipher what
+          has changed.
+
+          Do you know a better way? Please tell me! I spent days looking at stat changes for Discogs' user
+          "recordsale-de" - the #1 seller on Discogs. Their numbers shift constantly and I couldn't find
+          a reliable means of tracking the shifts exactly. Math is hard sometimes.
+        */
+
+        /*
+          Negative Stats
+         */
+
+        negAnswer = findStatsShift('Negative', oldStats.negCount, newStats.negCount, totalShift);
+
+        /*
+          Neutral Stats
+        */
+
+        neuAnswer = findStatsShift('Negative', oldStats.neuCount, newStats.neuCount, totalShift);
+
+        /*
+          Positive Stats
+        */
+
+        // Find the difference (if any) and assign it to posAnswer
+        totalShift = totalShift - (negAnswer + neuAnswer);
+
+        posAnswer = (totalShift > 0 ? totalShift : 0);
+
+        /* Assign new diff values to obj for reference */
+
+        // if there are existing notification stats, add them to the new ones,
+        // otherwise, just use the new ones.
+        obj.posDiff[0] = (obj.posDiff[0] > 0 ? obj.posDiff[0] + posAnswer : posAnswer);
+        obj.neuDiff[0] = (obj.neuDiff[0] > 0 ? obj.neuDiff[0] + neuAnswer : neuAnswer);
+        obj.negDiff[0] = (obj.negDiff[0] > 0 ? obj.negDiff[0] + negAnswer : negAnswer);
         obj.hasViewed = false;
         obj.gTotal = gTotal;
 
-        // Save obj updates
+        // Update feedbackObj[type] with new stats
+        obj.posCount = [pos3, pos6, pos12];
+        obj.neuCount = [neu3, neu6, neu12];
+        obj.negCount = [neg3, neg6, neg12];
+
         feedbackObj[type] = obj;
-
-        /*
-           Calcuate values to pass to `appendBadge()`
-           so that the badge dropdown does not list 0 as a stat.
-           I only want to show values greater than 0.
-        */
-        posDiff = (posDiff > 0 ? posDiff : '');
-        neuDiff = (neuDiff > 0 ? neuDiff : '');
-        negDiff = (negDiff > 0 ? negDiff : '');
-
-        // Discogs stats seem to shift which causes a false
-        // triggering of the notifications
-        // if (posDiff === '' && neuDiff === '' && negDiff === '') {
-        //
-        //   if (debug) {
-        //
-        //     console.log(' ');
-        //     console.log(' *** False positive triggered *** ');
-        //     console.log(' *** No changes *** ');
-        //     console.timeEnd('getUpdates');
-        //   }
-        //
-        //   return clearNotification(type, obj);
-        // }
 
         // Set timestamp when checked
         feedbackObj.lastChecked = timeStamp;
 
+        // Save our object with the new stats/notification totals
         resourceLibrary.setItem('feedbackObj', feedbackObj);
 
         if (debug) {
 
           console.log(' ');
           console.log(' *** Got ' + type + ' Updates *** ');
-          console.log('pos: ', pos, 'neu: ', neu, 'neg: ', neg);
+          console.log('pos: ', posAnswer, 'neu: ', neuAnswer, 'neg: ', negAnswer);
           console.log('Previous stats:');
           console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
           console.log(type + ' obj: ', feedbackObj[type]);
+          console.log('Results from new stats', 'pos', posAnswer, 'neu', neuAnswer, 'neg', negAnswer);
           console.timeEnd('getUpdates');
         }
 
-        appendBadge(type, posDiff, neuDiff, negDiff);
+        return appendBadge(type);
       }
     });
   }
-
-
-  /**
-   * Appends existing notifications if they have not been acknowledged
-   *
-   * @param    {string}  type: either 'buyer' or 'seller'
-   * @return   {function}
-   */
-
-  function hasNotification(type) {
-
-    let
-        //objName,
-        negDiff,
-        neuDiff,
-        obj,
-        posDiff;
-
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
-
-    //objName = (type === 'seller' ? 'seller' : 'buyer');
-
-    obj = feedbackObj[type];
-
-    posDiff = obj.posDiff;
-    neuDiff = obj.neuDiff;
-    negDiff = obj.negDiff;
-
-    posDiff = (posDiff > 0 ? posDiff : '');
-    neuDiff = (neuDiff > 0 ? neuDiff : '');
-    negDiff = (negDiff > 0 ? negDiff : '');
-
-    if (debug) {
-
-      console.log(' ');
-      console.log(' *** Existing notifications for: ' + type + ' *** ');
-    }
-
-    return appendBadge(type, posDiff, neuDiff, negDiff);
-  }
-
 
   /**
    * Creates the buyer/seller objects when none exist.
@@ -294,23 +401,23 @@ $(document).ready(function() {
 
       let
           buyerObj = {
-            posCount: [],
-            posDiff: 0,
-            neuCount: [],
-            neuDiff: 0,
-            negCount: [],
-            negDiff: 0,
+            posCount: [0, 0, 0],
+            posDiff: [0, 0, 0],
+            neuCount: [0, 0, 0],
+            neuDiff: [0, 0, 0],
+            negCount: [0, 0, 0],
+            negDiff: [0, 0, 0],
             gTotal: obj.buyer,
             hasViewed: true
           },
 
           sellerObj = {
-            posCount: [],
-            posDiff: 0,
-            neuCount: [],
-            neuDiff: 0,
-            negCount: [],
-            negDiff: 0,
+            posCount: [0, 0, 0],
+            posDiff: [0, 0, 0],
+            neuCount: [0, 0, 0],
+            neuDiff: [0, 0, 0],
+            negCount: [0, 0, 0],
+            negDiff: [0, 0, 0],
             gTotal: obj.seller,
             hasViewed: true
           };
@@ -356,9 +463,7 @@ $(document).ready(function() {
 
   function updateObjVals(type) {
 
-    let
-        //objName = (type === 'buyer' ? 'buyer' : 'seller'),
-        randomTime = Math.random();
+    let randomTime = Math.random();
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
@@ -375,20 +480,36 @@ $(document).ready(function() {
       type: 'GET',
       dataType: 'html',
 
-      success: function(response) {
+      success: (response) => {
 
         let
             obj = feedbackObj[type],
             selector = '',
-            neg = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            neu = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            pos = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() );
+            neg3 = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
+            neu3 = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
+            pos3 = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
 
-//console.log($('#page_content .table_block.fright .pos-rating-text').next('td').next('td').text().trim());
-        // assign new values to obj
-        obj.posCount = pos;
-        obj.neuCount = neu;
-        obj.negCount = neg;
+            neg6 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').text().trim() ),
+            neu6 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').text().trim() ),
+            pos6 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').text().trim() ),
+
+            neg12 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').next('td').text().trim() ),
+            neu12 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').next('td').text().trim() ),
+            pos12 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').next('td').text().trim() );
+
+        // Assign new values to obj
+        obj.negCount[0] = neg3;
+        obj.neuCount[0] = neu3;
+        obj.posCount[0] = pos3;
+
+        obj.negCount[1] = neg6;
+        obj.neuCount[1] = neu6;
+        obj.posCount[1] = pos6;
+
+        obj.negCount[2] = neg12;
+        obj.neuCount[2] = neu12;
+        obj.posCount[2] = pos12;
+
         obj.hasViewed = true;
 
         // Save obj updates
@@ -417,11 +538,10 @@ $(document).ready(function() {
   if (!resourceLibrary.getItem('feedbackObj')) {
 
     feedbackObj = {
-      baseValsChecked: null,
-      updateInterval: 900000,
+      baseValsChecked: timeStamp,
       buyer: null,
       seller: null,
-      lastChecked: null
+      lastChecked: timeStamp
     };
 
     // Save it...
@@ -432,36 +552,26 @@ $(document).ready(function() {
   }
 
 
-  // Create and assign `baseValsChecked` if it does not exist.
-  if (!baseValsChecked) {
-
-    // Get object
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
-
-    // Give it a new prop value
-    feedbackObj.baseValsChecked = timeStamp;
-
-    // Save updated object
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
-
-    // Set value on var
-    baseValsChecked = feedbackObj.baseValsChecked;
-  }
-
-
   // Initialize the `buyer` / `seller` objects;
   if (!feedbackObj.buyer || !feedbackObj.seller) { return initObjVals(); }
 
 
   // Append notifictions if they are unread.
-  if (!feedbackObj.seller.hasViewed) { hasNotification('seller'); }
-  if (!feedbackObj.buyer.hasViewed) { hasNotification('buyer'); }
+  if (!feedbackObj.seller.hasViewed) { appendBadge('seller'); }
+
+  if (!feedbackObj.buyer.hasViewed) { appendBadge('buyer'); }
 
 
-  /*  Poll for changes */
+  /*
 
-  // if user has seen previous updates and its been longer than the `waitTime`
-  if (feedbackObj.buyer.hasViewed && feedbackObj.seller.hasViewed && timeStamp > waitTime) {
+  Poll for changes
+
+  */
+
+  feedbackObj = resourceLibrary.getItem('feedbackObj');
+
+  // If it's been longer than the `waitTime`
+  if (timeStamp > feedbackObj.lastChecked + waitTime) {
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
@@ -489,7 +599,8 @@ $(document).ready(function() {
 
           console.log(' ');
           console.log(' *** Polling for changes *** ');
-          console.log('buyer count: ', buyerTotal, 'seller count: ', sellerTotal);
+          console.log('Buyer count: ', buyerTotal, 'Seller count: ', sellerTotal);
+          console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedbackObj.lastChecked + waitTime).toLocaleTimeString());
           console.timeEnd('poll-time');
         }
 
@@ -518,39 +629,6 @@ $(document).ready(function() {
           }
 
           return getUpdates('buyer', buyerTotal);
-        }
-
-        /*
-
-            if the `gTotal` has not changed, reset the `buyer` / `seller` objects
-            so that when a user's stats change due to the 3|6|12 month number updates
-            the notifications still (hopefully) correctly identify when a
-            review is posted.
-
-            the one exception (that I anticipate at this point) is a review is left
-            and the seller's stats shift on the same day. This would trigger an
-            update cycle but the numbers would not reflect the change. I think
-            this would be rare but I need to think of a solution.
-
-        */
-
-        feedbackObj = resourceLibrary.getItem('feedbackObj');
-
-        // Using the <= operator here in case a user has some reviews removed which would lower the `gTotal` count
-        if (buyerTotal <= feedbackObj.buyer.gTotal && sellerTotal <= feedbackObj.seller.gTotal && timeStamp > feedbackObj.baseValsChecked + feedbackObj.updateInterval) {
-
-          if (debug) {
-
-            console.log(' ');
-            console.log(' *** Resetting Buyer/Seller base values *** ');
-            console.time('reset');
-          }
-
-          return resetObjs( {seller: sellerTotal, buyer: buyerTotal} )
-                        .then(updateObjVals('seller'))
-                        .then(updateObjVals('buyer'))
-                        .then(feedbackObj.baseValsChecked = timeStamp);
-
         }
       }
     });

@@ -120,6 +120,7 @@
        */
 
       preloader: '<span class="converted_price de-preloader"></span>',
+      // <i class="icon icon-spinner icon-spin"></i>
 
       /**
        * Displayed when a user has price comparisons enabled but does
