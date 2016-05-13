@@ -208,8 +208,8 @@ $(document).ready(function() {
   /**
    * Gets Buyer/Seller number updates from profile
    *
-   * @param    {string} type: either `buyer` or `seller`
-   * @param    {number} gTotal: total number of all transactions
+   * @param    {string} type:   Either `buyer` or `seller`
+   * @param    {number} gTotal: Total number of all transactions
    * @return   {function}
    */
 
@@ -575,8 +575,6 @@ $(document).ready(function() {
 
   // If it's been longer than the `waitTime`
   if (timeStamp > feedbackObj.lastChecked + waitTime) {
-
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     if (debug) { console.time('poll-time'); }
 
