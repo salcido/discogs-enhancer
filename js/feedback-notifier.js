@@ -25,10 +25,10 @@ $(document).ready(function() {
    * Appends badges to menu bar
 
    *
-   * @param    {string} type: either buyer or seller
-   * @param    {number | string} pos: the number of new feedback reviews
-   * @param    {number | string} neu: ""
-   * @param    {number | string} neg: ""
+   * @param    {string} type         Either buyer or seller
+   * @param    {number|string} pos   The number of new feedback reviews
+   * @param    {number|string} neu   ""
+   * @param    {number|string} neg   ""
    * @return   {undefined}
    */
 
@@ -102,8 +102,8 @@ $(document).ready(function() {
    * Updates the `buyer`/`seller` objects hasViewed prop
    * after user clicks on notifications
    *
-   * @param    {string} type: either buyer or seller
-   * @param    {object} obj: the object written to localStorage
+   * @param    {string} type  Either buyer or seller
+   * @param    {object} obj   The object written to localStorage
    * @return   {method}
    */
 
@@ -127,10 +127,10 @@ $(document).ready(function() {
   /**
    * Finds the differences between old/new stats.
    *
-   * @param    {string}      type        either 'Negative' or 'Neutral'
-   * @param    {array}       oldStat     an array of 3/6/12 month stats
-   * @param    {array}       newStat     an array of 3/6/12 month stats
-   * @param    {number}      totalShift  difference between the old gTotal and the new gTotal
+   * @param    {string}      type        Either 'Negative' or 'Neutral'
+   * @param    {array}       oldStat     An array of 3/6/12 month stats
+   * @param    {array}       newStat     An array of 3/6/12 month stats
+   * @param    {number}      totalShift  Difference between the old gTotal and the new gTotal
    * @return   {number}
    */
 
@@ -145,7 +145,11 @@ $(document).ready(function() {
     if (oldStat[0] === newStat[0] && oldStat[1] === newStat[1] && oldStat[2] === newStat[2]) {
 
       // No changes were found
-      if (debug) { console.log('No changes in ' + type + ' stats'); }
+      if (debug) {
+
+          console.log('No changes in ' + type + ' stats');
+          console.log('Stats for:', type, 'old:', oldStat, 'new:', newStat);
+        }
 
       answer = 0;
 
@@ -208,8 +212,8 @@ $(document).ready(function() {
   /**
    * Gets Buyer/Seller number updates from profile
    *
-   * @param    {string} type:   Either `buyer` or `seller`
-   * @param    {number} gTotal: Total number of all transactions
+   * @param    {string} type    Either `buyer` or `seller`
+   * @param    {number} gTotal  Total number of all transactions
    * @return   {function}
    */
 
@@ -260,6 +264,7 @@ $(document).ready(function() {
             neuAnswer,
             posAnswer;
 
+
         // Our stats objects
         newStats = {
           posCount: [pos3, pos6, pos12],
@@ -272,7 +277,6 @@ $(document).ready(function() {
           neuCount: [obj.neuCount[0], obj.neuCount[1], obj.neuCount[2]],
           negCount: [obj.negCount[0], obj.negCount[1], obj.negCount[2]]
         };
-
 
         /*
           I am getting Negative stats first, as they are the most important notifications
@@ -460,7 +464,7 @@ $(document).ready(function() {
    * Sets the object with the most recent stats
    * from the profile page
    *
-   * @param    {string} type: either 'buyer' or 'seller'
+   * @param    {string} type  Either 'buyer' or 'seller'
    * @return   {undefined}
    */
 
