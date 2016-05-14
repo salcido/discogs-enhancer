@@ -157,7 +157,8 @@
 
         if (rates === null) {
 
-          resourceLibrary.appendNotice('Discogs Enhancer: Currency has recently been changed. Please refresh the page one more time.', 'orange');
+          //resourceLibrary.appendNotice('Discogs Enhancer: Currency has recently been changed. Please refresh the page one more time.', 'orange');
+          console.log('Currency has recently been changed. Please refresh the page one more time.');
         }
       }
 

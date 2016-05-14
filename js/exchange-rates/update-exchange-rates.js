@@ -84,7 +84,8 @@ $(document).ready(function() {
 
           let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.';
 
-          resourceLibrary.appendNotice(errorMsg, 'orange');
+          //resourceLibrary.appendNotice(errorMsg, 'orange');
+          console.log(errorMsg);
         }
       });
 

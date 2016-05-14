@@ -179,7 +179,8 @@ $(document).ready(function() {
 
         error: function() {
 
-          resourceLibrary.appendNotice('Discogs Enhancer: There was an error getting price data. Please try again later.', 'orange');
+          //resourceLibrary.appendNotice('Discogs Enhancer: There was an error getting price data. Please try again later.', 'orange');
+          console.log('There was an error getting price data. Please try again later.');
         }
       });
     }
