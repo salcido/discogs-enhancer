@@ -11,7 +11,8 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Dark theme
 * Marketplace highlights
 * Sort dialogs & filters alphabetically
-* On screen currency converter
+* On-screen currency converter
+* Buyer/Seller feedback notifications
 * Contextual menu searching
 * Price suggestion comparisons
 * Release durations
@@ -33,10 +34,13 @@ Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Ge
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/sort-buttons.png?raw=true "Sorting preview")
 
-### On screen currency converter
+### On-screen currency converter
 Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency? Have you ever felt annoyed by googling the exchange rate to see what it would actually cost?
 
 The Currency Converter can tell you in an instant!
+
+### Buyer/Seller feedback notifications
+Now you can get alerts when new feedback is left on your profile. The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
 
 ### Contextual menu
 Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer. Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.
