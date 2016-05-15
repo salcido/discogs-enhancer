@@ -600,6 +600,7 @@ a.inset_button[disabled] {
 #site_header .button_green.button,
 .button.button_green,
 .inline_buttons.no_offer a.button.button_green,
+.bulk_actions_submit input,
 .button.button_green span {
     border-color: #4ea332 !important;
     border-top-color: #52ab34 !important;
