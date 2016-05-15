@@ -543,14 +543,13 @@ checkForAnalytics = setInterval(function() {
 
     chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
 
-      if (response.enabled) {
+      let optionsObj = JSON.parse(localStorage.getItem('options'));
 
-        localStorage.setItem('analytics', 'true');
+      optionsObj.analytics = response.enabled === 'true' ? true : false;
 
-      } else {
+      optionsObj = JSON.stringify(optionsObj);
 
-        localStorage.setItem('analytics', 'false');
-      }
+      localStorage.setItem('options', optionsObj);
     });
   }
 
@@ -561,14 +560,13 @@ checkForAnalytics = setInterval(function() {
 
     chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
 
-      if (response.enabled === 'true') {
+      let optionsObj = JSON.parse(localStorage.getItem('options'));
 
-        localStorage.setItem('analytics', 'true');
+      optionsObj.analytics = response.enabled === 'true' ? true : false;
 
-      } else {
+      optionsObj = JSON.stringify(optionsObj);
 
-        localStorage.setItem('analytics', 'false');
-      }
+      localStorage.setItem('options', optionsObj);
     });
 
     clearInterval(checkForAnalytics);

@@ -25,19 +25,31 @@
 
    */
 
-// TODO move all instances of rates to central method here
-
   // Instantiate default option values if not present
-  if (!localStorage.getItem('analytics')) { localStorage.setItem('analytics', 'true'); }
+  if (!localStorage.getItem('options')) {
 
-  if (!localStorage.getItem('colorize')) { localStorage.setItem('colorize', 'false'); }
+    let options = {
+          analytics: true,
+          colorize: false,
+          debug: false,
+          threshold: 2,
+          unitTests: false
+        };
 
-  if (!localStorage.getItem('debug')) { localStorage.setItem('debug', 'false'); }
+    options = JSON.stringify(options);
 
-  if (!localStorage.getItem('threshold')) { localStorage.setItem('threshold', '2'); }
+    localStorage.setItem('options', options);
 
-  if (!localStorage.getItem('unitTests')) { localStorage.setItem('unitTests', 'false'); }
-
+    // Remove old localStorage items if they exist
+    // TODO remove this later
+    localStorage.removeItem('analytics');
+    localStorage.removeItem('colorize');
+    localStorage.removeItem('debug');
+    localStorage.removeItem('threshold');
+    localStorage.removeItem('unitTests');
+    localStorage.removeItem('currency');
+    localStorage.removeItem('rates');
+  }
 
   window.resourceLibrary = {
 
@@ -428,7 +440,7 @@
 
        analytics: function() {
 
-         return JSON.parse(localStorage.getItem('analytics'));
+         return JSON.parse(localStorage.getItem('options')).analytics;
        },
 
        /**
@@ -439,7 +451,7 @@
 
        colorize: function() {
 
-         return JSON.parse(localStorage.getItem('colorize'));
+         return JSON.parse(localStorage.getItem('options')).colorize;
        },
 
        /**
@@ -450,7 +462,7 @@
 
        debug: function() {
 
-         return JSON.parse(localStorage.getItem('debug'));
+         return JSON.parse(localStorage.getItem('options')).debug;
        },
 
        /**
@@ -493,20 +505,24 @@
              analytics = doc.getElementById('analytics').checked,
              colorize = doc.getElementById('colorize').checked,
              debug = doc.getElementById('debug').checked,
+             options,
              threshold = doc.getElementById('threshold').value,
              unitTests = doc.getElementById('unittests').checked;
 
          doc.getElementById('saveOptions').disabled = true;
 
-         localStorage.setItem('analytics', JSON.stringify(analytics));
+         // get options object
+         options = JSON.parse(localStorage.getItem('options'));
 
-         localStorage.setItem('colorize', colorize);
+         options.analytics = analytics;
+         options.colorize = colorize;
+         options.debug = debug;
+         options.threshold = threshold;
+         options.unitTests = unitTests;
 
-         localStorage.setItem('debug', debug);
+         options = JSON.stringify(options);
 
-         localStorage.setItem('threshold', threshold);
-
-         localStorage.setItem('unitTests', unitTests);
+         localStorage.setItem('options', options);
 
          resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
 
@@ -521,7 +537,9 @@
 
        threshold: function() {
 
-         return Number(localStorage.getItem('threshold'));
+         let threshold = JSON.parse(localStorage.getItem('options')).threshold;
+
+         return Number(threshold);
        },
 
        /**
@@ -532,7 +550,7 @@
 
        unitTests: function() {
 
-         return JSON.parse(localStorage.getItem('unitTests'));
+         return JSON.parse(localStorage.getItem('options')).unitTests;
        }
      },
 

@@ -565,7 +565,6 @@ $(document).ready(function() {
 
   // Append notifictions if they are unread.
   if (!feedbackObj.seller.hasViewed) { appendBadge('seller'); }
-
   if (!feedbackObj.buyer.hasViewed) { appendBadge('buyer'); }
 
 
