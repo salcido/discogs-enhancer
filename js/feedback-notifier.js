@@ -16,15 +16,14 @@ $(document).ready(function() {
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = d.getTime(),
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
       //user = 'recordsale-de',
       //user = 'KISSMYDISC.JP',
-      user = 'super.soul.records',
+      //user = 'super.soul.records',
       waitTime = 120000; // 2 mins
 
   /**
    * Appends badges to menu bar
-
    *
    * @param    {string} type         Either buyer or seller
    * @param    {number|string} pos   The number of new feedback reviews
@@ -56,7 +55,7 @@ $(document).ready(function() {
     neu = obj.neuDiff[0];
     neg = obj.negDiff[0];
 
-    // Don't show a 0 value in notificaiton
+    /* Don't show a 0 value in notificaiton */
     pos = (pos > 0 ? pos : '');
     neu = (neu > 0 ? neu : '');
     neg = (neg > 0 ? neg : '');
@@ -85,9 +84,9 @@ $(document).ready(function() {
               '</span>' +
             '</li>';
 
-    // Remove if appended already.
-    // This is pretty lazy. I should find a more sophisticated way of
-    // dealing with existing notification skittles.... probs with a promise.
+    /* Remove if appended already.
+       This is pretty lazy. I should find a more sophisticated way of
+       dealing with existing notification skittles.... probs with a promise. */
     if (existing) {
 
       $('.' + type).parent().remove();
@@ -117,9 +116,9 @@ $(document).ready(function() {
     obj.neuDiff = [0, 0, 0];
     obj.negDiff = [0, 0, 0];
     obj.hasViewed = true;
-    // obj.gTotal is set during 'poll for changes' cycle
+    /* obj.gTotal is set during 'poll for changes' cycle */
 
-    // save updated obj
+    /* save updated obj */
     feedbackObj[type] = obj;
 
     return resourceLibrary.setItem('feedbackObj', feedbackObj);
@@ -145,7 +144,7 @@ $(document).ready(function() {
 
     if (oldStat[0] === newStat[0] && oldStat[1] === newStat[1] && oldStat[2] === newStat[2]) {
 
-      // No changes were found
+      /* No changes were found */
       if (debug) {
 
           console.log('No changes in ' + type + ' stats');
@@ -158,7 +157,7 @@ $(document).ready(function() {
 
     } else if (threeMonthShift > 0) {
 
-      // The total change in stats is equal to the total change overall
+      /* The total change in stats is equal to the total change overall */
       if (threeMonthShift === totalShift) {
 
         answer = totalShift;
@@ -248,7 +247,7 @@ $(document).ready(function() {
         let
             selector = '#page_content .table_block.fright ',
 
-            // New values (yes, this is ugly. sorry.)
+            /* New values (yes, this is ugly. sorry.) */
             pos3 = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
             pos6 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').text().trim() ),
             pos12 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').next('td').text().trim() ),
@@ -266,7 +265,7 @@ $(document).ready(function() {
             posAnswer;
 
 
-        // Our stats objects
+        /* Our stats objects */
         newStats = {
           posCount: [pos3, pos6, pos12],
           neuCount: [neu3, neu6, neu12],
@@ -306,7 +305,7 @@ $(document).ready(function() {
           Neutral Stats
         */
 
-        // update `totalShift` value if necessary
+        /* update `totalShift` value if necessary */
         totalShift = totalShift - negAnswer;
 
         neuAnswer = findStatsShift('Neutral', oldStats.neuCount, newStats.neuCount, totalShift);
@@ -315,32 +314,32 @@ $(document).ready(function() {
           Positive Stats
         */
 
-        // update `totalShift` value if necessary
+        /* update `totalShift` value if necessary */
         totalShift = totalShift - neuAnswer;
 
         posAnswer = (totalShift > 0 ? totalShift : 0);
 
         /* Assign new diff values to obj for reference */
 
-        // if there are existing notification stats, add them to the new ones,
-        // otherwise, just use the new ones.
+        /* If there are existing notification stats, add them to the new ones,
+           otherwise, just use the new ones. */
         obj.posDiff[0] = (obj.posDiff[0] > 0 ? obj.posDiff[0] + posAnswer : posAnswer);
         obj.neuDiff[0] = (obj.neuDiff[0] > 0 ? obj.neuDiff[0] + neuAnswer : neuAnswer);
         obj.negDiff[0] = (obj.negDiff[0] > 0 ? obj.negDiff[0] + negAnswer : negAnswer);
         obj.hasViewed = false;
         obj.gTotal = gTotal;
 
-        // Update feedbackObj[type] with new stats
+        /* Update feedbackObj[type] with new stats */
         obj.posCount = [pos3, pos6, pos12];
         obj.neuCount = [neu3, neu6, neu12];
         obj.negCount = [neg3, neg6, neg12];
 
         feedbackObj[type] = obj;
 
-        // Set timestamp when checked
+        /* Set timestamp when checked */
         feedbackObj.lastChecked = timeStamp;
 
-        // Save our object with the new stats/notification totals
+        /* Save our object with the new stats/notification totals */
         resourceLibrary.setItem('feedbackObj', feedbackObj);
 
         if (debug) {
@@ -430,7 +429,7 @@ $(document).ready(function() {
             hasViewed: true
           };
 
-      // Get current object state
+      /* Get current object state */
       feedbackObj = resourceLibrary.getItem('feedbackObj');
 
       if (debug) {
@@ -447,7 +446,7 @@ $(document).ready(function() {
       feedbackObj.seller = sellerObj;
       feedbackObj.buyer = buyerObj;
 
-      // Save current state
+      /* Save current state */
       resourceLibrary.setItem('feedbackObj', feedbackObj);
 
       if (debug) {
@@ -505,7 +504,7 @@ $(document).ready(function() {
             neu12 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').next('td').text().trim() ),
             pos12 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').next('td').text().trim() );
 
-        // Assign new values to obj
+        /* Assign new values to obj */
         obj.negCount[0] = neg3;
         obj.neuCount[0] = neu3;
         obj.posCount[0] = pos3;
@@ -520,10 +519,10 @@ $(document).ready(function() {
 
         obj.hasViewed = true;
 
-        // Save obj updates
+        /* Save obj updates */
         feedbackObj[type] = obj;
 
-        // Set timestamp when checked
+        /* Set timestamp when checked */
         feedbackObj.lastChecked = timeStamp;
 
         resourceLibrary.setItem('feedbackObj', feedbackObj);
@@ -538,11 +537,11 @@ $(document).ready(function() {
   }
 
 
-  // Set language for URL formation
+  /* Set language for URL formation */
   language = (language === 'en' ? '' : language + '/');
 
 
-  // Create our object if it does not exist
+  /* Create our object if it does not exist */
   if (!resourceLibrary.getItem('feedbackObj')) {
 
     feedbackObj = {
@@ -552,19 +551,19 @@ $(document).ready(function() {
       lastChecked: timeStamp
     };
 
-    // Save it...
+    /* Save it... */
     resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-    // Get newly saved object
+    /* Get newly saved object */
     feedbackObj = resourceLibrary.getItem('feedbackObj');
   }
 
 
-  // Initialize the `buyer` / `seller` objects;
+  /* Initialize the `buyer` / `seller` objects; */
   if (!feedbackObj.buyer || !feedbackObj.seller) { return initObjVals(); }
 
 
-  // Append notifictions if they are unread.
+  /* Append notifictions if they are unread. */
   if (!feedbackObj.seller.hasViewed) { appendBadge('seller'); }
   if (!feedbackObj.buyer.hasViewed) { appendBadge('buyer'); }
 
@@ -577,7 +576,7 @@ $(document).ready(function() {
 
   feedbackObj = resourceLibrary.getItem('feedbackObj');
 
-  // If it's been longer than the `waitTime`
+  /* If it's been longer than the `waitTime` */
   if (timeStamp > feedbackObj.lastChecked + waitTime) {
 
     if (debug) { console.time('poll-time'); }
@@ -595,7 +594,7 @@ $(document).ready(function() {
             buyerTotal = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
             sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
 
-        // Set timestamp when checked
+        /* Set timestamp when checked */
         feedbackObj.lastChecked = timeStamp;
 
         resourceLibrary.setItem('feedbackObj', feedbackObj);
@@ -619,7 +618,7 @@ $(document).ready(function() {
             console.log(feedbackObj.seller);
           }
 
-          // Pass in new grand total from polling;
+          /* Pass in new grand total from polling; */
           getUpdates('seller', sellerTotal);
         }
 
@@ -644,7 +643,7 @@ $(document).ready(function() {
    */
   function bindUi() {
 
-    // Save viewed states and clear notifications
+    /* Save viewed states and clear notifications */
     $('body').on('click', '.de-buyer-feedback, .de-seller-feedback', function() {
 
       let
@@ -669,7 +668,7 @@ $(document).ready(function() {
       return $(this).parent().hide();
     });
 
-    // Menu interactions
+    /* Menu interactions */
     $('body').on('click', '.pos-reviews, .neu-reviews, .neg-reviews', function() {
 
       let
