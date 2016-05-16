@@ -84,6 +84,9 @@ $(document).ready(function() {
               '</span>' +
             '</li>';
 
+    /* Remove preloader */
+    $('.' + type + '_feedbackLoader').remove();
+
     /* Remove if appended already.
        This is pretty lazy. I should find a more sophisticated way of
        dealing with existing notification skittles.... probs with a promise. */
@@ -321,11 +324,15 @@ $(document).ready(function() {
 
         /* Assign new diff values to obj for reference */
 
-        /* If there are existing notification stats, add them to the new ones,
-           otherwise, just use the new ones. */
+        /*
+           If there are existing notification stats,
+           add them to the new ones,
+           otherwise, just use the new ones.
+        */
         obj.posDiff[0] = (obj.posDiff[0] > 0 ? obj.posDiff[0] + posAnswer : posAnswer);
         obj.neuDiff[0] = (obj.neuDiff[0] > 0 ? obj.neuDiff[0] + neuAnswer : neuAnswer);
         obj.negDiff[0] = (obj.negDiff[0] > 0 ? obj.negDiff[0] + negAnswer : negAnswer);
+
         obj.hasViewed = false;
         obj.gTotal = gTotal;
 
@@ -365,13 +372,13 @@ $(document).ready(function() {
    * @return {function}
    */
 
-  function initObjVals() {
+  function createBuyerSellerObjs() {
 
     if (debug) {
 
       console.log(' ');
       console.log(' *** initializing base object values *** ');
-      console.time('initObjVals');
+      console.time('createBuyerSellerObjs');
     }
 
     return $.ajax({
@@ -388,21 +395,21 @@ $(document).ready(function() {
             sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
             response = { seller: sellerTotal, buyer: buyerTotal };
 
-        if (debug) { console.timeEnd('initObjVals'); }
+        if (debug) { console.timeEnd('createBuyerSellerObjs'); }
 
-        return resetObjs(response).then(updateObjVals('seller')).then(updateObjVals('buyer'));
+        return resetStats(response).then(getStatsFor('seller')).then(getStatsFor('buyer'));
       }
     });
   }
 
 
   /**
-   * Resets the objects with the most recent buyer/seller grand total stats
+   * Resets the objects and adds the most recent buyer/seller grand total stats
    *
    * @param    {object} obj: {seller: seller, buyer: buyer}
    */
 
-  function resetObjs(obj) {
+  function resetStats(obj) {
 
     return new Promise(function(resolve, reject) {
 
@@ -440,7 +447,7 @@ $(document).ready(function() {
         console.log(' ');
         console.log('Reset buyerObj: ');
         console.log(buyerObj);
-        console.time('resetObjs');
+        console.time('resetStats');
       }
 
       feedbackObj.seller = sellerObj;
@@ -452,7 +459,7 @@ $(document).ready(function() {
       if (debug) {
 
         console.log('Done resetting buyer/seller objects.');
-        console.timeEnd('resetObjs');
+        console.timeEnd('resetStats');
       }
 
       resolve();
@@ -468,7 +475,7 @@ $(document).ready(function() {
    * @return   {undefined}
    */
 
-  function updateObjVals(type) {
+  function getStatsFor(type) {
 
     /* used to report time elapsed for debugging */
     let randomTime = Math.random();
@@ -561,12 +568,19 @@ $(document).ready(function() {
 
 
   /* Initialize the `buyer` / `seller` objects; */
-  if (!feedbackObj.buyer || !feedbackObj.seller) { return initObjVals(); }
+  if (!feedbackObj.buyer || !feedbackObj.seller) {
+    return createBuyerSellerObjs();
+  }
 
 
   /* Append notifictions if they are unread. */
-  if (!feedbackObj.seller.hasViewed) { appendBadge('seller'); }
-  if (!feedbackObj.buyer.hasViewed) { appendBadge('buyer'); }
+  if (!feedbackObj.seller.hasViewed) {
+    appendBadge('seller');
+  }
+
+  if (!feedbackObj.buyer.hasViewed) {
+    appendBadge('buyer');
+  }
 
 
   /*
@@ -591,6 +605,8 @@ $(document).ready(function() {
       success: function(response) {
 
         let
+            type,
+            preloader,
             selector = '#page_aside .list_no_style.user_marketplace_rating ',
             buyerTotal = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
             sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
@@ -619,6 +635,12 @@ $(document).ready(function() {
             console.log(feedbackObj.seller);
           }
 
+          type = 'seller_';
+
+          preloader = '<li style="position: relative;" class="' + type + 'feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>';
+
+          $('#activity_menu').append(preloader);
+
           /* Pass in new grand total from polling; */
           getUpdates('seller', sellerTotal);
         }
@@ -632,6 +654,12 @@ $(document).ready(function() {
             console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
             console.log(feedbackObj.buyer);
           }
+
+          type = 'buyer_';
+
+          preloader = '<li style="position: relative;" class="' + type + 'feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>';
+
+          $('#activity_menu').append(preloader);
 
           getUpdates('buyer', buyerTotal);
         }
