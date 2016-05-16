@@ -25,7 +25,7 @@
 
    */
 
-  // Instantiate default option values if not present
+  /* Instantiate default option values if not present */
   if (!localStorage.getItem('options')) {
 
     let options = {
@@ -39,9 +39,12 @@
     options = JSON.stringify(options);
 
     localStorage.setItem('options', options);
+  }
 
-    // Remove old localStorage items if they exist
-    // TODO remove this later
+  // Remove old localStorage items if they exist
+  // TODO remove this later
+  if (localStorage.getItem('analytics')) {
+
     localStorage.removeItem('analytics');
     localStorage.removeItem('colorize');
     localStorage.removeItem('debug');
@@ -50,6 +53,7 @@
     localStorage.removeItem('currency');
     localStorage.removeItem('rates');
   }
+
 
   window.resourceLibrary = {
 

@@ -541,13 +541,22 @@ checkForAnalytics = setInterval(function() {
 
   function toggleAnalytics() {
 
+    let optionsObj = JSON.parse(localStorage.getItem('options'));
+
     chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
 
-      let optionsObj = JSON.parse(localStorage.getItem('options'));
+      if (response.enabled) {
 
-      optionsObj.analytics = response.enabled === 'true' ? true : false;
+        optionsObj.analytics = true;
 
-      optionsObj = JSON.stringify(optionsObj);
+        optionsObj = JSON.stringify(optionsObj);
+
+      } else {
+
+        optionsObj.analytics = false;
+
+        optionsObj = JSON.stringify(optionsObj);
+      }
 
       localStorage.setItem('options', optionsObj);
     });
@@ -558,13 +567,22 @@ checkForAnalytics = setInterval(function() {
     // Listen for changes.
     analytics.addEventListener('change', toggleAnalytics);
 
+    let optionsObj = JSON.parse(localStorage.getItem('options'));
+
     chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
 
-      let optionsObj = JSON.parse(localStorage.getItem('options'));
+      if (response.enabled === 'true') {
 
-      optionsObj.analytics = response.enabled === 'true' ? true : false;
+        optionsObj.analytics = true;
 
-      optionsObj = JSON.stringify(optionsObj);
+        optionsObj = JSON.stringify(optionsObj);
+
+      } else {
+
+        optionsObj.analytics = false;
+
+        optionsObj = JSON.stringify(optionsObj);
+      }
 
       localStorage.setItem('options', optionsObj);
     });
