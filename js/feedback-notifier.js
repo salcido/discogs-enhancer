@@ -16,8 +16,8 @@ $(document).ready(function() {
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt'),
-      //user = 'recordsale-de',
+      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = 'recordsale-de',
       //user = 'KISSMYDISC.JP',
       //user = 'super.soul.records',
       waitTime = 120000; // 2 mins
@@ -545,7 +545,7 @@ $(document).ready(function() {
   if (!resourceLibrary.getItem('feedbackObj')) {
 
     feedbackObj = {
-      baseValsChecked: timeStamp,
+      baseValsChecked: timeStamp, // not used but might be useful as install date.
       buyer: null,
       seller: null,
       lastChecked: timeStamp

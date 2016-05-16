@@ -478,11 +478,13 @@
 
          let
              doc = document,
-             analytics = resourceLibrary.options.analytics(),
-             colorize = resourceLibrary.options.colorize(),
-             debug = resourceLibrary.options.debug(),
-             threshold = resourceLibrary.options.threshold(),
-             unitTests = resourceLibrary.options.unitTests();
+             options = resourceLibrary.getItem('options'),
+             //
+             analytics = options.analytics,
+             colorize = options.colorize,
+             debug = options.debug,
+             threshold = options.threshold,
+             unitTests = options.unitTests;
 
          if (analytics) { doc.getElementById('analytics').checked = true; }
 
