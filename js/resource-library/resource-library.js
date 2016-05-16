@@ -516,9 +516,10 @@
 
          doc.getElementById('saveOptions').disabled = true;
 
-         // get options object
+         /* get options object */
          options = JSON.parse(localStorage.getItem('options'));
 
+         /* update values */
          options.analytics = analytics;
          options.colorize = colorize;
          options.debug = debug;
@@ -527,6 +528,7 @@
 
          options = JSON.stringify(options);
 
+         /* save that ish */
          localStorage.setItem('options', options);
 
          resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');

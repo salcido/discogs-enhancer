@@ -470,6 +470,7 @@ $(document).ready(function() {
 
   function updateObjVals(type) {
 
+    /* used to report time elapsed for debugging */
     let randomTime = Math.random();
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');

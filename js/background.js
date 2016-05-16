@@ -520,7 +520,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       thisVersion = chrome.runtime.getManifest().version;
 
-      // Don't show update notice on patches
+      /* Don't show update notice on patches */
       if (thisVersion.substr(0, 3) > previousVersion.substr(0, 3)) {
 
         chrome.browserAction.setBadgeText({text: ' '});
@@ -545,18 +545,9 @@ checkForAnalytics = setInterval(function() {
 
     chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
 
-      if (response.enabled) {
+      optionsObj.analytics = (response.enabled ? true : false);
 
-        optionsObj.analytics = true;
-
-        optionsObj = JSON.stringify(optionsObj);
-
-      } else {
-
-        optionsObj.analytics = false;
-
-        optionsObj = JSON.stringify(optionsObj);
-      }
+      optionsObj = JSON.stringify(optionsObj);
 
       localStorage.setItem('options', optionsObj);
     });
@@ -564,33 +555,16 @@ checkForAnalytics = setInterval(function() {
 
   if (analytics) {
 
-    // Listen for changes.
+    /* Add event listener */
     analytics.addEventListener('change', toggleAnalytics);
 
-    let optionsObj = JSON.parse(localStorage.getItem('options'));
-
-    chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
-
-      if (response.enabled === 'true') {
-
-        optionsObj.analytics = true;
-
-        optionsObj = JSON.stringify(optionsObj);
-
-      } else {
-
-        optionsObj.analytics = false;
-
-        optionsObj = JSON.stringify(optionsObj);
-      }
-
-      localStorage.setItem('options', optionsObj);
-    });
+    /* Fire toggleAnalytics once #analytics exists in the DOM */
+    toggleAnalytics();
 
     clearInterval(checkForAnalytics);
   }
 }, 1000);
 
 
-// Clean up on asile 7!
+/* Clean up on asile 7! */
 window.onload = function() { $('.de-init').remove(); };
