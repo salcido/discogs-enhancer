@@ -469,7 +469,8 @@ $(document).ready(function() {
 
   /**
    * Sets the object with the most recent stats
-   * from the profile page
+   * from the profile page when feedback-notifier is
+   * first run.
    *
    * @param    {string} type  Either 'buyer' or 'seller'
    * @return   {undefined}
@@ -499,7 +500,7 @@ $(document).ready(function() {
 
         let
             obj = feedbackObj[type],
-            selector = '',
+            selector = '#page_content .table_block.fright ',
             neg3 = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
             neu3 = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
             pos3 = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),

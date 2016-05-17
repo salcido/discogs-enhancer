@@ -105,4 +105,5 @@ $(document).ready(function() {
 
   // Store user's lagnuage preference
   resourceLibrary.setItem('language', language);
+
 });
