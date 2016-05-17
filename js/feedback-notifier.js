@@ -639,6 +639,12 @@ $(document).ready(function() {
 
           preloader = '<li style="position: relative;" class="' + type + 'feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>';
 
+          // remove previous badge if it exists
+          if ($('#de-seller-feedback').length) {
+
+            $('#de-seller-feedback').parent().remove();
+          }
+
           $('#activity_menu').append(preloader);
 
           /* Pass in new grand total from polling; */
@@ -658,6 +664,12 @@ $(document).ready(function() {
           type = 'buyer_';
 
           preloader = '<li style="position: relative;" class="' + type + 'feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>';
+
+          // remove previous badge if it exists
+          if ($('#de-buyer-feedback').length) {
+
+            $('#de-buyer-feedback').parent().remove();
+          }
 
           $('#activity_menu').append(preloader);
 
