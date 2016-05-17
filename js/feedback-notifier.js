@@ -16,8 +16,8 @@ $(document).ready(function() {
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = d.getTime(),
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
-      user = 'recordsale-de',
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      //user = 'recordsale-de',
       //user = 'KISSMYDISC.JP',
       //user = 'super.soul.records',
       waitTime = 120000; // 2 mins
@@ -568,7 +568,7 @@ $(document).ready(function() {
   }
 
 
-  /* Initialize the `buyer` / `seller` objects; */
+  /* Create the `buyer` / `seller` objects; */
   if (!feedbackObj.buyer || !feedbackObj.seller) {
     return createBuyerSellerObjs();
   }

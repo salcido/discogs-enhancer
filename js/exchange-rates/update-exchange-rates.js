@@ -35,7 +35,7 @@ $(document).ready(function() {
   }
 
   switch (true) {
-
+// TODO use date prop in rates object for comparison
     case !updateRatesObj.rates:
     case !updateRatesObj.lastChecked:
     case updateRatesObj.lastChecked !== today:
