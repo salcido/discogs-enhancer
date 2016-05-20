@@ -35,10 +35,8 @@ $(document).ready(function() {
   }
 
   switch (true) {
-// TODO use date prop in rates object for comparison
     case !updateRatesObj.rates:
-    case !updateRatesObj.lastChecked:
-    case updateRatesObj.lastChecked !== today:
+    case updateRatesObj.rates.date !== today:
     case typeof updateRatesObj.rates !== 'object':
     case userCurrency !== updateRatesObj.currency:
 
@@ -62,8 +60,6 @@ $(document).ready(function() {
 
           updateRatesObj.rates = response;
 
-          updateRatesObj.lastChecked = today;
-
           // set last saved currency,
           // if different from userCurrency will
           // trigger exchange rates update
@@ -72,7 +68,7 @@ $(document).ready(function() {
           if (debug) {
 
             console.log('*** Fresh rates ***');
-            console.log('Last update:', updateRatesObj.lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+            console.log('Last update:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
             console.log('rates', updateRatesObj.rates.rates);
           }
 
@@ -96,7 +92,7 @@ $(document).ready(function() {
     if (debug) {
 
       console.log(' ');
-      console.log('Discogs Enhancer: Using cached rates:', updateRatesObj.lastChecked, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+      console.log('Discogs Enhancer: Using cached rates:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
       console.log('rates', updateRatesObj.rates);
     }
 
@@ -105,5 +101,4 @@ $(document).ready(function() {
 
   // Store user's lagnuage preference
   resourceLibrary.setItem('language', language);
-
 });

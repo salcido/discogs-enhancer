@@ -11,7 +11,6 @@
 $(document).ready(function() {
 
   let
-      converterLastUpdate = resourceLibrary.getItem('converterLastUpdate'),
       d = new Date(),
       debug = resourceLibrary.options.debug(),
       language = resourceLibrary.language(),
@@ -158,9 +157,6 @@ $(document).ready(function() {
 
         rates = resourceLibrary.getItem('converterRates');
 
-        // Set timestamp for last update
-        resourceLibrary.setItem('converterLastUpdate', today);
-
         $('#thatCurrency').prop('disabled', false);
 
         $('.currency-converter #ccInput').prop('disabled', false);
@@ -243,7 +239,7 @@ $(document).ready(function() {
   $('#thisCurrency option[value="-"]').prop('disabled', true);
 
   // Check to see how old the rates are and update them if needed
-  if (rates && converterLastUpdate !== today || rates && !converterLastUpdate) {
+  if (rates && rates.date !== today) {
 
     if (debug) {
 
@@ -264,8 +260,10 @@ $(document).ready(function() {
    */
 
   $('.currency-converter #ccInput').on('keyup, keydown', function() {
-
-    setTimeout(function() { convertCurrency(); }, 0); // <-- What's a better way to do this?
+    /* setTimeout is used here because without it, calculations are not performed in
+       realtime and, instead, are one calculation behind the last digit entered.
+       What is a better way to do this? */
+    setTimeout(function() { convertCurrency(); }, 0);
   });
 
 

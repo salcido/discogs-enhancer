@@ -43,7 +43,7 @@
 
   // Remove old localStorage items if they exist
   // TODO remove this later
-  if (localStorage.getItem('analytics')) {
+  if (localStorage.getItem('converterLastUpdate')) {
 
     localStorage.removeItem('analytics');
     localStorage.removeItem('colorize');
@@ -52,6 +52,7 @@
     localStorage.removeItem('unitTests');
     localStorage.removeItem('currency');
     localStorage.removeItem('rates');
+    localStorage.removeItem('converterLastUpdate');
   }
 
 
