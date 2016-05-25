@@ -36,9 +36,7 @@ $(document).ready(function() {
 
     function getAndAppendPrices() {
 
-      prices.each(function(i) { priceContainer.push({price: prices[i].innerHTML}); });
-
-      items.each(function(i) { priceContainer[i].mediaCondition = items[i].innerHTML; });
+      prices.each(function(i) { priceContainer.push({price: prices[i].innerHTML, mediaCondition: items[i]}); });
 
       resourceLibrary.matchSymbols(priceContainer);
 
@@ -171,7 +169,9 @@ $(document).ready(function() {
           $('.de-price').remove();
 
           // Reset our values
-          items = $('.shortcut_navigable .item_description .item_condition span.item_media_condition');
+          items = $('.shortcut_navigable .item_description .media-condition-tooltip').map(function() {
+                        return $(this).data('condition');
+                    }).get();
 
           priceContainer = [];
 

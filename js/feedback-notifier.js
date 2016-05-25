@@ -16,10 +16,8 @@ $(document).ready(function() {
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = d.getTime(),
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
-      user = 'recordsale-de',
-      //user = 'KISSMYDISC.JP',
-      //user = 'super.soul.records',
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      //user = 'recordsale-de',
       waitTime = 120000; // 2 mins
 
   /**
