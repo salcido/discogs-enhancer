@@ -9,6 +9,7 @@
  */
 
 let
+    blockSellers,
     checkForAnalytics,
     collectionUi,
     converter,
@@ -53,6 +54,7 @@ chrome.storage.sync.get('prefs', function(result) {
   if (!result.prefs) {
 
     prefs = {
+      blockSellers: true,
       collectionUi: true,
       converter: true,
       darkTheme: true,
@@ -251,6 +253,19 @@ chrome.storage.sync.get('prefs', function(result) {
     feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
 
     elems.push(feedback_css);
+  }
+
+  if (result.prefs.blockSellers) {
+
+    blockSellers = document.createElement('script');
+
+    blockSellers.type = 'text/javascript';
+
+    blockSellers.src = chrome.extension.getURL('js/hide-blocked-sellers.js');
+
+    blockSellers.className = 'de-init';
+
+    elems.push(blockSellers);
   }
 
   if (result.prefs.collectionUi) {

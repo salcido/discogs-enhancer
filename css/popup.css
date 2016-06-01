@@ -99,6 +99,18 @@ a.button_green:hover {
   background-image: linear-gradient(#73cb56,#6ac84b);
 }
 
+a#editList {
+  margin-top: 18px;
+  margin-left: 10px;
+  display: inline-block;
+  color: gray;
+  outline: none;
+}
+
+a#editList:hover {
+  color: white;
+}
+
 .header {
   margin: 0px -20px 15px -20px;
   padding: 0px 10px 8px 25px;

@@ -12,6 +12,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
   let fn = window[msg.fn];
 
+  // contextual menu
   if (msg.request === 'updateContextMenu') {
 
     if (msg.method === 'create') {
@@ -29,6 +30,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     }
   }
 
+  // analytics
   if (msg.request === 'analytics') {
 
     if (msg.enabled) {
@@ -43,5 +45,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       sendResponse({enabled: false});
     }
+  }
+
+  // block sellers
+  if (msg.request === 'getBlockedSellers') {
+
+    let blockList = JSON.parse(localStorage.getItem('blockList'));
+
+    sendResponse({blockList: blockList});
   }
 });

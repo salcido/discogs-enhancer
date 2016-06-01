@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       userCurrency = document.getElementById('currency'),
       isHovering = false,
       prefs = {},
+      toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConditions = document.getElementById('toggleConditions'),
       toggleConverter = document.getElementById('toggleConverter'),
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
       converter: toggleConverter.checked,
       darkTheme: toggleDarkTheme.checked,
       feedback: toggleFeedback.checked,
+      blockSellers: toggleBlockSellers.checked,
       highlightMedia: toggleConditions.checked,
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
@@ -265,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Toggle event listeners
   userCurrency.addEventListener('change', setCurrency);
+  toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConditions.addEventListener('change', toggleHighlights);
   toggleConverter.addEventListener('change', triggerSave);
@@ -295,6 +298,12 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/about.html'});
 
     acknowledgeUpdate();
+  });
+
+  // Open block sellers page
+  $('body').on('click', '#editList', function() {
+
+    chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
 
@@ -358,6 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
+      toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConditions.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;

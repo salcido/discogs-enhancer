@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com">
+    <title>Discogs Enhancer - Block Sellers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/block-sellers-popup.css" type="text/css" media="screen">
+    <script src="../js/jquery/jquery-min.js"></script>
+    <script src="../js/popup/blocked-sellers.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Halant:300,500,600' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+
+      <div class="container">
+        <div class="about">
+          <div class="row">
+
+            <div class="col-lg-12">
+              <div class="title center">
+                <img src="../img/header-2x.png" class="logo">
+                <p class="header">Block Seller Settings</p>
+              </div>
+
+              <div class="content">
+
+                <p>
+                  1. Enter the seller's username as it appears on Discogs.
+                </p>
+
+                <p>
+                  2. Click "Block Seller" to add the seller to the block list.
+                </p>
+
+                <p>
+                  Please note: you must refresh the Marketplace page for changes to take effect.
+                </p>
+
+                <div class="seller-input">
+                  <input type="text" id="seller-input">
+                  <a class="btn btn-success">Block Seller</a>
+                </div>
+
+                <div id="blocked-sellers" class="blocked-sellers">
+
+                  <p>Click on a seller's name to remove the seller from the blocked list.</p>
+
+                  <!-- blocked sellers go here -->
+
+                </div>
+              </div> <!-- end .content -->
+
+            </div> <!-- end center column -->
+          </div> <!-- end .row -->
+        </div> <!-- end .about -->
+      </div> <!-- end .container -->
+
+  </body>
+</html>
