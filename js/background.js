@@ -269,7 +269,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     elems.push(blockSellers);
 
-    // feedback-notifier.css
+    // blocked-seller.css
     blockSellers_css = document.createElement('link');
 
     blockSellers_css.rel = 'stylesheet';
