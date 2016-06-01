@@ -18,8 +18,7 @@
        "matches": ["*://*.discogs.com/*"],
        "js": [
           "js/jquery/jquery-min.js",
-          "js/background.js",
-          "js/hide-blocked-sellers.js"
+          "js/background.js"
         ],
        "run_at" : "document_start"
       }

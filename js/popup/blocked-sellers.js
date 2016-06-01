@@ -8,6 +8,8 @@
  *
  */
 
+// TODO check blockList for duplicates
+// TODO create custom blocklist css
 document.addEventListener('DOMContentLoaded', function () {
 
   let blockList = JSON.parse(localStorage.getItem('blockList'));
@@ -48,6 +50,21 @@ document.addEventListener('DOMContentLoaded', function () {
                       '</div>';
 
     sellers.appendChild(node);
+  });
+
+  // keyup event for Enter key
+  document.addEventListener('keyup', function(e) {
+
+    if (e.which === 13 && $('#seller-input').val()) {
+
+      blockList.push($('#seller-input').val().trim());
+
+      blockList = JSON.stringify(blockList);
+
+      localStorage.setItem('blockList', blockList);
+
+      return location.reload();
+    }
   });
 
   // Add name to block list

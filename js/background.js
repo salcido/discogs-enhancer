@@ -9,6 +9,7 @@
  */
 
 let
+    blockList,
     blockSellers,
     checkForAnalytics,
     collectionUi,
@@ -583,3 +584,26 @@ checkForAnalytics = setInterval(function() {
 
 /* Clean up on asile 7! */
 window.onload = function() { $('.de-init').remove(); };
+
+// Get current list of blocked sellers from the dark side of the extension
+try {
+
+  chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {
+
+    blockList = response.blockList;
+
+    console.log('blocked sellers response', blockList);
+
+    blockList = JSON.stringify(blockList);
+
+    localStorage.setItem('blockList', blockList);
+  });
+
+} catch(err) {
+
+  // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...
+  if (err.message !== 'Invalid arguments to connect.') {
+
+    console.warn('Discogs Enhancer: ', err);
+  }
+}

@@ -8,7 +8,6 @@
  *
  */
 
-// TODO separate getting sellers list (as content script) and hiding blocked sellers functionality (as toggleable)
 $(document).ready(function() {
 
   let
@@ -37,31 +36,8 @@ $(document).ready(function() {
 
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
-    // Get current list of blocked sellers from the dark side of the extension
-    try {
-
-      chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {
-
-        blockList = response.blockList;
-
-        console.log('blocked sellers response', blockList);
-
-        blockList = JSON.stringify(blockList);
-
-        localStorage.setItem('blockList', blockList);
-
-        // hide when page first loads
-        hideSellers();
-      });
-
-    } catch(err) {
-
-      // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...
-      if (err.message !== 'Invalid arguments to connect.') {
-
-        console.warn('Discogs Enhancer: ', err);
-      }
-    }
+    // hide when page first loads
+    hideSellers();
 
     // Call hideSellers on prev/next clicks
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
