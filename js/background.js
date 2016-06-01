@@ -11,6 +11,7 @@
 let
     blockList,
     blockSellers,
+    blockSellers_css,
     checkForAnalytics,
     collectionUi,
     converter,
@@ -267,6 +268,17 @@ chrome.storage.sync.get('prefs', function(result) {
     blockSellers.className = 'de-init';
 
     elems.push(blockSellers);
+
+    // feedback-notifier.css
+    blockSellers_css = document.createElement('link');
+
+    blockSellers_css.rel = 'stylesheet';
+
+    blockSellers_css.type = 'text/css';
+
+    blockSellers_css.href = chrome.extension.getURL('css/blocked-seller.css');
+
+    elems.push(blockSellers_css);
   }
 
   if (result.prefs.collectionUi) {

@@ -1,3 +1,18 @@
 .blocked-seller {
   opacity: 0.5;
 }
+
+.blocked-seller .seller_info strong a[href*='profile']::after {
+  color: red !important;
+  content: " (blocked)";
+}
+
+/* override green styles with red ones */
+.blocked-seller .button.button_green,
+.blocked-seller .button.button_green span {
+    border-color: #982e2c !important;
+    border-top-color: #902c2a !important;
+    border-bottom-color: #842827 !important;
+    background-image: linear-gradient(#BF3A38, #b33635);
+    color: white !important;
+}

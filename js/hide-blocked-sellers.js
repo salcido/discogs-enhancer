@@ -29,7 +29,7 @@ $(document).ready(function() {
 
       if ($('td.seller_info:contains(' + seller + ')')) {
 
-        $('td.seller_info:contains(' + seller + ')').parent().css({opacity: '0.5'}).addClass('blocked-seller');
+        $('td.seller_info:contains(' + seller + ')').parent().addClass('blocked-seller');
       }
     });
   }
