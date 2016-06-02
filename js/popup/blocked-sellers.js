@@ -8,8 +8,7 @@
  *
  */
 
-// TODO check blockList for duplicates
-// TODO create custom blocklist css
+
 document.addEventListener('DOMContentLoaded', function () {
 
   let blockList = JSON.parse(localStorage.getItem('blockList'));
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // keyup event for Enter key
   document.addEventListener('keyup', function(e) {
 
-    if (e.which === 13 && $('#seller-input').val() && blockList.indexOf($('#seller-input').val()) === -1) {
+    if (e.which === 13 && $('#seller-input').val() && blockList.indexOf( $('#seller-input').val() ) === -1) {
 
       blockList.push($('#seller-input').val().trim());
 
@@ -66,14 +65,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       localStorage.setItem('blockList', blockList);
 
+      $('.errors').html('');
+
       return location.reload();
+
+    } else if (blockList.indexOf( $('#seller-input').val() ) > -1) {
+
+      $('.errors').html( $('#seller-input').val() + ' is already on the block list.');
     }
   });
 
   // Add name to block list
   $('body').on('click', '.btn-success', function() {
 
-    if ($('#seller-input').val() && blockList.indexOf($('#seller-input').val()) === -1) {
+    if ($('#seller-input').val() && blockList.indexOf( $('#seller-input').val() ) === -1) {
 
       blockList.push($('#seller-input').val().trim());
 
@@ -81,7 +86,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       localStorage.setItem('blockList', blockList);
 
+      $('.errors').html('');
+
       return location.reload();
+
+    } else if ( blockList.indexOf($('#seller-input').val()) > -1) {
+
+      $('.errors').html( $('#seller-input').val() + ' is already on the block list.' );
     }
   });
 

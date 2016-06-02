@@ -604,8 +604,6 @@ try {
 
     blockList = response.blockList;
 
-    console.log('blocked sellers response', blockList);
-
     blockList = JSON.stringify(blockList);
 
     localStorage.setItem('blockList', blockList);

@@ -167,3 +167,8 @@ em {
   text-align: center;
   margin: 30px auto;
 }
+
+.errors {
+  color: red;
+  font-weight: bold;
+}
