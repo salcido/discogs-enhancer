@@ -23,7 +23,6 @@ $(document).ready(function() {
 
     updateRatesObj = {
       currency: null,
-      lastChecked: null,
       rates: null
     };
 

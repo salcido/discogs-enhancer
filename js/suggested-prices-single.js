@@ -202,8 +202,7 @@ $(document).ready(function() {
                           .closest('.shortcut_navigable')
                           .children('.item_description')
                           .children('.item_condition')
-                          .find('.media-condition-tooltip')
-                          .data('condition'),
+                          .find('.condition-label-desktop:first').next().text().trim(),
           releaseId = linkHref.substring(slash, len),
           price = link.closest('.shortcut_navigable').find('.price').html(),
           target = $(event.target).closest('.item_price');

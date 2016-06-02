@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
     blockList = JSON.parse(localStorage.getItem('blockList'));
   }
 
+  // set focus on input
+  document.getElementById('seller-input').focus();
+
   // chrome.storage.sync.get('blockList', function(result) {
   //
   //   if (!result.blockList) {
@@ -55,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // keyup event for Enter key
   document.addEventListener('keyup', function(e) {
 
-    if (e.which === 13 && $('#seller-input').val()) {
+    if (e.which === 13 && $('#seller-input').val() && blockList.indexOf($('#seller-input').val()) === -1) {
 
       blockList.push($('#seller-input').val().trim());
 
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add name to block list
   $('body').on('click', '.btn-success', function() {
 
-    if ($('#seller-input').val()) {
+    if ($('#seller-input').val() && blockList.indexOf($('#seller-input').val()) === -1) {
 
       blockList.push($('#seller-input').val().trim());
 
