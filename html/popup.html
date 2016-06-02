@@ -11,6 +11,7 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   </head>
   <body>
+
     <div class="header">
       <div class="notifications hide">
         <div class="icon">
@@ -25,53 +26,7 @@
       </div>
     </div>
 
-    <div class="toggle-group">
-      <p class="label">Dark theme</p>
-
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleDarkTheme" checked>
-          <label class="onoffswitch-label" for="toggleDarkTheme">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
-
-    <div class="toggle-group">
-      <p class="label">Marketplace highlights</p>
-
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConditions" checked>
-          <label class="onoffswitch-label" for="toggleConditions">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
-
-    <div class="toggle-group">
-      <p class="label">Sort buttons</p>
-
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSortBtns" checked>
-          <label class="onoffswitch-label" for="toggleSortBtns">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
-
-    <div class="toggle-group">
-      <p class="label">Release durations</p>
-
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleReleaseDurations" checked>
-          <label class="onoffswitch-label" for="toggleReleaseDurations">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
+    <a href="#" class="button button_green" id="about">About</a>
 
     <div class="toggle-group">
       <p class="label">Better Collection UI</p>
@@ -79,30 +34,6 @@
       <div class="onoffswitch">
           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleCollectionUi" checked>
           <label class="onoffswitch-label" for="toggleCollectionUi">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
-
-    <div class="toggle-group">
-      <p class="label">Currency Converter</p>
-
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConverter" checked>
-          <label class="onoffswitch-label" for="toggleConverter">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
-
-    <div class="toggle-group">
-      <p class="label">Feedback Notifications</p>
-
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleFeedback" checked>
-          <label class="onoffswitch-label" for="toggleFeedback">
               <span class="onoffswitch-inner"></span>
               <span class="onoffswitch-switch"></span>
           </label>
@@ -121,33 +52,7 @@
       </div>
     </div>
 
-    <div class="toggle-group">
-      <p class="label">Suggested Prices (beta)</p>
-      <select id="currency">
-        <option value="-">-</option>
-        <option value="AUD">AUD</option>
-        <option value="BRL">BRL</option>
-        <option value="CAD">CAD</option>
-        <option value="CHF">CHF</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="JPY">JPY</option>
-        <option value="MXN">MXN</option>
-        <option value="NZD">NZD</option>
-        <option value="SEK">SEK</option>
-        <option value="USD">USD</option>
-        <option value="ZAR">ZAR</option>
-      </select>
-      <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="togglePrices" checked>
-          <label class="onoffswitch-label" for="togglePrices">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
-    </div>
-
-    <div class="toggle-group menus last">
+    <div class="toggle-group menus">
       <p class="label">Contextual Menu Options</p>
 
       <div class="context-menus" id="contextMenus" style="display: none;">
@@ -203,7 +108,103 @@
       </div>
     </div>
 
-    <a href="#" class="button button_green" id="about">About</a>
+    <div class="toggle-group">
+      <p class="label">Currency Converter</p>
+
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConverter" checked>
+          <label class="onoffswitch-label" for="toggleConverter">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <p class="label">Dark theme</p>
+
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleDarkTheme" checked>
+          <label class="onoffswitch-label" for="toggleDarkTheme">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <p class="label">Feedback Notifications</p>
+
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleFeedback" checked>
+          <label class="onoffswitch-label" for="toggleFeedback">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <p class="label">Marketplace highlights</p>
+
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleConditions" checked>
+          <label class="onoffswitch-label" for="toggleConditions">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <p class="label">Release durations</p>
+
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleReleaseDurations" checked>
+          <label class="onoffswitch-label" for="toggleReleaseDurations">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <p class="label">Sort buttons</p>
+
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSortBtns" checked>
+          <label class="onoffswitch-label" for="toggleSortBtns">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <p class="label">Suggested Prices (beta)</p>
+      <select id="currency">
+        <option value="-">-</option>
+        <option value="AUD">AUD</option>
+        <option value="BRL">BRL</option>
+        <option value="CAD">CAD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="JPY">JPY</option>
+        <option value="MXN">MXN</option>
+        <option value="NZD">NZD</option>
+        <option value="SEK">SEK</option>
+        <option value="USD">USD</option>
+        <option value="ZAR">ZAR</option>
+      </select>
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="togglePrices" checked>
+          <label class="onoffswitch-label" for="togglePrices">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+      </div>
+    </div>
 
   </body>
 </html>

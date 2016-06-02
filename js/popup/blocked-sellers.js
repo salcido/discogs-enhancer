@@ -8,7 +8,6 @@
  *
  */
 
-
 document.addEventListener('DOMContentLoaded', function () {
 
   let blockList = JSON.parse(localStorage.getItem('blockList'));
@@ -23,18 +22,25 @@ document.addEventListener('DOMContentLoaded', function () {
   // set focus on input
   document.getElementById('seller-input').focus();
 
-  // chrome.storage.sync.get('blockList', function(result) {
-  //
-  //   if (!result.blockList) {
-  //
-  //     blockList = ['ducheese', 'ellabrand', 'someDude'];
-  //   }
-  //
-  //   chrome.storage.sync.set({blockList: blockList}, function() {
-  //
-  //     console.log('blockList created.', blockList);
-  //   });
-  // });
+  // add the seller to the list, duh!
+  function addSellerToList() {
+
+    blockList.push($('#seller-input').val().trim());
+
+    blockList = JSON.stringify(blockList);
+
+    localStorage.setItem('blockList', blockList);
+
+    $('.errors').html('');
+
+    return location.reload();
+  }
+
+  // Show error if seller is already on the list
+  function showError() {
+
+    $('.errors').html( $('#seller-input').val() + ' is already on the block list.' );
+  }
 
   // Iterate over blocklist and insert html into DOM
   blockList.forEach(function(seller) {
@@ -59,19 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (e.which === 13 && $('#seller-input').val() && blockList.indexOf( $('#seller-input').val() ) === -1) {
 
-      blockList.push($('#seller-input').val().trim());
-
-      blockList = JSON.stringify(blockList);
-
-      localStorage.setItem('blockList', blockList);
-
-      $('.errors').html('');
+      addSellerToList();
 
       return location.reload();
 
     } else if (blockList.indexOf( $('#seller-input').val() ) > -1) {
 
-      $('.errors').html( $('#seller-input').val() + ' is already on the block list.');
+      return showError();
     }
   });
 
@@ -80,19 +80,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if ($('#seller-input').val() && blockList.indexOf( $('#seller-input').val() ) === -1) {
 
-      blockList.push($('#seller-input').val().trim());
-
-      blockList = JSON.stringify(blockList);
-
-      localStorage.setItem('blockList', blockList);
-
-      $('.errors').html('');
+      addSellerToList();
 
       return location.reload();
 
     } else if ( blockList.indexOf($('#seller-input').val()) > -1) {
 
-      $('.errors').html( $('#seller-input').val() + ' is already on the block list.' );
+      return showError();
     }
   });
 
@@ -101,18 +95,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let target = event.target.innerHTML;
 
-    blockList.forEach(function(seller, i) {
+    $(event.target).parent().fadeOut(300, function() {
 
-      if (target === seller) {
+      blockList.forEach(function(seller, i) {
 
-        blockList.splice(i, 1);
+        if (target === seller) {
 
-        blockList = JSON.stringify(blockList);
+          blockList.splice(i, 1);
 
-        localStorage.setItem('blockList', blockList);
+          blockList = JSON.stringify(blockList);
 
-        return location.reload();
-      }
+          localStorage.setItem('blockList', blockList);
+
+          return location.reload();
+        }
+      });
     });
   });
+
+  // chrome.storage.sync.get('blockList', function(result) {
+  //
+  //   if (!result.blockList) {
+  //
+  //     blockList = ['ducheese', 'ellabrand', 'someDude'];
+  //   }
+  //
+  //   chrome.storage.sync.set({blockList: blockList}, function() {
+  //
+  //     console.log('blockList created.', blockList);
+  //   });
+  // });
 });

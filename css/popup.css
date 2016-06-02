@@ -85,7 +85,7 @@ a.button_green {
   font-weight: normal;
   height: 2em;
   line-height: 2em;
-  margin: 20px 25% 25px 33%;
+  margin: 10px 25% 25px 33%;
   outline: none;
   padding: 0 1em;
   text-align: center;
@@ -188,7 +188,7 @@ a#editList:hover {
 }
 
 .notifications .icon {
-  margin: 12px 10px 0 15px;
+  margin: 45px 10px 0 45px;
   float: left;
 }
 
@@ -200,7 +200,8 @@ a#editList:hover {
   color: #ccc;
   font-weight: 400;
   padding-right: 10px;
-  bottom-margin: -10px;
+  /*margin-bottom: -10px;*/
+  margin: 46px;
 }
 
 sup {
