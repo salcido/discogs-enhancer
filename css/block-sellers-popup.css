@@ -25,96 +25,14 @@ p {
   transition: all 0.3s ease;
 }
 
-a {
-  color: #809bbe;
-}
-
-a:visited {
-  color: #a590d0;
-}
-
-a:hover {
-  color: #cae0fa;
-}
-
-ul li {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 300;
-    font-size: 12px;
-    color: white;
-    line-height: 1.6em;
-    letter-spacing: 1px;
-    text-align: left;
-    margin-bottom: 15px;
-}
-
-ul li a,
-ul li a:hover,
-ul li a:visited {
-    color: white;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-ul li.no-bullet {
-    list-style-type: none;
-}
-
-table, td, th {
-    color: #666;
-    border-color: #666 !important;
-}
-
-table caption {
-    color: #666;
-    margin: 15px 0 0 0;
-    font-family: sans-serif;
-    font-size: 14px;
-    line-height: 1.6em;
-    text-transform: uppercase;
-}
-
-.table {
-    margin-top: 25px;
-    font-family: sans-serif;
-    margin-bottom: 150px;
-}
-
-.mint {
-    color: #00b4db !important;
-}
-
-.near-mint {
-  color: #00dbb4 !important;
-}
-
-.very-good-plus {
-  color: #00db1f !important;
-}
-
-.very-good {
-  color: #85ab11 !important;
-}
-
-.good-plus {
-  color: #f6bf48 !important;
-}
-
-.good {
-  color: #d87307 !important;
-}
-
-.fair {
-  color: #e54803 !important;
-}
-
-.poor {
-  color: #ff0000 !important;
-}
-
 em {
   color: white;
   font-weight: bold;
+}
+
+.seller {
+  display: block;
+  min-width: 10px;
 }
 
 .blocked-sellers {
@@ -123,7 +41,7 @@ em {
 
 .blocked-sellers .seller {
   display: inline-block;
-  /*min-width: 100px;*/
+  position: relative;
 }
 
 .blocked-sellers .seller span {
@@ -171,4 +89,8 @@ em {
 .errors {
   color: red;
   font-weight: bold;
+}
+
+.hide {
+  display: none;
 }

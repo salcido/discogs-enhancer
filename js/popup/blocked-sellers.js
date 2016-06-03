@@ -112,17 +112,4 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-
-  // chrome.storage.sync.get('blockList', function(result) {
-  //
-  //   if (!result.blockList) {
-  //
-  //     blockList = ['ducheese', 'ellabrand', 'someDude'];
-  //   }
-  //
-  //   chrome.storage.sync.set({blockList: blockList}, function() {
-  //
-  //     console.log('blockList created.', blockList);
-  //   });
-  // });
 });
