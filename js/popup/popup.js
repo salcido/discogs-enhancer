@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $(this).css({height: '125px'});
       }
-    }.bind(this), 300);
+    }.bind(this), 400);
 
     interval = setInterval(function() {
 

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let blockList = JSON.parse(localStorage.getItem('blockList'));
 
-  if (!blockList) {
+  if (!localStorage.getItem('blockList')) {
 
     localStorage.setItem('blockList', '[]');
 

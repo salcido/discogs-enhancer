@@ -207,3 +207,7 @@ span.new {
   display: block;
   margin: 10px auto;
 }
+
+.paypal {
+  text-align: center;
+}

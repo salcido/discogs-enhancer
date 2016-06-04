@@ -1,10 +1,18 @@
 .blocked-seller {
-  opacity: 0.5;
+  opacity: 1.5;
 }
 
-.blocked-seller .seller_info strong a[href*='profile']::after {
+.blocked-seller .seller_info strong a {
   color: red !important;
-  content: " (blocked)";
+  text-decoration: line-through;
+}
+
+.blocked-seller td.item_add_to_cart p::after {
+  color: white;
+  content: "Blocked seller";
+  display: block;
+  text-align: center;
+  font-style: italic;
 }
 
 /* override green styles with red ones */
@@ -14,5 +22,5 @@
     border-top-color: #902c2a !important;
     border-bottom-color: #842827 !important;
     background-image: linear-gradient(#BF3A38, #b33635);
-    color: white !important;
+    color: #ccc !important;
 }
