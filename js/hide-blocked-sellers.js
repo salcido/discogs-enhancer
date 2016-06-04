@@ -24,14 +24,26 @@ $(document).ready(function() {
     // Get current blockList
     blockList = JSON.parse(localStorage.getItem('blockList'));
 
-    // Draxx them sklounst
-    blockList.forEach(function(seller) {
+      if (blockList.hide === 'true') {
 
-      if ($('td.seller_info:contains(' + seller + ')')) {
+        blockList.list.forEach(function(seller) {
 
-        $('td.seller_info:contains(' + seller + ')').parent().addClass('blocked-seller');
-      }
-    });
+          if ($('td.seller_info:contains(' + seller + ')')) {
+
+            $('td.seller_info:contains(' + seller + ')').parent().remove();
+          }
+        });
+      } else {
+
+      // Draxx them sklounst
+      blockList.list.forEach(function(seller) {
+
+        if ($('td.seller_info:contains(' + seller + ')')) {
+
+          $('td.seller_info:contains(' + seller + ')').parent().addClass('blocked-seller');
+        }
+      });
+    }
   }
 
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {

@@ -27,7 +27,7 @@
               <div class="content">
 
                 <p>
-                  1. Enter the seller's username as it appears on Discogs.
+                  1. Enter the seller's username exactly as it appears on Discogs.
                 </p>
 
                 <p>
@@ -41,6 +41,14 @@
                 <div class="seller-input">
                   <input type="text" id="seller-input">
                   <a class="btn btn-success">Block Seller</a>
+
+                  <div class="hide-sellers">
+                    <label>Hide sellers:</label>
+                    <input type="checkbox" name="hideSellers" id="hideSellers"/>
+                    <p>
+                      When checked, any seller that appears on this list will be hidden from view in the results.
+                    </p>
+                  </div>
                 </div>
 
                 <div id="blocked-sellers" class="blocked-sellers">

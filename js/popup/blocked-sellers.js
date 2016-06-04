@@ -14,9 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!localStorage.getItem('blockList')) {
 
-    localStorage.setItem('blockList', '[]');
+    localStorage.setItem('blockList', '{"list":[], "hide": "false"}');
 
     blockList = JSON.parse(localStorage.getItem('blockList'));
+  }
+
+  // Select the checkbox if necessary
+  if (blockList.hide === 'true') {
+
+    $('#hideSellers').prop('checked', true);
   }
 
   // set focus on input
@@ -25,15 +31,22 @@ document.addEventListener('DOMContentLoaded', function () {
   // add the seller to the list, duh!
   function addSellerToList() {
 
-    blockList.push($('#seller-input').val().trim());
+    let input = $('#seller-input').val();
 
-    blockList = JSON.stringify(blockList);
+    input = input.replace(/\s/g,'').trim();
 
-    localStorage.setItem('blockList', blockList);
+    if (input) {
 
-    $('.errors').html('');
+      blockList.list.push(input);
 
-    return location.reload();
+      blockList = JSON.stringify(blockList);
+
+      localStorage.setItem('blockList', blockList);
+
+      $('.errors').html('');
+
+      return location.reload();
+    }
   }
 
   // Show error if seller is already on the list
@@ -43,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Iterate over blocklist and insert html into DOM
-  blockList.forEach(function(seller) {
+  blockList.list.forEach(function(seller) {
 
     let
         node = document.createElement('div'),
@@ -63,13 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // keyup event for Enter key
   document.addEventListener('keyup', function(e) {
 
-    if (e.which === 13 && $('#seller-input').val() && blockList.indexOf( $('#seller-input').val() ) === -1) {
+    let input = $('#seller-input').val();
+
+    if (e.which === 13 && input && blockList.list.indexOf(input) === -1) {
 
       addSellerToList();
 
       return location.reload();
 
-    } else if (blockList.indexOf( $('#seller-input').val() ) > -1) {
+    } else if (blockList.list.indexOf( $('#seller-input').val() ) > -1) {
 
       return showError();
     }
@@ -78,13 +93,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add name to block list
   $('body').on('click', '.btn-success', function() {
 
-    if ($('#seller-input').val() && blockList.indexOf( $('#seller-input').val() ) === -1) {
+    let input = $('#seller-input').val();
+
+    if (input && blockList.list.indexOf(input) === -1) {
 
       addSellerToList();
 
       return location.reload();
 
-    } else if ( blockList.indexOf($('#seller-input').val()) > -1) {
+    } else if ( blockList.list.indexOf( $('#seller-input').val() ) > -1) {
 
       return showError();
     }
@@ -97,11 +114,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $(event.target).parent().fadeOut(300, function() {
 
-      blockList.forEach(function(seller, i) {
+      blockList.list.forEach(function(seller, i) {
 
         if (target === seller) {
 
-          blockList.splice(i, 1);
+          blockList.list.splice(i, 1);
 
           blockList = JSON.stringify(blockList);
 
@@ -111,5 +128,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
+  });
+
+  $('#hideSellers').on('change', function() {
+
+    blockList = JSON.parse(localStorage.getItem('blockList'));
+
+    blockList.hide = String($('#hideSellers').prop('checked'));
+
+    blockList = JSON.stringify(blockList);
+
+    localStorage.setItem('blockList', blockList);
   });
 });

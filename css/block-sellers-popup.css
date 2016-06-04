@@ -94,3 +94,8 @@ em {
 .hide {
   display: none;
 }
+
+.hide-sellers {
+  color: white;
+  margin: 20px auto 40px auto;
+}
