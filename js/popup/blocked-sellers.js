@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Checkbox listener
   $('#hideSellers').on('change', function() {
 
     blockList = JSON.parse(localStorage.getItem('blockList'));

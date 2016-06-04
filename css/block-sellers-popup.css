@@ -60,7 +60,6 @@ em {
   cursor: pointer;
   display: inline-block;
   transform: scale(1.2);
-  /*box-shadow: 0px 3px 5px 0px black;*/
 }
 
 .blocked-sellers .seller span a {
