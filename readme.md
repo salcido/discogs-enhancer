@@ -33,6 +33,8 @@ Now you can get alerts when new feedback is left on your profile. The Feedback N
 ### Contextual menu
 Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer. Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.
 
+![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/contextual-menu.png?raw=true "Contextual menu preview")
+
 ### Dark theme
 Great for late night browsing.
 
@@ -47,8 +49,6 @@ Easily see at a glance which items for sale are in the best condition.
 Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency? Have you ever felt annoyed by googling the exchange rate to see what it would actually cost?
 
 The Currency Converter can tell you in an instant!
-
-![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/contextual-menu.png?raw=true "Contextual menu preview")
 
 ### Price suggestion comparisons
 This will show the prices that Discogs suggests and compare them to the seller's price in your country's currency. Its useful for seeing if an item is overpriced. If the listed price is within 1% of the suggested price, it will say it's "around the same price". In order for this to work you must be registered as a seller on Discogs. Works for any locale that Discogs supports :)
