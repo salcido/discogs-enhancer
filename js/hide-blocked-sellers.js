@@ -24,7 +24,7 @@ $(document).ready(function() {
     // Get current blockList
     blockList = JSON.parse(localStorage.getItem('blockList'));
 
-      if (blockList.hide === 'true') {
+      if (blockList && blockList.hide === 'true') {
 
         blockList.list.forEach(function(seller) {
 
@@ -33,7 +33,7 @@ $(document).ready(function() {
             $('td.seller_info:contains(' + seller + ')').parent().remove();
           }
         });
-      } else {
+      } else if (blockList) {
 
       // Draxx them sklounst
       blockList.list.forEach(function(seller) {
