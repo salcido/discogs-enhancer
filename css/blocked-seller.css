@@ -8,7 +8,6 @@
 }
 
 .blocked-seller td.item_add_to_cart p::after {
-  color: white;
   content: "Blocked seller";
   display: block;
   text-align: center;
