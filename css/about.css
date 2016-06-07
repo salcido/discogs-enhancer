@@ -45,6 +45,10 @@ a:hover {
   margin: 25px auto;
 }
 
+.about .center {
+  text-align: center;
+}
+
 .about p {
   text-transform: none;
 }
