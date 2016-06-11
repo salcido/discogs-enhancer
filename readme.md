@@ -50,8 +50,12 @@ Have you ever looked at a seller's shipping rates and wondered how much they wou
 
 The Currency Converter can tell you in an instant!
 
+![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/currency-converter.png?raw=true "Currency converter preview")
+
 ### Price suggestion comparisons
 This will show the prices that Discogs suggests and compare them to the seller's price in your country's currency. Its useful for seeing if an item is overpriced. If the listed price is within 1% of the suggested price, it will say it's "around the same price". In order for this to work you must be registered as a seller on Discogs. Works for any locale that Discogs supports :)
+
+![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/price-comparisons.png?raw=true "Price comparisons preview")
 
 ### Release durations
 See total play times for any release that has track time information.
