@@ -16,8 +16,8 @@ $(document).ready(function() {
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt'),
-      //user = 'recordsale-de',
+      //user = $('#site_account_menu').find('.user_image').attr('alt'),
+      user = 'recordsale-de',
       waitTime = 120000; // 2 mins
 
   /**
@@ -49,9 +49,9 @@ $(document).ready(function() {
       console.log(' *** Existing notifications for: ' + type + ' *** ');
     }
 
-    pos = obj.posDiff[0];
-    neu = obj.neuDiff[0];
-    neg = obj.negDiff[0];
+    pos = obj.posDiff;
+    neu = obj.neuDiff;
+    neg = obj.negDiff;
 
     /* Don't show a 0 value in notificaiton */
     pos = (pos > 0 ? pos : '');
@@ -113,9 +113,9 @@ $(document).ready(function() {
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     /* update obj props. */
-    obj.posDiff = [0, 0, 0];
-    obj.neuDiff = [0, 0, 0];
-    obj.negDiff = [0, 0, 0];
+    obj.posDiff = 0;
+    obj.neuDiff = 0;
+    obj.negDiff = 0;
     obj.hasViewed = true;
     /* obj.gTotal is set during 'poll for changes' cycle */
 
@@ -131,19 +131,14 @@ $(document).ready(function() {
    * @param    {string}      type        Either 'Negative' or 'Neutral'
    * @param    {array}       oldStat     An array of 3/6/12 month stats
    * @param    {array}       newStat     An array of 3/6/12 month stats
-   * @param    {number}      totalShift  Difference between the old gTotal and the new gTotal
    * @return   {number}
    */
 
-  function findStatsShift(type, oldStat, newStat, totalShift) {
+  function findStatsShift(type, oldStat, newStat) {
 
-    let
-        answer,
-        twelveMonthShift = newStat[2] - oldStat[2],
-        sixMonthShift = newStat[1] - oldStat[1],
-        threeMonthShift = newStat[0] - oldStat[0];
+    let shift = newStat - oldStat;
 
-    if (oldStat[0] === newStat[0] && oldStat[1] === newStat[1] && oldStat[2] === newStat[2]) {
+    if (oldStat === newStat || shift < 0) {
 
       /* No changes were found */
       if (debug) {
@@ -152,63 +147,14 @@ $(document).ready(function() {
           console.log('Stats for:', type, 'old:', oldStat, 'new:', newStat);
         }
 
-      answer = 0;
-
-      return answer;
-
-    } else if (threeMonthShift > 0) {
-
-      /* The total change in stats is equal to the total change overall */
-      if (threeMonthShift === totalShift) {
-
-        answer = totalShift;
-
-        return answer;
-
-      } else {
-
-        answer = threeMonthShift;
-
-        return answer;
-      }
-
-    } else if (threeMonthShift === 0 && sixMonthShift > 0) {
-
-      if (sixMonthShift === totalShift) {
-
-        answer = totalShift;
-
-        return answer;
-
-      } else {
-
-        answer = sixMonthShift;
-
-        return answer;
-      }
-
-    } else if (threeMonthShift === 0 && sixMonthShift === 0 && twelveMonthShift > 0) {
-
-      if (twelveMonthShift === totalShift) {
-
-        answer = totalShift;
-
-        return answer;
-
-      } else {
-
-        answer = twelveMonthShift;
-
-        return answer;
-      }
+      return 0;
 
     } else {
 
-      answer = 0;
-
-      return answer;
+      return shift;
     }
   }
+
 
   /**
    * Gets Buyer/Seller number updates from profile
@@ -222,14 +168,11 @@ $(document).ready(function() {
 
     let obj,
         newStats,
-        oldStats,
-        totalShift;
+        oldStats;
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
     obj = feedbackObj[type];
-
-    totalShift = gTotal - obj.gTotal;
 
     if (debug) {
 
@@ -246,98 +189,42 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            selector = '#page_content .table_block.fright ',
-
-            /* New values (yes, this is ugly. sorry.) */
-            pos3 = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
-            pos6 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').text().trim() ),
-            pos12 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').next('td').text().trim() ),
-
-            neu3 = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            neu6 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').text().trim() ),
-            neu12 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').next('td').text().trim() ),
-
-            neg3 = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            neg6 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').text().trim() ),
-            neg12 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').next('td').text().trim() ),
-
+            pos = $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, ''),
+            neu = $(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, ''),
+            neg = $(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, ''),
             negAnswer,
             neuAnswer,
             posAnswer;
 
-
         /* Our stats objects */
         newStats = {
-          posCount: [pos3, pos6, pos12],
-          neuCount: [neu3, neu6, neu12],
-          negCount: [neg3, neg6, neg12]
+          posCount: Number(pos),
+          neuCount: Number(neu),
+          negCount: Number(neg)
         };
 
         oldStats = {
-          posCount: [obj.posCount[0], obj.posCount[1], obj.posCount[2]],
-          neuCount: [obj.neuCount[0], obj.neuCount[1], obj.neuCount[2]],
-          negCount: [obj.negCount[0], obj.negCount[1], obj.negCount[2]]
+          posCount: Number(obj.posCount),
+          neuCount: Number(obj.neuCount),
+          negCount: Number(obj.negCount)
         };
 
-        /*
-          I am getting Negative stats first, as they are the most important notifications
-          to show the user. If there were multiple stat changes
-          (e.g.: one or more positive and neutral/negative feedbacks left), get the negative & neutral
-          ones first. Subtract those numbers from the overall change in stats (aka `totalShift`).
-          Whatever is left over should be the total number of positive feedbacks since they
-          are the most common.
-
-          This is likely not fool-proof. But since the stats constantly shift because of old feedback
-          stats dropping off after 3/6/12 months, it seems the most reliable way to decipher what
-          has changed.
-
-          Do you know a better way? Please tell me! I spent days looking at stat changes for Discogs' user
-          "recordsale-de" - the #1 seller on Discogs. Their numbers shift constantly and I couldn't find
-          a reliable means of tracking the shifts exactly. Math is hard sometimes.
-        */
-
-        /*
-          Negative Stats
-         */
-
-        negAnswer = findStatsShift('Negative', oldStats.negCount, newStats.negCount, totalShift);
-
-        /*
-          Neutral Stats
-        */
-
-        /* update `totalShift` value if necessary */
-        totalShift = totalShift - negAnswer;
-
-        neuAnswer = findStatsShift('Neutral', oldStats.neuCount, newStats.neuCount, totalShift);
-
-        /*
-          Positive Stats
-        */
-
-        /* update `totalShift` value if necessary */
-        totalShift = totalShift - neuAnswer;
-
-        posAnswer = (totalShift > 0 ? totalShift : 0);
+        negAnswer = findStatsShift('Negative', oldStats.negCount, newStats.negCount);
+        neuAnswer = findStatsShift('Neutral', oldStats.neuCount, newStats.neuCount);
+        posAnswer = findStatsShift('Positive', oldStats.posCount, newStats.posCount);
 
         /* Assign new diff values to obj for reference */
-
-        /*
-           If there are existing notification stats,
-           add them to the new ones,
-           otherwise, just use the new ones.
-        */
-        obj.posDiff[0] = (obj.posDiff[0] > 0 ? obj.posDiff[0] + posAnswer : posAnswer);
-        obj.neuDiff[0] = (obj.neuDiff[0] > 0 ? obj.neuDiff[0] + neuAnswer : neuAnswer);
-        obj.negDiff[0] = (obj.negDiff[0] > 0 ? obj.negDiff[0] + negAnswer : negAnswer);
+        obj.posDiff = (obj.posDiff > 0 ? obj.posDiff + posAnswer : posAnswer);
+        obj.neuDiff = (obj.neuDiff > 0 ? obj.neuDiff + neuAnswer : neuAnswer);
+        obj.negDiff = (obj.negDiff > 0 ? obj.negDiff + negAnswer : negAnswer);
 
         obj.hasViewed = false;
         obj.gTotal = gTotal;
 
         /* Update feedbackObj[type] with new stats */
-        obj.posCount = [pos3, pos6, pos12];
-        obj.neuCount = [neu3, neu6, neu12];
-        obj.negCount = [neg3, neg6, neg12];
+        obj.posCount = Number(pos);
+        obj.neuCount = Number(neu);
+        obj.negCount = Number(neg);
 
         feedbackObj[type] = obj;
 
@@ -413,23 +300,23 @@ $(document).ready(function() {
 
       let
           buyerObj = {
-            posCount: [0, 0, 0],
-            posDiff: [0, 0, 0],
-            neuCount: [0, 0, 0],
-            neuDiff: [0, 0, 0],
-            negCount: [0, 0, 0],
-            negDiff: [0, 0, 0],
+            posCount: 0,
+            posDiff: 0,
+            neuCount: 0,
+            neuDiff: 0,
+            negCount: 0,
+            negDiff: 0,
             gTotal: obj.buyer,
             hasViewed: true
           },
 
           sellerObj = {
-            posCount: [0, 0, 0],
-            posDiff: [0, 0, 0],
-            neuCount: [0, 0, 0],
-            neuDiff: [0, 0, 0],
-            negCount: [0, 0, 0],
-            negDiff: [0, 0, 0],
+            posCount: 0,
+            posDiff: 0,
+            neuCount: 0,
+            neuDiff: 0,
+            negCount: 0,
+            negDiff: 0,
             gTotal: obj.seller,
             hasViewed: true
           };
@@ -498,31 +385,14 @@ $(document).ready(function() {
 
         let
             obj = feedbackObj[type],
-            selector = '#page_content .table_block.fright ',
-            neg3 = Number( $(response).find(selector + '.neg-rating-text').next('td').text().trim() ),
-            neu3 = Number( $(response).find(selector + '.neu-rating-text').next('td').text().trim() ),
-            pos3 = Number( $(response).find(selector + '.pos-rating-text').next('td').text().trim() ),
-
-            neg6 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').text().trim() ),
-            neu6 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').text().trim() ),
-            pos6 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').text().trim() ),
-
-            neg12 = Number( $(response).find(selector + '.neg-rating-text').next('td').next('td').next('td').text().trim() ),
-            neu12 = Number( $(response).find(selector + '.neu-rating-text').next('td').next('td').next('td').text().trim() ),
-            pos12 = Number( $(response).find(selector + '.pos-rating-text').next('td').next('td').next('td').text().trim() );
+            pos = Number($(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '')),
+            neu = Number($(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, '')),
+            neg = Number($(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, ''));
 
         /* Assign new values to obj */
-        obj.negCount[0] = neg3;
-        obj.neuCount[0] = neu3;
-        obj.posCount[0] = pos3;
-
-        obj.negCount[1] = neg6;
-        obj.neuCount[1] = neu6;
-        obj.posCount[1] = pos6;
-
-        obj.negCount[2] = neg12;
-        obj.neuCount[2] = neu12;
-        obj.posCount[2] = pos12;
+        obj.negCount = neg;
+        obj.neuCount = neu;
+        obj.posCount = pos;
 
         obj.hasViewed = true;
 
@@ -570,7 +440,6 @@ $(document).ready(function() {
   if (!feedbackObj.buyer || !feedbackObj.seller) {
     return createBuyerSellerObjs();
   }
-
 
   /* Append notifictions if they are unread. */
   if (!feedbackObj.seller.hasViewed) {

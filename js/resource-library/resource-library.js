@@ -41,6 +41,19 @@
     localStorage.setItem('options', options);
   }
 
+
+  // Remove old feedbackObj so that it can be re-instantiated
+  // with the updated feedback-notifier script
+  let feedback = JSON.parse(localStorage.getItem('feedbackObj'));
+
+  if (feedback && feedback.posDiff instanceof Array) {
+
+    console.log('deleting deprecated feedbackObj');
+
+    localStorage.removeItem('feedbackObj');
+  }
+
+
   // Remove old localStorage items if they exist
   // TODO remove this later
   if (localStorage.getItem('converterLastUpdate')) {
