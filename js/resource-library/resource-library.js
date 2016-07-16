@@ -46,7 +46,7 @@
   // with the updated feedback-notifier script
   let feedback = JSON.parse(localStorage.getItem('feedbackObj'));
 
-  if (feedback && feedback.posDiff instanceof Array) {
+  if (feedback && (feedback.buyer.posDiff instanceof Array || feedback.seller.posDiff instanceof Array) ) {
 
     console.log('deleting deprecated feedbackObj');
 

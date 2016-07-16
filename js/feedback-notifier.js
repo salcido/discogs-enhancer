@@ -16,8 +16,8 @@ $(document).ready(function() {
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = d.getTime(),
-      //user = $('#site_account_menu').find('.user_image').attr('alt'),
-      user = 'recordsale-de',
+      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      //user = 'recordsale-de',
       waitTime = 120000; // 2 mins
 
   /**
@@ -128,9 +128,9 @@ $(document).ready(function() {
   /**
    * Finds the differences between old/new stats.
    *
-   * @param    {string}      type        Either 'Negative' or 'Neutral'
-   * @param    {array}       oldStat     An array of 3/6/12 month stats
-   * @param    {array}       newStat     An array of 3/6/12 month stats
+   * @param    {string}      type        Either 'Negative' or 'Neutral' used for debugging
+   * @param    {array}       oldStat     Previous value
+   * @param    {array}       newStat     Current value
    * @return   {number}
    */
 
@@ -189,24 +189,24 @@ $(document).ready(function() {
       success: function(response) {
 
         let
-            pos = $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, ''),
-            neu = $(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, ''),
-            neg = $(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, ''),
+            pos = Number( $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '') ),
+            neu = Number( $(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, '') ),
+            neg = Number( $(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, '') ),
             negAnswer,
             neuAnswer,
             posAnswer;
 
         /* Our stats objects */
         newStats = {
-          posCount: Number(pos),
-          neuCount: Number(neu),
-          negCount: Number(neg)
+          posCount: pos,
+          neuCount: neu,
+          negCount: neg
         };
 
         oldStats = {
-          posCount: Number(obj.posCount),
-          neuCount: Number(obj.neuCount),
-          negCount: Number(obj.negCount)
+          posCount: obj.posCount,
+          neuCount: obj.neuCount,
+          negCount: obj.negCount
         };
 
         negAnswer = findStatsShift('Negative', oldStats.negCount, newStats.negCount);
@@ -217,14 +217,13 @@ $(document).ready(function() {
         obj.posDiff = (obj.posDiff > 0 ? obj.posDiff + posAnswer : posAnswer);
         obj.neuDiff = (obj.neuDiff > 0 ? obj.neuDiff + neuAnswer : neuAnswer);
         obj.negDiff = (obj.negDiff > 0 ? obj.negDiff + negAnswer : negAnswer);
-
         obj.hasViewed = false;
         obj.gTotal = gTotal;
 
         /* Update feedbackObj[type] with new stats */
-        obj.posCount = Number(pos);
-        obj.neuCount = Number(neu);
-        obj.negCount = Number(neg);
+        obj.posCount = pos;
+        obj.neuCount = neu;
+        obj.negCount = neg;
 
         feedbackObj[type] = obj;
 
@@ -385,15 +384,14 @@ $(document).ready(function() {
 
         let
             obj = feedbackObj[type],
-            pos = Number($(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '')),
-            neu = Number($(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, '')),
-            neg = Number($(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, ''));
+            pos = Number( $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '') ),
+            neu = Number( $(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, '') ),
+            neg = Number( $(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, '') );
 
         /* Assign new values to obj */
         obj.negCount = neg;
         obj.neuCount = neu;
         obj.posCount = pos;
-
         obj.hasViewed = true;
 
         /* Save obj updates */
