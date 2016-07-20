@@ -11,7 +11,7 @@
 function searchBandcamp(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://bandcamp.com/search?q=' + encodeStr});
 }
@@ -19,7 +19,7 @@ function searchBandcamp(event) {
 function searchBoomkat(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://boomkat.com/products?q[keywords]=' + encodeStr});
 }
@@ -27,7 +27,7 @@ function searchBoomkat(event) {
 function searchClone(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://clone.nl/search/' + encodeStr + '?page=0'});
 }
@@ -35,7 +35,7 @@ function searchClone(event) {
 function searchDeeJay(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://www.deejay.de/' + encodeStr});
 }
@@ -43,7 +43,7 @@ function searchDeeJay(event) {
 function searchDiscogs(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://www.discogs.com/search?q=' + encodeStr});
 }
@@ -51,7 +51,7 @@ function searchDiscogs(event) {
 function searchGramaphone(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://webstore.gramaphonerecords.com/search.aspx?find=' + encodeStr});
 }
@@ -59,7 +59,7 @@ function searchGramaphone(event) {
 function searchHalcyon(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://halcyontheshop.com/search?q=' + encodeStr});
 }
@@ -67,7 +67,7 @@ function searchHalcyon(event) {
 function searchHardwax(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://hardwax.com/?search=' + encodeStr});
 }
@@ -75,7 +75,7 @@ function searchHardwax(event) {
 function searchInsound(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://www.insound.com/catalogsearch/result/?q=' + encodeStr + '&order=relevance&dir=desc'});
 }
@@ -83,7 +83,7 @@ function searchInsound(event) {
 function searchJuno(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=' + encodeStr + ''});
 }
@@ -91,7 +91,7 @@ function searchJuno(event) {
 function searchOye(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://oye-records.com/list.php?skey=' + encodeStr});
 }
@@ -99,7 +99,7 @@ function searchOye(event) {
 function searchPbvinyl(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURI(str);
+      encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://www.pbvinyl.com/search?q=' + encodeStr});
 }
