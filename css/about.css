@@ -215,3 +215,7 @@ span.new {
 .paypal {
   text-align: center;
 }
+
+.beer:after {
+  content: '🍺';
+}
