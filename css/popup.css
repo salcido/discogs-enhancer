@@ -266,3 +266,18 @@ input[type="checkbox"]:focus {
 #currency.alert {
   outline: 1px dotted red;
 }
+
+.rate-button {
+  width: 100%;
+  height: 50px;
+  clear: both;
+  margin: 0 0 0 -10px;
+  padding: 0 0 25px 18px;
+  border-top: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+#rate {
+  width: 50%;
+  margin: 23px 0 0 65px;
+}
