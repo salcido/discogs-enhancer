@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleFeedback = document.getElementById('toggleFeedback'),
+      toggleNotesCount = document.getElementById('toggleNotesCount'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       togglePrices = document.getElementById('togglePrices'),
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       feedback: toggleFeedback.checked,
       blockSellers: toggleBlockSellers.checked,
       highlightMedia: toggleConditions.checked,
+      notesCount: toggleNotesCount.checked,
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
       collectionUi: toggleCollectionUi.checked,
@@ -273,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
   toggleFeedback.addEventListener('change', triggerSave);
+  toggleNotesCount.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', showPrices);
@@ -373,6 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleFeedback.checked = result.prefs.feedback;
+      toggleNotesCount.checked = result.prefs.notesCount;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleSortBtns.checked = result.prefs.sortButtons;
       togglePrices.checked = result.prefs.suggestedPrices;

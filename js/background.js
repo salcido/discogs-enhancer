@@ -24,6 +24,7 @@ let
     highlightScript,
     initElems = [],
     jQ,
+    notesCount,
     options,
     prefs = {},
     preloader,
@@ -62,7 +63,7 @@ chrome.storage.sync.get('prefs', function(result) {
       darkTheme: true,
       feedback: true,
       highlightMedia: true,
-      //pieStats: true,
+      notesCount: true,
       releaseDurations: true,
       sortButtons: true,
       suggestedPrices: false,
@@ -366,6 +367,19 @@ chrome.storage.sync.get('prefs', function(result) {
     converter.src = chrome.extension.getURL('js/currency-converter.js');
 
     elems.push(converter);
+  }
+
+  if (result.prefs.notesCount) {
+
+    notesCount = document.createElement('script');
+
+    notesCount.type = 'text/javascript';
+
+    notesCount.src = chrome.extension.getURL('js/notes-char-count.js');
+
+    notesCount.className = 'de-init';
+
+    elems.push(notesCount);
   }
 
   // unit-tests.js

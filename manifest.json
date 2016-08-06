@@ -61,6 +61,7 @@
       "js/feedback-notifier.js",
       "js/hide-blocked-sellers.js",
       "js/jquery/jquery-min.js",
+      "js/notes-char-count.js",
       "js/options/options.js",
       "js/release-durations.js",
       "js/release-history-legend.js",
