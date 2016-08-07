@@ -31,7 +31,7 @@ $(document).ready(function() {
         // If the focused element has a value, get it's length
         // otherwise, set it to '0'. This is necessary to prevent
         // logging an error if a focused element does not have a value
-        // e.g.: Folder or Media/Sleeve Condition
+        // e.g.: Folder or Media/Sleeve Condition (select elements)
         if ($(':focus').val()) {
 
           count = $(':focus').val().length;
