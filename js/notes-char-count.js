@@ -28,12 +28,23 @@ $(document).ready(function() {
           $(':focus').siblings().hasClass('de-notes-count').remove();
         }
 
-        count = $(':focus').val().length || '0';
+        // If the focused element has a value, get it's length
+        // otherwise, set it to '0'. This is necessary to prevent
+        // logging an error if a focused element does not have a value
+        // e.g.: Folder or Media/Sleeve Condition
+        if ($(':focus').val()) {
+
+          count = $(':focus').val().length;
+
+        } else {
+
+          count = '0';
+        }
 
         // append the current character count from field
         if ( !$(':focus').find('.de-notes-count') > -1 ) {
 
-          $(':focus').parent().append('<span class="de-notes-count" style="display:inline-block; padding:3px;">' + count + '/255</span>');
+          $(':focus').parent().append('<span class="de-notes-count" style="display:inline-block; padding:3px;">' + count + ' / 255</span>');
         }
 
       } else {
@@ -50,7 +61,7 @@ $(document).ready(function() {
         // update count value
         count = $(':focus').val().length;
 
-        $(':focus').parent().find('.de-notes-count').text(count + '/255');
+        $(':focus').parent().find('.de-notes-count').text(count + ' / 255');
 
         if (count > 240) {
 
