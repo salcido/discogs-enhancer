@@ -10,29 +10,31 @@
 
 $(document).ready(function() {
 
-  let count;
-
   $('body').on('click', '.notes_show, .notes_text', function(event) {
 
-    let target = event.target;
-
-    count = 0;
+    let count;
 
     // Wait for text field to be rendered in the DOM before
     // looking for its length value
     setTimeout(function() {
 
-      count = $(target).parent().parent().find($('.notes_textarea')).val();
+      count = $(':focus');
 
       if (count) {
-        // This span is being appended twice. Not sure why? Remove it if it exists.
-        if ($('.de-notes-count')) {
 
-          $('.de-notes-count').remove();
+        // Look for existing count spans and remove them if necessary
+        if ($(':focus').siblings().hasClass('de-notes-count')) {
+
+          $(':focus').siblings().hasClass('de-notes-count').remove();
         }
 
+        count = $(':focus').val().length || '0';
+
         // append the current character count from field
-        $('.notes_edit').append('<span class="de-notes-count">' + count.length + '/255</span>');
+        if ( !$(':focus').find('.de-notes-count') > -1 ) {
+
+          $(':focus').parent().append('<span class="de-notes-count" style="display:inline-block; padding:3px;">' + count + '/255</span>');
+        }
 
       } else {
 
@@ -48,16 +50,23 @@ $(document).ready(function() {
         // update count value
         count = $(':focus').val().length;
 
-        $('.de-notes-count').text(count + '/255');
+        $(':focus').parent().find('.de-notes-count').text(count + '/255');
+
+        if (count > 240) {
+
+          $(':focus').parent().find('.de-notes-count').addClass('price');
+
+        } else {
+
+          $(':focus').parent().find('.de-notes-count').removeClass('price');
+        }
       }
     });
   });
 
   // Remove/reset stuff on save/cancel
-  $('body').on('click', '#notes_edit_save, #notes_edit_cancel', function() {
+  $('body').on('click', '#notes_edit_save, #notes_edit_cancel', function(event) {
 
-    $('.de-notes-count').remove();
-
-    count = '';
+    $(event.target).find('.de-notes-count').remove();
   });
 });
