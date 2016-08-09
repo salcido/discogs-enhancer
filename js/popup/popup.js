@@ -300,6 +300,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.tabs.create({url: '../html/about.html'});
 
+    _gaq.push(['_trackEvent', 'about', 'about clicked']);
+
     acknowledgeUpdate();
   });
 
