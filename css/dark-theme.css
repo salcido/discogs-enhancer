@@ -78,6 +78,7 @@ a i,
 .icon.icon-ellipsis-h,
 .pagination_page_links a,
 .row_actions a *,
+.link_text,
 a span.rating_count,
 span.marketplace_for_sale_count a strong {
     color: #809bbe !important;
