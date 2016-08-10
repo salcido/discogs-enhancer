@@ -308,7 +308,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     elems.push(updateExchangeRates);
 
-    //suggested-prices-release-page.js
+    // suggested-prices-release-page.js
     suggestedPricesRelease = document.createElement('script');
 
     suggestedPricesRelease.type = 'text/javascript';
@@ -319,7 +319,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     elems.push(suggestedPricesRelease);
 
-    //suggested-prices-single.js
+    // suggested-prices-single.js
     suggestedPricesSingle = document.createElement('script');
 
     suggestedPricesSingle.type = 'text/javascript';
@@ -539,7 +539,6 @@ chrome.storage.sync.get('prefs', function(result) {
   }, 100);
 });
 
-
 /*  Install/update notifications  */
 
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
@@ -558,16 +557,17 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
     } else if (details.reason === 'update') {
 
-      /* Don't show update notice on patches */
-      // versions look like: 1.10.8
+      /* Don't show an update notice on patches */
+
+      // versions look something like: "1.10.8"
       // split('.') returns an array of stringed numbers like ["1", "10", "8"]
       // and compares Major and Minor versions to see if there
       // should be an update notification
       previousVersion = details.previousVersion.split('.');
-
       thisVersion = chrome.runtime.getManifest().version.split('.');
 
-      if ( Number(thisVersion[0]) > Number(previousVersion[0]) || Number(thisVersion[1]) > Number(previousVersion[1])) {
+           // Major Version                                       // Minor Version
+      if ( Number(thisVersion[0]) > Number(previousVersion[0]) || Number(thisVersion[1]) > Number(previousVersion[1]) ) {
 
         chrome.browserAction.setBadgeText({text: ' '});
 
@@ -615,7 +615,7 @@ checkForAnalytics = setInterval(function() {
 /* Clean up on asile 7! */
 window.onload = function() { $('.de-init').remove(); };
 
-// Get current list of blocked sellers from the dark side of the extension
+// Get current list of blocked sellers from the upside down of the extension
 try {
 
   chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {
