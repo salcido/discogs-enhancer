@@ -559,15 +559,18 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       /* Don't show an update notice on patches */
 
-      // versions look something like: "1.10.8"
-      // split('.') returns an array of stringed numbers like ["1", "10", "8"]
-      // and compares Major and Minor versions to see if there
-      // should be an update notification
+      /**
+       * versions look something like: "1.10.8"
+       * split('.') returns an array of stringed numbers like ["1", "10", "8"]
+       * and compares Major and Minor versions to see if there
+       * should be an update notification
+       */
       previousVersion = details.previousVersion.split('.');
+
       thisVersion = chrome.runtime.getManifest().version.split('.');
 
-           // Major Version                                       // Minor Version
-      if ( Number(thisVersion[0]) > Number(previousVersion[0]) || Number(thisVersion[1]) > Number(previousVersion[1]) ) {
+      if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
+           Number(thisVersion[1]) > Number(previousVersion[1]) ) {
 
         chrome.browserAction.setBadgeText({text: ' '});
 
