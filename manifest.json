@@ -60,6 +60,7 @@
       "js/exchange-rates/update-exchange-rates.js",
       "js/feedback-notifier.js",
       "js/hide-blocked-sellers.js",
+      "js/hide-items-below-condition.js",
       "js/jquery/jquery-min.js",
       "js/notes-char-count.js",
       "js/options/options.js",

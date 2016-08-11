@@ -123,7 +123,7 @@ a#editList:hover {
 .header .title img {
   width: 256px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 .toggle-group {
@@ -280,4 +280,13 @@ input[type="checkbox"]:focus {
 #rate {
   width: 50%;
   margin: 23px 0 0 65px;
+}
+
+.hide-items {
+  margin-top: 16px;
+  margin-left: 215px;
+}
+
+.hide-items select {
+  outline: none;
 }

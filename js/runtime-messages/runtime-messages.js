@@ -54,4 +54,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     sendResponse({blockList: blockList});
   }
+
+  // hide items below conditions
+  if (msg.request === 'getHideItems') {
+
+    let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
+
+    sendResponse({itemCondition: itemCondition});
+  }
 });

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       userCurrency = document.getElementById('currency'),
       isHovering = false,
       prefs = {},
+      hideMarketplaceItems = document.getElementById('marketplaceItems'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConditions = document.getElementById('toggleConditions'),
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
       feedback: toggleFeedback.checked,
       blockSellers: toggleBlockSellers.checked,
       highlightMedia: toggleConditions.checked,
+      hideMarketplaceItems: hideMarketplaceItems.value,
       notesCount: toggleNotesCount.checked,
       sortButtons: toggleSortBtns.checked,
       releaseDurations: toggleReleaseDurations.checked,
@@ -175,6 +177,20 @@ document.addEventListener('DOMContentLoaded', function () {
     applySave(response, event);
   }
 
+  // Hide items in marketplace
+  function setHiddenItems(event) {
+
+    let selectValue = event.target[event.target.selectedIndex].value;
+
+    if (!selectValue) {
+
+      localStorage.removeItem('itemCondition');
+    } else {
+
+      // set new value on change
+      localStorage.setItem( 'itemCondition', String(selectValue) );
+    }
+  }
 
   // Toggle prices suggestions
   function showPrices(event) {
@@ -268,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Toggle event listeners
+  hideMarketplaceItems.addEventListener('change', setHiddenItems);
   userCurrency.addEventListener('change', setCurrency);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
@@ -322,13 +339,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     isHovering = true;
 
-    setTimeout(function() {
+    setTimeout(() => {
 
       if (isHovering) {
 
         $(this).css({height: '125px'});
       }
-    }.bind(this), 400);
+    }, 400);
 
     interval = setInterval(function() {
 
@@ -372,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
+      hideMarketplaceItems.value = localStorage.getItem('itemCondition') || null;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConditions.checked = result.prefs.highlightMedia;

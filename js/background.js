@@ -22,7 +22,9 @@ let
     feedback_css,
     highlightCss,
     highlightScript,
+    hideItems,
     initElems = [],
+    itemCondition,
     jQ,
     notesCount,
     options,
@@ -63,6 +65,7 @@ chrome.storage.sync.get('prefs', function(result) {
       darkTheme: true,
       feedback: true,
       highlightMedia: true,
+      hideMarketplaceItems: null,
       notesCount: true,
       releaseDurations: true,
       sortButtons: true,
@@ -393,6 +396,17 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(unitTests);
 
+  // hide-items-below-condition.js
+  hideItems = document.createElement('script');
+
+  hideItems.type = 'text/javascript';
+
+  hideItems.src = chrome.extension.getURL('js/hide-items-below-condition.js');
+
+  hideItems.className = 'de-init';
+
+  elems.push(hideItems);
+
   /*  Contextual menu options  */
 
   if (result.prefs.useBandcamp) {
@@ -618,7 +632,8 @@ checkForAnalytics = setInterval(function() {
 /* Clean up on asile 7! */
 window.onload = function() { $('.de-init').remove(); };
 
-// Get current list of blocked sellers from the upside down of the extension
+// Get current list of blocked sellers, marketplace item conditions
+// from the upside down of the extension
 try {
 
   chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {
@@ -627,7 +642,20 @@ try {
 
     blockList = JSON.stringify(blockList);
 
+    // Set the blocklist in localStorage so the DOM can be manipulated
+    // based on blockList's props.
     localStorage.setItem('blockList', blockList);
+  });
+
+  chrome.runtime.sendMessage({request: 'getHideItems'}, function(response) {
+
+    itemCondition = response.itemCondition;
+
+    itemCondition = JSON.stringify(itemCondition);
+
+    // Set the itemCondition value in localStorage so that the DOM can
+    // be manipulated based on itemCondition's value.
+    localStorage.setItem('itemCondition', itemCondition);
   });
 
 } catch(err) {
