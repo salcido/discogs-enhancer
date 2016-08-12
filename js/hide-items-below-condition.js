@@ -18,7 +18,7 @@ $(document).ready(function() {
       sellRelease = /sell\/release/g,
       wantsPage = /sell\/mywants/g;
 
-  // Find all instances of sellers in list and hide them
+  // Find all instances of selected items in list and hide them
   function hideItems() {
 
     // Get current itemCondition
@@ -33,12 +33,11 @@ $(document).ready(function() {
                         'Very Good (VG)',
                         'Very Good Plus (VG+)',
                         'Near Mint (NM or M-)',
-                        'Mint (M)'
-                       ];
+                        'Mint (M)'];
 
       conditions.length = Number(itemCondition);
 
-      // Kill everything!
+      // Draxx them sklounst
       conditions.forEach(function(condition) {
 
         let elem = $('td.item_description p.item_condition').find('.condition-label-desktop:first').next(':contains(' + condition + ')');
@@ -49,6 +48,7 @@ $(document).ready(function() {
         }
       });
 
+      // Update page with filter notice
       $('.pagination_total').html('Some results have been removed.');
 
       // Show message if all results have been removed
@@ -68,7 +68,7 @@ $(document).ready(function() {
 
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
-    // hide when page first loads
+    // hide items when page first loads
     hideItems();
 
     // Call hideItems on prev/next clicks
