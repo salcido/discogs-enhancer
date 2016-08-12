@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Hide items in marketplace
+  // TODO: set feature title text with this function.
   function setHiddenItems(event) {
 
     let selectValue = event.target[event.target.selectedIndex].value,
@@ -459,15 +460,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       'Very Good',
                       'Very Good Plus',
                       'Near Mint',
-                      'Mint'];
+                      'Mint'],
+        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
 
     if (setting === 0 || setting === null) {
 
-      $('.toggle-group.marketplace .label').html('Hide Marketplace Items: &nbsp; Off');
+      $('.toggle-group.marketplace .label').html('Filter Marketplace Items: &nbsp; <span style="color:white;">Disabled</span>');
 
     } else {
 
-      $('.toggle-group.marketplace .label').html('Hide Marketplace Items Below: &nbsp; ' + conditions[setting]);
+      $('.toggle-group.marketplace .label').html('Filter Marketplace Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
     }
   }
 
