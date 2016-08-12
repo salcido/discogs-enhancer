@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       isHovering = false,
+      isMarketplaceHovering = false,
       prefs = {},
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
@@ -193,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem( 'itemCondition', String(selectValue) );
     }
 
+    setupMarketplaceFilter();
+
     applySave(response, event);
   }
 
@@ -332,6 +335,9 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
+  /**
+   * CONTEXTUAL MENU OPTIONS
+   */
 
   // Display contextual menu options on hover
   $('.toggle-group.menus').mouseenter(function() {
@@ -363,7 +369,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   });
 
-
   // Hide contextual menu options on mouseleave
   $('.toggle-group.menus').mouseleave(function() {
 
@@ -387,13 +392,91 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 100);
   });
 
+  /**
+   * MARKETPLACE FILTER OPTIONS
+   */
+
+  // Display marketplace filter option on hover
+  $('.toggle-group.marketplace').mouseenter(function() {
+
+    let
+        filter = $('.hide-items'),
+        interval,
+        toggleGroup = $('.toggle-group.marketplace');
+
+    isMarketplaceHovering = true;
+
+    setTimeout(() => {
+
+      if (isMarketplaceHovering) {
+
+        $(this).css({height: '75px'});
+      }
+    }, 400);
+
+    interval = setInterval(function() {
+
+      if (toggleGroup.height() >= 70) {
+
+        filter.fadeIn('fast');
+
+        clearInterval(interval);
+      }
+    }, 100);
+
+  });
+
+  // Hide marketplace filter option on mouseleave
+  $('.toggle-group.marketplace').mouseleave(function() {
+
+    let
+        filter = $('.hide-items'),
+        interval,
+        toggleGroup = $('.toggle-group.marketplace');
+
+    filter.fadeOut('fast');
+
+    isMarketplaceHovering = false;
+
+    interval = setInterval(function() {
+
+      if (filter.is(':hidden')) {
+
+        toggleGroup.css({height: '25px'});
+
+        clearInterval(interval);
+      }
+    }, 100);
+  });
+
+  function setupMarketplaceFilter() {
+
+    let setting = Number(localStorage.getItem('itemCondition')),
+        conditions = ['Poor',
+                      'Fair',
+                      'Good',
+                      'Good Plus',
+                      'Very Good',
+                      'Very Good Plus',
+                      'Near Mint',
+                      'Mint'];
+
+    if (setting === 0 || setting === null) {
+
+      $('.toggle-group.marketplace .label').html('Hide Marketplace Items: &nbsp; Off');
+
+    } else {
+
+      $('.toggle-group.marketplace .label').html('Hide Marketplace Items Below: &nbsp; ' + conditions[setting]);
+    }
+  }
 
   // Get stored preferences for extension menu
   function init() {
 
     chrome.storage.sync.get('prefs', function(result) {
 
-      hideMarketplaceItems.value = localStorage.getItem('itemCondition') || "";
+      hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConditions.checked = result.prefs.highlightMedia;
@@ -423,6 +506,8 @@ document.addEventListener('DOMContentLoaded', function () {
     checkForUpdate();
 
     getCurrency();
+
+    setupMarketplaceFilter();
   }
 
   // Start it up

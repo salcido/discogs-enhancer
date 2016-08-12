@@ -283,10 +283,13 @@ input[type="checkbox"]:focus {
 }
 
 .hide-items {
-  margin-top: 16px;
-  margin-left: 215px;
+  display: block;
+  position: relative;
 }
 
 .hide-items select {
   outline: none;
+  position: absolute;
+  top: 55px;
+  left: 100px;
 }
