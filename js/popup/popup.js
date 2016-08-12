@@ -325,9 +325,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.tabs.create({url: '../html/about.html'});
 
-    _gaq.push(['_trackEvent', 'about', 'about clicked']);
-
     acknowledgeUpdate();
+
+    _gaq.push(['_trackEvent', 'about', 'about clicked']);
   });
 
   // Open block sellers page
