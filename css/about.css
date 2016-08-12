@@ -149,6 +149,17 @@ table caption {
     margin-bottom: 150px;
 }
 
+.marketplace-highlights {
+  list-style-type: none;
+  padding-left: 25px;
+  margin-bottom: 20px;
+}
+
+.marketplace-highlights li {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
 .mint {
     color: #00b4db !important;
 }
