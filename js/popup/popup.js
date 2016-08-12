@@ -180,16 +180,20 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hide items in marketplace
   function setHiddenItems(event) {
 
-    let selectValue = event.target[event.target.selectedIndex].value;
+    let selectValue = event.target[event.target.selectedIndex].value,
+        response = 'Please refresh the page for changes to take effect.';
 
     if (!selectValue) {
 
       localStorage.removeItem('itemCondition');
+
     } else {
 
       // set new value on change
       localStorage.setItem( 'itemCondition', String(selectValue) );
     }
+
+    applySave(response, event);
   }
 
   // Toggle prices suggestions
@@ -389,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
-      hideMarketplaceItems.value = localStorage.getItem('itemCondition') || null;
+      hideMarketplaceItems.value = localStorage.getItem('itemCondition') || "";
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConditions.checked = result.prefs.highlightMedia;

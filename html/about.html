@@ -30,7 +30,8 @@
 
                 <p id="didUpdate" class="near-mint">New in <span class="version"></span>:
                   <ul>
-                    <li>Added a new feature called <a href="#notesCounter">Notes Counter</a></li>
+                    <li>New feature: <a href="#hideMarketplace">Hide Marketplace Items</a> that are below a specified condition.</li>
+                    <li>New feature: <a href="#notesCounter">Notes Counter</a></li>
                     <li>Having issues with this extension? Email me: discogs.enhancer@gmail.com</li>
                     <!-- <li>If you enjoy this extension please <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn/reviews?hl=en-US&gl=US" target="_blank">rate it!</a></li> -->
                   </ul>
@@ -46,94 +47,136 @@
                 <p class="bold">Better Collection UI</p>
                 <p class="content">This makes the Collection page a little more organized and easier to understand.</p>
 
+
                 <!--Block Sellers -->
                 <p id="block_sellers" class="bold">Block Sellers</p>
-                <p class="content">Ever have a bad experience buying from someone on Discogs? Add their name to the block list and anytime an item of theirs appears in the Marketplace it will be labeled "Blocked seller" so you can decide if it's worth buying from them again.
-                <br><br>
-                Names can be easily added or removed. Simply click "Edit list" on the popup menu and follow the instructions.
-                <br><br>
-                The default setting will mark blocked sellers in red while still allowing you to place an order with them. If you select the "Hide sellers" option from the "Edit list" page, all blocked sellers will be completely hidden from your search results.</p>
+                <p>Ever have a bad experience buying from someone on Discogs? Add their name to the block list and anytime an item of theirs appears in the Marketplace it will be labeled "Blocked seller" so you can decide if it's worth buying from them again.</p>
+
+                <p>Names can be easily added or removed. Simply click "Edit list" on the popup menu and follow the instructions.</p>
+
+                <p class="content">The default setting will mark blocked sellers in red while still allowing you to place an order with them. If you select the "Hide sellers" option from the "Edit list" page, all blocked sellers will be completely hidden from your search results.</p>
                 <img src="../img/about/blocked-seller.jpg" class="prices" />
+
 
                 <!-- Contextual Menu Options -->
                 <p class="bold">Contextual Menu Options</p>
-                <p class="content">Lets you search Discogs or other online record shops with any text selected on any webpage. Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer's popup.
-                <br><br>
-                Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.</p>
+                <p>Lets you search Discogs or other online record shops with any text selected on any webpage. Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer's popup.</p>
+
+                <p class="content">Current selection includes: Bandcamp, Boomkat, Clone, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye and Pacific Beach Vinyl.</p>
+
 
                 <!-- Currency Converter -->
                 <p class="bold">Currency Converter</p>
-                <p class="content">Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency?
-                <br><br>
-                Now you can quickly find out with the Currency Converter! Just click the '¥ € $' button in the lower-right corner of the screen. Next, choose the seller's currency with the select box labeled <i>'Convert'</i>. Then select your currency by choosing an option from the select box labeled <i>'To'</i>. Now just type the value into the box and see your results instantly!
-                <br><br>
-                (Price conversions are an estimate and are derived from rates from <a href="http://www.fixer.io">fixer.io</a>. Price conversions may not match exactly with Discogs' own conversions.)
-                <br><br>
-                <span>Protip:</span> use Ctrl + Shift + C to quickly toggle the Currency Converter!
+                <p>Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency?</p>
+
+                <p>Now you can quickly find out with the Currency Converter! Just click the '¥ € $' button in the lower-right corner of the screen. Next, choose the seller's currency with the select box labeled <i>'Convert'</i>. Then select your currency by choosing an option from the select box labeled <i>'To'</i>. Now just type the value into the box and see your results instantly!</p>
+
+                <p>(Price conversions are an estimate and are derived from rates from <a href="http://www.fixer.io">fixer.io</a>. Price conversions may not match exactly with Discogs' own conversions.)</p>
+
+                <p class="content">
+                  <span>Protip:</span> use Ctrl + Shift + C to quickly toggle the Currency Converter!
                 </p>
+
 
                 <!-- Dark Theme -->
                 <p class="bold">Dark Theme</p>
                 <p class="content">This makes Discogs much easier on the eyes at night... or all the time. Honestly, after working on this extension, I can't stand looking at Discogs without the dark theme applied.</p>
 
+
                 <!-- Feedback Notifications -->
                 <p id="feedback_notifications" class="bold">Feedback Notifications</p>
-                <p class="content">The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
-                <br><br>
-                Notification badges will appear at the top of the page. "S" for <i>Seller</i> notifications and "B" for <i>Buyer</i> notifications:
+                <p>The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.</p>
+
+                <p>Notification badges will appear at the top of the page. "S" for <i>Seller</i> notifications and "B" for <i>Buyer</i> notifications:</p>
                 <img src="../img/about/feedback-badges.png" class="prices" />
 
-                You can dismiss the notification by hovering over the badge and clicking the "X" that appears:
+                <p>You can dismiss the notification by hovering over the badge and clicking the "X" that appears:</p>
                 <img src="../img/about/feedback-dismissal.png" class="prices" />
 
-                Or you can click on the submenu and go directly to your Positive, Neutral, or Negative feedback pages:
+                <p>Or you can click on the submenu and go directly to your Positive, Neutral, or Negative feedback pages:</p>
                 <img src="../img/about/feedback-hover.png" class="prices" />
-                </p>
+                <p class="content"></p>
+
+
+                <!-- Hide Marketplace Items Below -->
+                <p class="bold" id="hideMarketplace">Hide Marketplace Items <span class="near-mint">(New)</span></p>
+
+                <p>This will hide all items in the Marketplace that are below a specified condition.</p>
+
+                <p>For instance, if you select "Near Mint", only <i>Mint</i> and <i>Near Mint</i> condition will be shown. If you select "Very Good", only <i>Mint, Near Mint, Very Good Plus, and Very Good</i> will be shown (etc...).</p>
+
+                <p>When results have been hidden, you will see a note that says "<b>Some results have been removed.</b>" next to the pagination links.</p>
+
+                <p>To disable this feature, select "Off" from the select box.</p>
+
+                <p class="content">It's worth noting that this simply hides these items from view. So if there are 25 items per page and 5 of those are hidden, you will only see 20 results on that particular page.</p>
+
 
                 <!-- Marketplace Highlights -->
                 <p class="bold">Marketplace Highlights</p>
+
                 <p class="content">This will colorize the Media and Sleeve conditions in the Marketplace. <i class="mint">Mint</i>, <i class="near-mint">Near Mint</i>, <i class="very-good-plus">Very Good Plus</i>, <i class="very-good">Very Good</i>, <i class="good-plus">Good Plus</i>, <i class="good">Good</i>,
                 <i class="fair">Fair</i> and <i class="poor">Poor</i> all have unique colors which makes it easier to see what condition the items are in.</p>
 
+
                 <!-- Notes Counter -->
-                <p class="bold near-mint" id="notesCounter">Notes Counter (New)</p>
-                <p class="content">This will count the characters for any "notes" field in your collection/wantlist so you will know when you are getting close to the maximum character limit (255). It can be useful if you like to keep a lot of notes about your collection and you find you frequently run out of space.
+                <p class="bold" id="notesCounter">Notes Counter <span class="near-mint">(New)</span></p>
+
+                <p class="content">This will count the characters for any "notes" field in your collection/wantlist so you will know when you are getting close to the maximum character limit (255). It can be useful if you like to keep a lot of notes about your collection and you find you frequently run out of space.</p>
                 <img src="../img/about/notes-count.png" class="prices" />
-                </p>
+                <p class="content"></p>
+
 
                 <!-- Release Durations -->
                 <p class="bold">Release Durations</p>
+
                 <p class="content">Shows the total playing time of a release (if track times are provided) at the bottom of the track list.</p>
+
 
                 <!-- Sort Buttons -->
                 <p class="bold">Sort Buttons</p>
-                <p class="content">This adds <span class="sort-btn">Sort A-Z</span> buttons on all kinds of things. You can sort the dialog boxes on the Explore page, your personal lists in the 'Add to list' dialog boxes, and any filter within the Marketplace.
-                <br><br>
-                The first click sorts A-Z, the second click sorts Z-A and the third click returns the list to its original state (aka undo).</p>
+
+                <p>This adds <span class="sort-btn">Sort A-Z</span> buttons on all kinds of things. You can sort the dialog boxes on the Explore page, your personal lists in the 'Add to list' dialog boxes, and any filter within the Marketplace.</p>
+
+                <p class="content">The first click sorts A-Z, the second click sorts Z-A and the third click returns the list to its original state (aka undo).</p>
+
 
                 <!-- Suggested Prices -->
                 <p class="bold">Suggested Prices (beta)</p>
-                <p class="content">This will show the prices that Discogs suggests and compare them to the seller's price. It's useful for seeing if an item is priced fairly. <em>In order for this to work you must be registered as a seller.</em>
-                <br><br>
-                <b>How to use the Suggested Prices feature:</b>
-                <br><br>
-                First choose your currency from the select box. It must be the same currency you use on Discogs:
-                <img src="../img/about/prices-step-2.png" class="prices" />
-                Next, turn the option on:
-                <img src="../img/about/prices-step-3.png" class="prices" />
-                For release pages, the comparisons are displayed automatically.
-                For pages like <i>Wantlists,</i> <i>Seller pages</i> or <i>Master Releases</i>, a link is inserted into the page:
-                <img src="../img/about/price-link.png" class="prices" />
-                Clicking this link will show the comparison for that particular listing:
-                <img src="../img/about/price-example.png" class="price-example" />
-                <br><br>
-                Results are displayed in the currency that is set in your seller settings.<i> <em>Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</em></i> Exchange rate data comes from <a href="http://www.fixer.io">fixer.io</a> and is updated (at most) once a day or whenever fixer.io updates their data. Discogs likely uses a different exchange service so their exchange rates might differ slightly from fixer.io's rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.
-                <br><br>
-                This feature is still in beta. It *should* work with currencies outside the US but I cannot test them without screwing up my Discogs seller account. If you have any issues, please let me know!
+
+                <p>This will show the prices that Discogs suggests and compare them to the seller's price. It's useful for seeing if an item is priced fairly. <em>In order for this to work you must be registered as a seller.</em></p>
+
+                <p>
+                  <b>How to use the Suggested Prices feature:</b>
                 </p>
+
+                <p>First choose your currency from the select box. It must be the same currency you use on Discogs:</p>
+
+                <img src="../img/about/prices-step-2.png" class="prices" />
+
+                <p>Next, turn the option on:</p>
+
+                <img src="../img/about/prices-step-3.png" class="prices" />
+
+                <p>For release pages, the comparisons are displayed automatically.</p>
+
+                <p>For pages like <i>Wantlists,</i> <i>Seller pages</i> or <i>Master Releases</i>, a link is inserted into the page:</p>
+
+                <img src="../img/about/price-link.png" class="prices" />
+
+                <p>Clicking this link will show the comparison for that particular listing:</p>
+
+                <img src="../img/about/price-example.png" class="price-example" />
+
+                <p>Results are displayed in the currency that is set in your seller settings.<i> <em>Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</em></i> Exchange rate data comes from <a href="http://www.fixer.io">fixer.io</a> and is updated (at most) once a day or whenever fixer.io updates their data. Discogs likely uses a different exchange service so their exchange rates might differ slightly from fixer.io's rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.</p>
+
+                <p class="content">This feature is still in beta. It *should* work with currencies outside the US but I cannot test them without screwing up my Discogs seller account. If you have any issues, please let me know!
+                </p>
+
 
                 <!-- Troubleshooting -->
                 <p class="bold troubleshoot">Troubleshooting</p>
+
                 <p class="content">If you are seeing odd behavior, try restarting Chrome. Sometimes things get wonky after Chrome updates the extension. If that does not fix your issue, make sure <a href="https://support.google.com/chrome/answer/95414?co=GENIE.Platform%3DDesktop&hl=en">Chrome is up to date</a>. You can also try uninstalling Discogs Enhancer and reinstalling it from the Chrome store again. If you tried all these things and it's still not working please email me at: discogs.enhancer@gmail.com and let me know. You have likely found a bug!</p>
 
                 <hr>

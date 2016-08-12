@@ -49,13 +49,20 @@ $(document).ready(function() {
         }
       });
 
+      $('.pagination_total').html('Some results have been removed.');
+
       // Show message if all results have been removed
       if (!$('.shortcut_navigable').length) {
 
         let html = '<tr class="shortcut_navigable"><th>Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera. If you do not want this effect please change the "Hide Marketplace Items Below" setting in Discogs Enhancer.</th></tr>';
 
         $('#pjax_container tbody').html(html);
+
+        $('.pagination_total').html('All results have been removed.');
       }
+    } else {
+
+      return;
     }
   }
 

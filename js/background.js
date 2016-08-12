@@ -385,6 +385,12 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(notesCount);
   }
 
+  // Set value for hide-items-below-condition.js
+  if (result.prefs.hideMarketplaceItems) {
+
+    localStorage.setItem('itemCondition', result.prefs.hideMarketplaceItems);
+  }
+
   // unit-tests.js
   unitTests = document.createElement('script');
 
