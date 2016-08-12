@@ -179,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Hide items in marketplace
-  // TODO: set feature title text with this function.
   function setHiddenItems(event) {
 
     let selectValue = event.target[event.target.selectedIndex].value,
@@ -318,7 +317,6 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleJuno.addEventListener('change', updateMenu);
   toggleOye.addEventListener('change', updateMenu);
   togglePbvinyl.addEventListener('change', updateMenu);
-
 
   // Open the about page
   $('body').on('click', '#about', function() {
