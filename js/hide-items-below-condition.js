@@ -42,14 +42,14 @@ $(document).ready(function() {
 
         let elem = $('td.item_description p.item_condition').find('.condition-label-desktop:first').next(':contains(' + condition + ')');
 
-        if (elem) {
+        if (elem.length) {
 
           elem.parent().parent().parent().remove();
+
+          // Update page with filter notice
+          $('.pagination_total').html('Some results have been removed.');
         }
       });
-
-      // Update page with filter notice
-      $('.pagination_total').html('Some results have been removed.');
 
       // Show message if all results have been removed
       if (!$('.shortcut_navigable').length) {
