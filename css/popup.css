@@ -39,6 +39,7 @@ p {
   font-weight: 300;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  word-spacing: 2px;
 }
 
 a.button_orange {

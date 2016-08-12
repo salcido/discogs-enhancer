@@ -13,6 +13,8 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Buyer/Seller feedback notifications
 * Contextual menu searching
 * Dark theme
+* Filter items
+* Notes counter
 * Marketplace highlights
 * On-screen currency converter
 * Price suggestion comparisons

@@ -453,23 +453,23 @@ document.addEventListener('DOMContentLoaded', function () {
   function setupMarketplaceFilter() {
 
     let setting = Number(localStorage.getItem('itemCondition')),
-        conditions = ['Poor',
-                      'Fair',
-                      'Good',
-                      'Good Plus',
-                      'Very Good',
-                      'Very Good Plus',
-                      'Near Mint',
-                      'Mint'],
+        conditions = ['Poor (P)',
+                      'Fair (F)',
+                      'Good (G)',
+                      'Good Plus (G+)',
+                      'Very Good (VG)',
+                      'Very Good Plus (VG+)',
+                      'Near Mint (NM/M-)',
+                      'Mint (M)'],
         colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
 
     if (setting === 0 || setting === null) {
 
-      $('.toggle-group.marketplace .label').html('Filter Marketplace Items: &nbsp; <span style="color:white;">Disabled</span>');
+      $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
 
     } else {
 
-      $('.toggle-group.marketplace .label').html('Filter Marketplace Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+      $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
     }
   }
 
