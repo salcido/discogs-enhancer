@@ -13,7 +13,7 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Buyer/Seller feedback notifications
 * Contextual menu searching
 * Dark theme
-* Filter items
+* Filter Marketplace items
 * Notes counter
 * Marketplace highlights
 * On-screen currency converter
@@ -41,6 +41,14 @@ Search Discogs (or many other online shops) instantly with any highlighted text!
 Great for late night browsing.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/dark-theme.png?raw=true "Dark theme preview")
+
+### Filter Marketplace items
+This will filter out all items in the Marketplace that are below a specified condition.
+
+For instance, if you select "Near Mint", only Mint and Near Mint condition items will be shown. If you select "Very Good", only Mint, Near Mint, Very Good Plus, and Very Good items will be shown (etc...).
+
+### Notes counter
+This will count the characters for any "notes" field in your collection/wantlist so you will know when you are getting close to the maximum character limit (255). It can be useful if you like to keep a lot of notes about your collection and you find you frequently run out of space mid-sentence.
 
 ### Highlight release conditions in the Marketplace
 Easily see at a glance which items for sale are in the best condition.
