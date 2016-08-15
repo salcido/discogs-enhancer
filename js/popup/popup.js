@@ -465,9 +465,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
 
+      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: disabled']);
+
     } else {
 
       $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+
+      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace:' + conditions[setting]]);
     }
   }
 
