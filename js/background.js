@@ -41,6 +41,14 @@ let
     unitTests,
     updateExchangeRates;
 
+/**
+ * Appends js/css nodes to the DOM
+ *
+ * @method   appendFragment
+ * @param    {Object}       source [The node to be appeneded]
+ * @return   {undefined}
+ */
+
 function appendFragment(source) {
 
   let fragment = document.createDocumentFragment();
@@ -53,6 +61,14 @@ function appendFragment(source) {
   (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
 }
 
+/**
+ * Get the users preferences or create them if they
+ * do not yet exist.
+ *
+ * @method   get
+ * @param    {Object} 'prefs'  [The prefs object]
+ * @return   {undefined}
+ */
 
 chrome.storage.sync.get('prefs', function(result) {
 
@@ -135,7 +151,13 @@ chrome.storage.sync.get('prefs', function(result) {
   appendFragment(initElems);
 
 
-  /*   User Prefs   */
+  /*
+   *
+   * /////////////////////
+   * User Preferences
+   * /////////////////////
+   *
+   */
 
   if (result.prefs.highlightMedia) {
 
@@ -413,7 +435,13 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(hideItems);
 
-  /*  Contextual menu options  */
+  /*
+   *
+   * ////////////////////////
+   * Contextual Menu Options
+   * ////////////////////////
+   *
+   */
 
   if (result.prefs.useBandcamp) {
 
@@ -552,14 +580,20 @@ chrome.storage.sync.get('prefs', function(result) {
     localStorage.setItem('userCurrency', result.prefs.userCurrency);
   }
 
+  // append nodes to the DOM
   setTimeout(function() {
 
     appendFragment(elems);
-
   }, 100);
 });
 
-/*  Install/update notifications  */
+/*
+ *
+ * ////////////////////////////
+ * Install/Update Notifications
+ * ////////////////////////////
+ *
+ */
 
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
@@ -602,7 +636,13 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
   });
 }
 
-/* Analytics option */
+/*
+ *
+ * /////////////////////
+ * Analytics Option
+ * /////////////////////
+ *
+ */
 
 checkForAnalytics = setInterval(function() {
 
@@ -637,6 +677,14 @@ checkForAnalytics = setInterval(function() {
 
 /* Clean up on asile 7! */
 window.onload = function() { $('.de-init').remove(); };
+
+/*
+ *
+ * /////////////////////
+ * Block Sellers
+ * /////////////////////
+ *
+ */
 
 // Get current list of blocked sellers, marketplace item conditions
 // from the upside down of the extension

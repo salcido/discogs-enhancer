@@ -563,7 +563,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 100);
   });
 
-  // Get stored preferences for extension menu
+  /**
+   * Sets toggle button values when the popup is rendered
+   * and calls necessary methods
+   *
+   * @method   init
+   * @return   {undefined}
+   */
+
   function init() {
 
     chrome.storage.sync.get('prefs', function(result) {
