@@ -78,9 +78,7 @@ $(document).ready(function() {
         success: function(response) {
 
           result = $(response);
-
           nodeId = resourceLibrary.findNode(result);
-
           priceKey = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
 
           // User does not have seller setup
@@ -94,11 +92,8 @@ $(document).ready(function() {
           }
 
           resourceLibrary.matchSymbols(priceContainer);
-
           resourceLibrary.sanitizePrices(priceContainer);
-
           resourceLibrary.convertPrices(priceContainer);
-
 
           // Set up comparions values
           actual = priceContainer[0].convertedPrice;
@@ -179,7 +174,6 @@ $(document).ready(function() {
 
         error: function() {
 
-          //resourceLibrary.appendNotice('Discogs Enhancer: There was an error getting price data. Please try again later.', 'orange');
           console.log('There was an error getting price data. Please try again later.');
         }
       });
@@ -207,10 +201,7 @@ $(document).ready(function() {
           price = link.closest('.shortcut_navigable').find('.price').html(),
           target = $(event.target).closest('.item_price');
 
-          priceContainer = [{
-                              price: price,
-                              mediaCondition: itemCondition
-                           }];
+          priceContainer = [{ price: price, mediaCondition: itemCondition }];
 
       getAndAppendPrice(releaseId, priceContainer, target);
     });

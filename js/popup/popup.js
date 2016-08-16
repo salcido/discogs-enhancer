@@ -43,7 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
       togglePbvinyl = document.getElementById('pbvinyl');
 
 
-  // Clears the update notifications
+  /**
+   * Clears the update notification
+   * @method   acknowledgeUpdate
+   * @param    {string}          message [The message displayed to the user]
+   * @return   {undefined}
+   */
+
   function acknowledgeUpdate(message) {
 
     chrome.storage.sync.set({didUpdate: false}, function() {});
@@ -52,7 +58,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Save preferences
+  /**
+   * Saves the users preferences
+   *
+   * @method   applySave
+   * @param    {String}  message [The message displayed to the user]
+   * @param    {Object}  event   [The event object]
+   * @return   {undefined}
+   */
+
   function applySave(message, event) {
 
     let manifest = chrome.runtime.getManifest();
@@ -107,6 +121,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /**
+   * Checks extension for any recent updates
+   *
+   * @method   checkForUpdate
+   * @return   {undefined}
+   */
 
   function checkForUpdate() {
 
@@ -124,7 +144,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Get/Save currency preferences
+  /**
+   * Gets and saves currency preferences
+   *
+   * @method   getCurrency
+   * @return   {undefined}
+   */
+
   function getCurrency() {
 
     chrome.storage.sync.get('prefs', function(result) {
@@ -148,7 +174,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Toggle release condition highlighting on/off
+  /**
+   * Toggles Marketplace highlights
+   *
+   * @method   toggleHighlights
+   * @param    {object}         event [the event object]
+   * @return   {undefined}
+   */
+
   function toggleHighlights(event) {
 
     let response = 'Please refresh the page for changes to take effect.';
@@ -170,7 +203,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Call save function
+  /**
+   * Tells the user to refresh after updating a preference
+   *
+   * @method   triggerSave
+   * @param    {Object}    event [The event object]
+   * @return   {undefined}
+   */
+
   function triggerSave(event) {
 
     let response = 'Please refresh the page for changes to take effect.';
@@ -178,7 +218,13 @@ document.addEventListener('DOMContentLoaded', function () {
     applySave(response, event);
   }
 
-  // Hide items in marketplace
+  /**
+   * Hides items in the Marketplace
+   *
+   * @method   setHiddenItems
+   * @param    {Object}       event [The event object]
+   */
+
   function setHiddenItems(event) {
 
     let selectValue = event.target[event.target.selectedIndex].value,
@@ -199,7 +245,48 @@ document.addEventListener('DOMContentLoaded', function () {
     applySave(response, event);
   }
 
-  // Toggle prices suggestions
+  /**
+   * Sets the text value/color of the Marketplace filter in the popup menu
+   *
+   * @method   setupMarketplaceFilter
+   * @return   {undefined}
+   */
+
+  function setupMarketplaceFilter() {
+
+    let setting = Number(localStorage.getItem('itemCondition')),
+        conditions = ['Poor (P)',
+                      'Fair (F)',
+                      'Good (G)',
+                      'Good Plus (G+)',
+                      'Very Good (VG)',
+                      'Very Good Plus (VG+)',
+                      'Near Mint (NM/M-)',
+                      'Mint (M)'],
+        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
+
+    if (setting === 0 || setting === null) {
+
+      $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
+
+      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: disabled']);
+
+    } else {
+
+      $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+
+      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: ' + conditions[setting]]);
+    }
+  }
+
+  /**
+   * Toggles price comparisons
+   *
+   * @method   showPrices
+   * @param    {Object}   event [The event object]
+   * @return   {undefined}
+   */
+
   function showPrices(event) {
 
     let response = 'Please refresh the page for changes to take effect.';
@@ -235,14 +322,27 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Saves user currency
+  /**
+   * Saves the user's currency
+   *
+   * @method   setCurrency
+   * @param    {Object}    event [The event object]
+   */
+
   function setCurrency(event) {
 
     applySave(null, event);
   }
 
 
-  // Create/remove contextual menus
+  /**
+   * Creates/removes contextual menu items
+   *
+   * @method   updateMenu
+   * @param    {Object}   event [The event object]
+   * @return   {undefined}
+   */
+
   function updateMenu(event) {
 
     if (event.target.checked) {
@@ -270,7 +370,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  // Toggle dark mode on/off
+  /**
+   * Toggles the dark theme
+   *
+   * @method   useDarkTheme
+   * @param    {Object}     event [The event object]
+   * @return   {undefined}
+   */
+
   function useDarkTheme(event) {
 
     if (event.target.checked) {
@@ -317,6 +424,14 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleJuno.addEventListener('change', updateMenu);
   toggleOye.addEventListener('change', updateMenu);
   togglePbvinyl.addEventListener('change', updateMenu);
+
+  /**
+   *
+   * //////////////////////////////
+   * Event listeners
+   * //////////////////////////////
+   *
+   */
 
   // Open the about page
   $('body').on('click', '#about', function() {
@@ -447,33 +562,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }, 100);
   });
-
-  function setupMarketplaceFilter() {
-
-    let setting = Number(localStorage.getItem('itemCondition')),
-        conditions = ['Poor (P)',
-                      'Fair (F)',
-                      'Good (G)',
-                      'Good Plus (G+)',
-                      'Very Good (VG)',
-                      'Very Good Plus (VG+)',
-                      'Near Mint (NM/M-)',
-                      'Mint (M)'],
-        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
-
-    if (setting === 0 || setting === null) {
-
-      $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
-
-      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: disabled']);
-
-    } else {
-
-      $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
-
-      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: ' + conditions[setting]]);
-    }
-  }
 
   // Get stored preferences for extension menu
   function init() {
