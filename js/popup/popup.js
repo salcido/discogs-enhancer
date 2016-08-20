@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
 
-      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: ' + conditions[setting]]);
+      _gaq.push(['_trackEvent', ' Marketplace Filter: ' + conditions[setting], 'Marketplace Filter']);
     }
   }
 
