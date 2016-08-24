@@ -503,6 +503,24 @@ hr {
     border-right: 1px solid #454545 !important;
 }
 
+/* plain buttons (preview, add comment) */
+#previewBtn,
+#postBtn {
+  border-color: #dbdbdb!important;
+  border-top-color: #e0e0e0!important;
+  border-bottom-color: #d3d3d3!important;
+  background-color: #f2f2f2!important;
+}
+
+#previewBtn:hover,
+#postBtn:hover {
+  border-color: #d9d9d9!important;
+  border-top-color: #d3d3d3!important;
+  border-bottom-color: #ccc!important;
+  background-image: -webkit-linear-gradient(#fff, #fafafa)!important;
+  background-image: linear-gradient(#fff, #fafafa)!important;
+}
+
 /* gray text on white buttons */
 
 .button,

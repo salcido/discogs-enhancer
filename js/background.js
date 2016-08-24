@@ -90,6 +90,7 @@ chrome.storage.sync.get('prefs', function(result) {
       useBandcamp: false,
       useBoomkat: false,
       useClone: false,
+      useDecks: false,
       useDeejay: false,
       useDiscogs: true,
       useGramaphone: false,
@@ -98,7 +99,9 @@ chrome.storage.sync.get('prefs', function(result) {
       useInsound: false,
       useJuno: false,
       useOye: false,
-      usePbvinyl: false
+      usePbvinyl: false,
+      usePhonica: false,
+      useSotu: false
     };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -476,6 +479,17 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
+  if (result.prefs.useDecks) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchDecks',
+      id: 'decks',
+      method: 'create',
+      name: 'Decks.de',
+      request: 'updateContextMenu'
+    });
+  }
+
   if (result.prefs.useDeejay) {
 
     chrome.runtime.sendMessage({
@@ -571,6 +585,28 @@ chrome.storage.sync.get('prefs', function(result) {
       id: 'pbvinyl',
       method: 'create',
       name: 'PBVinyl',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.usePhonica) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchPhonica',
+      id: 'phonica',
+      method: 'create',
+      name: 'Phonica',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useSotu) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchSotu',
+      id: 'sotu',
+      method: 'create',
+      name: 'SOTU',
       request: 'updateContextMenu'
     });
   }

@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleBandcamp = document.getElementById('bandcamp'),
       toggleBoomkat = document.getElementById('boomkat'),
       toggleClone = document.getElementById('clone'),
+      toggleDecks = document.getElementById('decks'),
       toggleDeeJay = document.getElementById('deejay'),
       toggleDiscogs = document.getElementById('discogs'),
       toggleGramaphone = document.getElementById('gramaphone'),
@@ -40,8 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleInsound = document.getElementById('insound'),
       toggleJuno = document.getElementById('juno'),
       toggleOye = document.getElementById('oye'),
-      togglePbvinyl = document.getElementById('pbvinyl');
-
+      togglePbvinyl = document.getElementById('pbvinyl'),
+      togglePhonica = document.getElementById('phonica'),
+      toggleSotu = document.getElementById('sotu');
 
   /**
    * Clears the update notification
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
       useBandcamp: toggleBandcamp.checked,
       useBoomkat: toggleBoomkat.checked,
       useClone: toggleClone.checked,
+      useDecks: toggleDecks.checked,
       useDeejay: toggleDeeJay.checked,
       useDiscogs: toggleDiscogs.checked,
       useGramaphone: toggleGramaphone.checked,
@@ -97,7 +100,9 @@ document.addEventListener('DOMContentLoaded', function () {
       useInsound: toggleInsound.checked,
       useJuno: toggleJuno.checked,
       useOye: toggleOye.checked,
-      usePbvinyl: togglePbvinyl.checked
+      usePbvinyl: togglePbvinyl.checked,
+      usePhonica: togglePhonica.checked,
+      useSotu: toggleSotu.checked
     };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -415,6 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleBandcamp.addEventListener('change', updateMenu);
   toggleBoomkat.addEventListener('change', updateMenu);
   toggleClone.addEventListener('change', updateMenu);
+  toggleDecks.addEventListener('change', updateMenu);
   toggleDeeJay.addEventListener('change', updateMenu);
   toggleDiscogs.addEventListener('change', updateMenu);
   toggleGramaphone.addEventListener('change', updateMenu);
@@ -424,6 +430,8 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleJuno.addEventListener('change', updateMenu);
   toggleOye.addEventListener('change', updateMenu);
   togglePbvinyl.addEventListener('change', updateMenu);
+  togglePhonica.addEventListener('change', updateMenu);
+  toggleSotu.addEventListener('change', updateMenu);
 
   /**
    *
@@ -467,13 +475,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (isHovering) {
 
-        $(this).css({height: '125px'});
+        $(this).css({height: '140px'});
       }
     }, 400);
 
     interval = setInterval(function() {
 
-      if (toggleGroup.height() >= 120) {
+      if (toggleGroup.height() >= 135) {
 
         contextMenus.fadeIn('fast');
 
@@ -591,6 +599,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleBandcamp.checked = result.prefs.useBandcamp;
       toggleBoomkat.checked = result.prefs.useBoomkat;
       toggleClone.checked = result.prefs.useClone;
+      toggleDecks.checked = result.prefs.useDecks;
       toggleDeeJay.checked = result.prefs.useDeejay;
       toggleDiscogs.checked = result.prefs.useDiscogs;
       toggleGramaphone.checked = result.prefs.useGramaphone;
@@ -600,6 +609,8 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleJuno.checked = result.prefs.useJuno;
       toggleOye.checked = result.prefs.useOye;
       togglePbvinyl.checked = result.prefs.usePbvinyl;
+      togglePhonica.checked = result.prefs.usePhonica;
+      toggleSotu.checked = result.prefs.useSotu;
     });
 
     checkForUpdate();
