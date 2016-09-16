@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         blockList.list.forEach(function(seller) {
 
-          if ($('td.seller_info:contains(' + seller + ')')) {
+          if ($('td.seller_info:contains(' + seller + ')').length) {
 
             $('td.seller_info:contains(' + seller + ')').parent().remove();
           }
@@ -38,7 +38,7 @@ $(document).ready(function() {
       // Draxx them sklounst
       blockList.list.forEach(function(seller) {
 
-        if ($('td.seller_info:contains(' + seller + ')')) {
+        if ($('td.seller_info:contains(' + seller + ')').length) {
 
           $('td.seller_info:contains(' + seller + ')').parent().addClass('blocked-seller');
         }

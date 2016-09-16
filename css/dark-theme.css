@@ -1294,6 +1294,7 @@ pre code {
 .alert-message.alert-message-warning i,
 .alert-message.alert-message-warning,
 span.alert-message-text p,
+span.alert-message-text ul li label,
 span.alert-message-content h3,
 span.alert-message-content h4,
 span.alert-message-content ul li a strong,

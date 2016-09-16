@@ -116,13 +116,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Google Analyitcs
-    if (event.target.checked === true || event.target.checked === false) {
+    if (_gaq) {
 
-      _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
+      if (event.target.checked === true || event.target.checked === false) {
 
-    } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
+        _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
 
-      _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
+      } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
+
+        _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
+      }
     }
   }
 
@@ -274,13 +277,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
 
-      _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: disabled']);
+      if (_gaq) {
+
+        _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: disabled']);
+      }
 
     } else {
 
       $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
 
+      if (_gaq) {
+
       _gaq.push(['_trackEvent', ' Marketplace Filter: ' + conditions[setting], 'Marketplace Filter']);
+
+      }
     }
   }
 
@@ -448,7 +458,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     acknowledgeUpdate();
 
-    _gaq.push(['_trackEvent', 'about', 'about clicked']);
+    if (_gaq) {
+
+      _gaq.push(['_trackEvent', 'about', 'about clicked']);
+    }
   });
 
   // Open block sellers page
