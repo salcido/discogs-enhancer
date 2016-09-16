@@ -12,6 +12,7 @@ $(document).ready(function() {
 
   let
       visible = false,
+      loc = window.location.href,
       modal = '<div id="optionsModal" class="options-modal" style="display: none;">' +
                 '<div class="options-modal-content">' +
                   '<span class="options-close">x</span>' +
@@ -75,7 +76,15 @@ $(document).ready(function() {
     }
   });
 
-  $('body').append(modal);
+  // The options form screws with the checkbox count on the collection page
+  // so I'm not appending it if a user is currently on the collection page.
+  // I considered iterating through the checkboxes and removing the options
+  // from the jq object so that enabling/disabling the move button
+  // would work as intended but this seems more performant. And easy (lazy).
+  if (loc.indexOf('/collection') === -1) {
 
-  resourceLibrary.options.getOptions();
+    $('body').append(modal);
+
+    resourceLibrary.options.getOptions();
+  }
 });

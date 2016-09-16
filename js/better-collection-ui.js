@@ -34,7 +34,7 @@ $(document).ready(function() {
 
         $('label[for="folder_top"]').text('Current folder: ');
 
-        $('#random_list_form').css({ float: 'right', marginTop: '5px' });
+        $('#random_list_form').css({ float: 'right', marginTop: '11px' });
 
         $('.release_list_remove').addClass('button_red');
 
