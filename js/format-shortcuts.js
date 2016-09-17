@@ -7,7 +7,7 @@
  * @github: https://github.com/salcido
  *
  */
-
+// TODO add buttons to list comments $('.textedit_content')
 $(document).ready(function() {
 
   let t = document.getElementsByTagName('textarea'),
@@ -51,13 +51,13 @@ $(document).ready(function() {
     // bold and italic
     $('.quick-button.quick-bold, .quick-button.quick-italic').click(function(event) {
 
-      event.preventDefault();
-
       let
           textarea = $(this).parent().parent().siblings('textarea'),
           boldSyntax = $(this).hasClass('quick-bold') ? '[b][/b]' : '[i][/i]',
           position = textarea.getCursorPosition(),
           text = textarea.val();
+
+      event.preventDefault();
 
       // insert appropriate tag syntax
       textarea.val( text.substr(0, position) + boldSyntax + text.substr(position) );
@@ -72,20 +72,22 @@ $(document).ready(function() {
     // URLs
     $('.quick-button.quick-link').click(function(event) {
 
-      event.preventDefault();
-
       let
           textarea = $(this).parent().parent().siblings('textarea'),
+          discogs = 'https://www.discogs.com',
+          guideline = /(\d*\.\d*)/g,
           link = window.prompt('Type or paste your URL here:'),
           position = textarea.getCursorPosition(),
           syntax = undefined,
           text = textarea.val(),
           urlArr;
 
+      event.preventDefault();
+
       switch (true) {
 
         // artists
-        case link.indexOf('/artist/') > -1 && link.indexOf('www.discogs.com') > -1:
+        case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
 
             urlArr = link.split('/');
 
@@ -97,21 +99,14 @@ $(document).ready(function() {
             break;
 
         // guidelines
-        // guideline URLs must have a hash in their query params in order to be valid
-        // TODO look for string with x.x.x format to detect guidelines typed
-        case link.indexOf('/doc/') > -1 && link.indexOf('#') > -1 && link.indexOf('www.discogs.com') > -1:
+        case guideline.test(link) && link.indexOf(discogs) === -1 && link.indexOf('http') === -1:
 
-            urlArr = link.split('/');
-
-            let guideline = urlArr[urlArr.length - 1],
-                guideNum = guideline.split('#')[1];
-
-            syntax = '[g' + guideNum + ']';
+            syntax = '[g' + link + ']';
 
             break;
 
         // labels
-        case link.indexOf('/label/') > -1 && link.indexOf('www.discogs.com') > -1:
+        case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
 
             urlArr = link.split('/');
 
@@ -123,7 +118,7 @@ $(document).ready(function() {
             break;
 
         // masters
-        case link.indexOf('/master/') > -1 && link.indexOf('www.discogs.com') > -1:
+        case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
 
             urlArr = link.split('/');
 
@@ -135,7 +130,7 @@ $(document).ready(function() {
 
 
         // releases
-        case link.indexOf('/release/')> -1 && link.indexOf('www.discogs.com') > -1:
+        case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
 
             urlArr = link.split('/');
 
@@ -146,19 +141,18 @@ $(document).ready(function() {
             break;
 
         // topics
-        case link.indexOf('/topic?') > -1 && link.indexOf('www.discogs.com') > -1:
+        case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
 
             urlArr = link.split('/');
 
-            let topic = urlArr[urlArr.length - 1],
-                topicNum = topic.split('=')[1];
+            let topic = urlArr[urlArr.length - 1];
 
-            syntax = '[t=' + topicNum + ']';
+            syntax = '[t=' + topic + ']';
 
             break;
 
         // user
-        case link.indexOf('/user/') > -1 && link.indexOf('www.discogs.com') > -1:
+        case link.indexOf('/user/') > -1 && link.indexOf(discogs) > -1:
 
             syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
@@ -166,7 +160,7 @@ $(document).ready(function() {
 
         // non-discogs urls
         // TODO better url detection than just indexOf('/')
-        case link.indexOf('/') > -1 && link.indexOf('www.discogs.com') === -1:
+        case link.indexOf('http') > -1:
 
             syntax = '[url=' + link + '][/url]';
 
