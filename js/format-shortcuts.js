@@ -60,46 +60,117 @@ $(document).ready(function() {
     });
 
     // URLs
+    // TODO check for indexOf 'discogs.com' && link to make a non-discogs URL check
     $('.quick-button.quick-link').click(function(event) {
 
       event.preventDefault();
 
-      let link = window.prompt('Paste your artist, release, or user URL here:');
+      let
+          textarea = $(this).parent().parent().siblings('textarea'),
+          link = window.prompt('Paste your Discogs URL here:'),
+          position = textarea.getCursorPosition(),
+          syntax = undefined,
+          text = textarea.val(),
+          urlArr;
 
       switch (true) {
 
+        // artists
         case link.indexOf('/artist/') > -1:
-            console.log('link is a artist');
+
+            urlArr = link.split('/');
+
+            let
+                artist = urlArr[urlArr.length - 1],
+                artistNum = artist.split('-')[0];
+
+            syntax = '[a' + artistNum + ']';
+
             break;
 
-        case link.indexOf('/guidelines/') > -1:
-            console.log('link is a guideline');
+        // guideline
+        case link.indexOf('/doc/') > -1:
+
+            urlArr = link.split('/');
+
+            let guideline = urlArr[urlArr.length - 1],
+                guideNum = guideline.split('#')[1];
+
+            syntax = '[g' + guideNum + ']';
+
             break;
 
+        // label
         case link.indexOf('/label/') > -1:
-            console.log('link is a label');
+
+            urlArr = link.split('/');
+
+            let label = urlArr[urlArr.length - 1],
+                labelNum = label.split('-')[0];
+
+            syntax = '[l' + labelNum + ']';
+
             break;
 
+        // master
         case link.indexOf('/master/') > -1:
+
             console.log('link is a master');
+
+            urlArr = link.split('/');
+
+            let master = urlArr[urlArr.length - 1];
+
+            syntax = '[m' + master + ']';
+
             break;
 
+
+        // release
         case link.indexOf('/release/') > -1:
-            console.log('link is a release');
+
+            urlArr = link.split('/');
+
+            let release = urlArr[urlArr.length - 1];
+
+            syntax = '[r' + release + ']';
+
             break;
 
-        case link.indexOf('/topic/') > -1:
-            console.log('link is a topic');
+        // topic
+        case link.indexOf('/topic?') > -1:
+
+            urlArr = link.split('/');
+
+            let topic = urlArr[urlArr.length - 1],
+                topicNum = topic.split('=')[1];
+
+            syntax = '[t=' + topicNum + ']';
+
             break;
 
+        // user
         case link.indexOf('/user/') > -1:
-            console.log('link is a user');
+
+            syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
+
             break;
 
         default:
-            console.log('a link has no name');
+            // 'a link has no name...'
+            alert('Invalid URL. Please check your URL and try again.');
+
             break;
       }
+
+      // insert appropriate tag syntax
+      textarea.val( text.substr(0, position) + syntax + text.substr(position) );
+
+      // adjust cursor position to fit between bold/italic tags
+      textarea.selectRange(position + 3);
+
+      // set the focus
+      textarea.focus();
 
     });
   }
