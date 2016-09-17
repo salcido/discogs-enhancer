@@ -85,8 +85,8 @@ $(document).ready(function() {
       let
           textarea = $(this).parent().parent().siblings('textarea'),
           discogs = 'https://www.discogs.com',
-          guideline = /(\d*\.\d*)/g,
-          link = window.prompt('Type or paste your URL here:'),
+          guideline = /(\d+\.+\d*)/g,
+          link = window.prompt('Type or paste your URL or guideline number (ie: 1.2.3) here:'),
           position = textarea.getCursorPosition(),
           syntax = undefined,
           text = textarea.val(),
@@ -103,6 +103,11 @@ $(document).ready(function() {
 
             let artist = urlArr[urlArr.length - 1],
                 artistNum = artist.split('-')[0];
+
+            if (artistNum.indexOf('?') > -1) {
+
+              artistNum = artistNum.split('?')[0];
+            }
 
             syntax = '[a' + artistNum + ']';
 
@@ -123,6 +128,11 @@ $(document).ready(function() {
             let label = urlArr[urlArr.length - 1],
                 labelNum = label.split('-')[0];
 
+            if (labelNum.indexOf('?') > -1) {
+
+              labelNum = labelNum.split('?')[0];
+            }
+
             syntax = '[l' + labelNum + ']';
 
             break;
@@ -134,10 +144,14 @@ $(document).ready(function() {
 
             let master = urlArr[urlArr.length - 1];
 
+            if (master.indexOf('?') > -1) {
+
+              master = master.split('?')[0];
+            }
+
             syntax = '[m' + master + ']';
 
             break;
-
 
         // releases
         case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
@@ -145,6 +159,11 @@ $(document).ready(function() {
             urlArr = link.split('/');
 
             let release = urlArr[urlArr.length - 1];
+
+            if (release.indexOf('?') > -1) {
+
+              release = release.split('?')[0];
+            }
 
             syntax = '[r' + release + ']';
 
@@ -156,6 +175,11 @@ $(document).ready(function() {
             urlArr = link.split('/');
 
             let topic = urlArr[urlArr.length - 1];
+
+            if (topic.indexOf('?') > -1) {
+
+              topic = topic.split('?')[0];
+            }
 
             syntax = '[t=' + topic + ']';
 
@@ -187,7 +211,7 @@ $(document).ready(function() {
 
         default:
             // 'a link has no name...'
-            alert('You did not enter a valid URL. Please try again.');
+            alert('A valid URL or guideline number was not recognized. \nPlease make sure URLs begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can read more about the requirements by clicking \'About\' from the Discogs Enhancer popup menu.');
 
             return;
       }
