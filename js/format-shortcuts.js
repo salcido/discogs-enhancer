@@ -1,7 +1,17 @@
+/**
+ *
+ * Discogs Enhancer
+ *
+ * @author: Matthew Salcido (c) 2016
+ * @url: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ *
+ */
+
 $(document).ready(function() {
 
   let t = document.getElementsByTagName('textarea'),
-      hasReview = false;
+      hasTextarea = false;
 
   // see if any review boxes exist on the page
   if (t.length) {
@@ -10,14 +20,14 @@ $(document).ready(function() {
 
       if (t[i].name === 'review') {
 
-        hasReview = true;
+        hasTextarea = true;
 
         break;
       }
 
       if ( t[i].className.indexOf('forum_reply') > -1 ) {
 
-        hasReview = true;
+        hasTextarea = true;
 
         break;
       }
@@ -28,12 +38,12 @@ $(document).ready(function() {
   }
 
   // inject markup if necessary
-  if (hasReview) {
+  if (hasTextarea) {
 
     let markup = '<div class="quick-menu">' +
-                    '<a href="#"><div class="quick-button quick-bold">B</div></a>' +
-                    '<a href="#"><div class="quick-button quick-italic">I</div></a>' +
-                    '<a href="#"><div class="quick-button quick-link">&#127760;</div></a>' +
+                    '<a href="#"><div class="quick-button quick-bold" title="Insert bold code">B</div></a>' +
+                    '<a href="#"><div class="quick-button quick-italic" title="Insert italic code">I</div></a>' +
+                    '<a href="#"><div class="quick-button quick-link" title="Insert url">&#8599;</div></a>' +
                  '</div>';
 
     $(markup).insertAfter( $('textarea') );
@@ -66,7 +76,7 @@ $(document).ready(function() {
 
       let
           textarea = $(this).parent().parent().siblings('textarea'),
-          link = window.prompt('Paste your Discogs URL here:'),
+          link = window.prompt('Type or paste your URL here:'),
           position = textarea.getCursorPosition(),
           syntax = undefined,
           text = textarea.val(),
@@ -88,6 +98,7 @@ $(document).ready(function() {
 
         // guidelines
         // guideline URLs must have a hash in their query params in order to be valid
+        // TODO look for string with x.x.x format to detect guidelines typed
         case link.indexOf('/doc/') > -1 && link.indexOf('#') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');

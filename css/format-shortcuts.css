@@ -2,11 +2,19 @@
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
 .quick-button {
+  background: inherit;
   border: 1px solid gray !important;
   border-radius: 3px;
+  color: inherit;
   display: inline-block;
   margin-right: 5px;
   text-align: center;
   width: 20px;
+    transition: all 0.2s ease-out;
+}
+
+.quick-button:hover {
+  transform: scale(1.2);
 }
