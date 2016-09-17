@@ -56,6 +56,34 @@ $(document).ready(function() {
                     '<a href="#"><div class="quick-button quick-italic" title="Insert italic code">I</div></a>' +
                  '</div>';
 
+     /**
+      * Parses the URL passed into it and
+      * returns the release/master/artist/forum
+      * number.
+      *
+      * @param    {string} url [the URL passed into the function]
+      * @return   {string} num [the parsed id number]
+      */
+
+     function parseURL(url) {
+
+       let urlArr = url.split('/'),
+           num = urlArr[urlArr.length - 1];
+
+       if (num.indexOf('-') > -1) {
+
+         num = num.split('-')[0];
+       }
+
+       if (num.indexOf('?') > -1) {
+
+         num = num.split('?')[0];
+       }
+
+       return num;
+     }
+
+    // Inject buttons into DOM
     $(markup).insertAfter( $('textarea') );
 
     // bold and italic
@@ -89,8 +117,7 @@ $(document).ready(function() {
           link = window.prompt('Type or paste your URL or guideline number (ie: 1.2.3) here:'),
           position = textarea.getCursorPosition(),
           syntax = undefined,
-          text = textarea.val(),
-          urlArr;
+          text = textarea.val();
 
       event.preventDefault();
 
@@ -99,17 +126,9 @@ $(document).ready(function() {
         // artists
         case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
 
-            urlArr = link.split('/');
+            let artist = parseURL(link);
 
-            let artist = urlArr[urlArr.length - 1],
-                artistNum = artist.split('-')[0];
-
-            if (artistNum.indexOf('?') > -1) {
-
-              artistNum = artistNum.split('?')[0];
-            }
-
-            syntax = '[a' + artistNum + ']';
+            syntax = '[a' + artist + ']';
 
             break;
 
@@ -123,31 +142,16 @@ $(document).ready(function() {
         // labels
         case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
 
-            urlArr = link.split('/');
+            let label = parseURL(link);
 
-            let label = urlArr[urlArr.length - 1],
-                labelNum = label.split('-')[0];
-
-            if (labelNum.indexOf('?') > -1) {
-
-              labelNum = labelNum.split('?')[0];
-            }
-
-            syntax = '[l' + labelNum + ']';
+            syntax = '[l' + label + ']';
 
             break;
 
         // masters
         case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
 
-            urlArr = link.split('/');
-
-            let master = urlArr[urlArr.length - 1];
-
-            if (master.indexOf('?') > -1) {
-
-              master = master.split('?')[0];
-            }
+            let master = parseURL(link);
 
             syntax = '[m' + master + ']';
 
@@ -156,14 +160,7 @@ $(document).ready(function() {
         // releases
         case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
 
-            urlArr = link.split('/');
-
-            let release = urlArr[urlArr.length - 1];
-
-            if (release.indexOf('?') > -1) {
-
-              release = release.split('?')[0];
-            }
+            let release = parseURL(link);
 
             syntax = '[r' + release + ']';
 
@@ -172,14 +169,7 @@ $(document).ready(function() {
         // topics
         case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
 
-            urlArr = link.split('/');
-
-            let topic = urlArr[urlArr.length - 1];
-
-            if (topic.indexOf('?') > -1) {
-
-              topic = topic.split('?')[0];
-            }
+            let topic = parseURL(link);
 
             syntax = '[t=' + topic + ']';
 
@@ -211,7 +201,7 @@ $(document).ready(function() {
 
         default:
             // 'a link has no name...'
-            alert('A valid URL or guideline number was not recognized. \nPlease make sure URLs begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can read more about the requirements by clicking \'About\' from the Discogs Enhancer popup menu.');
+            alert('A valid URL or guideline number was not recognized. \nPlease make sure URLs begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can read more about the requirements by clicking \'About\' from the Discogs Enhancer popup menu and reading the section called \'Format Shortcuts\'.');
 
             return;
       }
