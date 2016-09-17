@@ -79,16 +79,16 @@ $(document).ready(function() {
 
             urlArr = link.split('/');
 
-            let
-                artist = urlArr[urlArr.length - 1],
+            let artist = urlArr[urlArr.length - 1],
                 artistNum = artist.split('-')[0];
 
             syntax = '[a' + artistNum + ']';
 
             break;
 
-        // guideline
-        case link.indexOf('/doc/') > -1 && link.indexOf('www.discogs.com') > -1:
+        // guidelines
+        // guideline URLs must have a hash in their query params in order to be valid
+        case link.indexOf('/doc/') > -1 && link.indexOf('#') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
             break;
 
-        // label
+        // labels
         case link.indexOf('/label/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
@@ -111,7 +111,7 @@ $(document).ready(function() {
 
             break;
 
-        // master
+        // masters
         case link.indexOf('/master/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
@@ -123,7 +123,7 @@ $(document).ready(function() {
             break;
 
 
-        // release
+        // releases
         case link.indexOf('/release/')> -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
@@ -134,7 +134,7 @@ $(document).ready(function() {
 
             break;
 
-        // topic
+        // topics
         case link.indexOf('/topic?') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
@@ -153,7 +153,7 @@ $(document).ready(function() {
 
             break;
 
-        // non-discogs url
+        // non-discogs urls
         // TODO better url detection than just indexOf('/')
         case link.indexOf('/') > -1 && link.indexOf('www.discogs.com') === -1:
 
@@ -185,7 +185,6 @@ $(document).ready(function() {
 
       // set the focus
       textarea.focus();
-
     });
   }
 });
