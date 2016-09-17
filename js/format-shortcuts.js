@@ -18,6 +18,7 @@ $(document).ready(function() {
 
     for (let i in t) {
 
+      // reviews
       if (t[i].name === 'review') {
 
         hasTextarea = true;
@@ -25,7 +26,16 @@ $(document).ready(function() {
         break;
       }
 
-      if ( t[i].className.indexOf('forum_reply') > -1 ) {
+      // new threads in groups/forums
+      if (t[i].id === 'text') {
+
+        hasTextarea = true;
+
+        break;
+      }
+
+      // forum/group replies
+      if ( t[i].className && t[i].className.indexOf('forum_reply') > -1 ) {
 
         hasTextarea = true;
 
@@ -41,9 +51,9 @@ $(document).ready(function() {
   if (hasTextarea) {
 
     let markup = '<div class="quick-menu">' +
+                    '<a href="#"><div class="quick-button quick-link" title="Insert url">&#8599;</div></a>' +
                     '<a href="#"><div class="quick-button quick-bold" title="Insert bold code">B</div></a>' +
                     '<a href="#"><div class="quick-button quick-italic" title="Insert italic code">I</div></a>' +
-                    '<a href="#"><div class="quick-button quick-link" title="Insert url">&#8599;</div></a>' +
                  '</div>';
 
     $(markup).insertAfter( $('textarea') );
