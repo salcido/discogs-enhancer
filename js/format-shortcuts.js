@@ -75,7 +75,7 @@ $(document).ready(function() {
       switch (true) {
 
         // artists
-        case link.indexOf('/artist/') && link.indexOf('discogs.com') > -1:
+        case link.indexOf('/artist/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -88,7 +88,7 @@ $(document).ready(function() {
             break;
 
         // guideline
-        case link.indexOf('/doc/') && link.indexOf('discogs.com') > -1:
+        case link.indexOf('/doc/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -100,7 +100,7 @@ $(document).ready(function() {
             break;
 
         // label
-        case link.indexOf('/label/') && link.indexOf('discogs.com') > -1:
+        case link.indexOf('/label/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -112,9 +112,7 @@ $(document).ready(function() {
             break;
 
         // master
-        case link.indexOf('/master/') && link.indexOf('discogs.com') > -1:
-
-            console.log('link is a master');
+        case link.indexOf('/master/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -126,7 +124,7 @@ $(document).ready(function() {
 
 
         // release
-        case link.indexOf('/release/') && link.indexOf('discogs.com') > -1:
+        case link.indexOf('/release/')> -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -137,7 +135,7 @@ $(document).ready(function() {
             break;
 
         // topic
-        case link.indexOf('/topic?') && link.indexOf('discogs.com') > -1:
+        case link.indexOf('/topic?') > -1 && link.indexOf('www.discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -149,7 +147,7 @@ $(document).ready(function() {
             break;
 
         // user
-        case link.indexOf('/user/') && link.indexOf('discogs.com') > -1:
+        case link.indexOf('/user/') > -1 && link.indexOf('www.discogs.com') > -1:
 
             syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
@@ -157,14 +155,14 @@ $(document).ready(function() {
 
         // non-discogs url
         // TODO better url detection than just indexOf('/')
-        case link.indexOf('/') > -1:
+        case link.indexOf('/') > -1 && link.indexOf('www.discogs.com') === -1:
 
             syntax = '[url=' + link + '][/url]';
 
             // insert appropriate tag syntax
             textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
-            // adjust cursor position to fit between bold/italic tags
+            // adjust cursor position to fit between URL tags
             textarea.selectRange(position + (link.length + 6));
 
             // set the focus
@@ -182,8 +180,8 @@ $(document).ready(function() {
       // insert appropriate tag syntax
       textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
-      // adjust cursor position to fit between bold/italic tags
-      textarea.selectRange(position + 3);
+      // adjust cursor position to end of the inserted tag
+      textarea.selectRange(syntax.length);
 
       // set the focus
       textarea.focus();
