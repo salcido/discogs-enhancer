@@ -16,6 +16,7 @@ let
     collectionUi,
     converter,
     converter_css,
+    customMethods,
     darkTheme,
     elems = [],
     feedback,
@@ -33,6 +34,8 @@ let
     releaseDurations,
     releaseHistoryScript,
     resourceLibrary,
+    shortcuts,
+    shortcuts_css,
     sortExploreScript,
     sortMarketplaceScript,
     sortPersonalListsScript,
@@ -80,6 +83,7 @@ chrome.storage.sync.get('prefs', function(result) {
       converter: true,
       darkTheme: true,
       feedback: true,
+      formatShortcuts: true,
       highlightMedia: true,
       hideMarketplaceItems: null,
       notesCount: true,
@@ -161,6 +165,8 @@ chrome.storage.sync.get('prefs', function(result) {
    * /////////////////////
    *
    */
+
+  // TODO: alphabetize these if statements
 
   if (result.prefs.highlightMedia) {
 
@@ -284,6 +290,45 @@ chrome.storage.sync.get('prefs', function(result) {
     feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
 
     elems.push(feedback_css);
+  }
+
+  // format shortcuts
+  if (result.prefs.formatShortcuts) {
+
+    // custom-methods.js
+    customMethods = document.createElement('script');
+
+    customMethods.type = 'text/javascript';
+
+    customMethods.async = true;
+
+    customMethods.className = 'de-init';
+
+    customMethods.src = chrome.extension.getURL('js/jquery/custom-methods.js');
+
+    elems.push(customMethods);
+
+    // format-shortcuts.js
+    shortcuts = document.createElement('script');
+
+    shortcuts.type = 'text/javascript';
+
+    shortcuts.src = chrome.extension.getURL('js/format-shortcuts.js');
+
+    shortcuts.className = 'de-init';
+
+    elems.push(shortcuts);
+
+    // format-shortcuts.css
+    shortcuts_css = document.createElement('link');
+
+    shortcuts_css.rel = 'stylesheet';
+
+    shortcuts_css.type = 'text/css';
+
+    shortcuts_css.href = chrome.extension.getURL('css/format-shortcuts.css');
+
+    elems.push(shortcuts_css);
   }
 
   if (result.prefs.blockSellers) {

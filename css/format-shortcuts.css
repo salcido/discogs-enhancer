@@ -1,0 +1,11 @@
+.quick-menu {
+  margin-top: 5px;
+}
+.quick-button {
+  border: 1px solid gray !important;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 5px;
+  text-align: center;
+  width: 20px;
+}
