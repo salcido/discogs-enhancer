@@ -60,7 +60,6 @@ $(document).ready(function() {
     });
 
     // URLs
-    // TODO check for indexOf 'discogs.com' && link to make a non-discogs URL check
     $('.quick-button.quick-link').click(function(event) {
 
       event.preventDefault();
@@ -76,7 +75,7 @@ $(document).ready(function() {
       switch (true) {
 
         // artists
-        case link.indexOf('/artist/') > -1:
+        case link.indexOf('/artist/') && link.indexOf('discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -89,7 +88,7 @@ $(document).ready(function() {
             break;
 
         // guideline
-        case link.indexOf('/doc/') > -1:
+        case link.indexOf('/doc/') && link.indexOf('discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -101,7 +100,7 @@ $(document).ready(function() {
             break;
 
         // label
-        case link.indexOf('/label/') > -1:
+        case link.indexOf('/label/') && link.indexOf('discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -113,7 +112,7 @@ $(document).ready(function() {
             break;
 
         // master
-        case link.indexOf('/master/') > -1:
+        case link.indexOf('/master/') && link.indexOf('discogs.com') > -1:
 
             console.log('link is a master');
 
@@ -127,7 +126,7 @@ $(document).ready(function() {
 
 
         // release
-        case link.indexOf('/release/') > -1:
+        case link.indexOf('/release/') && link.indexOf('discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -138,7 +137,7 @@ $(document).ready(function() {
             break;
 
         // topic
-        case link.indexOf('/topic?') > -1:
+        case link.indexOf('/topic?') && link.indexOf('discogs.com') > -1:
 
             urlArr = link.split('/');
 
@@ -150,17 +149,34 @@ $(document).ready(function() {
             break;
 
         // user
-        case link.indexOf('/user/') > -1:
+        case link.indexOf('/user/') && link.indexOf('discogs.com') > -1:
 
             syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
             break;
 
+        // non-discogs url
+        // TODO better url detection than just indexOf('/')
+        case link.indexOf('/') > -1:
+
+            syntax = '[url=' + link + '][/url]';
+
+            // insert appropriate tag syntax
+            textarea.val( text.substr(0, position) + syntax + text.substr(position) );
+
+            // adjust cursor position to fit between bold/italic tags
+            textarea.selectRange(position + (link.length + 6));
+
+            // set the focus
+            textarea.focus();
+
+            return;
+
         default:
             // 'a link has no name...'
-            alert('Invalid URL. Please check your URL and try again.');
+            alert('You did not enter a valid URL. Please try again.');
 
-            break;
+            return;
       }
 
       // insert appropriate tag syntax
