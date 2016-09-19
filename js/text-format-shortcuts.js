@@ -52,8 +52,8 @@ $(document).ready(function() {
       return;
     }
 
-    // inject markup if necessary && !!$.prototype.getCursorPosition
-    if (hasTextarea) {
+    // inject markup if necessary
+    if (hasTextarea && !!$.prototype.getCursorPosition) {
 
       let markup = '<div class="quick-menu">' +
                         '<div class="quick-button quick-link" title="Insert url">' +
