@@ -51,10 +51,14 @@ $(document).ready(function() {
   if (hasTextarea) {
 
     let markup = '<div class="quick-menu">' +
-                    '<a href="#"><div class="quick-button quick-link" title="Insert url">&#8599;</div></a>' +
-                    '<a href="#"><div class="quick-button quick-bold" title="Insert bold code">B</div></a>' +
-                    '<a href="#"><div class="quick-button quick-italic" title="Insert italic code">I</div></a>' +
-                 '</div>';
+                      '<div class="quick-button quick-link" title="Insert url">' +
+                        '<div class="rot">&#10132;</div>' +
+                      '</div>' +
+                      '<div class="quick-button quick-bold" title="Insert bold code">B</div>' +
+                      '<div class="quick-button quick-italic" title="Insert italic code">I</div>' +
+                      '<div class="quick-button quick-strikethrough" title="Insert strikethrough code">S</div>' +
+                      '<div class="quick-button quick-underline" title="Insert underline code">U</div>' +
+                  '</div>';
 
      /**
       * Parses the URL passed into it and
@@ -87,18 +91,41 @@ $(document).ready(function() {
     $(markup).insertAfter( $('textarea') );
 
     // bold and italic
-    $('.quick-button.quick-bold, .quick-button.quick-italic').click(function(event) {
+    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
 
       let
-          textarea = $(this).parent().parent().siblings('textarea'),
-          boldSyntax = $(this).hasClass('quick-bold') ? '[b][/b]' : '[i][/i]',
+          textarea = $(this).parent().siblings('textarea'),
+          syntax,
           position = textarea.getCursorPosition(),
           text = textarea.val();
 
       event.preventDefault();
 
+      switch (true) {
+
+        case $(this).hasClass('quick-bold'):
+
+            syntax = '[b][/b] ';
+            break;
+
+        case $(this).hasClass('quick-italic'):
+
+            syntax = '[i][/i] ';
+            break;
+
+        case $(this).hasClass('quick-strikethrough'):
+
+            syntax = '[s][/s] ';
+            break;
+
+        case $(this).hasClass('quick-underline'):
+
+            syntax = '[u][/u] ';
+            break;
+      }
+
       // insert appropriate tag syntax
-      textarea.val( text.substr(0, position) + boldSyntax + text.substr(position) );
+      textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
       // adjust cursor position to fit between bold/italic tags
       textarea.selectRange(position + 3);
@@ -111,10 +138,10 @@ $(document).ready(function() {
     $('.quick-button.quick-link').click(function(event) {
 
       let
-          textarea = $(this).parent().parent().siblings('textarea'),
+          textarea = $(this).parent().siblings('textarea'),
           discogs = 'https://www.discogs.com',
           guideline = /(\d+\.+\d*)/g,
-          link = window.prompt('Type or paste your URL or guideline number (ie: 1.2.3) here:'),
+          link = window.prompt('Paste your URL or guideline number (ie: 1.2.3) here:'),
           position = textarea.getCursorPosition(),
           syntax = undefined,
           text = textarea.val();
@@ -127,66 +154,53 @@ $(document).ready(function() {
         case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
 
             let artist = parseURL(link);
-
-            syntax = '[a' + artist + ']';
-
+            syntax = '[a' + artist + '] ';
             break;
 
         // guidelines
         case guideline.test(link) && link.indexOf(discogs) === -1 && link.indexOf('http') === -1:
 
-            syntax = '[g' + link + ']';
-
+            syntax = '[g' + link + '] ';
             break;
 
         // labels
         case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
 
             let label = parseURL(link);
-
-            syntax = '[l' + label + ']';
-
+            syntax = '[l' + label + '] ';
             break;
 
         // masters
         case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
 
             let master = parseURL(link);
-
-            syntax = '[m' + master + ']';
-
+            syntax = '[m' + master + '] ';
             break;
 
         // releases
         case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
 
             let release = parseURL(link);
-
-            syntax = '[r' + release + ']';
-
+            syntax = '[r' + release + '] ';
             break;
 
         // topics
         case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
 
             let topic = parseURL(link);
-
-            syntax = '[t=' + topic + ']';
-
+            syntax = '[t=' + topic + '] ';
             break;
 
         // user
         case link.indexOf('/user/') > -1 && link.indexOf(discogs) > -1:
 
             syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
-
             break;
 
         // non-discogs urls
-        // TODO better url detection than just indexOf('/')
         case link.indexOf('http') > -1:
 
-            syntax = '[url=' + link + '][/url]';
+            syntax = '[url=' + link + '][/url] ';
 
             // insert appropriate tag syntax
             textarea.val( text.substr(0, position) + syntax + text.substr(position) );

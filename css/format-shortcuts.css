@@ -3,18 +3,63 @@
   margin-bottom: 10px;
 }
 
+.quick-menu a {
+  outline: 0;
+}
+
 .quick-button {
-  background: inherit;
-  border: 1px solid gray !important;
+  background-image: linear-gradient(#f2f2f2, #eaeaea) !important;
+  border-bottom-color: #d3d3d3 !important;
+  border-color: #dbdbdb !important;
   border-radius: 3px;
-  color: inherit;
+  border-style: solid;
+  border-top-color: #e0e0e0 !important;
+  border-width: 1px;
+  color: #454545 !important;
+  cursor: pointer;
   display: inline-block;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  height: 2em;
+  line-height: 2em;
   margin-right: 5px;
+  padding: 0 10px;
   text-align: center;
-  width: 20px;
-    transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  vertical-align: middle;
 }
 
 .quick-button:hover {
-  transform: scale(1.2);
+  background-image: linear-gradient(#fff, #fafafa) !important;
 }
+
+.quick-bold {
+  font-weight: bold;
+}
+
+.quick-italic {
+  font-style: italic;
+  font-family: serif;
+}
+
+.quick-strikethrough {
+  text-decoration: line-through;
+
+}
+
+.quick-underline {
+  text-decoration: underline;
+
+}
+
+.rot {
+  -webkit-transform: rotate(-45deg);
+  color: #454545 !important;
+}
+
+/*.quick-link {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/img/icon-url.png') !important;
+  background-size: cover;
+  background-color: #f2f2f2 !important;
+}*/
