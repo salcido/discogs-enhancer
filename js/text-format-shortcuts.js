@@ -236,7 +236,7 @@ $(document).ready(function() {
         textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
         // adjust cursor position to end of the inserted tag
-        textarea.selectRange(syntax.length);
+        textarea.selectRange(position + syntax.length);
 
         // set the focus
         textarea.focus();
