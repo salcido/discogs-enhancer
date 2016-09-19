@@ -49,9 +49,9 @@
       "css/currency-converter.css",
       "css/dark-theme.css",
       "css/feedback-notifier.css",
-      "css/format-shortcuts.css",
       "css/marketplace-highlights.css",
       "css/pre-loader.css",
+      "css/text-format-shortcuts.css",
       "html/about.html",
       "html/block-sellers.html",
       "js/apply-highlights.js",
@@ -60,10 +60,9 @@
       "js/currency-converter.js",
       "js/exchange-rates/update-exchange-rates.js",
       "js/feedback-notifier.js",
-      "js/format-shortcuts.js",
       "js/hide-blocked-sellers.js",
       "js/hide-items-below-condition.js",
-      "js/jquery/custom-methods.js",
+      "js/jquery/extensions.js",
       "js/jquery/jquery-min.js",
       "js/notes-char-count.js",
       "js/options/options.js",
@@ -76,7 +75,8 @@
       "js/suggested-prices-all.js",
       "js/suggested-prices-release-page.js",
       "js/suggested-prices-single.js",
-      "js/tests/unit-tests.js"
+      "js/tests/unit-tests.js",
+      "js/text-format-shortcuts.js"
     ],
 
     "icons": {

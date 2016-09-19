@@ -1,11 +1,9 @@
-(function ($, undefined) {
-
+setTimeout(function() {
   /**
    * Gets the cursor position from an input element
    *
    * @return {object}
    */
-
   $.fn.getCursorPosition = function () {
 
     let el = $(this)[0],
@@ -38,7 +36,6 @@
    * @param    {string} end   [The end position]
    * @return   {undefined}
    */
-
   $.fn.selectRange = function(start, end) {
 
     if (end === undefined) {
@@ -71,4 +68,4 @@
       }
     });
   };
-}(jQuery));
+}, 100);

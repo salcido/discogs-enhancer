@@ -238,6 +238,16 @@ span.new {
 
 .short {
   margin-bottom: 5px;
+  display: inline-block;
+}
+
+.about p.short-title {
+  display: inline-block;
+  margin-top: -16px;
+  margin-left: 5px;
+  padding-top: 0;
+  vertical-align: middle;
+  font-size: 15px;
 }
 
 .short-desc {

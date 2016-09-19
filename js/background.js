@@ -16,7 +16,7 @@ let
     collectionUi,
     converter,
     converter_css,
-    customMethods,
+    extensions,
     darkTheme,
     elems = [],
     feedback,
@@ -91,6 +91,7 @@ chrome.storage.sync.get('prefs', function(result) {
       sortButtons: true,
       suggestedPrices: false,
       userCurrency: null,
+      //
       useBandcamp: false,
       useBoomkat: false,
       useClone: false,
@@ -295,38 +296,38 @@ chrome.storage.sync.get('prefs', function(result) {
   // format shortcuts
   if (result.prefs.formatShortcuts) {
 
-    // custom-methods.js
-    customMethods = document.createElement('script');
+    // extensions.js
+    extensions = document.createElement('script');
 
-    customMethods.type = 'text/javascript';
+    extensions.type = 'text/javascript';
 
-    customMethods.async = true;
+    extensions.async = true;
 
-    customMethods.className = 'de-init';
+    extensions.className = 'de-init';
 
-    customMethods.src = chrome.extension.getURL('js/jquery/custom-methods.js');
+    extensions.src = chrome.extension.getURL('js/jquery/extensions.js');
 
-    elems.push(customMethods);
+    elems.push(extensions);
 
-    // format-shortcuts.js
+    // text-format-shortcuts.js
     shortcuts = document.createElement('script');
 
     shortcuts.type = 'text/javascript';
 
-    shortcuts.src = chrome.extension.getURL('js/format-shortcuts.js');
+    shortcuts.src = chrome.extension.getURL('js/text-format-shortcuts.js');
 
     shortcuts.className = 'de-init';
 
     elems.push(shortcuts);
 
-    // format-shortcuts.css
+    // text-format-shortcuts.css
     shortcuts_css = document.createElement('link');
 
     shortcuts_css.rel = 'stylesheet';
 
     shortcuts_css.type = 'text/css';
 
-    shortcuts_css.href = chrome.extension.getURL('css/format-shortcuts.css');
+    shortcuts_css.href = chrome.extension.getURL('css/text-format-shortcuts.css');
 
     elems.push(shortcuts_css);
   }
