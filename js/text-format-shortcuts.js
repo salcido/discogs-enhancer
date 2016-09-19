@@ -53,7 +53,7 @@ $(document).ready(function() {
     }
 
     // inject markup if necessary
-    if (hasTextarea && !!$.prototype.getCursorPosition) {
+    if (hasTextarea && !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText) {
 
       let selected = '',
           markup = '<div class="quick-menu">' +
@@ -227,7 +227,7 @@ $(document).ready(function() {
 
           default:
               // 'a link has no name...'
-              alert('A valid URL or guideline number was not recognized. \nPlease make sure URLs begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can read more about the requirements by clicking \'About\' from the Discogs Enhancer popup menu and reading the section called \'Format Shortcuts\'.');
+              alert('A valid URL or guideline number was not recognized. \nPlease make sure URLs begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can read more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
 
               return;
         }

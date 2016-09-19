@@ -293,7 +293,7 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(feedback_css);
   }
 
-  // format shortcuts
+  // text format shortcuts
   if (result.prefs.formatShortcuts) {
 
     // extensions.js
