@@ -55,14 +55,15 @@ $(document).ready(function() {
     // inject markup if necessary
     if (hasTextarea && !!$.prototype.getCursorPosition) {
 
-      let markup = '<div class="quick-menu">' +
-                        '<div class="quick-button quick-link" title="Insert url">' +
+      let selected = '',
+          markup = '<div class="quick-menu">' +
+                        '<button class="quick-button quick-link" title="Insert url">' +
                           '<div class="rot">&#10132;</div>' +
-                        '</div>' +
-                        '<div class="quick-button quick-bold" title="Insert bold code">B</div>' +
-                        '<div class="quick-button quick-italic" title="Insert italic code">I</div>' +
-                        '<div class="quick-button quick-strikethrough" title="Insert strikethrough code">S</div>' +
-                        '<div class="quick-button quick-underline" title="Insert underline code">U</div>' +
+                        '</button>' +
+                        '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
+                        '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
+                        '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
+                        '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
                     '</div>';
 
       /**
@@ -95,6 +96,12 @@ $(document).ready(function() {
       // Inject buttons into DOM
       $(markup).insertAfter( $('textarea') );
 
+      // maintain selected text
+      $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').mousedown(function(event) {
+
+        selected = $(this).parent().siblings('textarea').getSelectedText();
+      });
+
       // bold and italic
       $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
 
@@ -110,27 +117,27 @@ $(document).ready(function() {
 
           case $(this).hasClass('quick-bold'):
 
-              syntax = '[b][/b] ';
+              syntax = selected ? '[b]' + selected + '[/b]' : '[b][/b]';
               break;
 
           case $(this).hasClass('quick-italic'):
 
-              syntax = '[i][/i] ';
+              syntax = selected ? '[i]' + selected + '[/i]' : '[i][/i]';
               break;
 
           case $(this).hasClass('quick-strikethrough'):
 
-              syntax = '[s][/s] ';
+              syntax = selected ? '[s]' + selected + '[/s]' : '[s][/s]';
               break;
 
           case $(this).hasClass('quick-underline'):
 
-              syntax = '[u][/u] ';
+              syntax = selected ? '[u]' + selected + '[/u]' : '[u][/u]';
               break;
         }
 
         // insert appropriate tag syntax
-        textarea.val( text.substr(0, position) + syntax + text.substr(position) );
+        textarea.val( text.substr(0, position) + syntax + text.substr(position + selected.length) );
 
         // adjust cursor position to fit between bold/italic tags
         textarea.selectRange(position + 3);
@@ -159,41 +166,41 @@ $(document).ready(function() {
           case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
 
               let artist = parseURL(link);
-              syntax = '[a' + artist + '] ';
+              syntax = '[a' + artist + ']';
               break;
 
           // guidelines
           case guideline.test(link) && link.indexOf(discogs) === -1 && link.indexOf('http') === -1:
 
-              syntax = '[g' + link + '] ';
+              syntax = '[g' + link + ']';
               break;
 
           // labels
           case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
 
               let label = parseURL(link);
-              syntax = '[l' + label + '] ';
+              syntax = '[l' + label + ']';
               break;
 
           // masters
           case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
 
               let master = parseURL(link);
-              syntax = '[m' + master + '] ';
+              syntax = '[m' + master + ']';
               break;
 
           // releases
           case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
 
               let release = parseURL(link);
-              syntax = '[r' + release + '] ';
+              syntax = '[r' + release + ']';
               break;
 
           // topics
           case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
 
               let topic = parseURL(link);
-              syntax = '[t=' + topic + '] ';
+              syntax = '[t=' + topic + ']';
               break;
 
           // user
@@ -205,7 +212,7 @@ $(document).ready(function() {
           // non-discogs urls
           case link.indexOf('http') > -1:
 
-              syntax = '[url=' + link + '][/url] ';
+              syntax = '[url=' + link + '][/url]';
 
               // insert appropriate tag syntax
               textarea.val( text.substr(0, position) + syntax + text.substr(position) );

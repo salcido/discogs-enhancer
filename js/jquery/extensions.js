@@ -1,4 +1,7 @@
+// setTimeout is used here to delay the loading of this code
+// so that jQuery has had time to be loaded into the browser.
 setTimeout(function() {
+
   /**
    * Gets the cursor position from an input element
    *
@@ -26,6 +29,27 @@ setTimeout(function() {
     }
 
     return pos;
+  };
+
+  /**
+   * Gets the selected text from an input/textarea
+   *
+   * @return   {string}
+   */
+  $.fn.getSelectedText = function() {
+
+    let sSelectedText = '';
+
+    if (window.getSelection) {
+
+      let sTagName = this.get(0).tagName.toLowerCase();
+
+      sSelectedText = ( sTagName == 'input' || sTagName == 'textarea'
+                        ? this.val().substring (this.get(0).selectionStart, this.get(0).selectionEnd)
+                        : document.getSelection().toString() );
+    }
+
+    return sSelectedText;
   };
 
   /**

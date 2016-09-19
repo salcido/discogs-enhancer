@@ -28,6 +28,7 @@
   text-align: center;
   transition: all 0.2s ease-out;
   vertical-align: middle;
+  -webkit-user-select: none;
 }
 
 .quick-button:hover {
