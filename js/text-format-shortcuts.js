@@ -153,7 +153,7 @@ $(document).ready(function() {
             textarea = $(this).parent().siblings('textarea'),
             discogs = 'https://www.discogs.com',
             guideline = /(\d+\.+\d*)/g,
-            link = window.prompt('Paste your URL or guideline number (ie: 1.2.3) here:'),
+            link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
             position = textarea.getCursorPosition(),
             syntax = undefined,
             text = textarea.val();
@@ -227,7 +227,7 @@ $(document).ready(function() {
 
           default:
               // 'a link has no name...'
-              alert('A valid URL or guideline number was not recognized. \nPlease make sure URLs begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can read more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
+              alert('A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
 
               return;
         }
