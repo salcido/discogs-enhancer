@@ -143,7 +143,7 @@ $(document).ready(function() {
         textarea.selectRange(position + 3);
 
         // set the focus
-        textarea.focus();
+        textarea.focus().change();
       });
 
       // URLs
@@ -221,7 +221,7 @@ $(document).ready(function() {
               textarea.selectRange(position + (link.length + 6));
 
               // set the focus
-              textarea.focus();
+              textarea.focus().change();
 
               return;
 
@@ -239,7 +239,7 @@ $(document).ready(function() {
         textarea.selectRange(position + syntax.length);
 
         // set the focus
-        textarea.focus();
+        textarea.focus().change();
       });
     }
   }, 500);
