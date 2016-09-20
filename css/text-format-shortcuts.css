@@ -35,6 +35,10 @@
   background-image: linear-gradient(#fff, #fafafa) !important;
 }
 
+.quick-button .icon {
+  color: #454545 !important;
+}
+
 .quick-bold {
   font-weight: bold;
 }
@@ -52,9 +56,8 @@
   text-decoration: underline;
 }
 
-.rot {
-  -webkit-transform: rotate(-45deg);
-  color: #454545 !important;
+.icon-chain {
+  padding-top: 6px;
 }
 
 /*.quick-link {

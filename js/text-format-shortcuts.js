@@ -57,13 +57,13 @@ $(document).ready(function() {
 
       let selected = '',
           markup = '<div class="quick-menu">' +
-                        '<button class="quick-button quick-link" title="Insert url">' +
-                          '<div class="rot">&#10132;</div>' +
-                        '</button>' +
-                        '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
-                        '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
-                        '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
-                        '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
+                      '<button class="quick-button quick-link" title="Insert url">' +
+                        '<i class="icon icon-chain"></i>' +
+                      '</button>' +
+                      '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
+                      '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
+                      '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
+                      '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
                     '</div>';
 
       /**
@@ -155,7 +155,7 @@ $(document).ready(function() {
             guideline = /(\d+\.+\d*)/g,
             link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
             position = textarea.getCursorPosition(),
-            syntax = undefined,
+            syntax,
             text = textarea.val();
 
         event.preventDefault();
