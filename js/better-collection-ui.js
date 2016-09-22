@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     $('.release_list_remove').addClass('button_red');
 
-    $('#random_list_form').css({ float: 'right', marginTop: '5px' });
+    $('#random_list_form').css({ float: 'right', marginTop: '11px' });
 
     $('[name^="Action.MoveToCollection"]').addClass('button_green').prop('disabled', true);
 
