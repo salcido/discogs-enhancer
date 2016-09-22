@@ -15,17 +15,6 @@ setTimeout(function() {
     if ('selectionStart' in el) {
 
       pos = el.selectionStart;
-
-    } else if ('selection' in document) {
-
-      el.focus();
-
-      let Sel = document.selection.createRange(),
-          SelLength = document.selection.createRange().text.length;
-
-      Sel.moveStart('character', -el.value.length);
-
-      pos = Sel.text.length - SelLength;
     }
 
     return pos;
@@ -77,18 +66,6 @@ setTimeout(function() {
       } else if (this.setSelectionRange) {
 
         this.setSelectionRange(start, end);
-
-      } else if (this.createTextRange) {
-
-        let range = this.createTextRange();
-
-        range.collapse(true);
-
-        range.moveEnd('character', end);
-
-        range.moveStart('character', start);
-
-        range.select();
       }
     });
   };

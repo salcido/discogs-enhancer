@@ -4,6 +4,10 @@
     color: #CCC !important;
 }
 
+b {
+  color: #fff !important;
+}
+
 html,
 select option,
 #quicklister #resultsPane,
