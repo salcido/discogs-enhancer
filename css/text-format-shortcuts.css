@@ -58,6 +58,10 @@
 }
 
 .quick-button .icon-chain {
+  padding-top: 6px;
+}
+
+.notes_edit .quick-button .icon-chain {
   display: block !important;
   padding-top: 6px;
   position: relative !important;
