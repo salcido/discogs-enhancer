@@ -166,6 +166,7 @@ $(document).ready(function() {
           case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
 
               let artist = parseURL(link);
+
               syntax = '[a' + artist + ']';
               break;
 
@@ -179,6 +180,7 @@ $(document).ready(function() {
           case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
 
               let label = parseURL(link);
+
               syntax = '[l' + label + ']';
               break;
 
@@ -186,6 +188,7 @@ $(document).ready(function() {
           case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
 
               let master = parseURL(link);
+
               syntax = '[m' + master + ']';
               break;
 
@@ -193,6 +196,7 @@ $(document).ready(function() {
           case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
 
               let release = parseURL(link);
+
               syntax = '[r' + release + ']';
               break;
 
@@ -200,6 +204,7 @@ $(document).ready(function() {
           case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
 
               let topic = parseURL(link);
+
               syntax = '[t=' + topic + ']';
               break;
 

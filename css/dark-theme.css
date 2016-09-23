@@ -4,7 +4,7 @@
     color: #CCC !important;
 }
 
-b {
+b, u, s {
   color: #fff !important;
 }
 
@@ -1072,7 +1072,7 @@ textarea.thread-compose-message,
 #pw_confirm_new,
 input[type="text"]:not(#search_q, .image_copy_permalink_text) {
     box-shadow: none !important;
-    color: white !important;
+    color: #fff !important;
     background: #292929 !important;
     outline: none !important;
     border: 1px solid #525252 !important;
@@ -1631,4 +1631,9 @@ label#thresholdLabel {
   color: white !important;
   border-bottom: 1px solid #333 !important;
   background-color: #333 !important;
+}
+
+/* discogs hides their pencil icons when not editing so this will show any italiced notes */
+.notes_field .notes_text i {
+  display: block !important;
 }
