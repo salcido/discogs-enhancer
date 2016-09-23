@@ -31,7 +31,7 @@ The default setting will mark blocked sellers in red while still allowing you to
 ### Buyer/Seller feedback notifications
 Now you can get alerts when new feedback is left on your profile. The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
 
-### Contextual menu
+### Contextual menu searching
 Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer. Current selection includes: Bandcamp, Boomkat, Clone, Decks.de, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye, Pacific Beach Vinyl, Phonica and Sounds of The Universe.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/contextual-menu.png?raw=true "Contextual menu preview")
