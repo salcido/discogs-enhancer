@@ -1,8 +1,5 @@
 # Discogs Enhancer
-Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com
-
-#### Discogs Enhancer Overview Page
-<http://www.msalcido.com/discogs-enhancer>
+Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com and Chrome.
 
 #### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
@@ -13,6 +10,7 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Buyer/Seller feedback notifications
 * Contextual menu searching
 * Dark theme
+* Feedback Notifications
 * Filter Marketplace items
 * Marketplace highlights
 * Notes counter
@@ -42,6 +40,9 @@ Search Discogs (or many other online shops) instantly with any highlighted text!
 Great for late night browsing.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/dark-theme.png?raw=true "Dark theme preview")
+
+### Feedback Notifications
+The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
 
 ### Filter Marketplace items
 This will filter out all items in the Marketplace that are below a specified condition.
