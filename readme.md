@@ -23,7 +23,7 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Text formatting shortcuts
 
 ### Better Collection page UI
-This makes the Collection page a little more organized and easier to understand. It groups the "Random item" link over with the others on the right. It rearranges the "Move Selected" interface so that it's easier to understand. It more clearly specifies which folder you are currently viewing and colorizes the "Remove Selected" and "Move Selected" buttons. It also disables the "Move Selected" button until a selection has been made. If this description does not make sense go to your collection page and try toggling the option on and off.
+This makes the Collection page a little more organized and easier to understand.
 
 ### Block sellers
 Ever have a bad experience buying from someone on Discogs? Add their name to the block list and anytime an item of theirs appears in the Marketplace it will be labeled "Blocked seller" so you can decide if it's worth buying from them again. Names can be easily added or removed by clicking on the "Edit list" link within the popup menu and then clicking on the name you want to remove.
