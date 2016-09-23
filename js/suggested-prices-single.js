@@ -36,9 +36,7 @@ $(document).ready(function() {
         let a = document.createElement('a');
 
         a.className = 'de-price-link';
-
         a.style = 'margin: 10px auto; display:block; font-weight: bold;';
-
         a.innerHTML = 'Show Price<br>Comparison';
 
         p[i].appendChild(a);

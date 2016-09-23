@@ -39,9 +39,7 @@ $(document).ready(function() {
       prices.each(function(i) { priceContainer.push({price: prices[i].innerHTML, mediaCondition: items[i]}); });
 
       resourceLibrary.matchSymbols(priceContainer);
-
       resourceLibrary.sanitizePrices(priceContainer);
-
       resourceLibrary.convertPrices(priceContainer);
 
       symbol = resourceLibrary.getSymbols(userCurrency, symbol);
@@ -69,9 +67,7 @@ $(document).ready(function() {
         if (resourceLibrary.options.debug()) {
 
           console.log('Suggested: ', suggested);
-
           console.log('Difference: ', difference > 0 ? Math.abs(difference).toFixed(3) + ' ' + userCurrency + ' less' : Math.abs(difference).toFixed(3) + ' ' + userCurrency + ' more');
-
           console.log('Percentage: ', percentage > 0 ? Math.abs(percentage) + '% less' : Math.abs(percentage) + '% more');
         }
 
