@@ -10,9 +10,9 @@
 
 // TODO call price comparison script on ajaxSuccess calls when never ending marketplace is in use
 // TODO call block sellers on ajaxSuccess when never ending marketplace is in use
-// TODO update GET to include any filters added by the user
 // TODO add check for last page of results
 // TODO add ability to call up page filters
+// TODO add back to top link
 
 $(document).ready(function() {
 
@@ -29,17 +29,28 @@ $(document).ready(function() {
 
   function parseURL(url) {
 
-   if (url.indexOf('?') > -1) {
+    let params;
 
-     url = url.split('?')[0];
+      if (url.indexOf('?') > -1) {
+
+        let page = /page=/g;
+
+        params = url.split('?')[1].split('&');
+
+        params.forEach(function(param) {
+
+          let target;
+
+          if (param.match(page)) {
+
+            target = params.indexOf(param);
+
+            params.splice(target, 1);
+          }
+      });
    }
 
-   if (url.indexOf('#') > -1) {
-
-     url = url.split('#')[0];
-   }
-
-   return url;
+   return params.length > 0 ? '&' + params.join('&') : '';
   }
 
   /**
@@ -77,9 +88,9 @@ $(document).ready(function() {
   // load next page on scroll
   $(document).on('scroll', window, function() {
 
-    let but = document.getElementById('de-next');
+    let kurtLoader = document.getElementById('de-next');
 
-    if (isOnScreen(but) && !hasLoaded) {
+    if (kurtLoader && isOnScreen(kurtLoader) && !hasLoaded) {
 
       hasLoaded = true;
 
@@ -90,23 +101,33 @@ $(document).ready(function() {
   // grab next set of items
   function getNextPage() {
 
+    let currentPage = window.location.href;
+
     $.ajax({
-      url: '/sell/mywants?page=' + (Number(pageNum) + 1),
+      url: '/sell/mywants?page=' + (Number(pageNum) + 1) + parseURL(currentPage),
       type: 'GET',
       success: function(res) {
 
         let markup = $(res).find('#pjax_container tbody').html(),
-            pageIndicator = 'Page: ' + pageNum,
-            currentPage = window.location.href;
+            pageIndicator = 'Page: ' + pageNum;
 
-        // Append page number to the DOM
-        $('#pjax_container tbody:last-child').append('<p style="font-weight: bold;">' + pageIndicator + '</p>');
+        if (markup) {
 
-        // Append new items to the DOM
-        $('#pjax_container tbody:last-child').append(markup);
+          // Append page number to the DOM
+          $('#pjax_container tbody:last-child').append('<p style="font-weight: bold;">' + pageIndicator + '</p> <a href="#page_aside">Back to top</a>');
+
+          // Append new items to the DOM
+          $('#pjax_container tbody:last-child').append(markup);
+
+        } else {
+
+          $('#de-next').remove();
+
+          $('#pjax_container').append('<p style="font-weight: bold;">No items for sale found</p>');
+        }
 
         // Update URL to display current page of results
-        window.location.href = parseURL(currentPage) + '#de-page:' + pageNum;
+        //window.location.href = parseURL(currentPage) + '#de-page:' + pageNum;
 
         pageNum++;
 
