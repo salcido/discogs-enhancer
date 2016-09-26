@@ -26,8 +26,6 @@ This makes the Collection page a little more organized and easier to understand.
 ### Block sellers
 Ever have a bad experience buying from someone on Discogs? Add their name to the block list and anytime an item of theirs appears in the Marketplace it will be labeled "Blocked seller" so you can decide if it's worth buying from them again. Names can be easily added or removed by clicking on the "Edit list" link within the popup menu and then clicking on the name you want to remove.
 
-The default setting will mark blocked sellers in red while still allowing you to place an order with them. If you select the "Hide sellers" option from the "Edit list" page, blocked sellers will be completely hidden from your search results.
-
 ### Contextual menu searching
 Search Discogs (or many other online shops) instantly with any highlighted text! Simply highlight some text, right click, and choose the shop you want to search. You can configure which shops you want to use by hovering over the "Contextual Menu" option inside Discogs Enhancer. Current selection includes: Bandcamp, Boomkat, Clone, Decks.de, DeeJay, Discogs, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye, Pacific Beach Vinyl, Phonica and Sounds of The Universe.
 

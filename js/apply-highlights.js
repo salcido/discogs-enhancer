@@ -18,7 +18,7 @@ $(document).ready(function() {
       wantsPage = /sell\/mywants/g;
 
   // Find all Marketplace item conditions and apply classes
-  function applyStyles() {
+  window.applyStyles = function applyStyles() {
 
     // Remove mobile clutter
     $('.condition-label-mobile').remove();
@@ -42,23 +42,23 @@ $(document).ready(function() {
     $('span.item_sleeve_condition:contains("Good (G)")').addClass('good bold');
     $('span.item_sleeve_condition:contains("Fair (F)")').addClass('fair bold');
     $('span.item_sleeve_condition:contains("Poor (P)")').addClass('poor bold');
-  }
-
+  };
 
   // calls applyStyles on every |ajaxSuccess| method callback
   function callApplyStyles() {
 
     $(document).ajaxSuccess(function() {
 
-      applyStyles();
+      window.applyStyles();
     });
   }
 
+  //window.applyStyles =
 
   // Apply styles on ready/prev/next clicks
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
-    applyStyles();
+    window.applyStyles();
 
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
