@@ -10,6 +10,7 @@
 
 // TODO call price comparison script on ajaxSuccess calls when everlasting marketplace is in use
 // TODO call block sellers on ajaxSuccess when everlasting marketplace is in use
+// TODO keep add/remove filters link at top of page when scrolling
 
 $(document).ready(function() {
 
@@ -74,13 +75,29 @@ $(document).ready(function() {
     // load next page on scroll
     $(document).on('scroll', window, function() {
 
-      let kurtLoader = document.getElementById('de-next');
+      let kurtLoader = document.getElementById('de-next'),
+          siteHeader = document.getElementById('site_header');
 
       if (kurtLoader && resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded) {
 
         hasLoaded = true;
 
         return getNextPage();
+      }
+
+      // remove the page bar if at top of screen
+      if (resourceLibrary.isOnScreen(siteHeader)) {
+
+        if ($('.de-page-bar').length) {
+
+          $('.de-page-bar').hide();
+        }
+      } else {
+
+        if ($('.de-page-bar').length && $('.de-page-bar').is(':hidden')) {
+
+          $('.de-page-bar').show();
+        }
       }
     });
 
@@ -95,20 +112,35 @@ $(document).ready(function() {
         success: function(res) {
 
           let markup = $(res).find('#pjax_container tbody').html(),
-              pageIndicator = 'Page: ' + pageNum;
+              page = 'Page: ' + pageNum;
 
           if (markup) {
 
             let nextSetIndicator = '<tr class="shortcut_navigable">' +
-                                   '<td></td>' +
-                                   '<td class="item_description">' +
-                                      '<h2 style="font-weight: bold;">' + pageIndicator + '</h2>' +
-                                      '<a href="#page_aside">Add or remove filters</a>' +
-                                   '</td>' +
-                                   '</tr>';
+                                      '<td class="item_description">' +
+                                         '<h2 style="font-weight: bold;">' + page + '</h2>' +
+                                      '</td>' +
+                                   '</tr>',
+                styles = 'position: fixed; top:0; left: 0;' +
+                          'width: 100%;' +
+                          'height: 25px;' +
+                          'text-align: center;' +
+                          'background: #000 !important;' +
+                          'padding-top: 5px;' +
+                          'z-index: 1000;',
+                filterUpdateLink = '<div class="de-page-bar" style="' + styles + '">' +
+                                      '<a href="#site_header">Add or remove filters</a>' +
+                                   '</div>';
 
             // Append page number to the DOM
             $('#pjax_container tbody:last-child').append(nextSetIndicator);
+
+            if ($('.de-page-bar').length) {
+
+              $('.de-page-bar').remove();
+            }
+
+            $('body').append(filterUpdateLink);
 
             // Append new items to the DOM
             $('#pjax_container tbody:last-child').append(markup);
