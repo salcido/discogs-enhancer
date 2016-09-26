@@ -149,7 +149,7 @@
        * @type {string}
        */
 
-      preloader: '<i class="icon icon-spinner icon-spin converted_price de-preloader"></i>',
+      preloader: '<i class="icon icon-spinner icon-spin converted_price de-preloader" style="font-style: normal;"></i>',
 
       /**
        * Displayed when a user has price comparisons enabled but does

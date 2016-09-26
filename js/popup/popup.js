@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleFeedback = document.getElementById('toggleFeedback'),
+      toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
       userCurrency: userCurrency.value,
       converter: toggleConverter.checked,
       darkTheme: toggleDarkTheme.checked,
+      everlastingMarket: toggleEverlastingMarket.checked,
       feedback: toggleFeedback.checked,
       formatShortcuts: toggleShortcuts.checked,
       blockSellers: toggleBlockSellers.checked,
@@ -422,6 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleConditions.addEventListener('change', toggleHighlights);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
+  toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
@@ -605,6 +608,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConditions.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
+      toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFeedback.checked = result.prefs.feedback;
       toggleNotesCount.checked = result.prefs.notesCount;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;

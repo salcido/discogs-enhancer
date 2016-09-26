@@ -19,6 +19,7 @@ let
     extensions,
     darkTheme,
     elems = [],
+    everlastingMarket,
     feedback,
     feedback_css,
     highlightCss,
@@ -82,6 +83,7 @@ chrome.storage.sync.get('prefs', function(result) {
       collectionUi: true,
       converter: true,
       darkTheme: true,
+      everlastingMarket: true,
       feedback: true,
       formatShortcuts: true,
       highlightMedia: true,
@@ -194,6 +196,20 @@ chrome.storage.sync.get('prefs', function(result) {
     highlightCss.id = 'mediaHighLightsCss';
 
     elems.push(highlightCss);
+  }
+
+  if (result.prefs.everlastingMarket) {
+
+    // everlasting-marketplace.js
+    everlastingMarket = document.createElement('script');
+
+    everlastingMarket.type = 'text/javascript';
+
+    everlastingMarket.src = chrome.extension.getURL('js/everlasting-marketplace.js');
+
+    everlastingMarket.className = 'de-init';
+
+    elems.push(everlastingMarket);
   }
 
   if (result.prefs.sortButtons) {

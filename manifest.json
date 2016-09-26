@@ -58,6 +58,7 @@
       "js/better-collection-ui.js",
       "js/chart/chart.js",
       "js/currency-converter.js",
+      "js/everlasting-marketplace.js",
       "js/exchange-rates/update-exchange-rates.js",
       "js/feedback-notifier.js",
       "js/hide-blocked-sellers.js",
