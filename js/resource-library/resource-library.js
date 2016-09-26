@@ -306,6 +306,22 @@
     },
 
     /**
+     * Detects whether an element is visible on the page
+     *
+     * @param    {Object}   elem [the element to detect]
+     * @return   {Boolean}
+     */
+
+    isOnScreen(elem) {
+
+      let elemTop = elem.getBoundingClientRect().top,
+          elemBottom = elem.getBoundingClientRect().bottom,
+          isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+
+      return isVisible;
+    },
+
+    /**
      * Returns the currently selected language
      *
      * @return   {string}

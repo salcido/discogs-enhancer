@@ -52,22 +52,6 @@ $(document).ready(function() {
      return params && params.length ? '&' + params.join('&') : '';
     }
 
-    /**
-     * Detects whether an element is visible on the page
-     *
-     * @param    {Object}   elem [the element to detect]
-     * @return   {Boolean}
-     */
-
-    function isOnScreen(elem) {
-
-      let elemTop = elem.getBoundingClientRect().top,
-          elemBottom = elem.getBoundingClientRect().bottom,
-          isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
-
-      return isVisible;
-    }
-
     // append preloader to bottom
     if (!$('#de-next').length) {
 
@@ -92,7 +76,7 @@ $(document).ready(function() {
 
       let kurtLoader = document.getElementById('de-next');
 
-      if (kurtLoader && isOnScreen(kurtLoader) && !hasLoaded) {
+      if (kurtLoader && resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded) {
 
         hasLoaded = true;
 
@@ -118,8 +102,8 @@ $(document).ready(function() {
             let nextSetIndicator = '<tr class="shortcut_navigable">' +
                                    '<td></td>' +
                                    '<td class="item_description">' +
-                                    '<h2 style="font-weight: bold;">' + pageIndicator + '</h2>' +
-                                    '<a href="#page_aside">Add or remove filters</a>' +
+                                      '<h2 style="font-weight: bold;">' + pageIndicator + '</h2>' +
+                                      '<a href="#page_aside">Add or remove filters</a>' +
                                    '</td>' +
                                    '</tr>';
 
