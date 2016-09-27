@@ -88,13 +88,13 @@ $(document).ready(function() {
 
         if ($('.de-page-bar').length) {
 
-          $('.de-page-bar').hide();
+          $('.de-page-bar').animate({top: '-25px'});
         }
       } else {
 
-        if ($('.de-page-bar').length && $('.de-page-bar').is(':hidden')) {
+        if ($('.de-page-bar') && $('.de-page-bar').position() && $('.de-page-bar').position().top <= -10) {
 
-          $('.de-page-bar').show();
+          $('.de-page-bar').animate({top: '0px'});
         }
       }
     });
