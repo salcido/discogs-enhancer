@@ -8,7 +8,6 @@
  *
  */
 
-// TODO add 'jump to page' feature in add/remove filter bar
 // TODO move `parseURL` to resourceLibrary
 
 $(document).ready(function() {
@@ -33,9 +32,19 @@ $(document).ready(function() {
                     'color: lightgray !important;' +
                     'left: 10px;',
 
+      selectWrap = 'position: absolute;' +
+                     'top: 4px;' +
+                     'right: 10px;',
+
       filterUpdateLink = '<div class="de-page-bar" style="' + barStyles + '">' +
                             '<h5 style="' + titleStyles + '">Everlasting Marketplace <span class="de-page">/ Page: 1</span></h5>' +
                             '<a href="#" id="de-update-filters" style="' + linkStyles + '">Add or remove filters</a>' +
+                            '<div style="' + selectWrap + '">' +
+                              '<span>Jump to: &nbsp;</span>' +
+                              '<select class="de-jump-to-page" style="">' +
+                                '<option value="1">Page: 1</option>' +
+                              '</select>' +
+                            '</div>' +
                          '</div>';
 
   if (href.indexOf('/sell/mywants') > -1) {
@@ -108,6 +117,22 @@ $(document).ready(function() {
       $('body').animate({scrollTop: 0}, 300);
     });
 
+    // Jump to page select box functionality
+    $('.de-jump-to-page').on('change', function(event) {
+
+      let target = event.target,
+          targetId = '#de-page-' + target.value;
+
+      if (target.value === '1') {
+
+        $('body').animate( {scrollTop:$('#site_header').position().top}, 300 );
+
+      } else {
+
+        $('body').animate( {scrollTop:$(targetId).position().top}, 300 );
+      }
+    });
+
     /**
      *
      * And we're scrolling....
@@ -167,6 +192,8 @@ $(document).ready(function() {
     // grab next set of items
     function getNextPage() {
 
+      let selectBox = $('.de-jump-to-page');
+
       $.ajax({
         url: '/sell/mywants?page=' + (Number(pageNum)) + parseURL(href),
         type: 'GET',
@@ -179,7 +206,7 @@ $(document).ready(function() {
 
             let nextSetIndicator = '<tr class="shortcut_navigable">' +
                                       '<td class="item_description">' +
-                                         '<h2 style="font-weight: bold;" class="de-current-page">' + page + '</h2>' +
+                                         '<h2 style="font-weight: bold;" class="de-current-page" id="de-page-' + pageNum + '">' + page + '</h2>' +
                                       '</td>' +
                                    '</tr>';
 
@@ -188,6 +215,9 @@ $(document).ready(function() {
 
             // Append new items to the DOM
             $('#pjax_container tbody:last-child').append(markup);
+
+            // Inject options into page jump select box
+            selectBox.append($('<option/>', { value: pageNum, text: 'Page: ' + pageNum }));
 
           } else {
 
