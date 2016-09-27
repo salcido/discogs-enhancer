@@ -8,8 +8,6 @@
  *
  */
 
-// TODO update filter marketplace option
-
 $(document).ready(function() {
 
   let hasLoaded = false,
