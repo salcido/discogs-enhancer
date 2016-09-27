@@ -8,8 +8,7 @@
  *
  */
 
-// TODO call block sellers on ajaxSuccess when everlasting marketplace is in use
-// TODO keep add/remove filters link at top of page when scrolling
+// TODO update filter marketplace option
 
 $(document).ready(function() {
 
@@ -169,9 +168,22 @@ $(document).ready(function() {
             window.applyStyles();
           }
 
+          // apply price comparisons if necessary
           if (window.injectPriceLinks) {
 
             window.injectPriceLinks();
+          }
+
+          // block sellers if necessary
+          if (window.hideSellers) {
+
+            window.hideSellers();
+          }
+
+          // filter marketplace items if necessary
+          if (window.hideItems) {
+
+            window.hideItems();
           }
         }
       });

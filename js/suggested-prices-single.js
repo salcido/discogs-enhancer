@@ -27,6 +27,8 @@ $(document).ready(function() {
         userCurrency = resourceLibrary.getItem('userCurrency');
 
     // Insert preloader animation
+    // attached to window object to allow use with
+    // Everlasting Marketplace option
     window.injectPriceLinks = function injectPriceLinks() {
 
       let p = document.querySelectorAll('td.item_price');

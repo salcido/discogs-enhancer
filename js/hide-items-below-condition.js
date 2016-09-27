@@ -19,7 +19,7 @@ $(document).ready(function() {
       wantsPage = /sell\/mywants/g;
 
   // Find all instances of selected items in list and hide them
-  function hideItems() {
+  window.hideItems = function hideItems() {
 
     // Get current itemCondition
     itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
@@ -64,19 +64,19 @@ $(document).ready(function() {
 
       return;
     }
-  }
+  };
 
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
     // hide items when page first loads
-    hideItems();
+    window.hideItems();
 
     // Call hideItems on prev/next clicks
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
       $(document).ajaxSuccess(function() {
 
-        hideItems();
+        window.hideItems();
       });
     });
   }
