@@ -27,7 +27,7 @@ $(document).ready(function() {
         userCurrency = resourceLibrary.getItem('userCurrency');
 
     // Insert preloader animation
-    function injectPriceLinks() {
+    window.injectPriceLinks = function injectPriceLinks() {
 
       let p = document.querySelectorAll('td.item_price');
 
@@ -39,9 +39,12 @@ $(document).ready(function() {
         a.style = 'margin: 10px auto; display:block; font-weight: bold;';
         a.innerHTML = 'Show Price<br>Comparison';
 
-        p[i].appendChild(a);
+        if (p[i].getElementsByClassName('de-price-link').length < 1) {
+
+          p[i].appendChild(a);
+        }
       }
-    }
+    };
 
     // Inject price comparisons
     function getAndAppendPrice(releaseId, container, target) {
@@ -212,7 +215,7 @@ $(document).ready(function() {
 
         if ($('.de-price-link').length < 1) {
 
-          return injectPriceLinks();
+          return window.injectPriceLinks();
         }
       });
     });
@@ -222,6 +225,6 @@ $(document).ready(function() {
 
     symbol = resourceLibrary.getSymbols(userCurrency, symbol);
 
-    injectPriceLinks();
+    window.injectPriceLinks();
   }
 });

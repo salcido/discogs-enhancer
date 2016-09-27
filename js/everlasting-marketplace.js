@@ -8,7 +8,6 @@
  *
  */
 
-// TODO call price comparison script on ajaxSuccess calls when everlasting marketplace is in use
 // TODO call block sellers on ajaxSuccess when everlasting marketplace is in use
 // TODO keep add/remove filters link at top of page when scrolling
 
@@ -121,14 +120,22 @@ $(document).ready(function() {
                                          '<h2 style="font-weight: bold;">' + page + '</h2>' +
                                       '</td>' +
                                    '</tr>',
-                styles = 'position: fixed; top:0; left: 0;' +
-                          'width: 100%;' +
-                          'height: 25px;' +
-                          'text-align: center;' +
-                          'background: #000 !important;' +
-                          'padding-top: 5px;' +
-                          'z-index: 1000;',
-                filterUpdateLink = '<div class="de-page-bar" style="' + styles + '">' +
+
+                barStyles = 'position: fixed; top:0; left: 0;' +
+                            'width: 100%;' +
+                            'height: 25px;' +
+                            'text-align: center;' +
+                            'background: #000 !important;' +
+                            'padding-top: 5px;' +
+                            'z-index: 1000;',
+
+                titleStyles = 'position: absolute;' +
+                              'top: 5px;' +
+                              'color: gray !important;' +
+                              'left: 10px;',
+
+                filterUpdateLink = '<div class="de-page-bar" style="' + barStyles + '">' +
+                                      '<h5 style="' + titleStyles + '">Everlasting Marketplace</h5>' +
                                       '<a href="#site_header">Add or remove filters</a>' +
                                    '</div>';
 
@@ -149,7 +156,7 @@ $(document).ready(function() {
 
             $('#de-next').remove();
 
-            $('#pjax_container').append('<p style="font-weight: bold;">No items for sale found</p>');
+            $('#pjax_container').append('<p style="font-weight: bold;">No more items for sale found</p>');
           }
 
           pageNum++;
@@ -160,6 +167,11 @@ $(document).ready(function() {
           if (window.applyStyles) {
 
             window.applyStyles();
+          }
+
+          if (window.injectPriceLinks) {
+
+            window.injectPriceLinks();
           }
         }
       });
