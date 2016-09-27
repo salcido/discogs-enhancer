@@ -8,11 +8,32 @@
  *
  */
 
+// TODO add 'jump to page' feature in add/remove filter bar
+
 $(document).ready(function() {
 
-  let hasLoaded = false,
+  let
+      hasLoaded = false,
       href = window.location.href,
-      pageNum = href.split('/sell/mywants?page=')[1] || 2;
+      pageNum = href.split('/sell/mywants?page=')[1] || 2,
+
+      barStyles = 'position: fixed; top:-25px; left: 0;' +
+                  'width: 100%;' +
+                  'height: 25px;' +
+                  'text-align: center;' +
+                  'background: #000 !important;' +
+                  'padding-top: 5px;' +
+                  'z-index: 1000;',
+
+      titleStyles = 'position: absolute;' +
+                    'top: 5px;' +
+                    'color: lightgray !important;' +
+                    'left: 10px;',
+
+      filterUpdateLink = '<div class="de-page-bar" style="' + barStyles + '">' +
+                            '<h5 style="' + titleStyles + '">Everlasting Marketplace <span class="de-page">/ Page: 1</span></h5>' +
+                            '<a href="#" id="de-update-filters">Add or remove filters</a>' +
+                         '</div>';
 
   if (href.indexOf('/sell/mywants') > -1) {
 
@@ -49,17 +70,21 @@ $(document).ready(function() {
      return params && params.length ? '&' + params.join('&') : '';
     }
 
+    // Everlasting Marketplace add/remove filters bar
+    $('body').append(filterUpdateLink);
+
     // append preloader to bottom
-    if (!$('#de-next').length) {
+    if (!document.getElementById('de-next')) {
 
       let
           loaderStyles = 'style="width: 100%; text-align: center; height: 150px; border-radius: 10px;"',
+
           loaderMarkup = '<div ' + loaderStyles + 'id="de-next" class="offers_box" >' +
                             '<div style="width: 100%; text-align: center; padding-top: 45px;"> ' +
                               'Loading next page...' +
                             '</div>' +
-                            resourceLibrary.css.preloader +
-                          '</div>';
+                              resourceLibrary.css.preloader +
+                         '</div>';
 
       $('#pjax_container').append(loaderMarkup);
     }
@@ -70,10 +95,27 @@ $(document).ready(function() {
     // Remove results total and replace with NEM indicator
     $('.pagination_total').html('Everlasting Marketplace');
 
-    // load next page on scroll
+    // Scroll the browser up to the top so the user can change Marketplace filters
+    $('body').on('click', '#de-update-filters', function(event) {
+
+      event.preventDefault();
+
+      $('body').animate({scrollTop: 0}, 300);
+    });
+
+    /**
+     *
+     * And we're scrolling....
+     *
+     */
+
     $(document).on('scroll', window, function() {
 
-      let kurtLoader = document.getElementById('de-next'),
+      let
+          everlasting = $('.de-page-bar'),
+          kurtLoader = document.getElementById('de-next'),
+          currentPage = document.getElementsByClassName('de-current-page'),
+          pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
       if (kurtLoader && resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded) {
@@ -83,18 +125,36 @@ $(document).ready(function() {
         return getNextPage();
       }
 
-      // remove the page bar if at top of screen
+      // hide the page bar if at top of screen
       if (resourceLibrary.isOnScreen(siteHeader)) {
 
-        if ($('.de-page-bar').length) {
+        everlasting.animate({top: '-25px'});
 
-          $('.de-page-bar').animate({top: '-25px'});
-        }
+        pageIndicator.innerHTML = '/ Page: 1';
+
       } else {
 
-        if ($('.de-page-bar') && $('.de-page-bar').position() && $('.de-page-bar').position().top <= -10) {
+        if (everlasting && everlasting.position() && everlasting.position().top <= -10) {
 
-          $('.de-page-bar').animate({top: '0px'});
+          everlasting.animate({top: '0px'});
+        }
+      }
+
+      // This gnarly bit of code will display the current page of results
+      // in the Everlasting Marketplace top bar
+      if (currentPage && currentPage.length > 0) {
+
+        for (let i = 0; i < pageNum; i++) {
+
+          try {
+
+            if (resourceLibrary.isOnScreen(currentPage[i])) {
+
+              pageIndicator.innerHTML = '/ ' + currentPage[i].innerHTML;
+            }
+          } catch (e) {
+            // I'm just here so I don't throw errors
+          }
         }
       }
     });
@@ -102,10 +162,8 @@ $(document).ready(function() {
     // grab next set of items
     function getNextPage() {
 
-      let currentPage = window.location.href;
-
       $.ajax({
-        url: '/sell/mywants?page=' + (Number(pageNum)) + parseURL(currentPage),
+        url: '/sell/mywants?page=' + (Number(pageNum)) + parseURL(href),
         type: 'GET',
         success: function(res) {
 
@@ -116,37 +174,12 @@ $(document).ready(function() {
 
             let nextSetIndicator = '<tr class="shortcut_navigable">' +
                                       '<td class="item_description">' +
-                                         '<h2 style="font-weight: bold;">' + page + '</h2>' +
+                                         '<h2 style="font-weight: bold;" class="de-current-page">' + page + '</h2>' +
                                       '</td>' +
-                                   '</tr>',
-
-                barStyles = 'position: fixed; top:0; left: 0;' +
-                            'width: 100%;' +
-                            'height: 25px;' +
-                            'text-align: center;' +
-                            'background: #000 !important;' +
-                            'padding-top: 5px;' +
-                            'z-index: 1000;',
-
-                titleStyles = 'position: absolute;' +
-                              'top: 5px;' +
-                              'color: gray !important;' +
-                              'left: 10px;',
-
-                filterUpdateLink = '<div class="de-page-bar" style="' + barStyles + '">' +
-                                      '<h5 style="' + titleStyles + '">Everlasting Marketplace</h5>' +
-                                      '<a href="#site_header">Add or remove filters</a>' +
-                                   '</div>';
+                                   '</tr>';
 
             // Append page number to the DOM
             $('#pjax_container tbody:last-child').append(nextSetIndicator);
-
-            if ($('.de-page-bar').length) {
-
-              $('.de-page-bar').remove();
-            }
-
-            $('body').append(filterUpdateLink);
 
             // Append new items to the DOM
             $('#pjax_container tbody:last-child').append(markup);
