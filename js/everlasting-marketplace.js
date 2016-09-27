@@ -52,12 +52,14 @@ $(document).ready(function() {
     // append preloader to bottom
     if (!$('#de-next').length) {
 
-      let loaderMarkup = '<div style="width: 100%; text-align: center;" id="de-next">' +
-                            '<div style="width: 100%; text-align: center;"> ' +
+      let
+          loaderStyles = 'style="width: 100%; text-align: center; height: 150px; border-radius: 10px;"',
+          loaderMarkup = '<div' + loaderStyles + 'id="de-next" class="offers_box">' +
+                            '<div style="width: 100%; text-align: center; padding-top: 45px;"> ' +
                               'Loading next page...' +
                             '</div>' +
                             resourceLibrary.css.preloader +
-                         '</div>';
+                          '</div>';
 
       $('#pjax_container').append(loaderMarkup);
     }
