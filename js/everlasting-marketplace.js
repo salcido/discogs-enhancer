@@ -15,7 +15,7 @@ $(document).ready(function() {
   let
       hasLoaded = false,
       href = window.location.href,
-      pageNum = href.split('/sell/mywants?page=')[1] || 2,
+      pageNum = 2,
 
       barStyles = 'position: fixed; top:-35px; left: 0;' +
                   'width: 100%;' +
@@ -40,14 +40,14 @@ $(document).ready(function() {
                             '<h5 style="' + titleStyles + '">Everlasting Marketplace <span class="de-page">/ Page: 1</span></h5>' +
                             '<a href="#" id="de-update-filters" style="' + linkStyles + '">Add or remove filters</a>' +
                             '<div style="' + selectWrap + '">' +
-                              '<span>Jump to: &nbsp;</span>' +
-                              '<select class="de-jump-to-page" style="">' +
+                              '<span style="color: lightgray !important;">Jump to: &nbsp;</span>' +
+                              '<select class="de-jump-to-page">' +
                                 '<option value="1">Page: 1</option>' +
                               '</select>' +
                             '</div>' +
                          '</div>';
 
-  if (href.indexOf('/sell/mywants') > -1) {
+  if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
 
     /**
      * Parses the page url
@@ -192,10 +192,11 @@ $(document).ready(function() {
     // grab next set of items
     function getNextPage() {
 
-      let selectBox = $('.de-jump-to-page');
+      let selectBox = $('.de-jump-to-page'),
+          type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
 
       $.ajax({
-        url: '/sell/mywants?page=' + (Number(pageNum)) + parseURL(href),
+        url: '/sell/' + type + '?page=' + (Number(pageNum)) + parseURL(href),
         type: 'GET',
         success: function(res) {
 
