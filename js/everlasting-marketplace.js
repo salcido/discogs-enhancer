@@ -9,6 +9,7 @@
  */
 
 // TODO add 'jump to page' feature in add/remove filter bar
+// TODO move `parseURL` to resourceLibrary
 
 $(document).ready(function() {
 
@@ -17,13 +18,15 @@ $(document).ready(function() {
       href = window.location.href,
       pageNum = href.split('/sell/mywants?page=')[1] || 2,
 
-      barStyles = 'position: fixed; top:-25px; left: 0;' +
+      barStyles = 'position: fixed; top:-35px; left: 0;' +
                   'width: 100%;' +
                   'height: 25px;' +
                   'text-align: center;' +
                   'background: #000 !important;' +
                   'padding-top: 5px;' +
                   'z-index: 1000;',
+
+      linkStyles = 'color: #809bbe !important;',
 
       titleStyles = 'position: absolute;' +
                     'top: 5px;' +
@@ -32,7 +35,7 @@ $(document).ready(function() {
 
       filterUpdateLink = '<div class="de-page-bar" style="' + barStyles + '">' +
                             '<h5 style="' + titleStyles + '">Everlasting Marketplace <span class="de-page">/ Page: 1</span></h5>' +
-                            '<a href="#" id="de-update-filters">Add or remove filters</a>' +
+                            '<a href="#" id="de-update-filters" style="' + linkStyles + '">Add or remove filters</a>' +
                          '</div>';
 
   if (href.indexOf('/sell/mywants') > -1) {
@@ -79,8 +82,10 @@ $(document).ready(function() {
       let
           loaderStyles = 'style="width: 100%; text-align: center; height: 150px; border-radius: 10px;"',
 
+          textStyles = 'width: 100%; text-align: center; padding-top: 45px;',
+
           loaderMarkup = '<div ' + loaderStyles + 'id="de-next" class="offers_box" >' +
-                            '<div style="width: 100%; text-align: center; padding-top: 45px;"> ' +
+                            '<div style="' + textStyles + '"> ' +
                               'Loading next page...' +
                             '</div>' +
                               resourceLibrary.css.preloader +
@@ -112,7 +117,7 @@ $(document).ready(function() {
     $(document).on('scroll', window, function() {
 
       let
-          everlasting = $('.de-page-bar'),
+          everlasting = $('.de-page-bar'), // wrapped in jQ selector so it can use position() method
           kurtLoader = document.getElementById('de-next'),
           currentPage = document.getElementsByClassName('de-current-page'),
           pageIndicator = document.getElementsByClassName('de-page')[0],
@@ -128,7 +133,7 @@ $(document).ready(function() {
       // hide the page bar if at top of screen
       if (resourceLibrary.isOnScreen(siteHeader)) {
 
-        everlasting.animate({top: '-25px'});
+        everlasting.animate({top: '-35px'});
 
         pageIndicator.innerHTML = '/ Page: 1';
 
@@ -140,8 +145,8 @@ $(document).ready(function() {
         }
       }
 
-      // This gnarly bit of code will display the current page of results
-      // in the Everlasting Marketplace top bar
+      // This gnarly bit of code will display the currently viewed page
+      // of results in the Everlasting Marketplace top bar
       if (currentPage && currentPage.length > 0) {
 
         for (let i = 0; i < pageNum; i++) {
