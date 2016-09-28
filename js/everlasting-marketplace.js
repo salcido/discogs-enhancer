@@ -172,37 +172,31 @@ $(document).ready(function() {
     }
 
     // Pause/resume Everlasting Marketplace
-    $('body').on('click', '.de-pause', (event) => {
+    $('body').on('click', '.de-pause', function(event) {
 
       let target = event.target;
 
-      switch (true) {
+      // Paused
+      if ( $(target).hasClass('icon-pause') ) {
 
-        // Paused
-        case $(target).hasClass('icon-pause') :
+        $(target).parent().html('<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>');
 
-          $(target).parent().html('<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>');
+        $('#de-next .icon-spinner').hide();
 
-          $('#de-next .icon-spinner').hide();
+        $('.de-next-text').html('<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>');
 
-          $('.de-next-text').html('<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>');
+        paused = true;
 
-          paused = true;
+      // Resume
+      } else {
 
-          break;
+        $(target).parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
 
-        // Not paused
-        case $(target).hasClass('icon-play'):
+        $('#de-next .icon-spinner').show();
 
-          $(target).parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
+        $('.de-next-text').html('Loading next page...');
 
-          $('#de-next .icon-spinner').show();
-
-          $('.de-next-text').html('Loading next page...');
-
-          paused = false;
-
-          break;
+        paused = false;
       }
     });
 
