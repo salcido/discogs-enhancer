@@ -23,7 +23,7 @@ $(document).ready(function() {
                             '</span>' +
                             '<a href="#" id="de-update-filters">Add or remove filters</a>' +
                             '<div class="de-select-wrap">' +
-                              '<span>Jump to: &nbsp;</span>' +
+                              '<span>Scroll to: &nbsp;</span>' +
                               '<select class="de-jump-to-page">' +
                                 '<option value="1">Page: 1</option>' +
                               '</select>' +
