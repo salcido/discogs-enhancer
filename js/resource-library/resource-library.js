@@ -590,6 +590,40 @@
        }
      },
 
+     /**
+      * Parses the page url in order to remove any '&page='
+      * query params.
+      *
+      * @param    {string} url [current page URL]
+      * @return   {string}
+      */
+
+     parseURL: function(url) {
+
+       let params;
+
+         if (url.indexOf('?') > -1) {
+
+           let page = /page=/g;
+
+           params = url.split('?')[1].split('&');
+
+           params.forEach(function(param) {
+
+             let target;
+
+             if (param.match(page)) {
+
+               target = params.indexOf(param);
+
+               params.splice(target, 1);
+             }
+         });
+      }
+
+      return params && params.length ? '&' + params.join('&') : '';
+    },
+
     /**
      * Parses element into object
      *

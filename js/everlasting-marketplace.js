@@ -8,8 +8,6 @@
  *
  */
 
-// TODO move `parseURL` to resourceLibrary
-
 $(document).ready(function() {
 
   let
@@ -33,40 +31,6 @@ $(document).ready(function() {
                          '</div>';
 
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
-
-    /**
-     * Parses the page url in order to remove any '&page='
-     * query params.
-     *
-     * @param    {string} url [current page URL]
-     * @return   {string}
-     */
-
-    function parseURL(url) {
-
-      let params;
-
-        if (url.indexOf('?') > -1) {
-
-          let page = /page=/g;
-
-          params = url.split('?')[1].split('&');
-
-          params.forEach(function(param) {
-
-            let target;
-
-            if (param.match(page)) {
-
-              target = params.indexOf(param);
-
-              params.splice(target, 1);
-            }
-        });
-     }
-
-     return params && params.length ? '&' + params.join('&') : '';
-    }
 
     // Everlasting Marketplace add/remove filters bar
     $('body').append(filterUpdateLink);
@@ -177,7 +141,7 @@ $(document).ready(function() {
           type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
 
       $.ajax({
-        url: '/sell/' + type + '?page=' + (Number(pageNum)) + parseURL(href),
+        url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.parseURL(href),
         type: 'GET',
         success: function(res) {
 
@@ -199,7 +163,7 @@ $(document).ready(function() {
             $('#pjax_container tbody:last-child').append(markup);
 
             // Inject options into page jump select box
-            selectBox.append($('<option/>', { value: pageNum, text: 'Page: ' + pageNum }));
+            selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
 
           } else {
 
