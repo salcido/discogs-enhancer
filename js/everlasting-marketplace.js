@@ -15,7 +15,8 @@ $(document).ready(function() {
       href = window.location.href,
       language = resourceLibrary.language(),
       pageNum = 2,
-      pagination = $('.pagination_total');
+      pagination = $('.pagination_total'),
+      paused = false;
 
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
 
@@ -65,6 +66,9 @@ $(document).ready(function() {
                               '<option value="" selected>Select</option>' +
                               '<option value="1">Page: 1</option>' +
                             '</select>' +
+                            '<span class="de-pause">' +
+                              '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>' +
+                            '</span>' +
                           '</div>' +
                        '</div>';
 
@@ -96,25 +100,6 @@ $(document).ready(function() {
       event.preventDefault();
 
       $('body').animate({scrollTop: 0}, 300);
-    });
-
-    // scroll to page section select box functionality
-    $('.de-scroll-to-page').on('change', function(event) {
-
-      let target = event.target,
-          targetId = '#de-page-' + target.value;
-
-      if (target.value) {
-
-        if (target.value === '1') {
-
-          $('body').animate( {scrollTop:$('#site_header').position().top}, 300 );
-
-        } else {
-
-          $('body').animate( {scrollTop:$(targetId).position().top}, 300 );
-        }
-      }
     });
 
     // grab next set of items
@@ -186,6 +171,76 @@ $(document).ready(function() {
       });
     }
 
+    // Pause/resume Everlasting Marketplace
+    $('body').on('click', '.de-pause', (event) => {
+
+      let target = event.target;
+
+      switch (true) {
+
+        // Paused
+        case $(target).hasClass('icon-pause') :
+
+          $(target).parent().html('<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>');
+
+          $('#de-next .icon-spinner').hide();
+
+          $('.de-next-text').html('<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>');
+
+          paused = true;
+
+          break;
+
+        // Not paused
+        case $(target).hasClass('icon-play'):
+
+          $(target).parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
+
+          $('#de-next .icon-spinner').show();
+
+          $('.de-next-text').html('Loading next page...');
+
+          paused = false;
+
+          break;
+      }
+    });
+
+    // Resume loading shortcut
+    $('body').on('click', '.de-resume', function(event) {
+
+      event.preventDefault();
+
+      $('.icon-play').parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
+
+      $('#de-next .icon-spinner').show();
+
+      $('.de-next-text').html('Loading next page...');
+
+      paused = false;
+
+      return getNextPage();
+    });
+
+    // scroll to page section select box functionality
+    $('.de-scroll-to-page').on('change', function(event) {
+
+      let target = event.target,
+          targetId = '#de-page-' + target.value;
+
+      if (target.value) {
+
+        if (target.value === '1') {
+
+          $('body').animate( {scrollTop:$('#site_header').position().top}, 300 );
+
+        } else {
+
+          $('body').animate( {scrollTop:$(targetId).position().top}, 300 );
+        }
+      }
+    });
+
     /**
      *
      * And we're scrolling....
@@ -202,7 +257,7 @@ $(document).ready(function() {
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
-      if (kurtLoader && resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded) {
+      if (kurtLoader && resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused) {
 
         hasLoaded = true;
 

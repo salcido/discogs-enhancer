@@ -52,6 +52,10 @@
   text-align: center;
 }
 
+.de-next-text p {
+  margin: 0 auto;
+}
+
 .de-current-page {
   margin-top: 10px;
 }
@@ -59,4 +63,13 @@
 .de-current-page,
 .de-no-results {
   font-weight: bold;
+}
+
+.de-pause {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.de-pause .icon {
+  font-size: 12px;
 }
