@@ -109,7 +109,7 @@ $(document).ready(function() {
 
       } else {
 
-        if (everlasting && everlasting.position() && everlasting.position().top <= -10) {
+        if (!resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30) {
 
           everlasting.animate({top: '0px'});
         }
