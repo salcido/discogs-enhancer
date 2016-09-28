@@ -13,24 +13,60 @@ $(document).ready(function() {
   let
       hasLoaded = false,
       href = window.location.href,
+      language = resourceLibrary.language(),
       pageNum = 2,
-      pagination = $('.pagination_total'),
-      pTotal = pagination.html().split('of')[1],
-      filterUpdateLink = '<div class="de-page-bar">' +
-                            '<span class="de-page-info">' +
-                              '<span class="de-page de-page-num">Page: 1</span>' +
-                              '<span>' + pTotal + ' results</span>' +
-                            '</span>' +
-                            '<a href="#" id="de-update-filters">Add or remove filters</a>' +
-                            '<div class="de-select-wrap">' +
-                              '<span>Scroll to: &nbsp;</span>' +
-                              '<select class="de-jump-to-page">' +
-                                '<option value="1">Page: 1</option>' +
-                              '</select>' +
-                            '</div>' +
-                         '</div>';
+      pagination = $('.pagination_total');
 
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
+
+    let pTotal,
+        filterUpdateLink;
+
+    // This will grab the total number of results returned
+    // depending on the language that the user has set
+    switch (true) {
+
+      // German
+      case language === 'de':
+        pTotal = pagination.html().split('von')[1];
+        break;
+
+      // Italian
+      case language === 'it':
+        pTotal = pagination.html().split('di')[1];
+        break;
+
+      // Spanish and French
+      case language === 'es':
+      case language === 'fr':
+        pTotal = pagination.html().split('de')[1];
+        break;
+
+      // Japanese
+      case language === 'ja':
+        pTotal = pagination.html().split('中')[0];
+        break;
+
+      // English
+      default:
+        pTotal = pagination.html().split('of')[1];
+        break;
+    }
+
+    filterUpdateLink = '<div class="de-page-bar">' +
+                          '<span class="de-page-info">' +
+                            '<span class="de-page de-page-num">Page: 1</span>' +
+                            '<span>' + pTotal + ' results</span>' +
+                          '</span>' +
+                          '<a href="#" id="de-update-filters">Add or remove filters</a>' +
+                          '<div class="de-select-wrap">' +
+                            '<span>Scroll to: &nbsp;</span>' +
+                            '<select class="de-jump-to-page">' +
+                              '<option value="" selected>Select</option>' +
+                              '<option value="1">Page: 1</option>' +
+                            '</select>' +
+                          '</div>' +
+                       '</div>';
 
     // Everlasting Marketplace add/remove filters bar
     $('body').append(filterUpdateLink);
@@ -62,19 +98,22 @@ $(document).ready(function() {
       $('body').animate({scrollTop: 0}, 300);
     });
 
-    // Jump to page select box functionality
+    // scroll to page section select box functionality
     $('.de-jump-to-page').on('change', function(event) {
 
       let target = event.target,
           targetId = '#de-page-' + target.value;
 
-      if (target.value === '1') {
+      if (target.value) {
 
-        $('body').animate( {scrollTop:$('#site_header').position().top}, 300 );
+        if (target.value === '1') {
 
-      } else {
+          $('body').animate( {scrollTop:$('#site_header').position().top}, 300 );
 
-        $('body').animate( {scrollTop:$(targetId).position().top}, 300 );
+        } else {
+
+          $('body').animate( {scrollTop:$(targetId).position().top}, 300 );
+        }
       }
     });
 
