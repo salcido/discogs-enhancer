@@ -78,6 +78,75 @@ $(document).ready(function() {
       }
     });
 
+    // grab next set of items
+    function getNextPage() {
+
+      let selectBox = $('.de-jump-to-page'),
+          type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
+
+      $.ajax({
+        url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.parseURL(href),
+        type: 'GET',
+        success: function(res) {
+
+          let markup = $(res).find('#pjax_container tbody').html(),
+              page = 'Page: ' + pageNum;
+
+          if (markup) {
+
+            let nextSetIndicator = '<tr class="shortcut_navigable">' +
+                                      '<td class="item_description">' +
+                                         '<h2 class="de-current-page" id="de-page-' + pageNum + '">' + page + '</h2>' +
+                                      '</td>' +
+                                   '</tr>';
+
+            // Append page number to the DOM
+            $('#pjax_container tbody:last-child').append(nextSetIndicator);
+
+            // Append new items to the DOM
+            $('#pjax_container tbody:last-child').append(markup);
+
+            // Inject options into page jump select box
+            selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
+
+          } else {
+
+            $('#de-next').remove();
+
+            $('#pjax_container').append('<h1 class="de-no-results">No more items for sale found</h1>');
+          }
+
+          pageNum++;
+
+          hasLoaded = false;
+
+          // apply Marketplace Highlights if necessary
+          if (window.applyStyles) {
+
+            window.applyStyles();
+          }
+
+          // apply price comparisons if necessary
+          if (window.injectPriceLinks) {
+
+            window.injectPriceLinks();
+          }
+
+          // block sellers if necessary
+          if (window.hideSellers) {
+
+            window.hideSellers();
+          }
+
+          // filter marketplace items if necessary
+          if (window.hideItems) {
+
+            window.hideItems();
+          }
+        }
+      });
+    }
+
     /**
      *
      * And we're scrolling....
@@ -133,74 +202,5 @@ $(document).ready(function() {
         }
       }
     });
-
-    // grab next set of items
-    function getNextPage() {
-
-      let selectBox = $('.de-jump-to-page'),
-          type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
-
-      $.ajax({
-        url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.parseURL(href),
-        type: 'GET',
-        success: function(res) {
-
-          let markup = $(res).find('#pjax_container tbody').html(),
-              page = 'Page: ' + pageNum;
-
-          if (markup) {
-
-            let nextSetIndicator = '<tr class="shortcut_navigable">' +
-                                      '<td class="item_description">' +
-                                         '<h2 class="de-current-page" id="de-page-' + pageNum + '">' + page + '</h2>' +
-                                      '</td>' +
-                                   '</tr>';
-
-            // Append page number to the DOM
-            $('#pjax_container tbody:last-child').append(nextSetIndicator);
-
-            // Append new items to the DOM
-            $('#pjax_container tbody:last-child').append(markup);
-
-            // Inject options into page jump select box
-            selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
-
-          } else {
-
-            $('#de-next').remove();
-
-            $('#pjax_container').append('<p class="de-no-results">No more items for sale found</p>');
-          }
-
-          pageNum++;
-
-          hasLoaded = false;
-
-          // apply Marketplace Highlights if necessary
-          if (window.applyStyles) {
-
-            window.applyStyles();
-          }
-
-          // apply price comparisons if necessary
-          if (window.injectPriceLinks) {
-
-            window.injectPriceLinks();
-          }
-
-          // block sellers if necessary
-          if (window.hideSellers) {
-
-            window.hideSellers();
-          }
-
-          // filter marketplace items if necessary
-          if (window.hideItems) {
-
-            window.hideItems();
-          }
-        }
-      });
-    }
   }
 });

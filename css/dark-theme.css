@@ -1638,3 +1638,7 @@ label#thresholdLabel {
 .notes_field .notes_text i {
   display: block !important;
 }
+
+#de-next {
+  background: #292929 !important;
+}

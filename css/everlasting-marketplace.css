@@ -52,6 +52,10 @@
   text-align: center;
 }
 
+.de-current-page {
+  margin-top: 10px;
+}
+
 .de-current-page,
 .de-no-results {
   font-weight: bold;
