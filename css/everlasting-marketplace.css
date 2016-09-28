@@ -1,0 +1,58 @@
+.de-page-bar {
+  display: block;
+  height: 25px;
+  width: 100%;
+  padding-top: 5px;
+  position: fixed;
+  z-index: 1000;
+  top: -35px;
+  left: 0;
+  background: #000000 !important;
+  color: lightGray !important;
+  text-align: center;
+}
+
+.de-page-bar a {
+  color: #809BBE !important;
+}
+
+.de-page-num {
+  margin-right: 30px;
+  font-weight: bold;
+}
+
+.de-page-info {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  color: lightgray !important;
+}
+
+.de-select-wrap {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+}
+
+#de-next {
+  height: 150px;
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#de-next i {
+  font-size: 25px;
+}
+
+.de-next-text {
+  width: 100%;
+  padding-top: 45px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.de-current-page,
+.de-no-results {
+  font-weight: bold;
+}

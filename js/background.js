@@ -20,6 +20,7 @@ let
     darkTheme,
     elems = [],
     everlastingMarket,
+    everlastingMarketCss,
     feedback,
     feedback_css,
     highlightCss,
@@ -210,6 +211,17 @@ chrome.storage.sync.get('prefs', function(result) {
     everlastingMarket.className = 'de-init';
 
     elems.push(everlastingMarket);
+
+    // everlasting-marketplace.css
+    everlastingMarketCss = document.createElement('link');
+
+    everlastingMarketCss.rel = 'stylesheet';
+
+    everlastingMarketCss.type = 'text/css';
+
+    everlastingMarketCss.href = chrome.extension.getURL('css/everlasting-marketplace.css');
+
+    elems.push(everlastingMarketCss);
   }
 
   if (result.prefs.sortButtons) {

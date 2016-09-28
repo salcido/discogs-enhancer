@@ -16,31 +16,16 @@ $(document).ready(function() {
       hasLoaded = false,
       href = window.location.href,
       pageNum = 2,
-
-      barStyles = 'position: fixed; top:-35px; left: 0;' +
-                  'width: 100%;' +
-                  'height: 25px;' +
-                  'text-align: center;' +
-                  'background: #000 !important;' +
-                  'padding-top: 5px;' +
-                  'z-index: 1000;',
-
-      linkStyles = 'color: #809bbe !important;',
-
-      titleStyles = 'position: absolute;' +
-                    'top: 5px;' +
-                    'color: lightgray !important;' +
-                    'left: 10px;',
-
-      selectWrap = 'position: absolute;' +
-                     'top: 4px;' +
-                     'right: 10px;',
-
-      filterUpdateLink = '<div class="de-page-bar" style="' + barStyles + '">' +
-                            '<h5 style="' + titleStyles + '">Everlasting Marketplace <span class="de-page">/ Page: 1</span></h5>' +
-                            '<a href="#" id="de-update-filters" style="' + linkStyles + '">Add or remove filters</a>' +
-                            '<div style="' + selectWrap + '">' +
-                              '<span style="color: lightgray !important;">Jump to: &nbsp;</span>' +
+      pagination = $('.pagination_total'),
+      pTotal = pagination.html().split('of')[1],
+      filterUpdateLink = '<div class="de-page-bar">' +
+                            '<span class="de-page-info">' +
+                              '<span class="de-page de-page-num">Page: 1</span>' +
+                              '<span>' + pTotal + ' results</span>' +
+                            '</span>' +
+                            '<a href="#" id="de-update-filters">Add or remove filters</a>' +
+                            '<div class="de-select-wrap">' +
+                              '<span>Jump to: &nbsp;</span>' +
                               '<select class="de-jump-to-page">' +
                                 '<option value="1">Page: 1</option>' +
                               '</select>' +
@@ -50,7 +35,8 @@ $(document).ready(function() {
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
 
     /**
-     * Parses the page url
+     * Parses the page url in order to remove any '&page='
+     * query params.
      *
      * @param    {string} url [current page URL]
      * @return   {string}
@@ -88,13 +74,8 @@ $(document).ready(function() {
     // append preloader to bottom
     if (!document.getElementById('de-next')) {
 
-      let
-          loaderStyles = 'style="width: 100%; text-align: center; height: 150px; border-radius: 10px;"',
-
-          textStyles = 'width: 100%; text-align: center; padding-top: 45px;',
-
-          loaderMarkup = '<div ' + loaderStyles + 'id="de-next" class="offers_box" >' +
-                            '<div style="' + textStyles + '"> ' +
+      let loaderMarkup = '<div id="de-next" class="offers_box" >' +
+                            '<div class="de-next-text"> ' +
                               'Loading next page...' +
                             '</div>' +
                               resourceLibrary.css.preloader +
@@ -106,8 +87,8 @@ $(document).ready(function() {
     // Hide standard means of page navigation
     $('.pagination_page_links').hide();
 
-    // Remove results total and replace with NEM indicator
-    $('.pagination_total').html('Everlasting Marketplace');
+    // Remove results total and replace with NM indicator
+    pagination.html('Everlasting Marketplace: ' + pTotal + ' results');
 
     // Scroll the browser up to the top so the user can change Marketplace filters
     $('body').on('click', '#de-update-filters', function(event) {
@@ -160,7 +141,7 @@ $(document).ready(function() {
 
         everlasting.animate({top: '-35px'});
 
-        pageIndicator.innerHTML = '/ Page: 1';
+        pageIndicator.innerHTML = 'Page: 1';
 
       } else {
 
@@ -180,7 +161,7 @@ $(document).ready(function() {
 
             if (resourceLibrary.isOnScreen(currentPage[i])) {
 
-              pageIndicator.innerHTML = '/ ' + currentPage[i].innerHTML;
+              pageIndicator.innerHTML = currentPage[i].innerHTML;
             }
           } catch (e) {
             // I'm just here so I don't throw errors
@@ -207,7 +188,7 @@ $(document).ready(function() {
 
             let nextSetIndicator = '<tr class="shortcut_navigable">' +
                                       '<td class="item_description">' +
-                                         '<h2 style="font-weight: bold;" class="de-current-page" id="de-page-' + pageNum + '">' + page + '</h2>' +
+                                         '<h2 class="de-current-page" id="de-page-' + pageNum + '">' + page + '</h2>' +
                                       '</td>' +
                                    '</tr>';
 
@@ -224,7 +205,7 @@ $(document).ready(function() {
 
             $('#de-next').remove();
 
-            $('#pjax_container').append('<p style="font-weight: bold;">No more items for sale found</p>');
+            $('#pjax_container').append('<p class="de-no-results">No more items for sale found</p>');
           }
 
           pageNum++;
