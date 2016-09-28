@@ -39,7 +39,7 @@ Great for late night browsing.
 
 ### Everlasting Marketplace
 The Everlasting Marketplace lets you continuously scroll through the Marketplace listings so you'll never have to click "prev" or "next" again.
-Pages are automatically loaded once you reach the bottom of the Marketplace listings.
+More results are automatically loaded once you reach the bottom of the Marketplace listings.
 
 ### Feedback Notifications
 The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
