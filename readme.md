@@ -10,6 +10,7 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Block Sellers
 * Contextual menu searching
 * Dark theme
+* Everlasting Marketplace
 * Feedback Notifications
 * Filter Marketplace items
 * Marketplace highlights
@@ -35,6 +36,10 @@ Search Discogs (or many other online shops) instantly with any highlighted text!
 Great for late night browsing.
 
 ![Dark theme](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/dark-theme.png?raw=true "Dark theme preview")
+
+### Everlasting Marketplace
+The Everlasting Marketplace lets you continuously scroll through the Marketplace listings so you'll never have to click "prev" or "next" again.
+Pages are automatically loaded once you reach the bottom of the Marketplace listings.
 
 ### Feedback Notifications
 The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
