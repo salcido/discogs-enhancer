@@ -61,7 +61,7 @@ $(document).ready(function() {
                           '<a href="#" id="de-update-filters">Add or remove filters</a>' +
                           '<div class="de-select-wrap">' +
                             '<span>Scroll to: &nbsp;</span>' +
-                            '<select class="de-jump-to-page">' +
+                            '<select class="de-scroll-to-page">' +
                               '<option value="" selected>Select</option>' +
                               '<option value="1">Page: 1</option>' +
                             '</select>' +
@@ -99,7 +99,7 @@ $(document).ready(function() {
     });
 
     // scroll to page section select box functionality
-    $('.de-jump-to-page').on('change', function(event) {
+    $('.de-scroll-to-page').on('change', function(event) {
 
       let target = event.target,
           targetId = '#de-page-' + target.value;
@@ -120,7 +120,7 @@ $(document).ready(function() {
     // grab next set of items
     function getNextPage() {
 
-      let selectBox = $('.de-jump-to-page'),
+      let selectBox = $('.de-scroll-to-page'),
           type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
 
       $.ajax({
@@ -145,7 +145,7 @@ $(document).ready(function() {
             // Append new items to the DOM
             $('#pjax_container tbody:last-child').append(markup);
 
-            // Inject options into page jump select box
+            // Inject options into scroll-to-page select box
             selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
 
           } else {
@@ -192,6 +192,7 @@ $(document).ready(function() {
      *
      */
 
+    // draxx them sklounst
     $(document).on('scroll', window, function() {
 
       let
