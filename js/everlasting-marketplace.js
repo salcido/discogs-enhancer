@@ -13,7 +13,6 @@ $(document).ready(function() {
   let
       hasLoaded = false,
       href = window.location.href,
-      language = resourceLibrary.language(),
       pageNum = 2,
       pagination = $('.pagination_total'),
       paused = false;
@@ -21,7 +20,8 @@ $(document).ready(function() {
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
 
     let pTotal,
-        filterUpdateLink;
+        filterUpdateLink,
+        language = resourceLibrary.language();
 
     // This will grab the total number of results returned
     // depending on the language that the user has set
@@ -251,7 +251,7 @@ $(document).ready(function() {
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
-      if (kurtLoader && resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused) {
+      if (resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused) {
 
         hasLoaded = true;
 
