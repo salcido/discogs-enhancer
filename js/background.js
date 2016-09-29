@@ -109,7 +109,8 @@ chrome.storage.sync.get('prefs', function(result) {
       useOye: false,
       usePbvinyl: false,
       usePhonica: false,
-      useSotu: false
+      useSotu: false,
+      useYoutube: false
     };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -681,6 +682,17 @@ chrome.storage.sync.get('prefs', function(result) {
       id: 'sotu',
       method: 'create',
       name: 'SOTU',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useYoutube) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchSYoutube',
+      id: 'youtube',
+      method: 'create',
+      name: 'YouTube',
       request: 'updateContextMenu'
     });
   }

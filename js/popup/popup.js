@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleOye = document.getElementById('oye'),
       togglePbvinyl = document.getElementById('pbvinyl'),
       togglePhonica = document.getElementById('phonica'),
-      toggleSotu = document.getElementById('sotu');
+      toggleSotu = document.getElementById('sotu'),
+      toggleYoutube = document.getElementById('youtube');
 
   /**
    * Clears the update notification
@@ -106,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
       useOye: toggleOye.checked,
       usePbvinyl: togglePbvinyl.checked,
       usePhonica: togglePhonica.checked,
-      useSotu: toggleSotu.checked
+      useSotu: toggleSotu.checked,
+      useYoutube: toggleYoutube.checked
     };
 
     chrome.storage.sync.set({prefs: prefs}, function() {
@@ -448,6 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
   togglePbvinyl.addEventListener('change', updateMenu);
   togglePhonica.addEventListener('change', updateMenu);
   toggleSotu.addEventListener('change', updateMenu);
+  toggleYoutube.addEventListener('change', updateMenu);
 
   /**
    *
@@ -494,13 +497,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (isHovering) {
 
-        $(this).css({height: '140px'});
+        $(this).css({height: '155px'});
       }
     }, 400);
 
     interval = setInterval(function() {
 
-      if (toggleGroup.height() >= 135) {
+      if (toggleGroup.height() >= 145) {
 
         contextMenus.fadeIn('fast');
 
@@ -632,6 +635,7 @@ document.addEventListener('DOMContentLoaded', function () {
       togglePbvinyl.checked = result.prefs.usePbvinyl;
       togglePhonica.checked = result.prefs.usePhonica;
       toggleSotu.checked = result.prefs.useSotu;
+      toggleYoutube.checked = result.prefs.useYoutube;
     });
 
     checkForUpdate();

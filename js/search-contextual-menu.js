@@ -127,3 +127,11 @@ function searchSotu(event) {
 
   chrome.tabs.create({url: 'https://soundsoftheuniverse.com/search/?q=' + encodeStr});
 }
+
+function searchYoutube(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({url: 'https://www.youtube.com/results?search_query=' + encodeStr});
+}
