@@ -42,12 +42,13 @@
 }
 
 #de-next i {
+  margin-top: 12px;
   font-size: 25px;
 }
 
 .de-next-text {
   width: 100%;
-  padding-top: 45px;
+  padding-top: 40px;
   font-weight: bold;
   text-align: center;
 }
