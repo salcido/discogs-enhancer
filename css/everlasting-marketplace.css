@@ -42,9 +42,9 @@
 }
 
 #de-next i {
-  margin-top: 12px;
-  font-size: 25px;
   width: 25px;
+  margin: 12px auto;
+  font-size: 25px;
 }
 
 .de-next-text {
