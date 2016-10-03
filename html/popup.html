@@ -178,16 +178,42 @@
       <p class="label">Filter Items:</p>
 
       <div class="hide-items" style="display: none;">
-          <select id="marketplaceItems">
-            <option value="">Disabled</option>
-            <option value="7">Mint (M)</option>
-            <option value="6">Near Mint (NM/M-)</option>
-            <option value="5">Very Good Plus (VG+)</option>
-            <option value="4">Very Good (VG)</option>
-            <option value="3">Good Plus (G+)</option>
-            <option value="2">Good (G)</option>
-            <option value="1">Fair (F)</option>
-          </select>
+        <form id="marketplaceItems">
+          <div class="checkbox-group">
+            <div class="box-wrap">
+              <label><input type="radio" name="filter" id="0" value="null"/>Disabled</label>
+            </div>
+            <div class="box-wrap">
+              <label><input type="radio" name="filter" id="7" value="7"/>(M)</label>
+            </div>
+             <div class="box-wrap">
+               <label><input type="radio" name="filter" id="6" value="6"/>(NM/M-)</label>
+             </div>
+          </div>
+
+          <div class="checkbox-group">
+            <div class="box-wrap">
+              <label><input type="radio" name="filter" id="5" value="5"/>(VG+)</label>
+            </div>
+            <div class="box-wrap">
+              <label><input type="radio" name="filter" id="4" value="4"/>(VG)</label>
+            </div>
+             <div class="box-wrap">
+               <label><input type="radio" name="filter" id="3" value="3"/>(G+)</label>
+             </div>
+          </div>
+
+          <div class="checkbox-group">
+            <div class="box-wrap">
+              <label><input type="radio" name="filter" id="2" value="2"/>(G)</label>
+            </div>
+            <div class="box-wrap">
+              <label><input type="radio" name="filter" id="1" value="1"/>(F)</label>
+            </div>
+             <div class="box-wrap">
+             </div>
+          </div>
+        </form>
       </div>
     </div>
 

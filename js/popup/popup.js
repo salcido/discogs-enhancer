@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setHiddenItems(event) {
 
-    let selectValue = event.target[event.target.selectedIndex].value,
+    let selectValue = event.target.value,
         response = 'Please refresh the page for changes to take effect.';
 
     if (!selectValue) {
@@ -277,11 +277,15 @@ document.addEventListener('DOMContentLoaded', function () {
                       'Very Good Plus (VG+)',
                       'Near Mint (NM/M-)',
                       'Mint (M)'],
-        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
+        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'],
+        radio = document.getElementById(setting);
 
-    if (setting === 0 || setting === null) {
+    if (!setting) {
 
       $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
+
+      // Check "disabled" radio
+      document.getElementById('0').checked = true;
 
       if (_gaq) {
 
@@ -298,6 +302,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       }
     }
+    // Check all other radio settings
+    radio.checked = true;
   }
 
   /**
@@ -554,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (isMarketplaceHovering) {
 
-        $(this).css({height: '75px'});
+        $(this).css({height: '95px'});
       }
     }, 400);
 
