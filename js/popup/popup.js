@@ -128,9 +128,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
 
-      } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
-
-        _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
+      // } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
+      //
+      //   _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
       }
     }
   }
@@ -241,17 +241,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setHiddenItems(event) {
 
-    let selectValue = event.target.value,
+    let radioValue = event.target.value,
         response = 'Please refresh the page for changes to take effect.';
 
-    if (!selectValue) {
+    // Filter is disabled
+    if (radioValue === 'null') {
 
       localStorage.removeItem('itemCondition');
 
+      if (_gaq) {
+
+        _gaq.push(['_trackEvent', 'Marketplace Filter: Disabled', 'Marketplace Filter']);
+      }
+
+    // Filter is enabled
     } else {
 
       // set new value on change
-      localStorage.setItem( 'itemCondition', String(selectValue) );
+      localStorage.setItem( 'itemCondition', String(radioValue) );
+
+      if (_gaq) {
+
+        let conditions = ['Poor (P)',
+                          'Fair (F)',
+                          'Good (G)',
+                          'Good Plus (G+)',
+                          'Very Good (VG)',
+                          'Very Good Plus (VG+)',
+                          'Near Mint (NM/M-)',
+                          'Mint (M)'],
+            setting = Number(localStorage.getItem('itemCondition'));
+
+        _gaq.push(['_trackEvent', ' Marketplace Filter: ' + conditions[setting], 'Marketplace Filter']);
+      }
     }
 
     setupMarketplaceFilter();
@@ -287,23 +309,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // Check "disabled" radio
       document.getElementById('0').checked = true;
 
-      if (_gaq) {
-
-        _gaq.push(['_trackEvent', 'Marketplace Filter', 'Filter Marketplace: disabled']);
-      }
-
     } else {
 
       $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
-
-      if (_gaq) {
-
-      _gaq.push(['_trackEvent', ' Marketplace Filter: ' + conditions[setting], 'Marketplace Filter']);
-
-      }
+      // Check all other radio settings
+      radio.checked = true;
     }
-    // Check all other radio settings
-    radio.checked = true;
   }
 
   /**
