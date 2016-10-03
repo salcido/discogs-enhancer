@@ -127,10 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (event.target.checked === true || event.target.checked === false) {
 
         _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
-
-      // } else if (!event.target.checked && event.target[event.target.selectedIndex].value) {
-      //
-      //   _gaq.push(['_trackEvent', event.target[event.target.selectedIndex].value + ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
       }
     }
   }
@@ -290,7 +286,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setupMarketplaceFilter() {
 
-    let setting = Number(localStorage.getItem('itemCondition')),
+    let
+        setting = Number(localStorage.getItem('itemCondition')),
+
         conditions = ['Poor (P)',
                       'Fair (F)',
                       'Good (G)',
@@ -299,7 +297,9 @@ document.addEventListener('DOMContentLoaded', function () {
                       'Very Good Plus (VG+)',
                       'Near Mint (NM/M-)',
                       'Mint (M)'],
+
         colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'],
+
         radio = document.getElementById(setting);
 
     if (!setting) {
@@ -435,6 +435,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+  /**
+   *
+   * //////////////////////////////
+   * Event listeners
+   * //////////////////////////////
+   *
+   */
+
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
   userCurrency.addEventListener('change', setCurrency);
@@ -472,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /**
    *
    * //////////////////////////////
-   * Event listeners
+   * UI functions
    * //////////////////////////////
    *
    */
