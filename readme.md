@@ -50,7 +50,7 @@ This will filter out all items in the Marketplace that are below a specified con
 For instance, if you select "Near Mint", only Mint and Near Mint condition items will be shown. If you select "Very Good", only Mint, Near Mint, Very Good Plus, and Very Good items will be shown (etc...).
 
 ### Highlight release conditions in the Marketplace
-Easily see at a glance which items for sale are in the best condition.
+Easily see at a glance which items are in the best condition.
 
 ![Marketplace highlights](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/marketplace-highlights.png?raw=true "Marketplace Highlights preview")
 
