@@ -35,6 +35,7 @@ $(document).ready(function() {
                           '<option value="JPY">JPY (¥)</option>' +
                           '<option value="MXN">MXN (MX$)</option>' +
                           '<option value="NZD">NZD (NZ$)</option>' +
+                          '<option value="RUB">RUB (&#8381;)</option>' +
                           '<option value="SEK">SEK (SEK)</option>' +
                           '<option value="USD">USD ($)</option>' +
                           '<option value="ZAR">ZAR (ZAR)</option>' +
@@ -61,6 +62,7 @@ $(document).ready(function() {
                           '<option value="JPY">JPY (¥)</option>' +
                           '<option value="MXN">MXN (MX$)</option>' +
                           '<option value="NZD">NZD (NZ$)</option>' +
+                          '<option value="RUB">RUB (&#8381;)</option>' +
                           '<option value="SEK">SEK (SEK)</option>' +
                           '<option value="USD">USD ($)</option>' +
                           '<option value="ZAR">ZAR (ZAR)</option>' +
@@ -147,7 +149,7 @@ $(document).ready(function() {
 
     $.ajax({
 
-      url:'https://api.fixer.io/latest?base=' + base + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD',
+      url:'https://api.fixer.io/latest?base=' + base + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,RUB,BRL,USD',
 
       type: 'GET',
 
