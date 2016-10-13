@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleHardwax = document.getElementById('hardwax'),
       toggleInsound = document.getElementById('insound'),
       toggleJuno = document.getElementById('juno'),
+      toggleKristina = document.getElementById('kristina'),
       toggleOye = document.getElementById('oye'),
       togglePbvinyl = document.getElementById('pbvinyl'),
       togglePhonica = document.getElementById('phonica'),
@@ -104,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
       useHardwax: toggleHardwax.checked,
       useInsound: toggleInsound.checked,
       useJuno: toggleJuno.checked,
+      useKristina: toggleKristina.checked,
       useOye: toggleOye.checked,
       usePbvinyl: togglePbvinyl.checked,
       usePhonica: togglePhonica.checked,
@@ -471,6 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleHardwax.addEventListener('change', updateMenu);
   toggleInsound.addEventListener('change', updateMenu);
   toggleJuno.addEventListener('change', updateMenu);
+  toggleKristina.addEventListener('change', updateMenu);
   toggleOye.addEventListener('change', updateMenu);
   togglePbvinyl.addEventListener('change', updateMenu);
   togglePhonica.addEventListener('change', updateMenu);
@@ -656,6 +659,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleHardwax.checked = result.prefs.useHardwax;
       toggleInsound.checked = result.prefs.useInsound;
       toggleJuno.checked = result.prefs.useJuno;
+      toggleKristina.checked = result.prefs.useKristina;
       toggleOye.checked = result.prefs.useOye;
       togglePbvinyl.checked = result.prefs.usePbvinyl;
       togglePhonica.checked = result.prefs.usePhonica;

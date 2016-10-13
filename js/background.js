@@ -106,6 +106,7 @@ chrome.storage.sync.get('prefs', function(result) {
       useHardwax: false,
       useInsound: false,
       useJuno: false,
+      useKristina: false,
       useOye: false,
       usePbvinyl: false,
       usePhonica: false,
@@ -638,6 +639,17 @@ chrome.storage.sync.get('prefs', function(result) {
       id: 'juno',
       method: 'create',
       name: 'Juno',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useKristina) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchKristina',
+      id: 'kristina',
+      method: 'create',
+      name: 'Kristina',
       request: 'updateContextMenu'
     });
   }
