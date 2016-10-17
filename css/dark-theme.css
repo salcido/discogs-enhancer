@@ -910,9 +910,64 @@ table.subform_table td,
     color: white !important;
 }
 
+.skittles .skittle.skittle_collection span.count,
+span.skittle.skittle_wantlist span.count,
+.skittle.skittle_inventory span.count,
+span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
+    color: white !important;
+}
+
+.skittle.skittle_wantlist,
+span.skittle.skittle_wantlist.needs_delegated_tooltip {
+    background-color: #BF3A38 !important;
+}
+
+.skittle.skittle_inventory {
+    background-color: #326FB2 !important;
+}
+
+
+/* NEW SKITTLES */
+
+.show-new-skittles .skittles .skittle.skittle_collection,
+.show-new-skittles .skittle.skittle_collection,
+.show-new-skittles .skittles .skittle.skittle_collection span.count,
+.show-new-skittles .skittle.skittle_collection .icon.icon-collection,
+.show-new-skittles .skittle.skittle_collection span {
+  background-color: transparent !important;
+  color: #3FC4B2 !important;
+}
+
+/* inventory */
+.show-new-skittles .skittle.skittle_inventory,
+.show-new-skittles .skittle.skittle_inventory span.count {
+  background-color: transparent !important;
+  color: #a590d0 !important;
+}
+
+.show-new-skittles .card_actions {
+  top: 0;
+  right: 0;
+  background: rgba(255,255,255,0.85) !important;
+}
+
+/* wantlist */
+.show-new-skittles span.skittle.skittle_wantlist span.count,
+.show-new-skittles span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
+  background-color: transparent !important;
+  color: #F37519 !important;
+}
+
+.show-new-skittles .skittle.skittle_wantlist,
+.show-new-skittles .skittle.skittle_wantlist > *,
+.show-new-skittles span.skittle.skittle_wantlist.needs_delegated_tooltip {
+  background-color: transparent !important;
+  color: #F37519 !important;
+}
+
 .icon.icon-li.icon-check.icon-green,
 .icon.icon-check.icon-green {
-    color: #60C43F !important;
+    color: #3FC4B2 !important;
 }
 
 #order_process .order_step .order-status-label.order-status-label-shipped span,
@@ -1002,22 +1057,6 @@ table.subform_table td,
     background: #f2ecd9 !important;
     color: #393013 !important;
     border-color: white !important;
-}
-
-.skittles .skittle.skittle_collection span.count,
-span.skittle.skittle_wantlist span.count,
-.skittle.skittle_inventory span.count,
-span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
-    color: white !important;
-}
-
-.skittle.skittle_wantlist,
-span.skittle.skittle_wantlist.needs_delegated_tooltip {
-    background-color: #BF3A38 !important;
-}
-
-.skittle.skittle_inventory {
-    background-color: #326FB2 !important;
 }
 
 #site_header_wrap {
