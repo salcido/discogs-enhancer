@@ -68,6 +68,13 @@
   right: auto;
 }
 
+/* This gives the Master Release panel 50px more height to compensate for
+   the text-format-shortcut buttons. Without it, the "Create" and "Cancel"
+   buttons are pushed off screen and the user cannot create a master release. */
+#mr_panel {
+  max-height: 350px !important;
+}
+
 /*.quick-link {
   background-image: url('chrome-extension://__MSG_@@extension_id__/img/icon-url.png') !important;
   background-size: cover;
