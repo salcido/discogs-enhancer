@@ -932,7 +932,9 @@ span.skittle.skittle_wantlist.needs_delegated_tooltip {
 
 /* inventory */
 .show-new-skittles .skittle.skittle_inventory,
-.show-new-skittles .skittle.skittle_inventory span.count {
+.show-new-skittles a.skittle.skittle_inventory i,
+.show-new-skittles .skittle.skittle_inventory span.count,
+.show-new-skittles a.skittle.skittle_inventory span.count:visited {
   background-color: transparent !important;
   color: #A590D0 !important;
 }
