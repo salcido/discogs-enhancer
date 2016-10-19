@@ -41,7 +41,7 @@ $(document).ready(function() {
         a.style = 'margin: 10px auto; display:block; font-weight: bold;';
         a.innerHTML = 'Show Price<br>Comparison';
 
-        if (p[i].getElementsByClassName('de-price-link').length < 1) {
+        if (p[i].getElementsByClassName('de-price-link').length < 1 && p[i].getElementsByClassName('de-price').length < 1) {
 
           p[i].appendChild(a);
         }
