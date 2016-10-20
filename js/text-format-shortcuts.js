@@ -12,7 +12,9 @@ $(document).ready(function() {
 
   // this timeout insures that this code executes after
   // jquery has been extended so that calls to `getCursorPosition`
-  // and `selectRange` will work correctly.
+  // and `selectRange` will work correctly. Also, the comments field
+  // doesn't seem to be part of the DOM even after the document onDOMContentLoaded
+  // event has fired. So I'm waiting 1000ms before executing this block.
   setTimeout(function() {
 
     let t = document.getElementsByTagName('textarea'),
@@ -24,7 +26,7 @@ $(document).ready(function() {
       for (let i in t) {
 
         // reviews
-        if (t[i].name === 'review') {
+        if (t[i].id === 'review') {
 
           hasTextarea = true;
         }
@@ -247,5 +249,5 @@ $(document).ready(function() {
         textarea.focus().change();
       });
     }
-  }, 500);
+  }, 1000);
 });
