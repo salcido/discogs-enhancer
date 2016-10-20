@@ -239,11 +239,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setHiddenItems(event) {
 
-    let radioValue = event.target.value,
+    let selectValue = event.target[event.target.selectedIndex].value,
         response = 'Please refresh the page for changes to take effect.';
 
     // Filter is disabled
-    if (radioValue === 'null') {
+    if (!selectValue) {
 
       localStorage.removeItem('itemCondition');
 
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
 
       // set new value on change
-      localStorage.setItem( 'itemCondition', String(radioValue) );
+      localStorage.setItem( 'itemCondition', String(selectValue) );
 
       if (_gaq) {
 
@@ -300,11 +300,9 @@ document.addEventListener('DOMContentLoaded', function () {
                       'Near Mint (NM/M-)',
                       'Mint (M)'],
 
-        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'],
+        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
 
-        radio = document.getElementById(setting);
-
-    if (!setting) {
+    if (setting === 0 || setting === null) {
 
       $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
 
@@ -314,8 +312,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
 
       $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
-      // Check all other radio settings
-      radio.checked = true;
     }
   }
 
@@ -582,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (isMarketplaceHovering) {
 
-        $(this).css({height: '95px'});
+        $(this).css({height: '75px'});
       }
     }, 400);
 
