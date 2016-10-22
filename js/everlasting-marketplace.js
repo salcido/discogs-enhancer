@@ -263,7 +263,7 @@ $(document).ready(function() {
 
         everlasting.animate({top: '-35px'});
 
-        pageIndicator.innerHTML = 'Page: 1';
+        pageIndicator.textContent = 'Page: 1';
 
       } else {
 
@@ -283,7 +283,7 @@ $(document).ready(function() {
 
             if (resourceLibrary.isOnScreen(currentPage[i])) {
 
-              pageIndicator.innerHTML = currentPage[i].innerHTML;
+              pageIndicator.textContent = currentPage[i].textContent;
             }
           } catch (e) {
             // I'm just here so I don't throw errors

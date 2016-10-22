@@ -22,10 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = 0; i < version.length; i++) {
 
-      version[i].innerHTML = 'version ' + manifest.version;
+      version[i].textContent = 'version ' + manifest.version;
     }
 
-    yearSpan.innerHTML = year;
+    yearSpan.textContent = year;
   }
 
   getVersionAndYear();

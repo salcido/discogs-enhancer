@@ -91,7 +91,7 @@
                      'padding: 20px;' +
                      'cursor: pointer;';
 
-      notice.innerHTML = message;
+      notice.textContent = message;
 
       document.getElementById('site_headers_super_wrap').appendChild(notice);
 

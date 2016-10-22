@@ -23,6 +23,7 @@ $(document).ready(function() {
       if (count) {
 
         // Look for existing count spans and remove them if necessary
+        // TODO figure out why this is throwing an error...
         if ($(':focus').siblings().hasClass('de-notes-count')) {
 
           $(':focus').siblings().hasClass('de-notes-count').remove();

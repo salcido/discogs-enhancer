@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     function getAndAppendPrices() {
 
-      prices.each(function(i) { priceContainer.push({price: prices[i].innerHTML, mediaCondition: items[i]}); });
+      prices.each(function(i) { priceContainer.push({price: prices[i].textContent, mediaCondition: items[i]}); });
 
       resourceLibrary.matchSymbols(priceContainer);
       resourceLibrary.sanitizePrices(priceContainer);
