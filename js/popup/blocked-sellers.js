@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       localStorage.setItem('blockList', blockList);
 
-      $('.errors').html('');
+      $('.errors').text('');
 
       return location.reload();
     }
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Show error if seller is already on the list
   function showError() {
 
-    $('.errors').html( $('#seller-input').val() + ' is already on the block list.' );
+    $('.errors').text( $('#seller-input').val() + ' is already on the block list.' );
   }
 
   // Iterate over blocklist and insert html into DOM

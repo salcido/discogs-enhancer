@@ -202,7 +202,7 @@ $(document).ready(function() {
                           .children('.item_condition')
                           .find('.condition-label-desktop:first').next().text().trim(),
           releaseId = linkHref.substring(slash, len),
-          price = link.closest('.shortcut_navigable').find('.price').html(),
+          price = link.closest('.shortcut_navigable').find('.price').text(),
           target = $(event.target).closest('.item_price');
 
           priceContainer = [{ price: price, mediaCondition: itemCondition }];

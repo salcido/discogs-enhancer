@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     listOldPick.find('option').remove();
 
-    listOldPick.append( $('<option></option>').html('Sorting...') );
+    listOldPick.append( $('<option></option>').text('Sorting...') );
 
     // intentional delay for illustrative purposes only
     setTimeout(function(){
@@ -82,7 +82,7 @@ $(document).ready(function() {
 
         listOldPick.find('option').remove();
 
-        listOldPick.append( $('<option></option>').html('Undoing...') );
+        listOldPick.append( $('<option></option>').text('Undoing...') );
 
         // intentional delay for illustrative purposes only
         setTimeout(function() {

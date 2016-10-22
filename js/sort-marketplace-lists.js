@@ -80,7 +80,6 @@ $(document).ready(function() {
       }
     });
 
-    // The |compareText| function exists in sort-explore-lists.js
     vals.sort(compareText);
 
     if (sortDescending) { vals.reverse(); }

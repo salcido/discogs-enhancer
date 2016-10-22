@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (message) {
 
-        $('#notify').html(message);
+        $('#notify').text(message);
 
         $('.notifications').removeClass('hide');
       }
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       } else if (userCurrency.value === '-') {
 
-        $('#notify').html('Please choose a currency from the select box first.');
+        $('#notify').text('Please choose a currency from the select box first.');
 
         $('.notifications').show();
 

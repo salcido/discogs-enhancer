@@ -47,7 +47,7 @@ $(document).ready(function() {
           elem.parent().parent().parent().remove();
 
           // Update page with filter notice
-          $('.pagination_total').html('Some results have been removed.');
+          $('.pagination_total').text('Some results have been removed.');
         }
       });
 
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
         $('#pjax_container tbody').html(html);
 
-        $('.pagination_total').html('All results have been removed.');
+        $('.pagination_total').text('All results have been removed.');
       }
     } else {
 

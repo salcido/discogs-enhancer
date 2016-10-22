@@ -92,7 +92,7 @@ $(document).ready(function() {
     $('.pagination_page_links').hide();
 
     // Remove results total and replace with NM indicator
-    pagination.html('Everlasting Marketplace: ' + pTotal + ' results');
+    pagination.text('Everlasting Marketplace: ' + pTotal + ' results');
 
     // Scroll the browser up to the top so the user can change Marketplace filters
     $('body').on('click', '#de-update-filters', function(event) {
@@ -194,7 +194,7 @@ $(document).ready(function() {
 
         $('#de-next .icon-spinner').show();
 
-        $('.de-next-text').html('Loading next page...');
+        $('.de-next-text').text('Loading next page...');
 
         paused = false;
       }
@@ -209,7 +209,7 @@ $(document).ready(function() {
 
       $('#de-next .icon-spinner').show();
 
-      $('.de-next-text').html('Loading next page...');
+      $('.de-next-text').text('Loading next page...');
 
       paused = false;
 
