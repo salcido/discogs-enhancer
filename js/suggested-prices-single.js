@@ -38,9 +38,10 @@ $(document).ready(function() {
         let a = document.createElement('a');
 
         a.className = 'de-price-link';
-        a.style = 'margin: 10px auto; display:block; font-weight: bold;';
-        a.innerHTML = 'Show Price<br>Comparison';
+        a.style = 'margin: 10px auto; display:block; font-weight: bold; white-space: pre;';
+        a.textContent = 'Show Price\r\nComparison';
 
+        // Only append price comparison links if they do not yet exist on each item
         if (p[i].getElementsByClassName('de-price-link').length < 1 && p[i].getElementsByClassName('de-price').length < 1) {
 
           p[i].appendChild(a);
