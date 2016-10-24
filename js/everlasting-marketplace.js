@@ -14,7 +14,7 @@ $(document).ready(function() {
       hasLoaded = false,
       href = window.location.href,
       pageNum = 2,
-      pagination = document.getElementsByClassName('pagination_total')[0].textContent,
+      pagination,
       paused = false;
 
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
@@ -22,6 +22,8 @@ $(document).ready(function() {
     let pTotal,
         filterUpdateLink,
         language = resourceLibrary.language();
+
+    pagination = document.getElementsByClassName('pagination_total')[0].textContent;
 
     // This will grab the total number of results returned
     // depending on the language that the user has set
