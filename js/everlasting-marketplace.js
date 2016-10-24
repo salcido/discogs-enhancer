@@ -19,7 +19,9 @@ $(document).ready(function() {
 
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
 
-    let pTotal,
+    let
+        blockList = JSON.parse(localStorage.getItem('blockList')) || null,
+        pTotal,
         filterUpdateLink,
         language = resourceLibrary.language();
 
@@ -158,10 +160,22 @@ $(document).ready(function() {
             window.injectPriceLinks();
           }
 
-          // block sellers if necessary
-          if (window.hideSellers) {
+          // Hide/tag sellers in marketplace if necessary
+          if (blockList && blockList.hide === 'global' ||
+              blockList && blockList.hide === 'marketplace') {
 
             window.hideSellers();
+          }
+
+          if (blockList && blockList.hide === 'tag') {
+
+            window.tagSellers();
+          }
+
+          // block sellers if necessary
+          if (window.tagSellers) {
+
+            window.tagSellers();
           }
 
           // filter marketplace items if necessary

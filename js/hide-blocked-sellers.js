@@ -89,6 +89,15 @@ $(document).ready(function() {
       if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
         window.tagSellers();
+
+        // Call hideSellers on prev/next clicks
+        $('body').on('click', '.pagination_next, .pagination_previous', function() {
+
+          $(document).ajaxSuccess(function() {
+
+            window.tagSellers();
+          });
+        });
       }
       return;
   }
