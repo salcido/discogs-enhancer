@@ -14,7 +14,7 @@ $(document).ready(function() {
       hasLoaded = false,
       href = window.location.href,
       pageNum = 2,
-      pagination = $('.pagination_total'),
+      pagination = document.getElementsByClassName('pagination_total')[0].textContent,
       paused = false;
 
   if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
@@ -29,28 +29,28 @@ $(document).ready(function() {
 
       // German
       case language === 'de':
-        pTotal = pagination.html().split('von')[1];
+        pTotal = pagination.split('von')[1];
         break;
 
       // Italian
       case language === 'it':
-        pTotal = pagination.html().split('di')[1];
+        pTotal = pagination.split('di')[1];
         break;
 
       // Spanish and French
       case language === 'es':
       case language === 'fr':
-        pTotal = pagination.html().split('de')[1];
+        pTotal = pagination.split('de')[1];
         break;
 
       // Japanese
       case language === 'ja':
-        pTotal = pagination.html().split('中')[0];
+        pTotal = pagination.split('中')[0];
         break;
 
       // English
       default:
-        pTotal = pagination.html().split('of')[1];
+        pTotal = pagination.split('of')[1];
         break;
     }
 
@@ -92,7 +92,7 @@ $(document).ready(function() {
     $('.pagination_page_links').hide();
 
     // Remove results total and replace with NM indicator
-    pagination.text('Everlasting Marketplace: ' + pTotal + ' results');
+    pagination.textContent = 'Everlasting Marketplace: ' + pTotal + ' results';
 
     // Scroll the browser up to the top so the user can change Marketplace filters
     $('body').on('click', '#de-update-filters', function(event) {
