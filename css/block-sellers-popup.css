@@ -7,27 +7,27 @@ body {
 h1,
 h2,
 p.header {
-  font-family: 'Arial', sans-serif;
+  display: inline-block;
+  margin-right: 5px;
+  font-family: "Arial", sans-serif;
   font-size: 16px;
   font-weight: bold;
   color: white;
   text-transform: uppercase;
-  margin-right: 5px;
-  display: inline-block;
 }
 
 p {
-  font-family: 'Arial', sans-serif;
-  color: #ccc;
-  font-weight: normal;
+  font-family: "Arial", sans-serif;
   font-size: 13px;
+  font-weight: normal;
+  color: #CCCCCC;
   line-height: 19px;
   transition: all 0.3s ease;
 }
 
 em {
-  color: white;
   font-weight: bold;
+  color: white;
 }
 
 .seller {
@@ -45,27 +45,27 @@ em {
 }
 
 .blocked-sellers .seller span {
-  background-color: gray;
-  border-radius: 5px;
-  border: 3px solid white;
-  color: white;
   display: block;
   margin: 10px;
   padding: 10px;
-  transition: all .3s;
+  background-color: gray;
+  border: 3px solid white;
+  border-radius: 5px;
+  color: white;
+  transition: all 0.3s;
 }
 
 .blocked-sellers .seller span:hover {
+  display: inline-block;
   background-color: red;
   cursor: pointer;
-  display: inline-block;
   transform: scale(1.2);
 }
 
 .blocked-sellers .seller span a {
+  display: none;
   margin-left: 5px;
   color: gray;
-  display: none;
 }
 
 .seller-input .btn {
@@ -74,27 +74,33 @@ em {
 }
 
 .seller-input input {
-  font-size: 20px;
   margin-top: 5px;
+  font-size: 20px;
 }
 
 .logo {
-  display:block;
+  display: block;
   max-width: 400px;
-  text-align: center;
   margin: 30px auto;
+  text-align: center;
 }
 
 .errors {
-  color: red;
   font-weight: bold;
+  color: red;
 }
 
 .hide {
   display: none;
 }
 
-.hide-sellers {
-  color: white;
+.do-not-hide-sellers,
+.hide-sellers,
+.show-sellers-release {
   margin: 20px auto 40px auto;
+  color: white;
+}
+
+#block-prefs {
+  max-width: 500px;
 }

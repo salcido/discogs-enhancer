@@ -42,19 +42,37 @@
                   <input type="text" id="seller-input">
                   <a class="btn btn-success">Block Seller</a>
 
-                  <div class="hide-sellers">
-                    <label>Hide sellers:</label>
-                    <input type="checkbox" name="hideSellers" id="hideSellers"/>
+                  <form id="block-prefs">
+                  <div class="do-not-hide-sellers">
+                    <input type="radio" name="hideSellers" id="tagSellers" value="tag"/>
+                    <label for="tagSellers">Tag sellers:</label>
                     <p>
-                      When checked, any seller that appears on this list will be hidden from view in the results.
+                      Sellers will be marked in red and tagged with "Blocked seller" but still visible in the Marketplace.
                     </p>
                   </div>
+
+                  <div class="hide-sellers">
+                    <input type="radio" name="hideSellers" id="hideSellers" value="global"/>
+                    <label for="hideSellers">Hide sellers everywhere:</label>
+                    <p>
+                      When selected, any seller that appears on this list will be hidden from view in the Marketplace AND on individual release pages.
+                    </p>
+                  </div>
+
+                  <div class="show-sellers-release">
+                    <input type="radio" name="hideSellers" id="showOnRelease" value="marketplace"/>
+                    <label for="showOnRelease">Only hide sellers in your Martketplace Wantlist:</label>
+                    <p>
+                      When selected, sellers will be hidden when viewing Marketplace items but shown when viewing an individual release page. Sellers on an individual release page will still be marked in red and tagged with "Blocked seller".
+                    </p>
+                  </div>
+                </form>
                 </div>
 
                 <div id="blocked-sellers" class="blocked-sellers">
 
                   <p class="errors"></p>
-
+                  <p class="header">Blocked Sellers</p>
                   <p>Click on a seller's name to remove the seller from the blocked list.</p>
 
                   <!-- blocked sellers go here -->

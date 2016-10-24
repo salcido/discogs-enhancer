@@ -14,15 +14,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!localStorage.getItem('blockList')) {
 
-    localStorage.setItem('blockList', '{"list":[], "hide": "false"}');
+    localStorage.setItem('blockList', '{"list":[], "hide": "tag"}');
 
     blockList = JSON.parse(localStorage.getItem('blockList'));
   }
 
   // Select the checkbox if necessary
-  if (blockList.hide === 'true') {
+  switch (true) {
 
-    $('#hideSellers').prop('checked', true);
+    case blockList.hide === 'tag' :
+
+      $('#tagSellers').prop('checked', true);
+      break;
+
+    case blockList.hide === 'global' :
+
+      $('#hideSellers').prop('checked', true);
+      break;
+
+    case blockList.hide === 'marketplace' :
+
+      $('#showOnRelease').prop('checked', true);
+      break;
   }
 
   // set focus on input
@@ -130,15 +143,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Checkbox listener
-  $('#hideSellers').on('change', function() {
+  // Radiobutton listener
+  $('#block-prefs').on('change', function(event) {
+
+    console.log(event.target.value);
 
     blockList = JSON.parse(localStorage.getItem('blockList'));
 
-    blockList.hide = String($('#hideSellers').prop('checked'));
+    blockList.hide = event.target.value;
 
     blockList = JSON.stringify(blockList);
 
     localStorage.setItem('blockList', blockList);
+
+    return location.reload();
   });
 });
