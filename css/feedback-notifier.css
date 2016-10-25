@@ -1,3 +1,20 @@
+#de-seller-feedback .skittle,
+#de-buyer-feedback .skittle {
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  border-radius: 500px;
+  font-size: 12px;
+}
+
+#de-seller-feedback .count,
+#de-buyer-feedback .count {
+  display: inline-block;
+  margin-top: 4px;
+  background: none !important;
+  color: white !important;
+}
+
 #de-seller-feedback:hover .feedback-chart.seller {
   display: block;
 }
@@ -6,20 +23,13 @@
   display: block;
 }
 
-/* Skittle hover states */
-
-/*.de-seller-feedback .skittle.skittle_collection,
-.de-seller-feedback .skittle.skittle_collection span.count {
-  background: #4DD2FF !important;
-}*/
-
 .de-seller-feedback .skittle.skittle_collection span.count:after {
-  content: 'S';
+  content: "S";
 }
 
 .de-seller-feedback:hover .skittle.skittle_collection,
 .de-seller-feedback:hover .skittle.skittle_collection span.count {
-  background: #ccc !important;
+  background: #CCCCCC !important;
 }
 
 .de-buyer-feedback .skittle.skittle_collection,
@@ -28,41 +38,41 @@
 }
 
 .de-buyer-feedback .skittle.skittle_collection span.count:after {
-  content: 'B';
+  content: "B";
 }
 
 .de-buyer-feedback:hover .skittle.skittle_collection,
 .de-buyer-feedback:hover .skittle.skittle_collection span.count {
-  background: #ccc !important;
+  background: #CCCCCC !important;
 }
 
 .de-seller-feedback:hover .skittle.skittle_collection span.count:after,
 .de-buyer-feedback:hover .skittle.skittle_collection span.count:after {
-  content: 'X';
+  content: "X";
 }
 
 
 ul.feedback-chart {
-  background-color: black !important;
   display: none;
-  left: -37px;
+  width: 110px;
   margin: 0;
   padding: 0;
   position: absolute;
-  width: 110px;
-  border-left: 1px solid black !important;
+  left: -37px;
+  background-color: black !important;
   border-right: 1px solid black !important;
   border-bottom: 1px solid black !important;
+  border-left: 1px solid black !important;
 }
 
 ul.feedback-chart li {
-  border-bottom: 1px solid #333 !important;
   list-style-type: none;
   padding-left: 10px;
+  border-bottom: 1px solid #333333 !important;
 }
 
 ul.feedback-chart li:hover {
-  background-color: #333 !important;
+  background-color: #333333 !important;
   cursor: pointer;
 }
 
@@ -71,34 +81,49 @@ ul li.last {
 }
 
 ul.feedback-chart h2 {
-  color: white !important;
   display: inline-block;
+  width: 30px;
+  margin: 0 auto;
   font-family: sans-serif;
   font-size: 16px;
-  margin: 0 auto;
+  color: white !important;
   text-align: right;
+
   vertical-align: middle;
-  width: 30px;
 }
 
 ul.feedback-chart h3 {
   display: inline-block;
+  width: 60px;
+  margin: 10px 0;
   font-family: sans-serif;
   font-size: 12px;
   font-weight: bold;
   line-height: 12px;
-  margin: 10px 0;
-  width: 60px;
+}
+
+#de-seller-feedback .skittle {
+  background: #69C34B !important;
+}
+
+#de-buyer-feedback .skittle {
+  background: #E04526 !important;
+}
+
+
+#de-seller-feedback:hover .skittle,
+#de-buyer-feedback:hover .skittle {
+  background: #CCCCCC !important;
 }
 
 ul.feedback-chart .pos {
-  color: #69c34b !important;
+  color: #69C34B !important;
 }
 
 ul.feedback-chart .neu {
-  color: #ccc !important;
+  color: #CCCCCC !important;
 }
 
 ul.feedback-chart .neg {
-  color: #e04526 !important;
+  color: #E04526 !important;
 }
