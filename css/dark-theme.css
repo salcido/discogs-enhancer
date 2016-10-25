@@ -1687,3 +1687,23 @@ label#thresholdLabel {
 #de-next {
   background: #292929 !important;
 }
+
+/* new feedback dialog box */
+.send-feedback-button {
+  border: solid 1px #525252 !important;
+  border-right: 0 !important;
+}
+
+.send-feedback-button-negative {
+  border-right: 1px solid #525252 !important;
+}
+
+.send-feedback-buttons .send-feedback-button-positive i.icon.icon-thumbs-o-up,
+.send-feedback-buttons .send-feedback-button-positive span {
+  color: #60C43F !important;
+}
+
+.send-feedback-buttons .send-feedback-button-negative i.icon.icon-thumbs-o-down,
+.send-feedback-buttons .send-feedback-button-negative span {
+  color: #BF3A38 !important;
+}
