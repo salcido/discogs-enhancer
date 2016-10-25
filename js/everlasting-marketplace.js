@@ -103,7 +103,7 @@ $(document).ready(function() {
 
       event.preventDefault();
 
-      $('body').animate({scrollTop: 0}, 300);
+      $('body, html').animate({scrollTop: 0}, 300);
     });
 
     // grab next set of items
@@ -161,13 +161,13 @@ $(document).ready(function() {
           }
 
           // Hide/tag sellers in marketplace if necessary
-          if (blockList && blockList.hide === 'global' ||
-              blockList && blockList.hide === 'marketplace') {
+          if (blockList && blockList.hide === 'global' && window.hideSellers ||
+              blockList && blockList.hide === 'marketplace' && window.hideSellers) {
 
             window.hideSellers();
           }
 
-          if (blockList && blockList.hide === 'tag') {
+          if (blockList && blockList.hide === 'tag' && window.tagSellers) {
 
             window.tagSellers();
           }
@@ -242,11 +242,11 @@ $(document).ready(function() {
 
         if (target.value === '1') {
 
-          $('body').animate( {scrollTop:$('#site_header').position().top}, 300 );
+          $('body, html').animate( {scrollTop:$('#site_header').position().top}, 300 );
 
         } else {
 
-          $('body').animate( {scrollTop:$(targetId).position().top}, 300 );
+          $('body, html').animate( {scrollTop:$(targetId).position().top}, 300 );
         }
       }
     });
