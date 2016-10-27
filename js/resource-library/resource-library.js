@@ -314,11 +314,14 @@
 
     isOnScreen(elem) {
 
-      let elemTop = elem.getBoundingClientRect().top,
-          elemBottom = elem.getBoundingClientRect().bottom,
-          isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+      if (elem && elem.getBoundingClientRect()) {
 
-      return isVisible;
+        let elemTop = elem.getBoundingClientRect().top,
+            elemBottom = elem.getBoundingClientRect().bottom,
+            isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+
+        return isVisible;
+      }
     },
 
     /**

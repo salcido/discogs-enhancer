@@ -13,7 +13,7 @@ $(document).ready(function() {
   let
       blockList = JSON.parse(localStorage.getItem('blockList')),
       loc = window.location.href,
-      sellPage = /sell\/list/g,
+      sellPage = /sell\/list/g, // master releases && all items in marketplace
       sellerPage = /seller/g,
       sellRelease = /sell\/release/g,
       wantsPage = /sell\/mywants/g;
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     case blockList && blockList.hide === 'marketplace':
 
-      if (loc.match(sellPage) || loc.match(sellerPage) || loc.match(wantsPage)) {
+      if (loc.match(sellerPage) || loc.match(wantsPage)) {
 
         // hide when page first loads
         window.hideSellers();
@@ -78,7 +78,7 @@ $(document).ready(function() {
             window.hideSellers();
           });
         });
-      } else if (loc.match(sellRelease)) {
+      } else if (loc.match(sellRelease) || loc.match(sellPage)) {
 
         window.tagSellers();
       }
