@@ -1707,3 +1707,16 @@ label#thresholdLabel {
 .send-feedback-buttons .send-feedback-button-negative span {
   color: #BF3A38 !important;
 }
+
+#subform_preview {
+  border: 5px solid #292929 !important;
+}
+
+#subform_preview header {
+  background-color: #292929 !important;
+}
+
+.subform_submission_notes {
+  border-top: 1px solid #454545 !important;
+  border-bottom: 1px solid #454545 !important;
+}
