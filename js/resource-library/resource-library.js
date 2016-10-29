@@ -318,7 +318,7 @@
 
         let elemTop = elem.getBoundingClientRect().top,
             elemBottom = elem.getBoundingClientRect().bottom,
-            isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+            isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight * 1.7);
 
         return isVisible;
       }
