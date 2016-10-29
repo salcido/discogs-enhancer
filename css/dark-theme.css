@@ -1720,3 +1720,7 @@ label#thresholdLabel {
   border-top: 1px solid #454545 !important;
   border-bottom: 1px solid #454545 !important;
 }
+
+.subform_errors {
+  background: #360D0D !important;
+}
