@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     case blockList && blockList.hide === 'marketplace':
 
-      if (loc.match(sellerPage) || loc.match(wantsPage)) {
+      if (loc.match(wantsPage)) {
 
         // hide when page first loads
         window.hideSellers();
@@ -78,7 +78,7 @@ $(document).ready(function() {
             window.hideSellers();
           });
         });
-      } else if (loc.match(sellRelease) || loc.match(sellPage)) {
+      } else if (loc.match(sellRelease) || loc.match(sellPage) || loc.match(sellerPage)) {
 
         window.tagSellers();
       }
