@@ -36,7 +36,9 @@ $(document).ready(function() {
 
     function getAndAppendPrices() {
 
-      prices.each(function(i) { priceContainer.push({price: prices[i].textContent, mediaCondition: items[i]}); });
+      prices.each(function(i) {
+        priceContainer.push({price: prices[i].textContent, mediaCondition: items[i]}); }
+      );
 
       resourceLibrary.matchSymbols(priceContainer);
       resourceLibrary.sanitizePrices(priceContainer);
@@ -165,9 +167,19 @@ $(document).ready(function() {
           $('.de-price').remove();
 
           // Reset our values
-          items = $('.shortcut_navigable .item_description .media-condition-tooltip').map(function() {
-                        return $(this).data('condition');
-                    }).get();
+          // Pulls the condition from the tooltip.
+          if ($('.media-condition-tooltip').length) {
+
+            items = $('.shortcut_navigable .item_description .media-condition-tooltip').map(function() {
+                          return $(this).data('condition');
+                      }).get();
+          } else {
+            //If the tooltip is missing, find the Media Condition via span:nth-child(2)
+            items = $('.shortcut_navigable .item_description .item_condition span:nth-child(2)').map(function() {
+                        return $(this).text().trim();
+                      });
+          }
+
 
           priceContainer = [];
 
