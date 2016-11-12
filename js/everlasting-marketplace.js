@@ -172,13 +172,7 @@ $(document).ready(function() {
             window.tagSellers();
           }
 
-          // block sellers if necessary
-          if (window.tagSellers) {
-
-            window.tagSellers();
-          }
-
-          // filter marketplace items if necessary
+          // filter marketplace item by condition if necessary
           if (window.hideItems) {
 
             window.hideItems();
