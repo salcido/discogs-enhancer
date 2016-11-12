@@ -27,7 +27,7 @@ $(document).ready(function() {
 
     pagination = document.getElementsByClassName('pagination_total')[0].textContent;
 
-    // This will grab the total number of results returned
+    // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
     switch (true) {
 
@@ -284,7 +284,9 @@ $(document).ready(function() {
       }
 
       // This gnarly bit of code will display the currently viewed page
-      // of results in the Everlasting Marketplace top bar
+      // of results in the Everlasting Marketplace top bar.
+      // I feel bad for writing this and even worse now that
+      // you're looking at it.
       if (currentPage && currentPage.length > 0) {
 
         for (let i = 0; i < pageNum; i++) {
