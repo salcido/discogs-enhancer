@@ -34,13 +34,13 @@ $(document).ready(function() {
       // If there are Index Tracks present but they are empty AND
       // they have subtracks WITH data, set `emptyIndexTracks` to true
       // and use the subtrack data to calculate the total playing time.
-      if ( $(this).text() === '' && subtracks !== '') {
+      if ( trackTime === '' && subtracks !== '' ) {
 
         return emptyIndexTracks = true;
 
       // If there are Index Tracks and subtracks present but they are
       // both empty, don't count them in the total.
-      } else if ( $(this).text() === '' && subtracks === '' ) {
+    } else if ( trackTime === '' && subtracks === '' ) {
 
         return arr.push('0');
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
 
         let trackTime = $(this).text();
 
-        if ( $(this).text() === '' ) {
+        if ( trackTime === '' ) {
 
           return arr.push('0');
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
 
       let trackTime = $(this).text();
 
-      if ( $(this).text() === '' ) {
+      if ( trackTime === '' ) {
 
         return arr.push('0');
 
