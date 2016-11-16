@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     let
         arr = [],
+        emptyIndexTracks = false,
         hours,
         html,
         minutes,
@@ -23,30 +24,72 @@ $(document).ready(function() {
         totalSeconds,
         tracksInSeconds;
 
-    // Assemble an array of track times to be totaled
-    $('td.tracklist_track_duration span').each(function() {
+    // Grab all track times from any Index Tracks in the tracklisting
+    // and add them to the array.
+    $('tr.index_track td.tracklist_track_duration span').each(function() {
 
-      let
-          metaTimeInfo = /[^\w:]/g,
-          trackTime = $(this).text();
+      let trackTime = $(this).text(),
+          subtracks = $('.tracklist_track.subtrack .tracklist_track_duration span').text();
 
-      if ($(this).text() === '') {
+      // If there are Index Tracks present but they are empty AND
+      // they have subtracks WITH data, set `emptyIndexTracks` to true
+      // and use the subtrack data to calculate the total playing time.
+      if ( $(this).text() === '' && subtracks !== '') {
+
+        return emptyIndexTracks = true;
+
+      // If there are Index Tracks and subtracks present but they are
+      // both empty, don't count them in the total.
+      } else if ( $(this).text() === '' && subtracks === '' ) {
+
+        return arr.push('0');
+
+      } else {
+        // Strip any times wrapped in parenthesis and add their numbers
+        // to the array
+        trackTime = trackTime.replace('(', '').replace(')', '');
+
+        return arr.push(trackTime);
+      }
+    });
+
+    // Grab the track times from the subtrack entries.
+    if (emptyIndexTracks) {
+
+      $('.tracklist_track.subtrack .tracklist_track_duration span').each(function() {
+
+        let trackTime = $(this).text();
+
+        if ( $(this).text() === '' ) {
+
+          return arr.push('0');
+
+        } else {
+
+          return arr.push(trackTime);
+        }
+      });
+    }
+
+    // Grab all track times from any td that is not a child of .subtrack
+    // and add them to the array.
+    $('tr.tracklist_track.track td.tracklist_track_duration span').each(function() {
+
+      let trackTime = $(this).text();
+
+      if ( $(this).text() === '' ) {
 
         return arr.push('0');
 
       } else {
 
-        // Only push legit trackTime values into array - aka: "05:23" but not "(05:23)", etc...
-        // See this release for an example of why this is needed:
-        // https://www.discogs.com/The-Orb-The-Orbs-Adventures-Beyond-The-Ultraworld/release/8385901
-        return !metaTimeInfo.test(trackTime) ? arr.push(trackTime) : arr.push('0');
+        return arr.push(trackTime);
       }
     });
 
-
     function convertToSeconds(str) {
 
-      var p = str.split(':'),
+      let p = str.split(':'),
           sec = 0,
           min = 1;
 
@@ -59,7 +102,6 @@ $(document).ready(function() {
 
       return sec;
     }
-
 
     // Make a new array with our converted values
     tracksInSeconds = arr.map(convertToSeconds);
