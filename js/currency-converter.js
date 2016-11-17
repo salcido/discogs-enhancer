@@ -122,12 +122,13 @@ $(document).ready(function() {
     // Voilà
     output.text( resourceLibrary.localizePrice(symbol, result, thatSelectedCurrency, language) );
 
-    // Let's get serious - serious. I want to get seriousssss.
+    // Let's be reasonable about our conversion values
     if (input.val().length > 10 || input.val() > 9999999) {
 
       input.val('');
 
-      output.html('&#175;\\\_(&#12484;)_/&#175;');
+      // ¯\_(ツ)_/¯
+      output.text('\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF');
 
       return;
     }
