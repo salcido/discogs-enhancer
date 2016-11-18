@@ -122,26 +122,18 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // jQuery
   jQ = document.createElement('script');
-
   jQ.type = 'text/javascript';
-
   jQ.async = true;
-
   jQ.className = 'de-init';
-
   jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
   initElems.push(jQ);
 
   // Create dark theme css element...
   darkTheme = document.createElement('link');
-
   darkTheme.rel = 'stylesheet';
-
   darkTheme.type = 'text/css';
-
   darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
-
   darkTheme.id = 'darkThemeCss';
 
   // disable if needed
@@ -151,11 +143,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // resource-library.js
   resourceLibrary = document.createElement('script');
-
   resourceLibrary.type = 'text/javascript';
-
   resourceLibrary.className = 'de-init';
-
   resourceLibrary.src = chrome.extension.getURL('js/resource-library/resource-library.js');
 
   initElems.push(resourceLibrary);
@@ -178,24 +167,17 @@ chrome.storage.sync.get('prefs', function(result) {
 
     // apply-highlights.js
     highlightScript = document.createElement('script');
-
     highlightScript.type = 'text/javascript';
-
     highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
-
     highlightScript.className = 'de-init';
 
     elems.push(highlightScript);
 
     // marketplace-highlights.css
     highlightCss = document.createElement('link');
-
     highlightCss.rel = 'stylesheet';
-
     highlightCss.type = 'text/css';
-
     highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
-
     highlightCss.id = 'mediaHighLightsCss';
 
     elems.push(highlightCss);
@@ -205,22 +187,16 @@ chrome.storage.sync.get('prefs', function(result) {
 
     // everlasting-marketplace.js
     everlastingMarket = document.createElement('script');
-
     everlastingMarket.type = 'text/javascript';
-
     everlastingMarket.src = chrome.extension.getURL('js/everlasting-marketplace.js');
-
     everlastingMarket.className = 'de-init';
 
     elems.push(everlastingMarket);
 
     // everlasting-marketplace.css
     everlastingMarketCss = document.createElement('link');
-
     everlastingMarketCss.rel = 'stylesheet';
-
     everlastingMarketCss.type = 'text/css';
-
     everlastingMarketCss.href = chrome.extension.getURL('css/everlasting-marketplace.css');
 
     elems.push(everlastingMarketCss);
@@ -230,33 +206,24 @@ chrome.storage.sync.get('prefs', function(result) {
 
     // sort-explore-lists.js
     sortExploreScript = document.createElement('script');
-
     sortExploreScript.type = 'text/javascript';
-
     sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
-
     sortExploreScript.className = 'de-init';
 
     elems.push(sortExploreScript);
 
     // sort-marketplace-lists.js
     sortMarketplaceScript = document.createElement('script');
-
     sortMarketplaceScript.type = 'text/javascript';
-
     sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
-
     sortMarketplaceScript.className = 'de-init';
 
     elems.push(sortMarketplaceScript);
 
     // sort-personal-lists.js
     sortPersonalListsScript = document.createElement('script');
-
     sortPersonalListsScript.type = 'text/javascript';
-
     sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
-
     sortPersonalListsScript.className = 'de-init';
 
     elems.push(sortPersonalListsScript);
@@ -265,22 +232,16 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.darkTheme) {
 
     releaseHistoryScript = document.createElement('script');
-
     releaseHistoryScript.type = 'text/javascript';
-
     releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
-
     releaseHistoryScript.className = 'de-init';
 
     elems.push(releaseHistoryScript);
 
     // options.js
     options = document.createElement('script');
-
     options.type = 'text/javascript';
-
     options.src = chrome.extension.getURL('js/options/options.js');
-
     options.className = 'de-init';
 
     elems.push(options);
@@ -289,11 +250,8 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.releaseDurations) {
 
     releaseDurations = document.createElement('script');
-
     releaseDurations.type = 'text/javascript';
-
     releaseDurations.src = chrome.extension.getURL('js/release-durations.js');
-
     releaseDurations.className = 'de-init';
 
     elems.push(releaseDurations);
@@ -302,22 +260,16 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.feedback) {
 
     feedback = document.createElement('script');
-
     feedback.type = 'text/javascript';
-
     feedback.src = chrome.extension.getURL('js/feedback-notifier.js');
-
     feedback.className = 'de-init';
 
     elems.push(feedback);
 
     // feedback-notifier.css
     feedback_css = document.createElement('link');
-
     feedback_css.rel = 'stylesheet';
-
     feedback_css.type = 'text/css';
-
     feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
 
     elems.push(feedback_css);
@@ -328,35 +280,25 @@ chrome.storage.sync.get('prefs', function(result) {
 
     // extensions.js
     extensions = document.createElement('script');
-
     extensions.type = 'text/javascript';
-
     extensions.async = true;
-
     extensions.className = 'de-init';
-
     extensions.src = chrome.extension.getURL('js/jquery/extensions.js');
 
     elems.push(extensions);
 
     // text-format-shortcuts.js
     shortcuts = document.createElement('script');
-
     shortcuts.type = 'text/javascript';
-
     shortcuts.src = chrome.extension.getURL('js/text-format-shortcuts.js');
-
     shortcuts.className = 'de-init';
 
     elems.push(shortcuts);
 
     // text-format-shortcuts.css
     shortcuts_css = document.createElement('link');
-
     shortcuts_css.rel = 'stylesheet';
-
     shortcuts_css.type = 'text/css';
-
     shortcuts_css.href = chrome.extension.getURL('css/text-format-shortcuts.css');
 
     elems.push(shortcuts_css);
@@ -365,22 +307,16 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.blockSellers) {
 
     blockSellers = document.createElement('script');
-
     blockSellers.type = 'text/javascript';
-
     blockSellers.src = chrome.extension.getURL('js/hide-blocked-sellers.js');
-
     blockSellers.className = 'de-init';
 
     elems.push(blockSellers);
 
     // blocked-seller.css
     blockSellers_css = document.createElement('link');
-
     blockSellers_css.rel = 'stylesheet';
-
     blockSellers_css.type = 'text/css';
-
     blockSellers_css.href = chrome.extension.getURL('css/blocked-seller.css');
 
     elems.push(blockSellers_css);
@@ -389,11 +325,8 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.collectionUi) {
 
     collectionUi = document.createElement('script');
-
     collectionUi.type = 'text/javascript';
-
     collectionUi.src = chrome.extension.getURL('js/better-collection-ui.js');
-
     collectionUi.className = 'de-init';
 
     elems.push(collectionUi);
@@ -403,46 +336,33 @@ chrome.storage.sync.get('prefs', function(result) {
 
     // update-exchange-rates.js
     updateExchangeRates = document.createElement('script');
-
     updateExchangeRates.type = 'text/javascript';
-
     updateExchangeRates.src = chrome.extension.getURL('js/exchange-rates/update-exchange-rates.js');
-
     updateExchangeRates.className = 'de-init';
 
     elems.push(updateExchangeRates);
 
     // suggested-prices-release-page.js
     suggestedPricesRelease = document.createElement('script');
-
     suggestedPricesRelease.type = 'text/javascript';
-
     suggestedPricesRelease.src = chrome.extension.getURL('js/suggested-prices-release-page.js');
-
     suggestedPricesRelease.className = 'de-init';
 
     elems.push(suggestedPricesRelease);
 
     // suggested-prices-single.js
     suggestedPricesSingle = document.createElement('script');
-
     suggestedPricesSingle.type = 'text/javascript';
-
     suggestedPricesSingle.src = chrome.extension.getURL('js/suggested-prices-single.js');
-
     suggestedPricesSingle.className = 'de-init';
 
     elems.push(suggestedPricesSingle);
 
     // Preloader css
     preloader = document.createElement('link');
-
     preloader.rel = 'stylesheet';
-
     preloader.type = 'text/css';
-
     preloader.href = chrome.extension.getURL('css/pre-loader.css');
-
     preloader.id = 'preloaderCss';
 
     elems.push(preloader);
@@ -452,22 +372,16 @@ chrome.storage.sync.get('prefs', function(result) {
 
     // currency-converter.css
     converter_css = document.createElement('link');
-
     converter_css.rel = 'stylesheet';
-
     converter_css.type = 'text/css';
-
     converter_css.href = chrome.extension.getURL('css/currency-converter.css');
 
     elems.push(converter_css);
 
     // currency-converter.js
     converter = document.createElement('script');
-
     converter.type = 'text/javascript';
-
     converter.className = 'de-init';
-
     converter.src = chrome.extension.getURL('js/currency-converter.js');
 
     elems.push(converter);
@@ -476,11 +390,8 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.notesCount) {
 
     notesCount = document.createElement('script');
-
     notesCount.type = 'text/javascript';
-
     notesCount.src = chrome.extension.getURL('js/notes-char-count.js');
-
     notesCount.className = 'de-init';
 
     elems.push(notesCount);
@@ -494,22 +405,16 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // unit-tests.js
   unitTests = document.createElement('script');
-
   unitTests.type = 'text/javascript';
-
   unitTests.src = chrome.extension.getURL('js/tests/unit-tests.js');
-
   unitTests.className = 'de-init';
 
   elems.push(unitTests);
 
   // hide-items-below-condition.js
   hideItems = document.createElement('script');
-
   hideItems.type = 'text/javascript';
-
   hideItems.src = chrome.extension.getURL('js/hide-items-below-condition.js');
-
   hideItems.className = 'de-init';
 
   elems.push(hideItems);

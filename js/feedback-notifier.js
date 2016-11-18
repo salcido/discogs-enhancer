@@ -117,7 +117,7 @@ $(document).ready(function() {
     obj.neuDiff = 0;
     obj.negDiff = 0;
     obj.hasViewed = true;
-    /* obj.gTotal is set during 'poll for changes' cycle */
+    // Note: obj.gTotal is set during 'poll for changes' cycle
 
     /* save updated obj */
     feedbackObj[type] = obj;
