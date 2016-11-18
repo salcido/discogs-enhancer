@@ -40,7 +40,7 @@ $(document).ready(function() {
 
       // If there are Index Tracks and subtracks present but they are
       // both empty, don't count them in the total.
-    } else if ( trackTime === '' && subtracks === '' ) {
+      } else if ( trackTime === '' && subtracks === '' ) {
 
         return arr.push('0');
 
