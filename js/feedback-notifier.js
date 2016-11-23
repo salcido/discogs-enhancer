@@ -18,7 +18,7 @@ $(document).ready(function() {
       timeStamp = d.getTime(),
       user = $('#site_account_menu').find('.user_image').attr('alt'),
       //user = 'recordsale-de',
-      waitTime = 120000; // 2 mins
+      waitTime = (1000 * 60) * 2; // 2 mins
 
   /**
    * Appends badges to menu bar
@@ -85,9 +85,7 @@ $(document).ready(function() {
     /* Remove preloader */
     $('.' + type + '_feedbackLoader').remove();
 
-    /* Remove if appended already.
-       This is pretty lazy. I should find a more sophisticated way of
-       dealing with existing notification skittles.... probs with a promise. */
+    /* Remove if appended already. */
     if (existing) {
 
       $('.' + type).parent().remove();
