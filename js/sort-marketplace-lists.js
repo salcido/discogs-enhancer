@@ -177,7 +177,6 @@ $(document).ready(function() {
     }, 100);
 
     appendFilterSortButton();
-
     registerFilterButtonClicks();
   });
 });

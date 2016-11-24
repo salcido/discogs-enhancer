@@ -110,9 +110,7 @@ $(document).ready(function() {
 
     // Reset our |desc| value when canceled or saved.
     $('.ui-dialog-titlebar-close').click(function() { desc = false; });
-
     $('.lists_list_add_cancel').click(function() { desc = false; });
-
     $('.lists_list_add_save').click(function() { desc = false; });
   }
 

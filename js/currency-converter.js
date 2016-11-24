@@ -212,13 +212,11 @@ $(document).ready(function() {
   if (!resourceLibrary.getItem('converterRates')) {
 
     rates = null;
-
     thisSelectedCurrency = null;
 
   } else {
 
     rates = resourceLibrary.getItem('converterRates');
-
     thisSelectedCurrency = rates.base;
   }
 
@@ -288,7 +286,6 @@ $(document).ready(function() {
       let amount = $('.currency-converter #ccInput').val();
 
       amount = amount.replace('.', '');
-
       $('.currency-converter #ccInput').val(amount);
     }
 
@@ -365,7 +362,6 @@ $(document).ready(function() {
   $('#thatCurrency').on('change', function() {
 
     clearErrors();
-
     convertCurrency();
 
     resourceLibrary.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());

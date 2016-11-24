@@ -8,6 +8,7 @@
  *
  */
 
+// This code is not pleasant to read.
 
 $(document).ready(function() {
 

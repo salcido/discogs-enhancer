@@ -8,6 +8,8 @@
  *
  */
 
+// This code is not plesant to read.
+
 $(document).ready(function() {
 
   let

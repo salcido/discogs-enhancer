@@ -135,7 +135,6 @@ $(document).ready(function() {
         storage = $('.react-modal-content div').clone(true);
 
         appendSortButton();
-
         registerButtonClicks();
 
         clearInterval(append);

@@ -27,25 +27,21 @@ $(document).ready(function() {
 
         // reviews
         if (t[i].id === 'review') {
-
           hasTextarea = true;
         }
 
         // comments
         if (t[i].name === 'comment') {
-
           hasTextarea = true;
         }
 
         // new threads in groups/forums
         if (t[i].id === 'text') {
-
           hasTextarea = true;
         }
 
         // forum/group replies
         if ( t[i].className && t[i].className.indexOf('forum_reply') > -1 ) {
-
           hasTextarea = true;
         }
       }
@@ -83,12 +79,10 @@ $(document).ready(function() {
            num = urlArr[urlArr.length - 1];
 
        if (num.indexOf('-') > -1) {
-
          num = num.split('-')[0];
        }
 
        if (num.indexOf('?') > -1) {
-
          num = num.split('?')[0];
        }
 

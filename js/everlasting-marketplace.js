@@ -148,19 +148,19 @@ $(document).ready(function() {
 
           hasLoaded = false;
 
-          // apply Marketplace Highlights if necessary
+          // apply Marketplace Highlights
           if (window.applyStyles) {
 
             window.applyStyles();
           }
 
-          // apply price comparisons if necessary
+          // apply price comparisons
           if (window.injectPriceLinks) {
 
             window.injectPriceLinks();
           }
 
-          // Hide/tag sellers in marketplace if necessary
+          // Hide/tag sellers in marketplace
           if (blockList && blockList.hide === 'global' && window.hideSellers ||
               blockList && blockList.hide === 'marketplace' && window.hideSellers) {
 
@@ -172,7 +172,7 @@ $(document).ready(function() {
             window.tagSellers();
           }
 
-          // filter marketplace item by condition if necessary
+          // filter marketplace item by condition
           if (window.hideItems) {
 
             window.hideItems();
