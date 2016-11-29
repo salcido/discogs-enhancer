@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       userCurrency = document.getElementById('currency'),
       isHovering = false,
       isMarketplaceHovering = false,
+      isCountryHovering = false,
       prefs = {},
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
@@ -304,10 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (setting === 0 || setting === null) {
 
-      $('.toggle-group.marketplace .label').html('Filter Items: &nbsp; <span style="color:white;">Disabled</span>');
-
-      // Check "disabled" radio
-      document.getElementById('0').checked = true;
+      $('.toggle-group.marketplace .label').html('Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
 
     } else {
 
@@ -561,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /**
-   * MARKETPLACE FILTER OPTIONS
+   * MARKETPLACE FILTER BY CONDITION OPTIONS
    */
 
   // Display marketplace filter option on hover
@@ -605,6 +603,63 @@ document.addEventListener('DOMContentLoaded', function () {
     filter.fadeOut('fast');
 
     isMarketplaceHovering = false;
+
+    interval = setInterval(function() {
+
+      if (filter.is(':hidden')) {
+
+        toggleGroup.css({height: '25px'});
+
+        clearInterval(interval);
+      }
+    }, 100);
+  });
+
+  /**
+   * MARKETPLACE FILTER BY COUNTRY OPTIONS
+   */
+
+  // Display country filter option on hover
+  $('.toggle-group.country').mouseenter(function() {
+
+    let
+        filter = $('.hide-country'),
+        interval,
+        toggleGroup = $('.toggle-group.country');
+
+    isCountryHovering = true;
+
+    setTimeout(() => {
+
+      if (isCountryHovering) {
+
+        $(this).css({height: '85px'});
+      }
+    }, 400);
+
+    interval = setInterval(function() {
+
+      if (toggleGroup.height() >= 80) {
+
+        filter.fadeIn('fast');
+
+        clearInterval(interval);
+      }
+    }, 100);
+
+  });
+
+  // Hide country filter option on mouseleave
+  $('.toggle-group.country').mouseleave(function() {
+
+    let
+        filter = $('.hide-country'),
+        interval,
+        toggleGroup = $('.toggle-group.country');
+
+    filter.fadeOut('fast');
+
+    isCountryHovering = false;
 
     interval = setInterval(function() {
 
