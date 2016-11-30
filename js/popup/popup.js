@@ -13,9 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
-      isHovering = false,
-      isMarketplaceHovering = false,
-      isCountryHovering = false,
       prefs = {},
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
@@ -24,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleFeedback = document.getElementById('toggleFeedback'),
+      toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
@@ -84,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
       darkTheme: toggleDarkTheme.checked,
       everlastingMarket: toggleEverlastingMarket.checked,
       feedback: toggleFeedback.checked,
+      filterByCountry: toggleFilterByCountry.checked,
       formatShortcuts: toggleShortcuts.checked,
       blockSellers: toggleBlockSellers.checked,
       highlightMedia: toggleConditions.checked,
@@ -133,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
+
 
   /**
    * Checks extension for any recent updates
@@ -188,6 +188,89 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
+   * Displays the options in the popup menu
+   *
+   * @method optionsShow
+   * @param  {object}    target      [the DOM element that will expand to show the options]
+   * @param  {object}    options     [the DOM element to display]
+   * @param  {object}    toggleGroup [the feature in the popup menu]
+   * @param  {number}    height      [the height that `target` will expand to]
+   * @return {undefined}
+   */
+
+  function optionsShow(target, options, toggleGroup, height) {
+
+    target.css({height: height + 'px'});
+
+    let interval = setInterval(function() {
+
+      if (toggleGroup.height() >= (height - 10)) {
+
+        options.fadeIn('fast');
+
+        clearInterval(interval);
+      }
+    }, 100);
+  }
+
+
+  /**
+   * Hides the options in the popup menu
+   *
+   * @method optionsHide
+   * @param  {object}    options     [the DOM element to hide]
+   * @param  {object}    toggleGroup [the feature in the popup menu]
+   * @return {undefined}
+   */
+
+  function optionsHide(options, toggleGroup) {
+
+    let interval;
+
+    options.fadeOut('fast');
+
+    interval = setInterval(function() {
+
+      if (options.is(':hidden')) {
+
+        toggleGroup.css({height: '25px'});
+
+        clearInterval(interval);
+      }
+    }, 100);
+  }
+
+
+  /**
+   * Enables/disables the CSS for filter by country
+   *
+   * @method toggleHideCountries
+   * @param  {object}            event [the event object]
+   * @return {undefined}
+   */
+
+  function toggleHideCountries(event) {
+
+    //let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      chrome.tabs.executeScript(null, {file: 'js/apply-filter-by-country-css.js'}, function() {
+
+        applySave(null, event);
+      });
+
+    } else {
+
+      chrome.tabs.executeScript(null, {file: 'js/remove-filter-by-country-css.js'}, function() {
+
+        applySave(null, event);
+      });
+    }
+  }
+
+
+  /**
    * Toggles Marketplace highlights
    *
    * @method   toggleHighlights
@@ -231,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
     applySave(response, event);
   }
 
+
   /**
    * Set/create the value of the Filter By Country selects based on
    * what is in localStorage
@@ -256,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $('#filterCountry').val(filterByCountryPrefs.country);
     }
   }
+
 
   /**
    * Hides items in the Marketplace
@@ -306,6 +391,7 @@ document.addEventListener('DOMContentLoaded', function () {
     applySave(response, event);
   }
 
+
   /**
    * Sets the text value/color of the Marketplace filter in the popup menu
    *
@@ -338,6 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
     }
   }
+
 
   /**
    * Toggles price comparisons
@@ -389,10 +476,7 @@ document.addEventListener('DOMContentLoaded', function () {
    * @param    {Object}    event [The event object]
    */
 
-  function setCurrency(event) {
-
-    applySave(null, event);
-  }
+  function setCurrency(event) { applySave(null, event); }
 
 
   /**
@@ -475,6 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleDarkTheme.addEventListener('change', useDarkTheme);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
+  toggleFilterByCountry.addEventListener('change', toggleHideCountries);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleShortcuts.addEventListener('change', triggerSave);
@@ -528,172 +613,58 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /**
+   *
    * CONTEXTUAL MENU OPTIONS
+   *
    */
 
   // Display contextual menu options on hover
-  $('.toggle-group.menus').mouseenter(function() {
+  $('.toggle-group.menus').click(function() {
 
-    let
-        contextMenus = $('#contextMenus'),
-        interval,
-        toggleGroup = $('.toggle-group.menus');
-
-    isHovering = true;
-
-    setTimeout(() => {
-
-      if (isHovering) {
-
-        $(this).css({height: '155px'});
-      }
-    }, 400);
-
-    interval = setInterval(function() {
-
-      if (toggleGroup.height() >= 145) {
-
-        contextMenus.fadeIn('fast');
-
-        clearInterval(interval);
-      }
-    }, 100);
+    return optionsShow( $(this), $('#contextMenus'), $('.toggle-group.menus'), 155);
   });
 
   // Hide contextual menu options on mouseleave
   $('.toggle-group.menus').mouseleave(function() {
 
-    let
-        contextMenus = $('#contextMenus'),
-        interval,
-        toggleGroup = $('.toggle-group.menus');
-
-    contextMenus.fadeOut('fast');
-
-    isHovering = false;
-
-    interval = setInterval(function() {
-
-      if (contextMenus.is(':hidden')) {
-
-        toggleGroup.css({height: '25px'});
-
-        clearInterval(interval);
-      }
-    }, 100);
+    return optionsHide( $('#contextMenus'), $('.toggle-group.menus') );
   });
 
+
   /**
-   * MARKETPLACE FILTER BY CONDITION OPTIONS
+   *
+   * FILTER BY CONDITION OPTIONS
+   *
    */
 
   // Display marketplace filter option on hover
-  $('.toggle-group.marketplace').mouseenter(function() {
+  $('.toggle-group.marketplace').click(function() {
 
-    let
-        filter = $('.hide-items'),
-        interval,
-        toggleGroup = $('.toggle-group.marketplace');
-
-    isMarketplaceHovering = true;
-
-    setTimeout(() => {
-
-      if (isMarketplaceHovering) {
-
-        $(this).css({height: '75px'});
-      }
-    }, 400);
-
-    interval = setInterval(function() {
-
-      if (toggleGroup.height() >= 70) {
-
-        filter.fadeIn('fast');
-
-        clearInterval(interval);
-      }
-    }, 100);
+    return optionsShow( $(this), $('.hide-items'), $('.toggle-group.marketplace'), 75);
   });
 
   // Hide marketplace filter option on mouseleave
   $('.toggle-group.marketplace').mouseleave(function() {
 
-    let
-        filter = $('.hide-items'),
-        interval,
-        toggleGroup = $('.toggle-group.marketplace');
-
-    filter.fadeOut('fast');
-
-    isMarketplaceHovering = false;
-
-    interval = setInterval(function() {
-
-      if (filter.is(':hidden')) {
-
-        toggleGroup.css({height: '25px'});
-
-        clearInterval(interval);
-      }
-    }, 100);
+    return optionsHide( $('.hide-items'), $('.toggle-group.marketplace') );
   });
 
   /**
-   * MARKETPLACE FILTER BY COUNTRY OPTIONS
+   *
+   * FILTER BY COUNTRY OPTIONS
+   *
    */
 
   // Display country filter option on hover
-  $('.toggle-group.country').mouseenter(function() {
+  $('.toggle-group.country').click(function() {
 
-    let
-        filter = $('.hide-country'),
-        interval,
-        toggleGroup = $('.toggle-group.country');
-
-    isCountryHovering = true;
-
-    setTimeout(() => {
-
-      if (isCountryHovering) {
-
-        $(this).css({height: '85px'});
-      }
-    }, 400);
-
-    interval = setInterval(function() {
-
-      if (toggleGroup.height() >= 80) {
-
-        filter.fadeIn('fast');
-
-        clearInterval(interval);
-      }
-    }, 100);
-
+    return optionsShow( $(this), $('.hide-country'), $('.toggle-group.country'), 85);
   });
 
   // Hide country filter option on mouseleave
   $('.toggle-group.country').mouseleave(function() {
 
-    let
-        filter = $('.hide-country'),
-        interval,
-        toggleGroup = $('.toggle-group.country');
-
-    filter.fadeOut('fast');
-
-    isCountryHovering = false;
-
-    interval = setInterval(function() {
-
-      if (filter.is(':hidden')) {
-
-        toggleGroup.css({height: '25px'});
-
-        clearInterval(interval);
-      }
-    }, 100);
+    return optionsHide( $('.hide-country'), $('.toggle-group.country') );
   });
 
   // Save the Filter By Country currency select value to localStorage
@@ -704,6 +675,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (this.value) {
 
       filterByCountry.currency = this.value;
+
       localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
     }
   });
@@ -716,6 +688,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (this.value) {
 
       filterByCountry.country = this.value;
+
       localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
     }
   });
@@ -740,6 +713,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFeedback.checked = result.prefs.feedback;
+      toggleFilterByCountry.checked = result.prefs.filterByCountry;
       toggleNotesCount.checked = result.prefs.notesCount;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleShortcuts.checked = result.prefs.formatShortcuts;

@@ -24,6 +24,7 @@ let
     feedback,
     feedback_css,
     filterByCountry,
+    filterByCountry_css,
     highlightCss,
     highlightScript,
     hideItems,
@@ -87,6 +88,7 @@ chrome.storage.sync.get('prefs', function(result) {
       darkTheme: true,
       everlastingMarket: true,
       feedback: true,
+      filterByCountry: false,
       formatShortcuts: true,
       highlightMedia: true,
       hideMarketplaceItems: null,
@@ -141,6 +143,18 @@ chrome.storage.sync.get('prefs', function(result) {
   if (!result.prefs.darkTheme) { darkTheme.setAttribute('disabled', true); }
 
   initElems.push(darkTheme);
+
+  // filter-by-country.css
+  filterByCountry_css = document.createElement('link');
+  filterByCountry_css.rel = 'stylesheet';
+  filterByCountry_css.type = 'text/css';
+  filterByCountry_css.href = chrome.extension.getURL('css/filter-by-country.css');
+  filterByCountry_css.id = 'filterByCountryCss';
+
+  // disable if needed
+  if (!result.prefs.filterByCountry) { filterByCountry_css.setAttribute('disabled', true); }
+
+  initElems.push(filterByCountry_css);
 
   // resource-library.js
   resourceLibrary = document.createElement('script');
@@ -201,6 +215,17 @@ chrome.storage.sync.get('prefs', function(result) {
     everlastingMarketCss.href = chrome.extension.getURL('css/everlasting-marketplace.css');
 
     elems.push(everlastingMarketCss);
+  }
+
+  if (result.prefs.filterByCountry) {
+
+    // filter-by-country.js
+    filterByCountry = document.createElement('script');
+    filterByCountry.type = 'text/javascript';
+    filterByCountry.src = chrome.extension.getURL('js/filter-by-country.js');
+    filterByCountry.className = 'de-init';
+
+    elems.push(filterByCountry);
   }
 
   if (result.prefs.sortButtons) {
@@ -747,13 +772,13 @@ try {
   // Filter by Country
   chrome.runtime.sendMessage({request: 'filterByCountry'}, function(response) {
 
-    filterByCountry = response.filterByCountry;
+    let countryPrefs = response.filterByCountry;
 
-    filterByCountry = JSON.stringify(filterByCountry);
+    countryPrefs = JSON.stringify(countryPrefs);
 
     // Set the filterByCountry value in localStorage so that the DOM can
     // be manipulated based on filterByCountry's value.
-    localStorage.setItem('filterByCountry', filterByCountry);
+    localStorage.setItem('filterByCountry', countryPrefs);
   });
 
   // Filter by item condition

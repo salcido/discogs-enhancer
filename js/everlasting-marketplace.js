@@ -177,6 +177,12 @@ $(document).ready(function() {
 
             window.hideItems();
           }
+
+          // Filter marketplace by country
+          if (window.filterByCountry) {
+
+            window.filterByCountry();
+          }
         }
       });
     }
