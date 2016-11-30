@@ -23,6 +23,7 @@ let
     everlastingMarketCss,
     feedback,
     feedback_css,
+    filterByCountry,
     highlightCss,
     highlightScript,
     hideItems,
@@ -720,15 +721,18 @@ window.onload = function() { $('.de-init').remove(); };
 /*
  *
  * /////////////////////
- * Block Sellers
+ * Get preferences from
+ * extension side and
+ * save to DOM side.
  * /////////////////////
  *
  */
 
 // Get current list of blocked sellers, marketplace item conditions
-// from the upside down of the extension
+// from the upside down.
 try {
 
+  // Tag/Hide sellers
   chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {
 
     blockList = response.blockList;
@@ -740,6 +744,19 @@ try {
     localStorage.setItem('blockList', blockList);
   });
 
+  // Filter by Country
+  chrome.runtime.sendMessage({request: 'filterByCountry'}, function(response) {
+
+    filterByCountry = response.filterByCountry;
+
+    filterByCountry = JSON.stringify(filterByCountry);
+
+    // Set the filterByCountry value in localStorage so that the DOM can
+    // be manipulated based on filterByCountry's value.
+    localStorage.setItem('filterByCountry', filterByCountry);
+  });
+
+  // Filter by item condition
   chrome.runtime.sendMessage({request: 'getHideItems'}, function(response) {
 
     itemCondition = response.itemCondition;

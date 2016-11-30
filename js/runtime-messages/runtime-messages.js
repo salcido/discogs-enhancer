@@ -55,6 +55,14 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     sendResponse({blockList: blockList});
   }
 
+  // filter by country
+  if (msg.request === 'filterByCountry') {
+
+    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    sendResponse({filterByCountry: filterByCountry});
+  }
+
   // hide items below conditions
   if (msg.request === 'getHideItems') {
 

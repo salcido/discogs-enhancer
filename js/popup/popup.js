@@ -232,6 +232,32 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Set/create the value of the Filter By Country selects based on
+   * what is in localStorage
+   *
+   * @method setCountryFilters
+   */
+  function setCountryFilters() {
+
+    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if (!filterByCountryPrefs) {
+
+      let newPrefs = {currency: null, country: null };
+
+      return localStorage.setItem('filterByCountry', JSON.stringify(newPrefs));
+
+    } else {
+
+      // currency value
+      $('#filterCountryCurrency').val(filterByCountryPrefs.currency);
+
+      // country value
+      $('#filterCountry').val(filterByCountryPrefs.country);
+    }
+  }
+
+  /**
    * Hides items in the Marketplace
    *
    * @method   setHiddenItems
@@ -532,7 +558,6 @@ document.addEventListener('DOMContentLoaded', function () {
         clearInterval(interval);
       }
     }, 100);
-
   });
 
   // Hide contextual menu options on mouseleave
@@ -589,7 +614,6 @@ document.addEventListener('DOMContentLoaded', function () {
         clearInterval(interval);
       }
     }, 100);
-
   });
 
   // Hide marketplace filter option on mouseleave
@@ -672,6 +696,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 100);
   });
 
+  // Save the Filter By Country currency select value to localStorage
+  $('#filterCountryCurrency').change(function() {
+
+    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if (this.value) {
+
+      filterByCountry.currency = this.value;
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
+    }
+  });
+
+  // Save the Filter By Country country select value to localStorage
+  $('#filterCountry').change(function() {
+
+    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if (this.value) {
+
+      filterByCountry.country = this.value;
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
+    }
+  });
+
   /**
    * Sets toggle button values when the popup is rendered
    * and calls necessary methods
@@ -723,6 +771,8 @@ document.addEventListener('DOMContentLoaded', function () {
     getCurrency();
 
     setupMarketplaceFilter();
+
+    setCountryFilters();
   }
 
   // Start it up
