@@ -242,103 +242,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Enables/disables the CSS for filter by country
-   *
-   * @method toggleHideCountries
-   * @param  {object}            event [the event object]
-   * @return {undefined}
-   */
-
-  function toggleHideCountries(event) {
-
-    //let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/apply-filter-by-country-css.js'}, function() {
-
-        applySave(null, event);
-      });
-
-    } else {
-
-      chrome.tabs.executeScript(null, {file: 'js/remove-filter-by-country-css.js'}, function() {
-
-        applySave(null, event);
-      });
-    }
-  }
-
-
-  /**
-   * Toggles Marketplace highlights
-   *
-   * @method   toggleHighlights
-   * @param    {object}         event [the event object]
-   * @return   {undefined}
-   */
-
-  function toggleHighlights(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    if (event.target.checked) {
-
-      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
-
-        applySave(response, event);
-      });
-
-    } else {
-
-      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
-
-        applySave(null, event);
-      });
-    }
-  }
-
-
-  /**
-   * Tells the user to refresh after updating a preference
-   *
-   * @method   triggerSave
-   * @param    {Object}    event [The event object]
-   * @return   {undefined}
-   */
-
-  function triggerSave(event) {
-
-    let response = 'Please refresh the page for changes to take effect.';
-
-    applySave(response, event);
-  }
-
-
-  /**
    * Set/create the value of the Filter By Country selects based on
    * what is in localStorage
    *
    * @method setCountryFilters
    */
+
   function setCountryFilters() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
     if (!filterByCountryPrefs) {
 
-      let newPrefs = {currency: null, country: null };
+      let newPrefs = { currency: '-', country: '-' };
 
-      return localStorage.setItem('filterByCountry', JSON.stringify(newPrefs));
+      localStorage.setItem('filterByCountry', JSON.stringify(newPrefs));
 
-    } else {
-
-      // currency value
-      $('#filterCountryCurrency').val(filterByCountryPrefs.currency);
-
-      // country value
-      $('#filterCountry').val(filterByCountryPrefs.country);
+      filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
     }
+
+    // currency value
+    $('#filterCountryCurrency').val(filterByCountryPrefs.currency);
+
+    // country value
+    $('#filterCountry').val(filterByCountryPrefs.country);
+
+    setCountryUiStatus();
+  }
+
+
+  /**
+   * Updates the Enabled/Disabled status of
+   * Filter By Country in the popup
+   *
+   * @method setCountryUiStatus
+   */
+
+  function setCountryUiStatus() {
+
+    chrome.storage.sync.get('prefs', function(result) {
+
+      if (result.prefs.filterByCountry === true) {
+
+        $('.toggle-group.country .label').html('Filter Items by Country: &nbsp; <span style="color:#00db1f;">Enabled</span>');
+
+        // Disable the selects when the feature is enabled
+        document.getElementById('filterCountryCurrency').disabled = true;
+        document.getElementById('filterCountry').disabled = true;
+
+      } else {
+
+        $('.toggle-group.country .label').html('Filter Items by Country: &nbsp; <span style="color:#FFFFFF;">Disabled</span>');
+      }
+    });
   }
 
 
@@ -386,20 +342,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    setupMarketplaceFilter();
+    setupFilterByCondition();
 
     applySave(response, event);
   }
 
 
   /**
-   * Sets the text value/color of the Marketplace filter in the popup menu
+   * Sets the text value/color of the Filter by Condition setting in the popup menu
    *
-   * @method   setupMarketplaceFilter
+   * @method   setupFilterByCondition
    * @return   {undefined}
    */
 
-  function setupMarketplaceFilter() {
+  function setupFilterByCondition() {
 
     let
         setting = Number(localStorage.getItem('itemCondition')),
@@ -417,11 +373,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (setting === 0 || setting === null) {
 
-      $('.toggle-group.marketplace .label').html('Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
+      $('.toggle-group.condition .label').html('Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
 
     } else {
 
-      $('.toggle-group.marketplace .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+      $('.toggle-group.condition .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
     }
   }
 
@@ -477,6 +433,111 @@ document.addEventListener('DOMContentLoaded', function () {
    */
 
   function setCurrency(event) { applySave(null, event); }
+
+
+  /**
+   * Enables/disables the CSS for filter by country
+   *
+   * @method toggleHideCountries
+   * @param  {object}            event [the event object]
+   * @return {undefined}
+   */
+
+  function toggleHideCountries(event) {
+
+    let
+        currency = document.getElementById('filterCountryCurrency'),
+        country = document.getElementById('filterCountry'),
+        response = 'Please refresh the page for changes to take effect.';
+
+    if (validateFilterByCountry() === 'valid' && event.target.checked) {
+
+      currency.disabled = true;
+      currency.className = '';
+
+      country.disabled = true;
+      country.className = '';
+
+      chrome.tabs.executeScript(null, {file: 'js/apply-filter-by-country-css.js'}, function() {
+
+        applySave(response, event);
+      });
+
+      // Delay updating the UI so that Chrome has a change to write the new preference
+      setTimeout(function() { setCountryUiStatus(); }, 100);
+
+    } else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
+
+      currency.disabled = false;
+      currency.className = '';
+
+      country.disabled = false;
+      country.className = '';
+
+      chrome.tabs.executeScript(null, {file: 'js/remove-filter-by-country-css.js'}, function() {
+
+        applySave(null, event);
+      });
+
+      // Delay updating the UI so that Chrome has a change to write the new preference
+      setTimeout(function() { setCountryUiStatus(); }, 100);
+
+    } else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
+
+      toggleFilterByCountry.checked = false;
+
+      currency.disabled = false;
+      currency.className = 'alert';
+
+      country.disabled = false;
+      country.className = 'alert';
+    }
+  }
+
+
+  /**
+   * Toggles Marketplace highlights
+   *
+   * @method   toggleHighlights
+   * @param    {object}         event [the event object]
+   * @return   {undefined}
+   */
+
+  function toggleHighlights(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked) {
+
+      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
+
+        applySave(response, event);
+      });
+
+    } else {
+
+      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
+
+        applySave(null, event);
+      });
+    }
+  }
+
+
+  /**
+   * Tells the user to refresh after updating a preference
+   *
+   * @method   triggerSave
+   * @param    {Object}    event [The event object]
+   * @return   {undefined}
+   */
+
+  function triggerSave(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    applySave(response, event);
+  }
 
 
   /**
@@ -540,6 +601,140 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /**
+   * Validates that a value has been set for both selects in Filter By Country
+   *
+   * @method validateFilterByCountry
+   * @return {String}
+   */
+
+  function validateFilterByCountry() {
+
+    let currency = document.getElementById('filterCountryCurrency'),
+        country = document.getElementById('filterCountry');
+
+    if (currency.value !== '-' && country.value !== '-') {
+
+      return 'valid';
+
+    } else {
+
+      return 'invalid';
+    }
+  }
+
+
+  /**
+   *
+   * //////////////////////////////
+   * UI functionality
+   * //////////////////////////////
+   *
+   */
+
+  // Open the about page
+  $('body').on('click', '#about', function() {
+
+    chrome.tabs.create({url: '../html/about.html'});
+
+    acknowledgeUpdate();
+
+    if (_gaq) {
+
+      _gaq.push(['_trackEvent', 'about', 'about clicked']);
+    }
+  });
+
+  // Open block sellers page
+  $('body').on('click', '#editList', function() {
+
+    chrome.tabs.create({url: '../html/block-sellers.html'});
+  });
+
+
+  /**
+   *
+   * CONTEXTUAL MENU OPTIONS
+   *
+   */
+// TODO track hover status so options collapse with a Delay
+
+  // Display contextual menu options on hover
+  $('.toggle-group.menus').click(function() {
+
+    return optionsShow( $(this), $('#contextMenus'), $('.toggle-group.menus'), 155);
+  });
+
+  // Hide contextual menu options on mouseleave
+  $('.toggle-group.menus').mouseleave(function() {
+
+    return optionsHide( $('#contextMenus'), $('.toggle-group.menus') );
+  });
+
+
+  /**
+   *
+   * FILTER BY CONDITION OPTIONS
+   *
+   */
+
+  // Display marketplace filter by condition option on hover
+  $('.toggle-group.condition').click(function() {
+
+    return optionsShow( $(this), $('.hide-items'), $('.toggle-group.condition'), 75);
+  });
+
+  // Hide marketplace filter by condition option on mouseleave
+  $('.toggle-group.condition').mouseleave(function() {
+
+    return optionsHide( $('.hide-items'), $('.toggle-group.condition') );
+  });
+
+
+  /**
+   *
+   * FILTER BY COUNTRY OPTIONS
+   *
+   */
+
+  // Display country filter option on hover
+  $('.toggle-group.country').click(function() {
+
+    return optionsShow( $(this), $('.hide-country'), $('.toggle-group.country'), 85);
+  });
+
+  // Hide country filter option on mouseleave
+  $('.toggle-group.country').mouseleave(function() {
+
+    return optionsHide( $('.hide-country'), $('.toggle-group.country'));
+  });
+
+  // Save the Filter By Country currency select value to localStorage
+  $('#filterCountryCurrency').change(function() {
+
+    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if (this.value !== '-') {
+
+      filterByCountry.currency = this.value;
+
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
+    }
+  });
+
+  // Save the Filter By Country country select value to localStorage
+  $('#filterCountry').change(function() {
+
+    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if (this.value) {
+
+      filterByCountry.country = this.value;
+
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
+    }
+  });
+
 
   /**
    *
@@ -585,113 +780,6 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleSotu.addEventListener('change', updateMenu);
   toggleYoutube.addEventListener('change', updateMenu);
 
-  /**
-   *
-   * //////////////////////////////
-   * UI functions
-   * //////////////////////////////
-   *
-   */
-
-  // Open the about page
-  $('body').on('click', '#about', function() {
-
-    chrome.tabs.create({url: '../html/about.html'});
-
-    acknowledgeUpdate();
-
-    if (_gaq) {
-
-      _gaq.push(['_trackEvent', 'about', 'about clicked']);
-    }
-  });
-
-  // Open block sellers page
-  $('body').on('click', '#editList', function() {
-
-    chrome.tabs.create({url: '../html/block-sellers.html'});
-  });
-
-  /**
-   *
-   * CONTEXTUAL MENU OPTIONS
-   *
-   */
-
-  // Display contextual menu options on hover
-  $('.toggle-group.menus').click(function() {
-
-    return optionsShow( $(this), $('#contextMenus'), $('.toggle-group.menus'), 155);
-  });
-
-  // Hide contextual menu options on mouseleave
-  $('.toggle-group.menus').mouseleave(function() {
-
-    return optionsHide( $('#contextMenus'), $('.toggle-group.menus') );
-  });
-
-
-  /**
-   *
-   * FILTER BY CONDITION OPTIONS
-   *
-   */
-
-  // Display marketplace filter option on hover
-  $('.toggle-group.marketplace').click(function() {
-
-    return optionsShow( $(this), $('.hide-items'), $('.toggle-group.marketplace'), 75);
-  });
-
-  // Hide marketplace filter option on mouseleave
-  $('.toggle-group.marketplace').mouseleave(function() {
-
-    return optionsHide( $('.hide-items'), $('.toggle-group.marketplace') );
-  });
-
-  /**
-   *
-   * FILTER BY COUNTRY OPTIONS
-   *
-   */
-
-  // Display country filter option on hover
-  $('.toggle-group.country').click(function() {
-
-    return optionsShow( $(this), $('.hide-country'), $('.toggle-group.country'), 85);
-  });
-
-  // Hide country filter option on mouseleave
-  $('.toggle-group.country').mouseleave(function() {
-
-    return optionsHide( $('.hide-country'), $('.toggle-group.country') );
-  });
-
-  // Save the Filter By Country currency select value to localStorage
-  $('#filterCountryCurrency').change(function() {
-
-    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    if (this.value) {
-
-      filterByCountry.currency = this.value;
-
-      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
-    }
-  });
-
-  // Save the Filter By Country country select value to localStorage
-  $('#filterCountry').change(function() {
-
-    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    if (this.value) {
-
-      filterByCountry.country = this.value;
-
-      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
-    }
-  });
 
   /**
    * Sets toggle button values when the popup is rendered
@@ -703,6 +791,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function init() {
 
+    // Get the user's preferences and set the toggles accordingly
     chrome.storage.sync.get('prefs', function(result) {
 
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
@@ -744,7 +833,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     getCurrency();
 
-    setupMarketplaceFilter();
+    setupFilterByCondition();
 
     setCountryFilters();
   }

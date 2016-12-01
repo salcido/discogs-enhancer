@@ -153,10 +153,6 @@ a#editList:hover {
   border-bottom: 1px solid #CCCCCC;
 }
 
-.toggle-group.menus {
-  height: 25px;
-}
-
 .label {
   float: left;
   margin-top: 16px;
@@ -266,8 +262,8 @@ input[type="checkbox"]:focus {
   outline: none;
 }
 
-#currency.alert {
-  outline: 1px dotted red;
+.alert {
+  outline: 1px dotted red !important;
 }
 
 .rate-button {
@@ -319,4 +315,10 @@ input[type="checkbox"]:focus {
   top: 75px;
   left: 60px;
   outline: none;
+}
+
+.toggle-group.menus,
+.toggle-group.condition,
+.toggle-group.country {
+  cursor: pointer;
 }
