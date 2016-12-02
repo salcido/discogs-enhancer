@@ -658,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function () {
    *
    */
 // TODO track hover status so options collapse with a Delay
-
+// TODO update about page
   // Display contextual menu options on hover
   $('.toggle-group.menus').click(function() {
 

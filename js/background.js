@@ -411,17 +411,17 @@ chrome.storage.sync.get('prefs', function(result) {
 
   if (result.prefs.notesCount) {
 
-    // notes-char-count.js
+    // notes-counter.js
     let notesCount = document.createElement('script');
 
     notesCount.type = 'text/javascript';
-    notesCount.src = chrome.extension.getURL('js/notes-char-count.js');
+    notesCount.src = chrome.extension.getURL('js/notes-counter.js');
     notesCount.className = 'de-init';
 
     elems.push(notesCount);
   }
 
-  // Set value for hide-items-below-condition.js
+  // Set value for filter-by-condition.js
   if (result.prefs.hideMarketplaceItems) {
 
     localStorage.setItem('itemCondition', result.prefs.hideMarketplaceItems);
@@ -436,11 +436,11 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(unitTests);
 
-  // hide-items-below-condition.js
+  // filter-by-condition.js
   let hideItems = document.createElement('script');
 
   hideItems.type = 'text/javascript';
-  hideItems.src = chrome.extension.getURL('js/hide-items-below-condition.js');
+  hideItems.src = chrome.extension.getURL('js/filter-by-condition.js');
   hideItems.className = 'de-init';
 
   elems.push(hideItems);
