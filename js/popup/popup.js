@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
+      isHovering = { menus: false, conditions: false, country: false },
       prefs = {},
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
@@ -195,22 +196,31 @@ document.addEventListener('DOMContentLoaded', function () {
    * @param  {object}    options     [the DOM element to display]
    * @param  {object}    toggleGroup [the feature in the popup menu]
    * @param  {number}    height      [the height that `target` will expand to]
+   * @param  {string}    prop        [the name of the `isHovering` subproperty to set]
    * @return {undefined}
    */
 
-  function optionsShow(target, options, toggleGroup, height) {
+  function optionsShow(target, options, toggleGroup, height, prop) {
 
-    target.css({height: height + 'px'});
+    isHovering[prop] = true;
 
-    let interval = setInterval(function() {
+    setTimeout(function() {
 
-      if (toggleGroup.height() >= (height - 10)) {
+      if (isHovering[prop]) {
 
-        options.fadeIn('fast');
+        target.css({height: height + 'px'});
 
-        clearInterval(interval);
+        let interval = setInterval(function() {
+
+          if (toggleGroup.height() >= (height - 10)) {
+
+            options.fadeIn('fast');
+
+            clearInterval(interval);
+          }
+        }, 100);
       }
-    }, 100);
+    }, 500);
   }
 
 
@@ -223,21 +233,27 @@ document.addEventListener('DOMContentLoaded', function () {
    * @return {undefined}
    */
 
-  function optionsHide(options, toggleGroup) {
+  function optionsHide(options, toggleGroup, prop) {
 
     let interval;
 
-    options.fadeOut('fast');
+    setTimeout(function() {
 
-    interval = setInterval(function() {
+      if (!isHovering[prop]) {
 
-      if (options.is(':hidden')) {
+        options.fadeOut('fast');
 
-        toggleGroup.css({height: '25px'});
+        interval = setInterval(function() {
 
-        clearInterval(interval);
+          if (options.is(':hidden')) {
+
+            toggleGroup.css({height: '25px'});
+
+            clearInterval(interval);
+          }
+        }, 100);
       }
-    }, 100);
+    }, 800);
   }
 
 
@@ -299,6 +315,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
+   * Sets the text value/color of the Filter by Condition setting in the popup menu
+   *
+   * @method   setupFilterByCondition
+   * @return   {undefined}
+   */
+
+  function setupFilterByCondition() {
+
+    let
+        setting = Number(localStorage.getItem('itemCondition')),
+
+        conditions = ['Poor (P)',
+                      'Fair (F)',
+                      'Good (G)',
+                      'Good Plus (G+)',
+                      'Very Good (VG)',
+                      'Very Good Plus (VG+)',
+                      'Near Mint (NM/M-)',
+                      'Mint (M)'],
+
+        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
+
+    if (setting === 0 || setting === null) {
+
+      $('.toggle-group.condition .label').html('Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
+
+    } else {
+
+      $('.toggle-group.condition .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+    }
+  }
+
+
+  /**
    * Hides items in the Marketplace
    *
    * @method   setHiddenItems
@@ -349,36 +399,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Sets the text value/color of the Filter by Condition setting in the popup menu
+   * Sets the value of the specified `isHovering` subproperty
+   * which is used to determine when to show/hide configuration
+   * options in the popup menu
    *
-   * @method   setupFilterByCondition
-   * @return   {undefined}
+   * @method setHoverStatus
+   * @param  {string}       prop [the name of the `isHovering` subproperty]
    */
 
-  function setupFilterByCondition() {
+  function setHoverStatus(prop) {
 
-    let
-        setting = Number(localStorage.getItem('itemCondition')),
+    isHovering[prop] = !isHovering[prop];
 
-        conditions = ['Poor (P)',
-                      'Fair (F)',
-                      'Good (G)',
-                      'Good Plus (G+)',
-                      'Very Good (VG)',
-                      'Very Good Plus (VG+)',
-                      'Near Mint (NM/M-)',
-                      'Mint (M)'],
-
-        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
-
-    if (setting === 0 || setting === null) {
-
-      $('.toggle-group.condition .label').html('Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
-
-    } else {
-
-      $('.toggle-group.condition .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
-    }
+    return isHovering;
   }
 
 
@@ -601,6 +634,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+
   /**
    * Validates that a value has been set for both selects in Filter By Country
    *
@@ -613,14 +647,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currency = document.getElementById('filterCountryCurrency'),
         country = document.getElementById('filterCountry');
 
-    if (currency.value !== '-' && country.value !== '-') {
-
-      return 'valid';
-
-    } else {
-
-      return 'invalid';
-    }
+    return currency.value !== '-' && country.value !== '-' ? 'valid' : 'invalid';
   }
 
 
@@ -657,18 +684,25 @@ document.addEventListener('DOMContentLoaded', function () {
    * CONTEXTUAL MENU OPTIONS
    *
    */
-// TODO track hover status so options collapse with a Delay
-// TODO update about page
-  // Display contextual menu options on hover
-  $('.toggle-group.menus').click(function() {
 
-    return optionsShow( $(this), $('#contextMenus'), $('.toggle-group.menus'), 155);
+  // Display contextual menu options on hover
+  $('.toggle-group.menus').mouseenter(function() {
+
+    let prop = 'menus';
+
+    setHoverStatus(prop);
+
+    return optionsShow( $(this), $('#contextMenus'), $('.toggle-group.menus'), 155, prop );
   });
 
   // Hide contextual menu options on mouseleave
   $('.toggle-group.menus').mouseleave(function() {
 
-    return optionsHide( $('#contextMenus'), $('.toggle-group.menus') );
+    let prop = 'menus';
+
+    setHoverStatus(prop);
+
+    return optionsHide( $('#contextMenus'), $('.toggle-group.menus'), prop );
   });
 
 
@@ -679,15 +713,23 @@ document.addEventListener('DOMContentLoaded', function () {
    */
 
   // Display marketplace filter by condition option on hover
-  $('.toggle-group.condition').click(function() {
+  $('.toggle-group.condition').mouseenter(function() {
 
-    return optionsShow( $(this), $('.hide-items'), $('.toggle-group.condition'), 75);
+    let prop = 'conditions';
+
+    setHoverStatus(prop);
+
+    return optionsShow( $(this), $('.hide-items'), $('.toggle-group.condition'), 75, prop );
   });
 
   // Hide marketplace filter by condition option on mouseleave
   $('.toggle-group.condition').mouseleave(function() {
 
-    return optionsHide( $('.hide-items'), $('.toggle-group.condition') );
+    let prop = 'conditions';
+
+    setHoverStatus(prop);
+
+    return optionsHide( $('.hide-items'), $('.toggle-group.condition'), prop );
   });
 
 
@@ -698,15 +740,23 @@ document.addEventListener('DOMContentLoaded', function () {
    */
 
   // Display country filter option on hover
-  $('.toggle-group.country').click(function() {
+  $('.toggle-group.country').mouseenter(function() {
 
-    return optionsShow( $(this), $('.hide-country'), $('.toggle-group.country'), 85);
+    let prop = 'country';
+
+    setHoverStatus(prop);
+
+    return optionsShow( $(this), $('.hide-country'), $('.toggle-group.country'), 85, prop );
   });
 
   // Hide country filter option on mouseleave
   $('.toggle-group.country').mouseleave(function() {
 
-    return optionsHide( $('.hide-country'), $('.toggle-group.country'));
+    let prop = 'country';
+
+    setHoverStatus(prop);
+
+    return optionsHide( $('.hide-country'), $('.toggle-group.country'), prop );
   });
 
   // Save the Filter By Country currency select value to localStorage
