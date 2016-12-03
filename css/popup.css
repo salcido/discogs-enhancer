@@ -39,6 +39,7 @@ p {
   color: #CCCCCC;
   text-transform: uppercase;
   word-spacing: 2px;
+  cursor: default;
   transition: all 0.3s ease;
 }
 
@@ -144,8 +145,12 @@ a#editList:hover {
 }
 
 .toggle-group:hover p {
-  margin-left: 20px;
   color: white;
+}
+
+.toggle-group.has-options:hover p {
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 .toggle-group.last {
@@ -321,4 +326,8 @@ input[type="checkbox"]:focus {
 .toggle-group.condition,
 .toggle-group.country {
   cursor: pointer;
+}
+
+#contextMenus {
+  z-index: 10;
 }

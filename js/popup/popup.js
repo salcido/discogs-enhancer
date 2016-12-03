@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
-      isHovering = { menus: false, conditions: false, country: false },
       prefs = {},
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
@@ -170,18 +169,15 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.sync.get('prefs', function(result) {
 
       if (result.prefs.userCurrency) {
-
         userCurrency.value = result.prefs.userCurrency;
 
         if (userCurrency.value !== '-' && togglePrices.checked === true) {
-
           userCurrency.disabled = true;
         }
 
       } else {
 
         togglePrices.checked = false;
-
         userCurrency.disabled = false;
       }
     });
@@ -191,69 +187,48 @@ document.addEventListener('DOMContentLoaded', function () {
   /**
    * Displays the options in the popup menu
    *
-   * @method optionsShow
-   * @param  {object}    target      [the DOM element that will expand to show the options]
+   * @method optionsToggle
    * @param  {object}    options     [the DOM element to display]
    * @param  {object}    toggleGroup [the feature in the popup menu]
    * @param  {number}    height      [the height that `target` will expand to]
-   * @param  {string}    prop        [the name of the `isHovering` subproperty to set]
    * @return {undefined}
    */
 
-  function optionsShow(target, options, toggleGroup, height, prop) {
+  function optionsToggle(options, toggleGroup, height) {
 
-    isHovering[prop] = true;
+    // Check the current height and either expand or collapse it
+    if (toggleGroup.height() == 25) {
 
-    setTimeout(function() {
+      toggleGroup.css({height: height + 'px'});
 
-      if (isHovering[prop]) {
+      let int = setInterval(function() {
 
-        target.css({height: height + 'px'});
+        if (toggleGroup.height() >= (height - 10)) {
 
-        let interval = setInterval(function() {
+          options.fadeIn('fast');
 
-          if (toggleGroup.height() >= (height - 10)) {
+          clearInterval(int);
+        }
+      }, 100);
 
-            options.fadeIn('fast');
+    } else if (event.target.nodeName !== 'INPUT' &&
+               event.target.type !== 'checkbox' &&
+               event.target.nodeName !== 'LABEL' &&
+               event.target.nodeName !== 'SPAN' &&
+               event.target.nodeName !== 'SELECT') {
 
-            clearInterval(interval);
-          }
-        }, 100);
-      }
-    }, 500);
-  }
+      options.fadeOut('fast');
 
+      let int = setInterval(function() {
 
-  /**
-   * Hides the options in the popup menu
-   *
-   * @method optionsHide
-   * @param  {object}    options     [the DOM element to hide]
-   * @param  {object}    toggleGroup [the feature in the popup menu]
-   * @return {undefined}
-   */
+       if (options.is(':hidden')) {
 
-  function optionsHide(options, toggleGroup, prop) {
+         toggleGroup.css({height: '25px'});
 
-    let interval;
-
-    setTimeout(function() {
-
-      if (!isHovering[prop]) {
-
-        options.fadeOut('fast');
-
-        interval = setInterval(function() {
-
-          if (options.is(':hidden')) {
-
-            toggleGroup.css({height: '25px'});
-
-            clearInterval(interval);
-          }
-        }, 100);
-      }
-    }, 800);
+         clearInterval(int);
+       }
+      }, 100);
+    }
   }
 
 
@@ -335,7 +310,14 @@ document.addEventListener('DOMContentLoaded', function () {
                       'Near Mint (NM/M-)',
                       'Mint (M)'],
 
-        colors = ['#ff0000', '#e54803', '#d87307', '#f6bf48', '#85ab11', '#00db1f', '#00dbb4', '#00b4db'];
+        colors = ['#ff0000', // poor
+                  '#e54803', // fair
+                  '#d87307', // good
+                  '#f6bf48', // good plus
+                  '#85ab11', // very good
+                  '#00db1f', // very good plus
+                  '#00dbb4', //near mint
+                  '#00b4db']; // mint
 
     if (setting === 0 || setting === null) {
 
@@ -349,7 +331,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Hides items in the Marketplace
+   * Sets the value that will hide items in the
+   * Marketplace based on condition
    *
    * @method   setHiddenItems
    * @param    {Object}       event [The event object]
@@ -386,6 +369,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           'Very Good Plus (VG+)',
                           'Near Mint (NM/M-)',
                           'Mint (M)'],
+
             setting = Number(localStorage.getItem('itemCondition'));
 
         _gaq.push(['_trackEvent', ' Marketplace Filter: ' + conditions[setting], 'Marketplace Filter']);
@@ -393,25 +377,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setupFilterByCondition();
-
     applySave(response, event);
-  }
-
-
-  /**
-   * Sets the value of the specified `isHovering` subproperty
-   * which is used to determine when to show/hide configuration
-   * options in the popup menu
-   *
-   * @method setHoverStatus
-   * @param  {string}       prop [the name of the `isHovering` subproperty]
-   */
-
-  function setHoverStatus(prop) {
-
-    isHovering[prop] = !isHovering[prop];
-
-    return isHovering;
   }
 
 
@@ -430,9 +396,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (event.target.checked && userCurrency.value !== '-') {
 
         userCurrency.disabled = true;
-
         togglePrices.checked = true;
-
         userCurrency.className = '';
 
         applySave(response, event);
@@ -444,7 +408,6 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.notifications').show();
 
         togglePrices.checked = false;
-
         userCurrency.className = 'alert';
 
         return;
@@ -680,82 +643,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   *
-   * CONTEXTUAL MENU OPTIONS
-   *
+   * CONTEXTUAL MENU SEARCHING OPTIONS
    */
 
-  // Display contextual menu options on hover
-  $('.toggle-group.menus').mouseenter(function() {
+// TODO make notification banner fade out after X seconds.
 
-    let prop = 'menus';
+// TODO ask donors/emailers if they want to be listed in 'about'
 
-    setHoverStatus(prop);
+  $('.toggle-group.menus').click(function(event) {
 
-    return optionsShow( $(this), $('#contextMenus'), $('.toggle-group.menus'), 155, prop );
+    optionsToggle( $('#contextMenus'), $('.toggle-group.menus'), 155 );
   });
 
-  // Hide contextual menu options on mouseleave
-  $('.toggle-group.menus').mouseleave(function() {
-
-    let prop = 'menus';
-
-    setHoverStatus(prop);
-
-    return optionsHide( $('#contextMenus'), $('.toggle-group.menus'), prop );
-  });
 
   /**
-   *
    * FILTER BY CONDITION OPTIONS
-   *
    */
 
-  // Display marketplace filter by condition option on hover
-  $('.toggle-group.condition').mouseenter(function() {
+  $('.toggle-group.condition').click(function(event) {
 
-    let prop = 'conditions';
-
-    setHoverStatus(prop);
-
-    return optionsShow( $(this), $('.hide-items'), $('.toggle-group.condition'), 75, prop );
+    optionsToggle( $('.hide-items'), $('.toggle-group.condition'), 75 );
   });
 
-  // Hide marketplace filter by condition option on mouseleave
-  $('.toggle-group.condition').mouseleave(function() {
-
-    let prop = 'conditions';
-
-    setHoverStatus(prop);
-
-    return optionsHide( $('.hide-items'), $('.toggle-group.condition'), prop );
-  });
 
   /**
-   *
    * FILTER BY COUNTRY OPTIONS
-   *
    */
 
-  // Display country filter option on hover
-  $('.toggle-group.country').mouseenter(function() {
+  $('.toggle-group.country').click(function(event) {
 
-    let prop = 'country';
-
-    setHoverStatus(prop);
-
-    return optionsShow( $(this), $('.hide-country'), $('.toggle-group.country'), 85, prop );
+    optionsToggle( $('.hide-country'), $('.toggle-group.country'), 85 );
   });
 
-  // Hide country filter option on mouseleave
-  $('.toggle-group.country').mouseleave(function() {
-
-    let prop = 'country';
-
-    setHoverStatus(prop);
-
-    return optionsHide( $('.hide-country'), $('.toggle-group.country'), prop );
-  });
 
   // Save the Filter By Country currency select value to localStorage
   $('#filterCountryCurrency').change(function() {
@@ -765,7 +684,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (this.value !== '-') {
 
       filterByCountry.currency = this.value;
-
       localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
     }
   });
@@ -778,7 +696,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (this.value) {
 
       filterByCountry.country = this.value;
-
       localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
     }
   });
@@ -878,11 +795,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     checkForUpdate();
-
     getCurrency();
-
     setupFilterByCondition();
-
     setCountryFilters();
   }
 

@@ -7,37 +7,38 @@ body {
 h1,
 h2,
 h3 {
-  font-family: 'Halant', serif;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: -20px;
+  font-family: "Halant", serif;
   font-size: 16px;
   color: white;
-  text-shadow: 1px 2px 3px #000;
-  text-transform: uppercase;
   letter-spacing: 6px;
-  margin-bottom: -20px;
-  margin-right: 5px;
-  display: inline-block;
+  text-shadow: 1px 2px 3px #000000;
+  text-transform: uppercase;
 }
 
 p {
-  font-family: 'Arial', sans-serif;
-  color: #ccc;
-  font-weight: normal;
+  margin-bottom: 10px;
+  font-family: "Arial", sans-serif;
   font-size: 13px;
+  font-weight: normal;
+  color: #CCCCCC;
   line-height: 19px;
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
 
 a {
-  color: #809bbe;
+  color: #809BBE;
 }
 
 a:visited {
-  color: #a590d0;
+  color: #A590D0;
 }
 
 a:hover {
-  color: #cae0fa;
+  color: #CAE0FA;
 }
 
 .about .title img {
@@ -54,11 +55,11 @@ a:hover {
 }
 
 .about p.bold {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
   /*text-transform: uppercase;*/
   padding-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
 }
 
 .about p.troubleshoot {
@@ -81,18 +82,18 @@ a:hover {
 
 .about .copyright,
 .about .copyright a {
-  text-transform: uppercase;
-  text-align: center;
-  color: #ccc;
-  font-size: 11px;
   margin: 25px;
+  font-size: 11px;
+  color: #CCCCCC;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .about .copyright a:hover {
-  text-transform: uppercase;
+  color: #CCCCCC;
   text-align: center;
   text-decoration: none;
-  color: #ccc;
+  text-transform: uppercase;
 }
 
 .about .updates {
@@ -100,59 +101,58 @@ a:hover {
 }
 
 hr {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
-
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+  border: 0;
 }
 
 ul li {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 300;
-    font-size: 12px;
-    color: white;
-    line-height: 1.6em;
-    letter-spacing: 1px;
-    text-align: left;
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 1px;
+  line-height: 1.6em;
+  text-align: left;
 }
 
 ul li a,
 ul li a:hover,
 ul li a:visited {
-    color: white;
-    font-weight: 600;
-    text-decoration: underline;
+  font-weight: 600;
+  color: white;
+  text-decoration: underline;
 }
 
 ul li.no-bullet {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 table, td, th {
-    color: #666;
-    border-color: #666 !important;
+  border-color: #666666 !important;
+  color: #666666;
 }
 
 table caption {
-    color: #666;
-    margin: 15px 0 0 0;
-    font-family: sans-serif;
-    font-size: 14px;
-    line-height: 1.6em;
-    text-transform: uppercase;
+  margin: 15px 0 0 0;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.6em;
+  text-transform: uppercase;
 }
 
 .table {
-    margin-top: 25px;
-    font-family: sans-serif;
-    margin-bottom: 150px;
+  margin-top: 25px;
+  margin-bottom: 150px;
+  font-family: sans-serif;
 }
 
 .marketplace-highlights {
   list-style-type: none;
-  padding-left: 25px;
   margin-bottom: 10px;
+  padding-left: 25px;
 }
 
 .marketplace-highlights li {
@@ -161,50 +161,50 @@ table caption {
 }
 
 .mint {
-    color: #00b4db !important;
+  color: #00B4DB !important;
 }
 
 .near-mint {
-  color: #00dbb4 !important;
+  color: #00DBB4 !important;
 }
 
 .very-good-plus {
-  color: #00db1f !important;
+  color: #00DB1F !important;
 }
 
 .very-good {
-  color: #85ab11 !important;
+  color: #85AB11 !important;
 }
 
 .good-plus {
-  color: #f6bf48 !important;
+  color: #F6BF48 !important;
 }
 
 .good {
-  color: #d87307 !important;
+  color: #D87307 !important;
 }
 
 .fair {
-  color: #e54803 !important;
+  color: #E54803 !important;
 }
 
 .poor {
-  color: #ff0000 !important;
+  color: #FF0000 !important;
 }
 
-em {
-  color: white;
+em, p b {
   font-weight: bold;
+  color: white;
 }
 
 .sort-btn {
-  border-color: #3571a6 !important;
-  border-top-color: #3776ae !important;
-  border-bottom-color: #31699b !important;
-  background-color: #4588C4 !important;
-  color: white !important;
   padding: 5px;
+  background-color: #4588C4 !important;
+  border-color: #3571A6 !important;
+  border-top-color: #3776AE !important;
+  border-bottom-color: #31699B !important;
   border-radius: 3px;
+  color: white !important;
 }
 
 span.new {
@@ -212,15 +212,15 @@ span.new {
 }
 
 .prices {
-  max-width: 350px;
   display: block;
-  margin: 10px auto;
+  max-width: 350px;
+  margin: 15px auto;
 }
 
 .price-example {
-  max-width: 200px;
-  max-height: 200px;
   display: block;
+  max-height: 200px;
+  max-width: 200px;
   margin: 10px auto;
 }
 
@@ -229,7 +229,7 @@ span.new {
 }
 
 .beer:after {
-  content: '🍺';
+  content: "🍺";
 }
 
 .shortcuts {
@@ -237,8 +237,8 @@ span.new {
 }
 
 .short {
-  margin-bottom: 5px;
   display: inline-block;
+  margin-bottom: 5px;
 }
 
 .about p.short-title {
@@ -246,8 +246,9 @@ span.new {
   margin-top: -16px;
   margin-left: 5px;
   padding-top: 0;
-  vertical-align: middle;
   font-size: 15px;
+
+  vertical-align: middle;
 }
 
 .short-desc {
@@ -257,7 +258,7 @@ span.new {
 .short-link {
   height: 25px;
   width: 28px;
-  background: url(../img/about/shortcuts.png) 0px 0;
+  background: url(../img/about/shortcuts.png) 0 0;
   background-size: cover;
 }
 
