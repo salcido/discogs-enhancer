@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $('#notify').text(message);
 
-        $('.notifications').removeClass('hide');
+        $('.notifications').css({display:'block'}).delay(2000).fadeOut('slow');
       }
     });
 
@@ -168,9 +168,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
+      // if there is a saved value set the select with it
       if (result.prefs.userCurrency) {
         userCurrency.value = result.prefs.userCurrency;
 
+        // validation
         if (userCurrency.value !== '-' && togglePrices.checked === true) {
           userCurrency.disabled = true;
         }
@@ -405,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $('#notify').text('Please choose a currency from the select box first.');
 
-        $('.notifications').show();
+        $('.notifications').css({display:'block'}).delay(2000).fadeOut('slow');
 
         togglePrices.checked = false;
         userCurrency.className = 'alert';
