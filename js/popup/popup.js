@@ -705,7 +705,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return optionsHide( $('#contextMenus'), $('.toggle-group.menus'), prop );
   });
 
-
   /**
    *
    * FILTER BY CONDITION OPTIONS
@@ -731,7 +730,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     return optionsHide( $('.hide-items'), $('.toggle-group.condition'), prop );
   });
-
 
   /**
    *
