@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Checks extension for any recent updates
+   * Checks extension for any recent updates and sets
+   * the `about` button color if an update has occured
    *
    * @method   checkForUpdate
    * @return   {undefined}
@@ -601,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Validates that a value has been set for both selects in Filter By Country
+   * Validates that a value has been set for both selects in Filter Items By Country
    *
    * @method validateFilterByCountry
    * @return {String}
@@ -648,10 +649,6 @@ document.addEventListener('DOMContentLoaded', function () {
    * CONTEXTUAL MENU SEARCHING OPTIONS
    */
 
-// TODO make notification banner fade out after X seconds.
-
-// TODO ask donors/emailers if they want to be listed in 'about'
-
   $('.toggle-group.menus').click(function(event) {
 
     optionsToggle( $('#contextMenus'), $('.toggle-group.menus'), 155 );
@@ -669,7 +666,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * FILTER BY COUNTRY OPTIONS
+   * FILTER ITEMS BY COUNTRY OPTIONS
    */
 
   $('.toggle-group.country').click(function(event) {
@@ -678,7 +675,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  // Save the Filter By Country currency select value to localStorage
+  // Save the Filter Items By Country currency select value to localStorage
   $('#filterCountryCurrency').change(function() {
 
     let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
@@ -690,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Save the Filter By Country country select value to localStorage
+  // Save the Filter Items By Country country select value to localStorage
   $('#filterCountry').change(function() {
 
     let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));

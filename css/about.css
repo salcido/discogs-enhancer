@@ -211,10 +211,17 @@ span.new {
   color: red;
 }
 
-.prices {
+.max-width {
   display: block;
   max-width: 350px;
   margin: 15px auto;
+}
+
+.max-height {
+  display: block;
+  max-height: 350px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .price-example {
@@ -288,4 +295,12 @@ span.new {
   width: 28px;
   background: url(../img/about/shortcuts.png) -114px 0 no-repeat;
   background-size: cover;
+}
+
+.thanks ul {
+  margin: 0 auto;
+}
+
+.thanks li {
+  margin: 0 auto;
 }
