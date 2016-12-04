@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
    *
    * @method optionsToggle
    * @param  {object}    options     [the DOM element to display]
-   * @param  {object}    toggleGroup [the feature in the popup menu]
+   * @param  {object}    toggleGroup [the actual feature in the popup menu]
    * @param  {number}    height      [the height that `target` will expand to]
    * @return {undefined}
    */
@@ -213,8 +213,9 @@ document.addEventListener('DOMContentLoaded', function () {
           clearInterval(int);
         }
       }, 100);
-
-    } else if (event.target.nodeName !== 'INPUT' &&
+    }
+    // collapse
+    else if (event.target.nodeName !== 'INPUT' &&
                event.target.type !== 'checkbox' &&
                event.target.nodeName !== 'LABEL' &&
                event.target.nodeName !== 'SPAN' &&
@@ -425,17 +426,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
-   * Saves the user's currency
-   *
-   * @method   setCurrency
-   * @param    {Object}    event [The event object]
-   */
-
-  function setCurrency(event) { applySave(null, event); }
-
-
-  /**
-   * Enables/disables the CSS for filter by country
+   * Validates then enables/disables the CSS for Filter Items by Country
    *
    * @method toggleHideCountries
    * @param  {object}            event [the event object]
@@ -445,10 +436,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function toggleHideCountries(event) {
 
     let
-        currency = document.getElementById('filterCountryCurrency'),
         country = document.getElementById('filterCountry'),
+        currency = document.getElementById('filterCountryCurrency'),
         response = 'Please refresh the page for changes to take effect.';
 
+    // If everything checks out, enable filtering
     if (validateFilterByCountry() === 'valid' && event.target.checked) {
 
       currency.disabled = true;
@@ -463,8 +455,9 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       // Delay updating the UI so that Chrome has a change to write the new preference
-      setTimeout(function() { setCountryUiStatus(); }, 100);
+      setTimeout(function() { setCountryUiStatus(); }, 50);
 
+    // If everything checks out, disable filtering
     } else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
 
       currency.disabled = false;
@@ -479,8 +472,9 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       // Delay updating the UI so that Chrome has a change to write the new preference
-      setTimeout(function() { setCountryUiStatus(); }, 100);
+      setTimeout(function() { setCountryUiStatus(); }, 50);
 
+    // Everything is terrible
     } else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
 
       toggleFilterByCountry.checked = false;
@@ -710,7 +704,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
-  userCurrency.addEventListener('change', setCurrency);
+  userCurrency.addEventListener('change', function(){ applySave(null, event); });
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConditions.addEventListener('change', toggleHighlights);
