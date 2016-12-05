@@ -8,6 +8,10 @@
  *
  */
 // TODO add buttons to list comments $('.textedit_content')
+
+// TODO figure out why jQuery does not always get extended properly.
+// Sometimes this fails to execute because `getCursorPosition` and
+// `getSelectedText` are not part of jQuery's prototype
 $(document).ready(function() {
 
   // this timeout insures that this code executes after
