@@ -12,7 +12,8 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Dark theme
 * Everlasting Marketplace
 * Feedback Notifications
-* Filter Marketplace items
+* Filter Marketplace items by condition
+* Filter Marketplace items by country
 * Marketplace highlights
 * Notes counter
 * On-screen currency converter
@@ -44,10 +45,15 @@ More results are automatically loaded once you reach the bottom of the Marketpla
 ### Feedback Notifications
 The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
 
-### Filter Marketplace items
+### Filter Marketplace items by condition
 This will filter out all items in the Marketplace that are below a specified condition.
 
 For instance, if you select "Near Mint", only Mint and Near Mint condition items will be shown. If you select "Very Good", only Mint, Near Mint, Very Good Plus, and Very Good items will be shown (etc...).
+
+### Filter Marketplace items by country
+This will filter out all items in the Marketplace that are not from a specified country when using a specified Currency Filter.
+
+For instance, when filtering with USD, only items in USD and located in the United States will be shown.
 
 ### Highlight release conditions in the Marketplace
 Easily see at a glance which items are in the best condition.

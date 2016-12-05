@@ -632,6 +632,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+
   // Open block sellers page
   $('body').on('click', '#editList', function() {
 
