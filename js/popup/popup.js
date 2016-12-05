@@ -405,7 +405,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         applySave(response, event);
 
-      } else if (userCurrency.value === '-') {
+      }
+
+    else if (userCurrency.value === '-') {
 
         $('#notify').text('Please choose a currency from the select box first.');
 
@@ -456,9 +458,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Delay updating the UI so that Chrome has a change to write the new preference
       setTimeout(function() { setCountryUiStatus(); }, 50);
-
+    }
     // If everything checks out, disable filtering
-    } else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
+    else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
 
       currency.disabled = false;
       currency.className = '';
@@ -473,9 +475,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Delay updating the UI so that Chrome has a change to write the new preference
       setTimeout(function() { setCountryUiStatus(); }, 50);
-
+    }
     // Everything is terrible
-    } else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
+    else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
 
       toggleFilterByCountry.checked = false;
 
