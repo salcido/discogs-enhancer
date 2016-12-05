@@ -40,6 +40,7 @@ p {
   text-transform: uppercase;
   word-spacing: 2px;
   cursor: default;
+  user-select: none;
   transition: all 0.3s ease;
 }
 
