@@ -1,13 +1,15 @@
-// setTimeout is used here to delay the loading of this code
-// so that jQuery has had time to be loaded into the browser.
-setTimeout(function() {
+// Extend jQuery to include these methods for
+// various Discogs Enhancer features. Currently, it's just
+// used in text-format-shortcuts
 
+$.fn.extend({
   /**
    * Gets the cursor position from an input element
    *
-   * @return {object}
+   * @return {number}
    */
-  $.fn.getCursorPosition = function () {
+
+  getCursorPosition: function () {
 
     let el = $(this)[0],
         pos = 0;
@@ -18,14 +20,15 @@ setTimeout(function() {
     }
 
     return pos;
-  };
+  },
 
   /**
    * Gets the selected text from an input/textarea
    *
    * @return   {string}
    */
-  $.fn.getSelectedText = function() {
+
+  getSelectedText: function() {
 
     let sSelectedText = '';
 
@@ -39,7 +42,7 @@ setTimeout(function() {
     }
 
     return sSelectedText;
-  };
+  },
 
   /**
    * Inserts the cursor at a specific location inside
@@ -47,9 +50,10 @@ setTimeout(function() {
    *
    * @param    {string} start [The start position]
    * @param    {string} end   [The end position]
-   * @return   {undefined}
+   * @return   {method}
    */
-  $.fn.selectRange = function(start, end) {
+
+  selectRange: function(start, end) {
 
     if (end === undefined) {
 
@@ -68,5 +72,5 @@ setTimeout(function() {
         this.setSelectionRange(start, end);
       }
     });
-  };
-}, 100);
+  }
+});

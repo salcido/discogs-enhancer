@@ -7,11 +7,14 @@
  * @github: https://github.com/salcido
  *
  */
+
 // TODO add buttons to list comments $('.textedit_content')
 
+// TODO move appending functionality into a method so it can be called
+// via reply links/events in comments, etc.
+
 // TODO figure out why jQuery does not always get extended properly.
-// Sometimes this fails to execute because `getCursorPosition` and
-// `getSelectedText` are not part of jQuery's prototype
+
 $(document).ready(function() {
 
   // this timeout insures that this code executes after
