@@ -113,7 +113,7 @@ $(document).ready(function() {
           type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
 
       $.ajax({
-        url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.parseURL(href),
+        url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.removePageParam(href),
         type: 'GET',
         success: function(res) {
 
