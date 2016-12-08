@@ -1,3 +1,7 @@
+/*
+ TODO: Please stop being lazy and rewrite this garbage.
+       You can probably get it down to half its current size.
+ */
 *:not(select) {
   background-color: transparent !important;
   border-color: transparent !important;
