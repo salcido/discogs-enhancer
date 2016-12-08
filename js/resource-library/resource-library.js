@@ -593,38 +593,29 @@
        }
      },
 
-     /**
-      * Parses the page url in order to remove any '&page='
-      * query params.
-      *
-      * @param    {string} url [current page URL]
-      * @return   {string}
-      */
+    /**
+    * Parses the URL passed into it and
+    * returns the release/master/artist/forum
+    * number.
+    *
+    * @param    {string} url [the URL passed into the function]
+    * @return   {string} num [the parsed id number]
+    */
 
-     parseURL: function(url) {
+    parseURL: function(url) {
 
-       let params;
+      let urlArr = url.split('/'),
+          num = urlArr[urlArr.length - 1];
 
-         if (url.indexOf('?') > -1) {
-
-           let page = /page=/g;
-
-           params = url.split('?')[1].split('&');
-
-           params.forEach(function(param) {
-
-             let target;
-
-             if (param.match(page)) {
-
-               target = params.indexOf(param);
-
-               params.splice(target, 1);
-             }
-         });
+      if (num.indexOf('-') > -1) {
+        num = num.split('-')[0];
       }
 
-      return params && params.length ? '&' + params.join('&') : '';
+      if (num.indexOf('?') > -1) {
+        num = num.split('?')[0];
+      }
+
+      return num;
     },
 
     /**
@@ -665,6 +656,40 @@
 
       ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$']
     },
+
+    /**
+     * Parses the page url in order to remove any '&page='
+     * query params.
+     *
+     * @param    {string} url [current page URL]
+     * @return   {string}
+     */
+
+    removePageParam: function(url) {
+
+      let params;
+
+        if (url.indexOf('?') > -1) {
+
+          let page = /page=/g;
+
+          params = url.split('?')[1].split('&');
+
+          params.forEach(function(param) {
+
+            let target;
+
+            if (param.match(page)) {
+
+              target = params.indexOf(param);
+
+              params.splice(target, 1);
+            }
+        });
+     }
+
+     return params && params.length ? '&' + params.join('&') : '';
+   },
 
     /**
      * Strips currency symbol from prices

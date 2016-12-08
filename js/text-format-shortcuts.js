@@ -71,31 +71,6 @@ $(document).ready(function() {
                       '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
                     '</div>';
 
-      /**
-      * Parses the URL passed into it and
-      * returns the release/master/artist/forum
-      * number.
-      *
-      * @param    {string} url [the URL passed into the function]
-      * @return   {string} num [the parsed id number]
-      */
-
-      function parseURL(url) {
-
-       let urlArr = url.split('/'),
-           num = urlArr[urlArr.length - 1];
-
-       if (num.indexOf('-') > -1) {
-         num = num.split('-')[0];
-       }
-
-       if (num.indexOf('?') > -1) {
-         num = num.split('?')[0];
-       }
-
-       return num;
-      }
-
       // Inject buttons into DOM
       $(markup).insertAfter( $('textarea') );
 
@@ -168,7 +143,7 @@ $(document).ready(function() {
           // artists
           case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
 
-              let artist = parseURL(link);
+              let artist = resourceLibrary.parseURL(link);
 
               syntax = '[a' + artist + ']';
               break;
@@ -182,7 +157,7 @@ $(document).ready(function() {
           // labels
           case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
 
-              let label = parseURL(link);
+              let label = resourceLibrary.parseURL(link);
 
               syntax = '[l' + label + ']';
               break;
@@ -190,7 +165,7 @@ $(document).ready(function() {
           // masters
           case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
 
-              let master = parseURL(link);
+              let master = resourceLibrary.parseURL(link);
 
               syntax = '[m' + master + ']';
               break;
@@ -198,7 +173,7 @@ $(document).ready(function() {
           // releases
           case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
 
-              let release = parseURL(link);
+              let release = resourceLibrary.parseURL(link);
 
               syntax = '[r' + release + ']';
               break;
@@ -206,7 +181,7 @@ $(document).ready(function() {
           // topics
           case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
 
-              let topic = parseURL(link);
+              let topic = resourceLibrary.parseURL(link);
 
               syntax = '[t=' + topic + ']';
               break;
