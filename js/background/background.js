@@ -96,7 +96,6 @@ chrome.storage.sync.get('prefs', function(result) {
   // jQuery
   jQ = document.createElement('script');
   jQ.type = 'text/javascript';
-  jQ.async = true;
   jQ.className = 'de-init';
   jQ.src = chrome.extension.getURL('js/jquery/jquery-min.js');
 
@@ -291,7 +290,6 @@ chrome.storage.sync.get('prefs', function(result) {
     let extensions = document.createElement('script');
 
     extensions.type = 'text/javascript';
-    extensions.async = true;
     extensions.className = 'de-init';
     extensions.src = chrome.extension.getURL('js/jquery/extensions.js');
 
