@@ -41,34 +41,6 @@
     localStorage.setItem('options', options);
   }
 
-
-  // Remove old feedbackObj so that it can be re-instantiated
-  // with the updated feedback-notifier script
-  let feedback = JSON.parse(localStorage.getItem('feedbackObj'));
-
-  if (feedback && (feedback.buyer.posDiff instanceof Array || feedback.seller.posDiff instanceof Array) ) {
-
-    console.log('deleting deprecated feedbackObj');
-
-    localStorage.removeItem('feedbackObj');
-  }
-
-
-  // Remove old localStorage items if they exist
-  // TODO remove this later
-  if (localStorage.getItem('converterLastUpdate')) {
-
-    localStorage.removeItem('analytics');
-    localStorage.removeItem('colorize');
-    localStorage.removeItem('debug');
-    localStorage.removeItem('threshold');
-    localStorage.removeItem('unitTests');
-    localStorage.removeItem('currency');
-    localStorage.removeItem('rates');
-    localStorage.removeItem('converterLastUpdate');
-  }
-
-
   window.resourceLibrary = {
 
     /**
