@@ -2,7 +2,7 @@
 // various Discogs Enhancer features. Currently, it's just
 // used in text-format-shortcuts
 let extensions = setInterval(function() {
-console.log('hi')
+
   $.fn.extend({
     /**
      * Gets the cursor position from an input element

@@ -216,10 +216,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // collapse
     else if (event.target.nodeName !== 'INPUT' &&
-               event.target.type !== 'checkbox' &&
-               event.target.nodeName !== 'LABEL' &&
-               event.target.nodeName !== 'SPAN' &&
-               event.target.nodeName !== 'SELECT') {
+             event.target.type !== 'checkbox' &&
+             event.target.nodeName !== 'LABEL' &&
+             event.target.nodeName !== 'SPAN' &&
+             event.target.nodeName !== 'SELECT') {
 
       options.fadeOut('fast');
 
