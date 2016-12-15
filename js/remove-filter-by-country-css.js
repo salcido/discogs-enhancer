@@ -2,7 +2,7 @@
  *
  * Discogs Enhancer
  *
- * @author: Matthew Salcido (c) 2016
+ * @author: Matthew Salcido
  * @url: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
