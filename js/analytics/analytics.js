@@ -1,3 +1,13 @@
+/**
+ *
+ * Discogs Enhancer
+ *
+ * @author: Matthew Salcido
+ * @website: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ *
+ */
+
 let analytics = localStorage.getItem('analytics') || true;
 
 analytics = JSON.parse(analytics);
