@@ -136,14 +136,9 @@ chrome.storage.sync.get('prefs', function(result) {
   // Stick it in
   appendFragment(initElems);
 
-
-  /*
-   *
-   * /////////////////////
-   * User Preferences
-   * /////////////////////
-   *
-   */
+  // ========================================================
+  // User Preferences
+  // ========================================================
 
   // TODO: alphabetize these if statements
 
@@ -443,13 +438,9 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(hideItems);
 
-  /*
-   *
-   * ////////////////////////
-   * Contextual Menu Options
-   * ////////////////////////
-   *
-   */
+  // ========================================================
+  // Contextual Menu Options
+  // ========================================================
 
   if (result.prefs.useBandcamp) {
 
@@ -650,13 +641,9 @@ chrome.storage.sync.get('prefs', function(result) {
   }, 100);
 });
 
-/*
- *
- * ////////////////////////////
- * Install/Update Notifications
- * ////////////////////////////
- *
- */
+// ========================================================
+// Install/Update Notifications
+// ========================================================
 
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
@@ -698,13 +685,9 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
   });
 }
 
-/*
- *
- * /////////////////////
- * Analytics Option
- * /////////////////////
- *
- */
+// ========================================================
+// Analytics Option
+// ========================================================
 
 checkForAnalytics = setInterval(function() {
 
@@ -740,18 +723,11 @@ checkForAnalytics = setInterval(function() {
 /* Clean up on asile 7! */
 window.onload = function() { $('.de-init').remove(); };
 
-/*
- *
- * /////////////////////
- * Get preferences from
- * extension side and
- * save to DOM side.
- * /////////////////////
- *
- */
 
-// Get current list of blocked sellers, marketplace item conditions
-// from the upside down.
+// ========================================================
+// Get preferences from extension side and save to DOM side.
+// ========================================================
+
 try {
 
   // Tag/Hide sellers
