@@ -78,9 +78,8 @@ let extensions = setInterval(function() {
 
   // jQuery just will not reliably extend and I'm not sure why. So, keep executing this
   // script until the prototype contains these new methods.
-  // For the love of God, why does this not properly extend jQuery?!
   if (!!$.prototype.getCursorPosition && !!$.prototype.getSelectedText) {
-    console.info('cleared extensions setInterval', !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText);
+
     clearInterval(extensions);
   }
 }, 300);
