@@ -223,5 +223,5 @@ $(document).ready(function() {
         textarea.focus().change();
       });
     }
-  }, 1000);
+  }, 500);
 });
