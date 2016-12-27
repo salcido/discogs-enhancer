@@ -9,6 +9,9 @@
  */
 
 // TODO: Similar logic for CD/Digital releases?
+// TODO: https://www.discogs.com/Deepchord-dc07dc08dc09-remastered/release/4353196
+//       https://www.discogs.com/Max-Graef-Band-Dog-/release/7837490
+//       https://www.discogs.com/Jonny-L-This-Time-EP/release/33431
 $(document).ready(function() {
 
   let
@@ -27,11 +30,7 @@ $(document).ready(function() {
   if (hasNoHeadings && listLength && isVinyl) {
 
     let tracklist = $('.playlist tbody tr'),
-        trackpos = $('.tracklist_track_pos').map(function() {
-          if ($(this).text().length >= 1 && $(this).text().length < 4) {
-            return $(this).text();
-          }
-        });
+        trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
 
     trackpos.each(function(i, tpos) {
 
