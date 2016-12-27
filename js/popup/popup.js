@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
+      toggleReadability = document.getElementById('toggleReadability'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
       hideMarketplaceItems: hideMarketplaceItems.value,
       notesCount: toggleNotesCount.checked,
       sortButtons: toggleSortBtns.checked,
+      readability: toggleReadability.checked,
       releaseDurations: toggleReleaseDurations.checked,
       collectionUi: toggleCollectionUi.checked,
       suggestedPrices: togglePrices.checked,
@@ -613,13 +615,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /**
-   *
-   * //////////////////////////////
-   * UI functionality
-   * //////////////////////////////
-   *
-   */
+  // ========================================================
+  // UI Functionality
+  // ========================================================
 
   // Open the about page
   $('body').on('click', '#about', function() {
@@ -697,13 +695,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  /**
-   *
-   * //////////////////////////////
-   * Event listeners
-   * //////////////////////////////
-   *
-   */
+  // ========================================================
+  // Event listeners
+  // ========================================================
 
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
@@ -717,6 +711,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCountry.addEventListener('change', toggleHideCountries);
   toggleNotesCount.addEventListener('change', triggerSave);
+  toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
@@ -765,6 +760,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
       toggleNotesCount.checked = result.prefs.notesCount;
+      toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleShortcuts.checked = result.prefs.formatShortcuts;
       toggleSortBtns.checked = result.prefs.sortButtons;

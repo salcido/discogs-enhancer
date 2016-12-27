@@ -81,7 +81,8 @@
       "js/suggested-prices-release-page.js",
       "js/suggested-prices-single.js",
       "js/tests/unit-tests.js",
-      "js/text-format-shortcuts.js"
+      "js/text-format-shortcuts.js",
+      "js/tracklist-readability.js"
     ],
 
     "icons": {

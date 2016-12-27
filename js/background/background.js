@@ -63,6 +63,7 @@ chrome.storage.sync.get('prefs', function(result) {
       highlightMedia: true,
       hideMarketplaceItems: null,
       notesCount: true,
+      readability: false,
       releaseDurations: true,
       sortButtons: true,
       suggestedPrices: false,
@@ -245,6 +246,18 @@ chrome.storage.sync.get('prefs', function(result) {
     options.className = 'de-init';
 
     elems.push(options);
+  }
+
+  if (result.prefs.readability) {
+
+    // filter-by-country.js
+    let readability = document.createElement('script');
+
+    readability.type = 'text/javascript';
+    readability.src = chrome.extension.getURL('js/tracklist-readability.js');
+    readability.className = 'de-init';
+
+    elems.push(readability);
   }
 
   if (result.prefs.releaseDurations) {
