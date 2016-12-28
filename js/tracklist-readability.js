@@ -34,11 +34,19 @@ $(document).ready(function() {
 
     trackpos.each(function(i, tpos) {
 
-      // if the next track begins with a different letter
-      // (ie: A1, A2, B - where B is the next track) insert the spacer
-      if ( trackpos[i + 1] && tpos[0] !== trackpos[i + 1][0] ) {
+      //console.log(tpos.match(/\d+/g))
+      try {
 
-        $(spacer).insertAfter(tracklist[i]);
+        // if the next track's number is less than the current tracks number (ie: A2, B1 ...)
+        if ( trackpos[i + 1].match(/\d+/g) < tpos.match(/\d+/g) ||
+             // or the current track has no number and the next one does (ie: A, B1, ...)
+             !tpos.match(/\d+/g) && trackpos[i + 1].match(/\d+/g) ) {
+
+          $(spacer).insertAfter(tracklist[i]);
+        }
+      } catch (e) {
+
+        console.log(e);
       }
     });
   }
