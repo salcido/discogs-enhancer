@@ -10,8 +10,8 @@
 
 // TODO: Similar logic for CD/Digital releases?
 // TODO: https://www.discogs.com/Deepchord-dc07dc08dc09-remastered/release/4353196
-//       https://www.discogs.com/Max-Graef-Band-Dog-/release/7837490
-//       https://www.discogs.com/Jonny-L-This-Time-EP/release/33431
+//       https://www.discogs.com/Various-Crosswalk-Volume-01/release/7315950
+
 $(document).ready(function() {
 
   let
