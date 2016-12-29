@@ -9,133 +9,168 @@
  */
 
 // TODO: Similar logic for CD/Digital releases?
-// TODO: add Show/Hide readability dividers link
-// TODO: add check for release, master pages
-// TODO:
-// https://www.discogs.com/Godspeed-You-Black-Emperor-Lift-Your-Skinny-Fists-Like-Antennas-To-Heaven/release/74260?ev=rr
+// TODO: Add config option to insert spacer between all sides regardless of numeration
+
+// Examples:
+// https://www.discogs.com/STL-Night-Grooves/release/1121308
+// https://www.discogs.com/Prince-Of-Denmark-8/release/9401170
 // https://www.discogs.com/Various-Crosswalk-Volume-01/release/7315950
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
 
 $(document).ready(function() {
 
-  let
-      // don't insert dividers if headings already exist.
-      // using 1 or less because of possible inclusion of track durations feature
-      hasNoHeadings = $('.track_heading').length <= 1,
+  if (document.location.href.indexOf('/release/') > -1) {
 
-      hasNoIndexTracks = $('.index_track').length === 0,
+    let
+        // don't insert spacers if headings or index tracks already exist.
+        // using 1 or less because of possible inclusion of track durations feature
+        noHeadingsOrIndex = $('.track_heading').length <= 1 && $('.index_track').length === 0,
 
-      // only insert dividers if there are more than 6 tracks
-      listLength = $('.playlist tbody tr').length > 6,
+        // only insert spacers if there are more than n tracks
+        // TODO: value is user definable?
+        listLength = $('.playlist tbody tr').length > 8,
 
-      isVinyl = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 || false,
+        isVinyl = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1,
 
-      // Compilations have different markup requirements when rendering track headings...
-      isCompilation = $('.tracklist_track_artists').length > 0,
+        // Compilations have different markup requirements when rendering track headings...
+        isCompilation = $('.tracklist_track_artists').length > 0,
 
-      tracklist = $('.playlist tbody tr'),
+        // ...so only insert the duration markup if it's a compilation
+        duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
 
-      prefix = [],
-      sequence = [],
-      isSequential = false,
+        // jQ object of all tracks on a release
+        tracklist = $('.playlist tbody tr'),
 
-      // ...so only insert the duration markup if it's a compilation
-      duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
-      spacer = '<tr class="tracklist_track track_heading"><td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' + duration + '</tr>';
+        prefix = [],
+        sequence = [],
+        isSequential = false,
 
-  /**
-   * Looks at an array and determins if it's has
-   * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
-   *
-   * It's designed to suit tracklists that have positions like:
-   * A1, A2, B3, B4, B5, C6, C7, C8 ...
-   *
-   * @method hasContinualNumberSequence
-   * @param  {array} arr [the array to iterate over]
-   * @return {Boolean}
-   */
-  function hasContinualNumberSequence(arr) {
+        prefs = JSON.parse(localStorage.getItem('readability')),
+        display = prefs ? '' : 'style="display:none;"',
+        spacer = '<tr class="tracklist_track track_heading de-spacer" ' + display + '><td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' + duration + '</tr>',
+        trigger = prefs ? '<a class="smallish fright de-spacer-trigger">Hide Readability</a>' : '<a class="smallish fright de-spacer-trigger">Show Readability</a>';
 
-    let count = 0;
+    /**
+     * Looks at an array and determines if it has
+     * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
+     *
+     * It's designed to suit tracklists that have positions like:
+     * A1, A2, B3, B4, B5, C6, C7, C8 ...
+     *
+     * @method hasContinualNumberSequence
+     * @param  {array} arr [the array to iterate over]
+     * @return {Boolean}
+     */
+    function hasContinualNumberSequence(arr) {
 
-    arr.forEach((num, i) => {
+      let count = 0;
 
-      if (num === i + 1) { count++; }
-    });
+      arr.forEach((num, i) => {
 
-    return count === arr.length ? true : false;
-  }
+        if (num === i + 1) { count++; }
+      });
 
-  /**
-   * Looks at an array and inserts some markup when the next
-   * index of the array differs from the current index.
-   *
-   * It's designed to find the differences in sides on a
-   * tracklist like: A1, A2, *insert html here* B1, B2
-   *
-   * @method alphabeticalBreaks
-   * @param  {array} arr [the array to iterate over]
-   * @return {undefined}
-   */
-  function alphabeticalBreaks(arr) {
+      return count === arr.length ? true : false;
+    }
 
-    arr.forEach((letter, i) => {
+    /**
+     * Looks at an array and inserts some markup when the next
+     * index of the array differs from the current index.
+     *
+     * It's designed to find the differences in sides on a
+     * tracklist like: A1, A2, *insert html here* B1, B2
+     *
+     * @method alphabeticalBreaks
+     * @param  {array} arr [the array to iterate over]
+     * @return {undefined}
+     */
+    function alphabeticalBreaks(arr) {
 
-      if ( tracklist[i + 1] && arr[i] !== arr[i + 1] ) {
+      arr.forEach((letter, i) => {
 
-        $(spacer).insertAfter(tracklist[i]);
-      }
-    });
-  }
+        if ( tracklist[i + 1] && arr[i] !== arr[i + 1] ) {
 
-  // Draxx them sklounst
-  if (hasNoHeadings && hasNoIndexTracks && listLength && isVinyl) {
+          $(spacer).insertAfter(tracklist[i]);
+        }
+      });
+    }
 
-    let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
+    // Draxx them sklounst
+    if (noHeadingsOrIndex && listLength && isVinyl) {
 
-    // Populate our arrays with whatever the prefix is and the remaining numbers
-    trackpos.each(function(i, tpos) {
+      let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
 
-      //console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
+      // **********************
+      // UI functionality
+      // **********************
 
-      prefix.push(String(tpos.match(/\D/g)));
-      sequence.push(Number(tpos.match(/\d+/g)));
-    });
+      // Append trigger element
+      $('#tracklist .group').append(trigger);
 
-    isSequential = hasContinualNumberSequence(sequence);
+      // Trigger functionality
+      $('.de-spacer-trigger').on('click', function() {
 
-    if (isSequential) {
+        if ($('.de-spacer').is(':visible')) {
 
-      // if the numbering is sequential, use the alpha-prefixes to
-      // determin where to insert the spacer markup
-      return alphabeticalBreaks(prefix);
+          $(this).text('Show Readability');
+          localStorage.setItem('readability', false);
 
-    } else {
+        } else {
 
-      try {
+          $(this).text('Hide Readability');
+          localStorage.setItem('readability', true);
+        }
 
-        trackpos.each(function(i, tpos) {
-          // if the next track's number is less than the current tracks number (ie: A2, B1 ...)
-          if ( trackpos[i + 1].match(/\d+/g) < tpos.match(/\d+/g) ||
-               // or the current track has no number and the next one does (ie: A, B1, ...)
-               !tpos.match(/\d+/g) && trackpos[i + 1].match(/\d+/g) ) {
+        $('.de-spacer').toggle('fast');
+      });
 
-            $(spacer).insertAfter(tracklist[i]);
-          }
-        });
-      } catch (e) {
-        // just catch the errors and don't throw them
+      // Populate our arrays with whatever the prefix is and the remaining numbers
+      trackpos.each(function(i, tpos) {
+
+        // console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
+
+        prefix.push(String(tpos.match(/\D/g)));
+        sequence.push(Number(tpos.match(/\d+/g)));
+      });
+
+      isSequential = hasContinualNumberSequence(sequence);
+
+      if (isSequential) {
+
+        // if the numbering is sequential, use the alpha-prefixes to
+        // determin where to insert the spacer markup
+        return alphabeticalBreaks(prefix);
+
+      } else {
+
+        try {
+
+          trackpos.each(function(i) {
+
+            let current = Number(trackpos[i].match(/\d+/g)),
+                next = Number(trackpos[i + 1].match(/\d+/g));
+
+            // if the next track's number is less than the current tracks number (ie: A2, B1 ...)
+            // or the current track has no number and the next one does (ie: A, B1, ...)
+            if ( next < current || !current && next ) {
+
+              $(spacer).insertAfter(tracklist[i]);
+            }
+          });
+        } catch (e) {
+          // just catch the errors; don't throw them
+        }
       }
     }
   }
 });
 
 
-// Insert dividers between every different side:
+// Insert spacers between every different side:
 // TODO: make this an option
 /*
 
-  if (hasNoHeadings && listLength && isVinyl) {
+  if (noHeadingsOrIndex && listLength && isVinyl) {
 
     let tracklist = $('.playlist tbody tr'),
         // array of strings (ie: ["A1", "A2", "B1", "B2" ...])
