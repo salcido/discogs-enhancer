@@ -159,12 +159,6 @@ $(document).ready(function() {
     }
 
     // =======================================
-    // Turn back! All ye who have multiple formats!
-    // =======================================
-
-    if ($('.profile .head').eq(1).next().children('a').length > 1) { return; }
-
-    // =======================================
     // UI functionality
     // =======================================
 
