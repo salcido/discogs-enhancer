@@ -11,6 +11,8 @@
 // TODO: Add config option to insert spacer between all sides regardless of numeration
 // TODO: create config object
 // TODO: check for multiple formats and default to nth?
+// fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
+
 
 // Examples:
 // https://www.discogs.com/STL-Night-Grooves/release/1121308
@@ -157,28 +159,42 @@ $(document).ready(function() {
     }
 
     // =======================================
+    // Turn back! All ye who have multiple formats!
+    // =======================================
+
+    if ($('.profile .head').eq(1).next().children('a').length > 1) { return; }
+
+    // =======================================
     // UI functionality
     // =======================================
 
-    // Append trigger element
-    $('#tracklist .group').append(trigger);
+    /**
+     * Appends the show/hide dividers trigger
+     *
+     * @return {undefined}
+     */
+    function appendUI() {
 
-    // Trigger functionality
-    $('.de-spacer-trigger').on('click', function() {
+      $('#tracklist .group').append(trigger);
 
-      if ($('.de-spacer').is(':visible')) {
+      // Trigger functionality
+      $('.de-spacer-trigger').on('click', function() {
 
-        $(this).text('Show Dividers ');
-        localStorage.setItem('readability', false);
+        if ($('.de-spacer').is(':visible')) {
 
-      } else {
+          $(this).text('Show Dividers ');
+          localStorage.setItem('readability', false);
 
-        $(this).text('Hide Dividers ');
-        localStorage.setItem('readability', true);
-      }
+        } else {
 
-      $('.de-spacer').toggle('fast');
-    });
+          $(this).text('Hide Dividers ');
+          localStorage.setItem('readability', true);
+        }
+
+        $('.de-spacer').toggle('fast');
+      });
+    }
+
 
     // =======================================
     // DOM manipulation
@@ -200,6 +216,7 @@ $(document).ready(function() {
       });
 
       isSequential = hasContinualNumberSequence(sequence);
+      appendUI();
 
       if (isSequential) {
 
@@ -217,6 +234,7 @@ $(document).ready(function() {
     // Non-sided releases (Digital, CD, etc...)
     if (noHeadingsOrIndex && playlistLength > singleSidedThreshold && !isMultiSided) {
 
+      appendUI();
       insertSpacersEveryNth(tracklist, 5);
     }
   }
