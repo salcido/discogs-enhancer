@@ -10,12 +10,14 @@
 
 // TODO: Similar logic for CD/Digital releases?
 // TODO: Add config option to insert spacer between all sides regardless of numeration
+// TODO: fix https://www.discogs.com/Joey-Negro-Universe-Of-Love/release/68453
 
 // Examples:
 // https://www.discogs.com/STL-Night-Grooves/release/1121308
 // https://www.discogs.com/Prince-Of-Denmark-8/release/9401170
 // https://www.discogs.com/Various-Crosswalk-Volume-01/release/7315950
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
+// https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
 
 $(document).ready(function() {
 
@@ -30,7 +32,9 @@ $(document).ready(function() {
         // TODO: value is user definable?
         listLength = $('.playlist tbody tr').length > 8,
 
-        isVinyl = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1,
+        // Vinyl, casettes ...
+        isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
+                       $('.profile').html().indexOf('/search/?format_exact=Cassette') > -1,
 
         // Compilations have different markup requirements when rendering track headings...
         isCompilation = $('.tracklist_track_artists').length > 0,
@@ -80,15 +84,18 @@ $(document).ready(function() {
      * It's designed to find the differences in sides on a
      * tracklist like: A1, A2, *insert html here* B1, B2
      *
-     * @method alphabeticalBreaks
+     * @method insertSpacersUsingAlphabet
      * @param  {array} arr [the array to iterate over]
      * @return {undefined}
      */
-    function alphabeticalBreaks(arr) {
+    function insertSpacersUsingAlphabet(arr) {
 
       arr.forEach((letter, i) => {
 
-        if ( tracklist[i + 1] && arr[i] !== arr[i + 1] ) {
+        let current = arr[i],
+            next = arr[i + 1];
+
+        if ( next && current !== next ) {
 
           $(spacer).insertAfter(tracklist[i]);
         }
@@ -96,7 +103,7 @@ $(document).ready(function() {
     }
 
     // Draxx them sklounst
-    if (noHeadingsOrIndex && listLength && isVinyl) {
+    if (noHeadingsOrIndex && listLength && isMultiSided) {
 
       let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
 
@@ -139,7 +146,7 @@ $(document).ready(function() {
 
         // if the numbering is sequential, use the alpha-prefixes to
         // determin where to insert the spacer markup
-        return alphabeticalBreaks(prefix);
+        return insertSpacersUsingAlphabet(prefix);
 
       } else {
 
@@ -152,7 +159,8 @@ $(document).ready(function() {
 
             // if the next track's number is less than the current tracks number (ie: A2, B1 ...)
             // or the current track has no number and the next one does (ie: A, B1, ...)
-            if ( next < current || !current && next ) {
+            // (also check for 0 value which may be returned when a track is simply listed as A, B, C, etc ...)
+            if ( next <= current && current !== 0 || !current && next ) {
 
               $(spacer).insertAfter(tracklist[i]);
             }
@@ -170,7 +178,7 @@ $(document).ready(function() {
 // TODO: make this an option
 /*
 
-  if (noHeadingsOrIndex && listLength && isVinyl) {
+  if (noHeadingsOrIndex && listLength && isMultiSided) {
 
     let tracklist = $('.playlist tbody tr'),
         // array of strings (ie: ["A1", "A2", "B1", "B2" ...])
