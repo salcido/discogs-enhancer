@@ -9,8 +9,7 @@
  */
 
 // TODO: Add config option to insert spacer between all sides regardless of numeration
-// TODO: create config object
-// TODO: check for multiple formats and default to nth?
+
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
 
 
@@ -26,6 +25,8 @@ $(document).ready(function() {
   if (document.location.href.indexOf('/release/') > -1) {
 
     let
+        config = JSON.parse(localStorage.getItem('readability')) || setDefaultConfig(),
+
         // don't insert spacers if headings or index tracks already exist.
         // using 1 or less because of possible inclusion of track durations feature
         noHeadingsOrIndex = $('.track_heading').length < 1 && $('.index_track').length === 0,
@@ -37,9 +38,6 @@ $(document).ready(function() {
         // Vinyl, casettes ...
         isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
                        $('.profile').html().indexOf('/search/?format_exact=Cassette') > -1,
-
-        multiSidedThreshold = 8,
-        singleSidedThreshold = 15,
 
         // Compilations have different markup requirements when rendering track headings...
         isCompilation = $('.tracklist_track_artists').length > 0,
@@ -54,10 +52,26 @@ $(document).ready(function() {
         sequence = [],
         isSequential = false,
 
-        prefs = JSON.parse(localStorage.getItem('readability')),
+        prefs = JSON.parse(localStorage.getItem('readability')).show,
         display = prefs ? '' : 'style="display:none;"',
         spacer = '<tr class="tracklist_track track_heading de-spacer" ' + display + '><td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' + duration + '</tr>',
         trigger = prefs ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>' : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
+
+    // Set default config object if not present
+    function setDefaultConfig() {
+
+      let defaults = {
+            otherMediaReadability: true,
+            otherMediaThreshold: 15,
+            show: true,
+            vcReadability: true,
+            vcThreshold: 8
+          };
+
+      localStorage.setItem('readability', JSON.stringify(defaults));
+
+      return JSON.parse(localStorage.getItem('readability'));
+    }
 
     /**
      * Looks at an array and determines if it has
@@ -174,28 +188,31 @@ $(document).ready(function() {
       // Trigger functionality
       $('.de-spacer-trigger').on('click', function() {
 
+        config = JSON.parse(localStorage.getItem('readability'));
+
         if ($('.de-spacer').is(':visible')) {
 
-          $(this).text('Show Dividers ');
-          localStorage.setItem('readability', false);
+          $(this).text('Show Dividers');
+          config.show = false;
 
         } else {
 
-          $(this).text('Hide Dividers ');
-          localStorage.setItem('readability', true);
+          $(this).text('Hide Dividers');
+          config.show = true;
         }
 
         $('.de-spacer').toggle('fast');
+
+        localStorage.setItem('readability', JSON.stringify(config));
       });
     }
-
 
     // =======================================
     // DOM manipulation
     // =======================================
 
     // Vinyl and cassettes
-    if (noHeadingsOrIndex && playlistLength > multiSidedThreshold && isMultiSided) {
+    if (noHeadingsOrIndex && playlistLength > config.vcThreshold && isMultiSided && config.vcReadability) {
 
       // Get the track positions from the playlist
       let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
@@ -226,7 +243,7 @@ $(document).ready(function() {
     }
 
     // Non-sided releases (Digital, CD, etc...)
-    if (noHeadingsOrIndex && playlistLength > singleSidedThreshold && !isMultiSided) {
+    if (noHeadingsOrIndex && playlistLength > config.otherMediaThreshold && !isMultiSided && config.otherMediaReadability) {
 
       appendUI();
       insertSpacersEveryNth(tracklist, 5);
@@ -234,13 +251,6 @@ $(document).ready(function() {
   }
 });
 
-// config object
-// {
-//   vcThreshold: 8,
-//   otherMediaThreshold: 15,
-//   vcReadability: true,
-//   otherMediaReadability: true,
-// }
 
 // Insert spacers between every different side:
 // TODO: make this an option
