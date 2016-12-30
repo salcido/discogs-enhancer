@@ -1,0 +1,55 @@
+/* About Page Styles */
+
+body {
+  background-color: #313335;
+}
+
+h1,
+h2,
+p.header {
+  display: inline-block;
+  margin-right: 5px;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: "Arial", sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  color: #CCCCCC;
+  line-height: 19px;
+  transition: all 0.3s ease;
+}
+
+em {
+  font-weight: bold;
+  color: white;
+}
+
+select {
+  color: black;
+}
+
+.logo {
+  display: block;
+  max-width: 400px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.option-wrap {
+  margin: 20px auto 40px auto;
+  color: white;
+}
+
+#readability-prefs {
+  max-width: 500px;
+}

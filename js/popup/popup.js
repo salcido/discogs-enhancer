@@ -639,6 +639,12 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
+  // Open readability config page
+  $('body').on('click', '#editConfig', function() {
+
+    chrome.tabs.create({url: '../html/readability.html'});
+  });
+
 
   /**
    * CONTEXTUAL MENU SEARCHING OPTIONS

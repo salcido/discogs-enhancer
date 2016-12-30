@@ -104,7 +104,8 @@ a.button_green:hover {
   background-image: linear-gradient(#73CB56,#6AC84B);
 }
 
-a#editList {
+#editList,
+#editConfig {
   display: inline-block;
   margin-top: 18px;
   margin-left: 10px;
@@ -112,7 +113,8 @@ a#editList {
   color: gray;
 }
 
-a#editList:hover {
+#editList:hover,
+#editConfig:hover {
   color: white;
 }
 

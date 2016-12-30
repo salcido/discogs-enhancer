@@ -8,18 +8,18 @@
 }
 
 .blocked-seller td.item_add_to_cart p::after {
-  content: "Blocked seller";
   display: block;
-  text-align: center;
+  content: "Blocked seller";
   font-style: italic;
+  text-align: center;
 }
 
 /* override green styles with red ones */
 .blocked-seller .button.button_green,
 .blocked-seller .button.button_green span {
-    border-color: #982e2c !important;
-    border-top-color: #902c2a !important;
-    border-bottom-color: #842827 !important;
-    background-image: linear-gradient(#BF3A38, #b33635);
-    color: #ccc !important;
+  background-image: linear-gradient(#BF3A38, #B33635);
+  border-color: #982E2C !important;
+  border-top-color: #902C2A !important;
+  border-bottom-color: #842827 !important;
+  color: #CCCCCC !important;
 }

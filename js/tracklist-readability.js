@@ -9,6 +9,7 @@
  */
 
 // TODO: Add config option to insert spacer between all sides regardless of numeration
+// TODO: Add nth prop to config
 
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
 
@@ -61,9 +62,12 @@ $(document).ready(function() {
     function setDefaultConfig() {
 
       let defaults = {
+            // insert dividers for non-vinyl/cassette releases
             otherMediaReadability: true,
             otherMediaThreshold: 15,
+            // display dividers
             show: true,
+            // insert dividers for vinyl/cassette releases
             vcReadability: true,
             vcThreshold: 8
           };
