@@ -779,6 +779,18 @@ try {
     localStorage.setItem('itemCondition', itemCondition);
   });
 
+  // Readability settings
+  chrome.runtime.sendMessage({request: 'getReadability'}, function(response) {
+
+    let readability = response.readability;
+
+    readability = JSON.stringify(readability);
+
+    // Set the readability object in localStorage so that the DOM can
+    // be manipulated based on readability's configuration.
+    localStorage.setItem('readability', readability);
+  });
+
 } catch(err) {
 
   // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...

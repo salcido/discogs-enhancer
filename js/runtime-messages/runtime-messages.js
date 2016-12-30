@@ -70,4 +70,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     sendResponse({itemCondition: itemCondition});
   }
+
+  // Readability
+  if (msg.request === 'getReadability') {
+
+    let readability = JSON.parse(localStorage.getItem('readability'));
+
+    sendResponse({readability: readability});
+  }
 });
