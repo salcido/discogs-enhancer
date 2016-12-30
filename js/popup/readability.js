@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
           nth: 5,
           otherMediaReadability: true,
           otherMediaThreshold: 15,
-          show: true,
           vcReadability: true,
           vcThreshold: 8
         };

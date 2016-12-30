@@ -9,7 +9,6 @@
  */
 
 // TODO: Add config option to insert spacer between all sides regardless of numeration
-// TODO: Add nth prop to config
 
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
 
@@ -21,15 +20,29 @@
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
 // https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
 
+// CDs
+// 1-1, 2-1
+// https://www.discogs.com/Biosphere-Cirque/release/9215061
+// CD1- CD2-
+// https://www.discogs.com/Carl-Cox-Global/release/537519
+// 1. 2.
+// https://www.discogs.com/Various-Rhythm-Stick-RS-CD-01/release/945032
+
 $(document).ready(function() {
 
   if (document.location.href.indexOf('/release/') > -1) {
 
     let
-        config = JSON.parse(localStorage.getItem('readability')) || setDefaultConfig(),
+        config = JSON.parse(localStorage.getItem('readability')),
+        show = JSON.parse(localStorage.getItem('readabilityDividers')) || setReadabilityTrue(),
 
         // don't insert spacers if headings or index tracks already exist.
         noHeadingsOrIndex = $('.track_heading').length < 1 && $('.index_track').length === 0,
+
+        // An array of all hrefs in the formats div
+        formats = Array.from($('.profile .content').eq(1).find('a').map(function() { return $(this).attr('href'); })),
+
+        onlyCD = formats.every(href => href === '/search/?format_exact=CD'),
 
         // Vinyl, casettes ...
         isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
@@ -48,35 +61,29 @@ $(document).ready(function() {
         sequence = [],
         isSequential = false,
 
-        display = config.show ? '' : 'style="display:none;"',
+        display = show ? '' : 'style="display:none;"',
         spacer = '<tr class="tracklist_track track_heading de-spacer" ' + display + '>' +
                     '<td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
                     duration +
                   '</tr>',
-        trigger = config.show
+        trigger = show
                   ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
                   : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
 
     /**
-     * Sets default values in the config object
+     * Sets default value for readabilityDividers
      *
-     * @method setDefaultConfig
+     * @method setReadabilityTrue
      * @return {object}
      */
-    function setDefaultConfig() {
+    function setReadabilityTrue() {
 
-      let defaults = {
-            nth: 5,
-            otherMediaReadability: true,
-            otherMediaThreshold: 15,
-            show: true,
-            vcReadability: true,
-            vcThreshold: 8
-          };
+      if (!localStorage.getItem('readabilityDividers')) {
 
-      localStorage.setItem('readability', JSON.stringify(defaults));
+        localStorage.setItem('readabilityDividers', 'true');
+      }
 
-      return JSON.parse(localStorage.getItem('readability'));
+      return JSON.parse(localStorage.getItem('readabilityDividers'));
     }
 
     /**
@@ -110,11 +117,11 @@ $(document).ready(function() {
      * tracklist like when the numbers are sequential
      * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
      *
-     * @method insertSpacersUsingAlphabet
+     * @method insertSpacersBasedOnDifferences
      * @param  {array} arr [the array to iterate over]
      * @return {undefined}
      */
-    function insertSpacersUsingAlphabet(arr) {
+    function insertSpacersBasedOnDifferences(arr) {
 
       arr.forEach((letter, i) => {
 
@@ -139,7 +146,7 @@ $(document).ready(function() {
      */
     function insertSpacersEveryNth(arr, nth) {
 
-      arr.each((i) => {
+      arr.each(i => {
 
         if (i % nth === 0 && i !== 0) {
 
@@ -161,7 +168,7 @@ $(document).ready(function() {
 
       try {
 
-        arr.each(function(i) {
+        arr.each(i => {
 
           let current = Number(arr[i].match(/\d+/g)),
               next = Number(arr[i + 1].match(/\d+/g));
@@ -194,28 +201,71 @@ $(document).ready(function() {
       // Trigger functionality
       $('.de-spacer-trigger').on('click', function() {
 
-        config = JSON.parse(localStorage.getItem('readability'));
-
         if ($('.de-spacer').is(':visible')) {
 
           $(this).text('Show Dividers');
-          config.show = false;
+          show = false;
 
         } else {
 
           $(this).text('Hide Dividers');
-          config.show = true;
+          show = true;
         }
 
         $('.de-spacer').toggle('fast');
 
-        localStorage.setItem('readability', JSON.stringify(config));
+        localStorage.setItem('readabilityDividers', JSON.stringify(show));
       });
     }
 
     // =======================================
     // DOM manipulation
     // =======================================
+
+    // CDs (nuts)
+    if (noHeadingsOrIndex && onlyCD) {
+
+      let dashes = [];
+      let dots = [];
+      let CDn = [];
+      let target = '';
+      let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
+
+      // Determine any common CD prefixes in the track positions
+      for (let i = 0; i < trackpos.length; i++) {
+
+        if (trackpos[i].indexOf('-') > -1 && !isNaN(Number(trackpos[i].match(/.+?(?=-)/g)))) {
+
+          dashes.push(Number(trackpos[i].match(/.+?(?=-)/g)));
+
+          target = dashes;
+        }
+
+        if (trackpos[i].indexOf('.') > -1 && !isNaN(Number(trackpos[i].match(/.+?(?=\.)/g)))) {
+
+          dots.push(Number(trackpos[i].match(/.+?(?=\.)/g)));
+
+          target = dots;
+        }
+
+        if (trackpos[i].indexOf('CD') > -1) {
+
+          CDn.push(String(trackpos[i].match(/(\D+\d\b)/g)));
+
+          target = CDn;
+        }
+      }
+
+      // Listing should just be a numerical sequence
+      if (dashes.length === 0 && dots.length === 0 && CDn.length === 0) {
+
+        console.log('no specialized prefixes');
+      }
+
+      appendUI();
+
+      return insertSpacersBasedOnDifferences(target);
+    }
 
     // Vinyl and cassettes
     if (noHeadingsOrIndex && tracklist.length > config.vcThreshold && isMultiSided && config.vcReadability) {
@@ -239,7 +289,7 @@ $(document).ready(function() {
 
         // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
         // use the alpha-prefixes to determine where to insert the spacer markup
-        return insertSpacersUsingAlphabet(prefix);
+        return insertSpacersBasedOnDifferences(prefix);
 
       } else {
 
