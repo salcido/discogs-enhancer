@@ -29,12 +29,7 @@ $(document).ready(function() {
         config = JSON.parse(localStorage.getItem('readability')) || setDefaultConfig(),
 
         // don't insert spacers if headings or index tracks already exist.
-        // using 1 or less because of possible inclusion of track durations feature
         noHeadingsOrIndex = $('.track_heading').length < 1 && $('.index_track').length === 0,
-
-        // only insert spacers if there are more than n tracks
-        // TODO: value is user definable?
-        playlistLength = $('.playlist tbody tr').length,
 
         // Vinyl, casettes ...
         isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
@@ -53,21 +48,28 @@ $(document).ready(function() {
         sequence = [],
         isSequential = false,
 
-        prefs = JSON.parse(localStorage.getItem('readability')).show,
-        display = prefs ? '' : 'style="display:none;"',
-        spacer = '<tr class="tracklist_track track_heading de-spacer" ' + display + '><td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' + duration + '</tr>',
-        trigger = prefs ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>' : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
+        display = config.show ? '' : 'style="display:none;"',
+        spacer = '<tr class="tracklist_track track_heading de-spacer" ' + display + '>' +
+                    '<td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
+                    duration +
+                  '</tr>',
+        trigger = config.show
+                  ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
+                  : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
 
-    // Set default config object if not present
+    /**
+     * Sets default values in the config object
+     *
+     * @method setDefaultConfig
+     * @return {object}
+     */
     function setDefaultConfig() {
 
       let defaults = {
-            // insert dividers for non-vinyl/cassette releases
+            nth: 5,
             otherMediaReadability: true,
             otherMediaThreshold: 15,
-            // display dividers
             show: true,
-            // insert dividers for vinyl/cassette releases
             vcReadability: true,
             vcThreshold: 8
           };
@@ -216,7 +218,7 @@ $(document).ready(function() {
     // =======================================
 
     // Vinyl and cassettes
-    if (noHeadingsOrIndex && playlistLength > config.vcThreshold && isMultiSided && config.vcReadability) {
+    if (noHeadingsOrIndex && tracklist.length > config.vcThreshold && isMultiSided && config.vcReadability) {
 
       // Get the track positions from the playlist
       let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
@@ -247,10 +249,10 @@ $(document).ready(function() {
     }
 
     // Non-sided releases (Digital, CD, etc...)
-    if (noHeadingsOrIndex && playlistLength > config.otherMediaThreshold && !isMultiSided && config.otherMediaReadability) {
+    if (noHeadingsOrIndex && tracklist.length > config.otherMediaThreshold && !isMultiSided && config.otherMediaReadability) {
 
       appendUI();
-      insertSpacersEveryNth(tracklist, 5);
+      insertSpacersEveryNth(tracklist, config.nth);
     }
   }
 });
@@ -260,7 +262,7 @@ $(document).ready(function() {
 // TODO: make this an option
 /*
 
-  if (noHeadingsOrIndex && playlistLength && isMultiSided) {
+  if (noHeadingsOrIndex && tracklist.length && isMultiSided) {
 
     let tracklist = $('.playlist tbody tr'),
         // array of strings (eg: ["A1", "A2", "B1", "B2" ...])

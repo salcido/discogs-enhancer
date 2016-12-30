@@ -53,3 +53,26 @@ select {
 #readability-prefs {
   max-width: 500px;
 }
+
+.switch-wrap,
+.switch-label {
+  display: inline-block;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+.feature {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #434343;
+  margin-bottom: 10px;
+}
+
+/* Switch overrides */
+.onoffswitch-label {
+  border-radius: 100px;
+}
+
+.onoffswitch-switch {
+  width: 18px;
+}

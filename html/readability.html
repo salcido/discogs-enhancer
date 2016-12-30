@@ -7,10 +7,10 @@
     <meta name="description" content="Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com">
     <title>Tracklist Readability</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/readability-popup.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/toggle-style.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/readability-popup.css" type="text/css" media="screen">
     <script src="../js/jquery/jquery-min.js"></script>
-    <!-- <script src="../js/popup/readability.js"></script> -->
+    <script src="../js/popup/readability.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Halant:300,500,600' rel='stylesheet' type='text/css'>
   </head>
   <body>
@@ -35,49 +35,61 @@
                 <form id="readability-prefs">
                 <div class="option-wrap">
 
-                  <h5>Vinyl/Cassette Releases</h5>
-                  <div class="onoffswitch">
-                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleBlockSellers" checked>
-                      <label class="onoffswitch-label" for="toggleBlockSellers">
-                          <span class="onoffswitch-inner"></span>
-                          <span class="onoffswitch-switch"></span>
-                      </label>
+                  <h4>Vinyl/Cassette Releases</h4>
+
+                  <div class="switch-label">Enabled: </div>
+                  <div class="switch-wrap">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleVCreleases" checked>
+                        <label class="onoffswitch-label" for="toggleVCreleases">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
                   </div>
-                  <p>
-                    This will insert dividers when the Vinyl or Cassette release has more tracks than the threshold listed here.
-                  </p>
-                  <label for="vcReleases">Track threshold:</label>
-                  <select name="vcReleases">
-                    <option value="2">2</option>
-                    <option value="3" selected>3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
+
+                  <div class="feature">
+                    <p>
+                      This will insert readability dividers when the Vinyl or Cassette release exceeds the number of tracks listed here.
+                    </p>
+
+                    <label for="vcReleases">Track threshold:</label>
+                    <select name="vcReleases" id="vcThreshold"></select>
+                  </div>
 
                 </div>
 
                 <div class="option-wrap">
-                  <h5>Other Media Releases</h5>
-                  <p>
-                    This will insert dividers when any non-vinyl/cassette release has more tracks than the threshold listed here.
-                  </p>
-                  <label for="vcReleases">Track threshold:</label>
-                  <select name="vcReleases">
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
+                  <h4>Other Media Releases</h4>
+
+                  <div class="switch-label">Enabled: </div>
+                  <div class="switch-wrap">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleOtherMedia" checked>
+                        <label class="onoffswitch-label" for="toggleOtherMedia">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                  </div>
+
+                  <div class="feature">
+                    <p>
+                      This will insert readability dividers when any non-vinyl/cassette release exceeds the number of tracks listed here.
+                    </p>
+
+                    <label for="otherMedia">Track threshold:</label>
+                    <select name="otherMedia" id="otherMediaThreshold"></select>
+                  </div>
+
+                  <div class="feature">
+                    <p>
+                      This will insert readability dividers every nth track. For instance, if you select 5, a divider will be inserted after track 5, 10, 15, 20, etc...
+                    </p>
+
+                    <label for="nth">nth setting:</label>
+                    <select name="nth" id="nth"></select>
+                  </div>
                 </div>
               </form>
 
