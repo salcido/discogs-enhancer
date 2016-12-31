@@ -11,6 +11,8 @@
 // TODO: Add config option to insert spacer between all sides regardless of numeration
 
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
+// fix: https://www.discogs.com/Urban-Dogs-Attack/release/9567057
+// fix: https://www.discogs.com/Splodgenessabounds-Splodgenessabounds/release/9538438
 
 
 // Examples:
@@ -262,7 +264,7 @@ $(document).ready(function() {
         }
       }
 
-      // No specilzed prefixes
+      // No specialized prefixes
       if (!target.length) {
 
         // Populate our arrays with whatever the prefix is and the remaining numbers
