@@ -8,7 +8,7 @@
     <title>Tracklist Readability</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/toggle-style.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="../css/readability-popup.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/popup-readability.css" type="text/css" media="screen">
     <script src="../js/jquery/jquery-min.js"></script>
     <script src="../js/popup/readability.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Halant:300,500,600' rel='stylesheet' type='text/css'>
@@ -28,16 +28,37 @@
               <div class="content">
 
                 <p>
-                  These settings determine when dividers are inserted into a release's track list.
+                  These settings determine when dividers are inserted into a release's track list in order to improve the readability. You can show and hide readability dividers by clicking "Show/Hide Dividers" at the top of the track list. Your show/hide preference will be saved each time you change it. You must refresh your page on Discogs for changes to take effect.
+                </p>
+                <p class="header">
+                  How it works
                 </p>
                 <p>
-                  You must refresh your page on Discogs for changes to take effect.
+                  There are some requirements that must be met before any dividers are inserted into the track list.
+                  <ul>
+                    <li>
+                      It wont insert dividers when there are Index Tracks or Track Headings already present on the release. These releases are usually readable on their own.
+                    </li>
+                    <li>
+                      There must be sufficient tracks present before it does anything. The minimum number of tracks is determined by the <b>Threshold</b> setting. Once the Threshold has been exceeded, then the dividers will be inserted. For example, if you have a Threshold value of 8, any release with 9 or more tracks will have dividers inserted.
+                    </li>
+                    <li>
+                      If there are vinyl tracks listed like: ABCDE (ie: there are no numbers after the side delineation; essentially one track per side), it won't insert spacers between those. It will insert tracks between sides when there are multiple tracks per side (eg: A1, A2, B, C1, C2, etc &hellip;). <a href="https://www.discogs.com/Prince-Of-Denmark-8/release/9401170" target="_blank" rel="nofollow">Here is a good example of this rule.</a>
+                    </li>
+                    <li>
+                      Multi-CD releases must have their tracks prefixed with CD1-, 1-, or 1., for it to detect different discs. Assuming tracks are correctly listed, dividers will be inserted between each disc. <a href="https://www.discogs.com/Carl-Cox-Global/release/205445" target="_blank" rel="nofollow">Here is an example of this rule.</a>
+                    </li>
+                    <li>
+                      Note: There is no single standard when it comes to listing releases with multiple formats and CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release. I've attempted to cover the most common prefixes I've found, but there are others that have not been accounted for. If you find a release that does not work well with this feature, please let me know and I'll try to get it fixed.
+                    </li>
+                  </ul>
+
                 </p>
 
                 <form id="readability-prefs">
                 <div class="option-wrap">
 
-                  <h4>Vinyl, Cassette, Multi-CD, Box Set Releases</h4>
+                  <h4>Vinyl, Cassette, Multi-CD, Box Set Releases, etc &hellip;</h4>
 
                   <div class="switch-label">Enabled: </div>
                   <div class="switch-wrap">
@@ -52,7 +73,7 @@
 
                   <div class="feature">
                     <p>
-                      This will insert readability dividers when the Vinyl or Cassette release exceeds the number of tracks listed here. If the release does not exceed this threshold, no dividers will be inserted.
+                      This will insert dividers when the release exceeds the number of tracks listed here. If the release does not exceed this threshold, no dividers will be inserted.
                     </p>
 
                     <label for="vcReleases">Track threshold:</label>
@@ -62,7 +83,7 @@
                 </div>
 
                 <div class="option-wrap">
-                  <h4>Single CDs, Digital Releases</h4>
+                  <h4>Single CDs, Digital Releases, etc &hellip;</h4>
 
                   <div class="switch-label">Enabled: </div>
                   <div class="switch-wrap">
@@ -77,7 +98,7 @@
 
                   <div class="feature">
                     <p>
-                      This will insert readability dividers when any non-prefixed release exceeds the number of tracks listed here. If the release does not exceed this threshold, no dividers will be inserted.
+                      This will insert readability dividers when the release has only sequential numbers for track positions. This is most commonly seen in single CD releases or digital releases (eg: 1, 2, 3, 4, 5, 6, 7, etc &hellip;)
                     </p>
 
                     <label for="otherMedia">Track threshold:</label>
@@ -86,10 +107,10 @@
 
                   <div class="feature">
                     <p>
-                      This will insert readability dividers every nth track. For instance, if you select 5, a divider will be inserted after track 5, 10, 15, 20, etc...
+                      This will insert dividers every nth track. For instance, if you select 5, a divider will be inserted after track 5, 10, 15, 20, and so on...
                     </p>
 
-                    <label for="nth">nth setting:</label>
+                    <label for="nth">nth value:</label>
                     <select name="nth" id="nth"></select>
                   </div>
                 </div>

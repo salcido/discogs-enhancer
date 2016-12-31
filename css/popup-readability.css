@@ -1,4 +1,4 @@
-/* About Page Styles */
+/* Readability Page Styles */
 
 body {
   background-color: #313335;
@@ -16,13 +16,21 @@ p.header {
   text-transform: uppercase;
 }
 
-p {
+p, li {
   font-family: "Arial", sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: #CCCCCC;
   line-height: 19px;
   transition: all 0.3s ease;
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+li b {
+  color: white;
 }
 
 em {
@@ -32,6 +40,18 @@ em {
 
 select {
   color: black;
+}
+
+a {
+  color: #809BBE;
+}
+
+a:visited {
+  color: #A590D0;
+}
+
+a:hover {
+  color: #CAE0FA;
 }
 
 .logo {
@@ -50,7 +70,7 @@ select {
   color: white;
 }
 
-#readability-prefs {
+.content {
   max-width: 500px;
 }
 
