@@ -28,6 +28,9 @@
 // 1. 2.
 // https://www.discogs.com/Various-Rhythm-Stick-RS-CD-01/release/945032
 
+// CD + Boxset
+// https://www.discogs.com/Led-Zeppelin-Led-Zeppelin/release/9580584
+
 $(document).ready(function() {
 
   if (document.location.href.indexOf('/release/') > -1) {
@@ -223,7 +226,7 @@ $(document).ready(function() {
     // =======================================
 
     // CDs (nuts)
-    if (noHeadingsOrIndex && onlyCD) {
+    if (noHeadingsOrIndex) {
 
       let dashes = [];
       let dots = [];
@@ -259,51 +262,74 @@ $(document).ready(function() {
       // Listing should just be a numerical sequence
       if (dashes.length === 0 && dots.length === 0 && CDn.length === 0) {
 
-        console.log('no specialized prefixes');
-      }
+        // Populate our arrays with whatever the prefix is and the remaining numbers
+        trackpos.each(function(i, tpos) {
 
-      appendUI();
+          // console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
 
-      return insertSpacersBasedOnDifferences(target);
-    }
+          prefix.push(String(tpos.match(/\D/g)));
+          sequence.push(Number(tpos.match(/\d+/g)));
+        });
 
-    // Vinyl and cassettes
-    if (noHeadingsOrIndex && tracklist.length > config.vcThreshold && isMultiSided && config.vcReadability) {
+        isSequential = hasContinualNumberSequence(sequence);
 
-      // Get the track positions from the playlist
-      let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
 
-      // Populate our arrays with whatever the prefix is and the remaining numbers
-      trackpos.each(function(i, tpos) {
+        if (isSequential) {
 
-        // console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
+          // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
+          // use the alpha-prefixes to determine where to insert the spacer markup
+          return insertSpacersBasedOnDifferences(prefix);
 
-        prefix.push(String(tpos.match(/\D/g)));
-        sequence.push(Number(tpos.match(/\d+/g)));
-      });
+        } else {
 
-      isSequential = hasContinualNumberSequence(sequence);
-      appendUI();
-
-      if (isSequential) {
-
-        // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
-        // use the alpha-prefixes to determine where to insert the spacer markup
-        return insertSpacersBasedOnDifferences(prefix);
-
+          // If the numbering is not sequential (eg: A1, A2, B, C1, C2)
+          return insertSpacersBasedOnSides(trackpos);
+        }
       } else {
 
-        // If the numbering is not sequential (eg: A1, A2, B, C1, C2)
-        return insertSpacersBasedOnSides(trackpos);
+        insertSpacersBasedOnDifferences(target);
       }
+
+      return appendUI();
     }
 
-    // Non-sided releases (Digital, CD, etc...)
-    if (noHeadingsOrIndex && tracklist.length > config.otherMediaThreshold && !isMultiSided && config.otherMediaReadability) {
-
-      appendUI();
-      insertSpacersEveryNth(tracklist, config.nth);
-    }
+  //   // Vinyl and cassettes
+  //   if (noHeadingsOrIndex && tracklist.length > config.vcThreshold && isMultiSided && config.vcReadability) {
+  //
+  //     // Get the track positions from the playlist
+  //     let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
+  //
+  //     // Populate our arrays with whatever the prefix is and the remaining numbers
+  //     trackpos.each(function(i, tpos) {
+  //
+  //       // console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
+  //
+  //       prefix.push(String(tpos.match(/\D/g)));
+  //       sequence.push(Number(tpos.match(/\d+/g)));
+  //     });
+  //
+  //     isSequential = hasContinualNumberSequence(sequence);
+  //     appendUI();
+  //
+  //     if (isSequential) {
+  //
+  //       // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
+  //       // use the alpha-prefixes to determine where to insert the spacer markup
+  //       return insertSpacersBasedOnDifferences(prefix);
+  //
+  //     } else {
+  //
+  //       // If the numbering is not sequential (eg: A1, A2, B, C1, C2)
+  //       return insertSpacersBasedOnSides(trackpos);
+  //     }
+  //   }
+  //
+  //   // Non-sided releases (Digital, CD, etc...)
+  //   if (noHeadingsOrIndex && tracklist.length > config.otherMediaThreshold && !isMultiSided && config.otherMediaReadability) {
+  //
+  //     appendUI();
+  //     insertSpacersEveryNth(tracklist, config.nth);
+  //   }
   }
 });
 
