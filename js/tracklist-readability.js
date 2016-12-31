@@ -24,19 +24,6 @@
 // https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
 // 1-, 2- https://www.discogs.com/Carl-Cox-Global/release/3787864
 
-
-/*
-
- It wont run when there are index tracks or track headings. Usually readable on their own
-
- There must be sufficient tracks present before it does anything (threshold)
-
- If there are vinyl tracks listed like: ABCDE (no numbers, AKA one track per side), it won't insert spacers between those.
-
- Multi-CD releases must be prefixed with CDn-, n-, or n. for it to detect different discs
-
- */
-
 $(document).ready(function() {
 
   // Make sure we are on a release page
@@ -283,7 +270,7 @@ $(document).ready(function() {
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
           if (tracklist.length > config.vcThreshold && config.vcReadability) {
-            console.log('insertSpacersBasedOnAlphaDifferences prefix')
+
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
           }
@@ -301,7 +288,7 @@ $(document).ready(function() {
           // If the numbering is not sequential ala
           // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
           if (tracklist.length > config.vcThreshold && config.vcReadability) {
-            console.log('insertSpacersBasedOnSides trackpos')
+
             appendUI();
             insertSpacersBasedOnSides(trackpos);
           }
@@ -311,7 +298,7 @@ $(document).ready(function() {
         console.log('last else statement');
 
         if (tracklist.length > config.vcReadability) {
-          console.log('insertSpacersBasedOnAlphaDifferences target')
+
           appendUI();
           insertSpacersBasedOnAlphaDifferences(target);
         }
