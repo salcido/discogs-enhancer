@@ -54,6 +54,10 @@ a:hover {
   color: #CAE0FA;
 }
 
+form {
+  margin-bottom: 300px;
+}
+
 .logo {
   display: block;
   max-width: 400px;
