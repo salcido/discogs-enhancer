@@ -149,7 +149,7 @@ $(document).ready(function() {
 
     } else {
 
-      html = '<div class="section_content">' +
+      html = '<div class="section_content de-durations">' +
                '<table>' +
                  '<tbody>' +
                    '<tr class="tracklist_track track_heading">' +

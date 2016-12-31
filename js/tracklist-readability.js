@@ -11,9 +11,6 @@
 // TODO: Add config option to insert spacer between all sides regardless of numeration
 
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
-// fix: https://www.discogs.com/Urban-Dogs-Attack/release/9567057
-// fix: https://www.discogs.com/Splodgenessabounds-Splodgenessabounds/release/9538438
-// fix: https://www.discogs.com/Patti-Smith-Group-Wave/release/9528585
 // fix: https://www.discogs.com/Mr-Oizo-All-Wet/release/9544822
 // fix: https://www.discogs.com/Adam-Rubenstein-Nightly-Waves/release/9518792
 // fix: https://www.discogs.com/Gucci-Mane-Everybody-Looking/release/9466619
@@ -25,15 +22,16 @@
 // https://www.discogs.com/Various-Crosswalk-Volume-01/release/7315950
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
 // https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
+// 1-, 2- https://www.discogs.com/Carl-Cox-Global/release/3787864
 
 
 /*
 
- It wont run when there are index tracks or track headings. Usually readable
+ It wont run when there are index tracks or track headings. Usually readable on their own
 
  There must be sufficient tracks present before it does anything (threshold)
 
- If there are vinyl tracks listed like: ABCDE (no numbers, 1 track per side), it won't insert spacers between those.
+ If there are vinyl tracks listed like: ABCDE (no numbers, AKA one track per side), it won't insert spacers between those.
 
  Multi-CD releases must be prefixed with CDn-, n-, or n. for it to detect different discs
 
@@ -41,23 +39,23 @@
 
 $(document).ready(function() {
 
+  // Make sure we are on a release page
   if (document.location.href.indexOf('/release/') > -1) {
+
+    // =======================================
+    // Variables
+    // =======================================
 
     let
         config = JSON.parse(localStorage.getItem('readability')),
         show = JSON.parse(localStorage.getItem('readabilityDividers')) || setReadabilityTrue(),
 
         // don't insert spacers if headings or index tracks already exist.
-        noHeadingsOrIndex = $('.track_heading').length <= 1 && $('.index_track').length === 0,
-
-        // An array of all hrefs in the formats div
-        //formats = Array.from($('.profile .content').eq(1).find('a').map(function() { return $(this).attr('href'); })),
-
-        //onlyCD = formats.every(href => href === '/search/?format_exact=CD'),
-
-        // Vinyl, casettes ...
-        //isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
-                       //$('.profile').html().indexOf('/search/?format_exact=Cassette') > -1,
+        // And don't confuse release durations with track headers
+        durations = $('.de-durations').length,
+        noHeadingsOrIndex = durations
+                            ? $('.track_heading').length <= 1 && $('.index_track').length === 0
+                            : $('.track_heading').length < 1 && $('.index_track').length === 0,
 
         // Compilations have different markup requirements when rendering track headings...
         isCompilation = $('.tracklist_track_artists').length > 0,
@@ -80,6 +78,10 @@ $(document).ready(function() {
         trigger = show
                   ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
                   : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
+
+    // =======================================
+    // Functions
+    // =======================================
 
     /**
      * Sets default value for readabilityDividers
@@ -280,21 +282,27 @@ $(document).ready(function() {
 
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
-          if (tracklist.length > config.vcThreshold) {
+          if (tracklist.length > config.vcThreshold && config.vcReadability) {
+            console.log('insertSpacersBasedOnAlphaDifferences prefix')
+            appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
           }
 
         // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
         } else if (isSequential && !prefix.length) {
 
-          // TODO make this an option
-          return console.log(); // insertSpacersEveryNth(tracklist, config.nth);
+          if (tracklist.length > config.otherMediaThreshold && config.otherMediaReadability) {
+            appendUI();
+            return insertSpacersEveryNth(tracklist, config.nth);
+          }
 
         } else {
 
           // If the numbering is not sequential ala
           // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
-          if (tracklist.length > config.vcThreshold) {
+          if (tracklist.length > config.vcThreshold && config.vcReadability) {
+            console.log('insertSpacersBasedOnSides trackpos')
+            appendUI();
             insertSpacersBasedOnSides(trackpos);
           }
         }
@@ -302,51 +310,15 @@ $(document).ready(function() {
       } else {
         console.log('last else statement');
 
-        if (tracklist.length > config.otherMediaThreshold) {
+        if (tracklist.length > config.vcReadability) {
+          console.log('insertSpacersBasedOnAlphaDifferences target')
+          appendUI();
           insertSpacersBasedOnAlphaDifferences(target);
         }
       }
 
-      return appendUI();
+      return;
     }
-
-  //   // Vinyl and cassettes
-  //   if (noHeadingsOrIndex && tracklist.length > config.vcThreshold && isMultiSided && config.vcReadability) {
-  //
-  //     // Get the track positions from the playlist
-  //     let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
-  //
-  //     // Populate our arrays with whatever the prefix is and the remaining numbers
-  //     trackpos.each(function(i, tpos) {
-  //
-  //       // console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
-  //
-  //       prefix.push(String(tpos.match(/\D/g)));
-  //       sequence.push(Number(tpos.match(/\d+/g)));
-  //     });
-  //
-  //     isSequential = hasContinualNumberSequence(sequence);
-  //     appendUI();
-  //
-  //     if (isSequential) {
-  //
-  //       // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
-  //       // use the alpha-prefixes to determine where to insert the spacer markup
-  //       return insertSpacersBasedOnAlphaDifferences(prefix);
-  //
-  //     } else {
-  //
-  //       // If the numbering is not sequential (eg: A1, A2, B, C1, C2)
-  //       return insertSpacersBasedOnSides(trackpos);
-  //     }
-  //   }
-  //
-  //   // Non-sided releases (Digital, CD, etc...)
-  //   if (noHeadingsOrIndex && tracklist.length > config.otherMediaThreshold && !isMultiSided && config.otherMediaReadability) {
-  //
-  //     appendUI();
-  //     insertSpacersEveryNth(tracklist, config.nth);
-  //   }
   }
 });
 

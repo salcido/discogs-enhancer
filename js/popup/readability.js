@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let fragment = document.createDocumentFragment();
 
-    for (let i = 2; i <= total; i++) {
+    for (let i = 1; i <= total; i++) {
 
       let option = document.createElement('option');
 
@@ -67,13 +67,13 @@ document.addEventListener('DOMContentLoaded', function () {
   vc.checked = config.vcReadability;
   otherMedia.checked = config.otherMediaReadability;
 
-  addOptions(vcThreshold, 20);
+  addOptions(vcThreshold, 30);
   vcThreshold.value = config.vcThreshold;
 
-  addOptions(otherThreshold, 20);
+  addOptions(otherThreshold, 30);
   otherThreshold.value = config.otherMediaThreshold;
 
-  addOptions(nth, 10);
+  addOptions(nth, 30);
   nth.value = config.nth;
 
   // ==============================================
