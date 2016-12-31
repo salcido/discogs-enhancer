@@ -13,6 +13,10 @@
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
 // fix: https://www.discogs.com/Urban-Dogs-Attack/release/9567057
 // fix: https://www.discogs.com/Splodgenessabounds-Splodgenessabounds/release/9538438
+// fix: https://www.discogs.com/Patti-Smith-Group-Wave/release/9528585
+// fix: https://www.discogs.com/Mr-Oizo-All-Wet/release/9544822
+// fix: https://www.discogs.com/Adam-Rubenstein-Nightly-Waves/release/9518792
+// fix: https://www.discogs.com/Gucci-Mane-Everybody-Looking/release/9466619
 
 
 // Examples:
@@ -22,16 +26,6 @@
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
 // https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
 
-// CDs
-// 1-1, 2-1
-// https://www.discogs.com/Biosphere-Cirque/release/9215061
-// CD1- CD2-
-// https://www.discogs.com/Carl-Cox-Global/release/537519
-// 1. 2.
-// https://www.discogs.com/Various-Rhythm-Stick-RS-CD-01/release/945032
-
-// CD + Boxset
-// https://www.discogs.com/Led-Zeppelin-Led-Zeppelin/release/9580584
 
 /*
 
