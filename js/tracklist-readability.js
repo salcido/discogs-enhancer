@@ -31,6 +31,18 @@
 // CD + Boxset
 // https://www.discogs.com/Led-Zeppelin-Led-Zeppelin/release/9580584
 
+/*
+
+ It wont run when there are index tracks or track headings. Usually readable
+
+ There must be sufficient tracks present before it does anything (threshold)
+
+ If there are vinyl tracks listed like: ABCDE (no numbers, 1 track per side), it won't insert spacers between those.
+
+ Multi-CD releases must be prefixed with CDn-, n-, or n. for it to detect different discs
+
+ */
+
 $(document).ready(function() {
 
   if (document.location.href.indexOf('/release/') > -1) {
@@ -40,16 +52,16 @@ $(document).ready(function() {
         show = JSON.parse(localStorage.getItem('readabilityDividers')) || setReadabilityTrue(),
 
         // don't insert spacers if headings or index tracks already exist.
-        noHeadingsOrIndex = $('.track_heading').length < 1 && $('.index_track').length === 0,
+        noHeadingsOrIndex = $('.track_heading').length <= 1 && $('.index_track').length === 0,
 
         // An array of all hrefs in the formats div
-        formats = Array.from($('.profile .content').eq(1).find('a').map(function() { return $(this).attr('href'); })),
+        //formats = Array.from($('.profile .content').eq(1).find('a').map(function() { return $(this).attr('href'); })),
 
-        onlyCD = formats.every(href => href === '/search/?format_exact=CD'),
+        //onlyCD = formats.every(href => href === '/search/?format_exact=CD'),
 
         // Vinyl, casettes ...
-        isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
-                       $('.profile').html().indexOf('/search/?format_exact=Cassette') > -1,
+        //isMultiSided = $('.profile').html().indexOf('/search/?format_exact=Vinyl') > -1 ||
+                       //$('.profile').html().indexOf('/search/?format_exact=Cassette') > -1,
 
         // Compilations have different markup requirements when rendering track headings...
         isCompilation = $('.tracklist_track_artists').length > 0,
@@ -120,11 +132,11 @@ $(document).ready(function() {
      * tracklist like when the numbers are sequential
      * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
      *
-     * @method insertSpacersBasedOnDifferences
+     * @method insertSpacersBasedOnAlphaDifferences
      * @param  {array} arr [the array to iterate over]
      * @return {undefined}
      */
-    function insertSpacersBasedOnDifferences(arr) {
+    function insertSpacersBasedOnAlphaDifferences(arr) {
 
       arr.forEach((letter, i) => {
 
@@ -228,66 +240,75 @@ $(document).ready(function() {
     // CDs (nuts)
     if (noHeadingsOrIndex) {
 
-      let dashes = [];
-      let dots = [];
-      let CDn = [];
-      let target = '';
-      let trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
+      let target = [],
+          trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
 
       // Determine any common CD prefixes in the track positions
       for (let i = 0; i < trackpos.length; i++) {
 
         if (trackpos[i].indexOf('-') > -1 && !isNaN(Number(trackpos[i].match(/.+?(?=-)/g)))) {
 
-          dashes.push(Number(trackpos[i].match(/.+?(?=-)/g)));
-
-          target = dashes;
+          target.push(Number(trackpos[i].match(/.+?(?=-)/g)));
         }
 
         if (trackpos[i].indexOf('.') > -1 && !isNaN(Number(trackpos[i].match(/.+?(?=\.)/g)))) {
 
-          dots.push(Number(trackpos[i].match(/.+?(?=\.)/g)));
-
-          target = dots;
+          target.push(Number(trackpos[i].match(/.+?(?=\.)/g)));
         }
 
         if (trackpos[i].indexOf('CD') > -1) {
 
-          CDn.push(String(trackpos[i].match(/(\D+\d\b)/g)));
-
-          target = CDn;
+          target.push(String(trackpos[i].match(/(\D+\d\b)/g)));
         }
       }
 
-      // Listing should just be a numerical sequence
-      if (dashes.length === 0 && dots.length === 0 && CDn.length === 0) {
+      // No specilzed prefixes
+      if (!target.length) {
 
         // Populate our arrays with whatever the prefix is and the remaining numbers
         trackpos.each(function(i, tpos) {
 
-          // console.log(tpos.match(/\D/g), Number(tpos.match(/\d+/g)));
+          // Make sure to match a real value, not null
+          if (tpos.match(/\D/g)) {
 
-          prefix.push(String(tpos.match(/\D/g)));
+            prefix.push(String(tpos.match(/\D/g)));
+          }
+
           sequence.push(Number(tpos.match(/\d+/g)));
         });
 
         isSequential = hasContinualNumberSequence(sequence);
 
-
-        if (isSequential) {
+        // if there are both numbers and letters in the track positions
+        if (isSequential && prefix.length) {
 
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
-          return insertSpacersBasedOnDifferences(prefix);
+          if (tracklist.length > config.vcThreshold) {
+            insertSpacersBasedOnAlphaDifferences(prefix);
+          }
+
+        // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
+        } else if (isSequential && !prefix.length) {
+
+          // TODO make this an option
+          return console.log(); // insertSpacersEveryNth(tracklist, config.nth);
 
         } else {
 
-          // If the numbering is not sequential (eg: A1, A2, B, C1, C2)
-          return insertSpacersBasedOnSides(trackpos);
+          // If the numbering is not sequential ala
+          // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
+          if (tracklist.length > config.vcThreshold) {
+            insertSpacersBasedOnSides(trackpos);
+          }
         }
-      } else {
 
-        insertSpacersBasedOnDifferences(target);
+      } else {
+        console.log('last else statement');
+
+        if (tracklist.length > config.otherMediaThreshold) {
+          insertSpacersBasedOnAlphaDifferences(target);
+        }
       }
 
       return appendUI();
@@ -315,7 +336,7 @@ $(document).ready(function() {
   //
   //       // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
   //       // use the alpha-prefixes to determine where to insert the spacer markup
-  //       return insertSpacersBasedOnDifferences(prefix);
+  //       return insertSpacersBasedOnAlphaDifferences(prefix);
   //
   //     } else {
   //
