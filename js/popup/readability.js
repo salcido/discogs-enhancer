@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let defaults = {
           nth: 5,
-          otherMediaReadability: true,
+          otherMediaReadability: false,
           otherMediaThreshold: 15,
           vcReadability: true,
           vcThreshold: 8

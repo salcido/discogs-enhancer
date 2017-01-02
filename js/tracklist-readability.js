@@ -11,9 +11,21 @@
 // TODO: Add config option to insert spacer between all sides regardless of numeration
 
 // fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
+
+// LP-, CD-
 // fix: https://www.discogs.com/Mr-Oizo-All-Wet/release/9544822
+// 1-, 2-
+// fix: https://www.discogs.com/Boz-Scaggs-The-Collection/release/9472958
+
 // fix: https://www.discogs.com/Adam-Rubenstein-Nightly-Waves/release/9518792
+
 // fix: https://www.discogs.com/Gucci-Mane-Everybody-Looking/release/9466619
+// fix: https://www.discogs.com/Jean-Michel-Jarre-Oxygene-Trilogy/release/9436049
+
+// TODO: add dividers if only index tracks present?
+// fix: https://www.discogs.com/Elgar-Sir-John-Barbirolli-Orchestral-Works/master/1103939
+// fix: https://www.discogs.com/Erich-Kleiber-Decca-Recordings/release/9574305
+// fix: https://www.discogs.com/George-Harrison-George-Harrison-And-Friends-The-Concert-For-Bangladesh/release/9454002
 
 
 // Examples:
@@ -22,7 +34,8 @@
 // https://www.discogs.com/Various-Crosswalk-Volume-01/release/7315950
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
 // https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
-// 1-, 2- https://www.discogs.com/Carl-Cox-Global/release/3787864
+// https://www.discogs.com/Carl-Cox-Global/release/3787864
+// https://www.discogs.com/Bunbury-Archivos-Vol-2-Duetos/release/9495721
 
 $(document).ready(function() {
 
@@ -40,9 +53,8 @@ $(document).ready(function() {
         // don't insert spacers if headings or index tracks already exist.
         // And don't confuse release durations with track headers
         durations = $('.de-durations').length,
-        noHeadingsOrIndex = durations
-                            ? $('.track_heading').length <= 1 && $('.index_track').length === 0
-                            : $('.track_heading').length < 1 && $('.index_track').length === 0,
+        noHeadings = durations ? $('.track_heading').length <= 1 : $('.track_heading').length < 1,
+        hasIndexTracks = $('.index_track').length,
 
         // Compilations have different markup requirements when rendering track headings...
         isCompilation = $('.tracklist_track_artists').length > 0,
@@ -185,6 +197,59 @@ $(document).ready(function() {
       }
     }
 
+    /**
+     * When releases have multiple discs or formats, examine
+     * the last two characters of each track position and push them
+     * into an array.
+     *
+     * Then iterate over the array and compare the number sequence.
+     * If the sequence is interupted, this likely means it's a new disc
+     * so insert the divider at that position.
+     *
+     * @method handleMultiFormatRelease
+     * @param  {array} arr [an array of all track positions on a release]
+     * @return {undefined}
+     */
+    function handleMultiFormatRelease(arr) {
+
+      let counter = 1,
+          suffix = [];
+
+      for (let i = 0; i < arr.length; i++) {
+
+        // Get the last two digits from each track position
+        let lastTwo = (arr[i][arr[i].length - 2] + arr[i][arr[i].length - 1]).match(/\d/g);
+
+        if (lastTwo) {
+
+          suffix.push(lastTwo.join(''));
+
+        } else {
+          // if there aren't two digits
+          // push '1' so dividers will be inserted when the
+          // number sequence is broken
+          suffix.push('1');
+        }
+      }
+
+      for (let i = 0; i < suffix.length; i++) {
+
+        // using '==' specifcally for coercion
+        if (suffix[i] == counter) {
+
+          counter++;
+
+        } else if (suffix[i] && suffix[i] != counter) {
+
+          $(spacer).insertAfter(tracklist[i - 1]);
+
+          // reset counter and `i` to continue comparison
+          counter = 1;
+          i--;
+        }
+      }
+    }
+
     // =======================================
     // UI functionality
     // =======================================
@@ -223,7 +288,7 @@ $(document).ready(function() {
     // =======================================
 
     // CDs (nuts)
-    if (noHeadingsOrIndex) {
+    if (noHeadings) {
 
       let target = [],
           trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
@@ -231,19 +296,15 @@ $(document).ready(function() {
       // Determine any common CD prefixes in the track positions
       for (let i = 0; i < trackpos.length; i++) {
 
-        if (trackpos[i].indexOf('-') > -1 && !isNaN(Number(trackpos[i].match(/.+?(?=-)/g)))) {
+        if (trackpos[i].indexOf('-') > -1 ||
+            trackpos[i].indexOf('.') > -1 ||
+            trackpos[i].indexOf('CD') > -1 ||
+            trackpos[i].indexOf('LP') > -1 ||
+            trackpos[i].indexOf('BD') > -1 ||
+            trackpos[i].indexOf('VHS') > -1 ||
+            trackpos[i].indexOf('DVD') > -1) {
 
-          target.push(Number(trackpos[i].match(/.+?(?=-)/g)));
-        }
-
-        if (trackpos[i].indexOf('.') > -1 && !isNaN(Number(trackpos[i].match(/.+?(?=\.)/g)))) {
-
-          target.push(Number(trackpos[i].match(/.+?(?=\.)/g)));
-        }
-
-        if (trackpos[i].indexOf('CD') > -1) {
-
-          target.push(String(trackpos[i].match(/(\D+\d\b)/g)));
+          target.push('multiformat');
         }
       }
 
@@ -279,6 +340,7 @@ $(document).ready(function() {
         } else if (isSequential && !prefix.length) {
 
           if (tracklist.length > config.otherMediaThreshold && config.otherMediaReadability) {
+
             appendUI();
             return insertSpacersEveryNth(tracklist, config.nth);
           }
@@ -295,12 +357,11 @@ $(document).ready(function() {
         }
 
       } else {
-        console.log('last else statement');
 
-        if (tracklist.length > config.vcReadability) {
+        if (tracklist.length > config.vcReadability && config.vcReadability) {
 
           appendUI();
-          insertSpacersBasedOnAlphaDifferences(target);
+          handleMultiFormatRelease(trackpos);
         }
       }
 
@@ -308,33 +369,3 @@ $(document).ready(function() {
     }
   }
 });
-
-
-// Insert spacers between every different side:
-// TODO: make this an option
-/*
-
-  if (noHeadingsOrIndex && tracklist.length && isMultiSided) {
-
-    let tracklist = $('.playlist tbody tr'),
-        // array of strings (eg: ["A1", "A2", "B1", "B2" ...])
-        trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
-
-    trackpos.each(function(i, tpos) {
-
-      // If the next track begins with a different letter
-      // (eg: A1, A2, B - where B is the next track), insert the spacer.
-      //
-      // Check for falsy value with `!tracklist[1].classList.contains('track_heading')`
-      // in case tracktimes option gets injected before this has run. Prevents a
-      // spacer being inserted after the last track and before the tracktime total.
-      if ( trackpos[i + 1] &&
-           tpos[0] !== trackpos[i + 1][0] &&
-           !tracklist[i + 1].classList.contains('track_heading') ) {
-
-        $(spacer).insertAfter(tracklist[i]);
-      }
-    });
-  }
-
-*/
