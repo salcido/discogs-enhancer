@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let
       config = JSON.parse(localStorage.getItem('readability')) || setDefaultConfig(),
+      indexTracks = document.getElementById('toggleIndexTracks'),
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
           otherMediaReadability: false,
           otherMediaThreshold: 15,
           vcReadability: true,
-          vcThreshold: 8
+          vcThreshold: 8,
+          indexTracks: true
         };
 
     localStorage.setItem('readability', JSON.stringify(defaults));
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // set values based on config
   vc.checked = config.vcReadability;
   otherMedia.checked = config.otherMediaReadability;
+  indexTracks.checked = config.indexTracks;
 
   addOptions(vcThreshold, 30);
   vcThreshold.value = config.vcThreshold;
@@ -94,6 +97,15 @@ document.addEventListener('DOMContentLoaded', function () {
     let pref = JSON.parse(localStorage.getItem('readability'));
 
     pref.otherMediaReadability = event.target.checked;
+
+    localStorage.setItem('readability', JSON.stringify(pref));
+  });
+
+  $('body').on('click', '#toggleIndexTracks', function(event) {
+
+    let pref = JSON.parse(localStorage.getItem('readability'));
+
+    pref.indexTracks = event.target.checked;
 
     localStorage.setItem('readability', JSON.stringify(pref));
   });

@@ -86,6 +86,14 @@ form {
   vertical-align: top;
 }
 
+.switch-wrap {
+  margin-bottom: 10px;
+}
+
+.switch-label {
+  margin-top: 2px;
+}
+
 .feature {
   margin-bottom: 10px;
   padding: 15px;
@@ -100,4 +108,8 @@ form {
 
 .onoffswitch-switch {
   width: 18px;
+}
+
+#otherMediaThreshold {
+  margin-bottom: 25px;
 }
