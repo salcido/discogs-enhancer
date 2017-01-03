@@ -93,4 +93,4 @@ This will let you to quickly insert text formatting shortcuts to reviews, commen
 
 ### Tracklist Readability
 This will insert visual dividers between each side, disc, and/or format of a release in order to make it easier to read. It's completely customizable too!
-![Tracklist Readability](http://i.imgur.com/KCGuC1e.gif?raw=true "Tracklist Readability")
+![Tracklist Readability](http://i.imgur.com/PQtRpkO.gif?raw=true "Tracklist Readability")
