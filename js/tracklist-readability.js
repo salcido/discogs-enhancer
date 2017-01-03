@@ -258,7 +258,10 @@ $(document).ready(function() {
      */
     function appendUI() {
 
-      $('#tracklist .group').append(trigger);
+      if ( !$('.de-spacer-trigger').length ) {
+
+        $('#tracklist .group').append(trigger);
+      }
 
       // Trigger functionality
       $('.de-spacer-trigger').on('click', function() {
@@ -285,7 +288,7 @@ $(document).ready(function() {
     // =======================================
 
     // CDs (nuts)
-    if (noHeadings) {
+    if (noHeadings && !hasIndexTracks) {
 
       let prefixes = false,
           trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
