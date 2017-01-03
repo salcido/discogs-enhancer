@@ -8,8 +8,6 @@
  *
  */
 
-// TODO: fix: https://www.discogs.com/Umberto-Giordano-Maria-Callas-Mario-del-Monaco-Aldo-Protti-Maria-Amadini-Silvana-Zanolli-Enzo-Sordel/release/9590560
-
 // Examples:
 // https://www.discogs.com/STL-Night-Grooves/release/1121308
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
@@ -330,7 +328,7 @@ $(document).ready(function() {
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
           if ( config.vcReadability && tracklist.length > config.vcThreshold ) {
-console.log('insertSpacersBasedOnAlphaDifferences')
+
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
           }
@@ -339,7 +337,7 @@ console.log('insertSpacersBasedOnAlphaDifferences')
         } else if ( isSequential && !prefix.length ) {
 
           if ( config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
-console.log('insertSpacersEveryNth')
+
             appendUI();
             return insertSpacersEveryNth(tracklist, config.nth);
           }
@@ -349,7 +347,7 @@ console.log('insertSpacersEveryNth')
           // If the numbering is not sequential ala
           // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
           if ( config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks) {
-console.log('insertSpacersBasedOnSides')
+
             appendUI();
             insertSpacersBasedOnSides(trackpos);
           }
@@ -358,7 +356,7 @@ console.log('insertSpacersBasedOnSides')
       } else {
 
         if ( config.vcReadability && tracklist.length > config.vcReadability ) {
-console.log('handleMultiFormatRelease')
+
           appendUI();
           handleMultiFormatRelease(trackpos);
         }
@@ -367,7 +365,9 @@ console.log('handleMultiFormatRelease')
 
     // Index tracks
     if ( noHeadings && config.indexTracks && hasIndexTracks ) {
+
       appendUI();
+
       tracklist.each(function(i) {
 
         if ( $(this).hasClass('index_track') && i !== 0 ) {
@@ -377,14 +377,5 @@ console.log('handleMultiFormatRelease')
         }
       });
     }
-
-    // Remove any stray dividers that may have been accidently inserted
-    setTimeout(function() {
-
-      if ( Array.from( tracklist[tracklist.length - 1].classList ).indexOf('de-spacer') > -1 ) {
-
-        tracklist[tracklist.length - 1].remove();
-      }
-    }, 500);
   }
 });
