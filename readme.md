@@ -21,6 +21,7 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Release durations
 * Sort dialogs & filters alphabetically
 * Text formatting shortcuts
+* Tracklist Readability
 
 ### Better Collection page UI
 This makes the Collection page a little more organized and easier to understand.
@@ -89,3 +90,7 @@ Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Ge
 This will let you to quickly insert text formatting shortcuts to reviews, comments and forum posts. Easily link to releases, posts, users, guidelines, and websites and emphasize your text with bold, italic, strikethrough and underline effects!
 
 ![Text formatting shortcuts](http://i.imgur.com/DCAQfeB.gif?raw=true "Text formatting shortcuts")
+
+### Tracklist Readability
+This will insert visual dividers between each side, disc, and/or format of a release in order to make it easier to read.
+![Tracklist Readability](http://i.imgur.com/X6UBhFU.gifv)
