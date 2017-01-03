@@ -34,6 +34,8 @@ $(document).ready(function() {
         config = JSON.parse(localStorage.getItem('readability')),
         show = JSON.parse(localStorage.getItem('readabilityDividers')) || setReadabilityTrue(),
 
+        debug = resourceLibrary.options.debug(),
+
         // don't insert spacers if headings or index tracks already exist.
         // And don't confuse release durations with track headers
         durations = $('.de-durations').length,
@@ -334,12 +336,24 @@ $(document).ready(function() {
 
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
+
+            if (debug) {
+              console.log('');
+              console.log('Tracklist Readability:');
+              console.log('insert Spacers Based On Alpha Differences');
+            }
           }
 
         // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
         } else if ( isSequential && !prefix.length ) {
 
           if ( config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
+
+            if (debug) {
+              console.log('');
+              console.log('Tracklist Readability:');
+              console.log('insert Spacers Every Nth');
+            }
 
             appendUI();
             return insertSpacersEveryNth(tracklist, config.nth);
@@ -353,6 +367,12 @@ $(document).ready(function() {
 
             appendUI();
             insertSpacersBasedOnSides(trackpos);
+
+            if (debug) {
+              console.log('');
+              console.log('Tracklist Readability:');
+              console.log('insert Spacers Based On Sides');
+            }
           }
         }
 
@@ -362,6 +382,12 @@ $(document).ready(function() {
 
           appendUI();
           handleMultiFormatRelease(trackpos);
+
+          if (debug) {
+            console.log('');
+            console.log('Tracklist Readability:');
+            console.log('handle Multi-Format Release');
+          }
         }
       }
     }
@@ -370,6 +396,12 @@ $(document).ready(function() {
     if ( noHeadings && config.indexTracks && hasIndexTracks ) {
 
       appendUI();
+
+      if (debug) {
+        console.log('');
+        console.log('Tracklist Readability:');
+        console.log('handle index tracks');
+      }
 
       tracklist.each(function(i) {
 
