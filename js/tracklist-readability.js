@@ -8,32 +8,24 @@
  *
  */
 
-// fix: https://www.discogs.com/091-Maniobra-De-Resurrecci%C3%B3n-En-Directo/release/9567883
-
-// LP-, CD-
-// fix: https://www.discogs.com/Mr-Oizo-All-Wet/release/9544822
-// 1-, 2-
-// fix: https://www.discogs.com/Boz-Scaggs-The-Collection/release/9472958
-
-// fix: https://www.discogs.com/Adam-Rubenstein-Nightly-Waves/release/9518792
-
-// fix: https://www.discogs.com/Gucci-Mane-Everybody-Looking/release/9466619
-// fix: https://www.discogs.com/Jean-Michel-Jarre-Oxygene-Trilogy/release/9436049
-
-// fix: https://www.discogs.com/Elgar-Sir-John-Barbirolli-Orchestral-Works/release/9498006
-// fix: https://www.discogs.com/Erich-Kleiber-Decca-Recordings/release/9574305
-// fix: https://www.discogs.com/George-Harrison-George-Harrison-And-Friends-The-Concert-For-Bangladesh/release/9454002
+// TODO: fix: https://www.discogs.com/Umberto-Giordano-Maria-Callas-Mario-del-Monaco-Aldo-Protti-Maria-Amadini-Silvana-Zanolli-Enzo-Sordel/release/9590560
 
 // Examples:
 // https://www.discogs.com/STL-Night-Grooves/release/1121308
-// https://www.discogs.com/Prince-Of-Denmark-8/release/9401170
-// https://www.discogs.com/Various-Crosswalk-Volume-01/release/7315950
 // https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
+
+// Cassette
 // https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
-// https://www.discogs.com/Carl-Cox-Global/release/3787864
-// https://www.discogs.com/Bunbury-Archivos-Vol-2-Duetos/release/9495721
+
 // lots of tracks
 // https://www.discogs.com/Farmers-Manual-Fsck/release/106658
+
+// multi-formats:
+// https://www.discogs.com/Muse-The-Resistance/release/4318500
+// https://www.discogs.com/Bunbury-Archivos-Vol-2-Duetos/release/9495721
+
+// Bad example
+// https://www.discogs.com/Various-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/release/6265588
 
 $(document).ready(function() {
 
@@ -94,7 +86,7 @@ $(document).ready(function() {
     }
 
     /**
-     * Looks at an array and determines if it has
+     * Examines an array and determines if it has
      * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
      *
      * It's designed to suit tracklists that have positions like:
@@ -117,7 +109,7 @@ $(document).ready(function() {
     }
 
     /**
-     * Looks at an array and inserts some markup when the next
+     * Examines an array and inserts some markup when the next
      * index of the array differs from the current index.
      *
      * It's designed to find the differences in sides on a
@@ -177,8 +169,8 @@ $(document).ready(function() {
 
         arr.each(i => {
 
-          let current = Number(arr[i].match(/\d+/g)),
-              next = Number(arr[i + 1].match(/\d+/g));
+          let current = Number( arr[i].match(/\d+/g) ),
+              next = Number( arr[i + 1].match(/\d+/g) );
 
           // check for 0 value which can be returned when a
           // track is simply listed as A, B, C, etc ...
@@ -201,10 +193,10 @@ $(document).ready(function() {
      * into an array.
      *
      * Then iterate over the array and compare the number sequence.
-     * If the sequence is interupted, this likely means it's a new disc
-     * so insert the divider at that position.
+     * If the sequence is interupted, this likely means it's a
+     * new disc (etc) so insert the divider at that position.
      *
-     * Also, for-loops because they are crazy fast. Don't hate.
+     * Also, using for-loops because they are crazy fast. Don't hate.
      *
      * @method handleMultiFormatRelease
      * @param  {array} arr [an array of all track positions in a release]
@@ -222,8 +214,8 @@ $(document).ready(function() {
           break;
         }
 
-        // Get the last two digits from each track position
-        let lastTwo = (arr[i][arr[i].length - 2] + arr[i][arr[i].length - 1]).match(/\d/g);
+        // Get the last two numerical digits from each track position
+        let lastTwo = ( arr[i][arr[i].length - 2] + arr[i][arr[i].length - 1] ).match(/\d/g);
 
         if (lastTwo) {
 
@@ -232,8 +224,8 @@ $(document).ready(function() {
         } else {
 
           // if there aren't two digits
-          // push '1' so dividers will be inserted when the
-          // number sequence is broken
+          // push '1' so the number sequence will be broken
+          // and dividers will be inserted
           suffix.push('1');
         }
       }
@@ -241,6 +233,7 @@ $(document).ready(function() {
       for ( let i = 0; i < suffix.length; i++ ) {
 
         // using '==' specifcally for coercion
+        // (Crockford is heartbroken; Simpspon is proud)
         if ( suffix[i] == counter ) {
 
           counter++;
@@ -337,7 +330,7 @@ $(document).ready(function() {
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
           if ( config.vcReadability && tracklist.length > config.vcThreshold ) {
-
+console.log('insertSpacersBasedOnAlphaDifferences')
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
           }
@@ -346,7 +339,7 @@ $(document).ready(function() {
         } else if ( isSequential && !prefix.length ) {
 
           if ( config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
-
+console.log('insertSpacersEveryNth')
             appendUI();
             return insertSpacersEveryNth(tracklist, config.nth);
           }
@@ -355,8 +348,8 @@ $(document).ready(function() {
 
           // If the numbering is not sequential ala
           // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
-          if ( config.vcReadability && tracklist.length > config.vcThreshold ) {
-
+          if ( config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks) {
+console.log('insertSpacersBasedOnSides')
             appendUI();
             insertSpacersBasedOnSides(trackpos);
           }
@@ -365,7 +358,7 @@ $(document).ready(function() {
       } else {
 
         if ( config.vcReadability && tracklist.length > config.vcReadability ) {
-
+console.log('handleMultiFormatRelease')
           appendUI();
           handleMultiFormatRelease(trackpos);
         }
@@ -373,8 +366,8 @@ $(document).ready(function() {
     }
 
     // Index tracks
-    if ( config.indexTracks && hasIndexTracks ) {
-
+    if ( noHeadings && config.indexTracks && hasIndexTracks ) {
+      appendUI();
       tracklist.each(function(i) {
 
         if ( $(this).hasClass('index_track') && i !== 0 ) {

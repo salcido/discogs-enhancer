@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function setDefaultConfig() {
 
     let defaults = {
-          nth: 5,
+          indexTracks: false,
+          nth: 10,
           otherMediaReadability: false,
           otherMediaThreshold: 15,
           vcReadability: true,
-          vcThreshold: 8,
-          indexTracks: true
+          vcThreshold: 8
         };
 
     localStorage.setItem('readability', JSON.stringify(defaults));
@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // UI functionality
   // ==============================================
 
+  // Vinyl, cassette, box sets, etc ...
   $('body').on('click', '#toggleVCreleases', function(event) {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
@@ -92,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('readability', JSON.stringify(pref));
   });
 
+  // Single CD, digital, etc ...
   $('body').on('click', '#toggleOtherMedia', function(event) {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
@@ -101,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('readability', JSON.stringify(pref));
   });
 
+  // Classical releases
   $('body').on('click', '#toggleIndexTracks', function(event) {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
@@ -110,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('readability', JSON.stringify(pref));
   });
 
+  // Value changes
   $('select').on('change', function(event) {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
