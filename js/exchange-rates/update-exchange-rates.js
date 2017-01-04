@@ -18,6 +18,10 @@ $(document).ready(function() {
       updateRatesObj = resourceLibrary.getItem('updateRatesObj') || setUpdateRatesObj(),
       userCurrency = resourceLibrary.getItem('userCurrency');
 
+  // ========================================================
+  // Functions
+  // ========================================================
+
   /**
    * Updates the exchange rates from Fixer.io
    *
@@ -81,10 +85,16 @@ $(document).ready(function() {
     return resourceLibrary.getItem('updateRatesObj');
   }
 
+  // ========================================================
+  // Update functionality
+  // ========================================================
+
   switch (true) {
 
-    // possible data corruption
+    // if there's no rates prop it could
+    // mean possible data corruption
     case !updateRatesObj.rates:
+    case typeof updateRatesObj.rates !== 'object':
 
       // kill it with fire
       localStorage.removeItem('updateRatesObj');
@@ -93,9 +103,8 @@ $(document).ready(function() {
 
       break;
 
-
+    // Data is stale or user has changed currency
     case updateRatesObj.rates.date !== today:
-    case typeof updateRatesObj.rates !== 'object':
     case userCurrency !== updateRatesObj.currency:
 
       // Remove old prices.
