@@ -347,7 +347,7 @@ $(document).ready(function() {
         // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
         } else if ( isSequential && !prefix.length ) {
 
-          if ( config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
+          if ( config && config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
 
             if (debug) {
               console.log('');
@@ -363,7 +363,7 @@ $(document).ready(function() {
 
           // If the numbering is not sequential ala
           // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
-          if ( config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks) {
+          if ( config && config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks) {
 
             appendUI();
             insertSpacersBasedOnSides(trackpos);
@@ -378,7 +378,7 @@ $(document).ready(function() {
 
       } else {
 
-        if ( config.vcReadability && tracklist.length > config.vcReadability ) {
+        if ( config && config.vcReadability && tracklist.length > config.vcReadability ) {
 
           appendUI();
           handleMultiFormatRelease(trackpos);
@@ -393,7 +393,7 @@ $(document).ready(function() {
     }
 
     // Index tracks
-    if ( noHeadings && config.indexTracks && hasIndexTracks ) {
+    if ( config && noHeadings && config.indexTracks && hasIndexTracks ) {
 
       appendUI();
 
