@@ -54,6 +54,7 @@ $(document).ready(function() {
 
         // Save object to localStorage
         resourceLibrary.setItem('updateRatesObj', updateRatesObj);
+        updateRatesObj = resourceLibrary.getItem('updateRatesObj');
       },
 
       error: function() {
@@ -133,6 +134,6 @@ $(document).ready(function() {
     break;
   }
 
-  // Store user's lagnuage preference
+  // Store user's language preference
   resourceLibrary.setItem('language', language);
 });
