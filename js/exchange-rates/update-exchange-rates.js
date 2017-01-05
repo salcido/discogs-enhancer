@@ -60,7 +60,7 @@ $(document).ready(function() {
       error: function() {
 
         let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.';
-
+        // TODO: delete rates object on failure?
         console.log(errorMsg);
       }
     });

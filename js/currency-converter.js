@@ -263,7 +263,7 @@ $(document).ready(function() {
     /* setTimeout is used here because without it, calculations are not performed in
        realtime and, instead, are one calculation behind the last digit entered.
        What is a better way to do this? */
-    setTimeout(function() { convertCurrency(); }, 0);
+    setTimeout(convertCurrency, 0);
   });
 
 
@@ -380,7 +380,7 @@ $(document).ready(function() {
 
       document.getElementById('ccInput').focus();
 
-      return $(tab).text() === '¥ € $' ? $(tab).text('£ € $ $') : $(tab).text('¥ € $');
+      return tab.text() === '¥ € $' ? tab.text('£ € $ $') : tab.text('¥ € $');
     }
   });
 });
