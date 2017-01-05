@@ -332,7 +332,7 @@ $(document).ready(function() {
 
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
-          if ( config.vcReadability && tracklist.length > config.vcThreshold ) {
+          if ( config && config.vcReadability && tracklist.length > config.vcThreshold ) {
 
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
