@@ -110,7 +110,7 @@ em {
 }
 
 .backup {
-  margin: 40px 0;
+  margin: 40px 0 150px;
 }
 
 .backup .header {
@@ -118,12 +118,12 @@ em {
 }
 
 .backup .header.closed::before {
-  content: "\25b2 \0020";
+  content: "\25BC \0020";
   color: #5CB85C;
 }
 
 .backup .header.open::before {
-  content: "\25BC \0020";
+  content: "\25b2 \0020";
   color: #5CB85C;
 }
 
