@@ -7,7 +7,7 @@ body {
 h1,
 h2,
 p.header {
-  display: inline-block;
+  display: block;
   margin-right: 5px;
   font-family: "Arial", sans-serif;
   font-size: 16px;
@@ -68,12 +68,14 @@ em {
   color: gray;
 }
 
-.seller-input .btn {
+.seller-input .btn,
+.restore .btn {
   margin-top: -7px;
   margin-left: 10px;
 }
 
-.seller-input input {
+.seller-input input,
+.restore-input {
   margin-top: 5px;
   font-size: 20px;
 }
@@ -101,6 +103,72 @@ em {
   color: white;
 }
 
-#block-prefs {
+#block-prefs,
+.backup,
+.restore {
   max-width: 500px;
+}
+
+.backup {
+  margin: 40px 0;
+}
+
+.backup .header {
+  cursor: pointer;
+}
+
+.backup .header.closed::before {
+  content: "\25b2 \0020";
+  color: #5CB85C;
+}
+
+.backup .header.open::before {
+  content: "\25BC \0020";
+  color: #5CB85C;
+}
+
+.backup-output,
+.restore-error-output {
+  padding: 20px;
+  background-color: #272727;
+  border-radius: 10px;
+  font-family: monospace;
+  word-wrap: break-word;
+}
+
+.restore {
+  margin-top: 30px;
+  margin-bottom: 150px;
+}
+
+.restore-errors {
+  display: block;
+  margin-top: 10px;
+}
+
+.restore-input {
+  width: 350px;
+  padding: 5px;
+  font-size: 13px;
+}
+
+.restore-errors p {
+  color: red;
+}
+
+.restore .btn {
+  margin-top: 0;
+}
+
+.restore-errors-output {
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #272727;
+  border-radius: 10px;
+  font-family: monospace;
+  word-wrap: break-word;
+}
+
+.hide {
+  display: none;
 }

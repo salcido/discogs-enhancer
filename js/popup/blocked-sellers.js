@@ -158,4 +158,79 @@ document.addEventListener('DOMContentLoaded', function () {
 
     return location.reload();
   });
+
+  /**
+   * Validates the input value from the restore section by
+   * checking that it is first parseable and second an Array
+   * with strings in each index.
+   *
+   * @method validateBlocklist
+   * @param  {string} list
+   * @return {boolean}
+   */
+  function validateBlocklist(list) {
+
+    let isValid = false;
+
+    try {
+      // make sure it's parsable
+      list = JSON.parse(list);
+
+    } catch (event) {
+
+      return isValid;
+    }
+
+    // make sure every index is a string
+    if (list && Array.isArray(list)) {
+
+      list.forEach(function(item) {
+
+        if (typeof item === 'string') {
+
+          isValid = true;
+
+        } else {
+
+          isValid = false;
+          return isValid;
+        }
+      });
+    }
+
+    return isValid;
+  }
+
+  // Populate backup
+  $('.backup-output').text(JSON.stringify(blockList.list));
+
+  // Show/Hide backup
+  $('.backup .header').on('click', function() {
+
+    $('.backup-content').toggleClass('hide');
+
+    $(this).toggleClass('open', 'closed');
+  });
+
+  // Restore function
+  $('.restore .btn-success').on('click', function() {
+
+    let list = $('.restore-input').val();
+
+    if (validateBlocklist(list)) {
+
+      let restore = {
+                      list: JSON.parse(list),
+                      hide: 'tag'
+                    };
+
+      localStorage.setItem('blockList', JSON.stringify(restore));
+
+      return location.reload();
+
+    } else {
+
+      $('.restore-errors').removeClass('hide');
+    }
+  });
 });
