@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
    * Instantiates a new blocklist object
    *
    * @method setNewBlocklist
+   * @return {object}
    */
   function setNewBlocklist() {
 
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
    * Adds the seller to the list, duh!
    *
    * @method addSellerToList
+   * @return {method}
    */
   function addSellerToList() {
 
@@ -109,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // DOM setup
   // ========================================================
 
-  // Select the checkbox if necessary
+  // Select the radio button
   switch (true) {
 
     case blockList.hide === 'tag' :
@@ -249,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let list = $('.restore-input').val();
 
-    if (validateBlocklist(list)) {
+    if ( validateBlocklist(list) ) {
 
       let restore = {
                       list: JSON.parse(list),
