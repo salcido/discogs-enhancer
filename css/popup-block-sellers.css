@@ -88,6 +88,7 @@ em {
 }
 
 .errors {
+  margin-top: 10px;
   font-weight: bold;
   color: red;
 }
@@ -114,7 +115,12 @@ em {
 }
 
 .backup .header {
+  color: #809BBE;
   cursor: pointer;
+}
+
+.restore .header {
+  color: white;
 }
 
 .backup .header.closed::before {

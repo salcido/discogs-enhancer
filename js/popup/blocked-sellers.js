@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // make sure every index is a string
     if (list && Array.isArray(list)) {
 
-      return list.every(isString) ? true : false;
+      return list.every(isString);
     }
   }
 
