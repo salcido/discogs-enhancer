@@ -10,14 +10,104 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  let blockList = JSON.parse(localStorage.getItem('blockList'));
+  let blockList = JSON.parse(localStorage.getItem('blockList')) || setNewBlocklist();
 
-  if (!localStorage.getItem('blockList')) {
+  // ========================================================
+  // Functions
+  // ========================================================
+
+  /**
+   * Instantiates a new blocklist object
+   *
+   * @method setNewBlocklist
+   */
+  function setNewBlocklist() {
 
     localStorage.setItem('blockList', '{"list":[], "hide": "tag"}');
 
-    blockList = JSON.parse(localStorage.getItem('blockList'));
+    return JSON.parse(localStorage.getItem('blockList'));
   }
+
+  /**
+   * Adds the seller to the list, duh!
+   *
+   * @method addSellerToList
+   */
+  function addSellerToList() {
+
+    let input = $('#seller-input').val();
+
+    input = input.replace(/\s/g,'').trim();
+
+    if (input) {
+
+      blockList.list.push(input);
+
+      blockList = JSON.stringify(blockList);
+
+      localStorage.setItem('blockList', blockList);
+
+      $('.errors').text('');
+
+      return location.reload();
+    }
+  }
+
+  /**
+   * Show error if seller is already on the list
+   * @method showError
+   * @return {undefined}
+   */
+  function showError() {
+
+    $('.errors').text( $('#seller-input').val() + ' is already on the block list.' );
+  }
+
+  /**
+   * Validates the input value from the restore section by
+   * checking that it is first parseable and second an Array
+   * with strings in each index.
+   *
+   * @method validateBlocklist
+   * @param  {string} list
+   * @return {boolean}
+   */
+  function validateBlocklist(list) {
+
+    let isValid = false;
+
+    try {
+      // make sure it's parsable
+      list = JSON.parse(list);
+
+    } catch (event) {
+
+      return isValid;
+    }
+
+    // make sure every index is a string
+    if (list && Array.isArray(list)) {
+
+      list.forEach(function(item) {
+
+        if (typeof item === 'string') {
+
+          isValid = true;
+
+        } else {
+
+          isValid = false;
+          return isValid;
+        }
+      });
+    }
+
+    return isValid;
+  }
+
+  // ========================================================
+  // DOM setup
+  // ========================================================
 
   // Select the checkbox if necessary
   switch (true) {
@@ -40,33 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // set focus on input
   document.getElementById('seller-input').focus();
-
-  // add the seller to the list, duh!
-  function addSellerToList() {
-
-    let input = $('#seller-input').val();
-
-    input = input.replace(/\s/g,'').trim();
-
-    if (input) {
-
-      blockList.list.push(input);
-
-      blockList = JSON.stringify(blockList);
-
-      localStorage.setItem('blockList', blockList);
-
-      $('.errors').text('');
-
-      return location.reload();
-    }
-  }
-
-  // Show error if seller is already on the list
-  function showError() {
-
-    $('.errors').text( $('#seller-input').val() + ' is already on the block list.' );
-  }
 
   // Iterate over blocklist and insert html into DOM
   blockList.list.forEach(function(seller) {
@@ -91,17 +154,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let input = $('#seller-input').val();
 
+    // Enter key is pressed
     if (e.which === 13 && input && blockList.list.indexOf(input) === -1) {
 
       addSellerToList();
 
       return location.reload();
 
+    // name is already on the list
     } else if (blockList.list.indexOf( $('#seller-input').val() ) > -1) {
 
       return showError();
+
+    } else {
+
+      // clear any previous errors
+      $('.errors').text('');
     }
   });
+
+  // ========================================================
+  // UI Functionality
+  // ========================================================
 
   // Add name to block list
   $('body').on('click', '.btn-success', function() {
@@ -159,52 +233,10 @@ document.addEventListener('DOMContentLoaded', function () {
     return location.reload();
   });
 
-  /**
-   * Validates the input value from the restore section by
-   * checking that it is first parseable and second an Array
-   * with strings in each index.
-   *
-   * @method validateBlocklist
-   * @param  {string} list
-   * @return {boolean}
-   */
-  function validateBlocklist(list) {
-
-    let isValid = false;
-
-    try {
-      // make sure it's parsable
-      list = JSON.parse(list);
-
-    } catch (event) {
-
-      return isValid;
-    }
-
-    // make sure every index is a string
-    if (list && Array.isArray(list)) {
-
-      list.forEach(function(item) {
-
-        if (typeof item === 'string') {
-
-          isValid = true;
-
-        } else {
-
-          isValid = false;
-          return isValid;
-        }
-      });
-    }
-
-    return isValid;
-  }
-
-  // Populate backup
+  // Populate backup form with current blocklist
   $('.backup-output').text(JSON.stringify(blockList.list));
 
-  // Show/Hide backup
+  // Show/Hide backup form
   $('.backup .header').on('click', function() {
 
     $('.backup-content').toggleClass('hide');
@@ -212,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $(this).toggleClass('open', 'closed');
   });
 
-  // Restore function
+  // Restore functionality
   $('.restore .btn-success').on('click', function() {
 
     let list = $('.restore-input').val();
