@@ -66,6 +66,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Checks if index is a string
+   *
+   * @method isString
+   * @param  {string|number|object|boolean|null|undefined}  index
+   * @return {Boolean}
+   */
+  function isString(index) {
+
+    return typeof index === 'string';
+  }
+
+  /**
    * Validates the input value from the restore section by
    * checking that it is first parseable and second an Array
    * with strings in each index.
@@ -90,21 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // make sure every index is a string
     if (list && Array.isArray(list)) {
 
-      list.forEach(function(item) {
-
-        if (typeof item === 'string') {
-
-          isValid = true;
-
-        } else {
-
-          isValid = false;
-          return isValid;
-        }
-      });
+      return list.every(isString) ? true : false;
     }
-
-    return isValid;
   }
 
   // ========================================================
@@ -260,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       localStorage.setItem('blockList', JSON.stringify(restore));
 
-      return location.reload();
+      //return location.reload();
 
     } else {
 
