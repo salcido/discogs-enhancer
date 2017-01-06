@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       localStorage.setItem('blockList', JSON.stringify(restore));
 
-      //return location.reload();
+      return location.reload();
 
     } else {
 
