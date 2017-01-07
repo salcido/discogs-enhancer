@@ -125,12 +125,16 @@ em {
 
 .backup .header.closed::before {
   content: "\25BC \0020";
-  color: #5CB85C;
+  /*color: #5CB85C;*/
 }
 
 .backup .header.open::before {
   content: "\25b2 \0020";
-  color: #5CB85C;
+  /*color: #5CB85C;*/
+}
+
+.backup-output {
+  margin-bottom: 50px;
 }
 
 .backup-output,
