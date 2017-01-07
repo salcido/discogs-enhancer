@@ -141,7 +141,7 @@ $(document).ready(function() {
 
   // Update rates
   function getConverterRates(base) {
-
+// TODO: do a check on the JSON response similar to exchange rates
     $('#thatCurrency').prop('disabled', true);
 
     $('.currency-converter #ccInput').prop('disabled', true);
@@ -151,12 +151,18 @@ $(document).ready(function() {
     $.ajax({
 
       url:'https://api.fixer.io/latest?base=' + base + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,RUB,BRL,USD',
-
       type: 'GET',
 
       success: function(ratesObj) {
 
-        resourceLibrary.setItem('converterRates', ratesObj);
+        if (typeof ratesObj === 'object') {
+
+          resourceLibrary.setItem('converterRates', ratesObj);
+
+        } else if (typeof ratesObj === 'string') {
+
+          resourceLibrary.setItem('converterRates', JSON.parse(ratesObj));
+        }
 
         rates = resourceLibrary.getItem('converterRates');
 

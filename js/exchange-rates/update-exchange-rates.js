@@ -33,12 +33,18 @@ $(document).ready(function() {
     return $.ajax({
 
       url:'https://api.fixer.io/latest?base=' + userCurrency + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD',
-
       type: 'GET',
 
       success: function(response) {
 
-        updateRatesObj.rates = JSON.parse(response);
+        if (typeof response === 'object') {
+
+          updateRatesObj.rates = response;
+
+        } else if (typeof response === 'string') {
+
+          updateRatesObj.rates = JSON.parse(response);
+        }
 
         // set last saved currency,
         // if different from userCurrency will
