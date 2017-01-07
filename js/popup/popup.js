@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       toggleReadability = document.getElementById('toggleReadability'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
+      toggleSellerRep = document.getElementById('toggleSellerRep'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       togglePrices = document.getElementById('togglePrices'),
@@ -78,22 +79,23 @@ document.addEventListener('DOMContentLoaded', function () {
     let manifest = chrome.runtime.getManifest();
 
     prefs = {
-      userCurrency: userCurrency.value,
+      blockSellers: toggleBlockSellers.checked,
+      collectionUi: toggleCollectionUi.checked,
       converter: toggleConverter.checked,
       darkTheme: toggleDarkTheme.checked,
       everlastingMarket: toggleEverlastingMarket.checked,
       feedback: toggleFeedback.checked,
       filterByCountry: toggleFilterByCountry.checked,
       formatShortcuts: toggleShortcuts.checked,
-      blockSellers: toggleBlockSellers.checked,
-      highlightMedia: toggleConditions.checked,
       hideMarketplaceItems: hideMarketplaceItems.value,
+      highlightMedia: toggleConditions.checked,
       notesCount: toggleNotesCount.checked,
-      sortButtons: toggleSortBtns.checked,
       readability: toggleReadability.checked,
       releaseDurations: toggleReleaseDurations.checked,
-      collectionUi: toggleCollectionUi.checked,
+      sellerRep: toggleSellerRep.checked,
+      sortButtons: toggleSortBtns.checked,
       suggestedPrices: togglePrices.checked,
+      userCurrency: userCurrency.value,
 
       // Contextual menus
       useBandcamp: toggleBandcamp.checked,
@@ -645,6 +647,12 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
+  // Open seller rep config page
+  $('body').on('click', '#sellerRepConfig', function() {
+
+    chrome.tabs.create({url: '../html/seller-rep.html'});
+  });
+
 
   /**
    * CONTEXTUAL MENU SEARCHING OPTIONS
@@ -719,6 +727,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
+  toggleSellerRep.addEventListener('change', triggerSave);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', showPrices);
@@ -768,6 +777,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleNotesCount.checked = result.prefs.notesCount;
       toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
+      toggleSellerRep.checked = result.prefs.sellerRep;
       toggleShortcuts.checked = result.prefs.formatShortcuts;
       toggleSortBtns.checked = result.prefs.sortButtons;
       togglePrices.checked = result.prefs.suggestedPrices;

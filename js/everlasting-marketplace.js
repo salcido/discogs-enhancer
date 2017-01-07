@@ -183,6 +183,11 @@ $(document).ready(function() {
 
             window.filterByCountry();
           }
+
+          if (window.sellersRep) {
+
+            window.sellersRep();
+          }
         }
       });
     }

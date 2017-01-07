@@ -105,7 +105,8 @@ a.button_green:hover {
 }
 
 #editList,
-#editConfig {
+#editConfig,
+#sellerRepConfig {
   display: inline-block;
   margin-top: 18px;
   margin-left: 10px;

@@ -65,6 +65,7 @@ chrome.storage.sync.get('prefs', function(result) {
       notesCount: true,
       readability: false,
       releaseDurations: true,
+      sellerRep: false,
       sortButtons: true,
       suggestedPrices: false,
       userCurrency: null,
@@ -392,6 +393,28 @@ chrome.storage.sync.get('prefs', function(result) {
     preloader.id = 'preloaderCss';
 
     elems.push(preloader);
+  }
+
+  if (result.prefs.sellerRep) {
+
+    // seller-rep.css
+    let sellerRepCss = document.createElement('link');
+
+    sellerRepCss.rel = 'stylesheet';
+    sellerRepCss.type = 'text/css';
+    sellerRepCss.href = chrome.extension.getURL('css/seller-rep.css');
+    sellerRepCss.id = 'sellerRepCss';
+
+    elems.push(sellerRepCss);
+
+    // seller-rep.js
+    let sellerRep = document.createElement('script');
+
+    sellerRep.type = 'text/javascript';
+    sellerRep.src = chrome.extension.getURL('js/seller-rep.js');
+    sellerRep.className = 'de-init';
+
+    elems.push(sellerRep);
   }
 
   if (result.prefs.converter) {
