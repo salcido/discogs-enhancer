@@ -142,28 +142,77 @@ chrome.storage.sync.get('prefs', function(result) {
   // User Preferences
   // ========================================================
 
-  // TODO: alphabetize these if statements
+  if (result.prefs.blockSellers) {
 
-  if (result.prefs.highlightMedia) {
+    let blockSellers = document.createElement('script');
 
-    // apply-highlights.js
-    let highlightScript = document.createElement('script');
+    blockSellers.type = 'text/javascript';
+    blockSellers.src = chrome.extension.getURL('js/hide-blocked-sellers.js');
+    blockSellers.className = 'de-init';
 
-    highlightScript.type = 'text/javascript';
-    highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
-    highlightScript.className = 'de-init';
+    elems.push(blockSellers);
 
-    elems.push(highlightScript);
+    // blocked-seller.css
+    let blockSellers_css = document.createElement('link');
 
-    // marketplace-highlights.css
-    let highlightCss = document.createElement('link');
+    blockSellers_css.rel = 'stylesheet';
+    blockSellers_css.type = 'text/css';
+    blockSellers_css.href = chrome.extension.getURL('css/blocked-seller.css');
 
-    highlightCss.rel = 'stylesheet';
-    highlightCss.type = 'text/css';
-    highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
-    highlightCss.id = 'mediaHighLightsCss';
+    elems.push(blockSellers_css);
+  }
 
-    elems.push(highlightCss);
+  if (result.prefs.collectionUi) {
+
+    // better-collection-ui.js
+    let collectionUi = document.createElement('script');
+
+    collectionUi.type = 'text/javascript';
+    collectionUi.src = chrome.extension.getURL('js/better-collection-ui.js');
+    collectionUi.className = 'de-init';
+
+    elems.push(collectionUi);
+  }
+
+  if (result.prefs.converter) {
+
+    // currency-converter.css
+    let converter_css = document.createElement('link');
+
+    converter_css.rel = 'stylesheet';
+    converter_css.type = 'text/css';
+    converter_css.href = chrome.extension.getURL('css/currency-converter.css');
+
+    elems.push(converter_css);
+
+    // currency-converter.js
+    let converter = document.createElement('script');
+
+    converter.type = 'text/javascript';
+    converter.className = 'de-init';
+    converter.src = chrome.extension.getURL('js/currency-converter.js');
+
+    elems.push(converter);
+  }
+
+  if (result.prefs.darkTheme) {
+
+    let releaseHistoryScript = document.createElement('script');
+
+    releaseHistoryScript.type = 'text/javascript';
+    releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
+    releaseHistoryScript.className = 'de-init';
+
+    elems.push(releaseHistoryScript);
+
+    // options.js
+    let options = document.createElement('script');
+
+    options.type = 'text/javascript';
+    options.src = chrome.extension.getURL('js/options/options.js');
+    options.className = 'de-init';
+
+    elems.push(options);
   }
 
   if (result.prefs.everlastingMarket) {
@@ -187,91 +236,6 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(everlastingMarketCss);
   }
 
-  if (result.prefs.filterByCountry) {
-
-    // filter-by-country.js
-    let filterByCountry = document.createElement('script');
-
-    filterByCountry.type = 'text/javascript';
-    filterByCountry.src = chrome.extension.getURL('js/filter-by-country.js');
-    filterByCountry.className = 'de-init';
-
-    elems.push(filterByCountry);
-  }
-
-  if (result.prefs.sortButtons) {
-
-    // sort-explore-lists.js
-    let sortExploreScript = document.createElement('script');
-
-    sortExploreScript.type = 'text/javascript';
-    sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
-    sortExploreScript.className = 'de-init';
-
-    elems.push(sortExploreScript);
-
-    // sort-marketplace-lists.js
-    let sortMarketplaceScript = document.createElement('script');
-
-    sortMarketplaceScript.type = 'text/javascript';
-    sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
-    sortMarketplaceScript.className = 'de-init';
-
-    elems.push(sortMarketplaceScript);
-
-    // sort-personal-lists.js
-    let sortPersonalListsScript = document.createElement('script');
-
-    sortPersonalListsScript.type = 'text/javascript';
-    sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
-    sortPersonalListsScript.className = 'de-init';
-
-    elems.push(sortPersonalListsScript);
-  }
-
-  if (result.prefs.darkTheme) {
-
-    let releaseHistoryScript = document.createElement('script');
-
-    releaseHistoryScript.type = 'text/javascript';
-    releaseHistoryScript.src = chrome.extension.getURL('js/release-history-legend.js');
-    releaseHistoryScript.className = 'de-init';
-
-    elems.push(releaseHistoryScript);
-
-    // options.js
-    let options = document.createElement('script');
-
-    options.type = 'text/javascript';
-    options.src = chrome.extension.getURL('js/options/options.js');
-    options.className = 'de-init';
-
-    elems.push(options);
-  }
-
-  if (result.prefs.readability) {
-
-    // filter-by-country.js
-    let readability = document.createElement('script');
-
-    readability.type = 'text/javascript';
-    readability.src = chrome.extension.getURL('js/tracklist-readability.js');
-    readability.className = 'de-init';
-
-    elems.push(readability);
-  }
-
-  if (result.prefs.releaseDurations) {
-
-    let releaseDurations = document.createElement('script');
-
-    releaseDurations.type = 'text/javascript';
-    releaseDurations.src = chrome.extension.getURL('js/release-durations.js');
-    releaseDurations.className = 'de-init';
-
-    elems.push(releaseDurations);
-  }
-
   if (result.prefs.feedback) {
 
     let feedback = document.createElement('script');
@@ -290,6 +254,18 @@ chrome.storage.sync.get('prefs', function(result) {
     feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
 
     elems.push(feedback_css);
+  }
+
+  if (result.prefs.filterByCountry) {
+
+    // filter-by-country.js
+    let filterByCountry = document.createElement('script');
+
+    filterByCountry.type = 'text/javascript';
+    filterByCountry.src = chrome.extension.getURL('js/filter-by-country.js');
+    filterByCountry.className = 'de-init';
+
+    elems.push(filterByCountry);
   }
 
   // text format shortcuts
@@ -323,36 +299,119 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(shortcuts_css);
   }
 
-  if (result.prefs.blockSellers) {
+  // Set value for filter-by-condition.js
+  if (result.prefs.hideMarketplaceItems) {
 
-    let blockSellers = document.createElement('script');
-
-    blockSellers.type = 'text/javascript';
-    blockSellers.src = chrome.extension.getURL('js/hide-blocked-sellers.js');
-    blockSellers.className = 'de-init';
-
-    elems.push(blockSellers);
-
-    // blocked-seller.css
-    let blockSellers_css = document.createElement('link');
-
-    blockSellers_css.rel = 'stylesheet';
-    blockSellers_css.type = 'text/css';
-    blockSellers_css.href = chrome.extension.getURL('css/blocked-seller.css');
-
-    elems.push(blockSellers_css);
+    localStorage.setItem('itemCondition', result.prefs.hideMarketplaceItems);
   }
 
-  if (result.prefs.collectionUi) {
+  if (result.prefs.highlightMedia) {
 
-    // better-collection-ui.js
-    let collectionUi = document.createElement('script');
+    // apply-highlights.js
+    let highlightScript = document.createElement('script');
 
-    collectionUi.type = 'text/javascript';
-    collectionUi.src = chrome.extension.getURL('js/better-collection-ui.js');
-    collectionUi.className = 'de-init';
+    highlightScript.type = 'text/javascript';
+    highlightScript.src = chrome.extension.getURL('js/apply-highlights.js');
+    highlightScript.className = 'de-init';
 
-    elems.push(collectionUi);
+    elems.push(highlightScript);
+
+    // marketplace-highlights.css
+    let highlightCss = document.createElement('link');
+
+    highlightCss.rel = 'stylesheet';
+    highlightCss.type = 'text/css';
+    highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
+    highlightCss.id = 'mediaHighLightsCss';
+
+    elems.push(highlightCss);
+  }
+
+  if (result.prefs.notesCount) {
+
+    // notes-counter.js
+    let notesCount = document.createElement('script');
+
+    notesCount.type = 'text/javascript';
+    notesCount.src = chrome.extension.getURL('js/notes-counter.js');
+    notesCount.className = 'de-init';
+
+    elems.push(notesCount);
+  }
+
+  if (result.prefs.readability) {
+
+    // filter-by-country.js
+    let readability = document.createElement('script');
+
+    readability.type = 'text/javascript';
+    readability.src = chrome.extension.getURL('js/tracklist-readability.js');
+    readability.className = 'de-init';
+
+    elems.push(readability);
+  }
+
+  if (result.prefs.releaseDurations) {
+
+    let releaseDurations = document.createElement('script');
+
+    releaseDurations.type = 'text/javascript';
+    releaseDurations.src = chrome.extension.getURL('js/release-durations.js');
+    releaseDurations.className = 'de-init';
+
+    elems.push(releaseDurations);
+  }
+
+  if (result.prefs.sellerRep) {
+
+    // seller-rep.css
+    let sellerRepCss = document.createElement('link');
+
+    sellerRepCss.rel = 'stylesheet';
+    sellerRepCss.type = 'text/css';
+    sellerRepCss.href = chrome.extension.getURL('css/seller-rep.css');
+    sellerRepCss.id = 'sellerRepCss';
+
+    elems.push(sellerRepCss);
+
+    // seller-rep.js
+    let sellerRep = document.createElement('script');
+
+    sellerRep.type = 'text/javascript';
+    sellerRep.src = chrome.extension.getURL('js/seller-rep.js');
+    sellerRep.className = 'de-init';
+
+    elems.push(sellerRep);
+  }
+
+  if (result.prefs.sortButtons) {
+
+    // sort-explore-lists.js
+    let sortExploreScript = document.createElement('script');
+
+    sortExploreScript.type = 'text/javascript';
+    sortExploreScript.src = chrome.extension.getURL('js/sort-explore-lists.js');
+    sortExploreScript.className = 'de-init';
+
+    elems.push(sortExploreScript);
+
+    // sort-marketplace-lists.js
+    let sortMarketplaceScript = document.createElement('script');
+
+    sortMarketplaceScript.type = 'text/javascript';
+    sortMarketplaceScript.src = chrome.extension.getURL('js/sort-marketplace-lists.js');
+    sortMarketplaceScript.className = 'de-init';
+
+    elems.push(sortMarketplaceScript);
+
+    // sort-personal-lists.js
+    let sortPersonalListsScript = document.createElement('script');
+
+    sortPersonalListsScript.type = 'text/javascript';
+    sortPersonalListsScript.src = chrome.extension.getURL('js/sort-personal-lists.js');
+    sortPersonalListsScript.className = 'de-init';
+
+    elems.push(sortPersonalListsScript);
   }
 
   if (result.prefs.suggestedPrices) {
@@ -393,67 +452,6 @@ chrome.storage.sync.get('prefs', function(result) {
     preloader.id = 'preloaderCss';
 
     elems.push(preloader);
-  }
-
-  if (result.prefs.sellerRep) {
-
-    // seller-rep.css
-    let sellerRepCss = document.createElement('link');
-
-    sellerRepCss.rel = 'stylesheet';
-    sellerRepCss.type = 'text/css';
-    sellerRepCss.href = chrome.extension.getURL('css/seller-rep.css');
-    sellerRepCss.id = 'sellerRepCss';
-
-    elems.push(sellerRepCss);
-
-    // seller-rep.js
-    let sellerRep = document.createElement('script');
-
-    sellerRep.type = 'text/javascript';
-    sellerRep.src = chrome.extension.getURL('js/seller-rep.js');
-    sellerRep.className = 'de-init';
-
-    elems.push(sellerRep);
-  }
-
-  if (result.prefs.converter) {
-
-    // currency-converter.css
-    let converter_css = document.createElement('link');
-
-    converter_css.rel = 'stylesheet';
-    converter_css.type = 'text/css';
-    converter_css.href = chrome.extension.getURL('css/currency-converter.css');
-
-    elems.push(converter_css);
-
-    // currency-converter.js
-    let converter = document.createElement('script');
-
-    converter.type = 'text/javascript';
-    converter.className = 'de-init';
-    converter.src = chrome.extension.getURL('js/currency-converter.js');
-
-    elems.push(converter);
-  }
-
-  if (result.prefs.notesCount) {
-
-    // notes-counter.js
-    let notesCount = document.createElement('script');
-
-    notesCount.type = 'text/javascript';
-    notesCount.src = chrome.extension.getURL('js/notes-counter.js');
-    notesCount.className = 'de-init';
-
-    elems.push(notesCount);
-  }
-
-  // Set value for filter-by-condition.js
-  if (result.prefs.hideMarketplaceItems) {
-
-    localStorage.setItem('itemCondition', result.prefs.hideMarketplaceItems);
   }
 
   // unit-tests.js
