@@ -78,4 +78,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     sendResponse({readability: readability});
   }
+
+  // Seller Rep
+  if (msg.request === 'getSellerRep') {
+
+    let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
+
+    sendResponse({sellerRep: sellerRep});
+  }
 });

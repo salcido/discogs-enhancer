@@ -1,8 +1,4 @@
-.de-seller-rep {
-  padding: 1px 5px;
-  background-color: brown !important;
-  border-radius: 5px;
-  color: white !important;
+.de-seller-rep,
+.de-seller-rep i {
+  color: #BF3A38 !important;
 }
-
-/* .star_rating next() */

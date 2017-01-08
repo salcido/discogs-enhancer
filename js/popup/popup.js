@@ -223,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
              event.target.type !== 'checkbox' &&
              event.target.nodeName !== 'LABEL' &&
              event.target.nodeName !== 'SPAN' &&
+             event.target.nodeName !== 'A' &&
              event.target.nodeName !== 'SELECT') {
 
       options.fadeOut('fast');
@@ -647,13 +648,6 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
-  // Open seller rep config page
-  $('body').on('click', '#sellerRepConfig', function() {
-
-    chrome.tabs.create({url: '../html/seller-rep.html'});
-  });
-
-
   /**
    * CONTEXTUAL MENU SEARCHING OPTIONS
    */
@@ -683,7 +677,6 @@ document.addEventListener('DOMContentLoaded', function () {
     optionsToggle( $('.hide-country'), $('.toggle-group.country'), 85 );
   });
 
-
   // Save the Filter Items By Country currency select value to localStorage
   $('#filterCountryCurrency').change(function() {
 
@@ -708,6 +701,40 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  /**
+   * SELLER REPUTATION
+   */
+
+  $('.toggle-group.seller-rep').click(function(event) {
+
+    optionsToggle( $('.hide-percentage'), $('.toggle-group.seller-rep'), 110 );
+
+    $('#percent').val(localStorage.getItem('sellerRep'));
+  });
+
+  // Save button
+  $('.percent-save').on('click', function(event) {
+
+    let input = $('#percent'),
+        message = $('.hide-percentage .message');
+
+    event.preventDefault();
+
+    if (input.val() > 100) { input.val(100); }
+
+    if (!input.val()) {
+
+      localStorage.setItem('sellerRep', 0);
+
+    } else {
+
+      localStorage.setItem('sellerRep', input.val());
+    }
+
+    // Notify user
+    message.text('Saved!');
+    setTimeout(function() { message.text(''); }, 2000);
+  });
 
   // ========================================================
   // Event listeners

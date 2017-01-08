@@ -3,7 +3,7 @@
 }
 
 .blocked-seller .seller_info strong a {
-  color: red !important;
+  color: #BF3A38 !important;
   text-decoration: line-through;
 }
 

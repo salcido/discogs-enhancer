@@ -1003,16 +1003,23 @@
       </div>
     </div>
 
-    <div class="toggle-group">
-      <p class="label">Seller Rep</p>
-      <a href="#" id="sellerRepConfig">(Settings)</a>
+    <!-- seller rep -->
+    <div class="toggle-group has-options seller-rep">
+      <p class="label">Seller Reputation</p>
 
-      <div class="onoffswitch">
+      <div class="onoffswitch hide-percentage" style="display: none;">
           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSellerRep" checked>
           <label class="onoffswitch-label" for="toggleSellerRep">
               <span class="onoffswitch-inner"></span>
               <span class="onoffswitch-switch"></span>
           </label>
+      </div>
+
+      <div class="hide-percentage percentage-interface" style="display:none;">
+        <label for="percent">Tag sellers below:</label>
+        <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3"placeholder="95.5">%
+        <a href="" class="button_green percent-save">Save</a>
+        <span class="message"></span>
       </div>
     </div>
 

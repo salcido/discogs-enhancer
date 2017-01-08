@@ -48,6 +48,7 @@ $(document).ready(function() {
 
         if (rating < threshold) {
 
+          $('.star_rating').eq(i).addClass('de-seller-rep');
           $('.star_rating').eq(i).next().addClass('de-seller-rep');
         }
       });

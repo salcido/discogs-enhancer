@@ -814,6 +814,18 @@ try {
     localStorage.setItem('readability', readability);
   });
 
+  // Seller Reputation
+  chrome.runtime.sendMessage({request: 'getSellerRep'}, function(response) {
+
+    let sellerRep = response.sellerRep;
+
+    sellerRep = JSON.stringify(sellerRep);
+
+    // Set the sellerRep object in localStorage so that the DOM can
+    // be manipulated based on sellerRep's value.
+    localStorage.setItem('sellerRep', sellerRep);
+  });
+
 } catch(err) {
 
   // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...

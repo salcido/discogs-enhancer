@@ -326,9 +326,61 @@ input[type="checkbox"]:focus {
   outline: none;
 }
 
+/* Seller Reputation */
+
+.seller-rep {
+  display: block;
+  position: relative;
+}
+
+.percentage-interface {
+  width: 300px;
+  position: absolute;
+  top: 50px;
+  left: 100px;
+  font-size: 18px;
+  color: white;
+}
+
+.percentage-interface input {
+  display: inline-block;
+  max-width: 80px;
+  margin-right: 3px;
+  font-size: 18px;
+}
+
+.percentage-interface label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #CCCCCC;
+}
+
+.percentage-interface a {
+  display: inline-block;
+  margin: -5px 0 0 5px;
+  padding: 0;
+}
+
+.percentage-interface span.message {
+  display: block;
+  margin-top: 5px;
+  font-size: 16px;
+  color: #60C43F;
+}
+
+/* hide arrows in number input */
+.percentage-interface input::-webkit-outer-spin-button,
+.percentage-interface input::-webkit-inner-spin-button {
+  margin: 0;
+
+  -webkit-appearance: none;
+}
+
 .toggle-group.menus,
 .toggle-group.condition,
-.toggle-group.country {
+.toggle-group.country,
+.toggle-group.seller-rep {
   cursor: pointer;
 }
 
