@@ -21,6 +21,7 @@ $(document).ready(function() {
    * Sets the initial sellerRep value
    *
    * @method setSellerRep
+   * @return {object}
    */
   function setSellerRep() {
 

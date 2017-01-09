@@ -707,18 +707,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   $('.toggle-group.seller-rep').click(function(event) {
 
-    optionsToggle( $('.hide-percentage'), $('.toggle-group.seller-rep'), 110 );
+    optionsToggle( $('.hide-percentage'), $('.toggle-group.seller-rep'), 80 );
 
     $('#percent').val(localStorage.getItem('sellerRep'));
   });
 
-  // Save button
-  $('.percent-save').on('click', function(event) {
+  // TODO disable input when option is enabled.
+  function saveSellerRep() {
 
-    let input = $('#percent'),
-        message = $('.hide-percentage .message');
-
-    event.preventDefault();
+    let input = $('#percent');
 
     if (input.val() > 100) { input.val(100); }
 
@@ -731,10 +728,8 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('sellerRep', input.val());
     }
 
-    // Notify user
-    message.text('Saved!');
-    setTimeout(function() { message.text(''); }, 2000);
-  });
+    triggerSave();
+  }
 
   // ========================================================
   // Event listeners
@@ -754,7 +749,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
-  toggleSellerRep.addEventListener('change', triggerSave);
+  toggleSellerRep.addEventListener('change', saveSellerRep);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', showPrices);

@@ -336,9 +336,9 @@ input[type="checkbox"]:focus {
 .percentage-interface {
   width: 300px;
   position: absolute;
-  top: 50px;
-  left: 100px;
-  font-size: 18px;
+  top: 52px;
+  left: 92px;
+  font-size: 15px;
   color: white;
 }
 
@@ -346,11 +346,11 @@ input[type="checkbox"]:focus {
   display: inline-block;
   max-width: 80px;
   margin-right: 3px;
-  font-size: 18px;
+  margin-left: 5px;
+  font-size: inherit;
 }
 
 .percentage-interface label {
-  display: block;
   margin-bottom: 8px;
   font-size: 13px;
   color: #CCCCCC;
@@ -358,15 +358,28 @@ input[type="checkbox"]:focus {
 
 .percentage-interface a {
   display: inline-block;
-  margin: -5px 0 0 5px;
+  width: 50px;
+  margin: -5px 0 0 15px;
   padding: 0;
+  font-size: 13px;
 }
 
 .percentage-interface span.message {
-  display: block;
-  margin-top: 5px;
-  font-size: 16px;
+  display: inline-block;
+  font-size: 13px;
   color: #60C43F;
+}
+
+.save-wrap {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-left: 96px;
+}
+
+.percent-save {
+  display: inline-block;
+  outline: none;
+  color: lightgray;
 }
 
 /* hide arrows in number input */

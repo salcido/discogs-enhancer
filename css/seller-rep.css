@@ -1,4 +1,5 @@
 .de-seller-rep,
 .de-seller-rep i {
-  color: #BF3A38 !important;
+  /*color: #BF3A38 !important; /* Discogs native price color */
+  color: #FF8122 !important;
 }
