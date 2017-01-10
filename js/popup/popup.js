@@ -204,13 +204,14 @@ document.addEventListener('DOMContentLoaded', function () {
   function optionsToggle(options, toggleGroup, height) {
 
     // Check the current height and either expand or collapse it
-    if (toggleGroup.height() == 25) {
+    if (toggleGroup.height() == 50) {
 
       toggleGroup.css({height: height + 'px'});
+      //$('.arrow').addClass('rotate270');
 
       let int = setInterval(function() {
 
-        if (toggleGroup.height() >= (height - 10)) {
+        if ( toggleGroup.height() >= (height - 10) ) {
 
           options.fadeIn('fast');
 
@@ -218,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }, 100);
     }
-    // collapse
+    // collapse (don't collapse when clicking these elements)
     else if (event.target.nodeName !== 'INPUT' &&
              event.target.type !== 'checkbox' &&
              event.target.nodeName !== 'LABEL' &&
@@ -227,12 +228,59 @@ document.addEventListener('DOMContentLoaded', function () {
              event.target.nodeName !== 'SELECT') {
 
       options.fadeOut('fast');
+      //$('.arrow').removeClass('rotate270');
 
       let int = setInterval(function() {
 
        if (options.is(':hidden')) {
 
-         toggleGroup.css({height: '25px'});
+         toggleGroup.css({height: '50px'});
+
+         clearInterval(int);
+       }
+      }, 100);
+    }
+  }
+
+  /**
+   * Displays the sub-options under Marketplace Features
+   *
+   * @method marketplaceFeaturesToggle
+   * @param  {object}    options     [the DOM element to display]
+   * @param  {object}    toggleGroup [the actual feature in the popup menu]
+   * @return {undefined}
+   */
+
+  function marketplaceFeaturesToggle(options, toggleGroup) {
+
+    // Check the current height and either expand or collapse it
+    if (toggleGroup.height() == 50) {
+
+      toggleGroup.css({height: '100%'});
+      $('.arrow').addClass('rotate270');
+
+      let int = setInterval(function() {
+
+        if (toggleGroup.height() >= (toggleGroup.height() - 10)) {
+
+          options.fadeIn('fast');
+
+          clearInterval(int);
+        }
+      }, 100);
+    }
+    // collapse (don't collapse when clicking these elements)
+    else if (event.target.className.indexOf('marketplace') > -1 ||
+             event.target.textContent === 'Marketplace Features' ) {
+
+      options.fadeOut('fast');
+
+      let int = setInterval(function() {
+
+       if (options.is(':hidden')) {
+
+         toggleGroup.css({height: '50px'});
+         $('.arrow').removeClass('rotate270');
 
          clearInterval(int);
        }
@@ -635,7 +683,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-
   // Open block sellers page
   $('body').on('click', '#editList', function() {
 
@@ -648,34 +695,33 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
-  /**
-   * CONTEXTUAL MENU SEARCHING OPTIONS
-   */
+  /* MARKETPLACE FEATURE SUBMENUS */
+  $('.toggle-group.marketplace').click(function(event) {
 
+    marketplaceFeaturesToggle( $('.marketplace-features-container'), $(this) );
+  });
+
+
+  /* CONTEXTUAL MENU SEARCHING OPTIONS */
   $('.toggle-group.menus').click(function(event) {
 
-    optionsToggle( $('#contextMenus'), $('.toggle-group.menus'), 155 );
+    optionsToggle( $('#contextMenus'), $(this), 180 );
   });
 
 
-  /**
-   * FILTER BY CONDITION OPTIONS
-   */
-
+  /* FILTER BY CONDITION OPTIONS */
   $('.toggle-group.condition').click(function(event) {
 
-    optionsToggle( $('.hide-items'), $('.toggle-group.condition'), 75 );
+    optionsToggle( $('.hide-items'), $(this), 100 );
   });
 
 
-  /**
-   * FILTER ITEMS BY COUNTRY OPTIONS
-   */
-
+  /* FILTER ITEMS BY COUNTRY OPTIONS */
   $('.toggle-group.country').click(function(event) {
 
-    optionsToggle( $('.hide-country'), $('.toggle-group.country'), 85 );
+    optionsToggle( $('.hide-country'), $(this), 105 );
   });
+
 
   // Save the Filter Items By Country currency select value to localStorage
   $('#filterCountryCurrency').change(function() {
@@ -701,13 +747,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  /**
-   * SELLER REPUTATION
-   */
+  /* SELLER REPUTATION */
 
   $('.toggle-group.seller-rep').click(function(event) {
 
-    optionsToggle( $('.hide-percentage'), $('.toggle-group.seller-rep'), 80 );
+    optionsToggle( $('.hide-percentage'), $('.toggle-group.seller-rep'), 100 );
 
     $('#percent').val(localStorage.getItem('sellerRep'));
   });
