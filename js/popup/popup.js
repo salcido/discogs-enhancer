@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+
   /**
    * Displays the sub-options under Marketplace Features
    *
@@ -287,6 +288,72 @@ document.addEventListener('DOMContentLoaded', function () {
        }
       }, 100);
     }
+  }
+
+
+  /**
+   * Saves the sellerRep percentage
+   *
+   * @method saveSellerRep
+   * @return {undefined}
+   */
+
+  function saveSellerRep() {
+
+    let input = $('#percent'),
+        toggle = toggleSellerRep;
+
+    // unchecked and has value entered
+    if ( input.val() && toggle.checked) {
+
+      input.prop('disabled', true);
+      toggle.disabled = false;
+      input.removeClass('alert');
+
+      // reset value to 100 if user enters a greater value
+      if ( input > 100 ) { input.val(100); }
+
+      localStorage.setItem('sellerRep', input.val());
+
+      input.val(localStorage.getItem('sellerRep'));
+
+      triggerSave();
+
+    } else if ( input.val() && !toggle.checked ) {
+
+      input.prop('disabled', false);
+      triggerSave();
+
+    } else if ( !input.val() ) {
+
+      toggle.checked = false;
+      input.addClass('alert');
+    }
+  }
+
+
+  /**
+   * Sets the value of the seller rep input
+   * when the popup is rendered
+   *
+   * @method setSellerRep
+   * @return {undefined}
+   */
+
+  function setSellerRep() {
+
+    let input = $('#percent'),
+        percent = localStorage.getItem('sellerRep') || null;
+
+    if (percent !== null) { input.val(percent); }
+
+    chrome.storage.sync.get('prefs', function(result) {
+
+      if (result.prefs.sellerRep && percent !== null) {
+
+        input.prop('disabled', true);
+      }
+    });
   }
 
 
@@ -756,28 +823,8 @@ document.addEventListener('DOMContentLoaded', function () {
   $('.toggle-group.seller-rep').click(function(event) {
 
     optionsToggle( $('.hide-percentage'), $(this), '.seller-rep', 100 );
-
-    $('#percent').val(localStorage.getItem('sellerRep'));
   });
 
-  // TODO disable input when option is enabled.
-  function saveSellerRep() {
-
-    let input = $('#percent');
-
-    if (input.val() > 100) { input.val(100); }
-
-    if (!input.val()) {
-
-      localStorage.setItem('sellerRep', 0);
-
-    } else {
-
-      localStorage.setItem('sellerRep', input.val());
-    }
-
-    triggerSave();
-  }
 
   // ========================================================
   // Event listeners
@@ -876,6 +923,7 @@ document.addEventListener('DOMContentLoaded', function () {
     getCurrency();
     setupFilterByCondition();
     setCountryFilters();
+    setSellerRep();
   }
 
   // Start it up

@@ -436,6 +436,11 @@ input[type="checkbox"]:focus {
   color: lightgray;
 }
 
+#percent:disabled {
+  background-color: gray;
+  border: 1px solid gray;
+}
+
 /* hide arrows in number input */
 .percentage-interface input::-webkit-outer-spin-button,
 .percentage-interface input::-webkit-inner-spin-button {

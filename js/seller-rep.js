@@ -11,24 +11,7 @@
 $(document).ready(function() {
 
   let href = window.location.href,
-      threshold = localStorage.getItem('sellerRep') || setSellerRep();
-
-  // ========================================================
-  // Functions
-  // ========================================================
-
-  /**
-   * Sets the initial sellerRep value
-   *
-   * @method setSellerRep
-   * @return {object}
-   */
-  function setSellerRep() {
-
-    localStorage.setItem('sellerRep', 50.0);
-
-    return localStorage.getItem('sellerRep');
-  }
+      threshold = localStorage.getItem('sellerRep');
 
   // ========================================================
   // DOM manipulation
