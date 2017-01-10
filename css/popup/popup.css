@@ -180,8 +180,8 @@ a.button_green:hover {
 }
 
 .toggle-group.marketplace .toggle-group {
-  border-top: 1px solid #000;
   background-color: #292929;
+  border-top: 1px solid #000000;
 }
 
 .toggle-group.marketplace .toggle-group p {
@@ -206,19 +206,19 @@ a.button_green:hover {
 
 .arrow {
   display: inline-block;
-  transition: all 0.3s ease;
+  margin-top: -2px;
   font-size: 16px;
   font-weight: bold;
-  margin-top: -2px;
-  color: #6f6f6f;
+  color: #6F6F6F;
+  transition: all 0.3s ease;
 }
 
 .marketplace-features-container .arrow {
   display: inline-block;
-  transition: all 0.3s ease;
+  margin-top: -2px;
   font-size: 16px;
   font-weight: bold;
-  margin-top: -2px;
+  transition: all 0.3s ease;
 }
 
 .label {
