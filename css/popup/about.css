@@ -265,35 +265,35 @@ span.new {
 .short-link {
   height: 25px;
   width: 28px;
-  background: url(../img/about/shortcuts.png) 0 0;
+  background: url(../../img/about/shortcuts.png) 0 0;
   background-size: cover;
 }
 
 .short-bold {
   height: 25px;
   width: 28px;
-  background: url(../img/about/shortcuts.png) -31px 0;
+  background: url(../../img/about/shortcuts.png) -31px 0;
   background-size: cover;
 }
 
 .short-italic {
   height: 25px;
   width: 28px;
-  background: url(../img/about/shortcuts.png) -58px 0;
+  background: url(../../img/about/shortcuts.png) -58px 0;
   background-size: cover;
 }
 
 .short-strike {
   height: 25px;
   width: 28px;
-  background: url(../img/about/shortcuts.png) -86px 0;
+  background: url(../../img/about/shortcuts.png) -86px 0;
   background-size: cover;
 }
 
 .short-underline {
   height: 25px;
   width: 28px;
-  background: url(../img/about/shortcuts.png) -114px 0 no-repeat;
+  background: url(../../img/about/shortcuts.png) -114px 0 no-repeat;
   background-size: cover;
 }
 
