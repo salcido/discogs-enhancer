@@ -198,16 +198,17 @@ document.addEventListener('DOMContentLoaded', function () {
    * @param  {object}    options     [the DOM element to display]
    * @param  {object}    toggleGroup [the actual feature in the popup menu]
    * @param  {number}    height      [the height that `target` will expand to]
+   * @param  {string}    arrowClass  [the parent class of the animated arrow]
    * @return {undefined}
    */
 
-  function optionsToggle(options, toggleGroup, height) {
+  function optionsToggle(options, toggleGroup, arrowClass, height) {
 
     // Check the current height and either expand or collapse it
     if (toggleGroup.height() == 50) {
 
       toggleGroup.css({height: height + 'px'});
-      //$('.arrow').addClass('rotate270');
+      $(arrowClass + ' .arrow').addClass('rotate90');
 
       let int = setInterval(function() {
 
@@ -228,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
              event.target.nodeName !== 'SELECT') {
 
       options.fadeOut('fast');
-      //$('.arrow').removeClass('rotate270');
+      $(arrowClass + ' .arrow').removeClass('rotate90');
 
       let int = setInterval(function() {
 
@@ -257,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (toggleGroup.height() == 50) {
 
       toggleGroup.css({height: '100%'});
-      $('.arrow').addClass('rotate270');
+      $('.marketplace-label .arrow').addClass('rotate90');
 
       let int = setInterval(function() {
 
@@ -280,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
        if (options.is(':hidden')) {
 
          toggleGroup.css({height: '50px'});
-         $('.arrow').removeClass('rotate270');
+         $('.marketplace-label .arrow').removeClass('rotate90');
 
          clearInterval(int);
        }
@@ -330,9 +331,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
+      let arrow = '<span class="arrow">&rsaquo;</span>&nbsp;';
+
       if (result.prefs.filterByCountry === true) {
 
-        $('.toggle-group.country .label').html('Filter Items by Country: &nbsp; <span style="color:#00db1f;">Enabled</span>');
+        $('.toggle-group.country .label').html(arrow + 'Filter Items by Country: &nbsp; <span style="color:#00db1f;">Enabled</span>');
 
         // Disable the selects when the feature is enabled
         document.getElementById('filterCountryCurrency').disabled = true;
@@ -340,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       } else {
 
-        $('.toggle-group.country .label').html('Filter Items by Country: &nbsp; <span style="color:#FFFFFF;">Disabled</span>');
+        $('.toggle-group.country .label').html(arrow + 'Filter Items by Country: &nbsp; <span style="color:#FFFFFF;">Disabled</span>');
       }
     });
   }
@@ -356,6 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function setupFilterByCondition() {
 
     let
+        arrow = '<span class="arrow">&rsaquo;</span>&nbsp;',
         setting = Number(localStorage.getItem('itemCondition')),
 
         conditions = ['Poor (P)',
@@ -378,11 +382,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (setting === 0 || setting === null) {
 
-      $('.toggle-group.condition .label').html('Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
+      $('.toggle-group.condition .label').html(arrow + 'Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
 
     } else {
 
-      $('.toggle-group.condition .label').html('Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+      $('.toggle-group.condition .label').html(arrow + 'Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
     }
   }
 
@@ -698,28 +702,28 @@ document.addEventListener('DOMContentLoaded', function () {
   /* MARKETPLACE FEATURE SUBMENUS */
   $('.toggle-group.marketplace').click(function(event) {
 
-    marketplaceFeaturesToggle( $('.marketplace-features-container'), $(this) );
+    marketplaceFeaturesToggle( $('.marketplace-features-container'), $(this), '.marketplace' );
   });
 
 
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
   $('.toggle-group.menus').click(function(event) {
 
-    optionsToggle( $('#contextMenus'), $(this), 180 );
+    optionsToggle( $('#contextMenus'), $(this), '.menus', 180 );
   });
 
 
   /* FILTER BY CONDITION OPTIONS */
   $('.toggle-group.condition').click(function(event) {
 
-    optionsToggle( $('.hide-items'), $(this), 100 );
+    optionsToggle( $('.hide-items'), $(this), '.condition', 100 );
   });
 
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   $('.toggle-group.country').click(function(event) {
 
-    optionsToggle( $('.hide-country'), $(this), 105 );
+    optionsToggle( $('.hide-country'), $(this), '.country', 105 );
   });
 
 
@@ -751,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   $('.toggle-group.seller-rep').click(function(event) {
 
-    optionsToggle( $('.hide-percentage'), $('.toggle-group.seller-rep'), 100 );
+    optionsToggle( $('.hide-percentage'), $(this), '.seller-rep', 100 );
 
     $('#percent').val(localStorage.getItem('sellerRep'));
   });

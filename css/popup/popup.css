@@ -165,6 +165,9 @@ a.button_green:hover {
  * MARKETPLACE FEATURES
  *
  */
+.toggle-group.marketplace {
+  cursor: pointer;
+}
 
 .toggle-group.marketplace .toggle-group.sub-option:hover p {
   margin-left: 65px;
@@ -177,7 +180,7 @@ a.button_green:hover {
 }
 
 .toggle-group.marketplace .toggle-group {
-  border-top: 1px solid #666;
+  border-top: 1px solid #000;
   background-color: #292929;
 }
 
@@ -195,17 +198,28 @@ a.button_green:hover {
   cursor: pointer;
 }
 
-/* marketplace features arrow */
-.arrow {
-  display: inline-block;
-  transition: all 0.3s ease;
-  font-size: 10px;
-}
-
-.rotate270 {
+.rotate90 {
   transform: rotate(90deg);
 }
 
+/* marketplace features arrow */
+
+.arrow {
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: -2px;
+  color: #6f6f6f;
+}
+
+.marketplace-features-container .arrow {
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: -2px;
+}
 
 .label {
   float: left;
