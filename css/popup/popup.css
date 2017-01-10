@@ -157,7 +157,7 @@ a.button_green:hover {
 }
 
 .toggle-group.has-options:hover p {
-  margin-left: 45px;
+  margin-left: 15px;
   cursor: pointer;
 }
 
@@ -165,17 +165,16 @@ a.button_green:hover {
  * MARKETPLACE FEATURES
  *
  */
-.toggle-group.marketplace {
-  cursor: pointer;
-}
+
 
 .toggle-group.marketplace .toggle-group.sub-option:hover p {
-  margin-left: 65px;
+  margin-left: 35px;
   cursor: pointer;
 }
 
 .toggle-group.marketplace:hover p.marketplace-label {
-  margin-left: 40px;
+  width: 100%;
+  margin-left: 15px;
   cursor: pointer;
 }
 
@@ -185,18 +184,13 @@ a.button_green:hover {
 }
 
 .toggle-group.marketplace .toggle-group p {
-  margin-left: 50px;
-}
-
-/* don't tint marketplace options background on hover*/
-.toggle-group.marketplace:hover {
-  background-color: #313335;
-}
-
-.toggle-group.marketplace .toggle-group.has-options:hover p {
   margin-left: 20px;
-  cursor: pointer;
 }
+
+/*.toggle-group.marketplace .toggle-group.has-options:hover p {
+  margin-left: 55px;
+  cursor: pointer;
+}*/
 
 .rotate90 {
   transform: rotate(90deg);
@@ -223,8 +217,9 @@ a.button_green:hover {
 
 .label {
   float: left;
-  margin-top: 16px;
-  margin-left: 28px;
+  /*margin-top: 16px;
+  margin-left: 28px;*/
+  padding: 3px 0 0 28px;
   font-size: 14px;
 }
 
