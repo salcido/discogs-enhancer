@@ -165,20 +165,20 @@ a.button_green:hover {
  * MARKETPLACE FEATURES
  *
  */
- .toggle-group.marketplace:hover p.marketplace-label {
-   width: 100%;
-   margin-left: 15px;
-   cursor: pointer;
- }
+.toggle-group.marketplace:hover p.marketplace-label {
+  width: 100%;
+  margin-left: 15px;
+  cursor: pointer;
+}
 
- .toggle-group.marketplace .toggle-group {
-   background-color: #292929;
-   border-top: 1px solid #000000;
- }
+.toggle-group.marketplace .toggle-group {
+  background-color: #292929;
+  border-top: 1px solid #000000;
+}
 
- .toggle-group.marketplace .toggle-group p {
-   margin-left: 20px;
- }
+.toggle-group.marketplace .toggle-group p {
+  margin-left: 20px;
+}
 
 .toggle-group.marketplace .toggle-group.sub-option:hover p {
   margin-left: 35px;
@@ -351,7 +351,7 @@ input[type="checkbox"]:focus {
 .hide-items select {
   position: absolute;
   top: 55px;
-  left: 122px;
+  left: 70px;
   outline: none;
 }
 
@@ -388,7 +388,7 @@ input[type="checkbox"]:focus {
   width: 300px;
   position: absolute;
   top: 52px;
-  left: 100px;
+  left: 70px;
   font-size: 15px;
   color: white;
 }
@@ -435,7 +435,7 @@ input[type="checkbox"]:focus {
 
 #percent:disabled {
   background-color: gray;
-  border: 1px solid gray;
+  border: 2px solid gray;
 }
 
 /* hide arrows in number input */
