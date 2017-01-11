@@ -144,6 +144,7 @@ a.button_green:hover {
   height: 50px;
   width: 105%;
   margin: 0 0 0 -10px;
+  position: relative;
   border-top: 1px solid #CCCCCC;
   transition: all 0.3s ease;
 }
@@ -157,7 +158,7 @@ a.button_green:hover {
 }
 
 .toggle-group.has-options:hover p {
-  margin-left: 15px;
+  margin-left: 5px;
   cursor: pointer;
 }
 
@@ -167,7 +168,7 @@ a.button_green:hover {
  */
 .toggle-group.marketplace:hover p.marketplace-label {
   width: 100%;
-  margin-left: 15px;
+  margin-left: 5px;
   cursor: pointer;
 }
 
@@ -181,7 +182,7 @@ a.button_green:hover {
 }
 
 .toggle-group.marketplace .toggle-group.sub-option:hover p {
-  margin-left: 35px;
+  margin-left: 25px;
   cursor: pointer;
 }
 
@@ -342,7 +343,7 @@ input[type="checkbox"]:focus {
 }
 
 /* Filter Marketplace Items by Condition */
-
+/*sub-menu*/
 .hide-items {
   display: block;
   position: relative;
@@ -351,12 +352,12 @@ input[type="checkbox"]:focus {
 .hide-items select {
   position: absolute;
   top: 55px;
-  left: 70px;
+  left: 60px;
   outline: none;
 }
 
 /* Filter Marketplace Items by Country */
-
+/* sub-menu */
 .hide-country {
   display: block;
   position: relative;
@@ -365,7 +366,7 @@ input[type="checkbox"]:focus {
 .hide-country #filterCountryCurrency {
   position: absolute;
   top: 45px;
-  left: 70px;
+  left: 60px;
   outline: none;
 }
 
@@ -373,12 +374,12 @@ input[type="checkbox"]:focus {
   max-width: 175px;
   position: absolute;
   top: 75px;
-  left: 70px;
+  left: 60px;
   outline: none;
 }
 
 /* Seller Reputation */
-
+/*sub-menu*/
 .seller-rep {
   display: block;
   position: relative;
@@ -388,7 +389,7 @@ input[type="checkbox"]:focus {
   width: 300px;
   position: absolute;
   top: 52px;
-  left: 70px;
+  left: 60px;
   font-size: 15px;
   color: white;
 }
@@ -455,4 +456,50 @@ input[type="checkbox"]:focus {
 
 #contextMenus {
   z-index: 10;
+}
+
+.status {
+  position: absolute;
+  top: 17px;
+  right: 23px;
+}
+
+.enabled {
+  color: #00DB1F;
+}
+
+.disabled {
+  color: white;
+}
+
+.mint {
+  color: #00B4DB;
+}
+
+.near-mint {
+  color: #00DBB4;
+}
+
+.very-good-plus {
+  color: #00DB1F;
+}
+
+.very-good {
+  color: #85AB11;
+}
+
+.good-plus {
+  color: #F6BF48;
+}
+
+.good {
+  color: #D87307;
+}
+
+.fair {
+  color: #E54803;
+}
+
+.poor {
+  color: #FF0000;
 }

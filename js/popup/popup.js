@@ -11,6 +11,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   let
+      arrow = '<span class="arrow">&rsaquo;</span>&nbsp;',
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       prefs = {},
@@ -163,6 +164,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /**
+   * Sets the enabled/disabled text status on SUBMENUS
+   *
+   * @method setEnabledStatus
+   * @param  {object}         target [jQ object]
+   * @param  {string}         status [Enabled/Disabled]
+   */
+
+  function setEnabledStatus(target, status) {
+
+    let state = status === 'Enabled'
+                ? target.text('Enabled').addClass('enabled').removeClass('disabled')
+                : target.text('Disabled').addClass('disabled').removeClass('enabled');
+
+    return state;
+  }
+
+
+  /**
    * Gets and saves currency preferences
    *
    * @method   getCurrency
@@ -204,6 +223,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function optionsToggle(options, toggleGroup, arrowClass, height) {
 
+    let ms = 100;
+
     // Check the current height and either expand or collapse it
     if (toggleGroup.height() == 50) {
 
@@ -214,7 +235,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if ( toggleGroup.height() >= (height - 10) ) {
 
-          options.fadeIn('fast');
+          options.fadeIn(ms);
+          $(arrowClass + ' .status').fadeOut(ms);
 
           clearInterval(int);
         }
@@ -228,7 +250,8 @@ document.addEventListener('DOMContentLoaded', function () {
              event.target.nodeName !== 'A' &&
              event.target.nodeName !== 'SELECT') {
 
-      options.fadeOut('fast');
+      options.fadeOut(ms);
+      $(arrowClass + ' .status').fadeIn(ms);
       $(arrowClass + ' .arrow').removeClass('rotate90');
 
       let int = setInterval(function() {
@@ -303,9 +326,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function saveSellerRep() {
 
     let input = $('#percent'),
+        self = $('.seller-rep .status'),
         toggle = toggleSellerRep;
 
-    // unchecked and has value entered
+    // checked and has value entered
     if ( input.val() && toggle.checked) {
 
       input.prop('disabled', true);
@@ -319,11 +343,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       input.val(localStorage.getItem('sellerRep'));
 
+      setEnabledStatus( self, 'Enabled' );
       triggerSave();
 
     } else if ( input.val() && !toggle.checked ) {
 
       input.prop('disabled', false);
+
+      setEnabledStatus( self, 'Disabled' );
       triggerSave();
 
     } else if ( !input.val() ) {
@@ -345,15 +372,22 @@ document.addEventListener('DOMContentLoaded', function () {
   function setSellerRep() {
 
     let input = $('#percent'),
+        self = $('.seller-rep .status'),
         percent = localStorage.getItem('sellerRep') || null;
 
     if (percent !== null) { input.val(percent); }
 
     chrome.storage.sync.get('prefs', function(result) {
 
-      if (result.prefs.sellerRep && percent !== null) {
+      if (result.prefs.sellerRep) {
 
-        input.prop('disabled', true);
+        if (percent !== null) { input.prop('disabled', true); }
+
+        setEnabledStatus( self, 'Enabled' );
+
+      } else {
+
+        setEnabledStatus( self, 'Disabled' );
       }
     });
   }
@@ -398,13 +432,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setCountryUiStatus() {
 
-    chrome.storage.sync.get('prefs', function(result) {
+    let self = $('.toggle-group.country .status');
 
-      let arrow = '<span class="arrow">&rsaquo;</span>&nbsp;';
+    chrome.storage.sync.get('prefs', function(result) {
 
       if (result.prefs.filterByCountry === true) {
 
-        $('.toggle-group.country .label').html(arrow + 'Filter Items by Country: &nbsp; <span style="color:#00db1f;">Enabled</span>');
+        setEnabledStatus( self, 'Enabled' );
 
         // Disable the selects when the feature is enabled
         document.getElementById('filterCountryCurrency').disabled = true;
@@ -412,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       } else {
 
-        $('.toggle-group.country .label').html(arrow + 'Filter Items by Country: &nbsp; <span style="color:#FFFFFF;">Disabled</span>');
+        setEnabledStatus( self, 'Disabled' );
       }
     });
   }
@@ -428,9 +462,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function setupFilterByCondition() {
 
     let
-        arrow = '<span class="arrow">&rsaquo;</span>&nbsp;',
         setting = Number(localStorage.getItem('itemCondition')),
-
+        self = $('.toggle-group.condition .label'),
+        status = $('.toggle-group.condition .label .status'),
         conditions = ['Poor (P)',
                       'Fair (F)',
                       'Good (G)',
@@ -439,23 +473,24 @@ document.addEventListener('DOMContentLoaded', function () {
                       'Very Good Plus (VG+)',
                       'Near Mint (NM/M-)',
                       'Mint (M)'],
-
-        colors = ['#ff0000', // poor
-                  '#e54803', // fair
-                  '#d87307', // good
-                  '#f6bf48', // good plus
-                  '#85ab11', // very good
-                  '#00db1f', // very good plus
-                  '#00dbb4', //near mint
-                  '#00b4db']; // mint
+        colors = ['poor',
+                  'fair',
+                  'good',
+                  'good-plus',
+                  'very-good',
+                  'very-good-plus',
+                  'near-mint',
+                  'mint'];
 
     if (setting === 0 || setting === null) {
 
-      $('.toggle-group.condition .label').html(arrow + 'Filter Items by Condition: &nbsp; <span style="color:white;">Disabled</span>');
+      //self.text('Filter Items by Condition');
+      status.text('Disabled').attr('class', 'status disabled');
 
     } else {
 
-      $('.toggle-group.condition .label').html(arrow + 'Filter Items Below: &nbsp; <span style="color:'+ colors[setting] + ';">' + conditions[setting] + '</span>');
+      status.text(conditions[setting]).attr('class', 'status ' + colors[setting]);
+      console.log(conditions[setting], status.length);
     }
   }
 
