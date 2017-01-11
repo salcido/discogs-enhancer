@@ -258,14 +258,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check the current height and either expand or collapse it
     if (toggleGroup.height() == 50) {
 
-      toggleGroup.css({height: '100%'});
+      toggleGroup.css({height: '130%'});
+
       $('.marketplace-label .arrow').addClass('rotate90');
 
       let int = setInterval(function() {
 
-        if (toggleGroup.height() >= (toggleGroup.height() - 10)) {
+        if ( toggleGroup.height() >= 320 ) {
 
-          options.fadeIn('fast');
+          options.fadeIn(100);
 
           clearInterval(int);
         }
@@ -275,13 +276,14 @@ document.addEventListener('DOMContentLoaded', function () {
     else if (event.target.className.indexOf('marketplace') > -1 ||
              event.target.textContent === 'Marketplace Features' ) {
 
-      options.fadeOut('fast');
+      options.fadeOut(100);
 
       let int = setInterval(function() {
 
        if (options.is(':hidden')) {
 
          toggleGroup.css({height: '50px'});
+
          $('.marketplace-label .arrow').removeClass('rotate90');
 
          clearInterval(int);
