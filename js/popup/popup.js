@@ -11,7 +11,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   let
-      arrow = '<span class="arrow">&rsaquo;</span>&nbsp;',
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       prefs = {},
@@ -51,31 +50,35 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleSotu = document.getElementById('sotu'),
       toggleYoutube = document.getElementById('youtube');
 
+  // ========================================================
+  // Private Functions
+  // ========================================================
+
   /**
    * Clears the update notification
-   * @method   acknowledgeUpdate
+   *
+   * @method   _acknowledgeUpdate
    * @param    {string}          message [The message displayed to the user]
    * @return   {undefined}
    */
 
-  function acknowledgeUpdate(message) {
+  function _acknowledgeUpdate(message) {
 
     chrome.storage.sync.set({didUpdate: false}, function() {});
 
     chrome.browserAction.setBadgeText({text: ''});
   }
 
-
   /**
    * Saves the users preferences
    *
-   * @method   applySave
+   * @method   _applySave
    * @param    {String}  message [The message displayed to the user]
    * @param    {Object}  event   [The event object]
    * @return   {undefined}
    */
 
-  function applySave(message, event) {
+  function _applySave(message, event) {
 
     let manifest = chrome.runtime.getManifest();
 
@@ -138,82 +141,60 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
   /**
-   * Checks extension for any recent updates and sets
-   * the `about` button color if an update has occured
+   * Displays the sub-options under Marketplace Features
    *
-   * @method   checkForUpdate
-   * @return   {undefined}
+   * @method _marketplaceFeaturesToggle
+   * @param  {object}    options     [the DOM element to display]
+   * @param  {object}    toggleGroup [the actual feature in the popup menu]
+   * @return {undefined}
    */
 
-  function checkForUpdate() {
+  function _marketplaceFeaturesToggle(options, toggleGroup) {
 
-    chrome.storage.sync.get('didUpdate', function(result) {
+    // Expand
+    // Check the current height and either expand or collapse it
+    if (toggleGroup.height() == 50) {
 
-      if (result.didUpdate) {
+      toggleGroup.css({height: '130%'});
 
-        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
+      $('.marketplace-label .arrow').addClass('rotate90');
 
-      } else {
+      let int = setInterval(function() {
 
-        $('#about').text('About').removeClass('button_orange').addClass('button_green');
-      }
-    });
-  }
+        if ( toggleGroup.height() >= 320 ) {
 
+          options.fadeIn(100);
 
-  /**
-   * Sets the enabled/disabled text status on SUBMENUS
-   *
-   * @method setEnabledStatus
-   * @param  {object}         target [jQ object]
-   * @param  {string}         status [Enabled/Disabled]
-   */
-
-  function setEnabledStatus(target, status) {
-
-    let state = status === 'Enabled'
-                ? target.text('Enabled').addClass('enabled').removeClass('disabled')
-                : target.text('Disabled').addClass('disabled').removeClass('enabled');
-
-    return state;
-  }
-
-
-  /**
-   * Gets and saves currency preferences
-   *
-   * @method   getCurrency
-   * @return   {undefined}
-   */
-
-  function getCurrency() {
-
-    chrome.storage.sync.get('prefs', function(result) {
-
-      // if there is a saved value set the select with it
-      if (result.prefs.userCurrency) {
-        userCurrency.value = result.prefs.userCurrency;
-
-        // validation
-        if (userCurrency.value !== '-' && togglePrices.checked === true) {
-          userCurrency.disabled = true;
+          clearInterval(int);
         }
+      }, 100);
+    }
+    // Collapse
+    // (don't collapse when clicking these elements)
+    else if (event.target.className.indexOf('marketplace') > -1 ||
+             event.target.textContent === 'Marketplace Features' ) {
 
-      } else {
+      options.fadeOut(100);
 
-        togglePrices.checked = false;
-        userCurrency.disabled = false;
-      }
-    });
+      let int = setInterval(function() {
+
+       if (options.is(':hidden')) {
+
+         toggleGroup.css({height: '50px'});
+
+         $('.marketplace-label .arrow').removeClass('rotate90');
+
+         clearInterval(int);
+       }
+      }, 100);
+    }
   }
-
 
   /**
    * Displays the options in the popup menu
    *
-   * @method optionsToggle
+   * @method _optionsToggle
    * @param  {object}    options     [the DOM element to display]
    * @param  {object}    toggleGroup [the actual feature in the popup menu]
    * @param  {number}    height      [the height that `target` will expand to]
@@ -221,10 +202,11 @@ document.addEventListener('DOMContentLoaded', function () {
    * @return {undefined}
    */
 
-  function optionsToggle(options, toggleGroup, arrowClass, height) {
+  function _optionsToggle(options, toggleGroup, arrowClass, height) {
 
     let ms = 100;
 
+    // Expand
     // Check the current height and either expand or collapse it
     if (toggleGroup.height() == 50) {
 
@@ -242,7 +224,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }, 100);
     }
-    // collapse (don't collapse when clicking these elements)
+    // Collapse
+    // (don't collapse when clicking these elements)
     else if (event.target.nodeName !== 'INPUT' &&
              event.target.type !== 'checkbox' &&
              event.target.nodeName !== 'LABEL' &&
@@ -266,171 +249,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
-  /**
-   * Displays the sub-options under Marketplace Features
-   *
-   * @method marketplaceFeaturesToggle
-   * @param  {object}    options     [the DOM element to display]
-   * @param  {object}    toggleGroup [the actual feature in the popup menu]
-   * @return {undefined}
-   */
-
-  function marketplaceFeaturesToggle(options, toggleGroup) {
-
-    // Check the current height and either expand or collapse it
-    if (toggleGroup.height() == 50) {
-
-      toggleGroup.css({height: '130%'});
-
-      $('.marketplace-label .arrow').addClass('rotate90');
-
-      let int = setInterval(function() {
-
-        if ( toggleGroup.height() >= 320 ) {
-
-          options.fadeIn(100);
-
-          clearInterval(int);
-        }
-      }, 100);
-    }
-    // collapse (don't collapse when clicking these elements)
-    else if (event.target.className.indexOf('marketplace') > -1 ||
-             event.target.textContent === 'Marketplace Features' ) {
-
-      options.fadeOut(100);
-
-      let int = setInterval(function() {
-
-       if (options.is(':hidden')) {
-
-         toggleGroup.css({height: '50px'});
-
-         $('.marketplace-label .arrow').removeClass('rotate90');
-
-         clearInterval(int);
-       }
-      }, 100);
-    }
-  }
-
-
-  /**
-   * Saves the sellerRep percentage
-   *
-   * @method saveSellerRep
-   * @return {undefined}
-   */
-
-  function saveSellerRep() {
-
-    let input = $('#percent'),
-        self = $('.seller-rep .status'),
-        toggle = toggleSellerRep;
-
-    // checked and has value entered
-    if ( input.val() && toggle.checked) {
-
-      input.prop('disabled', true);
-      toggle.disabled = false;
-      input.removeClass('alert');
-
-      // reset value to 100 if user enters a greater value
-      if ( input > 100 ) { input.val(100); }
-
-      localStorage.setItem('sellerRep', input.val());
-
-      input.val(localStorage.getItem('sellerRep'));
-
-      setEnabledStatus( self, 'Enabled' );
-      triggerSave();
-
-    } else if ( input.val() && !toggle.checked ) {
-
-      input.prop('disabled', false);
-
-      setEnabledStatus( self, 'Disabled' );
-      triggerSave();
-
-    } else if ( !input.val() ) {
-
-      toggle.checked = false;
-      input.addClass('alert');
-    }
-  }
-
-
-  /**
-   * Sets the value of the seller rep input
-   * when the popup is rendered
-   *
-   * @method setSellerRep
-   * @return {undefined}
-   */
-
-  function setSellerRep() {
-
-    let input = $('#percent'),
-        self = $('.seller-rep .status'),
-        percent = localStorage.getItem('sellerRep') || null;
-
-    if (percent !== null) { input.val(percent); }
-
-    chrome.storage.sync.get('prefs', function(result) {
-
-      if (result.prefs.sellerRep) {
-
-        if (percent !== null) { input.prop('disabled', true); }
-
-        setEnabledStatus( self, 'Enabled' );
-
-      } else {
-
-        setEnabledStatus( self, 'Disabled' );
-      }
-    });
-  }
-
-
-  /**
-   * Set/create the value of the Filter By Country selects based on
-   * what is in localStorage
-   *
-   * @method setCountryFilters
-   */
-
-  function setCountryFilters() {
-
-    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    if (!filterByCountryPrefs) {
-
-      let newPrefs = { currency: '-', country: '-' };
-
-      localStorage.setItem('filterByCountry', JSON.stringify(newPrefs));
-
-      filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-    }
-
-    // currency value
-    $('#filterCountryCurrency').val(filterByCountryPrefs.currency);
-
-    // country value
-    $('#filterCountry').val(filterByCountryPrefs.country);
-
-    setCountryUiStatus();
-  }
-
-
   /**
    * Updates the Enabled/Disabled status of
    * Filter By Country in the popup
    *
-   * @method setCountryUiStatus
+   * @method _setCountryUiStatus
    */
 
-  function setCountryUiStatus() {
+  function _setCountryUiStatus() {
 
     let self = $('.toggle-group.country .status');
 
@@ -438,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (result.prefs.filterByCountry === true) {
 
-        setEnabledStatus( self, 'Enabled' );
+        _setEnabledStatus( self, 'Enabled' );
 
         // Disable the selects when the feature is enabled
         document.getElementById('filterCountryCurrency').disabled = true;
@@ -446,24 +272,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
       } else {
 
-        setEnabledStatus( self, 'Disabled' );
+        _setEnabledStatus( self, 'Disabled' );
       }
     });
   }
 
+  /**
+   * Sets the enabled/disabled text status on SUBMENUS
+   *
+   * @method _setEnabledStatus
+   * @param  {object}         target [jQ object]
+   * @param  {string}         status [Enabled/Disabled]
+   */
+
+  function _setEnabledStatus(target, status) {
+
+    let state = status === 'Enabled'
+                ? target.text('Enabled').addClass('enabled').removeClass('disabled')
+                : target.text('Disabled').addClass('disabled').removeClass('enabled');
+
+    return state;
+  }
 
   /**
    * Sets the text value/color of the Filter by Condition setting in the popup menu
    *
-   * @method   setupFilterByCondition
+   * @method   _setupFilterByCondition
    * @return   {undefined}
    */
 
-  function setupFilterByCondition() {
+  function _setupFilterByCondition() {
 
     let
         setting = Number(localStorage.getItem('itemCondition')),
-        self = $('.toggle-group.condition .label'),
         status = $('.toggle-group.condition .label .status'),
         conditions = ['Poor (P)',
                       'Fair (F)',
@@ -494,6 +335,174 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /**
+   * Toggles price comparisons
+   *
+   * @method   _showPrices
+   * @param    {Object}   event [The event object]
+   * @return   {undefined}
+   */
+
+  function _showPrices(event) {
+
+    let response = 'Please refresh the page for changes to take effect.';
+
+    if (event.target.checked && userCurrency.value !== '-') {
+
+        userCurrency.disabled = true;
+        togglePrices.checked = true;
+        userCurrency.className = '';
+
+        _applySave(response, event);
+
+      }
+
+    else if (userCurrency.value === '-') {
+
+        $('#notify').text('Please choose a currency from the select box first.');
+
+        $('.notifications').css({display:'block'}).delay(2000).fadeOut('slow');
+
+        togglePrices.checked = false;
+        userCurrency.className = 'alert';
+
+        return;
+
+      } else {
+
+      userCurrency.disabled = false;
+
+      _applySave(response, event);
+    }
+  }
+
+  // ========================================================
+  // Public Functions
+  // ========================================================
+
+  /**
+   * Checks extension for any recent updates and sets
+   * the `about` button color if an update has occured
+   *
+   * @method   checkForUpdate
+   * @return   {undefined}
+   */
+
+  function checkForUpdate() {
+
+    chrome.storage.sync.get('didUpdate', function(result) {
+
+      if (result.didUpdate) {
+
+        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
+
+      } else {
+
+        $('#about').text('About').removeClass('button_orange').addClass('button_green');
+      }
+    });
+  }
+
+  /**
+   * Gets and saves currency preferences
+   *
+   * @method   getCurrency
+   * @return   {undefined}
+   */
+
+  function getCurrency() {
+
+    chrome.storage.sync.get('prefs', function(result) {
+
+      // if there is a saved value set the select with it
+      if (result.prefs.userCurrency) {
+        userCurrency.value = result.prefs.userCurrency;
+
+        // validation
+        if (userCurrency.value !== '-' && togglePrices.checked === true) {
+          userCurrency.disabled = true;
+        }
+
+      } else {
+
+        togglePrices.checked = false;
+        userCurrency.disabled = false;
+      }
+    });
+  }
+
+  /**
+   * Saves the sellerRep percentage
+   *
+   * @method saveSellerRep
+   * @return {undefined}
+   */
+
+  function saveSellerRep() {
+
+    let input = $('#percent'),
+        self = $('.seller-rep .status'),
+        toggle = toggleSellerRep;
+
+    // checked and has value entered
+    if ( input.val() && toggle.checked) {
+
+      input.prop('disabled', true);
+      toggle.disabled = false;
+      input.removeClass('alert');
+
+      // reset value to 100 if user enters a greater value
+      if ( input > 100 ) { input.val(100); }
+
+      localStorage.setItem('sellerRep', input.val());
+
+      input.val(localStorage.getItem('sellerRep'));
+
+      _setEnabledStatus( self, 'Enabled' );
+      triggerSave();
+
+    } else if ( input.val() && !toggle.checked ) {
+
+      input.prop('disabled', false);
+
+      _setEnabledStatus( self, 'Disabled' );
+      triggerSave();
+
+    } else if ( !input.val() ) {
+
+      toggle.checked = false;
+      input.addClass('alert');
+    }
+  }
+
+  /**
+   * Set/create the value of the Filter By Country selects based on
+   * what is in localStorage
+   *
+   * @method setCountryFilters
+   */
+
+  function setCountryFilters() {
+
+    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if (!filterByCountryPrefs) {
+
+      let newPrefs = { currency: '-', country: '-' };
+
+      localStorage.setItem('filterByCountry', JSON.stringify(newPrefs));
+
+      filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
+    }
+
+    // currency value
+    $('#filterCountryCurrency').val(filterByCountryPrefs.currency);
+
+    // country value
+    $('#filterCountry').val(filterByCountryPrefs.country);
+
+    _setCountryUiStatus();
+  }
 
   /**
    * Sets the value that will hide items in the
@@ -541,52 +550,40 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    setupFilterByCondition();
-    applySave(response, event);
+    _setupFilterByCondition();
+    _applySave(response, event);
   }
 
-
   /**
-   * Toggles price comparisons
+   * Sets the value of the seller rep input
+   * when the popup is rendered
    *
-   * @method   showPrices
-   * @param    {Object}   event [The event object]
-   * @return   {undefined}
+   * @method setSellerRep
+   * @return {undefined}
    */
 
-  function showPrices(event) {
+  function setSellerRep() {
 
-    let response = 'Please refresh the page for changes to take effect.';
+    let input = $('#percent'),
+        self = $('.seller-rep .status'),
+        percent = localStorage.getItem('sellerRep') || null;
 
-    if (event.target.checked && userCurrency.value !== '-') {
+    if (percent !== null) { input.val(percent); }
 
-        userCurrency.disabled = true;
-        togglePrices.checked = true;
-        userCurrency.className = '';
+    chrome.storage.sync.get('prefs', function(result) {
 
-        applySave(response, event);
+      if (result.prefs.sellerRep) {
 
-      }
+        if (percent !== null) { input.prop('disabled', true); }
 
-    else if (userCurrency.value === '-') {
-
-        $('#notify').text('Please choose a currency from the select box first.');
-
-        $('.notifications').css({display:'block'}).delay(2000).fadeOut('slow');
-
-        togglePrices.checked = false;
-        userCurrency.className = 'alert';
-
-        return;
+        _setEnabledStatus( self, 'Enabled' );
 
       } else {
 
-      userCurrency.disabled = false;
-
-      applySave(response, event);
-    }
+        _setEnabledStatus( self, 'Disabled' );
+      }
+    });
   }
-
 
   /**
    * Validates then enables/disables the CSS for Filter Items by Country
@@ -614,11 +611,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-filter-by-country-css.js'}, function() {
 
-        applySave(response, event);
+        _applySave(response, event);
       });
 
       // Delay updating the UI so that Chrome has a change to write the new preference
-      setTimeout(function() { setCountryUiStatus(); }, 50);
+      setTimeout(_setCountryUiStatus, 50);
     }
     // If everything checks out, disable filtering
     else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
@@ -631,11 +628,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-filter-by-country-css.js'}, function() {
 
-        applySave(null, event);
+        _applySave(null, event);
       });
 
       // Delay updating the UI so that Chrome has a change to write the new preference
-      setTimeout(function() { setCountryUiStatus(); }, 50);
+      setTimeout(_setCountryUiStatus, 50);
     }
     // Everything is terrible
     else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
@@ -649,7 +646,6 @@ document.addEventListener('DOMContentLoaded', function () {
       country.className = 'alert';
     }
   }
-
 
   /**
    * Toggles Marketplace highlights
@@ -667,18 +663,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
 
-        applySave(response, event);
+        _applySave(response, event);
       });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
 
-        applySave(null, event);
+        _applySave(null, event);
       });
     }
   }
-
 
   /**
    * Tells the user to refresh after updating a preference
@@ -692,19 +687,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let response = 'Please refresh the page for changes to take effect.';
 
-    applySave(response, event);
+    _applySave(response, event);
   }
-
 
   /**
    * Creates/removes contextual menu items
    *
-   * @method   updateMenu
+   * @method   updateContextualMenu
    * @param    {Object}   event [The event object]
    * @return   {undefined}
    */
 
-  function updateMenu(event) {
+  function updateContextualMenu(event) {
 
     if (event.target.checked) {
 
@@ -716,7 +710,7 @@ document.addEventListener('DOMContentLoaded', function () {
         request: 'updateContextMenu'
       });
 
-      applySave(null, event);
+      _applySave(null, event);
 
     } else {
 
@@ -726,10 +720,9 @@ document.addEventListener('DOMContentLoaded', function () {
         request: 'updateContextMenu'
       });
 
-      applySave(null, event);
+      _applySave(null, event);
     }
   }
-
 
   /**
    * Toggles the dark theme
@@ -745,18 +738,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
 
-        applySave(null, event);
+        _applySave(null, event);
       });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
 
-        applySave(null, event);
+        _applySave(null, event);
       });
     }
   }
-
 
   /**
    * Validates that a value has been set for both selects in Filter Items By Country
@@ -773,9 +765,8 @@ document.addEventListener('DOMContentLoaded', function () {
     return currency.value !== '-' && country.value !== '-' ? 'valid' : 'invalid';
   }
 
-
   // ========================================================
-  // UI Functionality
+  // UI Event Listeners
   // ========================================================
 
   // Open the about page
@@ -783,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.tabs.create({url: '../html/about.html'});
 
-    acknowledgeUpdate();
+    _acknowledgeUpdate();
 
     if (_gaq) {
 
@@ -803,33 +794,33 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
+
   /* MARKETPLACE FEATURE SUBMENUS */
   $('.toggle-group.marketplace').click(function(event) {
 
-    marketplaceFeaturesToggle( $('.marketplace-features-container'), $(this), '.marketplace' );
+    _marketplaceFeaturesToggle( $('.marketplace-features-container'), $(this), '.marketplace' );
   });
 
 
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
   $('.toggle-group.menus').click(function(event) {
 
-    optionsToggle( $('#contextMenus'), $(this), '.menus', 180 );
+    _optionsToggle( $('#contextMenus'), $(this), '.menus', 180 );
   });
 
 
   /* FILTER BY CONDITION OPTIONS */
   $('.toggle-group.condition').click(function(event) {
 
-    optionsToggle( $('.hide-items'), $(this), '.condition', 100 );
+    _optionsToggle( $('.hide-items'), $(this), '.condition', 100 );
   });
 
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   $('.toggle-group.country').click(function(event) {
 
-    optionsToggle( $('.hide-country'), $(this), '.country', 105 );
+    _optionsToggle( $('.hide-country'), $(this), '.country', 105 );
   });
-
 
   // Save the Filter Items By Country currency select value to localStorage
   $('#filterCountryCurrency').change(function() {
@@ -855,21 +846,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  /* SELLER REPUTATION */
 
+  /* SELLER REPUTATION */
   $('.toggle-group.seller-rep').click(function(event) {
 
-    optionsToggle( $('.hide-percentage'), $(this), '.seller-rep', 100 );
+    _optionsToggle( $('.hide-percentage'), $(this), '.seller-rep', 100 );
   });
 
 
-  // ========================================================
-  // Event listeners
-  // ========================================================
-
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
-  userCurrency.addEventListener('change', function(){ applySave(null, event); });
+  userCurrency.addEventListener('change', function(){ _applySave(null, event); });
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConditions.addEventListener('change', toggleHighlights);
@@ -884,26 +871,26 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleSellerRep.addEventListener('change', saveSellerRep);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
-  togglePrices.addEventListener('change', showPrices);
+  togglePrices.addEventListener('change', _showPrices);
 
   // Contextual menus
-  toggleBandcamp.addEventListener('change', updateMenu);
-  toggleBoomkat.addEventListener('change', updateMenu);
-  toggleClone.addEventListener('change', updateMenu);
-  toggleDecks.addEventListener('change', updateMenu);
-  toggleDeeJay.addEventListener('change', updateMenu);
-  toggleDiscogs.addEventListener('change', updateMenu);
-  toggleGramaphone.addEventListener('change', updateMenu);
-  toggleHalcyon.addEventListener('change', updateMenu);
-  toggleHardwax.addEventListener('change', updateMenu);
-  toggleInsound.addEventListener('change', updateMenu);
-  toggleJuno.addEventListener('change', updateMenu);
-  toggleKristina.addEventListener('change', updateMenu);
-  toggleOye.addEventListener('change', updateMenu);
-  togglePbvinyl.addEventListener('change', updateMenu);
-  togglePhonica.addEventListener('change', updateMenu);
-  toggleSotu.addEventListener('change', updateMenu);
-  toggleYoutube.addEventListener('change', updateMenu);
+  toggleBandcamp.addEventListener('change', updateContextualMenu);
+  toggleBoomkat.addEventListener('change', updateContextualMenu);
+  toggleClone.addEventListener('change', updateContextualMenu);
+  toggleDecks.addEventListener('change', updateContextualMenu);
+  toggleDeeJay.addEventListener('change', updateContextualMenu);
+  toggleDiscogs.addEventListener('change', updateContextualMenu);
+  toggleGramaphone.addEventListener('change', updateContextualMenu);
+  toggleHalcyon.addEventListener('change', updateContextualMenu);
+  toggleHardwax.addEventListener('change', updateContextualMenu);
+  toggleInsound.addEventListener('change', updateContextualMenu);
+  toggleJuno.addEventListener('change', updateContextualMenu);
+  toggleKristina.addEventListener('change', updateContextualMenu);
+  toggleOye.addEventListener('change', updateContextualMenu);
+  togglePbvinyl.addEventListener('change', updateContextualMenu);
+  togglePhonica.addEventListener('change', updateContextualMenu);
+  toggleSotu.addEventListener('change', updateContextualMenu);
+  toggleYoutube.addEventListener('change', updateContextualMenu);
 
 
   /**
@@ -958,7 +945,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     checkForUpdate();
     getCurrency();
-    setupFilterByCondition();
+    _setupFilterByCondition();
     setCountryFilters();
     setSellerRep();
   }
