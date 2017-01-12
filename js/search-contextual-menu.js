@@ -69,7 +69,7 @@ function searchHalcyon(event) {
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
-  chrome.tabs.create({url: 'http://halcyontheshop.com/search?q=' + encodeStr});
+  chrome.tabs.create({url: 'https://www.halcyontheshop.com/shop-products/?ProductSearchTerms=' + encodeStr});
 }
 
 function searchHardwax(event) {
