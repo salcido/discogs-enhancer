@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function _optionsToggle(options, toggleGroup, arrowClass, height) {
 
-    let ms = 100;
+    let ms = 200;
 
     // Expand
     // Check the current height and either expand or collapse it
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       let int = setInterval(function() {
 
-        if ( toggleGroup.height() >= (height - 10) ) {
+        if ( toggleGroup.height() >= 30 ) {
 
           options.fadeIn(ms);
           $(arrowClass + ' .status').fadeOut(ms);
@@ -371,7 +371,6 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
 
       userCurrency.disabled = false;
-
       _applySave(response, event);
     }
   }
@@ -661,17 +660,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'}, function() {
-
-        _applySave(response, event);
-      });
+      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'},
+        function() { _applySave(response, event); });
 
     } else {
 
-      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'}, function() {
-
-        _applySave(null, event);
-      });
+      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'},
+        function() { _applySave(null, event); });
     }
   }
 
@@ -686,7 +681,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function triggerSave(event) {
 
     let response = 'Please refresh the page for changes to take effect.';
-
     _applySave(response, event);
   }
 
@@ -736,17 +730,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'}, function() {
-
-        _applySave(null, event);
-      });
+      chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'},
+        function() { _applySave(null, event); });
 
     } else {
 
-      chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'}, function() {
-
-        _applySave(null, event);
-      });
+      chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'},
+        function() { _applySave(null, event); });
     }
   }
 
@@ -773,7 +763,6 @@ document.addEventListener('DOMContentLoaded', function () {
   $('body').on('click', '#about', function() {
 
     chrome.tabs.create({url: '../html/about.html'});
-
     _acknowledgeUpdate();
 
     if (_gaq) {
@@ -942,6 +931,10 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleSotu.checked = result.prefs.useSotu;
       toggleYoutube.checked = result.prefs.useYoutube;
     });
+
+    // ========================================================
+    // DOM Setup
+    // ========================================================
 
     checkForUpdate();
     getCurrency();
