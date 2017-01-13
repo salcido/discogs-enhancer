@@ -331,7 +331,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
 
       status.text(conditions[setting]).attr('class', 'status ' + colors[setting]);
-      console.log(conditions[setting], status.length);
     }
   }
 
@@ -357,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       }
 
-    else if (userCurrency.value === '-') {
+      else if (userCurrency.value === '-') {
 
         $('#notify').text('Please choose a currency from the select box first.');
 
@@ -365,13 +364,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         togglePrices.checked = false;
         userCurrency.className = 'alert';
-
         return;
 
       } else {
 
-      userCurrency.disabled = false;
-      _applySave(response, event);
+        userCurrency.disabled = false;
+        _applySave(response, event);
     }
   }
 
