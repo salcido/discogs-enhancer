@@ -655,7 +655,7 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.useYoutube) {
 
     chrome.runtime.sendMessage({
-      fn: 'searchSYoutube',
+      fn: 'searchYoutube',
       id: 'youtube',
       method: 'create',
       name: 'YouTube',
