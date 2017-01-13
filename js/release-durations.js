@@ -10,7 +10,7 @@
 
 $(document).ready(function() {
 
-  if ($('table.playlist').length) {
+  if ($('table.playlist').length && !document.location.href.includes('/history')) {
 
     let
         arr = [],
