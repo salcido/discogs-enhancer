@@ -9,6 +9,7 @@
  */
 
 // This code is not plesant to read.
+// TODO: refactor suggested prices
 
 $(document).ready(function() {
 
@@ -227,6 +228,8 @@ $(document).ready(function() {
 
     // Remove mobile clutter
     $('.hide_desktop').remove();
+    // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
+    $('.condition-label-mobile').remove();
 
     symbol = resourceLibrary.getSymbols(userCurrency, symbol);
 
