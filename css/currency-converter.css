@@ -28,6 +28,7 @@
   display: inline-block;
   float: left;
   margin-right: 10px;
+  font-weight: bold;
 }
 
 .currency-converter .currency-select {
