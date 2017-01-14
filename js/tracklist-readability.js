@@ -28,7 +28,7 @@
 $(document).ready(function() {
 
   // Make sure we are on a release page
-  if ( document.location.href.indexOf('/release/') > -1 ) {
+  if ( document.location.href.includes('/release/') && !document.location.href.includes('/history') ) {
 
     let
         config = JSON.parse(localStorage.getItem('readability')),
