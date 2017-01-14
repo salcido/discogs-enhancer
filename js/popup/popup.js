@@ -156,7 +156,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check the current height and either expand or collapse it
     if (toggleGroup.height() == 50) {
 
-      toggleGroup.css({height: '130%'});
+      // height is determined by (number of features * 50)
+      toggleGroup.css({height: 350});
 
       $('.marketplace-label .arrow').addClass('rotate90');
 
@@ -165,6 +166,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if ( toggleGroup.height() >= 320 ) {
 
           options.fadeIn(100);
+          // set height to auto so that last most sub-option will expand the parent div
+          toggleGroup.css({height: 'auto'});
 
           clearInterval(int);
         }
@@ -172,10 +175,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // Collapse
     // (don't collapse when clicking these elements)
-    else if (event.target.className.indexOf('marketplace') > -1 ||
+    else if (event.target.className.includes('marketplace') ||
              event.target.textContent === 'Marketplace Features' ) {
 
       options.fadeOut(100);
+      // reset to 350
+      toggleGroup.css({height: 350});
 
       let int = setInterval(function() {
 

@@ -17,7 +17,7 @@ $(document).ready(function() {
       pagination,
       paused = false;
 
-  if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
+  if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
 
     let
         blockList = JSON.parse(localStorage.getItem('blockList')) || null,
@@ -110,7 +110,7 @@ $(document).ready(function() {
     function getNextPage() {
 
       let selectBox = $('.de-scroll-to-page'),
-          type = href.indexOf('/sell/mywants') > -1 ? 'mywants' : 'list';
+          type = href.includes('/sell/mywants') ? 'mywants' : 'list';
 
       $.ajax({
         url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.removePageParam(href),

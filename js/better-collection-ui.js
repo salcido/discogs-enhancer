@@ -20,7 +20,7 @@ $(document).ready(function() {
       moveButtons,
       topSelectFolder;
 
-  if (loc.indexOf('/collection') > -1) {
+  if (loc.includes('/collection')) {
 
     interval = setInterval(function() {
 
@@ -62,7 +62,7 @@ $(document).ready(function() {
     }, 100);
   }
 
-  if (loc.indexOf('/mywantlist') > -1) {
+  if (loc.includes('/mywantlist')) {
 
     marketPlaceBtn = $('ul.table_actions_list.wantlist li:eq(1)').clone();
 

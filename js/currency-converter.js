@@ -284,7 +284,7 @@ $(document).ready(function() {
 
     let
         disolve,
-        hasDecimal = $('.currency-converter #ccInput').val().indexOf('.');
+        hasDecimal = $('.currency-converter #ccInput').val().includes('.');
 
     // Strip decimal to stop Chrome from console.warning on invalid number
     if (hasDecimal) {

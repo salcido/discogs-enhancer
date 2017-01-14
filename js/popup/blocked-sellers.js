@@ -156,14 +156,14 @@ document.addEventListener('DOMContentLoaded', function () {
     let input = $('#seller-input').val();
 
     // Enter key is pressed
-    if (e.which === 13 && input && blockList.list.indexOf(input) === -1) {
+    if ( e.which === 13 && input && !blockList.list.includes(input) ) {
 
       addSellerToList();
 
       return location.reload();
 
     // name is already on the list
-    } else if (blockList.list.indexOf( $('#seller-input').val() ) > -1) {
+  } else if ( blockList.list.includes( $('#seller-input').val() ) ) {
 
       return showError();
 
@@ -183,13 +183,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let input = $('#seller-input').val();
 
-    if (input && blockList.list.indexOf(input) === -1) {
+    if ( input && !blockList.list.includes(input) ) {
 
       addSellerToList();
 
       return location.reload();
 
-    } else if ( blockList.list.indexOf( $('#seller-input').val() ) > -1) {
+    } else if ( blockList.list.includes( $('#seller-input').val() ) ) {
 
       return showError();
     }

@@ -81,7 +81,7 @@ $(document).ready(function() {
   // I considered iterating through the checkboxes and removing the options
   // from the jq object so that enabling/disabling the move button
   // would work as intended but this seems more performant. And easy (lazy).
-  if (loc.indexOf('/collection') === -1) {
+  if ( !loc.includes('/collection') ) {
 
     $('body').append(modal);
 

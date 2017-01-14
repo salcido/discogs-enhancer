@@ -12,7 +12,7 @@ $(document).ready(function() {
 
   let
       href = window.location.href,
-      params = href.indexOf('?') > -1 ? href.split('?')[1].split('&') : null,
+      params = href.includes('?') ? href.split('?')[1].split('&') : null,
       currency,
       enabled = false,
       prefs = JSON.parse(localStorage.getItem('filterByCountry'));
@@ -28,8 +28,8 @@ $(document).ready(function() {
 
       $(countries).each(function() {
 
-        if ( $(this).text().indexOf(prefs.country) === -1 &&
-            !$(this).parent().parent().parent().hasClass('de-hide-country') ) {
+        if ( !$(this).text().includes(prefs.country) &&
+             !$(this).parent().parent().parent().hasClass('de-hide-country') ) {
 
           $(this).parent().parent().parent().addClass('de-hide-country');
         }
@@ -38,7 +38,7 @@ $(document).ready(function() {
   };
 
   // Make sure the user is in the marketplace before doing all this shit
-  if (href.indexOf('/sell/mywants') > -1 || href.indexOf('/sell/list') > -1) {
+  if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
 
     // if the current url has `currency` as a query param...
     if (params) {
@@ -46,7 +46,7 @@ $(document).ready(function() {
       // find currency query param value
       params.forEach(param => {
 
-        if (param.indexOf('currency') > -1) {
+        if ( param.includes('currency') ) {
 
           currency = param.split('=')[1];
 
