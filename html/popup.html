@@ -1003,35 +1003,10 @@
           </div>
         </div>
 
-        <!-- seller rep -->
-        <div class="toggle-group seller-rep sub-option">
-          <p class="label" title="Click to display options">
-            <span class="arrow">&rsaquo;&nbsp;</span>
-              Seller Reputation
-            <span class="status"></span>
-          </p>
-
-          <div class="onoffswitch hide-percentage" style="display: none;">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSellerRep" checked>
-              <label class="onoffswitch-label" for="toggleSellerRep">
-                  <span class="onoffswitch-inner"></span>
-                  <span class="onoffswitch-switch"></span>
-              </label>
-          </div>
-
-          <div class="hide-percentage percentage-interface" style="display:none;">
-            <label for="percent">Mark sellers below:</label>
-            <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
-            <!-- <div class="save-wrap">
-              <a href="" class="percent-save">Save</a>
-              <span class="message">Saved!</span>
-            </div> -->
-          </div>
-        </div>
 
         <!-- Suggested Prices -->
         <div class="toggle-group">
-          <p class="label">Suggested Prices (beta)</p>
+          <p class="label">Suggested Prices</p>
           <select id="currency">
             <option value="-">-</option>
             <option value="AUD">AUD</option>
@@ -1056,6 +1031,30 @@
               </label>
           </div>
         </div>
+
+        <!-- tag seller rep -->
+        <div class="toggle-group seller-rep sub-option">
+          <p class="label" title="Click to display options">
+            <span class="arrow">&rsaquo;&nbsp;</span>
+              Tag Seller Reputation
+            <span class="status"></span>
+          </p>
+
+          <div class="onoffswitch hide-percentage" style="display: none;">
+              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSellerRep" checked>
+              <label class="onoffswitch-label" for="toggleSellerRep">
+                  <span class="onoffswitch-inner"></span>
+                  <span class="onoffswitch-switch"></span>
+              </label>
+          </div>
+
+          <div class="hide-percentage percentage-interface" style="display:none;">
+            <label for="percent">Mark sellers below:</label>
+            <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
+          </div>
+        </div>
+
+        <div style="clear:both;"></div>
 
       </div> <!-- /marketplace-features-container -->
     </div>
