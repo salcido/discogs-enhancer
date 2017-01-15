@@ -311,12 +311,12 @@ input[type="checkbox"]:focus {
 
 /* Filter Marketplace Items by Condition */
 /*sub-menu*/
-.hide-items {
+.hide-condition {
   display: block;
   position: relative;
 }
 
-.hide-items select {
+.hide-condition select {
   position: absolute;
   top: 55px;
   left: 60px;
@@ -484,7 +484,7 @@ input[type="checkbox"]:focus {
   height: 20px;
   width: 50%;
   margin: 0 auto 15px;
-  padding: 5px;
+  padding: 5px 25px 5px 5px;
   background-color: #292929;
   border: 1px solid #666666;
   outline: none;
@@ -498,7 +498,7 @@ span.clear-search {
   position: absolute;
   z-index: 10;
   top: 9px;
-  right: 90px;
+  right: 80px;
   background-image: url(../../img/clear-search.png);
   background-repeat: none;
   background-size: contain;
