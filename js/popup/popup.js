@@ -14,7 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       prefs = {},
+      features = Array.from(document.querySelectorAll('.toggle-group .label')),
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
+      noResults = document.getElementById('noResults'),
+      searchbox = document.getElementById('searchbox'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConditions = document.getElementById('toggleConditions'),
@@ -139,6 +142,18 @@ document.addEventListener('DOMContentLoaded', function () {
         _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
       }
     }
+  }
+
+  /**
+   * Returns true when an element has classname 'hide'
+   *
+   * @method _isHidden
+   * @param  {element}  element [the element to examine]
+   * @return {Boolean}
+   */
+
+  function _isHidden(element) {
+    return element.parentNode.className.includes('hide');
   }
 
   /**
@@ -330,7 +345,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (setting === 0 || setting === null) {
 
-      //self.text('Filter Items by Condition');
       status.text('Disabled').attr('class', 'status disabled');
 
     } else {
@@ -478,6 +492,53 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Adds/removes `hide` class from the
+   * features in popup. Also shows/hides
+   * the clear button.
+   *
+   * @method searchFeatures
+   * @return {undefined}
+   */
+
+  function searchFeatures() {
+
+    setTimeout(() => {
+
+      features.forEach(feature => {
+
+        let query = $(searchbox).val().toLowerCase(),
+            text = feature.textContent.toLowerCase();
+
+        if ( !text.includes(query) ) {
+
+          $(feature).parent().addClass('hide');
+
+        } else {
+
+          $(feature).parent().removeClass('hide');
+          $(noResults).addClass('hide');
+        }
+
+        // Show no results notification
+        if ( features.every(_isHidden) ) {
+
+          $(noResults).removeClass('hide');
+        }
+
+        // show/hide the X icon
+        if (!searchbox.value) {
+
+          $('.clear-search').addClass('hide');
+
+        } else {
+
+          $('.clear-search').removeClass('hide');
+        }
+      });
+    }, 0);
+  }
+
+  /**
    * Set/create the value of the Filter By Country selects based on
    * what is in localStorage
    *
@@ -574,11 +635,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get('prefs', function(result) {
 
-      if (result.prefs.sellerRep) {
+      if (result.prefs.sellerRep && percent !== null) {
 
-        if (percent !== null) { input.prop('disabled', true); }
+        input.prop('disabled', true);
 
         _setEnabledStatus( self, 'Enabled' );
+      }
+
+      else if (result.prefs.sellerRep && percent === null) {
+
+        toggleSellerRep.checked = false;
+        _setEnabledStatus( self, 'Disabled' );
 
       } else {
 
@@ -846,6 +913,22 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+  /* SEARCH FUNCTIONALITY */
+  searchbox.addEventListener('keydown', function() {
+    searchFeatures();
+  });
+
+  // Clear search input
+  $('.clear-search').on('mousedown', function() {
+
+    searchbox.value = '';
+    searchFeatures();
+
+    // reset the focus
+    setTimeout(() => { searchbox.focus(); }, 100);
+  });
+
+
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
   userCurrency.addEventListener('change', function(){ _applySave(null, event); });
@@ -944,6 +1027,8 @@ document.addEventListener('DOMContentLoaded', function () {
     _setupFilterByCondition();
     setCountryFilters();
     setSellerRep();
+
+    setTimeout(() => { searchbox.focus(); }, 100);
   }
 
   // Start it up

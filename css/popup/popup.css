@@ -104,6 +104,10 @@ a.button_green:hover {
   background-image: linear-gradient(#73CB56,#6AC84B);
 }
 
+#about {
+  margin-bottom: 15px;
+}
+
 #editList,
 #editConfig,
 #sellerRepConfig {
@@ -230,12 +234,12 @@ a.button_green:hover {
 .notifications {
   float: left;
   clear: both;
-  /* border-radius: 10px; */
+  height: 114px;
   width: 100%;
   margin: 8px 0;
   position: fixed;
   z-index: 1;
-  top: -11px;
+  top: -30px;
   left: 0;
   background-color: #666666;
   font-family: "Source Sans Pro", sans-serif;
@@ -249,7 +253,7 @@ a.button_green:hover {
 
 .notifications .icon {
   float: left;
-  margin: 45px 10px 0 45px;
+  margin: 0 10px 0 45px;
 }
 
 .notifications .warning-text {
@@ -381,7 +385,6 @@ input[type="checkbox"]:focus {
 /* Seller Reputation */
 /*sub-menu*/
 .seller-rep {
-  display: block;
   position: relative;
 }
 
@@ -502,4 +505,47 @@ input[type="checkbox"]:focus {
 
 .poor {
   color: #FF0000;
+}
+
+/**
+ * Search box
+ */
+.search-wrap {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+#searchbox {
+  height: 20px;
+  width: 50%;
+  margin: 0 auto 15px;
+  padding: 5px;
+  background-color: #292929;
+  border: 1px solid #666666;
+  outline: none;
+  font-size: 14px;
+  color: #999999;;
+}
+
+span.clear-search {
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  z-index: 10;
+  top: 9px;
+  right: 90px;
+  background-image: url(../../img/clear-search.png);
+  background-repeat: none;
+  background-size: contain;
+  cursor: pointer;
+}
+
+span.clear-search:hover {
+  background-image: url(../../img/clear-search-hover.png);
+}
+
+#noResults .label {
+  padding-left: 150px;
 }
