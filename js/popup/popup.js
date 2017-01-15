@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       prefs = {},
-      features = Array.from(document.querySelectorAll('.toggle-group .label')),
+      features = Array.from(document.querySelectorAll('.toggle-group .meta')),
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       noResults = document.getElementById('noResults'),
       searchbox = document.getElementById('searchbox'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
-      toggleConditions = document.getElementById('toggleConditions'),
+      toggleHighlights = document.getElementById('toggleHighlights'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleFeedback = document.getElementById('toggleFeedback'),
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
       filterByCountry: toggleFilterByCountry.checked,
       formatShortcuts: toggleShortcuts.checked,
       hideMarketplaceItems: hideMarketplaceItems.value,
-      highlightMedia: toggleConditions.checked,
+      highlightMedia: toggleHighlights.checked,
       notesCount: toggleNotesCount.checked,
       readability: toggleReadability.checked,
       releaseDurations: toggleReleaseDurations.checked,
@@ -664,12 +664,12 @@ document.addEventListener('DOMContentLoaded', function () {
   /**
    * Toggles Marketplace highlights
    *
-   * @method   toggleHighlights
+   * @method   toggleMediaHighlights
    * @param    {object}         event [the event object]
    * @return   {undefined}
    */
 
-  function toggleHighlights(event) {
+  function toggleMediaHighlights(event) {
 
     let response = 'Please refresh the page for changes to take effect.';
 
@@ -809,7 +809,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* FILTER BY CONDITION OPTIONS */
   $('.toggle-group.condition').click(function(event) {
 
-    _optionsToggle( $('.hide-items'), $(this), '.condition', 100 );
+    _optionsToggle( $('.hide-condition'), $(this), '.condition', 100 );
   });
 
 
@@ -872,7 +872,7 @@ document.addEventListener('DOMContentLoaded', function () {
   userCurrency.addEventListener('change', function(){ _applySave(null, event); });
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
-  toggleConditions.addEventListener('change', toggleHighlights);
+  toggleHighlights.addEventListener('change', toggleMediaHighlights);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', useDarkTheme);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
@@ -922,7 +922,7 @@ document.addEventListener('DOMContentLoaded', function () {
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
-      toggleConditions.checked = result.prefs.highlightMedia;
+      toggleHighlights.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
