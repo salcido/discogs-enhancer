@@ -157,61 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
-   * Displays the sub-options under Marketplace Features
-   *
-   * @method _marketplaceFeaturesToggle
-   * @param  {object}    options     [the DOM element to display]
-   * @param  {object}    toggleGroup [the actual feature in the popup menu]
-   * @return {undefined}
-   */
-
-  function _marketplaceFeaturesToggle(options, toggleGroup) {
-
-    // Expand
-    // Check the current height and either expand or collapse it
-    if (toggleGroup.height() == 50) {
-
-      // height is determined by (number of features * 50)
-      toggleGroup.css({height: 350});
-
-      $('.marketplace-label .arrow').addClass('rotate90');
-
-      let int = setInterval(function() {
-
-        if ( toggleGroup.height() >= 320 ) {
-
-          options.fadeIn(100);
-          // set height to auto so that last most sub-option will expand the parent div
-          toggleGroup.css({height: 'auto'});
-
-          clearInterval(int);
-        }
-      }, 100);
-    }
-    // Collapse
-    // (don't collapse when clicking these elements)
-    else if (event.target.className.includes('marketplace') ||
-             event.target.textContent === 'Marketplace Features' ) {
-
-      options.fadeOut(100);
-      // reset to 350
-      toggleGroup.css({height: 350});
-
-      let int = setInterval(function() {
-
-       if (options.is(':hidden')) {
-
-         toggleGroup.css({height: '50px'});
-
-         $('.marketplace-label .arrow').removeClass('rotate90');
-
-         clearInterval(int);
-       }
-      }, 100);
-    }
-  }
-
-  /**
    * Displays the options in the popup menu
    *
    * @method _optionsToggle
@@ -851,13 +796,6 @@ document.addEventListener('DOMContentLoaded', function () {
   $('body').on('click', '#editConfig', function() {
 
     chrome.tabs.create({url: '../html/readability.html'});
-  });
-
-
-  /* MARKETPLACE FEATURE SUBMENUS */
-  $('.toggle-group.marketplace').click(function(event) {
-
-    _marketplaceFeaturesToggle( $('.marketplace-features-container'), $(this), '.marketplace' );
   });
 
 
