@@ -166,35 +166,6 @@ a.button_green:hover {
   cursor: pointer;
 }
 
-/**
- * MARKETPLACE FEATURES
- *
- */
-.toggle-group.marketplace:hover p.marketplace-label {
-  width: 100%;
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-.toggle-group.marketplace .toggle-group {
-  background-color: #292929;
-  border-top: 1px solid #000000;
-}
-
-.toggle-group.marketplace .toggle-group p {
-  margin-left: 20px;
-}
-
-.toggle-group.marketplace .toggle-group.sub-option:hover p {
-  margin-left: 25px;
-  cursor: pointer;
-}
-
-/*.toggle-group.marketplace .toggle-group.has-options:hover p {
-  margin-left: 55px;
-  cursor: pointer;
-}*/
-
 .rotate90 {
   transform: rotate(90deg);
 }
@@ -211,13 +182,6 @@ a.button_green:hover {
   transition: all 0.3s ease;
 }
 
-.marketplace-features-container .arrow {
-  display: inline-block;
-  margin-top: -2px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
 
 .label {
   float: left;
@@ -261,7 +225,6 @@ a.button_green:hover {
 }
 
 #notify {
-  /*margin-bottom: -10px;*/
   margin: 46px;
   padding-right: 10px;
   font-weight: 400;
@@ -526,7 +489,7 @@ input[type="checkbox"]:focus {
   border: 1px solid #666666;
   outline: none;
   font-size: 14px;
-  color: #999999;;
+  color: #FFFFFF;
 }
 
 span.clear-search {
