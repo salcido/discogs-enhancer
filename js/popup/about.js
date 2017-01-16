@@ -8,9 +8,20 @@
  *
  */
 
-// Inserts version and year into the about.html page
 document.addEventListener('DOMContentLoaded', function () {
 
+  let select = document.getElementById('nav-select');
+
+  // ======================================================
+  // Functions
+  // ======================================================
+
+  /**
+   * Appends the version and year to the DOM
+   *
+   * @method   getVersionAndYear
+   * @return   {undefined}
+   */
   function getVersionAndYear() {
 
     let
@@ -28,5 +39,46 @@ document.addEventListener('DOMContentLoaded', function () {
     yearSpan.textContent = year;
   }
 
+  /**
+   * Populates the select element in the navigation
+   * with IDs of any element with a .feature class
+   *
+   * @method   populateNavigation
+   * @return   {undefined}
+   */
+  function populateNavigation() {
+
+    let features = document.getElementsByClassName('feature');
+
+    for (let i = 0; i < features.length; i++) {
+
+      let option = document.createElement('option');
+
+      option.textContent = features[i].textContent;
+      option.value = features[i].id;
+      select.add(option);
+    }
+  }
+
+  // ======================================================
+  // UI Functionality
+  // ======================================================
+
+  // Scroll the page to the selected element
+  select.addEventListener('change', function() {
+
+    location.hash = '#' + select.value;
+
+    if (location.hash.length !== 0) {
+
+      window.scrollTo(window.scrollX, window.scrollY - 50);
+    }
+  });
+
+  // ======================================================
+  // DOM Setup
+  // ======================================================
+
   getVersionAndYear();
+  populateNavigation();
 });

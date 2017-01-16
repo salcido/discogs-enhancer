@@ -41,6 +41,40 @@ a:hover {
   color: #CAE0FA;
 }
 
+.container {
+  padding-top: 40px;
+}
+
+.navbar {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 40px;
+  background-color: #000;
+  display: block;
+  z-index: 10;
+  clear: both;
+}
+
+.nav-wrap {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.navbar label {
+  color: white;
+}
+
+#nav-select {
+  margin: 10px auto;
+}
+
+.feature {
+  padding-top: 20px;
+  margin-top: -20px;
+}
+
 .about .title img {
   max-width: 256px;
   margin: 25px auto;
