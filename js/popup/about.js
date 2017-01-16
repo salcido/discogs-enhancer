@@ -48,16 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   function populateNavigation() {
 
-    let features = document.getElementsByClassName('feature');
+    let features = Array.from(document.getElementsByClassName('feature'));
 
-    for (let i = 0; i < features.length; i++) {
+    features.forEach((feature, i) => {
 
       let option = document.createElement('option');
 
       option.textContent = features[i].textContent;
       option.value = features[i].id;
       select.add(option);
-    }
+    });
   }
 
   // ======================================================
