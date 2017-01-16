@@ -424,7 +424,8 @@ input[type="checkbox"]:focus {
   z-index: 10;
 }
 
-.status {
+.status,
+.condition-status {
   position: absolute;
   top: 17px;
   right: 23px;

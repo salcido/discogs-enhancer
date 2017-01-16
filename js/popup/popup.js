@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function _acknowledgeUpdate(message) {
 
-    chrome.storage.sync.set({didUpdate: false}, function() {});
+    chrome.storage.sync.set({didUpdate: false}, function() { /*noop*/ });
   }
 
   /**
@@ -158,14 +158,14 @@ document.addEventListener('DOMContentLoaded', function () {
    * Displays the options in the popup menu
    *
    * @method _optionsToggle
-   * @param  {object}    options     [the DOM element to display]
-   * @param  {object}    toggleGroup [the actual feature in the popup menu]
-   * @param  {number}    height      [the height that `target` will expand to]
-   * @param  {string}    arrowClass  [the parent class of the animated arrow]
+   * @param  {object}    options      [the DOM element to display]
+   * @param  {object}    toggleGroup  [the actual feature in the popup menu]
+   * @param  {number}    height       [the height that `target` will expand to]
+   * @param  {string}    parentClass  [the parent class of the animated arrow]
    * @return {undefined}
    */
 
-  function _optionsToggle(options, toggleGroup, arrowClass, height) {
+  function _optionsToggle(options, toggleGroup, parentClass, height) {
 
     let ms = 200;
 
@@ -174,14 +174,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (toggleGroup.height() == 50) {
 
       toggleGroup.css({height: height + 'px'});
-      $(arrowClass + ' .arrow').addClass('rotate90');
+      $(parentClass + ' .arrow').addClass('rotate90');
 
       let int = setInterval(function() {
 
         if ( toggleGroup.height() >= 30 ) {
 
           options.fadeIn(ms);
-          $(arrowClass + ' .status').fadeOut(ms);
+          $(parentClass + ' .status').fadeOut(ms);
 
           clearInterval(int);
         }
@@ -197,8 +197,8 @@ document.addEventListener('DOMContentLoaded', function () {
              event.target.nodeName !== 'SELECT') {
 
       options.fadeOut(ms);
-      $(arrowClass + ' .status').fadeIn(ms);
-      $(arrowClass + ' .arrow').removeClass('rotate90');
+      $(parentClass + ' .status').fadeIn(ms);
+      $(parentClass + ' .arrow').removeClass('rotate90');
 
       let int = setInterval(function() {
 
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let
         setting = Number(localStorage.getItem('itemCondition')),
-        status = $('.toggle-group.condition .label .status'),
+        status = $('.toggle-group.condition .label .condition-status'),
         conditions = ['Poor (P)',
                       'Fair (F)',
                       'Good (G)',
@@ -288,11 +288,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (setting === 0 || setting === null) {
 
-      status.text('Disabled').attr('class', 'status disabled');
+      status.text('Disabled').attr('class', 'condition-status disabled');
 
     } else {
 
-      status.text(conditions[setting]).attr('class', 'status ' + colors[setting]);
+      status.text(conditions[setting]).attr('class', 'condition-status ' + colors[setting]);
     }
   }
 
