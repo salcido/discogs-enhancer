@@ -68,8 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function _acknowledgeUpdate(message) {
 
     chrome.storage.sync.set({didUpdate: false}, function() {});
-
-    chrome.browserAction.setBadgeText({text: ''});
   }
 
   /**
@@ -356,6 +354,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (result.didUpdate) {
 
         $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
+        chrome.browserAction.setBadgeText({text: ''});
 
       } else {
 
