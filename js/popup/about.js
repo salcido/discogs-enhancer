@@ -25,17 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function getVersionAndYear() {
 
     let
-        d = new Date(),
         manifest = chrome.runtime.getManifest(),
-        version = document.getElementsByClassName('version'),
-        year = d.getFullYear(),
+        version = Array.from(document.getElementsByClassName('version')),
+        year = new Date().getFullYear(),
         yearSpan = document.getElementById('year');
 
-    for (let i = 0; i < version.length; i++) {
-
-      version[i].textContent = 'version ' + manifest.version;
-    }
-
+    version.forEach(ver => { ver.textContent = 'version ' + manifest.version; });
     yearSpan.textContent = year;
   }
 
@@ -70,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     location.hash = '#' + select.value;
 
     if (location.hash.length !== 0) {
-
+      // (-50px to adjust for the navbar up top)
       window.scrollTo(window.scrollX, window.scrollY - 50);
     }
   });
