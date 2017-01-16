@@ -450,34 +450,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
       features.forEach(feature => {
 
-        let query = $(searchbox).val().toLowerCase(),
+        let clear = document.getElementsByClassName('clear-search')[0],
+            query = searchbox.value.toLowerCase(),
             text = feature.textContent.toLowerCase();
 
         if ( !text.includes(query) ) {
 
-          $(feature).parent().addClass('hide');
+          feature.parentNode.classList.add('hide');
 
         } else {
 
-          $(feature).parent().removeClass('hide');
-          $(noResults).addClass('hide');
+          feature.parentNode.classList.remove('hide');
+          noResults.classList.add('hide');
         }
 
         // Show no results notification
         if ( features.every(_isHidden) ) {
 
-          $(noResults).removeClass('hide');
+          noResults.classList.remove('hide');
         }
 
         // show/hide the X icon
-        if (!searchbox.value) {
-
-          $('.clear-search').addClass('hide');
-
-        } else {
-
-          $('.clear-search').removeClass('hide');
-        }
+        return searchbox.value ? clear.classList.remove('hide') : clear.classList.add('hide');
       });
     }, 0);
   }
