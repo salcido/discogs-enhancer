@@ -45,12 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let features = Array.from(document.getElementsByClassName('feature'));
 
-    features.forEach((feature, i) => {
+    features.forEach(feature => {
 
       let option = document.createElement('option');
 
-      option.textContent = features[i].textContent;
-      option.value = features[i].id;
+      option.textContent = feature.textContent;
+      option.value = feature.id;
       select.add(option);
     });
   }
