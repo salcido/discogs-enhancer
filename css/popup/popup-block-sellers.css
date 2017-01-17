@@ -30,6 +30,21 @@ em {
   color: white;
 }
 
+.header-wrap {
+  min-height: 40px;
+  width: 100%;
+  margin-bottom: 30px;
+  background-color: #232425;
+  box-shadow: 0 1px 1px 1px rgba(0,0,0,0.50);
+}
+
+.logo {
+  display: block;
+  max-width: 350px;
+  margin: 20px auto;
+  text-align: center;
+}
+
 .seller {
   display: block;
   min-width: 10px;
@@ -78,13 +93,6 @@ em {
 .restore-input {
   margin-top: 5px;
   font-size: 20px;
-}
-
-.logo {
-  display: block;
-  max-width: 400px;
-  margin: 30px auto;
-  text-align: center;
 }
 
 .errors {
