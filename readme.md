@@ -23,8 +23,10 @@ Discogs Enhancer is a Chrome extension that adds useful functionality to discogs
 * Price suggestion comparisons
 * Release durations
 * Sort dialogs & filters alphabetically
+* Tag Sellers based on reputation
 * Text formatting shortcuts
 * Tracklist Readability
+
 
 ### Better Collection page UI
 This makes the Collection page a little more organized and easier to understand.
@@ -88,6 +90,9 @@ See total play times for any release that has track time information.
 Adds a 'Sort A-Z' button to the Explore & Marketplace pages. Sort things like Genre, Style, Format, Country, Currency, Decade and Media Condition in alphabetical and reverse-alphabetical order. Also adds a sort button to the 'Add to list' dialog box allowing the user to sort their lists within the select element.
 
 ![Sort buttons](http://www.msalcido.com/discogs-enhancer/fancypants/chrome-shots/sort-buttons.png?raw=true "Sorting preview")
+
+### Tag Sellers based on reputation
+Tag any Seller in the Marketplace who's reputation is below a percentage specified by you.
 
 ### Text formatting shortcuts
 This will let you to quickly insert text formatting shortcuts to reviews, comments and forum posts. Easily link to releases, posts, users, guidelines, and websites and emphasize your text with bold, italic, strikethrough and underline effects!
