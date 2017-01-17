@@ -21,6 +21,9 @@ $(document).ready(function() {
   // Find all instances of selected items in list and hide them
   window.hideItems = function hideItems() {
 
+    // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
+    $('.condition-label-mobile').remove();
+
     // Get current itemCondition
     itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
 
