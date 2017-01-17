@@ -65,5 +65,13 @@ $(document).ready(function() {
 
     // Finally, call filterByCountry();
     window.filterByCountry();
+
+    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+
+      $(document).ajaxSuccess(function() {
+
+        window.filterByCountry();
+      });
+    });
   }
 });
