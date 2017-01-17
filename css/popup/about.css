@@ -42,29 +42,37 @@ a:hover {
 }
 
 .container {
-  padding-top: 40px;
+  padding-top: 100px;
+}
+
+.navbar.container {
+  padding: 0;
 }
 
 .navbar {
-  position:fixed;
+  min-height: 40px;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
-  width: 100%;
-  min-height: 40px;
   background-color: #232425;
-  display: block;
-  z-index: 10;
-  clear: both;
   box-shadow: 0 1px 1px 1px rgba(0,0,0,0.50);
-}
-
-.nav-wrap {
-  margin: 0 auto;
-  text-align: center;
 }
 
 .navbar label {
   color: white;
+}
+
+.navbar .row img {
+  max-width: 325px;
+  margin: 20px 0;
+}
+
+.navbar .navigation {
+  float: right;
+  margin-top: 5px;
+  padding: 3px 0 0;
 }
 
 #nav-select {
@@ -72,8 +80,8 @@ a:hover {
 }
 
 .feature {
-  padding-top: 20px;
   margin-top: -20px;
+  padding-top: 20px;
 }
 
 .about .title img {

@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (location.hash.length !== 0) {
       // (-50px to adjust for the navbar up top)
-      window.scrollTo(window.scrollX, window.scrollY - 50);
+      window.scrollTo(window.scrollX, window.scrollY - 80);
     }
   });
 
