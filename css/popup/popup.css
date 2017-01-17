@@ -1,9 +1,9 @@
 /* hide scrollbar in popup */
-html {
+.mac {
   overflow: scroll;
   overflow-x: hidden;
 }
-::-webkit-scrollbar {
+.mac::-webkit-scrollbar {
   width: 0;  /* remove scrollbar space */
   background: transparent;  /* make scrollbar invisible */
 }
@@ -411,9 +411,13 @@ input[type="checkbox"]:focus {
   color: lightgray;
 }
 
-#percent:disabled {
+#percent:disabled,
+#filterCountryCurrency:disabled,
+#filterCountry:disabled,
+#currency:disabled {
   background-color: gray;
   border: 2px solid gray;
+  color: #292929;
 }
 
 /* hide arrows in number input */

@@ -809,7 +809,7 @@ $(document).ready(function() {
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   $('.toggle-group.country').click(function(event) {
 
-    _optionsToggle( $('.hide-country'), $(this), '.country', 105 );
+    _optionsToggle( $('.hide-country'), $(this), '.country', 115 );
   });
 
   // Save the Filter Items By Country currency select value to localStorage
@@ -958,6 +958,9 @@ $(document).ready(function() {
     _setupFilterByCondition();
     setCountryFilters();
     setSellerRep();
+
+    // .mac class will remove scrollbars from the popup menu
+    if (navigator.userAgent.includes('Mac OS X')) { $('html').addClass('mac'); }
 
     setTimeout(() => { searchbox.focus(); }, 300);
   }
