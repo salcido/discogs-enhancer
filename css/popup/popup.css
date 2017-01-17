@@ -1,3 +1,14 @@
+/* hide scrollbar in popup */
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0;  /* remove scrollbar space */
+  background: transparent;  /* make scrollbar invisible */
+}
+
+
 body {
   height: 275px;
   width: 350px;
@@ -162,7 +173,7 @@ a.button_green:hover {
 }
 
 .toggle-group.has-options:hover p {
-  margin-left: 5px;
+  margin-left: 8px;
   cursor: pointer;
 }
 
@@ -306,7 +317,7 @@ input[type="checkbox"]:focus {
 
 #rate {
   width: 50%;
-  margin: 23px 0 0 65px;
+  margin: 23px 0 0 63px;
 }
 
 /* Filter Marketplace Items by Condition */
@@ -319,7 +330,7 @@ input[type="checkbox"]:focus {
 .hide-condition select {
   position: absolute;
   top: 55px;
-  left: 60px;
+  left: 50px;
   outline: none;
 }
 
@@ -333,7 +344,7 @@ input[type="checkbox"]:focus {
 .hide-country #filterCountryCurrency {
   position: absolute;
   top: 45px;
-  left: 60px;
+  left: 50px;
   outline: none;
 }
 
@@ -341,7 +352,7 @@ input[type="checkbox"]:focus {
   max-width: 175px;
   position: absolute;
   top: 75px;
-  left: 60px;
+  left: 50px;
   outline: none;
 }
 
@@ -355,7 +366,7 @@ input[type="checkbox"]:focus {
   width: 300px;
   position: absolute;
   top: 52px;
-  left: 60px;
+  left: 50px;
   font-size: 15px;
   color: white;
 }

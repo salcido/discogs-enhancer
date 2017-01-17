@@ -8,7 +8,7 @@
  *
  */
 
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function() {
 
   let
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
@@ -959,7 +959,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setCountryFilters();
     setSellerRep();
 
-    setTimeout(() => { searchbox.focus(); }, 100);
+    setTimeout(() => { searchbox.focus(); }, 300);
   }
 
   // Start it up
