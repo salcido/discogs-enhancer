@@ -17,7 +17,9 @@ $(document).ready(function() {
   // DOM manipulation
   // ========================================================
 
-  if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
+  if ( href.includes('/sell/mywants') ||
+       href.includes('/sell/list') ||
+       href.includes('/sell/release') ) {
 
     window.sellersRep = function sellersRep() {
 
