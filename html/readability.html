@@ -19,45 +19,44 @@
           <img src="../img/header-2x.png" class="logo">
       </div>
     </div>
-      <div class="container">
-        <div class="about">
-          <div class="row">
+    <div class="container">
+      <div class="about">
+        <div class="row">
 
-            <div class="col-lg-12">
-              <div class="title center">
-                <p class="header">Tracklist Readability Settings</p>
-              </div>
+          <div class="col-lg-12">
+            <div class="title center">
+              <p class="header">Tracklist Readability Settings</p>
+            </div>
 
-              <div class="content">
+            <div class="content">
 
-                <p>
-                  These settings determine when dividers are inserted into a release's track list in order to make them easier to read. You can show and hide dividers by clicking <em>Show/Hide Dividers</em> at the top-right area of the track list. Your show/hide preference will be saved each time you change it.
-                </p>
+              <p>
+                These settings determine when dividers are inserted into a release's track list in order to make them easier to read. You can show and hide dividers by clicking <em>Show/Hide Dividers</em> at the top-right area of the track list. Your show/hide preference will be saved each time you change it.
+              </p>
 
-                <p style="margin-bottom: 25px;"><em>Note:</em> You must refresh your page on Discogs for changes to take effect.</p>
-                <p class="header">
-                  How it works
-                </p>
-                <p>
-                  There are some conditions that must be met before any dividers are inserted into the track list.
-                  <ul>
-                    <li>
-                      It wont insert dividers when Track Headings are already present on the release. These releases are usually readable on their own.
-                    </li>
-                    <li>
-                      There must be sufficient tracks present before it does anything. The minimum number of tracks is determined by the <b>Threshold</b> setting. Once the Threshold has been exceeded, then the dividers will be inserted. For example, if you have a Threshold value of 8, any release with 9 or more tracks will have dividers inserted.
-                    </li>
-                    <li>
-                      If there are vinyl tracks listed like: ABCDE (ie: there are no numbers after the side delineation &mdash; essentially one track per side), it won't insert dividers between those.
-                    </li>
-                    <li>
-                      Note: There is no single standard when it comes to listing releases with multiple formats or CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release.
-                    </li>
-                  </ul>
+              <p style="margin-bottom: 25px;"><em>Note:</em> You must refresh your page on Discogs for changes to take effect.</p>
+              <p class="header">
+                How it works
+              </p>
+              <p>
+                There are some conditions that must be met before any dividers are inserted into the track list.
+                <ul>
+                  <li>
+                    It wont insert dividers when Track Headings are already present on the release. These releases are usually readable on their own.
+                  </li>
+                  <li>
+                    There must be sufficient tracks present before it does anything. The minimum number of tracks is determined by the <b>Threshold</b> setting. Once the Threshold has been exceeded, then the dividers will be inserted. For example, if you have a Threshold value of 8, any release with 9 or more tracks will have dividers inserted.
+                  </li>
+                  <li>
+                    If there are vinyl tracks listed like: ABCDE (ie: there are no numbers after the side delineation &mdash; essentially one track per side), it won't insert dividers between those.
+                  </li>
+                  <li>
+                    Note: There is no single standard when it comes to listing releases with multiple formats or CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release.
+                  </li>
+                </ul>
+              </p>
 
-                </p>
-
-                <form id="readability-prefs">
+              <form id="readability-prefs">
                 <div class="option-wrap">
 
                   <h4>Vinyl, Cassette, Multi-CD, Box Set Releases, etc &hellip;</h4>
@@ -76,7 +75,6 @@
                     <p>
                       This will insert dividers between sides/formats when there are multiple tracks per side (eg: A1, A2, B, C1, C2, or CD1-1, CD2-1, etc &hellip;) and the release exceeds the number of tracks listed here. If the release does not exceed this threshold, no dividers will be inserted.
                     </p>
-
                     <label for="vcReleases">Track threshold:</label>
                     <select name="vcReleases" id="vcThreshold"></select>
                   </div>
@@ -87,7 +85,6 @@
                   <h4>Single CDs, Digital Releases, etc &hellip;</h4>
 
                   <div class="feature">
-
                     <div class="switch-label">Enabled: </div>
                     <div class="switch-wrap">
                       <div class="onoffswitch">
@@ -134,17 +131,16 @@
                       This will insert dividers before each Index Track on a release as long as there are no Track Headers present. This is common with Classical releases. <a href="https://www.discogs.com/Elgar-Sir-John-Barbirolli-Orchestral-Works/release/9498006" target="_blank" rel="nofollow">Try this release for example.</a>
                     </p>
                   </div>
-
                 </div>
               </form>
 
 
-              </div> <!-- end .content -->
+            </div> <!-- end .content -->
 
-            </div> <!-- end center column -->
-          </div> <!-- end .row -->
-        </div> <!-- end .about -->
-      </div> <!-- end .container -->
+          </div> <!-- end center column -->
+        </div> <!-- end .row -->
+      </div> <!-- end .about -->
+    </div> <!-- end .container -->
 
   </body>
 </html>
