@@ -1,5 +1,4 @@
 # Discogs Enhancer
-Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com and Chrome.
 
 #### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
