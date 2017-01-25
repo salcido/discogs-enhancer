@@ -50,13 +50,14 @@ $(document).ready(function() {
 
         // jQ object of all tracks on a release
         tracklist = $('.playlist tbody tr'),
+        size = 'style="line-height:0.5rem;"',
 
         prefix = [],
         sequence = [],
         isSequential = false,
 
         display = show ? '' : 'style="display:none;"',
-        spacer = '<tr class="tracklist_track track_heading de-spacer" ' + display + '>' +
+        spacer = '<tr class="tracklist_track track_heading de-spacer" ' + size + display + '>' +
                     '<td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
                     duration +
                   '</tr>',
