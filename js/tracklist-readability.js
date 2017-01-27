@@ -27,7 +27,6 @@
 
 $(document).ready(function() {
 
-  // Make sure we are on a release page
   if ( document.location.href.includes('/release/') && !document.location.href.includes('/history') ) {
 
     let
@@ -291,7 +290,7 @@ $(document).ready(function() {
     // =======================================
 
     // CDs (nuts)
-    if (noHeadings && !hasIndexTracks) {
+    if ( noHeadings && !hasIndexTracks ) {
 
       let prefixes = false,
           trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
