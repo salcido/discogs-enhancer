@@ -46,6 +46,7 @@ select[size] {
 }
 
 ::-webkit-scrollbar {
+  width: 10px;
   background: #393939 !important;
 }
 
