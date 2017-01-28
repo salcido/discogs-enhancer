@@ -56,9 +56,10 @@ $(document).ready(function() {
         isSequential = false,
 
         display = show ? '' : 'style="display:none;"',
-        spacer = '<tr class="tracklist_track track_heading de-spacer" ' + size + display + '>' +
-                    '<td class="tracklist_track_pos"></td><td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
-                    duration +
+        spacer = `<tr class="tracklist_track track_heading de-spacer" ${size} ${display} >` +
+                    '<td class="tracklist_track_pos"></td>' +
+                    '<td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
+                    `${duration}` +
                   '</tr>',
 
         trigger = show
