@@ -66,10 +66,10 @@ $(document).ready(function() {
                   ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
                   : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
 
-    // =======================================
-    // Functions
-    // =======================================
 
+    // ========================================================
+    // Functions
+    // ========================================================
     /**
      * Sets default value for readabilityDividers
      *
@@ -250,9 +250,9 @@ $(document).ready(function() {
       }
     }
 
-    // =======================================
-    // UI functionality
-    // =======================================
+    // ========================================================
+    // UI Functionality
+    // ========================================================
 
     /**
      * Appends the show/hide dividers trigger
@@ -286,9 +286,9 @@ $(document).ready(function() {
       });
     }
 
-    // =======================================
-    // DOM manipulation
-    // =======================================
+    // ========================================================
+    // DOM Manipulation
+    // ========================================================
 
     // CDs (nuts)
     if ( noHeadings && !hasIndexTracks ) {
