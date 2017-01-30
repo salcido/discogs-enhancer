@@ -8,7 +8,7 @@
   color: #CCCCCC !important;
 }
 
-b, u, s {
+b {
   color: #FFFFFF !important;
 }
 
@@ -1749,5 +1749,5 @@ label#thresholdLabel {
 /* Alert that may be shown when editing a release */
 /* https://www.discogs.com/release/6265588-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/history#latest */
 .data span.alert-message-text {
-  color: #ccc !important;
+  color: #CCCCCC !important;
 }
