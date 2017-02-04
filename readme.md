@@ -1,7 +1,5 @@
 # Discogs Enhancer
 
-***
-
 #### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
 
