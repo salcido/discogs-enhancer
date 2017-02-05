@@ -53,8 +53,6 @@ $(document).ready(function() {
     });
   }
 
-  //window.applyStyles =
-
   // Apply styles on ready/prev/next clicks
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
