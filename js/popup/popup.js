@@ -270,7 +270,7 @@ window.addEventListener('load', function load() {
 
   function _setCountryUiStatus() {
 
-    let self = $('.toggle-group.country .status');
+    let self = document.querySelector('.toggle-group.country .status');
 
     chrome.storage.sync.get('prefs', function(result) {
 
@@ -293,17 +293,21 @@ window.addEventListener('load', function load() {
    * Sets the enabled/disabled text status on SUBMENUS
    *
    * @method _setEnabledStatus
-   * @param  {object}         target [jQ object]
+   * @param  {object}         target [the DOM element]
    * @param  {string}         status [Enabled/Disabled]
    */
 
   function _setEnabledStatus(target, status) {
 
-    let state = status === 'Enabled'
-                ? target.text('Enabled').addClass('enabled').removeClass('disabled')
-                : target.text('Disabled').addClass('disabled').removeClass('enabled');
+    if (status === 'Enabled') {
+      target.classList.add('enabled');
+      target.classList.remove('disabled');
+    } else {
+      target.classList.add('disabled');
+      target.classList.remove('enabled');
+    }
 
-    return state;
+    return target.textContent = status;
   }
 
   /**
@@ -317,7 +321,7 @@ window.addEventListener('load', function load() {
 
     let
         setting = Number(localStorage.getItem('itemCondition')),
-        status = $('.toggle-group.condition .label .condition-status'),
+        status = document.querySelector('.toggle-group.condition .label .condition-status'),
         conditions = ['Poor (P)',
                       'Fair (F)',
                       'Good (G)',
@@ -337,16 +341,19 @@ window.addEventListener('load', function load() {
 
     if (setting === 0 || setting === null) {
 
-      status.text('Disabled').attr('class', 'condition-status disabled');
+      status.textContent = 'Disabled';
+      status.className = 'condition-status disabled';
 
     } else {
 
-      status.text(conditions[setting]).attr('class', 'condition-status ' + colors[setting]);
+      status.textContent = conditions[setting];
+      status.className = 'condition-status ' + colors[setting];
     }
   }
 
   /**
-   * Toggles price comparisons
+   * Toggles price comparisons and displays an Error
+   * if a currency value is not selected.
    *
    * @method   _showPrices
    * @param    {Object}   event [The event object]
@@ -369,9 +376,14 @@ window.addEventListener('load', function load() {
 
       else if (userCurrency.value === '-') {
 
-        $('#notify').text('Please choose a currency from the select box first.');
+        let message =  'Please choose a currency from the select box first.',
+            notifications = document.getElementsByClassName('notifications')[0];
 
-        $('.notifications').css({display:'block'}).delay(2000).fadeOut('slow');
+        document.getElementById('notify').textContent = message;
+
+        notifications.classList.add('show');
+
+        setTimeout(() => { _fadeOut(notifications); }, 1500);
 
         togglePrices.checked = false;
         userCurrency.className = 'alert';
@@ -400,14 +412,21 @@ window.addEventListener('load', function load() {
 
     chrome.storage.sync.get('didUpdate', function(result) {
 
+      let about = document.getElementById('about');
+
       if (result.didUpdate) {
 
-        $('#about').text('New updates!').removeClass('button_green').addClass('button_orange');
+        about.textContent = 'New updates!';
+        about.classList.remove('button_green');
+        about.classList.add('button_orange');
+
         chrome.browserAction.setBadgeText({text: ''});
 
       } else {
 
-        $('#about').text('About').removeClass('button_orange').addClass('button_green');
+        about.textContent = 'About';
+        about.classList.add('button_green');
+        about.classList.remove('button_orange');
       }
     });
   }
@@ -449,38 +468,38 @@ window.addEventListener('load', function load() {
 
   function saveSellerRep() {
 
-    let input = $('#percent'),
-        self = $('.seller-rep .status'),
+    let input = document.getElementById('percent'),
+        self = document.querySelector('.seller-rep .status'),
         toggle = toggleSellerRep;
 
     // checked and has value entered
-    if ( input.val() && toggle.checked) {
+    if ( input.value && toggle.checked ) {
 
-      input.prop('disabled', true);
+      input.disabled = true;
       toggle.disabled = false;
-      input.removeClass('alert');
+      input.classList.remove('alert');
 
       // reset value to 100 if user enters a greater value
-      if ( input > 100 ) { input.val(100); }
+      if ( input.value > 100 ) { input.value = 100; }
 
-      localStorage.setItem('sellerRep', input.val());
+      localStorage.setItem('sellerRep', input.value);
 
-      input.val(localStorage.getItem('sellerRep'));
+      input.value = localStorage.getItem('sellerRep');
 
       _setEnabledStatus( self, 'Enabled' );
       triggerSave();
 
-    } else if ( input.val() && !toggle.checked ) {
+    } else if ( input.value && !toggle.checked ) {
 
-      input.prop('disabled', false);
+      input.disabled = false;
 
       _setEnabledStatus( self, 'Disabled' );
       triggerSave();
 
-    } else if ( !input.val() ) {
+    } else if ( !input.value ) {
 
       toggle.checked = false;
-      input.addClass('alert');
+      input.classList.add('alert');
     }
   }
 
@@ -615,7 +634,7 @@ window.addEventListener('load', function load() {
   function setSellerRep() {
 
     let input = $('#percent'),
-        self = $('.seller-rep .status'),
+        self = document.querySelector('.seller-rep .status'),
         percent = localStorage.getItem('sellerRep') || null;
 
     if (percent !== null) { input.val(percent); }
