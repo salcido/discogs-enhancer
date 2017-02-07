@@ -57,7 +57,7 @@
       </p>
       <div class="meta hide">Contextual Menu Options Right Click Search</div>
 
-      <div class="context-menus" id="contextMenus" style="display: none;">
+      <div class="context-menus hide" id="contextMenus">
 
         <div class="checkbox-group">
           <div class="box-wrap">
@@ -196,7 +196,7 @@
       </p>
       <div class="meta hide">Filter By Condition Media Vinyl CD Cassette Record Tape Quality marketplace</div>
 
-      <div class="hide-condition" style="display: none;">
+      <div class="hide-condition hide">
         <select id="marketplaceItems">
           <option value="">Disabled</option>
           <option value="7">Mint (M)</option>
@@ -219,7 +219,10 @@
       </p>
       <div class="meta hide">Filter By Country Region Area Location marketplace</div>
 
-      <div class="onoffswitch hide-country" style="display: none;">
+      <!-- switch and options wrap -->
+      <div class="hide-country hide">
+
+      <div class="onoffswitch">
           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleFilterByCountry" checked>
           <label class="onoffswitch-label" for="toggleFilterByCountry">
               <span class="onoffswitch-inner"></span>
@@ -227,7 +230,7 @@
           </label>
       </div>
 
-      <div class="hide-country" style="display: none;">
+      <div>
         <select id="filterCountryCurrency">
           <option value="-">-</option>
           <option value="AUD">AUD (A$)</option>
@@ -245,7 +248,7 @@
         </select>
       </div>
 
-      <div class="hide-country" style="display: none;">
+      <div>
         <select id="filterCountry">
           <option value="-">
             -
@@ -988,6 +991,7 @@
         </select>
       </div>
     </div>
+    </div>
 
     <!-- Improved Collection UI -->
     <div class="toggle-group">
@@ -1097,17 +1101,20 @@
       </p>
       <div class="meta hide">Tag Seller Reputation Marketplace Ratings Seller</div>
 
-      <div class="onoffswitch hide-percentage" style="display: none;">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSellerRep" checked>
-          <label class="onoffswitch-label" for="toggleSellerRep">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-          </label>
-      </div>
+      <!-- options/switch wrap -->
+      <div class="hide-percentage hide">
+        <div class="onoffswitch hide-percentage">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleSellerRep" checked>
+            <label class="onoffswitch-label" for="toggleSellerRep">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
 
-      <div class="hide-percentage percentage-interface" style="display:none;">
-        <label for="percent">Tag sellers with reputations below:</label>
-        <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
+        <div class="hide-percentage percentage-interface">
+          <label for="percent">Tag sellers with reputations below:</label>
+          <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
+        </div>
       </div>
     </div>
 

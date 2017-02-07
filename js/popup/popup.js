@@ -8,7 +8,7 @@
  *
  */
 
-$(document).ready(function() {
+window.addEventListener('load', function load() {
 
   let
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
@@ -126,9 +126,12 @@ $(document).ready(function() {
 
       if (message) {
 
-        $('#notify').text(message);
+        let notifications = document.getElementsByClassName('notifications')[0];
 
-        $('.notifications').css({display:'block'}).delay(2000).fadeOut('slow');
+        document.getElementById('notify').textContent = message;
+
+        notifications.classList.add('show');
+        setTimeout(() => { _fadeOut(notifications); }, 1500);
       }
     });
 
@@ -140,6 +143,45 @@ $(document).ready(function() {
         _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
       }
     }
+  }
+
+  /**
+   * Fades out an element via CSS animation
+   *
+   * @method _fadeOut
+   * @param  {object} elem [the element to fade]
+   * @return {undefined}
+   */
+
+  function _fadeOut(elem) {
+
+    elem.classList.add('fadeOut');
+    elem.classList.remove('fadeIn');
+
+    setTimeout(() => {
+
+      elem.classList.remove('fadeOut');
+      elem.classList.remove('show');
+
+      elem.classList.add('hide');
+    }, 400);
+  }
+
+  /**
+   * Fades in an element via CSS animation
+   *
+   * @method _fadeIn
+   * @param  {object} elem [the element to fade]
+   * @return {undefined}
+   */
+
+  function _fadeIn(elem) {
+
+    elem.classList.remove('fadeOut');
+    elem.classList.remove('hide');
+
+    elem.classList.add('fadeIn');
+    elem.classList.add('show');
   }
 
   /**
@@ -167,21 +209,26 @@ $(document).ready(function() {
 
   function _optionsToggle(options, toggleGroup, parentClass, height) {
 
-    let ms = 200;
+    let arrow = document.querySelector(parentClass + ' .arrow'),
+        status = document.querySelector(parentClass + ' .status');
+
+    options = document.querySelector(options);
 
     // Expand
     // Check the current height and either expand or collapse it
-    if (toggleGroup.height() == 50) {
+    if (toggleGroup.clientHeight === 50) {
 
-      toggleGroup.css({height: height + 'px'});
-      $(parentClass + ' .arrow').addClass('rotate90');
+      toggleGroup.style.height = height + 'px';
+
+      arrow.classList.add('rotate90');
 
       let int = setInterval(function() {
 
-        if ( toggleGroup.height() >= 30 ) {
+        if ( toggleGroup.clientHeight >= 30 ) {
 
-          options.fadeIn(ms);
-          $(parentClass + ' .status').fadeOut(ms);
+          _fadeIn(options);
+
+          if (status) { _fadeOut(status); }
 
           clearInterval(int);
         }
@@ -196,15 +243,17 @@ $(document).ready(function() {
              event.target.nodeName !== 'A' &&
              event.target.nodeName !== 'SELECT') {
 
-      options.fadeOut(ms);
-      $(parentClass + ' .status').fadeIn(ms);
-      $(parentClass + ' .arrow').removeClass('rotate90');
+      _fadeOut(options);
+
+      if (status) { status.classList.add('fadeIn'); }
+
+      arrow.classList.remove('rotate90');
 
       let int = setInterval(function() {
 
-       if (options.is(':hidden')) {
+       if (options.offsetParent === null) {
 
-         toggleGroup.css({height: '50px'});
+          toggleGroup.style.height = '50px';
 
          clearInterval(int);
        }
@@ -795,21 +844,21 @@ $(document).ready(function() {
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
   $('.toggle-group.menus').click(function(event) {
 
-    _optionsToggle( $('#contextMenus'), $(this), '.menus', 180 );
+    _optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
 
   /* FILTER BY CONDITION OPTIONS */
   $('.toggle-group.condition').click(function(event) {
 
-    _optionsToggle( $('.hide-condition'), $(this), '.condition', 100 );
+    _optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   $('.toggle-group.country').click(function(event) {
 
-    _optionsToggle( $('.hide-country'), $(this), '.country', 115 );
+    _optionsToggle('.hide-country', this, '.country', 115 );
   });
 
   // Save the Filter Items By Country currency select value to localStorage
@@ -840,7 +889,7 @@ $(document).ready(function() {
   /* SELLER REPUTATION */
   $('.toggle-group.seller-rep').click(function(event) {
 
-    _optionsToggle( $('.hide-percentage'), $(this), '.seller-rep', 100 );
+    _optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
 
 
@@ -967,4 +1016,4 @@ $(document).ready(function() {
 
   // Start it up
   init();
-});
+}, false);

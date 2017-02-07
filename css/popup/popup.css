@@ -323,7 +323,6 @@ input[type="checkbox"]:focus {
 /* Filter Marketplace Items by Condition */
 /*sub-menu*/
 .hide-condition {
-  display: block;
   position: relative;
 }
 
@@ -337,7 +336,6 @@ input[type="checkbox"]:focus {
 /* Filter Marketplace Items by Country */
 /* sub-menu */
 .hide-country {
-  display: block;
   position: relative;
 }
 
@@ -527,4 +525,41 @@ span.clear-search:hover {
 
 #noResults .label {
   padding-left: 150px;
+}
+
+/* fadeout animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 0.5s;
+}
+
+/* fadeIn animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  display: block;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+}
+
+.show {
+  display: block;
 }
