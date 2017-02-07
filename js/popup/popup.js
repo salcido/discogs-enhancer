@@ -160,11 +160,36 @@ window.addEventListener('load', function load() {
 
     setTimeout(() => {
 
-      elem.classList.remove('fadeOut');
-      elem.classList.remove('show');
-
+      removeClasses(elem, 'fadeOut', 'show');
       elem.classList.add('hide');
     }, 400);
+  }
+
+  /**
+   * Removes multiple classes from a target
+   *
+   * @method removeClasses
+   * @param  {object}      elem      [the target element]
+   * @param  {array}      ...remove [classnames to remove]
+   * @return {object}
+   */
+
+  function removeClasses(elem, ...remove) {
+
+    remove.forEach(cls => { elem.classList.remove(cls); });
+  }
+
+  /**
+   * Addes multiple classes to a target
+   * @method addClasses
+   * @param  {object}   elem   [the target element]
+   * @param  {array}   ...add [classnames to add]
+   * @return {object}
+   */
+
+  function addClasses(elem, ...add) {
+
+    add.forEach(cls => { elem.classList.add(cls); });
   }
 
   /**
@@ -177,11 +202,8 @@ window.addEventListener('load', function load() {
 
   function _fadeIn(elem) {
 
-    elem.classList.remove('fadeOut');
-    elem.classList.remove('hide');
-
-    elem.classList.add('fadeIn');
-    elem.classList.add('show');
+    removeClasses(elem, 'fadeOut', 'hide');
+    addClasses(elem, 'fadeIn', 'show');
   }
 
   /**
