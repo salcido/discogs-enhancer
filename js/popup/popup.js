@@ -160,7 +160,7 @@ window.addEventListener('load', function load() {
 
     setTimeout(() => {
 
-      removeClasses(elem, 'fadeOut', 'show');
+      elem.removeClasses('fadeOut', 'show');
       elem.classList.add('hide');
     }, 400);
   }
@@ -174,23 +174,24 @@ window.addEventListener('load', function load() {
    * @return {object}
    */
 
-  function removeClasses(elem, ...remove) {
+  Element.prototype.removeClasses = function(...remove) {
 
-    remove.forEach(cls => { elem.classList.remove(cls); });
-  }
+    remove.forEach(cls => { this.classList.remove(cls); });
+  };
 
   /**
    * Addes multiple classes to a target
+   *
    * @method addClasses
    * @param  {object}   elem   [the target element]
    * @param  {array}   ...add [classnames to add]
    * @return {object}
    */
 
-  function addClasses(elem, ...add) {
+  Element.prototype.addClasses = function(...add) {
 
-    add.forEach(cls => { elem.classList.add(cls); });
-  }
+    add.forEach(cls => { this.classList.add(cls); });
+  };
 
   /**
    * Fades in an element via CSS animation
@@ -202,8 +203,8 @@ window.addEventListener('load', function load() {
 
   function _fadeIn(elem) {
 
-    removeClasses(elem, 'fadeOut', 'hide');
-    addClasses(elem, 'fadeIn', 'show');
+    elem.removeClasses('fadeOut', 'hide');
+    elem.addClasses('fadeIn', 'show');
   }
 
   /**
