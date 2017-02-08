@@ -17,10 +17,13 @@
   * @return {object}
   */
 
- Element.prototype.removeClasses = function(...remove) {
+  if ( !Element.prototype.removeClasses ) {
 
-   remove.forEach(cls => { this.classList.remove(cls); });
- };
+    Element.prototype.removeClasses = function(...remove) {
+
+     remove.forEach(cls => { this.classList.remove(cls); });
+    };
+  }
 
  /**
   * Addes multiple classes to a target
@@ -31,10 +34,13 @@
   * @return {object}
   */
 
- Element.prototype.addClasses = function(...add) {
+  if ( !Element.prototype.addClasses ) {
 
-   add.forEach(cls => { this.classList.add(cls); });
- };
+    Element.prototype.addClasses = function(...add) {
+
+     add.forEach(cls => { this.classList.add(cls); });
+    };
+  }
 
 window.addEventListener('load', function load() {
 
@@ -42,7 +48,7 @@ window.addEventListener('load', function load() {
       chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
       prefs = {},
-      features = Array.from(document.querySelectorAll('.toggle-group .meta')),
+      features = [...document.querySelectorAll('.toggle-group .meta')],
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       noResults = document.getElementById('noResults'),
       searchbox = document.getElementById('searchbox'),
