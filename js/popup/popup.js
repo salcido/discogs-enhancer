@@ -8,6 +8,34 @@
  *
  */
 
+ /**
+  * Removes multiple classes from a target
+  * @TODO MOVE THIS
+  * @method removeClasses
+  * @param  {object}      elem      [the target element]
+  * @param  {array}      ...remove [classnames to remove]
+  * @return {object}
+  */
+
+ Element.prototype.removeClasses = function(...remove) {
+
+   remove.forEach(cls => { this.classList.remove(cls); });
+ };
+
+ /**
+  * Addes multiple classes to a target
+  * @TODO MOVE THIS
+  * @method addClasses
+  * @param  {object}   elem   [the target element]
+  * @param  {array}   ...add [classnames to add]
+  * @return {object}
+  */
+
+ Element.prototype.addClasses = function(...add) {
+
+   add.forEach(cls => { this.classList.add(cls); });
+ };
+
 window.addEventListener('load', function load() {
 
   let
@@ -166,34 +194,6 @@ window.addEventListener('load', function load() {
   }
 
   /**
-   * Removes multiple classes from a target
-   *
-   * @method removeClasses
-   * @param  {object}      elem      [the target element]
-   * @param  {array}      ...remove [classnames to remove]
-   * @return {object}
-   */
-
-  Element.prototype.removeClasses = function(...remove) {
-
-    remove.forEach(cls => { this.classList.remove(cls); });
-  };
-
-  /**
-   * Addes multiple classes to a target
-   *
-   * @method addClasses
-   * @param  {object}   elem   [the target element]
-   * @param  {array}   ...add [classnames to add]
-   * @return {object}
-   */
-
-  Element.prototype.addClasses = function(...add) {
-
-    add.forEach(cls => { this.classList.add(cls); });
-  };
-
-  /**
    * Fades in an element via CSS animation
    *
    * @method _fadeIn
@@ -323,11 +323,14 @@ window.addEventListener('load', function load() {
   function _setEnabledStatus(target, status) {
 
     if (status === 'Enabled') {
-      target.classList.add('enabled');
-      target.classList.remove('disabled');
+
+      target.addClasses('enabled');
+      target.removeClasses('disabled');
+
     } else {
-      target.classList.add('disabled');
-      target.classList.remove('enabled');
+
+      target.addClasses('disabled');
+      target.removeClasses('enabled');
     }
 
     return target.textContent = status;
@@ -404,7 +407,7 @@ window.addEventListener('load', function load() {
 
         document.getElementById('notify').textContent = message;
 
-        notifications.classList.add('show');
+        notifications.addClasses('show');
 
         setTimeout(() => { _fadeOut(notifications); }, 1500);
 
@@ -440,16 +443,16 @@ window.addEventListener('load', function load() {
       if (result.didUpdate) {
 
         about.textContent = 'New updates!';
-        about.classList.remove('button_green');
-        about.classList.add('button_orange');
+        about.removeClasses('button_green');
+        about.addClasses('button_orange');
 
         chrome.browserAction.setBadgeText({text: ''});
 
       } else {
 
         about.textContent = 'About';
-        about.classList.add('button_green');
-        about.classList.remove('button_orange');
+        about.addClasses('button_green');
+        about.removeClasses('button_orange');
       }
     });
   }
@@ -492,15 +495,16 @@ window.addEventListener('load', function load() {
   function saveSellerRep() {
 
     let input = document.getElementById('percent'),
+        repValue = document.getElementsByClassName('rep-value')[0],
         self = document.querySelector('.seller-rep .status'),
         toggle = toggleSellerRep;
 
-    // checked and has value entered
+    // enabled and has value entered
     if ( input.value && toggle.checked ) {
 
       input.disabled = true;
       toggle.disabled = false;
-      input.classList.remove('alert');
+      input.removeClasses('alert');
 
       // reset value to 100 if user enters a greater value
       if ( input.value > 100 ) { input.value = 100; }
@@ -508,6 +512,7 @@ window.addEventListener('load', function load() {
       localStorage.setItem('sellerRep', input.value);
 
       input.value = localStorage.getItem('sellerRep');
+      repValue.textContent = '\u2011 ' + input.value + '%';
 
       _setEnabledStatus( self, 'Enabled' );
       triggerSave();
@@ -515,6 +520,7 @@ window.addEventListener('load', function load() {
     } else if ( input.value && !toggle.checked ) {
 
       input.disabled = false;
+      repValue.textContent = '';
 
       _setEnabledStatus( self, 'Disabled' );
       triggerSave();
@@ -522,7 +528,7 @@ window.addEventListener('load', function load() {
     } else if ( !input.value ) {
 
       toggle.checked = false;
-      input.classList.add('alert');
+      input.addClasses('alert');
     }
   }
 
@@ -547,22 +553,22 @@ window.addEventListener('load', function load() {
 
         if ( !text.includes(query) ) {
 
-          feature.parentNode.classList.add('hide');
+          feature.parentNode.addClasses('hide');
 
         } else {
 
-          feature.parentNode.classList.remove('hide');
-          noResults.classList.add('hide');
+          feature.parentNode.removeClasses('hide');
+          noResults.addClasses('hide');
         }
 
         // Show no results notification
         if ( features.every(_isHidden) ) {
 
-          noResults.classList.remove('hide');
+          noResults.removeClasses('hide');
         }
 
         // show/hide the X icon
-        return searchbox.value ? clear.classList.remove('hide') : clear.classList.add('hide');
+        return searchbox.value ? clear.removeClasses('hide') : clear.addClasses('hide');
       });
     }, 0);
   }
@@ -578,7 +584,7 @@ window.addEventListener('load', function load() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
-    if (!filterByCountryPrefs) {
+    if ( !filterByCountryPrefs ) {
 
       let newPrefs = { currency: '-', country: '-' };
 
@@ -586,13 +592,10 @@ window.addEventListener('load', function load() {
 
       filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
     }
-
     // currency value
-    $('#filterCountryCurrency').val(filterByCountryPrefs.currency);
-
+    document.getElementById('filterCountryCurrency').value = filterByCountryPrefs.currency;
     // country value
-    $('#filterCountry').val(filterByCountryPrefs.country);
-
+    document.getElementById('filterCountry').value = filterByCountryPrefs.country;
     _setCountryUiStatus();
   }
 
@@ -656,18 +659,19 @@ window.addEventListener('load', function load() {
 
   function setSellerRep() {
 
-    let input = $('#percent'),
-        self = document.querySelector('.seller-rep .status'),
-        percent = localStorage.getItem('sellerRep') || null;
+    let input = document.getElementById('percent'),
+        percent = localStorage.getItem('sellerRep') || null,
+        repValue = document.getElementsByClassName('rep-value')[0],
+        self = document.querySelector('.seller-rep .status');
 
-    if (percent !== null) { input.val(percent); }
+    if (percent !== null) { input.value = percent; }
 
     chrome.storage.sync.get('prefs', function(result) {
 
       if (result.prefs.sellerRep && percent !== null) {
 
-        input.prop('disabled', true);
-
+        input.disabled = true;
+        repValue.textContent = '\u2011 ' + percent + '%';
         _setEnabledStatus( self, 'Enabled' );
       }
 
@@ -693,8 +697,7 @@ window.addEventListener('load', function load() {
 
   function toggleHideCountries(event) {
 
-    let
-        country = document.getElementById('filterCountry'),
+    let country = document.getElementById('filterCountry'),
         currency = document.getElementById('filterCountryCurrency'),
         response = 'Please refresh the page for changes to take effect.';
 
@@ -859,52 +862,42 @@ window.addEventListener('load', function load() {
   // ========================================================
 
   // Open the about page
-  $('body').on('click', '#about', function() {
+  document.getElementById('about').addEventListener('click', function(event) {
 
     chrome.tabs.create({url: '../html/about.html'});
     _acknowledgeUpdate();
 
-    if (_gaq) {
-
-      _gaq.push(['_trackEvent', 'about', 'about clicked']);
-    }
+    if (_gaq) { _gaq.push(['_trackEvent', 'about', 'about clicked']); }
   });
 
   // Open block sellers page
-  $('body').on('click', '#editList', function() {
-
+  document.getElementById('editList').addEventListener('click', function(event) {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
   // Open readability config page
-  $('body').on('click', '#editConfig', function() {
-
+  document.getElementById('editReadability').addEventListener('click', function(event) {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
-
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
-  $('.toggle-group.menus').click(function(event) {
-
+  document.querySelector('.toggle-group.menus').addEventListener('click', function(event) {
     _optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
-
   /* FILTER BY CONDITION OPTIONS */
-  $('.toggle-group.condition').click(function(event) {
-
+  document.querySelector('.toggle-group.condition').addEventListener('click', function(event) {
     _optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
-  $('.toggle-group.country').click(function(event) {
-
+  document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
     _optionsToggle('.hide-country', this, '.country', 115 );
   });
 
-  // Save the Filter Items By Country currency select value to localStorage
-  $('#filterCountryCurrency').change(function() {
+  // Save the Filter Items By Country CURRENCY select value to localStorage
+  document.getElementById('filterCountryCurrency').addEventListener('change', function(event) {
 
     let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
 
@@ -915,8 +908,8 @@ window.addEventListener('load', function load() {
     }
   });
 
-  // Save the Filter Items By Country country select value to localStorage
-  $('#filterCountry').change(function() {
+  // Save the Filter Items By Country COUNTRY select value to localStorage
+  document.getElementById('filterCountry').addEventListener('change', function(event) {
 
     let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
 
@@ -927,13 +920,10 @@ window.addEventListener('load', function load() {
     }
   });
 
-
   /* SELLER REPUTATION */
-  $('.toggle-group.seller-rep').click(function(event) {
-
+  document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
     _optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
-
 
   /* SEARCH FUNCTIONALITY */
   searchbox.addEventListener('keydown', function() {
@@ -941,7 +931,7 @@ window.addEventListener('load', function load() {
   });
 
   // Clear search input
-  $('.clear-search').on('mousedown', function() {
+  document.querySelector('.clear-search').addEventListener('mousedown', function() {
 
     searchbox.value = '';
     searchFeatures();
@@ -949,7 +939,6 @@ window.addEventListener('load', function load() {
     // reset the focus
     setTimeout(() => { searchbox.focus(); }, 100);
   });
-
 
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
@@ -1051,11 +1040,15 @@ window.addEventListener('load', function load() {
     setSellerRep();
 
     // .mac class will remove scrollbars from the popup menu
-    if (navigator.userAgent.includes('Mac OS X')) { $('html').addClass('mac'); }
+    if (navigator.userAgent.includes('Mac OS X')) {
+
+      document.getElementsByTagName('html')[0].addClasses('mac');
+    }
 
     setTimeout(() => { searchbox.focus(); }, 300);
   }
 
   // Start it up
   init();
+
 }, false);

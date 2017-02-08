@@ -120,7 +120,7 @@ a.button_green:hover {
 }
 
 #editList,
-#editConfig,
+#editReadability,
 #sellerRepConfig {
   display: inline-block;
   margin-top: 18px;
@@ -129,8 +129,12 @@ a.button_green:hover {
   color: gray;
 }
 
+.rep-value {
+  display: inline-block;
+}
+
 #editList:hover,
-#editConfig:hover {
+#editReadability:hover {
   color: white;
 }
 
