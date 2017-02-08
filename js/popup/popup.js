@@ -166,10 +166,9 @@ window.addEventListener('load', function load() {
     // Google Analyitcs
     if (_gaq) {
 
-      if (event.target.checked === true || event.target.checked === false) {
+      let checked = event.target.checked;
 
-        _gaq.push(['_trackEvent', event.target.id + ' : ' + event.target.checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
-      }
+      _gaq.push(['_trackEvent', event.target.id + ' : ' + checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
     }
   }
 
@@ -515,7 +514,11 @@ window.addEventListener('load', function load() {
       repValue.textContent = '\u2011 ' + input.value + '%';
 
       _setEnabledStatus( self, 'Enabled' );
-      triggerSave();
+      _applySave(null, event);
+
+      if (_gaq) {
+        _gaq.push(['_trackEvent', ' Seller Rep Percentage: ' + input.value, 'Seller Reputation']);
+      }
 
     } else if ( input.value && !toggle.checked ) {
 
@@ -523,7 +526,7 @@ window.addEventListener('load', function load() {
       repValue.textContent = '';
 
       _setEnabledStatus( self, 'Disabled' );
-      triggerSave();
+      _applySave(null, event);
 
     } else if ( !input.value ) {
 
@@ -717,6 +720,11 @@ window.addEventListener('load', function load() {
 
       // Delay updating the UI so that Chrome has a change to write the new preference
       setTimeout(_setCountryUiStatus, 50);
+
+      if (_gaq) {
+
+        _gaq.push(['_trackEvent', ' Country: ' + country.value + ' Cur: ' + currency.value, 'Filter By Country']);
+      }
     }
     // If everything checks out, disable filtering
     else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
