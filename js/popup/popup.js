@@ -334,13 +334,13 @@ window.addEventListener('load', function load() {
 
     if (status === 'Enabled') {
 
-      target.addClasses('enabled');
-      target.removeClasses('disabled');
+      target.classList.add('enabled');
+      target.classList.remove('disabled');
 
     } else {
 
-      target.addClasses('disabled');
-      target.removeClasses('enabled');
+      target.classList.add('disabled');
+      target.classList.remove('enabled');
     }
 
     return target.textContent = status;
@@ -453,16 +453,16 @@ window.addEventListener('load', function load() {
       if (result.didUpdate) {
 
         about.textContent = 'New updates!';
-        about.removeClasses('button_green');
-        about.addClasses('button_orange');
+        about.classList.remove('button_green');
+        about.classList.add('button_orange');
 
         chrome.browserAction.setBadgeText({text: ''});
 
       } else {
 
         about.textContent = 'About';
-        about.addClasses('button_green');
-        about.removeClasses('button_orange');
+        about.classList.add('button_green');
+        about.classList.remove('button_orange');
       }
     });
   }
@@ -514,7 +514,7 @@ window.addEventListener('load', function load() {
 
       input.disabled = true;
       toggle.disabled = false;
-      input.removeClasses('alert');
+      input.classList.remove('alert');
 
       // reset value to 100 if user enters a greater value
       if ( input.value > 100 ) { input.value = 100; }
@@ -542,7 +542,7 @@ window.addEventListener('load', function load() {
     } else if ( !input.value ) {
 
       toggle.checked = false;
-      input.addClasses('alert');
+      input.classList.add('alert');
     }
   }
 
@@ -567,22 +567,22 @@ window.addEventListener('load', function load() {
 
         if ( !text.includes(query) ) {
 
-          feature.parentNode.addClasses('hide');
+          feature.parentNode.classList.add('hide');
 
         } else {
 
-          feature.parentNode.removeClasses('hide');
-          noResults.addClasses('hide');
+          feature.parentNode.classList.remove('hide');
+          noResults.classList.add('hide');
         }
 
         // Show no results notification
         if ( features.every(_isHidden) ) {
 
-          noResults.removeClasses('hide');
+          noResults.classList.remove('hide');
         }
 
         // show/hide the X icon
-        return searchbox.value ? clear.removeClasses('hide') : clear.addClasses('hide');
+        return searchbox.value ? clear.classList.remove('hide') : clear.classList.add('hide');
       });
     }, 0);
   }
