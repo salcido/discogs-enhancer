@@ -68,24 +68,29 @@ window.addEventListener('load', function load() {
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       togglePrices = document.getElementById('togglePrices'),
 
+      // ========================================================
       // Contextual menus
-      toggleBandcamp = document.getElementById('bandcamp'),
-      toggleBoomkat = document.getElementById('boomkat'),
-      toggleClone = document.getElementById('clone'),
-      toggleDecks = document.getElementById('decks'),
-      toggleDeeJay = document.getElementById('deejay'),
-      toggleDiscogs = document.getElementById('discogs'),
-      toggleGramaphone = document.getElementById('gramaphone'),
-      toggleHalcyon = document.getElementById('halcyon'),
-      toggleHardwax = document.getElementById('hardwax'),
-      toggleInsound = document.getElementById('insound'),
-      toggleJuno = document.getElementById('juno'),
-      toggleKristina = document.getElementById('kristina'),
-      toggleOye = document.getElementById('oye'),
-      togglePbvinyl = document.getElementById('pbvinyl'),
-      togglePhonica = document.getElementById('phonica'),
-      toggleSotu = document.getElementById('sotu'),
-      toggleYoutube = document.getElementById('youtube');
+      // ========================================================
+      // Declared here first for scope and later assigned with
+      // setContextualMenuIds()
+      // ========================================================
+      toggleBandcamp,
+      toggleBoomkat,
+      toggleClone,
+      toggleDecks,
+      toggleDeeJay,
+      toggleDiscogs,
+      toggleGramaphone,
+      toggleHalcyon,
+      toggleHardwax,
+      toggleInsound,
+      toggleJuno,
+      toggleKristina,
+      toggleOye,
+      togglePbvinyl,
+      togglePhonica,
+      toggleSotu,
+      toggleYoutube;
 
   // ========================================================
   // Private Functions
@@ -697,6 +702,189 @@ window.addEventListener('load', function load() {
   }
 
   /**
+   * Creates contextual menu markup inside Contextual Menu options
+   * feature in the popup.
+   *
+   * @method setupContextualMenus
+   * @return {undefined}
+   */
+
+  function setupContextualMenus() {
+
+    let contextMenus = document.getElementById('contextMenus'),
+        fragment = document.createDocumentFragment(),
+        menus = [
+            {
+              dataName: 'Bandcamp',
+              fn: 'searchBandcamp',
+              id: 'bandcamp',
+              text: 'Bandcamp'
+            },
+            {
+              dataName: 'Boomkat',
+              fn: 'searchBoomkat',
+              id: 'boomkat',
+              text: 'Boomkat'
+            },
+            {
+              dataName: 'Clone',
+              fn: 'searchClone',
+              id: 'clone',
+              text: 'Clone'
+            },
+            {
+              dataName: 'Decks.de',
+              fn: 'searchDecks',
+              id: 'decks',
+              text: 'Decks'
+            },
+            {
+              dataName: 'DeeJay',
+              fn: 'searchDeeJay',
+              id: 'deejay',
+              text: 'DeeJay'
+            },
+            {
+              dataName: 'Discogs',
+              fn: 'searchDiscogs',
+              id: 'discogs',
+              text: 'Discogs'
+            },
+            {
+              dataName: 'Gramaphone',
+              fn: 'searchGramaphone',
+              id: 'gramaphone',
+              text: 'Gramaphone'
+            },
+            {
+              dataName: 'Halcyon',
+              fn: 'searchHalcyon',
+              id: 'halcyon',
+              text: 'Halcyon'
+            },
+            {
+              dataName: 'Hardwax',
+              fn: 'searchHardwax',
+              id: 'hardwax',
+              text: 'Hardwax'
+            },
+            {
+              dataName: 'InSound',
+              fn: 'searchInsound',
+              id: 'insound',
+              text: 'InSound'
+            },
+            {
+              dataName: 'Juno',
+              fn: 'searchJuno',
+              id: 'juno',
+              text: 'Juno'
+            },
+            {
+              dataName: 'Kristina',
+              fn: 'searchKristina',
+              id: 'kristina',
+              text: 'Kristina'
+            },
+            {
+              dataName: 'Oye',
+              fn: 'searchOye',
+              id: 'oye',
+              text: 'Oye'
+            },
+            {
+              dataName: 'PBVinyl',
+              fn: 'searchPbvinyl',
+              id: 'pbvinyl',
+              text: 'PBVinyl'
+            },
+            {
+              dataName: 'Phonica',
+              fn: 'searchPhonica',
+              id: 'phonica',
+              text: 'Phonica'
+            },
+            {
+              dataName: 'SOTU',
+              fn: 'searchSotu',
+              id: 'sotu',
+              text: 'SOTU'
+            },
+            {
+              dataName: 'YouTube',
+              fn: 'searchYoutube',
+              id: 'youtube',
+              text: 'YouTube'
+            }
+          ];
+
+    // Create contextual menu elements
+    menus.forEach(function(menu, i) {
+
+      let
+          boxwrap = document.createElement('div'),
+          group = document.createElement('div'),
+          input = document.createElement('input'),
+          label = document.createElement('label'),
+          span = document.createElement('span');
+
+      group.className = 'checkbox-group';
+
+      boxwrap.className = 'box-wrap';
+
+      input.type = 'checkbox';
+      input.id = menu.id;
+      input.dataset.name = menu.dataName;
+      input.dataset.funct = menu.fn;
+
+      span.textContent = menu.text;
+
+      label.appendChild(input);
+      label.appendChild(span);
+      boxwrap.appendChild(label);
+
+      group.appendChild(boxwrap);
+      fragment.appendChild(group);
+    });
+
+    // Append all contextual menu elements
+    contextMenus.appendChild(fragment);
+
+    // Attach eventListeners
+    menus.forEach(menu => {
+      document.getElementById(menu.id).addEventListener('change', updateContextualMenu);
+    });
+  }
+
+  /**
+   * Assigns values to contexual menu vars
+   *
+   * @method setContextualMenuIds
+   * @return {undefined}
+   */
+
+  function setContextualMenuIds() {
+
+    toggleBandcamp = document.getElementById('bandcamp');
+    toggleBoomkat = document.getElementById('boomkat');
+    toggleClone = document.getElementById('clone');
+    toggleDecks = document.getElementById('decks');
+    toggleDeeJay = document.getElementById('deejay');
+    toggleDiscogs = document.getElementById('discogs');
+    toggleGramaphone = document.getElementById('gramaphone');
+    toggleHalcyon = document.getElementById('halcyon');
+    toggleHardwax = document.getElementById('hardwax');
+    toggleInsound = document.getElementById('insound');
+    toggleJuno = document.getElementById('juno');
+    toggleKristina = document.getElementById('kristina');
+    toggleOye = document.getElementById('oye');
+    togglePbvinyl = document.getElementById('pbvinyl');
+    togglePhonica = document.getElementById('phonica');
+    toggleSotu = document.getElementById('sotu');
+    toggleYoutube = document.getElementById('youtube');
+  }
+
+  /**
    * Validates then enables/disables the CSS for Filter Items by Country
    *
    * @method toggleHideCountries
@@ -904,7 +1092,6 @@ window.addEventListener('load', function load() {
     _optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
-
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
     _optionsToggle('.hide-country', this, '.country', 115 );
@@ -973,25 +1160,9 @@ window.addEventListener('load', function load() {
   toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', _showPrices);
 
-  // Contextual menus
-  toggleBandcamp.addEventListener('change', updateContextualMenu);
-  toggleBoomkat.addEventListener('change', updateContextualMenu);
-  toggleClone.addEventListener('change', updateContextualMenu);
-  toggleDecks.addEventListener('change', updateContextualMenu);
-  toggleDeeJay.addEventListener('change', updateContextualMenu);
-  toggleDiscogs.addEventListener('change', updateContextualMenu);
-  toggleGramaphone.addEventListener('change', updateContextualMenu);
-  toggleHalcyon.addEventListener('change', updateContextualMenu);
-  toggleHardwax.addEventListener('change', updateContextualMenu);
-  toggleInsound.addEventListener('change', updateContextualMenu);
-  toggleJuno.addEventListener('change', updateContextualMenu);
-  toggleKristina.addEventListener('change', updateContextualMenu);
-  toggleOye.addEventListener('change', updateContextualMenu);
-  togglePbvinyl.addEventListener('change', updateContextualMenu);
-  togglePhonica.addEventListener('change', updateContextualMenu);
-  toggleSotu.addEventListener('change', updateContextualMenu);
-  toggleYoutube.addEventListener('change', updateContextualMenu);
-
+  // ========================================================
+  // DOM Setup
+  // ========================================================
 
   /**
    * Sets toggle button values when the popup is rendered
@@ -1002,6 +1173,9 @@ window.addEventListener('load', function load() {
    */
 
   function init() {
+
+    setupContextualMenus();
+    setContextualMenuIds();
 
     // Get the user's preferences and set the toggles accordingly
     chrome.storage.sync.get('prefs', function(result) {
@@ -1043,10 +1217,6 @@ window.addEventListener('load', function load() {
       toggleYoutube.checked = result.prefs.useYoutube;
     });
 
-    // ========================================================
-    // DOM Setup
-    // ========================================================
-
     checkForUpdate();
     getCurrency();
     _setupFilterByCondition();
@@ -1062,7 +1232,6 @@ window.addEventListener('load', function load() {
     setTimeout(() => { searchbox.focus(); }, 300);
   }
 
-  // Start it up
   init();
 
 }, false);
