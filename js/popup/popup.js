@@ -823,14 +823,11 @@ window.addEventListener('load', function load() {
 
       let
           boxwrap = document.createElement('div'),
-          group = document.createElement('div'),
           input = document.createElement('input'),
           label = document.createElement('label'),
           span = document.createElement('span');
 
-      group.className = 'checkbox-group';
-
-      boxwrap.className = 'box-wrap';
+      boxwrap.className = 'checkbox-wrap';
 
       input.type = 'checkbox';
       input.id = menu.id;
@@ -839,12 +836,11 @@ window.addEventListener('load', function load() {
 
       span.textContent = menu.text;
 
+      // Assemble markup
       label.appendChild(input);
       label.appendChild(span);
       boxwrap.appendChild(label);
-
-      group.appendChild(boxwrap);
-      fragment.appendChild(group);
+      fragment.appendChild(boxwrap);
     });
 
     // Append all contextual menu elements

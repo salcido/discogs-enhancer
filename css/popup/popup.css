@@ -280,22 +280,18 @@ input[type="checkbox"]:focus {
   margin-top: 55px;
 }
 
-.checkbox-group {
+.checkbox-wrap {
+  width: 110px;
   float: left;
   color: #CCCCCC;
 }
 
-.checkbox-group input {
+.checkbox-wrap input {
   margin-right: 10px;
 }
 
-.checkbox-group label {
+.checkbox-wrap label {
   margin-right: 14px;
-}
-
-.box-wrap {
-  float: left;
-  width: 110px;
 }
 
 #currency {
