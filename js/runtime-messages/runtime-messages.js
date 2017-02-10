@@ -12,78 +12,81 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
   let fn = window[msg.fn];
 
-  // contextual menu
-  if (msg.request === 'updateContextMenu') {
+  switch (true) {
 
-    if (msg.method === 'create') {
+    // contextual menu
+    case msg.request === 'updateContextMenu':
 
-      chrome.contextMenus.create({
-        contexts: ['selection'],
-        id: msg.id,
-        onclick: fn,
-        title: 'Search for "%s" on ' + msg.name
-      });
+      if (msg.method === 'create') {
 
-    } else if (msg.method === 'remove') {
+        chrome.contextMenus.create({
+          contexts: ['selection'],
+          id: msg.id,
+          onclick: fn,
+          title: 'Search for "%s" on ' + msg.name
+        });
 
-      chrome.contextMenus.remove(msg.id);
-    }
-  }
+      } else if (msg.method === 'remove') {
 
-  // analytics
-  if (msg.request === 'analytics') {
+        chrome.contextMenus.remove(msg.id);
+      }
+      break;
 
-    if (msg.enabled) {
+    // analytics
+    case msg.request === 'analytics':
 
-      localStorage.setItem('analytics', 'true');
+      if (msg.enabled) {
 
-      sendResponse({enabled: true});
+        localStorage.setItem('analytics', 'true');
 
-    } else if (!msg.enabled) {
+        sendResponse({enabled: true});
 
-      localStorage.setItem('analytics', 'false');
+      } else if (!msg.enabled) {
 
-      sendResponse({enabled: false});
-    }
-  }
+        localStorage.setItem('analytics', 'false');
 
-  // block sellers
-  if (msg.request === 'getBlockedSellers') {
+        sendResponse({enabled: false});
+      }
+      break;
 
-    let blockList = JSON.parse(localStorage.getItem('blockList'));
+    // block sellers
+    case msg.request === 'getBlockedSellers':
 
-    sendResponse({blockList: blockList});
-  }
+      let blockList = JSON.parse(localStorage.getItem('blockList'));
 
-  // filter by country
-  if (msg.request === 'filterByCountry') {
+      sendResponse({blockList: blockList});
+      break;
 
-    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+    // filter by country
+    case msg.request === 'filterByCountry':
 
-    sendResponse({filterByCountry: filterByCountry});
-  }
+      let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
 
-  // hide items below conditions
-  if (msg.request === 'getHideItems') {
+      sendResponse({filterByCountry: filterByCountry});
+      break;
 
-    let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
+    // filter by conditions
+    case msg.request === 'getHideItems':
 
-    sendResponse({itemCondition: itemCondition});
-  }
+      let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
 
-  // Readability
-  if (msg.request === 'getReadability') {
+      sendResponse({itemCondition: itemCondition});
+      break;
 
-    let readability = JSON.parse(localStorage.getItem('readability'));
+    // Readability
+    case msg.request === 'getReadability':
 
-    sendResponse({readability: readability});
-  }
+      let readability = JSON.parse(localStorage.getItem('readability'));
 
-  // Seller Rep
-  if (msg.request === 'getSellerRep') {
+      sendResponse({readability: readability});
+      break;
 
-    let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
+    // Seller Rep
+    case msg.request === 'getSellerRep':
 
-    sendResponse({sellerRep: sellerRep});
+      let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
+
+      sendResponse({sellerRep: sellerRep});
+      break;
   }
 });
