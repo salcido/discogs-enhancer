@@ -167,6 +167,8 @@ window.addEventListener('load', function load() {
 
         let notifications = document.getElementsByClassName('notifications')[0];
 
+        message = ( message === 'refresh' ) ? 'Please refresh the page for changes to take effect.' : message;
+
         document.getElementById('notify').textContent = message;
 
         notifications.classList.add('show');
@@ -398,15 +400,13 @@ window.addEventListener('load', function load() {
 
   function _showPrices(event) {
 
-    let response = 'Please refresh the page for changes to take effect.';
-
     if (event.target.checked && userCurrency.value !== '-') {
 
         userCurrency.disabled = true;
         togglePrices.checked = true;
         userCurrency.className = '';
 
-        _applySave(response, event);
+        _applySave('refresh`', event);
 
       }
 
@@ -428,7 +428,7 @@ window.addEventListener('load', function load() {
       } else {
 
         userCurrency.disabled = false;
-        _applySave(response, event);
+        _applySave('refresh', event);
     }
   }
 
@@ -478,7 +478,7 @@ window.addEventListener('load', function load() {
 
     chrome.storage.sync.get('prefs', function(result) {
 
-      // if there is a saved value set the select with it
+      // if there is a saved value, set the select with it
       if (result.prefs.userCurrency) {
         userCurrency.value = result.prefs.userCurrency;
 
@@ -504,19 +504,20 @@ window.addEventListener('load', function load() {
 
   function saveSellerRep() {
 
-    let input = document.getElementById('percent'),
+    let
+        input = document.getElementById('percent'),
         repValue = document.getElementsByClassName('rep-value')[0],
         self = document.querySelector('.seller-rep .status'),
         toggle = toggleSellerRep;
 
-    // enabled and has value entered
+    // enabled -and- has value entered
     if ( input.value && toggle.checked ) {
 
       input.disabled = true;
       toggle.disabled = false;
       input.classList.remove('alert');
 
-      // reset value to 100 if user enters a greater value
+      // reset value to '100' if user enters a greater value
       if ( input.value > 100 ) { input.value = 100; }
 
       localStorage.setItem('sellerRep', input.value);
@@ -525,7 +526,7 @@ window.addEventListener('load', function load() {
       repValue.textContent = '\u2011 ' + input.value + '%';
 
       _setEnabledStatus( self, 'Enabled' );
-      _applySave(null, event);
+      _applySave('refresh', event);
 
       if (_gaq) {
         _gaq.push(['_trackEvent', ' Seller Rep Percentage: ' + input.value, 'Seller Reputation']);
@@ -537,7 +538,7 @@ window.addEventListener('load', function load() {
       repValue.textContent = '';
 
       _setEnabledStatus( self, 'Disabled' );
-      _applySave(null, event);
+      _applySave('refresh', event);
 
     } else if ( !input.value ) {
 
@@ -588,7 +589,7 @@ window.addEventListener('load', function load() {
   }
 
   /**
-   * Set/create the value of the Filter By Country selects based on
+   * Set or create the value of the 'Filter By Country' selects based on
    * what is in localStorage
    *
    * @method setCountryFilters
@@ -623,8 +624,7 @@ window.addEventListener('load', function load() {
 
   function setHiddenItems(event) {
 
-    let selectValue = event.target[event.target.selectedIndex].value,
-        response = 'Please refresh the page for changes to take effect.';
+    let selectValue = event.target[event.target.selectedIndex].value;
 
     // Filter is disabled
     if (!selectValue) {
@@ -660,11 +660,11 @@ window.addEventListener('load', function load() {
     }
 
     _setupFilterByCondition();
-    _applySave(response, event);
+    _applySave('refresh', event);
   }
 
   /**
-   * Sets the value of the seller rep input
+   * Sets the value of the seller reputation input
    * when the popup is rendered
    *
    * @method setSellerRep
@@ -702,8 +702,8 @@ window.addEventListener('load', function load() {
   }
 
   /**
-   * Creates contextual menu markup inside Contextual Menu options
-   * feature in the popup.
+   * Creates contextual menu markup inside the
+   * Contextual Menu options feature in the popup.
    *
    * @method setupContextualMenus
    * @return {undefined}
@@ -717,104 +717,87 @@ window.addEventListener('load', function load() {
             {
               dataName: 'Bandcamp',
               fn: 'searchBandcamp',
-              id: 'bandcamp',
-              text: 'Bandcamp'
+              id: 'bandcamp'
             },
             {
               dataName: 'Boomkat',
               fn: 'searchBoomkat',
-              id: 'boomkat',
-              text: 'Boomkat'
+              id: 'boomkat'
             },
             {
               dataName: 'Clone',
               fn: 'searchClone',
-              id: 'clone',
-              text: 'Clone'
+              id: 'clone'
             },
             {
               dataName: 'Decks.de',
               fn: 'searchDecks',
-              id: 'decks',
-              text: 'Decks'
+              id: 'decks'
             },
             {
               dataName: 'DeeJay',
               fn: 'searchDeeJay',
-              id: 'deejay',
-              text: 'DeeJay'
+              id: 'deejay'
             },
             {
               dataName: 'Discogs',
               fn: 'searchDiscogs',
-              id: 'discogs',
-              text: 'Discogs'
+              id: 'discogs'
             },
             {
               dataName: 'Gramaphone',
               fn: 'searchGramaphone',
-              id: 'gramaphone',
-              text: 'Gramaphone'
+              id: 'gramaphone'
             },
             {
               dataName: 'Halcyon',
               fn: 'searchHalcyon',
-              id: 'halcyon',
-              text: 'Halcyon'
+              id: 'halcyon'
             },
             {
               dataName: 'Hardwax',
               fn: 'searchHardwax',
-              id: 'hardwax',
-              text: 'Hardwax'
+              id: 'hardwax'
             },
             {
               dataName: 'InSound',
               fn: 'searchInsound',
-              id: 'insound',
-              text: 'InSound'
+              id: 'insound'
             },
             {
               dataName: 'Juno',
               fn: 'searchJuno',
-              id: 'juno',
-              text: 'Juno'
+              id: 'juno'
             },
             {
               dataName: 'Kristina',
               fn: 'searchKristina',
-              id: 'kristina',
-              text: 'Kristina'
+              id: 'kristina'
             },
             {
               dataName: 'Oye',
               fn: 'searchOye',
-              id: 'oye',
-              text: 'Oye'
+              id: 'oye'
             },
             {
               dataName: 'PBVinyl',
               fn: 'searchPbvinyl',
-              id: 'pbvinyl',
-              text: 'PBVinyl'
+              id: 'pbvinyl'
             },
             {
               dataName: 'Phonica',
               fn: 'searchPhonica',
-              id: 'phonica',
-              text: 'Phonica'
+              id: 'phonica'
             },
             {
               dataName: 'SOTU',
               fn: 'searchSotu',
-              id: 'sotu',
-              text: 'SOTU'
+              id: 'sotu'
             },
             {
               dataName: 'YouTube',
               fn: 'searchYoutube',
-              id: 'youtube',
-              text: 'YouTube'
+              id: 'youtube'
             }
           ];
 
@@ -832,9 +815,9 @@ window.addEventListener('load', function load() {
       input.type = 'checkbox';
       input.id = menu.id;
       input.dataset.name = menu.dataName;
-      input.dataset.funct = menu.fn;
+      input.dataset.fn = menu.fn;
 
-      span.textContent = menu.text;
+      span.textContent = menu.dataName;
 
       // Assemble markup
       label.appendChild(input);
@@ -891,8 +874,7 @@ window.addEventListener('load', function load() {
   function toggleHideCountries(event) {
 
     let country = document.getElementById('filterCountry'),
-        currency = document.getElementById('filterCountryCurrency'),
-        response = 'Please refresh the page for changes to take effect.';
+        currency = document.getElementById('filterCountryCurrency');
 
     // If everything checks out, enable filtering
     if (validateFilterByCountry() === 'valid' && event.target.checked) {
@@ -905,10 +887,10 @@ window.addEventListener('load', function load() {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-filter-by-country-css.js'}, function() {
 
-        _applySave(response, event);
+        _applySave('refresh', event);
       });
 
-      // Delay updating the UI so that Chrome has a change to write the new preference
+      // Delay updating the UI so that Chrome has a chance to write the new preference
       setTimeout(_setCountryUiStatus, 50);
 
       if (_gaq) {
@@ -956,12 +938,10 @@ window.addEventListener('load', function load() {
 
   function toggleMediaHighlights(event) {
 
-    let response = 'Please refresh the page for changes to take effect.';
-
     if (event.target.checked) {
 
       chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'},
-        function() { _applySave(response, event); });
+        function() { _applySave( 'refresh', event); });
 
     } else {
 
@@ -980,8 +960,7 @@ window.addEventListener('load', function load() {
 
   function triggerSave(event) {
 
-    let response = 'Please refresh the page for changes to take effect.';
-    _applySave(response, event);
+    _applySave('refresh', event);
   }
 
   /**
@@ -997,7 +976,7 @@ window.addEventListener('load', function load() {
     if (event.target.checked) {
 
       chrome.runtime.sendMessage({
-        fn: event.target.dataset.funct,
+        fn: event.target.dataset.fn,
         id: event.target.id,
         method: 'create',
         name: event.target.dataset.name,
@@ -1134,7 +1113,7 @@ window.addEventListener('load', function load() {
     searchFeatures();
 
     // reset the focus
-    setTimeout(() => { searchbox.focus(); }, 100);
+    setTimeout(() => { searchbox.focus(); }, 200);
   });
 
   // Toggle event listeners
@@ -1224,7 +1203,6 @@ window.addEventListener('load', function load() {
 
       document.getElementsByTagName('html')[0].addClasses('mac');
     }
-
     setTimeout(() => { searchbox.focus(); }, 300);
   }
 
