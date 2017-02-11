@@ -181,7 +181,7 @@ window.addEventListener('load', function load() {
 
       let checked = event.target.checked;
 
-      _gaq.push(['_trackEvent', event.target.id + ' : ' + checked, ' version: ' + manifest.version + ' Chrome: ' + chromeVer]);
+      _gaq.push(['_trackEvent', `${event.target.id} : ${checked}`, ` version: ${manifest.version} Chrome: ${chromeVer}`]);
     }
   }
 
@@ -244,8 +244,8 @@ window.addEventListener('load', function load() {
 
   function _optionsToggle(options, toggleGroup, parentClass, height) {
 
-    let arrow = document.querySelector(parentClass + ' .arrow'),
-        status = document.querySelector(parentClass + ' .status');
+    let arrow = document.querySelector(`${parentClass} .arrow`),
+        status = document.querySelector(`${parentClass} .status`);
 
     options = document.querySelector(options);
 
@@ -300,12 +300,13 @@ window.addEventListener('load', function load() {
    * Updates the Enabled/Disabled status of
    * Filter By Country in the popup
    *
-   * @method _setCountryUiStatus
+   * @method _setCountryEnabledStatus
    */
 
-  function _setCountryUiStatus() {
+  function _setCountryEnabledStatus() {
 
-    let self = document.querySelector('.toggle-group.country .status');
+    let self = document.querySelector('.toggle-group.country .status'),
+        filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
     chrome.storage.sync.get('prefs', function(result) {
 
@@ -316,10 +317,12 @@ window.addEventListener('load', function load() {
         // Disable the selects when the feature is enabled
         document.getElementById('filterCountryCurrency').disabled = true;
         document.getElementById('filterCountry').disabled = true;
+        document.querySelector('.country-value').textContent = ` \u2011 ${filterByCountryPrefs.currency}`;
 
       } else {
 
         _setEnabledStatus( self, 'Disabled' );
+        document.querySelector('.country-value').textContent = '';
       }
     });
   }
@@ -523,13 +526,15 @@ window.addEventListener('load', function load() {
       localStorage.setItem('sellerRep', input.value);
 
       input.value = localStorage.getItem('sellerRep');
-      repValue.textContent = '\u2011 ' + input.value + '%';
+
+      // Displays percentage value like: - 80%
+      repValue.textContent = `\u2011 ${input.value}%`;
 
       _setEnabledStatus( self, 'Enabled' );
       _applySave('refresh', event);
 
       if (_gaq) {
-        _gaq.push(['_trackEvent', ' Seller Rep Percentage: ' + input.value, 'Seller Reputation']);
+        _gaq.push(['_trackEvent', ` Seller Rep Percentage: ${input.value}`, 'Seller Reputation']);
       }
 
     } else if ( input.value && !toggle.checked ) {
@@ -592,10 +597,10 @@ window.addEventListener('load', function load() {
    * Set or create the value of the 'Filter By Country' selects based on
    * what is in localStorage
    *
-   * @method setCountryFilters
+   * @method setCountryFilterValues
    */
 
-  function setCountryFilters() {
+  function setCountryFilterValues() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
@@ -607,11 +612,13 @@ window.addEventListener('load', function load() {
 
       filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
     }
+
     // currency value
     document.getElementById('filterCountryCurrency').value = filterByCountryPrefs.currency;
+
     // country value
     document.getElementById('filterCountry').value = filterByCountryPrefs.country;
-    _setCountryUiStatus();
+    _setCountryEnabledStatus();
   }
 
   /**
@@ -655,7 +662,7 @@ window.addEventListener('load', function load() {
 
             setting = Number(localStorage.getItem('itemCondition'));
 
-        _gaq.push(['_trackEvent', ' Marketplace Filter: ' + conditions[setting], 'Marketplace Filter']);
+        _gaq.push(['_trackEvent', `Marketplace Filter: ${conditions[setting]}`, 'Marketplace Filter']);
       }
     }
 
@@ -685,7 +692,8 @@ window.addEventListener('load', function load() {
       if (result.prefs.sellerRep && percent !== null) {
 
         input.disabled = true;
-        repValue.textContent = '\u2011 ' + percent + '%';
+        // Displays percentage value like: - 80%
+        repValue.textContent = `\u2011 ${input.value}%`;
         _setEnabledStatus( self, 'Enabled' );
       }
 
@@ -885,17 +893,17 @@ window.addEventListener('load', function load() {
       country.disabled = true;
       country.className = '';
 
-      chrome.tabs.executeScript(null, {file: 'js/apply-filter-by-country-css.js'}, function() {
+      chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-filter-by-country-css.js'}, function() {
 
         _applySave('refresh', event);
       });
 
       // Delay updating the UI so that Chrome has a chance to write the new preference
-      setTimeout(_setCountryUiStatus, 50);
+      setTimeout(_setCountryEnabledStatus, 50);
 
       if (_gaq) {
 
-        _gaq.push(['_trackEvent', ' Country: ' + country.value + ' Cur: ' + currency.value, 'Filter By Country']);
+        _gaq.push(['_trackEvent', ` Country: ${country.value}, Cur: ${currency.value}`, 'Filter By Country']);
       }
     }
     // If everything checks out, disable filtering
@@ -907,13 +915,13 @@ window.addEventListener('load', function load() {
       country.disabled = false;
       country.className = '';
 
-      chrome.tabs.executeScript(null, {file: 'js/remove-filter-by-country-css.js'}, function() {
+      chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-filter-by-country-css.js'}, function() {
 
         _applySave(null, event);
       });
 
       // Delay updating the UI so that Chrome has a change to write the new preference
-      setTimeout(_setCountryUiStatus, 50);
+      setTimeout(_setCountryEnabledStatus, 50);
     }
     // Everything is terrible
     else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
@@ -940,12 +948,12 @@ window.addEventListener('load', function load() {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/apply-highlights.js'},
+      chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-highlights.js'},
         function() { _applySave( 'refresh', event); });
 
     } else {
 
-      chrome.tabs.executeScript(null, {file: 'js/remove-highlights.js'},
+      chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-highlights.js'},
         function() { _applySave(null, event); });
     }
   }
@@ -1009,12 +1017,12 @@ window.addEventListener('load', function load() {
 
     if (event.target.checked) {
 
-      chrome.tabs.executeScript(null, {file: 'js/apply-dark-theme.js'},
+      chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-dark-theme.js'},
         function() { _applySave(null, event); });
 
     } else {
 
-      chrome.tabs.executeScript(null, {file: 'js/remove-dark-theme.js'},
+      chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-dark-theme.js'},
         function() { _applySave(null, event); });
     }
   }
@@ -1195,7 +1203,7 @@ window.addEventListener('load', function load() {
     checkForUpdate();
     getCurrency();
     _setupFilterByCondition();
-    setCountryFilters();
+    setCountryFilterValues();
     setSellerRep();
 
     // .mac class will remove scrollbars from the popup menu
