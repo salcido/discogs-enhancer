@@ -38,13 +38,11 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       if (msg.enabled) {
 
         localStorage.setItem('analytics', 'true');
-
         sendResponse({enabled: true});
 
       } else if (!msg.enabled) {
 
         localStorage.setItem('analytics', 'false');
-
         sendResponse({enabled: false});
       }
       break;

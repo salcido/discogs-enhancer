@@ -17,8 +17,8 @@
       {
        "matches": ["*://*.discogs.com/*"],
        "js": [
-          "js/jquery/jquery-min.js",
-          "js/background/background.js"
+          "js/extension/dependencies/jquery/jquery-min.js",
+          "js/extension/dependencies/background/background.js"
         ],
        "run_at" : "document_start"
       }
@@ -28,9 +28,9 @@
 
   "background": {
      "scripts": [
-        "js/runtime-messages/runtime-messages.js",
-        "js/search-contextual-menu.js",
-        "js/background/background.js"
+        "js/extension/dependencies/runtime-messages/runtime-messages.js",
+        "js/extension/features/contextual-menu-search.js",
+        "js/extension/dependencies/background/background.js"
       ]
    },
 
@@ -58,34 +58,34 @@
       "html/about.html",
       "html/block-sellers.html",
       "html/readability.html",
-      "js/apply-filter-by-country-css.js",
-      "js/apply-highlights.js",
-      "js/better-collection-ui.js",
       "js/chart/chart.js",
-      "js/currency-converter.js",
-      "js/everlasting-marketplace.js",
-      "js/exchange-rates/update-exchange-rates.js",
-      "js/feedback-notifier.js",
-      "js/filter-by-condition.js",
-      "js/filter-by-country.js",
-      "js/hide-blocked-sellers.js",
-      "js/jquery/extensions.js",
-      "js/jquery/jquery-min.js",
-      "js/notes-counter.js",
-      "js/options/options.js",
-      "js/release-durations.js",
-      "js/release-history-legend.js",
-      "js/resource-library/resource-library.js",
-      "js/seller-rep.js",
-      "js/sort-explore-lists.js",
-      "js/sort-marketplace-lists.js",
-      "js/sort-personal-lists.js",
-      "js/suggested-prices-all.js",
-      "js/suggested-prices-release-page.js",
-      "js/suggested-prices-single.js",
-      "js/tests/unit-tests.js",
-      "js/text-format-shortcuts.js",
-      "js/tracklist-readability.js"
+      "js/extension/dependencies/exchange-rates/update-exchange-rates.js",
+      "js/extension/dependencies/jquery/extensions.js",
+      "js/extension/dependencies/jquery/jquery-min.js",
+      "js/extension/dependencies/options/options.js",
+      "js/extension/dependencies/resource-library/resource-library.js",
+      "js/extension/dependencies/tests/unit-tests.js",
+      "js/extension/features/apply-filter-by-country-css.js",
+      "js/extension/features/apply-highlights.js",
+      "js/extension/features/better-collection-ui.js",
+      "js/extension/features/currency-converter.js",
+      "js/extension/features/everlasting-marketplace.js",
+      "js/extension/features/feedback-notifier.js",
+      "js/extension/features/filter-by-condition.js",
+      "js/extension/features/filter-by-country.js",
+      "js/extension/features/hide-blocked-sellers.js",
+      "js/extension/features/notes-counter.js",
+      "js/extension/features/release-durations.js",
+      "js/extension/features/release-history-legend.js",
+      "js/extension/features/seller-rep.js",
+      "js/extension/features/sort-explore-lists.js",
+      "js/extension/features/sort-marketplace-lists.js",
+      "js/extension/features/sort-personal-lists.js",
+      "js/extension/features/suggested-prices-all.js",
+      "js/extension/features/suggested-prices-release-page.js",
+      "js/extension/features/suggested-prices-single.js",
+      "js/extension/features/text-format-shortcuts.js",
+      "js/extension/features/tracklist-readability.js"
     ],
 
     "icons": {
