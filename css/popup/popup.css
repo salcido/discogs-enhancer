@@ -8,9 +8,12 @@
   background: transparent;  /* make scrollbar invisible */
 }
 
+html {
+  background-color: #313335;
+}
 
 body {
-  height: 275px;
+  height: auto;
   width: 350px;
   background-color: #313335;
 }
