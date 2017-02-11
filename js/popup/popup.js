@@ -9,7 +9,8 @@
  */
 
 import * as ext from './dom_extensions/dom-extensions';
-import * as util from './util/util';
+import * as utils from './utils/utils';
+import * as filterByCountry from './features/filter-by-country.js';
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
@@ -29,9 +30,7 @@ if ( !Element.prototype.addClasses ) {
 window.addEventListener('load', function load() {
 
   let
-      chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       userCurrency = document.getElementById('currency'),
-      prefs = {},
       features = [...document.querySelectorAll('.toggle-group .meta')],
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       noResults = document.getElementById('noResults'),
@@ -80,112 +79,7 @@ window.addEventListener('load', function load() {
   // Private Functions
   // ========================================================
 
-  /**
-   * Saves the users preferences
-   *
-   * @method   _applySave
-   * @param    {String}  message [The message displayed to the user]
-   * @param    {Object}  event   [The event object]
-   * @return   {undefined}
-   */
 
-  function _applySave(message, event) {
-
-    let manifest = chrome.runtime.getManifest();
-
-    prefs = {
-      blockSellers: toggleBlockSellers.checked,
-      collectionUi: toggleCollectionUi.checked,
-      converter: toggleConverter.checked,
-      darkTheme: toggleDarkTheme.checked,
-      everlastingMarket: toggleEverlastingMarket.checked,
-      feedback: toggleFeedback.checked,
-      filterByCountry: toggleFilterByCountry.checked,
-      formatShortcuts: toggleShortcuts.checked,
-      hideMarketplaceItems: hideMarketplaceItems.value,
-      highlightMedia: toggleHighlights.checked,
-      notesCount: toggleNotesCount.checked,
-      readability: toggleReadability.checked,
-      releaseDurations: toggleReleaseDurations.checked,
-      sellerRep: toggleSellerRep.checked,
-      sortButtons: toggleSortBtns.checked,
-      suggestedPrices: togglePrices.checked,
-      userCurrency: userCurrency.value,
-
-      // Contextual menus
-      useBandcamp: toggleBandcamp.checked,
-      useBoomkat: toggleBoomkat.checked,
-      useClone: toggleClone.checked,
-      useDecks: toggleDecks.checked,
-      useDeejay: toggleDeeJay.checked,
-      useDiscogs: toggleDiscogs.checked,
-      useGramaphone: toggleGramaphone.checked,
-      useHalcyon: toggleHalcyon.checked,
-      useHardwax: toggleHardwax.checked,
-      useInsound: toggleInsound.checked,
-      useJuno: toggleJuno.checked,
-      useKristina: toggleKristina.checked,
-      useOye: toggleOye.checked,
-      usePbvinyl: togglePbvinyl.checked,
-      usePhonica: togglePhonica.checked,
-      useSotu: toggleSotu.checked,
-      useYoutube: toggleYoutube.checked
-    };
-
-    chrome.storage.sync.set({prefs: prefs}, function() {
-
-      if (message) {
-
-        let notifications = document.getElementsByClassName('notifications')[0];
-
-        message = ( message === 'refresh' ) ? 'Please refresh the page for changes to take effect.' : message;
-
-        document.getElementById('notify').textContent = message;
-
-        notifications.classList.add('show');
-        setTimeout(() => { util._fadeOut(notifications); }, 1500);
-      }
-    });
-
-    // Google Analyitcs
-    if (_gaq) {
-
-      let checked = event.target.checked;
-
-      _gaq.push(['_trackEvent', `${event.target.id} : ${checked}`, ` version: ${manifest.version} Chrome: ${chromeVer}`]);
-    }
-  }
-
-  /**
-   * Updates the Enabled/Disabled status of
-   * Filter By Country in the popup
-   *
-   * @method _setCountryEnabledStatus
-   */
-
-  function _setCountryEnabledStatus() {
-
-    let self = document.querySelector('.toggle-group.country .status'),
-        filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    chrome.storage.sync.get('prefs', function(result) {
-
-      if (result.prefs.filterByCountry === true) {
-
-        util._setEnabledStatus( self, 'Enabled' );
-
-        // Disable the selects when the feature is enabled
-        document.getElementById('filterCountryCurrency').disabled = true;
-        document.getElementById('filterCountry').disabled = true;
-        document.querySelector('.country-value').textContent = ` \u2011 ${filterByCountryPrefs.currency}`;
-
-      } else {
-
-        util._setEnabledStatus( self, 'Disabled' );
-        document.querySelector('.country-value').textContent = '';
-      }
-    });
-  }
 
   /**
    * Sets the text value/color of the Filter by Condition setting in the popup menu
@@ -245,7 +139,7 @@ window.addEventListener('load', function load() {
         togglePrices.checked = true;
         userCurrency.className = '';
 
-        _applySave('refresh`', event);
+        utils._applySave('refresh`', event);
 
       }
 
@@ -258,7 +152,7 @@ window.addEventListener('load', function load() {
 
         notifications.addClasses('show');
 
-        setTimeout(() => { util._fadeOut(notifications); }, 1500);
+        setTimeout(() => { utils._fadeOut(notifications); }, 1500);
 
         togglePrices.checked = false;
         userCurrency.className = 'alert';
@@ -267,7 +161,7 @@ window.addEventListener('load', function load() {
       } else {
 
         userCurrency.disabled = false;
-        _applySave('refresh', event);
+        utils._applySave('refresh', event);
     }
   }
 
@@ -366,8 +260,8 @@ window.addEventListener('load', function load() {
       // Displays percentage value like: - 80%
       repValue.textContent = `\u2011 ${input.value}%`;
 
-      util._setEnabledStatus( self, 'Enabled' );
-      _applySave('refresh', event);
+      utils._setEnabledStatus( self, 'Enabled' );
+      utils._applySave('refresh', event);
 
       if (_gaq) {
         _gaq.push(['_trackEvent', ` Seller Rep Percentage: ${input.value}`, 'Seller Reputation']);
@@ -378,8 +272,8 @@ window.addEventListener('load', function load() {
       input.disabled = false;
       repValue.textContent = '';
 
-      util._setEnabledStatus( self, 'Disabled' );
-      _applySave('refresh', event);
+      utils._setEnabledStatus( self, 'Disabled' );
+      utils._applySave('refresh', event);
 
     } else if ( !input.value ) {
 
@@ -418,7 +312,7 @@ window.addEventListener('load', function load() {
         }
 
         // Show no results notification
-        if ( features.every(util._isHidden) ) {
+        if ( features.every(utils._isHidden) ) {
 
           noResults.classList.remove('hide');
         }
@@ -427,34 +321,6 @@ window.addEventListener('load', function load() {
         return searchbox.value ? clear.classList.remove('hide') : clear.classList.add('hide');
       });
     }, 0);
-  }
-
-  /**
-   * Set or create the value of the 'Filter By Country' selects based on
-   * what is in localStorage
-   *
-   * @method setCountryFilterValues
-   */
-
-  function setCountryFilterValues() {
-
-    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    if ( !filterByCountryPrefs ) {
-
-      let newPrefs = { currency: '-', country: '-' };
-
-      localStorage.setItem('filterByCountry', JSON.stringify(newPrefs));
-
-      filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-    }
-
-    // currency value
-    document.getElementById('filterCountryCurrency').value = filterByCountryPrefs.currency;
-
-    // country value
-    document.getElementById('filterCountry').value = filterByCountryPrefs.country;
-    _setCountryEnabledStatus();
   }
 
   /**
@@ -503,7 +369,7 @@ window.addEventListener('load', function load() {
     }
 
     _setupFilterByCondition();
-    _applySave('refresh', event);
+    utils._applySave('refresh', event);
   }
 
   /**
@@ -530,17 +396,17 @@ window.addEventListener('load', function load() {
         input.disabled = true;
         // Displays percentage value like: - 80%
         repValue.textContent = `\u2011 ${input.value}%`;
-        util._setEnabledStatus( self, 'Enabled' );
+        utils._setEnabledStatus( self, 'Enabled' );
       }
 
       else if (result.prefs.sellerRep && percent === null) {
 
         toggleSellerRep.checked = false;
-        util._setEnabledStatus( self, 'Disabled' );
+        utils._setEnabledStatus( self, 'Disabled' );
 
       } else {
 
-        util._setEnabledStatus( self, 'Disabled' );
+        utils._setEnabledStatus( self, 'Disabled' );
       }
     });
   }
@@ -708,71 +574,6 @@ window.addEventListener('load', function load() {
   }
 
   /**
-   * Validates then enables/disables the CSS for Filter Items by Country
-   *
-   * @method toggleHideCountries
-   * @param  {object}            event [the event object]
-   * @return {undefined}
-   */
-
-  function toggleHideCountries(event) {
-
-    let country = document.getElementById('filterCountry'),
-        currency = document.getElementById('filterCountryCurrency');
-
-    // If everything checks out, enable filtering
-    if (validateFilterByCountry() === 'valid' && event.target.checked) {
-
-      currency.disabled = true;
-      currency.className = '';
-
-      country.disabled = true;
-      country.className = '';
-
-      chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-filter-by-country-css.js'}, function() {
-
-        _applySave('refresh', event);
-      });
-
-      // Delay updating the UI so that Chrome has a chance to write the new preference
-      setTimeout(_setCountryEnabledStatus, 50);
-
-      if (_gaq) {
-
-        _gaq.push(['_trackEvent', ` Country: ${country.value}, Cur: ${currency.value}`, 'Filter By Country']);
-      }
-    }
-    // If everything checks out, disable filtering
-    else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
-
-      currency.disabled = false;
-      currency.className = '';
-
-      country.disabled = false;
-      country.className = '';
-
-      chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-filter-by-country-css.js'}, function() {
-
-        _applySave(null, event);
-      });
-
-      // Delay updating the UI so that Chrome has a change to write the new preference
-      setTimeout(_setCountryEnabledStatus, 50);
-    }
-    // Everything is terrible
-    else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
-
-      toggleFilterByCountry.checked = false;
-
-      currency.disabled = false;
-      currency.className = 'alert';
-
-      country.disabled = false;
-      country.className = 'alert';
-    }
-  }
-
-  /**
    * Toggles Marketplace highlights
    *
    * @method   toggleMediaHighlights
@@ -785,12 +586,12 @@ window.addEventListener('load', function load() {
     if (event.target.checked) {
 
       chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-highlights.js'},
-        function() { _applySave( 'refresh', event); });
+        function() { utils._applySave( 'refresh', event); });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-highlights.js'},
-        function() { _applySave(null, event); });
+        function() { utils._applySave(null, event); });
     }
   }
 
@@ -804,7 +605,7 @@ window.addEventListener('load', function load() {
 
   function triggerSave(event) {
 
-    _applySave('refresh', event);
+    utils._applySave('refresh', event);
   }
 
   /**
@@ -827,7 +628,7 @@ window.addEventListener('load', function load() {
         request: 'updateContextMenu'
       });
 
-      _applySave(null, event);
+      utils._applySave(null, event);
 
     } else {
 
@@ -837,7 +638,7 @@ window.addEventListener('load', function load() {
         request: 'updateContextMenu'
       });
 
-      _applySave(null, event);
+      utils._applySave(null, event);
     }
   }
 
@@ -854,28 +655,13 @@ window.addEventListener('load', function load() {
     if (event.target.checked) {
 
       chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-dark-theme.js'},
-        function() { _applySave(null, event); });
+        function() { utils._applySave(null, event); });
 
     } else {
 
       chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-dark-theme.js'},
-        function() { _applySave(null, event); });
+        function() { utils._applySave(null, event); });
     }
-  }
-
-  /**
-   * Validates that a value has been set for both selects in Filter Items By Country
-   *
-   * @method validateFilterByCountry
-   * @return {String}
-   */
-
-  function validateFilterByCountry() {
-
-    let currency = document.getElementById('filterCountryCurrency'),
-        country = document.getElementById('filterCountry');
-
-    return currency.value !== '-' && country.value !== '-' ? 'valid' : 'invalid';
   }
 
   // ========================================================
@@ -886,7 +672,7 @@ window.addEventListener('load', function load() {
   document.getElementById('about').addEventListener('click', function(event) {
 
     chrome.tabs.create({url: '../html/about.html'});
-    util._acknowledgeUpdate();
+    utils._acknowledgeUpdate();
 
     if (_gaq) { _gaq.push(['_trackEvent', 'about', 'about clicked']); }
   });
@@ -903,46 +689,46 @@ window.addEventListener('load', function load() {
 
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
   document.querySelector('.toggle-group.menus').addEventListener('click', function(event) {
-    util._optionsToggle('#contextMenus', this, '.menus', 180 );
+    utils._optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
   /* FILTER BY CONDITION OPTIONS */
   document.querySelector('.toggle-group.condition').addEventListener('click', function(event) {
-    util._optionsToggle('.hide-condition', this, '.condition', 100 );
+    utils._optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
-    util._optionsToggle('.hide-country', this, '.country', 115 );
+    utils._optionsToggle('.hide-country', this, '.country', 115 );
   });
 
   // Save the Filter Items By Country CURRENCY select value to localStorage
   document.getElementById('filterCountryCurrency').addEventListener('change', function(event) {
 
-    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
     if (this.value !== '-') {
 
-      filterByCountry.currency = this.value;
-      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
+      filterByCountryPrefs.currency = this.value;
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
     }
   });
 
   // Save the Filter Items By Country COUNTRY select value to localStorage
   document.getElementById('filterCountry').addEventListener('change', function(event) {
 
-    let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
     if (this.value) {
 
-      filterByCountry.country = this.value;
-      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountry));
+      filterByCountryPrefs.country = this.value;
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
     }
   });
 
   /* SELLER REPUTATION */
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-    util._optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
+    utils._optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
 
   /* SEARCH FUNCTIONALITY */
@@ -962,7 +748,7 @@ window.addEventListener('load', function load() {
 
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', setHiddenItems);
-  userCurrency.addEventListener('change', function(){ _applySave(null, event); });
+  userCurrency.addEventListener('change', function(){ utils._applySave(null, event); });
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', toggleMediaHighlights);
@@ -970,7 +756,7 @@ window.addEventListener('load', function load() {
   toggleDarkTheme.addEventListener('change', useDarkTheme);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
-  toggleFilterByCountry.addEventListener('change', toggleHideCountries);
+  toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
@@ -1039,7 +825,7 @@ window.addEventListener('load', function load() {
     checkForUpdate();
     getCurrency();
     _setupFilterByCondition();
-    setCountryFilterValues();
+    filterByCountry.setCountryFilterValues();
     setSellerRep();
 
     // .mac class will remove scrollbars from the popup menu
