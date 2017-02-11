@@ -1,14 +1,18 @@
-import { _setEnabledStatus, _applySave } from '../utils/utils';
+/**
+ * Filter by Country feature
+ */
+
+import { setEnabledStatus, applySave } from '../utils/utils';
 
 // ========================================================
-// _setCountryEnabledStatus
+// setCountryEnabledStatus
 // ========================================================
 /**
  * Updates the Enabled/Disabled status of
  * Filter By Country in the popup
- * @method _setCountryEnabledStatus
+ * @method setCountryEnabledStatus
  */
-export function _setCountryEnabledStatus() {
+export function setCountryEnabledStatus() {
 
   let self = document.querySelector('.toggle-group.country .status'),
       filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
@@ -17,7 +21,7 @@ export function _setCountryEnabledStatus() {
 
     if (result.prefs.filterByCountry === true) {
 
-      _setEnabledStatus( self, 'Enabled' );
+      setEnabledStatus( self, 'Enabled' );
 
       // Disable the selects when the feature is enabled
       document.getElementById('filterCountryCurrency').disabled = true;
@@ -26,7 +30,7 @@ export function _setCountryEnabledStatus() {
 
     } else {
 
-      _setEnabledStatus( self, 'Disabled' );
+      setEnabledStatus( self, 'Disabled' );
       document.querySelector('.country-value').textContent = '';
     }
   });
@@ -59,7 +63,7 @@ export function setCountryFilterValues() {
 
   // country value
   document.getElementById('filterCountry').value = filterByCountryPrefs.country;
-  _setCountryEnabledStatus();
+  setCountryEnabledStatus();
 }
 
 
@@ -88,10 +92,10 @@ export function toggleHideCountries(event) {
     country.className = '';
 
     chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-filter-by-country-css.js'}, function() {});
-    _applySave('refresh', event);
+    applySave('refresh', event);
 
     // Delay updating the UI so that Chrome has a chance to write the new preference
-    setTimeout(_setCountryEnabledStatus, 50);
+    setTimeout(setCountryEnabledStatus, 50);
 
     if (_gaq) {
 
@@ -108,10 +112,10 @@ export function toggleHideCountries(event) {
     country.className = '';
 
     chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-filter-by-country-css.js'}, function() {});
-    _applySave(null, event);
+    applySave(null, event);
 
     // Delay updating the UI so that Chrome has a change to write the new preference
-    setTimeout(_setCountryEnabledStatus, 50);
+    setTimeout(setCountryEnabledStatus, 50);
   }
   // Everything is terrible
   else if (validateFilterByCountry() === 'invalid' && event.target.checked) {

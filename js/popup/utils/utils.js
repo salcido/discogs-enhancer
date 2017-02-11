@@ -3,29 +3,30 @@
  */
 
 // ========================================================
-// _acknowledgeUpdate
+// acknowledgeUpdate
 // ========================================================
 /**
  * Clears the update notification
- * @method   _acknowledgeUpdate
+ * @method   acknowledgeUpdate
  * @param    {string}          message [The message displayed to the user]
  * @return   {undefined}
  */
-export function _acknowledgeUpdate(message) {
+export function acknowledgeUpdate(message) {
   chrome.storage.sync.set({didUpdate: false}, function() { /*noop*/ });
 }
+
 // ========================================================
-// _applySave
+// applySave
 // ========================================================
 /**
  * Saves the users preferences
  *
- * @method   _applySave
+ * @method   applySave
  * @param    {String}  message [The message displayed to the user]
  * @param    {Object}  event   [The event object]
  * @return   {undefined}
  */
-export function _applySave(message, event) {
+export function applySave(message, event) {
 
   let chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       manifest = chrome.runtime.getManifest(),
@@ -79,7 +80,7 @@ export function _applySave(message, event) {
       document.getElementById('notify').textContent = message;
 
       notifications.classList.add('show');
-      setTimeout(() => { _fadeOut(notifications); }, 1500);
+      setTimeout(() => { fadeOut(notifications); }, 1500);
     }
   });
 
@@ -88,21 +89,72 @@ export function _applySave(message, event) {
 
     let checked = event.target.checked;
 
-    _gaq.push(['_trackEvent', `${event.target.id} : ${checked}`, ` version: ${manifest.version} Chrome: ${chromeVer}`]);
+    _gaq.push([
+      '_trackEvent',
+      `${event.target.id} : ${checked}`,
+      ` version: ${manifest.version} Chrome: ${chromeVer}`
+    ]);
   }
 }
 
-
 // ========================================================
-// _fadeOut
+// checkForUpdate
 // ========================================================
 /**
- * Fades out an element via CSS animation
- * @method _fadeOut
+ * Checks extension for any recent updates and sets
+ * the `about` button color if an update has occured
+ * @method   checkForUpdate
+ * @return   {undefined}
+ */
+
+export function checkForUpdate() {
+
+  chrome.storage.sync.get('didUpdate', function(result) {
+
+    let about = document.getElementById('about');
+
+    if (result.didUpdate) {
+
+      about.textContent = 'New updates!';
+      about.classList.remove('button_green');
+      about.classList.add('button_orange');
+
+      chrome.browserAction.setBadgeText({text: ''});
+
+    } else {
+
+      about.textContent = 'About';
+      about.classList.add('button_green');
+      about.classList.remove('button_orange');
+    }
+  });
+}
+
+// ========================================================
+// fadeIn
+// ========================================================
+/**
+ * Fades in an element via CSS animation
+ * @method fadeIn
  * @param  {object} elem [the element to fade]
  * @return {undefined}
  */
-export function _fadeOut(elem) {
+export function fadeIn(elem) {
+
+  elem.removeClasses('fadeOut', 'hide');
+  elem.addClasses('fadeIn', 'show');
+}
+
+// ========================================================
+// fadeOut
+// ========================================================
+/**
+ * Fades out an element via CSS animation
+ * @method fadeOut
+ * @param  {object} elem [the element to fade]
+ * @return {undefined}
+ */
+export function fadeOut(elem) {
 
   elem.classList.add('fadeOut');
   elem.classList.remove('fadeIn');
@@ -114,50 +166,32 @@ export function _fadeOut(elem) {
   }, 400);
 }
 
-
 // ========================================================
-// _fadeIn
-// ========================================================
-/**
- * Fades in an element via CSS animation
- * @method _fadeIn
- * @param  {object} elem [the element to fade]
- * @return {undefined}
- */
-export function _fadeIn(elem) {
-
-  elem.removeClasses('fadeOut', 'hide');
-  elem.addClasses('fadeIn', 'show');
-}
-
-
-// ========================================================
-// _isHidden
+// isHidden
 // ========================================================
 /**
  * Returns true when an element has classname 'hide'
- * @method _isHidden
+ * @method isHidden
  * @param  {element}  element [the element to examine]
  * @return {Boolean}
  */
-export function _isHidden(element) {
+export function isHidden(element) {
   return element.parentNode.className.includes('hide');
 }
 
-
 // ========================================================
-// _optionsToggle
+// optionsToggle
 // ========================================================
 /**
  * Displays the options in the popup menu
- * @method _optionsToggle
+ * @method optionsToggle
  * @param  {object}    options      [the DOM element to display]
  * @param  {object}    toggleGroup  [the actual feature in the popup menu]
  * @param  {number}    height       [the height that `target` will expand to]
  * @param  {string}    parentClass  [the parent class of the animated arrow]
  * @return {undefined}
  */
-export function _optionsToggle(options, toggleGroup, parentClass, height) {
+export function optionsToggle(options, toggleGroup, parentClass, height) {
 
   let arrow = document.querySelector(`${parentClass} .arrow`),
       status = document.querySelector(`${parentClass} .status`);
@@ -176,9 +210,9 @@ export function _optionsToggle(options, toggleGroup, parentClass, height) {
 
       if ( toggleGroup.clientHeight >= 30 ) {
 
-        _fadeIn(options);
+        fadeIn(options);
 
-        if (status) { _fadeOut(status); }
+        if (status) { fadeOut(status); }
 
         clearInterval(int);
       }
@@ -193,7 +227,7 @@ export function _optionsToggle(options, toggleGroup, parentClass, height) {
            event.target.nodeName !== 'A' &&
            event.target.nodeName !== 'SELECT') {
 
-    _fadeOut(options);
+    fadeOut(options);
 
     if (status) { status.classList.add('fadeIn'); }
 
@@ -211,17 +245,62 @@ export function _optionsToggle(options, toggleGroup, parentClass, height) {
   }
 }
 
+// ========================================================
+// searchFeatures
+// ========================================================
+/**
+ * Adds/removes `hide` class from the
+ * features in popup. Also shows/hides
+ * the clear button.
+ * @method searchFeatures
+ * @return {undefined}
+ */
+export function searchFeatures() {
+
+  let features = [...document.querySelectorAll('.toggle-group .meta')],
+      noResults = document.getElementById('noResults');
+
+  setTimeout(() => {
+
+    features.forEach(feature => {
+
+      let clear = document.getElementsByClassName('clear-search')[0],
+          query = document.getElementById('searchbox').value.toLowerCase(),
+          searchbox = document.getElementById('searchbox'),
+          text = feature.textContent.toLowerCase();
+
+      if ( !text.includes(query) ) {
+
+        feature.parentNode.classList.add('hide');
+
+      } else {
+
+        feature.parentNode.classList.remove('hide');
+        noResults.classList.add('hide');
+      }
+
+      // Show no results notification
+      if ( features.every(isHidden) ) {
+
+        noResults.classList.remove('hide');
+      }
+
+      // show/hide the X icon
+      return searchbox.value ? clear.classList.remove('hide') : clear.classList.add('hide');
+    });
+  }, 0);
+}
 
 // ========================================================
-// _setEnabledStatus
+// setEnabledStatus
 // ========================================================
 /**
  * Sets the enabled/disabled text status on SUBMENUS
- * @method _setEnabledStatus
+ * @method setEnabledStatus
  * @param  {object}         target [the DOM element]
  * @param  {string}         status [Enabled/Disabled]
  */
-export function _setEnabledStatus(target, status) {
+export function setEnabledStatus(target, status) {
 
   if (status === 'Enabled') {
 
@@ -235,4 +314,20 @@ export function _setEnabledStatus(target, status) {
   }
 
   return target.textContent = status;
+}
+
+// ========================================================
+// triggerSave
+// ========================================================
+/**
+ * Tells the user to refresh after updating a preference
+ *
+ * @method   triggerSave
+ * @param    {Object}    event [The event object]
+ * @return   {undefined}
+ */
+
+export function triggerSave(event) {
+
+  applySave('refresh', event);
 }
