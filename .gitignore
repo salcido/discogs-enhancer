@@ -1,5 +1,4 @@
-js/jquery/jquery-min.js
-
-js/chart/
-
+js/extension/dependencies/jquery/jquery-min.js
 .eslintrc
+node_modules
+dist

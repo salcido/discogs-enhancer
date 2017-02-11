@@ -8,39 +8,23 @@
  *
  */
 
- /**
-  * Removes multiple classes from a target
-  * @TODO MOVE THIS
-  * @method removeClasses
-  * @param  {object}      elem      [the target element]
-  * @param  {array}      ...remove [classnames to remove]
-  * @return {object}
-  */
+import * as ext from './dom_extensions/dom-extensions';
+import * as util from './util/util';
 
-  if ( !Element.prototype.removeClasses ) {
+// ========================================================
+// Extend Element's prototype to easily add/remove multiple
+// classes from a target element. Yes, I realize we've all
+// been told this is a bad thing to do but since this
+// extension is self-contained there will likely never be
+// any method-naming conflicts.
+// ========================================================
+if ( !Element.prototype.removeClasses ) {
+  Element.prototype.removeClasses = ext.removeClasses;
+}
 
-    Element.prototype.removeClasses = function(...remove) {
-
-     remove.forEach(cls => { this.classList.remove(cls); });
-    };
-  }
-
- /**
-  * Addes multiple classes to a target
-  * @TODO MOVE THIS
-  * @method addClasses
-  * @param  {object}   elem   [the target element]
-  * @param  {array}   ...add [classnames to add]
-  * @return {object}
-  */
-
-  if ( !Element.prototype.addClasses ) {
-
-    Element.prototype.addClasses = function(...add) {
-
-     add.forEach(cls => { this.classList.add(cls); });
-    };
-  }
+if ( !Element.prototype.addClasses ) {
+  Element.prototype.addClasses = ext.addClasses;
+}
 
 window.addEventListener('load', function load() {
 
@@ -95,19 +79,6 @@ window.addEventListener('load', function load() {
   // ========================================================
   // Private Functions
   // ========================================================
-
-  /**
-   * Clears the update notification
-   *
-   * @method   _acknowledgeUpdate
-   * @param    {string}          message [The message displayed to the user]
-   * @return   {undefined}
-   */
-
-  function _acknowledgeUpdate(message) {
-
-    chrome.storage.sync.set({didUpdate: false}, function() { /*noop*/ });
-  }
 
   /**
    * Saves the users preferences
@@ -172,7 +143,7 @@ window.addEventListener('load', function load() {
         document.getElementById('notify').textContent = message;
 
         notifications.classList.add('show');
-        setTimeout(() => { _fadeOut(notifications); }, 1500);
+        setTimeout(() => { util._fadeOut(notifications); }, 1500);
       }
     });
 
@@ -182,117 +153,6 @@ window.addEventListener('load', function load() {
       let checked = event.target.checked;
 
       _gaq.push(['_trackEvent', `${event.target.id} : ${checked}`, ` version: ${manifest.version} Chrome: ${chromeVer}`]);
-    }
-  }
-
-  /**
-   * Fades out an element via CSS animation
-   *
-   * @method _fadeOut
-   * @param  {object} elem [the element to fade]
-   * @return {undefined}
-   */
-
-  function _fadeOut(elem) {
-
-    elem.classList.add('fadeOut');
-    elem.classList.remove('fadeIn');
-
-    setTimeout(() => {
-
-      elem.removeClasses('fadeOut', 'show');
-      elem.classList.add('hide');
-    }, 400);
-  }
-
-  /**
-   * Fades in an element via CSS animation
-   *
-   * @method _fadeIn
-   * @param  {object} elem [the element to fade]
-   * @return {undefined}
-   */
-
-  function _fadeIn(elem) {
-
-    elem.removeClasses('fadeOut', 'hide');
-    elem.addClasses('fadeIn', 'show');
-  }
-
-  /**
-   * Returns true when an element has classname 'hide'
-   *
-   * @method _isHidden
-   * @param  {element}  element [the element to examine]
-   * @return {Boolean}
-   */
-
-  function _isHidden(element) {
-    return element.parentNode.className.includes('hide');
-  }
-
-  /**
-   * Displays the options in the popup menu
-   *
-   * @method _optionsToggle
-   * @param  {object}    options      [the DOM element to display]
-   * @param  {object}    toggleGroup  [the actual feature in the popup menu]
-   * @param  {number}    height       [the height that `target` will expand to]
-   * @param  {string}    parentClass  [the parent class of the animated arrow]
-   * @return {undefined}
-   */
-
-  function _optionsToggle(options, toggleGroup, parentClass, height) {
-
-    let arrow = document.querySelector(`${parentClass} .arrow`),
-        status = document.querySelector(`${parentClass} .status`);
-
-    options = document.querySelector(options);
-
-    // Expand
-    // Check the current height and either expand or collapse it
-    if (toggleGroup.clientHeight === 50) {
-
-      toggleGroup.style.height = height + 'px';
-
-      arrow.classList.add('rotate90');
-
-      let int = setInterval(function() {
-
-        if ( toggleGroup.clientHeight >= 30 ) {
-
-          _fadeIn(options);
-
-          if (status) { _fadeOut(status); }
-
-          clearInterval(int);
-        }
-      }, 100);
-    }
-    // Collapse
-    // (don't collapse when clicking these elements)
-    else if (event.target.nodeName !== 'INPUT' &&
-             event.target.type !== 'checkbox' &&
-             event.target.nodeName !== 'LABEL' &&
-             event.target.nodeName !== 'SPAN' &&
-             event.target.nodeName !== 'A' &&
-             event.target.nodeName !== 'SELECT') {
-
-      _fadeOut(options);
-
-      if (status) { status.classList.add('fadeIn'); }
-
-      arrow.classList.remove('rotate90');
-
-      let int = setInterval(function() {
-
-       if (options.offsetParent === null) {
-
-          toggleGroup.style.height = '50px';
-
-         clearInterval(int);
-       }
-      }, 100);
     }
   }
 
@@ -312,7 +172,7 @@ window.addEventListener('load', function load() {
 
       if (result.prefs.filterByCountry === true) {
 
-        _setEnabledStatus( self, 'Enabled' );
+        util._setEnabledStatus( self, 'Enabled' );
 
         // Disable the selects when the feature is enabled
         document.getElementById('filterCountryCurrency').disabled = true;
@@ -321,34 +181,10 @@ window.addEventListener('load', function load() {
 
       } else {
 
-        _setEnabledStatus( self, 'Disabled' );
+        util._setEnabledStatus( self, 'Disabled' );
         document.querySelector('.country-value').textContent = '';
       }
     });
-  }
-
-  /**
-   * Sets the enabled/disabled text status on SUBMENUS
-   *
-   * @method _setEnabledStatus
-   * @param  {object}         target [the DOM element]
-   * @param  {string}         status [Enabled/Disabled]
-   */
-
-  function _setEnabledStatus(target, status) {
-
-    if (status === 'Enabled') {
-
-      target.classList.add('enabled');
-      target.classList.remove('disabled');
-
-    } else {
-
-      target.classList.add('disabled');
-      target.classList.remove('enabled');
-    }
-
-    return target.textContent = status;
   }
 
   /**
@@ -422,7 +258,7 @@ window.addEventListener('load', function load() {
 
         notifications.addClasses('show');
 
-        setTimeout(() => { _fadeOut(notifications); }, 1500);
+        setTimeout(() => { util._fadeOut(notifications); }, 1500);
 
         togglePrices.checked = false;
         userCurrency.className = 'alert';
@@ -530,7 +366,7 @@ window.addEventListener('load', function load() {
       // Displays percentage value like: - 80%
       repValue.textContent = `\u2011 ${input.value}%`;
 
-      _setEnabledStatus( self, 'Enabled' );
+      util._setEnabledStatus( self, 'Enabled' );
       _applySave('refresh', event);
 
       if (_gaq) {
@@ -542,7 +378,7 @@ window.addEventListener('load', function load() {
       input.disabled = false;
       repValue.textContent = '';
 
-      _setEnabledStatus( self, 'Disabled' );
+      util._setEnabledStatus( self, 'Disabled' );
       _applySave('refresh', event);
 
     } else if ( !input.value ) {
@@ -582,7 +418,7 @@ window.addEventListener('load', function load() {
         }
 
         // Show no results notification
-        if ( features.every(_isHidden) ) {
+        if ( features.every(util._isHidden) ) {
 
           noResults.classList.remove('hide');
         }
@@ -694,17 +530,17 @@ window.addEventListener('load', function load() {
         input.disabled = true;
         // Displays percentage value like: - 80%
         repValue.textContent = `\u2011 ${input.value}%`;
-        _setEnabledStatus( self, 'Enabled' );
+        util._setEnabledStatus( self, 'Enabled' );
       }
 
       else if (result.prefs.sellerRep && percent === null) {
 
         toggleSellerRep.checked = false;
-        _setEnabledStatus( self, 'Disabled' );
+        util._setEnabledStatus( self, 'Disabled' );
 
       } else {
 
-        _setEnabledStatus( self, 'Disabled' );
+        util._setEnabledStatus( self, 'Disabled' );
       }
     });
   }
@@ -1050,7 +886,7 @@ window.addEventListener('load', function load() {
   document.getElementById('about').addEventListener('click', function(event) {
 
     chrome.tabs.create({url: '../html/about.html'});
-    _acknowledgeUpdate();
+    util._acknowledgeUpdate();
 
     if (_gaq) { _gaq.push(['_trackEvent', 'about', 'about clicked']); }
   });
@@ -1067,17 +903,17 @@ window.addEventListener('load', function load() {
 
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
   document.querySelector('.toggle-group.menus').addEventListener('click', function(event) {
-    _optionsToggle('#contextMenus', this, '.menus', 180 );
+    util._optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
   /* FILTER BY CONDITION OPTIONS */
   document.querySelector('.toggle-group.condition').addEventListener('click', function(event) {
-    _optionsToggle('.hide-condition', this, '.condition', 100 );
+    util._optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
-    _optionsToggle('.hide-country', this, '.country', 115 );
+    util._optionsToggle('.hide-country', this, '.country', 115 );
   });
 
   // Save the Filter Items By Country CURRENCY select value to localStorage
@@ -1106,7 +942,7 @@ window.addEventListener('load', function load() {
 
   /* SELLER REPUTATION */
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-    _optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
+    util._optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
 
   /* SEARCH FUNCTIONALITY */
