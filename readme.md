@@ -79,3 +79,20 @@ Format text in reviews, comments and forum posts with the press of a button. Eas
 ### Improve Tracklist Readability
 
 You can insert visual dividers between each side, disc, and/or format of a release to make it easier to read. It's completely customizable too!
+
+## Installation
+
+* `git clone https://github.com/salcido/Discogs-Enhancer.git` this repository
+* change into the new directory
+* `npm install`
+
+## Running / Development
+
+* Watch for changes:
+  * `npm run watch`
+
+
+## Building
+* Export the extension to `dist` directory:
+  * `npm run build`
+  * load exported `dist` folder into Chrome and you're done!

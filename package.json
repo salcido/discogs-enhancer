@@ -4,7 +4,8 @@
   "description": "A Chrome extension that adds useful functionality to Discogs.com! http://www.msalcido.com/discogs-enhancer",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
