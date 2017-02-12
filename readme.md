@@ -1,23 +1,23 @@
 # Discogs Enhancer
 
-## Project Overview
+#### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
 
-## Chrome Webstore Link
+#### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
 
-## Installation
+#### Installation
 
 * `git clone https://github.com/salcido/Discogs-Enhancer.git` this repository
 * change into the new directory
 * `npm install`
 
-## Running / Development
+#### Running / Development
 
 * Watch for changes:
   * `npm run watch`
 
-## Building
+#### Building
 * Export the extension to `dist` directory:
   * `npm run build`
   * Load exported `dist` folder into Chrome and you're done!
