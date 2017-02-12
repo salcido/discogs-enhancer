@@ -9,7 +9,7 @@
  */
 
 import * as ext from './dom_extensions/dom-extensions';
-import * as utils from './utils/utils';
+import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils/utils';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterByCondition from './features/filter-by-condition.js';
@@ -119,7 +119,7 @@ window.addEventListener('load', function load() {
   document.getElementById('about').addEventListener('click', function(event) {
 
     chrome.tabs.create({url: '../html/about.html'});
-    utils.acknowledgeUpdate();
+    acknowledgeUpdate();
 
     if (_gaq) { _gaq.push(['_trackEvent', 'about', 'about clicked']); }
   });
@@ -136,17 +136,17 @@ window.addEventListener('load', function load() {
 
   /* CONTEXTUAL MENU SEARCHING OPTIONS */
   document.querySelector('.toggle-group.menus').addEventListener('click', function(event) {
-    utils.optionsToggle('#contextMenus', this, '.menus', 180 );
+    optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
   /* FILTER BY CONDITION OPTIONS */
   document.querySelector('.toggle-group.condition').addEventListener('click', function(event) {
-    utils.optionsToggle('.hide-condition', this, '.condition', 100 );
+    optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
   /* FILTER ITEMS BY COUNTRY OPTIONS */
   document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
-    utils.optionsToggle('.hide-country', this, '.country', 115 );
+    optionsToggle('.hide-country', this, '.country', 115 );
   });
 
   // Save the Filter Items By Country CURRENCY select value to localStorage
@@ -175,19 +175,19 @@ window.addEventListener('load', function load() {
 
   /* SELLER REPUTATION */
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-    utils.optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
+    optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
 
   /* SEARCH FUNCTIONALITY */
   searchbox.addEventListener('keydown', function() {
-    utils.searchFeatures();
+    searchFeatures();
   });
 
   // Clear search input
   document.querySelector('.clear-search').addEventListener('mousedown', function() {
 
     searchbox.value = '';
-    utils.searchFeatures();
+    searchFeatures();
 
     // reset the focus
     setTimeout(() => { searchbox.focus(); }, 200);
@@ -195,21 +195,21 @@ window.addEventListener('load', function load() {
 
   // Toggle event listeners
   hideMarketplaceItems.addEventListener('change', filterByCondition.setFilterByConditionValue);
-  userCurrency.addEventListener('change', function(){ utils.applySave(null, event); });
-  toggleBlockSellers.addEventListener('change', utils.triggerSave);
-  toggleCollectionUi.addEventListener('change', utils.triggerSave);
+  userCurrency.addEventListener('change', function(){ applySave(null, event); });
+  toggleBlockSellers.addEventListener('change', triggerSave);
+  toggleCollectionUi.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
-  toggleConverter.addEventListener('change', utils.triggerSave);
+  toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
-  toggleEverlastingMarket.addEventListener('change', utils.triggerSave);
-  toggleFeedback.addEventListener('change', utils.triggerSave);
+  toggleEverlastingMarket.addEventListener('change', triggerSave);
+  toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
-  toggleNotesCount.addEventListener('change', utils.triggerSave);
-  toggleReadability.addEventListener('change', utils.triggerSave);
-  toggleReleaseDurations.addEventListener('change', utils.triggerSave);
+  toggleNotesCount.addEventListener('change', triggerSave);
+  toggleReadability.addEventListener('change', triggerSave);
+  toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleSellerRep.addEventListener('change', sellerRep.saveSellerRep);
-  toggleShortcuts.addEventListener('change', utils.triggerSave);
-  toggleSortBtns.addEventListener('change', utils.triggerSave);
+  toggleShortcuts.addEventListener('change', triggerSave);
+  toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.showPrices);
 
   // ========================================================
@@ -269,7 +269,7 @@ window.addEventListener('load', function load() {
       toggleYoutube.checked = result.prefs.useYoutube;
     });
 
-    utils.checkForUpdate();
+    checkForUpdate();
     suggestedPrices.getCurrency();
     filterByCondition.setupFilterByCondition();
     filterByCountry.setCountryFilterValues();
