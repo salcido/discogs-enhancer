@@ -8,7 +8,7 @@
  *
  */
 
-import * as ext from './dom_extensions/dom-extensions';
+import * as ext from './dom-extensions/dom-extensions';
 import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils/utils';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';

@@ -57,7 +57,7 @@ import { applySave, fadeOut } from '../utils/utils';
        togglePrices.checked = true;
        userCurrency.className = '';
 
-       applySave('refresh`', event);
+       applySave('refresh', event);
 
      }
 
