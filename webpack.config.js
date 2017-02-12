@@ -21,6 +21,7 @@ module.exports = {
     ]
   },
   plugins: [
+  // Don't minify
   // new webpack.optimize.UglifyJsPlugin(),
   new CopyWebpackPlugin([
     { from: 'manifest.json', to: 'manifest.json' },

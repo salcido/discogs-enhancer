@@ -15,8 +15,6 @@
     browser: true,
     node: true,
     es6: true,
-    qunit: true,
-    embertest: true
   },
 
   // Old globals

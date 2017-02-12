@@ -1,9 +1,9 @@
 # Discogs Enhancer
 
-#### Project Overview
+## Project Overview
 <http://www.msalcido.com/discogs-enhancer>
 
-#### Chrome Webstore Link
+## Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
 
 ## Installation
