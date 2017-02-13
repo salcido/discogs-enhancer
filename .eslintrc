@@ -103,7 +103,7 @@
     'no-shadow': 1,
     'no-undef': 2,
     'no-unused-vars': [1, {'vars': 'all', 'args': 'none'}],
-    'no-use-before-define': [2, { 'functions': false }],
+    // 'no-use-before-define': ['error', { 'functions': false, 'classes': true }],
 
     // Stylistic
     'no-trailing-spaces': 1,
