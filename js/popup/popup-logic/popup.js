@@ -8,7 +8,6 @@
  *
  */
 
-import * as ext from './dom-extensions/dom-extensions';
 import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils/utils';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
@@ -26,13 +25,20 @@ import * as suggestedPrices from './features/suggested-prices.js';
 // any method-naming conflicts.
 // ========================================================
 if ( !Element.prototype.removeClasses ) {
-  Element.prototype.removeClasses = ext.removeClasses;
+  Element.prototype.removeClasses = function removeClasses(...remove) {
+    remove.forEach(cls => { this.classList.remove(cls); });
+  };
 }
 
 if ( !Element.prototype.addClasses ) {
-  Element.prototype.addClasses = ext.addClasses;
+  Element.prototype.addClasses = function addClasses(...add) {
+    add.forEach(cls => { this.classList.add(cls); });
+  };
 }
 
+// ========================================================
+// Document ready
+// ========================================================
 window.addEventListener('load', function load() {
 
   let
@@ -145,13 +151,6 @@ window.addEventListener('load', function load() {
   });
 
   // ========================================================
-  // SELLER REPUTATION
-  // ========================================================
-  document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-    optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
-  });
-
-  // ========================================================
   // SEARCH FUNCTIONALITY
   // ========================================================
   searchbox.addEventListener('keydown', searchFeatures);
@@ -164,6 +163,13 @@ window.addEventListener('load', function load() {
 
     // reset the focus
     setTimeout(() => { searchbox.focus(); }, 200);
+  });
+
+  // ========================================================
+  // SELLER REPUTATION
+  // ========================================================
+  document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
+    optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
 
   // ========================================================
