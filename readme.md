@@ -24,7 +24,7 @@
 
 
 ***
-#### Overview
+## Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
 
 ***
