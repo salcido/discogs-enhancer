@@ -22,8 +22,6 @@
   * `npm run build`
   * Load exported `dist` folder into Chrome and you're done!
 
-
-***
 ## Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
 
