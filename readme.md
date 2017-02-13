@@ -25,7 +25,7 @@
 
 ***
 
-![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/raw/master/img/de-flow-overview.png "Discogs Enhancer flow overview")
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
 
 ***
 
