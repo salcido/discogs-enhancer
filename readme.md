@@ -25,6 +25,10 @@
 
 ***
 
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/raw/master/img/de-flow-overview.png "Discogs Enhancer flow overview")
+
+***
+
 
 ### A Web Extension for Chrome
 
