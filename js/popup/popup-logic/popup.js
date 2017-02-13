@@ -55,12 +55,7 @@ window.addEventListener('load', function load() {
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       userCurrency = document.getElementById('currency'),
 
-      // ========================================================
       // Contextual menus
-      // ========================================================
-      // Declared here first for scope and later assigned with
-      // setContextualMenuIds()
-      // ========================================================
       toggleBandcamp,
       toggleBoomkat,
       toggleClone,
@@ -80,42 +75,8 @@ window.addEventListener('load', function load() {
       toggleYoutube;
 
   // ========================================================
-  // Public Functions
+  // Open About page
   // ========================================================
-
-  /**
-   * Assigns values to contexual menu vars
-   *
-   * @method setContextualMenuIds
-   * @return {undefined}
-   */
-
-  function setContextualMenuIds() {
-
-    toggleBandcamp = document.getElementById('bandcamp');
-    toggleBoomkat = document.getElementById('boomkat');
-    toggleClone = document.getElementById('clone');
-    toggleDecks = document.getElementById('decks');
-    toggleDeeJay = document.getElementById('deejay');
-    toggleDiscogs = document.getElementById('discogs');
-    toggleGramaphone = document.getElementById('gramaphone');
-    toggleHalcyon = document.getElementById('halcyon');
-    toggleHardwax = document.getElementById('hardwax');
-    toggleInsound = document.getElementById('insound');
-    toggleJuno = document.getElementById('juno');
-    toggleKristina = document.getElementById('kristina');
-    toggleOye = document.getElementById('oye');
-    togglePbvinyl = document.getElementById('pbvinyl');
-    togglePhonica = document.getElementById('phonica');
-    toggleSotu = document.getElementById('sotu');
-    toggleYoutube = document.getElementById('youtube');
-  }
-
-  // ========================================================
-  // UI Event Listeners
-  // ========================================================
-
-  // Open the about page
   document.getElementById('about').addEventListener('click', function(event) {
 
     chrome.tabs.create({url: '../html/about.html'});
@@ -124,27 +85,37 @@ window.addEventListener('load', function load() {
     if (_gaq) { _gaq.push(['_trackEvent', 'about', 'about clicked']); }
   });
 
-  // Open block sellers page
+  // ========================================================
+  // Open Block Sellers Configuration page
+  // ========================================================
   document.getElementById('editList').addEventListener('click', function(event) {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
-  // Open readability config page
+  // ========================================================
+  // Open Readability Configuration page
+  // ========================================================
   document.getElementById('editReadability').addEventListener('click', function(event) {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
-  /* CONTEXTUAL MENU SEARCHING OPTIONS */
+  // ========================================================
+  // CONTEXTUAL MENU SEARCHING OPTIONS
+  // ========================================================
   document.querySelector('.toggle-group.menus').addEventListener('click', function(event) {
     optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
-  /* FILTER BY CONDITION OPTIONS */
+  // ========================================================
+  // FILTER BY CONDITION OPTIONS
+  // ========================================================
   document.querySelector('.toggle-group.condition').addEventListener('click', function(event) {
     optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
-  /* FILTER ITEMS BY COUNTRY OPTIONS */
+  // ========================================================
+  // FILTER ITEMS BY COUNTRY OPTIONS
+  // ========================================================
   document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
     optionsToggle('.hide-country', this, '.country', 115 );
   });
@@ -173,15 +144,17 @@ window.addEventListener('load', function load() {
     }
   });
 
-  /* SELLER REPUTATION */
+  // ========================================================
+  // SELLER REPUTATION
+  // ========================================================
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
     optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
   });
 
-  /* SEARCH FUNCTIONALITY */
-  searchbox.addEventListener('keydown', function() {
-    searchFeatures();
-  });
+  // ========================================================
+  // SEARCH FUNCTIONALITY
+  // ========================================================
+  searchbox.addEventListener('keydown', searchFeatures);
 
   // Clear search input
   document.querySelector('.clear-search').addEventListener('mousedown', function() {
@@ -193,7 +166,9 @@ window.addEventListener('load', function load() {
     setTimeout(() => { searchbox.focus(); }, 200);
   });
 
-  // Toggle event listeners
+  // ========================================================
+  // Event listeners for toggles
+  // ========================================================
   hideMarketplaceItems.addEventListener('change', filterByCondition.setFilterByConditionValue);
   userCurrency.addEventListener('change', function(){ applySave(null, event); });
   toggleBlockSellers.addEventListener('change', triggerSave);
@@ -219,19 +194,36 @@ window.addEventListener('load', function load() {
   /**
    * Sets toggle button values when the popup is rendered
    * and calls necessary methods
-   *
    * @method   init
    * @return   {undefined}
    */
-
   function init() {
 
-    contextualMenus.setupContextualMenus();
-    setContextualMenuIds();
+    contextualMenus.createContextualMenuElements();
 
-    // Get the user's preferences and set the toggles accordingly
+    // Assign contextual menu elements to vars
+    toggleBandcamp = document.getElementById('bandcamp');
+    toggleBoomkat = document.getElementById('boomkat');
+    toggleClone = document.getElementById('clone');
+    toggleDecks = document.getElementById('decks');
+    toggleDeeJay = document.getElementById('deejay');
+    toggleDiscogs = document.getElementById('discogs');
+    toggleGramaphone = document.getElementById('gramaphone');
+    toggleHalcyon = document.getElementById('halcyon');
+    toggleHardwax = document.getElementById('hardwax');
+    toggleInsound = document.getElementById('insound');
+    toggleJuno = document.getElementById('juno');
+    toggleKristina = document.getElementById('kristina');
+    toggleOye = document.getElementById('oye');
+    togglePbvinyl = document.getElementById('pbvinyl');
+    togglePhonica = document.getElementById('phonica');
+    toggleSotu = document.getElementById('sotu');
+    toggleYoutube = document.getElementById('youtube');
+
+    // Get the user's saved preferences and set the toggles accordingly
     chrome.storage.sync.get('prefs', function(result) {
 
+      // Feature preferences
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
@@ -269,6 +261,7 @@ window.addEventListener('load', function load() {
       toggleYoutube.checked = result.prefs.useYoutube;
     });
 
+    // Set values for features with options
     checkForUpdate();
     suggestedPrices.getCurrency();
     filterByCondition.setupFilterByCondition();
@@ -277,9 +270,10 @@ window.addEventListener('load', function load() {
 
     // .mac class will remove scrollbars from the popup menu
     if (navigator.userAgent.includes('Mac OS X')) {
-
       document.getElementsByTagName('html')[0].addClasses('mac');
     }
+
+    // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
   }
 

@@ -5,15 +5,15 @@
 import { applySave } from '../utils/utils';
 
 // ========================================================
-// setupContextualMenus
+// createContextualMenuElements
 // ========================================================
 /**
  * Creates contextual menu markup inside the
  * Contextual Menu options feature in the popup.
- * @method setupContextualMenus
+ * @method createContextualMenuElements
  * @return {undefined}
  */
-export function setupContextualMenus() {
+export function createContextualMenuElements() {
 
   let contextMenus = document.getElementById('contextMenus'),
       fragment = document.createDocumentFragment(),
