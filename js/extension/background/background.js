@@ -55,7 +55,7 @@ chrome.storage.sync.get('prefs', function(result) {
       blockSellers: true,
       collectionUi: true,
       converter: true,
-      darkTheme: true,
+      darkTheme: false,
       everlastingMarket: true,
       feedback: true,
       filterByCountry: false,
