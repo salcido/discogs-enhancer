@@ -25,13 +25,13 @@ import * as suggestedPrices from './features/suggested-prices.js';
 // any method-naming conflicts.
 // ========================================================
 if ( !Element.prototype.removeClasses ) {
-  Element.prototype.removeClasses = function removeClasses(...remove) {
+  Element.prototype.removeClasses = function(...remove) {
     remove.forEach(cls => { this.classList.remove(cls); });
   };
 }
 
 if ( !Element.prototype.addClasses ) {
-  Element.prototype.addClasses = function addClasses(...add) {
+  Element.prototype.addClasses = function(...add) {
     add.forEach(cls => { this.classList.add(cls); });
   };
 }
