@@ -190,3 +190,19 @@ em {
 .hide {
   display: none;
 }
+
+/* fadeout animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 0.5s;
+}
