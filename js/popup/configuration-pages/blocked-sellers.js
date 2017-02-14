@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   function addSellerToList() {
 
-    let input = $('#seller-input').val();
+    let input = document.getElementById('seller-input').value;
 
     input = input.replace(/\s/g,'').trim();
 
@@ -49,10 +49,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
       localStorage.setItem('blockList', blockList);
 
-      $('.errors').text('');
+      document.querySelectorAll('.errors')[0].textContent = '';
 
       return location.reload();
     }
+  }
+
+  /**
+   * Remove the sellers name from the list/localStorage
+   *
+   * @param    {object}  the event object.
+   * @return   {function}
+   */
+  function removeSellerName(event) {
+
+    let target = event.target.innerHTML;
+
+    event.target.parentNode.classList.add('fadeOut');
+
+    blockList.list.forEach(function(seller, i) {
+
+      if (target === seller) {
+
+        blockList.list.splice(i, 1);
+
+        blockList = JSON.stringify(blockList);
+
+        localStorage.setItem('blockList', blockList);
+
+        return setTimeout(function() { location.reload(); }, 400);
+      }
+    });
   }
 
   /**
@@ -62,7 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   function showError() {
 
-    $('.errors').text( $('#seller-input').val() + ' is already on the block list.' );
+    let input = document.getElementById('seller-input').value;
+
+    document.querySelectorAll('.errors')[0].textContent = `${input} is already on the block list.`;
   }
 
   /**
@@ -115,17 +144,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     case blockList.hide === 'tag' :
 
-      $('#tagSellers').prop('checked', true);
+      document.getElementById('tagSellers').checked = true;
       break;
 
     case blockList.hide === 'global' :
 
-      $('#hideSellers').prop('checked', true);
+      document.getElementById('hideSellers').checked = true;
       break;
 
     case blockList.hide === 'marketplace' :
 
-      $('#showOnRelease').prop('checked', true);
+      document.getElementById('showOnRelease').checked = true;
       break;
   }
 
@@ -153,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // keyup event for Enter key
   document.addEventListener('keyup', function(e) {
 
-    let input = $('#seller-input').val();
+    let input = document.getElementById('seller-input').value;
 
     // Enter key is pressed
     if ( e.which === 13 && input && !blockList.list.includes(input) ) {
@@ -163,14 +192,14 @@ document.addEventListener('DOMContentLoaded', function () {
       return location.reload();
 
     // name is already on the list
-  } else if ( blockList.list.includes( $('#seller-input').val() ) ) {
+  } else if ( blockList.list.includes( document.getElementById('seller-input').value ) ) {
 
       return showError();
 
     } else {
 
       // clear any previous errors
-      $('.errors').text('');
+      document.querySelector('.errors').textContent = '';
     }
   });
 
@@ -179,9 +208,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================================
 
   // Add name to block list
-  $('body').on('click', '.btn-success', function() {
+  document.querySelector('.btn-success').addEventListener('click', function() {
 
-    let input = $('#seller-input').val();
+    let input = document.getElementById('seller-input').value;
 
     if ( input && !blockList.list.includes(input) ) {
 
@@ -189,39 +218,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return location.reload();
 
-    } else if ( blockList.list.includes( $('#seller-input').val() ) ) {
+    } else if ( blockList.list.includes(input) ) {
 
       return showError();
     }
   });
 
   // Remove seller name from block list
-  $('body').on('click', '.seller-name', function(event) {
-
-    let target = event.target.innerHTML;
-
-    $(event.target).parent().fadeOut(300, function() {
-
-      blockList.list.forEach(function(seller, i) {
-
-        if (target === seller) {
-
-          blockList.list.splice(i, 1);
-
-          blockList = JSON.stringify(blockList);
-
-          localStorage.setItem('blockList', blockList);
-
-          return location.reload();
-        }
-      });
-    });
+  [...document.querySelectorAll('.seller-name')].forEach(function(name) {
+    name.addEventListener('click', removeSellerName);
   });
 
-  // Radiobutton listener
-  $('#block-prefs').on('change', function(event) {
 
-    console.log(event.target.value);
+  // Radiobutton listener
+  document.getElementById('block-prefs').addEventListener('change', function(event) {
 
     blockList = JSON.parse(localStorage.getItem('blockList'));
 
@@ -235,20 +245,32 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Populate backup form with current blocklist
-  $('.backup-output').text(JSON.stringify(blockList.list));
+  document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
 
   // Show/Hide backup form
-  $('.backup .header').on('click', function() {
+  document.querySelector('.backup .header').addEventListener('click', function() {
 
-    $('.backup-content').toggleClass('hide');
+    let backup = document.querySelector('.backup-content');
 
-    $(this).toggleClass('open', 'closed');
+    if (backup.classList.contains('hide')) {
+      backup.classList.remove('hide');
+    } else {
+      backup.classList.add('hide');
+    }
+
+    if (this.classList.contains('open')) {
+      this.classList.remove('open');
+      this.classList.add('closed');
+    } else {
+      this.classList.remove('closed');
+      this.classList.add('open');
+    }
   });
 
   // Restore functionality
-  $('.restore .btn-success').on('click', function() {
+  document.querySelector('.restore .btn-success').addEventListener('click', function() {
 
-    let list = $('.restore-input').val();
+    let list = document.querySelector('.restore-input').value;
 
     if ( validateBlocklist(list) ) {
 
@@ -263,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     } else {
 
-      $('.restore-errors').removeClass('hide');
+      document.querySelector('.restore-errors').classList.remove('hide');
     }
   });
 });
