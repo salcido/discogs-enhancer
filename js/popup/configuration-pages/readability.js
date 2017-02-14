@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // ==============================================
 
   // Vinyl, cassette, box sets, etc ...
-  $('body').on('click', '#toggleVCreleases', function(event) {
+
+  document.getElementById('toggleVCreleases').addEventListener('click', function() {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
 
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Single CD, digital, etc ...
-  $('body').on('click', '#toggleOtherMedia', function(event) {
+  document.getElementById('toggleOtherMedia').addEventListener('click', function() {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
 
@@ -104,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Classical releases
-  $('body').on('click', '#toggleIndexTracks', function(event) {
+  document.getElementById('toggleIndexTracks').addEventListener('click', function() {
 
     let pref = JSON.parse(localStorage.getItem('readability'));
 
@@ -114,12 +115,15 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Value changes
-  $('select').on('change', function(event) {
+  [...document.getElementsByTagName('select')].forEach(function(select) {
 
-    let pref = JSON.parse(localStorage.getItem('readability'));
+    select.addEventListener('change', function(event) {
 
-    pref[event.target.id] = event.target.value;
+      let pref = JSON.parse(localStorage.getItem('readability'));
 
-    localStorage.setItem('readability', JSON.stringify(pref));
+      pref[event.target.id] = event.target.value;
+
+      localStorage.setItem('readability', JSON.stringify(pref));
+    });
   });
 });
