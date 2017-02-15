@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
       vc = document.getElementById('toggleVCreleases'),
       vcThreshold = document.getElementById('vcThreshold');
 
+  // ========================================================
+  // Functions
+  // ========================================================
+
   /**
    * Appends options to select elements
    *
@@ -90,7 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add new size property if necessary
+  // TODO: delete this at some point in the future
   insertDividerSizeProperty();
+
+  // ========================================================
+  // DOM setup
+  // ========================================================
 
   // Set values based on config
   vc.checked = config.vcReadability;
