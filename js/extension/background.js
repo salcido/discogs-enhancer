@@ -754,8 +754,15 @@ checkForAnalytics = setInterval(function() {
 }, 1000);
 
 
-/* Clean up on asile 7! */
-window.onload = function() { $('.de-init').remove(); };
+// ========================================================
+// Remove unnecessary elements from DOM
+// ========================================================
+
+window.onload = function() {
+  [...document.querySelectorAll('.de-init')].forEach(child => {
+    child.parentNode.removeChild(child);
+  });
+};
 
 
 // ========================================================
