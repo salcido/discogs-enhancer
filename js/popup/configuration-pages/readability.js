@@ -16,30 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
+      size = document.getElementById('size'),
       vc = document.getElementById('toggleVCreleases'),
       vcThreshold = document.getElementById('vcThreshold');
-
-  /**
-   * Sets default values in the config object
-   *
-   * @method setDefaultConfig
-   * @return {object}
-   */
-  function setDefaultConfig() {
-
-    let defaults = {
-          indexTracks: false,
-          nth: 10,
-          otherMediaReadability: false,
-          otherMediaThreshold: 15,
-          vcReadability: true,
-          vcThreshold: 8
-        };
-
-    localStorage.setItem('readability', JSON.stringify(defaults));
-
-    return JSON.parse(localStorage.getItem('readability'));
-  }
 
   /**
    * Appends options to select elements
@@ -65,10 +44,59 @@ document.addEventListener('DOMContentLoaded', function () {
     return targetId.appendChild(fragment.cloneNode(true));
   }
 
-  // set values based on config
+  /**
+   * Updates the config object to include a `size` property
+   * for existing users who do not yet have this prop in their
+   * config object.
+   *
+   * @TODO delete this some time in the future
+   * @method insertDividerSizeProperty
+   * @return {object}
+   */
+  function insertDividerSizeProperty() {
+
+    if ( !config.size ) {
+
+      let newConfig = JSON.parse(localStorage.getItem('readability'));
+
+      newConfig.size = 0.5;
+      localStorage.setItem('readability', JSON.stringify(newConfig));
+
+      return config = JSON.parse(localStorage.getItem('readability'));
+    }
+  }
+
+  /**
+   * Sets default values in the config object
+   *
+   * @method setDefaultConfig
+   * @return {object}
+   */
+  function setDefaultConfig() {
+
+    let defaults = {
+          indexTracks: false,
+          nth: 10,
+          otherMediaReadability: false,
+          otherMediaThreshold: 15,
+          size: 0.5,
+          vcReadability: true,
+          vcThreshold: 8
+        };
+
+    localStorage.setItem('readability', JSON.stringify(defaults));
+
+    return JSON.parse(localStorage.getItem('readability'));
+  }
+
+  // Add new size property if necessary
+  insertDividerSizeProperty();
+
+  // Set values based on config
   vc.checked = config.vcReadability;
   otherMedia.checked = config.otherMediaReadability;
   indexTracks.checked = config.indexTracks;
+  size.value = config.size;
 
   addOptions(vcThreshold, 30);
   vcThreshold.value = config.vcThreshold;

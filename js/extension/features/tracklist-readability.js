@@ -49,12 +49,15 @@ $(document).ready(function() {
 
         // jQ object of all tracks on a release
         tracklist = $('.playlist tbody tr'),
-        size = 'style="line-height:0.5rem;"',
+
+        // size of dividers inserted between tracks
+        size = config.size ? `style="line-height:${config.size}rem;"` : 'style="line-height:0.5rem"',
 
         prefix = [],
         sequence = [],
         isSequential = false,
 
+        // divider markup to be injected
         display = show ? '' : 'style="display:none;"',
         spacer = `<tr class="tracklist_track track_heading de-spacer" ${size} ${display} >` +
                     '<td class="tracklist_track_pos"></td>' +
@@ -62,6 +65,7 @@ $(document).ready(function() {
                     `${duration}` +
                   '</tr>',
 
+        // title of show/hide dividers link
         trigger = show
                   ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
                   : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
