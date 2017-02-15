@@ -40,11 +40,12 @@ function appendFragment(source) {
 
 /**
  * Get the users preferences or create them if they
- * do not yet exist.
+ * do not yet exist and setup the extension with the
+ * returned preferences object.
  *
  * @method   get
  * @param    {Object} 'prefs'  [The prefs object]
- * @return   {undefined}
+ * @return   {Object}
  */
 
 chrome.storage.sync.get('prefs', function(result) {
@@ -743,7 +744,6 @@ checkForAnalytics = setInterval(function() {
 
   if (analytics) {
 
-    /* Add event listener */
     analytics.addEventListener('change', toggleAnalytics);
 
     /* Fire toggleAnalytics once #analytics exists in the DOM */
@@ -766,6 +766,8 @@ window.onload = function() {
 
 
 // ========================================================
+// - Runtime messages -
+// --------------------------------------------------------
 // Get preferences from extension side and save to DOM side.
 // ========================================================
 
@@ -778,8 +780,6 @@ try {
 
     blockList = JSON.stringify(blockList);
 
-    // Set the blocklist in localStorage so the DOM can be manipulated
-    // based on blockList's props.
     localStorage.setItem('blockList', blockList);
   });
 
@@ -790,8 +790,6 @@ try {
 
     countryPrefs = JSON.stringify(countryPrefs);
 
-    // Set the filterByCountry value in localStorage so that the DOM can
-    // be manipulated based on filterByCountry's value.
     localStorage.setItem('filterByCountry', countryPrefs);
   });
 
@@ -802,8 +800,6 @@ try {
 
     itemCondition = JSON.stringify(itemCondition);
 
-    // Set the itemCondition value in localStorage so that the DOM can
-    // be manipulated based on itemCondition's value.
     localStorage.setItem('itemCondition', itemCondition);
   });
 
@@ -814,8 +810,6 @@ try {
 
     readability = JSON.stringify(readability);
 
-    // Set the readability object in localStorage so that the DOM can
-    // be manipulated based on readability's configuration.
     localStorage.setItem('readability', readability);
   });
 
@@ -826,8 +820,6 @@ try {
 
     sellerRep = JSON.stringify(sellerRep);
 
-    // Set the sellerRep object in localStorage so that the DOM can
-    // be manipulated based on sellerRep's value.
     localStorage.setItem('sellerRep', sellerRep);
   });
 

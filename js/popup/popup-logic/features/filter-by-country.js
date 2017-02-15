@@ -63,6 +63,7 @@ export function setCountryFilterValues() {
 
   // country value
   document.getElementById('filterCountry').value = filterByCountryPrefs.country;
+
   setCountryEnabledStatus();
 }
 

@@ -37,9 +37,11 @@ $(document).ready(function() {
 
       success: function(response) {
 
-        /* Not sure if it's Chrome or Fixer.io but sometimes the response
-           is interpreted as a string and other times it's interpreted as an object.
-           So I have to check the type and then proceed accordingly.*/
+        /*
+           Fixer.io has, on occasion, not sent a content-type in the response
+           header which blows up the extension, so check the type and
+           then proceed accordingly.
+        */
 
         if (typeof response === 'string') {
 
