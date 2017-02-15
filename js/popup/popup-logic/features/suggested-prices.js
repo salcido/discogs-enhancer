@@ -2,7 +2,7 @@
  * Suggested Prices feature
  */
 
-import { applySave, fadeOut } from '../utils/utils';
+import { applySave, fadeOut } from '../utils';
 
 // ========================================================
 // getCurrency

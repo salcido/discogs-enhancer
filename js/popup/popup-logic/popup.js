@@ -8,7 +8,7 @@
  *
  */
 
-import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils/utils';
+import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterByCondition from './features/filter-by-condition.js';

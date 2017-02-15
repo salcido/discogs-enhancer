@@ -2,7 +2,7 @@
  * Media condition hightlights features
  */
 
-import { applySave } from '../utils/utils';
+import { applySave } from '../utils';
 
 // ========================================================
 // toggleMediaHighlights

@@ -2,7 +2,7 @@
  * Dark theme feature
  */
 
-import { applySave } from '../utils/utils';
+import { applySave } from '../utils';
 
 // ========================================================
 // useDarkTheme

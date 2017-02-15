@@ -18,7 +18,7 @@
        "matches": ["*://*.discogs.com/*"],
        "js": [
           "js/extension/dependencies/jquery/jquery-min.js",
-          "js/extension/background/background.js"
+          "js/extension/background.js"
         ],
        "run_at" : "document_start"
       }
@@ -30,7 +30,7 @@
      "scripts": [
         "js/extension/dependencies/runtime-messages/runtime-messages.js",
         "js/extension/features/contextual-menu-search.js",
-        "js/extension/background/background.js"
+        "js/extension/background.js"
       ]
    },
 

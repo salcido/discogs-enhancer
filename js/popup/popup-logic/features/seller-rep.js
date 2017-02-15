@@ -2,7 +2,7 @@
  * Seller Reputation feature
  */
 
-import { applySave, setEnabledStatus } from '../utils/utils';
+import { applySave, setEnabledStatus } from '../utils';
 
 // ========================================================
 // saveSellerRep

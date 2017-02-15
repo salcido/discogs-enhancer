@@ -2,7 +2,7 @@
  * Filter By Condition feature
  */
 
-import { applySave } from '../utils/utils';
+import { applySave } from '../utils';
 
 // ========================================================
 // setupFilterByCondition

@@ -2,7 +2,7 @@
  * Contextual Menus search feature
  */
 
-import { applySave } from '../utils/utils';
+import { applySave } from '../utils';
 
 // ========================================================
 // createContextualMenuElements

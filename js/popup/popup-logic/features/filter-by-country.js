@@ -2,7 +2,7 @@
  * Filter by Country feature
  */
 
-import { setEnabledStatus, applySave } from '../utils/utils';
+import { setEnabledStatus, applySave } from '../utils';
 
 // ========================================================
 // setCountryEnabledStatus
