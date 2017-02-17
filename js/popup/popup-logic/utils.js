@@ -89,11 +89,14 @@ export function applySave(message, event) {
 
     let checked = event.target.checked;
 
-    _gaq.push([
-      '_trackEvent',
-      `${event.target.id} : ${checked}`,
-      ` version: ${manifest.version} Chrome: ${chromeVer}`
-    ]);
+    if ( checked !== undefined ) {
+
+      _gaq.push([
+        '_trackEvent',
+        `${event.target.id} : ${checked}`,
+        ` version: ${manifest.version} Chrome: ${chromeVer}`
+      ]);
+    }
   }
 }
 
