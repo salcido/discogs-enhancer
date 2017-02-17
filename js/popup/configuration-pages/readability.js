@@ -124,31 +124,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('toggleVCreleases').addEventListener('click', function() {
 
-    let pref = JSON.parse(localStorage.getItem('readability'));
+    config.vcReadability = event.target.checked;
 
-    pref.vcReadability = event.target.checked;
-
-    localStorage.setItem('readability', JSON.stringify(pref));
+    localStorage.setItem('readability', JSON.stringify(config));
   });
 
   // Single CD, digital, etc ...
   document.getElementById('toggleOtherMedia').addEventListener('click', function() {
 
-    let pref = JSON.parse(localStorage.getItem('readability'));
+    config.otherMediaReadability = event.target.checked;
 
-    pref.otherMediaReadability = event.target.checked;
-
-    localStorage.setItem('readability', JSON.stringify(pref));
+    localStorage.setItem('readability', JSON.stringify(config));
   });
 
   // Classical releases
   document.getElementById('toggleIndexTracks').addEventListener('click', function() {
 
-    let pref = JSON.parse(localStorage.getItem('readability'));
+    config.indexTracks = event.target.checked;
 
-    pref.indexTracks = event.target.checked;
-
-    localStorage.setItem('readability', JSON.stringify(pref));
+    localStorage.setItem('readability', JSON.stringify(config));
   });
 
   // Value changes
@@ -156,11 +150,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     select.addEventListener('change', function(event) {
 
-      let pref = JSON.parse(localStorage.getItem('readability'));
+      config[event.target.id] = event.target.value;
 
-      pref[event.target.id] = event.target.value;
-
-      localStorage.setItem('readability', JSON.stringify(pref));
+      localStorage.setItem('readability', JSON.stringify(config));
     });
   });
 });

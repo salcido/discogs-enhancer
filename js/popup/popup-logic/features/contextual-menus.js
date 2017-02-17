@@ -19,87 +19,87 @@ export function createContextualMenuElements() {
       fragment = document.createDocumentFragment(),
       menus = [
           {
-            dataName: 'Bandcamp',
+            name: 'Bandcamp',
             fn: 'searchBandcamp',
             id: 'bandcamp'
           },
           {
-            dataName: 'Boomkat',
+            name: 'Boomkat',
             fn: 'searchBoomkat',
             id: 'boomkat'
           },
           {
-            dataName: 'Clone',
+            name: 'Clone',
             fn: 'searchClone',
             id: 'clone'
           },
           {
-            dataName: 'Decks.de',
+            name: 'Decks.de',
             fn: 'searchDecks',
             id: 'decks'
           },
           {
-            dataName: 'DeeJay',
+            name: 'DeeJay',
             fn: 'searchDeeJay',
             id: 'deejay'
           },
           {
-            dataName: 'Discogs',
+            name: 'Discogs',
             fn: 'searchDiscogs',
             id: 'discogs'
           },
           {
-            dataName: 'Gramaphone',
+            name: 'Gramaphone',
             fn: 'searchGramaphone',
             id: 'gramaphone'
           },
           {
-            dataName: 'Halcyon',
+            name: 'Halcyon',
             fn: 'searchHalcyon',
             id: 'halcyon'
           },
           {
-            dataName: 'Hardwax',
+            name: 'Hardwax',
             fn: 'searchHardwax',
             id: 'hardwax'
           },
           {
-            dataName: 'InSound',
+            name: 'InSound',
             fn: 'searchInsound',
             id: 'insound'
           },
           {
-            dataName: 'Juno',
+            name: 'Juno',
             fn: 'searchJuno',
             id: 'juno'
           },
           {
-            dataName: 'Kristina',
+            name: 'Kristina',
             fn: 'searchKristina',
             id: 'kristina'
           },
           {
-            dataName: 'Oye',
+            name: 'Oye',
             fn: 'searchOye',
             id: 'oye'
           },
           {
-            dataName: 'PBVinyl',
+            name: 'PBVinyl',
             fn: 'searchPbvinyl',
             id: 'pbvinyl'
           },
           {
-            dataName: 'Phonica',
+            name: 'Phonica',
             fn: 'searchPhonica',
             id: 'phonica'
           },
           {
-            dataName: 'SOTU',
+            name: 'SOTU',
             fn: 'searchSotu',
             id: 'sotu'
           },
           {
-            dataName: 'YouTube',
+            name: 'YouTube',
             fn: 'searchYoutube',
             id: 'youtube'
           }
@@ -118,10 +118,10 @@ export function createContextualMenuElements() {
 
     input.type = 'checkbox';
     input.id = menu.id;
-    input.dataset.name = menu.dataName;
+    input.dataset.name = menu.name;
     input.dataset.fn = menu.fn;
 
-    span.textContent = menu.dataName;
+    span.textContent = menu.name;
 
     // Assemble markup
     label.appendChild(input);
