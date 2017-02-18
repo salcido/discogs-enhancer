@@ -83,6 +83,14 @@ em {
   color: gray;
 }
 
+.seller-input {
+  width: 50%;
+  margin-top: 20px;
+  padding: 20px;
+  background: #2B2B2B;
+  border-radius: 10px;
+}
+
 .seller-input .btn,
 .restore .btn {
   margin-top: -7px;

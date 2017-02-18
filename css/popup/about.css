@@ -79,6 +79,17 @@ a:hover {
   margin: 10px auto;
 }
 
+.update-wrap {
+  margin-bottom: 50px;
+  padding-top: 10px;
+  background: #2B2B2B;
+  border-radius: 15px;
+}
+
+.update-wrap ul {
+  padding: 10px 20px 10px 42px;
+}
+
 .feature {
   margin-top: -20px;
   padding-top: 20px;
@@ -98,9 +109,10 @@ a:hover {
 }
 
 .about p.bold {
+  margin-bottom: 20px;
   /*text-transform: uppercase;*/
   padding-top: 15px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: white;
 }
@@ -346,4 +358,8 @@ span.new {
 
 .thanks li {
   margin: 0 auto;
+}
+
+#didUpdate {
+  margin-top: 10px;
 }
