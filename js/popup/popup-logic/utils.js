@@ -331,6 +331,5 @@ export function setEnabledStatus(target, status) {
  */
 
 export function triggerSave(event) {
-
   applySave('refresh', event);
 }
