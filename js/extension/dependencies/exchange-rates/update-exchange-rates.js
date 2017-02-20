@@ -23,6 +23,26 @@ $(document).ready(function() {
   // ========================================================
 
   /**
+   * Sets the default currency object values
+   *
+   * @method setUpdateRatesObj
+   * @return {object}
+   */
+  function setUpdateRatesObj() {
+
+    let obj = {
+      currency: null,
+      rates: null
+    };
+
+    // Save it...
+    resourceLibrary.setItem('updateRatesObj', obj);
+
+    // Get it again because reasons
+    return resourceLibrary.getItem('updateRatesObj');
+  }
+
+  /**
    * Updates the exchange rates from Fixer.io
    *
    * @method updateRates
@@ -78,26 +98,6 @@ $(document).ready(function() {
     });
   }
 
-  /**
-   * Sets the default currency object values
-   *
-   * @method setUpdateRatesObj
-   * @return {object}
-   */
-  function setUpdateRatesObj() {
-
-    let obj = {
-      currency: null,
-      rates: null
-    };
-
-    // Save it...
-    resourceLibrary.setItem('updateRatesObj', obj);
-
-    // Get it again because reasons
-    return resourceLibrary.getItem('updateRatesObj');
-  }
-
   // ========================================================
   // Update functionality
   // ========================================================
@@ -113,7 +113,6 @@ $(document).ready(function() {
       localStorage.removeItem('updateRatesObj');
       updateRatesObj = setUpdateRatesObj();
       updateRates();
-
       break;
 
     // Data is stale or user has changed currency
@@ -131,7 +130,6 @@ $(document).ready(function() {
       }
 
       updateRates();
-
       break;
 
   default:
