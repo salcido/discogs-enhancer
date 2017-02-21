@@ -9,7 +9,6 @@ let extensions = setInterval(function() {
      *
      * @return {number}
      */
-
     getCursorPosition: function () {
 
       let el = $(this)[0],
@@ -28,7 +27,6 @@ let extensions = setInterval(function() {
      *
      * @return   {string}
      */
-
     getSelectedText: function() {
 
       let sSelectedText = '';
@@ -53,7 +51,6 @@ let extensions = setInterval(function() {
      * @param    {string} end   [The end position]
      * @return   {method}
      */
-
     selectRange: function(start, end) {
 
       if (end === undefined) {
@@ -79,7 +76,6 @@ let extensions = setInterval(function() {
   // jQuery just will not reliably extend and I'm not sure why. So, keep executing this
   // script until the prototype contains these new methods.
   if (!!$.prototype.getCursorPosition && !!$.prototype.getSelectedText) {
-
     clearInterval(extensions);
   }
 }, 300);
