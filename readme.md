@@ -8,7 +8,7 @@
 
 #### Installation
 
-* `git clone https://github.com/salcido/Discogs-Enhancer.git` this repository
+* `git clone https://github.com/salcido/Discogs-Enhancer.git` (this repository)
 * change into the new directory
 * `npm install`
 
