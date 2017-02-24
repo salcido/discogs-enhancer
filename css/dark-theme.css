@@ -620,6 +620,7 @@ a.inset_button[disabled] {
 
 #site_header .button_green.button,
 .button.button_green,
+#login button,
 .inline_buttons.no_offer a.button.button_green,
 .bulk_actions_submit input,
 .button.button_green span {
@@ -644,6 +645,7 @@ a.inset_button[disabled] {
 
 a.button.button_facebook_login span,
 .button.button_blue,
+a.button.blue,
 .button.button_blue span {
   background-color: #4588C4 !important;
   border-color: #3571A6 !important;
@@ -1750,4 +1752,20 @@ label#thresholdLabel {
 /* https://www.discogs.com/release/6265588-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/history#latest */
 .data span.alert-message-text {
   color: #CCCCCC !important;
+}
+
+/* Login Screen */
+#content {
+  background: #454545 !important;
+}
+
+a.button.red {
+  background: #bf3a38 !important;
+  border-color: #982e2c !important;
+}
+
+a.button.red span,
+i.icon-facebook,
+i.icon-google-plus {
+  color: white !important;
 }
