@@ -9,6 +9,7 @@ h2,
 p.header {
   display: block;
   margin-right: 5px;
+  padding-left: 20px;
   font-family: "Arial", sans-serif;
   font-size: 16px;
   font-weight: bold;
@@ -28,6 +29,10 @@ p {
 em {
   font-weight: bold;
   color: white;
+}
+
+.content p {
+  padding-left: 20px;
 }
 
 .header-wrap {
@@ -101,6 +106,10 @@ em {
 .restore-input {
   margin-top: 5px;
   font-size: 20px;
+}
+
+.seller-input p {
+  padding-left: 0;
 }
 
 .errors {
@@ -184,6 +193,10 @@ em {
 
 .restore .btn {
   margin-top: 0;
+}
+
+.restore input {
+  margin-left: 20px;
 }
 
 .restore-errors-output {
