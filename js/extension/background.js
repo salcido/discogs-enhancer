@@ -57,6 +57,7 @@ chrome.storage.sync.get('prefs', function(result) {
       collectionUi: true,
       converter: true,
       darkTheme: false,
+      everlastingLabels: true,
       everlastingMarket: true,
       feedback: true,
       filterByCountry: false,
@@ -214,6 +215,27 @@ chrome.storage.sync.get('prefs', function(result) {
     options.className = 'de-init';
 
     elems.push(options);
+  }
+
+  if (result.prefs.everlastingLabels) {
+
+    // everlasting-marketplace.js
+    let everlastingLabels = document.createElement('script');
+
+    everlastingLabels.type = 'text/javascript';
+    everlastingLabels.src = chrome.extension.getURL('js/extension/features/everlasting-labels.js');
+    everlastingLabels.className = 'de-init';
+
+    elems.push(everlastingLabels);
+
+    // everlasting-marketplace.css
+    let everlastingLabelCss = document.createElement('link');
+
+    everlastingLabelCss.rel = 'stylesheet';
+    everlastingLabelCss.type = 'text/css';
+    everlastingLabelCss.href = chrome.extension.getURL('css/everlasting-labels.css');
+
+    elems.push(everlastingLabelCss);
   }
 
   if (result.prefs.everlastingMarket) {

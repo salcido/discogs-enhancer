@@ -7,7 +7,7 @@
  * @github: https://github.com/salcido
  *
  */
-// @TODO
+
 $(document).ready(function() {
 
   let
@@ -24,8 +24,7 @@ $(document).ready(function() {
                       '</div>';
 
   /**
-   * Extracts the label info and any query params
-   * from the href
+   * Extracts the label info and any query params from the href
    * @param {string} url
    * @return {undefined}
    */
@@ -114,7 +113,7 @@ $(document).ready(function() {
                           '</div>' +
                         '</div>';
 
-    // Everlasting Marketplace add/remove filters bar
+    // Everlasting labels add/remove filters bar
     $('body').append(filterUpdateLink);
 
     // delete pagination related elements
@@ -123,7 +122,7 @@ $(document).ready(function() {
 
     summonKurtLoader();
 
-    // Scroll the browser up to the top so the user can change Marketplace filters
+    // Scroll the browser up to the top so the user can change label result filters
     $('body').on('click', '#de-update-filters', function(event) {
 
       event.preventDefault();
@@ -192,14 +191,14 @@ $(document).ready(function() {
 
               $('#de-next').remove();
 
-              $('#label_wrap .section_content').append('<h1 class="de-no-results">No more items for sale found</h1>');
+              $('#label_wrap .section_content').append('<h1 class="de-no-results">End of label releases.</h1>');
             }
         },
 
         error: function() {
 
           $('#de-next').remove();
-          $('#label_wrap .section_content').append('<h1 class="de-no-results">No more releases found.</h1>');
+          $('#label_wrap .section_content').append('<h1 class="de-no-results">End of label releases.</h1>');
         }
       });
     }
@@ -208,6 +207,7 @@ $(document).ready(function() {
     $(document).on('scroll', window, function() {
 
       let kurtLoader = document.getElementById('de-next'),
+          currentPage = document.getElementsByClassName('de-current-page'),
           everlasting = $('.de-page-bar'),
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
@@ -232,7 +232,27 @@ $(document).ready(function() {
           everlasting.animate({ top: '0px' });
         }
       }
+
+      if (currentPage && currentPage.length > 0) {
+
+        for (let i = 0; i < pageNum; i++) {
+
+          try {
+
+            if (resourceLibrary.isOnScreen(currentPage[i])) {
+
+              pageIndicator.textContent = currentPage[i].textContent;
+            }
+          } catch (e) {
+            // I'm just here so I don't throw errors
+          }
+        }
+      }
     });
+
+    // ========================================================
+    // UI Events
+    // ========================================================
 
     // scroll to page section select box functionality
     $('.de-scroll-to-page').on('change', function(event) {
@@ -251,6 +271,51 @@ $(document).ready(function() {
           $('body, html').animate( {scrollTop:$(targetId).position().top}, 300 );
         }
       }
+    });
+
+    // Pause/resume Everlasting labels
+    $('body').on('click', '.de-pause', function(event) {
+
+      let target = event.target;
+
+      // Paused
+      if ( $(target).hasClass('icon-pause') ) {
+
+        $(target).parent().html('<i class="icon icon-play" title="Resume Everlasting labels"></i>');
+
+        $('#de-next .icon-spinner').hide();
+
+        $('.de-next-text').html('<p>Everlasting labels is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>');
+
+        paused = true;
+
+      // Resume
+      } else {
+
+        $(target).parent().html('<i class="icon icon-pause" title="Pause Everlasting labels"></i>');
+
+        $('#de-next .icon-spinner').show();
+
+        $('.de-next-text').text('Loading next page...');
+
+        paused = false;
+      }
+    });
+
+    // Resume loading shortcut
+    $('body').on('click', '.de-resume', function(event) {
+
+      event.preventDefault();
+
+      $('.icon-play').parent().html('<i class="icon icon-pause" title="Pause Everlasting labels"></i>');
+
+      $('#de-next .icon-spinner').show();
+
+      $('.de-next-text').text('Loading next page...');
+
+      paused = false;
+
+      return getNextPage();
     });
   }
 });
