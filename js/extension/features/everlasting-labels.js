@@ -26,21 +26,21 @@ $(document).ready(function() {
   /**
    * Extracts the label info and any query params
    * from the href
-   * @param {string} href
+   * @param {string} url
    * @return {undefined}
    */
-  function extractLabelName(href) {
+  function extractLabelName(url) {
 
-    href = href.split('/label/');
+    url = url.split('/label/');
 
-    if (href[1].includes('?')) {
+    if (url[1].includes('?')) {
 
-      let label = href[1].split('?');
+      let label = url[1].split('?');
 
-      return { label: label[0], params: '&' + resourceLibrary.removePageParam(href[1]) }
+      return { label: label[0], params: '&' + resourceLibrary.removePageParam(url[1]) };
     }
 
-    return { label: href[1], params: '' }
+    return { label: url[1], params: '' };
   }
 
   /**
@@ -59,6 +59,8 @@ $(document).ready(function() {
   if (href.includes('/label/')) {
 
     let page = extractLabelName(href),
+        filterUpdateLink,
+        pTotal,
         language = resourceLibrary.language();
 
     pagination = document.getElementsByClassName('pagination_total')[0].textContent;
@@ -107,7 +109,7 @@ $(document).ready(function() {
                                 '<option value="1">Page: 1</option>' +
                               '</select>' +
                             '<span class="de-pause">' +
-                              '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>' +
+                              '<i class="icon icon-pause" title="Pause Everlasting labels"></i>' +
                             '</span>' +
                           '</div>' +
                         '</div>';
