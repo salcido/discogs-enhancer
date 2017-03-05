@@ -55,6 +55,10 @@ $(document).ready(function() {
     }
   }
 
+  // ========================================================
+  // DOM Manipulation
+  // ========================================================
+
   if (href.includes('/label/')) {
 
     let page = extractLabelName(href),
@@ -66,6 +70,7 @@ $(document).ready(function() {
 
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
+    // TODO move this to resourceLibrary
     switch (true) {
 
       // German
@@ -112,6 +117,9 @@ $(document).ready(function() {
                             '</span>' +
                           '</div>' +
                         '</div>';
+
+    // Don't do anything if there are fewer releases than the default number to show
+    if (pTotal <= Number(document.getElementById('limit_top').value)) { return; }
 
     // Everlasting labels add/remove filters bar
     $('body').append(filterUpdateLink);
@@ -233,6 +241,7 @@ $(document).ready(function() {
         }
       }
 
+      // Update the current page number in the Everlasting label top bar when scrolling
       if (currentPage && currentPage.length > 0) {
 
         for (let i = 0; i < pageNum; i++) {
@@ -251,7 +260,7 @@ $(document).ready(function() {
     });
 
     // ========================================================
-    // UI Events
+    // UI Event listeners
     // ========================================================
 
     // scroll to page section select box functionality
