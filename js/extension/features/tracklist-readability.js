@@ -30,7 +30,13 @@ $(document).ready(function() {
   if ( document.location.href.includes('/release/') && !document.location.href.includes('/history') ) {
 
     let
-        config = JSON.parse(localStorage.getItem('readability')),
+        config = JSON.parse(localStorage.getItem('readability')) || { indexTracks: false,
+                                                                      nth: 10,
+                                                                      otherMediaReadability: false,
+                                                                      otherMediaThreshold: 15,
+                                                                      size: 0.5,
+                                                                      vcReadability: true,
+                                                                      vcThreshold: 8 },
         show = JSON.parse(localStorage.getItem('readabilityDividers')) || setReadabilityTrue(),
 
         debug = resourceLibrary.options.debug(),
