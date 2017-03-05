@@ -30,11 +30,11 @@
 
 ### A Web Extension for Chrome
 
-Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose only the features you want to use.
+Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose the features you want to use.
 
 ### Block Sellers
 
-Tag or completely hide any seller in the Marketplace.
+Tag or hide any seller in the Marketplace.
 
 ### Compare Suggested Prices
 
@@ -46,7 +46,7 @@ Search Discogs and other online shops instantly with any highlighted text! Curre
 
 ### Quick Currency Converter
 
-Quickly convert between all the currencies Discogs supports — and Rubles (₽) too!
+Convert between all the currencies Discogs supports — and Rubles (₽) too!
 
 
 ### Dark Theme
