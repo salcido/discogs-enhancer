@@ -241,7 +241,7 @@ $(document).ready(function() {
         }
       }
 
-      // Update the current page number in the Everlasting label top bar when scrolling
+      // Update the currently viewed page number in the Everlasting label top bar when scrolling
       if (currentPage && currentPage.length > 0) {
 
         for (let i = 0; i < pageNum; i++) {
