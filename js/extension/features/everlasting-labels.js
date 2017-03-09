@@ -42,6 +42,11 @@ $(document).ready(function() {
     return { label: url[1], params: '' };
   }
 
+  function releaseVersions(event) {
+
+    console.log($(event.target).parent().parent().data('shadowcat'));
+  }
+
   /**
    * Summons Kurt upon request
    * @method summonKurtLoader
@@ -194,6 +199,11 @@ $(document).ready(function() {
               summonKurtLoader();
               pageNum++;
               hasLoaded = false;
+
+              [...document.querySelectorAll('.mr_toggler')].forEach(btn => {
+
+                btn.addEventListener('click', releaseVersions);
+              });
 
             } else {
 
