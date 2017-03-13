@@ -51,7 +51,7 @@ window.addEventListener('load', function load() {
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
-      toggleEverlastingLabels = document.getElementById('toggleEverlastingLabels'),
+      //toggleEverlastingLabels = document.getElementById('toggleEverlastingLabels'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
@@ -183,7 +183,7 @@ window.addEventListener('load', function load() {
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
-  toggleEverlastingLabels.addEventListener('change', triggerSave);
+  //toggleEverlastingLabels.addEventListener('change', triggerSave);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
@@ -238,7 +238,7 @@ window.addEventListener('load', function load() {
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
-      toggleEverlastingLabels.checked = result.prefs.everlastingLabels;
+      //toggleEverlastingLabels.checked = result.prefs.everlastingLabels;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;

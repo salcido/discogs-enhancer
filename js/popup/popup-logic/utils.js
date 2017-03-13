@@ -35,7 +35,7 @@ export function applySave(message, event) {
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
-        everlastingLabels: document.getElementById('toggleEverlastingLabels').checked,
+        //everlastingLabels: document.getElementById('toggleEverlastingLabels').checked,
         everlastingMarket: document.getElementById('toggleEverlastingMarket').checked,
         feedback: document.getElementById('toggleFeedback').checked,
         filterByCountry: document.getElementById('toggleFilterByCountry').checked,
