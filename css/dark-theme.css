@@ -1760,12 +1760,38 @@ label#thresholdLabel {
 }
 
 a.button.red {
-  background: #bf3a38 !important;
-  border-color: #982e2c !important;
+  background: #BF3A38 !important;
+  border-color: #982E2C !important;
 }
 
 a.button.red span,
 i.icon-facebook,
 i.icon-google-plus {
   color: white !important;
+}
+
+/* Data Quality chart on artist pages*/
+
+.data_quality_list .data_quality_meter {
+  background: #454545 !important;
+}
+
+.data_quality.correct {
+  background: #8AB87A !important;
+}
+
+.data_quality.nmajc {
+  background: #B8857A !important;
+}
+
+.data_quality.nminc {
+  background: #B8A87A !important;
+}
+
+.data_quality.new {
+  background: #B8A87A !important;
+}
+
+.data_quality.edit {
+  background: #7A99B8 !important;
 }
