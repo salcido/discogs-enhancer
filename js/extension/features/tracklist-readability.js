@@ -57,15 +57,15 @@ $(document).ready(function() {
         tracklist = $('.playlist tbody tr'),
 
         // size of dividers inserted between tracks
-        size = config.size ? `style="line-height:${config.size}rem;"` : 'style="line-height:0.5rem"',
+        size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
 
         prefix = [],
         sequence = [],
         isSequential = false,
 
         // divider markup to be injected
-        display = show ? '' : 'style="display:none;"',
-        spacer = `<tr class="tracklist_track track_heading de-spacer" ${size} ${display} >` +
+        display = show ? '' : 'display:none;',
+        spacer = `<tr class="tracklist_track track_heading de-spacer" style="${size} ${display}">` +
                     '<td class="tracklist_track_pos"></td>' +
                     '<td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
                     `${duration}` +
@@ -75,7 +75,6 @@ $(document).ready(function() {
         trigger = show
                   ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
                   : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
-
 
     // ========================================================
     // Functions
