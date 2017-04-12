@@ -19,12 +19,13 @@ $(document).ready(function() {
 
   let
       artistHistory = /\/artist\//g,
+      labelHistory = /\/label\//g,
       loc = window.location.href,
       releaseHistory = /\/release\//g;
 
-  if (artistHistory.test(loc) || releaseHistory.test(loc)) {
+  if (artistHistory.test(loc) || releaseHistory.test(loc) || labelHistory.test(loc)) {
 
-    setTimeout(function() {
+    setTimeout(() => {
 
       $('td[bgcolor="#ffaaaa"]').attr('style', 'color: #ffaaaa !important');
 
