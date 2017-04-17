@@ -250,7 +250,8 @@ mark {
   border-bottom: 1px solid #1F1F1F !important;
 }
 
-.order-user-address {
+.order-user-address,
+.user-shipping-address {
   border-left: 4px solid #858585 !important;
 }
 
@@ -1477,6 +1478,7 @@ div.react-modal,
 .orders-user-tooltip,
 .action_menu,
 .releasePreview.push_down,
+.user-details-tooltip,
 ul.dropdown-button-options {
   background-color: #323334 !important;
   border: 2px solid white !important;
