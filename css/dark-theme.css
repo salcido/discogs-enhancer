@@ -1797,3 +1797,8 @@ i.icon-google-plus {
 .data_quality.edit {
   background: #7A99B8 !important;
 }
+
+/* Offers page user address popup */
+.user-details-tooltip.ui-dialog-arrow.ui-dialog-arrow-bottom-right::after {
+  border: #434343 !important;
+}
