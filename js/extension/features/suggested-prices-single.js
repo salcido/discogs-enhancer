@@ -19,7 +19,7 @@ $(document).ready(function() {
       allItems = loc.indexOf('/sell/list'),
       seller = loc.indexOf('/seller/');
 
-  if (wantlist > -1 || allItems > -1 || seller > -1) {
+  if ( wantlist > -1 || allItems > -1 || seller > -1 ) {
 
     let
         nodeId,
@@ -151,7 +151,7 @@ $(document).ready(function() {
             }
 
           // More than suggested
-          } else if (percentage < -threshold) {
+          } else if ( percentage < -threshold ) {
 
             difference = (actual - suggested).toFixed(2);
 

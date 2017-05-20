@@ -56,7 +56,7 @@ $(document).ready(function() {
     }
 
     // inject markup if necessary
-    if (hasTextarea && !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText) {
+    if ( hasTextarea && !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText ) {
 
       let selected = '',
           markup = '<div class="quick-menu">' +

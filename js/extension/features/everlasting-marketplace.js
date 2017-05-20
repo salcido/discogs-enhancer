@@ -29,26 +29,26 @@ $(document).ready(function() {
 
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
-    switch (true) {
+    switch (language) {
 
       // German
-      case language === 'de':
+      case 'de':
         pTotal = pagination.split('von')[1];
         break;
 
       // Italian
-      case language === 'it':
+      case 'it':
         pTotal = pagination.split('di')[1];
         break;
 
       // Spanish and French
-      case language === 'es':
-      case language === 'fr':
+      case 'es':
+      case 'fr':
         pTotal = pagination.split('de')[1];
         break;
 
       // Japanese
-      case language === 'ja':
+      case 'ja':
         pTotal = pagination.split('中')[0];
         break;
 
@@ -80,7 +80,7 @@ $(document).ready(function() {
     $('body').append(filterUpdateLink);
 
     // append preloader to bottom
-    if (!document.getElementById('de-next')) {
+    if ( !document.getElementById('de-next') ) {
 
       let loaderMarkup = '<div id="de-next" class="offers_box" >' +
                             '<div class="de-next-text"> ' +
@@ -113,7 +113,7 @@ $(document).ready(function() {
           type = href.includes('/sell/mywants') ? 'mywants' : 'list';
 
       $.ajax({
-        url: '/sell/' + type + '?page=' + (Number(pageNum)) + resourceLibrary.removePageParam(href),
+        url: '/sell/' + type + '?page=' + Number(pageNum) + resourceLibrary.removePageParam(href),
         type: 'GET',
         success: function(res) {
 

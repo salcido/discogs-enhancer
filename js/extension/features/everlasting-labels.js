@@ -76,26 +76,26 @@ $(document).ready(function() {
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
     // TODO move this to resourceLibrary
-    switch (true) {
+    switch (language) {
 
       // German
-      case language === 'de':
+      case 'de':
         pTotal = pagination.split('von')[1];
         break;
 
           // Italian
-      case language === 'it':
+      case 'it':
         pTotal = pagination.split('di')[1];
         break;
 
           // Spanish and French
-      case language === 'es':
-      case language === 'fr':
+      case 'es':
+      case 'fr':
         pTotal = pagination.split('de')[1];
         break;
 
           // Japanese
-      case language === 'ja':
+      case 'ja':
         pTotal = pagination.split('中')[0];
         break;
 
