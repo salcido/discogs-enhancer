@@ -12,10 +12,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
   let fn = window[msg.fn];
 
-  switch (true) {
+  switch (msg.request) {
 
     // contextual menu
-    case msg.request === 'updateContextMenu':
+    case 'updateContextMenu':
 
       if (msg.method === 'create') {
 
@@ -33,14 +33,14 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // analytics
-    case msg.request === 'analytics':
+    case 'analytics':
 
       if (msg.enabled) {
 
         localStorage.setItem('analytics', 'true');
         sendResponse({enabled: true});
 
-      } else if (!msg.enabled) {
+      } else {
 
         localStorage.setItem('analytics', 'false');
         sendResponse({enabled: false});
@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // block sellers
-    case msg.request === 'getBlockedSellers':
+    case 'getBlockedSellers':
 
       let blockList = JSON.parse(localStorage.getItem('blockList'));
 
@@ -56,7 +56,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // filter by country
-    case msg.request === 'filterByCountry':
+    case 'filterByCountry':
 
       let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
 
@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // filter by conditions
-    case msg.request === 'getHideItems':
+    case 'getHideItems':
 
       let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
 
@@ -72,7 +72,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // Readability
-    case msg.request === 'getReadability':
+    case 'getReadability':
 
       let readability = JSON.parse(localStorage.getItem('readability'));
 
@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // Seller Rep
-    case msg.request === 'getSellerRep':
+    case 'getSellerRep':
 
       let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
 
