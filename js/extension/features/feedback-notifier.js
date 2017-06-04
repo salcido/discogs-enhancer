@@ -20,6 +20,10 @@ $(document).ready(function() {
       //user = 'recordsale-de',
       waitTime = (1000 * 60) * 2; // 2 mins
 
+  // ========================================================
+  // Functions
+  // ========================================================
+
   /**
    * Appends badges to menu bar
    *
@@ -446,12 +450,9 @@ $(document).ready(function() {
     appendBadge('buyer');
   }
 
-
-  /*
-
-  Poll for changes
-
-  */
+  // ========================================================
+  // Poll for changes
+  // ========================================================
 
   feedbackObj = resourceLibrary.getItem('feedbackObj');
 
@@ -543,12 +544,14 @@ $(document).ready(function() {
     });
   }
 
-  /**
-   * UI Functionality
-   */
+  // UI Functionality
+  // ---------------------------------------------------------------------------
+
   function bindUi() {
 
-    /* Save viewed states and clear notifications */
+    // ========================================================
+    // Clear notifications and save "viewed" states
+    // ========================================================
     $('body').on('click', '.de-buyer-feedback, .de-seller-feedback', function() {
 
       let
@@ -556,15 +559,7 @@ $(document).ready(function() {
           type,
           obj;
 
-      if (elemClass === 'nav_group_control de-buyer-feedback') {
-
-        type = 'buyer';
-      }
-
-      if (elemClass === 'nav_group_control de-seller-feedback') {
-
-        type = 'seller';
-      }
+      type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
 
       obj = resourceLibrary.getItem('feedbackObj')[type];
 
@@ -573,24 +568,19 @@ $(document).ready(function() {
       return $(this).parent().hide();
     });
 
-    /* Menu interactions */
+    // ========================================================
+    // Menu interactions
+    // ========================================================
     $('body').on('click', '.pos-reviews, .neu-reviews, .neg-reviews', function() {
 
       let
           elem = this.className,
           id = $(this).parent().parent().attr('id'),
           obj,
+          queryParam,
           type;
 
-      if (id === 'de-seller-feedback') {
-
-        type = 'seller';
-      }
-
-      if (id === 'de-buyer-feedback') {
-
-        type = 'buyer';
-      }
+      type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
 
       obj = resourceLibrary.getItem('feedbackObj')[type];
 
@@ -598,27 +588,28 @@ $(document).ready(function() {
 
         case 'pos-reviews':
 
-          clearNotification(type, obj);
-
-          /*
-             These hrefs are declared here because I need to be able to update
-             the object props before the transition. Don't try to pass them into the
-             appendBadge markup. It won't work.
-          */
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Positive';
+          queryParam = '?show=Positive';
+          break;
 
         case 'neu-reviews':
 
-          clearNotification(type, obj);
-
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Neutral';
+          queryParam = '?show=Neutral';
+          break;
 
         case 'neg-reviews last':
 
-          clearNotification(type, obj);
-
-          return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + '?show=Negative';
+          queryParam = '?show=Negative';
+          break;
       }
+
+      clearNotification(type, obj);
+
+      /*
+         The href is declared here because I need to be able to update
+         the object props before the transition. Don't try to pass them into the
+         appendBadge markup. It won't work.
+      */
+      return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + queryParam;
     });
   }
 });
