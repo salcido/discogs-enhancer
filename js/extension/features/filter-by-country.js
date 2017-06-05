@@ -17,8 +17,15 @@ $(document).ready(function() {
       enabled = false,
       prefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
-  // add to window object so it can be called by other features in
-  // the extension
+
+  /**
+   * add to window object so it can be called by other features in
+   * the extension
+   *
+   * @method filterByCountry
+   * @return {undefined}
+   */
+
   window.filterByCountry = function filterByCountry() {
 
     let listings = $('.seller_info ul li:nth-child(3)'),
@@ -37,7 +44,11 @@ $(document).ready(function() {
     }
   };
 
-  // Make sure the user is in the marketplace before doing all this shit
+  // ========================================================
+  // DOM manipulation
+  // ========================================================
+
+  // Make sure the user is in the marketplace before doing all this stuff
   if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
 
     // if the current url has `currency` as a query param...
@@ -53,8 +64,8 @@ $(document).ready(function() {
           // if the user has a prefs object and the query param for currency matches
           // the value set in the extension's popup set `enabled` to `true`. This seems
           // a round about way of doing things but I did it this way so that all these
-          // if-statements only have to be checked once. Afterwards, only the `enabled`
-          // boolean value determins when filterByCountry() runs
+          // if-statements only have to be checked once when using Everlasting Earketplace.
+          // Afterwards, only the `enabled`boolean value determins when filterByCountry() runs
           if (prefs && prefs.country && prefs.currency && currency === prefs.currency) {
 
             enabled = true;
