@@ -106,7 +106,11 @@ $(document).ready(function() {
       $('body, html').animate({scrollTop: 0}, 300);
     });
 
-    // grab next set of items
+    /**
+     * Grabs the next set of items
+     * @method   getNextPage
+     * @return   {undefined}
+     */
     function getNextPage() {
 
       let selectBox = $('.de-scroll-to-page'),
@@ -192,6 +196,10 @@ $(document).ready(function() {
       });
     }
 
+    // ========================================================
+    // UI Functionalty
+    // ========================================================
+
     // Pause/resume Everlasting Marketplace
     $('body').on('click', '.de-pause', function(event) {
 
@@ -256,13 +264,10 @@ $(document).ready(function() {
       }
     });
 
-    /**
-     *
-     * And we're scrolling....
-     *
-     */
+    // ========================================================
+    // Scrolling Functionality
+    // ========================================================
 
-    // draxx them sklounst
     $(document).on('scroll', window, function() {
 
       let
