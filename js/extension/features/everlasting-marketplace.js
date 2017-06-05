@@ -277,7 +277,7 @@ $(document).ready(function() {
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
-      if (resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused) {
+      if ( resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused ) {
 
         hasLoaded = true;
 
@@ -285,7 +285,7 @@ $(document).ready(function() {
       }
 
       // hide the page bar if at top of screen
-      if (resourceLibrary.isOnScreen(siteHeader)) {
+      if ( resourceLibrary.isOnScreen(siteHeader) ) {
 
         everlasting.animate({top: '-35px'});
 
@@ -305,11 +305,11 @@ $(document).ready(function() {
       // you're looking at it.
       if (currentPage && currentPage.length > 0) {
 
-        for (let i = 0; i < pageNum; i++) {
+        for ( let i = 0; i < pageNum; i++ ) {
 
           try {
 
-            if (resourceLibrary.isOnScreen(currentPage[i])) {
+            if ( resourceLibrary.isOnScreen(currentPage[i]) ) {
 
               pageIndicator.textContent = currentPage[i].textContent;
             }
