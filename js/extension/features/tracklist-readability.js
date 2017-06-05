@@ -308,13 +308,13 @@ $(document).ready(function() {
       // Determine any common CD prefixes in the track positions
       for ( let i = 0; i < trackpos.length; i++ ) {
 
-        if (trackpos[i].indexOf('-') > -1 ||
-            trackpos[i].indexOf('.') > -1 ||
-            trackpos[i].indexOf('CD') > -1 ||
-            trackpos[i].indexOf('LP') > -1 ||
-            trackpos[i].indexOf('BD') > -1 ||
-            trackpos[i].indexOf('VHS') > -1 ||
-            trackpos[i].indexOf('DVD') > -1) {
+        if ( trackpos[i].includes('-') ||
+             trackpos[i].includes('.') ||
+             trackpos[i].includes('CD') ||
+             trackpos[i].includes('LP') ||
+             trackpos[i].includes('BD') ||
+             trackpos[i].includes('VHS') ||
+             trackpos[i].includes('DVD') ) {
 
           prefixes = true;
         }
