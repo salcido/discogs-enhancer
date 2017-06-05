@@ -10,7 +10,7 @@
 
 $(document).ready(function() {
 
-  if ($('table.playlist').length && !document.location.href.includes('/history')) {
+  if ( $('table.playlist').length && !document.location.href.includes('/history') ) {
 
     let
         arr = [],
@@ -21,8 +21,7 @@ $(document).ready(function() {
         result = '',
         resultMinutes,
         seconds,
-        totalSeconds,
-        tracksInSeconds;
+        totalSeconds;
 
     // Grab all track times from any Index Tracks in the tracklisting
     // and add them to the array.
@@ -87,15 +86,16 @@ $(document).ready(function() {
       }
     });
 
+
     function convertToSeconds(str) {
 
       let p = str.split(':'),
           sec = 0,
           min = 1;
 
-      while (p.length > 0) {
+      while ( p.length > 0 ) {
 
-        sec += min * parseInt(p.pop(), 10);
+        sec += min * Number(p.pop());
 
         min *= 60;
       }
@@ -103,14 +103,8 @@ $(document).ready(function() {
       return sec;
     }
 
-    // Make a new array with our converted values
-    tracksInSeconds = arr.map(convertToSeconds);
-
-    // Draxx them sklounst
-    totalSeconds = tracksInSeconds.reduce(function(curr, next) {
-
-      return curr + next;
-    });
+    // Calculate total seconds
+    totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
 
     // calculate hours...
     hours = parseInt(totalSeconds / 3600, 10) % 24;
