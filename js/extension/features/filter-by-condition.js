@@ -18,7 +18,13 @@ $(document).ready(function() {
       sellRelease = /sell\/release/g,
       wantsPage = /sell\/mywants/g;
 
-  // Find all instances of selected items in list and hide them
+
+  /**
+   * Find all instances of selected items in list and hide them
+   * @method hideItems
+   * @return {undefined}
+   */
+
   window.hideItems = function hideItems() {
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
@@ -68,6 +74,10 @@ $(document).ready(function() {
       return;
     }
   };
+
+  // ========================================================
+  // DOM manipulation
+  // ========================================================
 
   if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
 
