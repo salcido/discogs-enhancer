@@ -79,6 +79,7 @@ $(document).ready(function() {
     // ========================================================
     // Functions
     // ========================================================
+
     /**
      * Sets default value for readabilityDividers
      *
