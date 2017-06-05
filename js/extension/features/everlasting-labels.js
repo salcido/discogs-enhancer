@@ -25,6 +25,7 @@ $(document).ready(function() {
 
   /**
    * Extracts the label info and any query params from the href
+   *
    * @param {string} url
    * @return {undefined}
    */
@@ -49,6 +50,7 @@ $(document).ready(function() {
 
   /**
    * Summons Kurt upon request
+   *
    * @method summonKurtLoader
    * @returns {undefined}
    */
@@ -64,7 +66,7 @@ $(document).ready(function() {
   // DOM Manipulation
   // ========================================================
 
-  if (href.includes('/label/')) {
+  if ( href.includes('/label/') ) {
 
     let page = extractLabelName(href),
         filterUpdateLink,
@@ -124,7 +126,7 @@ $(document).ready(function() {
                         '</div>';
 
     // Don't do anything if there are fewer releases than the default number to show
-    if (pTotal <= Number(document.getElementById('limit_top').value)) { return; }
+    if ( pTotal <= Number(document.getElementById('limit_top').value) ) { return; }
 
     // Everlasting labels add/remove filters bar
     $('body').append(filterUpdateLink);
@@ -230,7 +232,7 @@ $(document).ready(function() {
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
-      if (resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused) {
+      if ( resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused ) {
 
         hasLoaded = true;
         return getNextPage();
@@ -245,20 +247,20 @@ $(document).ready(function() {
 
       } else {
 
-        if (!resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30) {
+        if ( !resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30 ) {
 
           everlasting.animate({ top: '0px' });
         }
       }
 
       // Update the currently viewed page number in the Everlasting label top bar when scrolling
-      if (currentPage && currentPage.length > 0) {
+      if ( currentPage && currentPage.length > 0 ) {
 
         for (let i = 0; i < pageNum; i++) {
 
           try {
 
-            if (resourceLibrary.isOnScreen(currentPage[i])) {
+            if ( resourceLibrary.isOnScreen(currentPage[i]) ) {
 
               pageIndicator.textContent = currentPage[i].textContent;
             }
