@@ -15,11 +15,11 @@ $(document).ready(function() {
 
   let
       loc = window.location.href,
-      wantlist = loc.indexOf('/sell/mywants'),
-      allItems = loc.indexOf('/sell/list'),
-      seller = loc.indexOf('/seller/');
+      wantlist = loc.includes('/sell/mywants'),
+      allItems = loc.includes('/sell/list'),
+      seller = loc.includes('/seller/');
 
-  if ( wantlist > -1 || allItems > -1 || seller > -1 ) {
+  if ( wantlist || allItems || seller ) {
 
     let
         nodeId,
@@ -77,9 +77,7 @@ $(document).ready(function() {
       $.ajax({
 
         url:'https://www.discogs.com/sell/post/' + releaseId,
-
         type: 'GET',
-
         dataType: 'html',
 
         success: function(response) {
@@ -125,7 +123,7 @@ $(document).ready(function() {
           }
 
           // No data from Discogs
-          if (!isFinite(percentage)) {
+          if ( !isFinite(percentage) ) {
 
             $(target).append('<span class="converted_price de-price" ' + border + '">' + resourceLibrary.css.noData + '<span style="color:' + color + '!important; font-weight:bold;">');
 
@@ -133,7 +131,7 @@ $(document).ready(function() {
           }
 
           // Less than suggested
-          if (percentage > threshold) {
+          if ( percentage > threshold ) {
 
             difference = (suggested - actual).toFixed(2);
 
@@ -186,6 +184,9 @@ $(document).ready(function() {
       });
     }
 
+    // ========================================================
+    // UI Functionality
+    // ========================================================
 
     // init it a bit
     $('body').on('click', '.de-price-link', function(event) {
@@ -208,7 +209,7 @@ $(document).ready(function() {
           price = link.closest('.shortcut_navigable').find('.price').text(),
           target = $(event.target).closest('.item_price');
 
-          priceContainer = [{ price: price, mediaCondition: itemCondition }];
+      priceContainer = [{ price: price, mediaCondition: itemCondition }];
 
       getAndAppendPrice(releaseId, priceContainer, target);
     });
@@ -228,6 +229,7 @@ $(document).ready(function() {
 
     // Remove mobile clutter
     $('.hide_desktop').remove();
+
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
     $('.condition-label-mobile').remove();
 
