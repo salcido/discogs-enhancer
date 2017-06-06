@@ -118,7 +118,7 @@ $(document).ready(function() {
         // insert appropriate tag syntax
         textarea.val( text.substr(0, position) + syntax + text.substr(position + selected.length) );
 
-        // adjust cursor position to fit between bold/italic tags
+        // adjust cursor position to fit between the tags
         textarea.selectRange( position + 3 );
 
         // set the focus
