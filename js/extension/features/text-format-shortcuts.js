@@ -19,34 +19,34 @@ $(document).ready(function() {
   // jquery has been extended so that calls to `getCursorPosition`
   // and `selectRange` will work correctly. Also, the comments field
   // doesn't seem to be part of the DOM even after the document onDOMContentLoaded
-  // event has fired. So I'm waiting 1000ms before executing this block.
+  // event has fired. So I'm waiting 500ms before executing this block.
   setTimeout(function() {
 
     let t = document.getElementsByTagName('textarea'),
         hasTextarea = false;
 
     // see if any review boxes exist on the page
-    if (t.length) {
+    if ( t.length ) {
 
-      for (let i in t) {
+      for ( let i in t ) {
 
         // reviews
-        if (t[i].id === 'review') {
+        if ( t[i].id === 'review' ) {
           hasTextarea = true;
         }
 
         // comments
-        if (t[i].name === 'comment') {
+        if ( t[i].name === 'comment' ) {
           hasTextarea = true;
         }
 
         // new threads in groups/forums
-        if (t[i].id === 'text') {
+        if ( t[i].id === 'text' ) {
           hasTextarea = true;
         }
 
         // forum/group replies
-        if ( t[i].className && t[i].className.indexOf('forum_reply') > -1 ) {
+        if ( t[i].className && t[i].className.includes('forum_reply') ) {
           hasTextarea = true;
         }
       }
@@ -78,10 +78,12 @@ $(document).ready(function() {
         selected = $(this).parent().siblings('textarea').getSelectedText();
       });
 
-      // bold and italic
+      // bold, italic, strikethrough and underline
       $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
 
         let
+            closer,
+            opener,
             textarea = $(this).parent().siblings('textarea'),
             syntax,
             position = textarea.getCursorPosition(),
@@ -89,34 +91,35 @@ $(document).ready(function() {
 
         event.preventDefault();
 
-        switch (true) {
+        if ( $(this).hasClass('quick-bold') ) {
 
-          case $(this).hasClass('quick-bold'):
+          opener = '[b]';
+          closer = '[/b]';
 
-              syntax = selected ? '[b]' + selected + '[/b]' : '[b][/b]';
-              break;
+        } else if ( $(this).hasClass('quick-italic') ) {
 
-          case $(this).hasClass('quick-italic'):
+          opener = '[i]';
+          closer = '[/i]';
 
-              syntax = selected ? '[i]' + selected + '[/i]' : '[i][/i]';
-              break;
+        } else if ( $(this).hasClass('quick-strikethrough') ) {
 
-          case $(this).hasClass('quick-strikethrough'):
+          opener = '[s]';
+          closer = '[/s]';
 
-              syntax = selected ? '[s]' + selected + '[/s]' : '[s][/s]';
-              break;
+        } else if ( $(this).hasClass('quick-underline') ) {
 
-          case $(this).hasClass('quick-underline'):
-
-              syntax = selected ? '[u]' + selected + '[/u]' : '[u][/u]';
-              break;
+          opener = '[u]';
+          closer = '[/u]';
         }
+
+        // Either wrap the selected text with the markup or insert it by itself
+        syntax = selected ? opener + selected + closer : opener + closer;
 
         // insert appropriate tag syntax
         textarea.val( text.substr(0, position) + syntax + text.substr(position + selected.length) );
 
         // adjust cursor position to fit between bold/italic tags
-        textarea.selectRange(position + 3);
+        textarea.selectRange( position + 3 );
 
         // set the focus
         textarea.focus().change();
@@ -136,88 +139,74 @@ $(document).ready(function() {
 
         event.preventDefault();
 
-        switch (true) {
+        // artists
+        if ( link.includes('/artist/') && link.includes(discogs) ) {
 
-          // artists
-          case link.indexOf('/artist/') > -1 && link.indexOf(discogs) > -1:
+          let artist = resourceLibrary.parseURL(link);
+          syntax = '[a' + artist + ']';
 
-              let artist = resourceLibrary.parseURL(link);
+        // guidelines
+        } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
 
-              syntax = '[a' + artist + ']';
-              break;
+          syntax = '[g' + link + ']';
 
-          // guidelines
-          case guideline.test(link) && link.indexOf(discogs) === -1 && link.indexOf('http') === -1:
+        // labels
+        } else if ( link.includes('/label/') && link.includes(discogs) ) {
 
-              syntax = '[g' + link + ']';
-              break;
+          let label = resourceLibrary.parseURL(link);
+          syntax = '[l' + label + ']';
 
-          // labels
-          case link.indexOf('/label/') > -1 && link.indexOf(discogs) > -1:
+        // masters
+        } else if ( link.includes('/master/') && link.includes(discogs) ) {
 
-              let label = resourceLibrary.parseURL(link);
+          let master = resourceLibrary.parseURL(link);
+          syntax = '[m' + master + ']';
 
-              syntax = '[l' + label + ']';
-              break;
+        // releases
+        } else if ( link.includes('/release/') && link.includes(discogs) ) {
 
-          // masters
-          case link.indexOf('/master/') > -1 && link.indexOf(discogs) > -1:
+          let release = resourceLibrary.parseURL(link);
+          syntax = '[r' + release + ']';
 
-              let master = resourceLibrary.parseURL(link);
+        // topics
+        } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
 
-              syntax = '[m' + master + ']';
-              break;
+          let topic = resourceLibrary.parseURL(link);
+          syntax = '[t=' + topic + ']';
 
-          // releases
-          case link.indexOf('/release/')> -1 && link.indexOf(discogs) > -1:
+        // user
+        } else if ( link.includes('/user/') && link.includes(discogs) ) {
 
-              let release = resourceLibrary.parseURL(link);
+          syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
-              syntax = '[r' + release + ']';
-              break;
+        // non-discogs urls
+        } else if (link.includes('http') ) {
 
-          // topics
-          case link.indexOf('/forum/thread/') > -1 && link.indexOf(discogs) > -1:
+          syntax = '[url=' + link + '][/url]';
 
-              let topic = resourceLibrary.parseURL(link);
+          // insert appropriate tag syntax
+          textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
-              syntax = '[t=' + topic + ']';
-              break;
+          // adjust cursor position to fit between URL tags
+          textarea.selectRange(position + (link.length + 6));
 
-          // user
-          case link.indexOf('/user/') > -1 && link.indexOf(discogs) > -1:
+          // set the focus
+          textarea.focus().change();
 
-              syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
-              break;
+          return;
 
-          // non-discogs urls
-          case link.indexOf('http') > -1:
+        } else {
+          // 'a link has no name...'
+          alert('A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
 
-              syntax = '[url=' + link + '][/url]';
-
-              // insert appropriate tag syntax
-              textarea.val( text.substr(0, position) + syntax + text.substr(position) );
-
-              // adjust cursor position to fit between URL tags
-              textarea.selectRange(position + (link.length + 6));
-
-              // set the focus
-              textarea.focus().change();
-
-              return;
-
-          default:
-              // 'a link has no name...'
-              alert('A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
-
-              return;
+          return;
         }
 
         // insert appropriate tag syntax
         textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
         // adjust cursor position to end of the inserted tag
-        textarea.selectRange(position + syntax.length);
+        textarea.selectRange( position + syntax.length );
 
         // set the focus
         textarea.focus().change();
