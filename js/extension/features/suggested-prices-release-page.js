@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   let loc = window.location.href;
 
-  if (loc.indexOf('/sell/release/') > -1) {
+  if ( loc.includes('/sell/release/') ) {
 
     let
         extract,
@@ -29,11 +29,16 @@ $(document).ready(function() {
         userCurrency = resourceLibrary.getItem('userCurrency');
 
     // Insert preloader animation
-    $('td.item_price').each(function(j) {
+    $('td.item_price').each(function() {
 
       $(this).append(resourceLibrary.css.preloader);
     });
 
+    /**
+     * Calculates all the prices and appends them to the DOM
+     * @method getAndAppendPrices
+     * @return {undefined}
+     */
 
     function getAndAppendPrices() {
 
@@ -75,7 +80,7 @@ $(document).ready(function() {
         }
 
         // No data from Discogs
-        if (!isFinite(percentage)) {
+        if ( !isFinite(percentage) ) {
 
           $(this).append('<span class="converted_price de-price" ' + border + '">' + resourceLibrary.css.noData + '<span style="color:' + color + '!important; font-weight:bold;">');
 
@@ -83,7 +88,7 @@ $(document).ready(function() {
         }
 
         // Less than suggested
-        if (percentage > threshold) {
+        if ( percentage > threshold ) {
 
           difference = (suggested - actual).toFixed(2);
 
@@ -101,7 +106,7 @@ $(document).ready(function() {
           }
 
         // More than suggested
-        } else if (percentage < -threshold) {
+        } else if ( percentage < -threshold ) {
 
           difference = (actual - suggested).toFixed(2);
 
@@ -131,7 +136,12 @@ $(document).ready(function() {
     }
 
 
-    // Append results or seller message to items
+    /**
+     * Make sure the user has Seller permissions
+     * @method checkForSellerPermissions
+     * @return {function | undefined}
+     */
+
     function checkForSellerPermissions() {
 
       // User does not have seller setup
@@ -139,7 +149,7 @@ $(document).ready(function() {
 
         $('.de-preloader').remove();
 
-        $('td.item_price').each(function(j) {
+        $('td.item_price').each(function() {
 
           $(this).append(resourceLibrary.css.pleaseRegister);
         });
@@ -147,19 +157,22 @@ $(document).ready(function() {
         return;
       }
 
-      getAndAppendPrices();
+      return getAndAppendPrices();
      }
 
 
-    // Starts price comparison process
+    /**
+     * Starts price comparison process
+     * @method init
+     * @return {function}
+     */
+
     function init() {
 
       $.ajax({
 
         url:'https://www.discogs.com/sell/post/' + releaseId,
-
         type: 'GET',
-
         dataType: 'html',
 
         success: function(response) {
@@ -197,6 +210,9 @@ $(document).ready(function() {
       });
     }
 
+    // ========================================================
+    // UI Functionality
+    // ========================================================
 
     // Fire init() on prev/next page transitions
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
@@ -211,7 +227,7 @@ $(document).ready(function() {
       });
     });
 
-    // Remove mobile garbage
+    // Remove mobile clutter
     $('.hide_desktop').remove();
 
     extract = loc.match(/([\d]+)/g);
