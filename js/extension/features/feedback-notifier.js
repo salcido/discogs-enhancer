@@ -382,7 +382,7 @@ $(document).ready(function() {
       type: 'GET',
       dataType: 'html',
 
-      success: (response) => {
+      success: response => {
 
         let
             obj = feedbackObj[type],
@@ -415,11 +415,11 @@ $(document).ready(function() {
 
 
   /* Set language for URL formation */
-  language = (language === 'en' ? '' : language + '/');
+  language = ( language === 'en' ? '' : language + '/' );
 
 
   /* Create our object if it does not exist */
-  if (!resourceLibrary.getItem('feedbackObj')) {
+  if ( !resourceLibrary.getItem('feedbackObj') ) {
 
     feedbackObj = {
       baseValsChecked: timeStamp, // not used but might be useful as install date.
@@ -450,6 +450,7 @@ $(document).ready(function() {
     appendBadge('buyer');
   }
 
+
   // ========================================================
   // Poll for changes
   // ========================================================
@@ -457,7 +458,7 @@ $(document).ready(function() {
   feedbackObj = resourceLibrary.getItem('feedbackObj');
 
   /* If it's been longer than the `waitTime` */
-  if (timeStamp > feedbackObj.lastChecked + waitTime) {
+  if ( timeStamp > feedbackObj.lastChecked + waitTime ) {
 
     if (debug) { console.time('poll-time'); }
 
@@ -467,7 +468,7 @@ $(document).ready(function() {
       type: 'GET',
       dataType: 'html',
 
-      success: function(response) {
+      success: response => {
 
         let
             type,
@@ -490,7 +491,7 @@ $(document).ready(function() {
           console.timeEnd('poll-time');
         }
 
-        if (sellerTotal > feedbackObj.seller.gTotal) {
+        if ( sellerTotal > feedbackObj.seller.gTotal ) {
 
           if (debug) {
 
@@ -516,7 +517,7 @@ $(document).ready(function() {
           getUpdates('seller', sellerTotal);
         }
 
-        if (buyerTotal > feedbackObj.buyer.gTotal) {
+        if ( buyerTotal > feedbackObj.buyer.gTotal ) {
 
           if (debug) {
 
