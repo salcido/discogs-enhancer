@@ -8,22 +8,39 @@
  *
  */
 
-// TODO add buttons to list comments $('.textedit_content')
-
-// TODO move appending functionality into a method so it can be called
-// via reply links/events in comments, etc.
-
 $(document).ready(function() {
 
-  // this timeout insures that this code executes after
-  // jquery has been extended so that calls to `getCursorPosition`
-  // and `selectRange` will work correctly. Also, the comments field
-  // doesn't seem to be part of the DOM even after the document onDOMContentLoaded
-  // event has fired. So I'm waiting 500ms before executing this block.
-  setTimeout(function() {
+  let hasTextarea = false,
+      int;
 
-    let t = document.getElementsByTagName('textarea'),
-        hasTextarea = false;
+  // Check for `getCursorPosition` & `getSelectedText` in jQ prototype.
+  // If they exist (ie: jQ has been successfully extended) call
+  // `inspectTextareas`. Because the comments field doesn't seem to
+  // be part of the DOM even after the document onDOMContentLoaded
+  // event has fired, I am waiting a bit before calling `inspectTextareas`.
+  int = setInterval(() => {
+
+    if ( !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText ) {
+
+      clearInterval(int);
+
+      setTimeout(() => { inspectTextareas(); }, 750);
+    }
+  }, 100);
+
+
+  /**
+   * Iterate over all textarea elements and look for
+   * specific ids/classes/names. If there is a match, call the
+   * `insertShortcuts` function which will inject the shortcut markup
+   *
+   * @method   inspectTextareas
+   * @return   {object | boolean}
+   */
+
+  function inspectTextareas() {
+
+    let t = [...document.getElementsByTagName('textarea')];
 
     // see if any review boxes exist on the page
     if ( t.length ) {
@@ -50,167 +67,208 @@ $(document).ready(function() {
           hasTextarea = true;
         }
       }
-    } else {
 
-      return;
+      return hasTextarea ? insertShortcuts() : false;
     }
+  }
 
-    // inject markup if necessary
-    if ( hasTextarea && !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText ) {
 
-      let selected = '',
-          markup = '<div class="quick-menu">' +
-                      '<button class="quick-button quick-link" title="Insert url">' +
-                        '<i class="icon icon-chain"></i>' +
-                      '</button>' +
-                      '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
-                      '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
-                      '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
-                      '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
-                    '</div>';
+  /**
+   * Injects the shortcut markup and assigns click event listeners
+   * to each respective shortcut button.
+   *
+   * @method   insertShortcuts
+   * @return   {undefined}
+   */
 
-      // Inject buttons into DOM
-      $(markup).insertAfter( $('textarea') );
+  function insertShortcuts() {
 
-      // maintain selected text
-      $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').mousedown(function(event) {
+    let selected = '',
+        markup = '<div class="quick-menu">' +
+                    '<button class="quick-button quick-link" title="Insert url">' +
+                      '<i class="icon icon-chain"></i>' +
+                    '</button>' +
+                    '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
+                    '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
+                    '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
+                    '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
+                  '</div>';
 
-        selected = $(this).parent().siblings('textarea').getSelectedText();
-      });
+    // Inject buttons into DOM
+    $(markup).insertAfter( $('textarea') );
 
-      // bold, italic, strikethrough and underline
-      $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
+    // maintain selected text
+    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').mousedown(function(event) {
 
-        let
-            closer,
-            opener,
-            textarea = $(this).parent().siblings('textarea'),
-            syntax,
-            position = textarea.getCursorPosition(),
-            text = textarea.val();
+      selected = $(this).parent().siblings('textarea').getSelectedText();
+    });
 
-        event.preventDefault();
+    // bold, italic, strikethrough and underline
+    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
 
-        if ( $(this).hasClass('quick-bold') ) {
+      let
+          closer,
+          opener,
+          textarea = $(this).parent().siblings('textarea'),
+          syntax,
+          position = textarea.getCursorPosition(),
+          text = textarea.val();
 
-          opener = '[b]';
-          closer = '[/b]';
+      event.preventDefault();
 
-        } else if ( $(this).hasClass('quick-italic') ) {
+      if ( $(this).hasClass('quick-bold') ) {
 
-          opener = '[i]';
-          closer = '[/i]';
+        opener = '[b]';
+        closer = '[/b]';
 
-        } else if ( $(this).hasClass('quick-strikethrough') ) {
+      } else if ( $(this).hasClass('quick-italic') ) {
 
-          opener = '[s]';
-          closer = '[/s]';
+        opener = '[i]';
+        closer = '[/i]';
 
-        } else if ( $(this).hasClass('quick-underline') ) {
+      } else if ( $(this).hasClass('quick-strikethrough') ) {
 
-          opener = '[u]';
-          closer = '[/u]';
-        }
+        opener = '[s]';
+        closer = '[/s]';
 
-        // Either wrap the selected text with the markup or insert it by itself
-        syntax = selected ? opener + selected + closer : opener + closer;
+      } else if ( $(this).hasClass('quick-underline') ) {
 
-        // insert appropriate tag syntax
-        textarea.val( text.substr(0, position) + syntax + text.substr(position + selected.length) );
+        opener = '[u]';
+        closer = '[/u]';
+      }
 
-        // adjust cursor position to fit between the tags
-        textarea.selectRange( position + 3 );
+      // Either wrap the selected text with the markup or insert it by itself
+      syntax = selected ? opener + selected + closer : opener + closer;
 
-        // set the focus
-        textarea.focus().change();
-      });
+      // insert appropriate tag syntax
+      textarea.val( text.substr(0, position) + syntax + text.substr(position + selected.length) );
 
-      // URLs
-      $('.quick-button.quick-link').click(function(event) {
+      // adjust cursor position to fit between the tags
+      textarea.selectRange( position + 3 );
 
-        let
-            textarea = $(this).parent().siblings('textarea'),
-            discogs = 'https://www.discogs.com',
-            guideline = /(\d+\.+\d*)/g,
-            link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
-            position = textarea.getCursorPosition(),
-            syntax,
-            text = textarea.val();
+      // set the focus
+      textarea.focus().change();
+    });
 
-        event.preventDefault();
+    // URLs
+    $('.quick-button.quick-link').click(function(event) {
 
-        // artists
-        if ( link.includes('/artist/') && link.includes(discogs) ) {
+      let
+          textarea = $(this).parent().siblings('textarea'),
+          discogs = 'https://www.discogs.com',
+          guideline = /(\d+\.+\d*)/g,
+          link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
+          position = textarea.getCursorPosition(),
+          syntax,
+          text = textarea.val();
 
-          let artist = resourceLibrary.parseURL(link);
-          syntax = '[a' + artist + ']';
+      event.preventDefault();
 
-        // guidelines
-        } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
+      // artists
+      if ( link.includes('/artist/') && link.includes(discogs) ) {
 
-          syntax = '[g' + link + ']';
+        let artist = resourceLibrary.parseURL(link);
+        syntax = '[a' + artist + ']';
 
-        // labels
-        } else if ( link.includes('/label/') && link.includes(discogs) ) {
+      // guidelines
+      } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
 
-          let label = resourceLibrary.parseURL(link);
-          syntax = '[l' + label + ']';
+        syntax = '[g' + link + ']';
 
-        // masters
-        } else if ( link.includes('/master/') && link.includes(discogs) ) {
+      // labels
+      } else if ( link.includes('/label/') && link.includes(discogs) ) {
 
-          let master = resourceLibrary.parseURL(link);
-          syntax = '[m' + master + ']';
+        let label = resourceLibrary.parseURL(link);
+        syntax = '[l' + label + ']';
 
-        // releases
-        } else if ( link.includes('/release/') && link.includes(discogs) ) {
+      // masters
+      } else if ( link.includes('/master/') && link.includes(discogs) ) {
 
-          let release = resourceLibrary.parseURL(link);
-          syntax = '[r' + release + ']';
+        let master = resourceLibrary.parseURL(link);
+        syntax = '[m' + master + ']';
 
-        // topics
-        } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
+      // releases
+      } else if ( link.includes('/release/') && link.includes(discogs) ) {
 
-          let topic = resourceLibrary.parseURL(link);
-          syntax = '[t=' + topic + ']';
+        let release = resourceLibrary.parseURL(link);
+        syntax = '[r' + release + ']';
 
-        // user
-        } else if ( link.includes('/user/') && link.includes(discogs) ) {
+      // topics
+      } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
 
-          syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
+        let topic = resourceLibrary.parseURL(link);
+        syntax = '[t=' + topic + ']';
 
-        // non-discogs urls
-        } else if (link.includes('http') ) {
+      // user
+      } else if ( link.includes('/user/') && link.includes(discogs) ) {
 
-          syntax = '[url=' + link + '][/url]';
+        syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
-          // insert appropriate tag syntax
-          textarea.val( text.substr(0, position) + syntax + text.substr(position) );
+      // non-discogs urls
+      } else if (link.includes('http') ) {
 
-          // adjust cursor position to fit between URL tags
-          textarea.selectRange(position + (link.length + 6));
-
-          // set the focus
-          textarea.focus().change();
-
-          return;
-
-        } else {
-          // 'a link has no name...'
-          alert('A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
-
-          return;
-        }
+        syntax = '[url=' + link + '][/url]';
 
         // insert appropriate tag syntax
         textarea.val( text.substr(0, position) + syntax + text.substr(position) );
 
-        // adjust cursor position to end of the inserted tag
-        textarea.selectRange( position + syntax.length );
+        // adjust cursor position to fit between URL tags
+        textarea.selectRange(position + (link.length + 6));
 
         // set the focus
         textarea.focus().change();
+
+        return;
+
+      } else {
+        // 'a link has no name...'
+        alert('A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
+
+        return;
+      }
+
+      // insert appropriate tag syntax
+      textarea.val( text.substr(0, position) + syntax + text.substr(position) );
+
+      // adjust cursor position to end of the inserted tag
+      textarea.selectRange( position + syntax.length );
+
+      // set the focus
+      textarea.focus().change();
+    });
+  }
+
+  // ========================================================
+  // UI functionality
+  // ========================================================
+
+  // insert shortcuts when replying to reviews
+  $('.review_action1.review_action1-reply').click(() => {
+
+    setTimeout(() => {
+
+      insertShortcuts();
+
+      // add eventlistener to cancel button once it
+      // exists in the DOM.
+      $('.reviews-cancel-event').click(() => {
+
+        // if a user cancels out of a reply,
+        // insert shortcuts on the main review textarea
+        setTimeout(insertShortcuts, 500);
       });
-    }
-  }, 500);
+    }, 500);
+  });
+
+  // insert shortcuts when editing list items
+  $('.textedit_content').click(() => {
+
+    setTimeout(() => {
+
+      if ( !document.getElementsByClassName('quick-menu').length ) {
+
+        insertShortcuts();
+      }
+    }, 500);
+  });
 });
