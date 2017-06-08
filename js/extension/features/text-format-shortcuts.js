@@ -13,21 +13,9 @@ $(document).ready(function() {
   let hasTextarea = false,
       int;
 
-  // Check for `getCursorPosition` & `getSelectedText` in jQ prototype.
-  // If they exist (ie: jQ has been successfully extended) call
-  // `inspectTextareas`. Because the comments field doesn't seem to
-  // be part of the DOM even after the document onDOMContentLoaded
-  // event has fired, I am waiting a bit before calling `inspectTextareas`.
-  int = setInterval(() => {
-
-    if ( !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText ) {
-
-      clearInterval(int);
-
-      setTimeout(() => { inspectTextareas(); }, 750);
-    }
-  }, 100);
-
+  // ========================================================
+  // Functions
+  // ========================================================
 
   /**
    * Iterate over all textarea elements and look for
@@ -35,7 +23,7 @@ $(document).ready(function() {
    * `insertShortcuts` function which will inject the shortcut markup
    *
    * @method   inspectTextareas
-   * @return   {object | boolean}
+   * @return   {object|boolean}
    */
 
   function inspectTextareas() {
@@ -47,23 +35,16 @@ $(document).ready(function() {
 
       for ( let i in t ) {
 
-        // reviews
-        if ( t[i].id === 'review' ) {
-          hasTextarea = true;
-        }
+        if (
+             // reviews
+             t[i].id === 'review' ||
+             // new threads in groups/forums
+             t[i].id === 'text' ||
+             // comments
+             t[i].name === 'comment' ||
+             // forum/group replies
+             t[i].className && t[i].className.includes('forum_reply') ) {
 
-        // comments
-        if ( t[i].name === 'comment' ) {
-          hasTextarea = true;
-        }
-
-        // new threads in groups/forums
-        if ( t[i].id === 'text' ) {
-          hasTextarea = true;
-        }
-
-        // forum/group replies
-        if ( t[i].className && t[i].className.includes('forum_reply') ) {
           hasTextarea = true;
         }
       }
@@ -222,7 +203,7 @@ $(document).ready(function() {
 
       } else {
 
-        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".'
+        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".';
 
         // 'a link has no name...'
         return alert(notRecognized);
@@ -238,6 +219,27 @@ $(document).ready(function() {
       textarea.focus().change();
     });
   }
+
+
+  // ========================================================
+  // DOM Setup
+  // ========================================================
+
+  // Check for `getCursorPosition` & `getSelectedText` in jQ prototype.
+  // If they exist (ie: jQ has been successfully extended) call
+  // `inspectTextareas`. Because the comments field doesn't seem to
+  // be part of the DOM even after the document onDOMContentLoaded
+  // event has fired, I am waiting a bit before calling `inspectTextareas`.
+  int = setInterval(() => {
+
+    if ( !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText ) {
+
+      clearInterval(int);
+
+      setTimeout(inspectTextareas, 750);
+    }
+  }, 100);
+
 
   // ========================================================
   // UI functionality
