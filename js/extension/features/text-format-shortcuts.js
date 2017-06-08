@@ -164,48 +164,48 @@ $(document).ready(function() {
 
       event.preventDefault();
 
-      // artists
+        // artists
       if ( link.includes('/artist/') && link.includes(discogs) ) {
 
         let artist = resourceLibrary.parseURL(link);
         syntax = '[a' + artist + ']';
 
-      // guidelines
+        // guidelines
       } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
 
         syntax = '[g' + link + ']';
 
-      // labels
+        // labels
       } else if ( link.includes('/label/') && link.includes(discogs) ) {
 
         let label = resourceLibrary.parseURL(link);
         syntax = '[l' + label + ']';
 
-      // masters
+        // masters
       } else if ( link.includes('/master/') && link.includes(discogs) ) {
 
         let master = resourceLibrary.parseURL(link);
         syntax = '[m' + master + ']';
 
-      // releases
+        // releases
       } else if ( link.includes('/release/') && link.includes(discogs) ) {
 
         let release = resourceLibrary.parseURL(link);
         syntax = '[r' + release + ']';
 
-      // topics
+        // topics
       } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
 
         let topic = resourceLibrary.parseURL(link);
         syntax = '[t=' + topic + ']';
 
-      // user
+        // user
       } else if ( link.includes('/user/') && link.includes(discogs) ) {
 
         syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
-      // non-discogs urls
-      } else if (link.includes('http') ) {
+        // non-discogs urls
+      } else if ( link.includes('http') ) {
 
         syntax = '[url=' + link + '][/url]';
 
@@ -221,10 +221,11 @@ $(document).ready(function() {
         return;
 
       } else {
-        // 'a link has no name...'
-        alert('A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".');
 
-        return;
+        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".'
+
+        // 'a link has no name...'
+        return alert(notRecognized);
       }
 
       // insert appropriate tag syntax
