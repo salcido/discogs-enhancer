@@ -1798,12 +1798,12 @@ i.icon-google-plus {
   background: #7A99B8 !important;
 }
 
-/* Offers page user address popup */
+/* Offers page: user address popup */
 .user-details-tooltip.ui-dialog-arrow.ui-dialog-arrow-bottom-right::after {
   border: #434343 !important;
 }
 
-/* offers page accepted offer notification */
+/* Offers page: accepted offer notification */
 .page-loading-bar.page-loading-bar-has-message {
   background: #439ADC !important;
 }
