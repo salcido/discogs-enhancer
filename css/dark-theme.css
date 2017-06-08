@@ -1802,3 +1802,13 @@ i.icon-google-plus {
 .user-details-tooltip.ui-dialog-arrow.ui-dialog-arrow-bottom-right::after {
   border: #434343 !important;
 }
+
+/* offers page accepted offer notification */
+.page-loading-bar.page-loading-bar-has-message {
+  background: #439ADC !important;
+}
+
+.page-loading-bar.page-loading-bar-has-message .loading-message span,
+.page-loading-bar.page-loading-bar-has-message .loading-message span a {
+  color: white !important;
+}
