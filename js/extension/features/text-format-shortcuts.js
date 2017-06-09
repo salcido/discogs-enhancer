@@ -11,80 +11,22 @@
 $(document).ready(function() {
 
   let hasTextarea = false,
-      int;
+      int,
+      selected = '';
 
   // ========================================================
   // Functions
   // ========================================================
 
   /**
-   * Iterate over all textarea elements and look for
-   * specific ids/classes/names. If there is a match, call the
-   * `insertShortcuts` function which will inject the shortcut markup
+   * Attaches event listeners to the B, I, S, U quick-link buttons
    *
-   * @method   inspectTextareas
-   * @return   {object|boolean}
+   * @method attachButtonListeners
+   * @return {undefined}
    */
 
-  function inspectTextareas() {
+  function attachButtonListeners() {
 
-    let t = [...document.getElementsByTagName('textarea')];
-
-    // see if any review boxes exist on the page
-    if ( t.length ) {
-
-      for ( let i in t ) {
-
-        if (
-             // reviews
-             t[i].id === 'review' ||
-             // new threads in groups/forums
-             t[i].id === 'text' ||
-             // comments
-             t[i].name === 'comment' ||
-             // forum/group replies
-             t[i].className && t[i].className.includes('forum_reply') ) {
-
-          hasTextarea = true;
-        }
-      }
-
-      return hasTextarea ? insertShortcuts() : false;
-    }
-  }
-
-
-  /**
-   * Injects the shortcut markup and assigns click event listeners
-   * to each respective shortcut button.
-   *
-   * @method   insertShortcuts
-   * @return   {undefined}
-   */
-
-  function insertShortcuts() {
-
-    let selected = '',
-        markup = '<div class="quick-menu">' +
-                    '<button class="quick-button quick-link" title="Insert url">' +
-                      '<i class="icon icon-chain"></i>' +
-                    '</button>' +
-                    '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
-                    '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
-                    '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
-                    '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
-                  '</div>';
-
-    // Inject buttons into DOM
-    $(markup).insertAfter( $('textarea') );
-
-    // maintain selected text
-    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').mousedown(function(event) {
-
-      selected = $(this).parent().siblings('textarea').getSelectedText();
-    });
-
-    // bold, italic, strikethrough and underline
     $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
 
       let
@@ -130,8 +72,18 @@ $(document).ready(function() {
       // set the focus
       textarea.focus().change();
     });
+  }
 
-    // URLs
+
+  /**
+   * Adds an event listener to the link `.quick-link` button
+   *
+   * @method attachLinkListener
+   * @return {function|undefined}
+   */
+
+  function attachLinkListener() {
+
     $('.quick-button.quick-link').click(function(event) {
 
       let
@@ -139,55 +91,51 @@ $(document).ready(function() {
           discogs = 'https://www.discogs.com',
           guideline = /(\d+\.+\d*)/g,
           link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
+          parsed = resourceLibrary.parseURL(link),
           position = textarea.getCursorPosition(),
           syntax,
           text = textarea.val();
 
       event.preventDefault();
 
-        // artists
       if ( link.includes('/artist/') && link.includes(discogs) ) {
 
-        let artist = resourceLibrary.parseURL(link);
-        syntax = '[a' + artist + ']';
+        // artists
+        syntax = '[a' + parsed + ']';
 
-        // guidelines
       } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
 
+        // guidelines
         syntax = '[g' + link + ']';
 
-        // labels
       } else if ( link.includes('/label/') && link.includes(discogs) ) {
 
-        let label = resourceLibrary.parseURL(link);
-        syntax = '[l' + label + ']';
+        // labels
+        syntax = '[l' + parsed + ']';
 
-        // masters
       } else if ( link.includes('/master/') && link.includes(discogs) ) {
 
-        let master = resourceLibrary.parseURL(link);
-        syntax = '[m' + master + ']';
+        // masters
+        syntax = '[m' + parsed + ']';
 
-        // releases
       } else if ( link.includes('/release/') && link.includes(discogs) ) {
 
-        let release = resourceLibrary.parseURL(link);
-        syntax = '[r' + release + ']';
+        // releases
+        syntax = '[r' + parsed + ']';
 
-        // topics
       } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
 
-        let topic = resourceLibrary.parseURL(link);
-        syntax = '[t=' + topic + ']';
+        // topics
+        syntax = '[t=' + parsed + ']';
 
-        // user
       } else if ( link.includes('/user/') && link.includes(discogs) ) {
 
+        // users
         syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
 
-        // non-discogs urls
       } else if ( link.includes('http') ) {
 
+        // urls
         syntax = '[url=' + link + '][/url]';
 
         // insert appropriate tag syntax
@@ -197,9 +145,7 @@ $(document).ready(function() {
         textarea.selectRange(position + (link.length + 6));
 
         // set the focus
-        textarea.focus().change();
-
-        return;
+        return textarea.focus().change();
 
       } else {
 
@@ -221,8 +167,96 @@ $(document).ready(function() {
   }
 
 
+  /**
+  * Grabs the text selected by the user
+  *
+  * @method grabSelectedText
+  * @return {undefined}
+  */
+
+  function grabSelectedText() {
+
+    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').mousedown(function(event) {
+
+      selected = $(this).parent().siblings('textarea').getSelectedText();
+    });
+  }
+
+
+  /**
+   * Injects the shortcut markup and calls click
+   * event listener functions to each respective
+   * shortcut button.
+   *
+   * @method   insertShortcuts
+   * @return   {undefined}
+   */
+
+  function insertShortcuts() {
+
+    let markup = '<div class="quick-menu">' +
+                    '<button class="quick-button quick-link" title="Insert url">' +
+                      '<i class="icon icon-chain"></i>' +
+                    '</button>' +
+                    '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
+                    '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
+                    '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
+                    '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
+                  '</div>';
+
+    // Inject buttons into DOM
+    $(markup).insertAfter( $('textarea') );
+
+    // maintain selected text
+    grabSelectedText();
+
+    // bold, italic, strikethrough and underline
+    attachButtonListeners();
+
+    // Links
+    attachLinkListener();
+  }
+
+
+  /**
+   * Iterate over all textarea elements and look for
+   * specific ids/classes/names. If there is a match, call the
+   * `insertShortcuts` function which will inject the shortcut markup
+   *
+   * @method   inspectTextareas
+   * @return   {object|boolean}
+   */
+
+  function inspectTextareas() {
+
+    let t = [...document.getElementsByTagName('textarea')];
+
+    // see if any review boxes exist on the page
+    if ( t.length ) {
+
+      for ( let i in t ) {
+
+        if (
+             // reviews
+             t[i].id === 'review' ||
+             // new threads in groups/forums
+             t[i].id === 'text' ||
+             // comments
+             t[i].name === 'comment' ||
+             // forum/group replies
+             t[i].className && t[i].className.includes('forum_reply') ) {
+
+          hasTextarea = true;
+        }
+      }
+
+      return hasTextarea ? insertShortcuts() : false;
+    }
+  }
+
+
   // ========================================================
-  // DOM Setup
+  // Init / DOM Setup
   // ========================================================
 
   // Check for `getCursorPosition` & `getSelectedText` in jQ prototype.
