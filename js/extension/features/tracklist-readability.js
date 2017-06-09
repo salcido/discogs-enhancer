@@ -374,7 +374,7 @@ $(document).ready(function() {
 
           // If the numbering is not sequential ala
           // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
-          if ( config && config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks) {
+          if ( config && config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks ) {
 
             appendUI();
             insertSpacersBasedOnSides(trackpos);
