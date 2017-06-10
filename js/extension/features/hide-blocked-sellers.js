@@ -18,87 +18,126 @@ $(document).ready(function() {
       sellRelease = /sell\/release/g,
       wantsPage = /sell\/mywants/g;
 
-  // Find all instances of sellers in list and hide them
+  // ========================================================
+  // Functions
+  // ========================================================
+
+  /**
+   * Find all instances of sellers in list and hide them
+   *
+   * @method hideSellers
+   * @return {undefined}
+   */
+
   window.hideSellers = function hideSellers() {
 
-    blockList.list.forEach(function(seller) {
+    blockList.list.forEach(seller => {
 
-      if ($('td.seller_info:contains(' + seller + ')').length) {
+      if ( $('td.seller_info:contains(' + seller + ')').length ) {
 
         $('td.seller_info:contains(' + seller + ')').parent().css({display: 'none'});
       }
     });
   };
 
-  // Find all instances of sellers in list and tag them
+
+  /**
+   * Find all instances of sellers in list and tag them
+   *
+   * @method tagSellers
+   * @return {undefined}
+   */
+
   window.tagSellers = function tagSellers() {
 
-    blockList.list.forEach(function(seller) {
+    blockList.list.forEach(seller => {
 
-      if ($('td.seller_info:contains(' + seller + ')').length) {
+      if ( $('td.seller_info:contains(' + seller + ')').length ) {
 
         $('td.seller_info:contains(' + seller + ')').parent().addClass('blocked-seller');
       }
     });
   };
 
-  // Draxx them sklounst
-  switch (true) {
 
-    case blockList && blockList.hide === 'global':
+  // ========================================================
+  // DOM manipulation (Blocking)
+  // ========================================================
 
-      if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
+  if (blockList) {
 
-        // hide when page first loads
-        window.hideSellers();
+    switch ( blockList.hide ) {
 
-        // Call hideSellers on prev/next clicks
-        $('body').on('click', '.pagination_next, .pagination_previous', function() {
+      // hide when page first loads
+      // ---------------------------------------------------------------------------
+      case 'global':
 
-          $(document).ajaxSuccess(function() {
+        if ( loc.match(sellPage) ||
+             loc.match(sellRelease) ||
+             loc.match(sellerPage) ||
+             loc.match(wantsPage) ) {
 
-            window.hideSellers();
+          // hide when page first loads
+          window.hideSellers();
+
+          // Call hideSellers on prev/next clicks
+          $('body').on('click', '.pagination_next, .pagination_previous', function() {
+
+            $(document).ajaxSuccess(function() {
+
+              window.hideSellers();
+            });
           });
-        });
-      }
-      return;
+        }
+        return;
 
-    case blockList && blockList.hide === 'marketplace':
+      // Hide sellers in the marketplace only
+      // ---------------------------------------------------------------------------
+      case 'marketplace':
 
-      if (loc.match(wantsPage)) {
+        if ( loc.match(wantsPage) ) {
 
-        // hide when page first loads
-        window.hideSellers();
+          // hide when page first loads
+          window.hideSellers();
 
-        // Call hideSellers on prev/next clicks
-        $('body').on('click', '.pagination_next, .pagination_previous', function() {
+          // Call hideSellers on prev/next clicks
+          $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
-          $(document).ajaxSuccess(function() {
+            $(document).ajaxSuccess(function() {
 
-            window.hideSellers();
+              window.hideSellers();
+            });
           });
-        });
-      } else if (loc.match(sellRelease) || loc.match(sellPage) || loc.match(sellerPage)) {
+        } else if ( loc.match(sellRelease) ||
+                    loc.match(sellPage) ||
+                    loc.match(sellerPage) ) {
 
-        window.tagSellers();
-      }
-      return;
+          window.tagSellers();
+        }
+        return;
 
-    case blockList && blockList.hide === 'tag':
+      // Mark sellers in red
+      // ---------------------------------------------------------------------------
+      case 'tag':
 
-      if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
+        if ( loc.match(sellPage) ||
+             loc.match(sellRelease) ||
+             loc.match(sellerPage) ||
+             loc.match(wantsPage) ) {
 
-        window.tagSellers();
+          // tag when page first loads
+          window.tagSellers();
 
-        // Call hideSellers on prev/next clicks
-        $('body').on('click', '.pagination_next, .pagination_previous', function() {
+          // Call hideSellers on prev/next clicks
+          $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
-          $(document).ajaxSuccess(function() {
+            $(document).ajaxSuccess(function() {
 
-            window.tagSellers();
+              window.tagSellers();
+            });
           });
-        });
-      }
-      return;
+        }
+        return;
+    }
   }
 });
