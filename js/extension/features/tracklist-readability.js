@@ -30,14 +30,8 @@ $(document).ready(function() {
   if ( document.location.href.includes('/release/') && !document.location.href.includes('/history') ) {
 
     let
-        config = JSON.parse(localStorage.getItem('readability')) || { indexTracks: false,
-                                                                      nth: 10,
-                                                                      otherMediaReadability: false,
-                                                                      otherMediaThreshold: 15,
-                                                                      size: 0.5,
-                                                                      vcReadability: true,
-                                                                      vcThreshold: 8 },
-        show = JSON.parse(localStorage.getItem('readabilityDividers')) || setReadabilityTrue(),
+        config = JSON.parse( localStorage.getItem('readability') ) || useDefaults(),
+        show = JSON.parse( localStorage.getItem('readabilityDividers') ) || setReadabilityTrue(),
 
         debug = resourceLibrary.options.debug(),
 
@@ -69,134 +63,11 @@ $(document).ready(function() {
                     '<td class="tracklist_track_pos"></td>' +
                     '<td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
                     `${duration}` +
-                  '</tr>',
-
-        // title of show/hide dividers link
-        trigger = show
-                  ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
-                  : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
+                  '</tr>';
 
     // ========================================================
     // Functions
     // ========================================================
-
-    /**
-     * Sets default value for readabilityDividers
-     *
-     * @method setReadabilityTrue
-     * @return {object}
-     */
-    function setReadabilityTrue() {
-
-      if ( !localStorage.getItem('readabilityDividers') ) {
-
-        localStorage.setItem('readabilityDividers', 'true');
-      }
-
-      return JSON.parse(localStorage.getItem('readabilityDividers'));
-    }
-
-    /**
-     * Examines an array and determines if it has
-     * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
-     *
-     * It's designed to suit tracklists that have positions like:
-     * A1, A2, B3, B4, B5, C6, C7, C8 ...
-     *
-     * @method hasContinualNumberSequence
-     * @param  {array} arr [the array to iterate over]
-     * @return {Boolean}
-     */
-    function hasContinualNumberSequence(arr) {
-
-      let count = 0;
-
-      arr.forEach((num, i) => {
-
-        if ( num === i + 1 ) { count++; }
-      });
-
-      return count === arr.length ? true : false;
-    }
-
-    /**
-     * Examines an array and inserts some markup when the next
-     * index of the array differs from the current index.
-     *
-     * It's designed to find the differences in sides on a
-     * tracklist like when the numbers are sequential
-     * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
-     *
-     * @method insertSpacersBasedOnAlphaDifferences
-     * @param  {array} arr [the array to iterate over]
-     * @return {undefined}
-     */
-    function insertSpacersBasedOnAlphaDifferences(arr) {
-
-      arr.forEach((letter, i) => {
-
-        let current = arr[i],
-            next = arr[i + 1];
-
-        if ( next && current !== next ) {
-
-          $(spacer).insertAfter(tracklist[i]);
-        }
-      });
-    }
-
-    /**
-     * Inserts a spacer after every nth track
-     * Used for releases that are CDs, files, VHS, DVD, etc...
-     *
-     * @method   insertSpacersEveryNth
-     * @param    {array}  arr [the array to iterate over]
-     * @param    {number} nth [the number of tracks before a spacer is inserted]
-     * @return   {undefined}
-     */
-    function insertSpacersEveryNth(arr, nth) {
-
-      arr.each(i => {
-
-        if ( i % nth === 0 && i !== 0 ) {
-
-          $(spacer).insertAfter(tracklist[i - 1]);
-        }
-      });
-    }
-
-    /**
-     * Inserts a spacer if the next track's number is less than the
-     * current tracks number (eg: A2, B1 ...) or the current track
-     * has no number and the next one does (eg: A, B1, ...)
-     *
-     * @method   insertSpacersBasedOnSides
-     * @param    {array} arr [the array to iterate over]
-     * @return   {undefined}
-     */
-    function insertSpacersBasedOnSides(arr) {
-
-      try {
-
-        arr.each(i => {
-
-          let current = Number( arr[i].match(/\d+/g) ),
-              next = Number( arr[i + 1].match(/\d+/g) );
-
-          // check for 0 value which can be returned when a
-          // track is simply listed as A, B, C, etc ...
-          if ( next <= current && current !== 0 || !current && next ) {
-
-            if ( i !== tracklist.length - 1 ) {
-
-              $(spacer).insertAfter(tracklist[i]);
-            }
-          }
-        });
-      } catch (e) {
-        // just catch the errors
-      }
-    }
 
     /**
      * When releases have multiple discs or formats, examine
@@ -207,12 +78,11 @@ $(document).ready(function() {
      * If the sequence is interupted, this likely means it's a
      * new disc (etc) so insert the divider at that position.
      *
-     * Also, using for-loops because they are crazy fast. Don't hate.
-     *
      * @method handleMultiFormatRelease
      * @param  {array} arr [an array of all track positions in a release]
      * @return {undefined}
      */
+
     function handleMultiFormatRelease(arr) {
 
       let counter = 1,
@@ -244,7 +114,6 @@ $(document).ready(function() {
       for ( let i = 0; i < suffix.length; i++ ) {
 
         // using '==' specifcally for coercion
-        // (Crockford is heartbroken; Simpspon is proud)
         if ( suffix[i] == counter ) {
 
           counter++;
@@ -260,6 +129,153 @@ $(document).ready(function() {
       }
     }
 
+
+    /**
+     * Examines an array and determines if it has
+     * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
+     *
+     * It's designed to suit tracklists that have positions like:
+     * A1, A2, B3, B4, B5, C6, C7, C8 ...
+     *
+     * @method hasContinualNumberSequence
+     * @param  {array} arr [the array to iterate over]
+     * @return {Boolean}
+     */
+
+    function hasContinualNumberSequence(arr) {
+
+      let count = 0;
+
+      arr.forEach((num, i) => {
+
+        if ( num === i + 1 ) { count++; }
+      });
+
+      return count === arr.length ? true : false;
+    }
+
+
+    /**
+     * Examines an array and inserts some markup when the next
+     * index of the array differs from the current index.
+     *
+     * It's designed to find the differences in sides on a
+     * tracklist like when the numbers are sequential
+     * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
+     *
+     * @method insertSpacersBasedOnAlphaDifferences
+     * @param  {array} arr [the array to iterate over]
+     * @return {undefined}
+     */
+
+    function insertSpacersBasedOnAlphaDifferences(arr) {
+
+      arr.forEach((letter, i) => {
+
+        let current = arr[i],
+            next = arr[i + 1];
+
+        if ( next && current !== next ) {
+
+          $(spacer).insertAfter( tracklist[i] );
+        }
+      });
+    }
+
+
+    /**
+     * Inserts a spacer after every nth track
+     * Used for releases that are CDs, files, VHS, DVD, etc...
+     *
+     * @method   insertSpacersEveryNth
+     * @param    {array}  arr [the array to iterate over]
+     * @param    {number} nth [the number of tracks before a spacer is inserted]
+     * @return   {undefined}
+     */
+
+    function insertSpacersEveryNth(arr, nth) {
+
+      arr.each(i => {
+
+        if ( i % nth === 0 && i !== 0 ) {
+
+          $(spacer).insertAfter( tracklist[i - 1] );
+        }
+      });
+    }
+
+
+    /**
+     * Inserts a spacer if the next track's number is less than the
+     * current tracks number (eg: A2, B1 ...) or the current track
+     * has no number and the next one does (eg: A, B1, ...)
+     *
+     * @method   insertSpacersBasedOnSides
+     * @param    {array} arr [the array to iterate over]
+     * @return   {undefined}
+     */
+
+    function insertSpacersBasedOnSides(arr) {
+
+      try {
+
+        arr.each(i => {
+
+          let current = Number( arr[i].match(/\d+/g) ),
+              next = Number( arr[i + 1].match(/\d+/g) );
+
+          // check for 0 value which can be returned when a
+          // track is simply listed as A, B, C, etc ...
+          if ( next <= current && current !== 0 || !current && next ) {
+
+            if ( i !== tracklist.length - 1 ) {
+
+              $(spacer).insertAfter( tracklist[i] );
+            }
+          }
+        });
+      } catch (e) {
+        // just catch the errors
+      }
+    }
+
+
+    /**
+     * Sets default value for readabilityDividers
+     *
+     * @method setReadabilityTrue
+     * @return {object}
+     */
+
+    function setReadabilityTrue() {
+
+      if ( !localStorage.getItem('readabilityDividers') ) {
+
+        localStorage.setItem('readabilityDividers', 'true');
+      }
+
+      return JSON.parse(localStorage.getItem('readabilityDividers'));
+    }
+
+
+    /**
+     * Returns a set of defaults if none are present in localStorage.
+     *
+     * @method useDefaults
+     * @return {object}
+     */
+
+    function useDefaults() {
+
+      return { indexTracks: false,
+               nth: 10,
+               otherMediaReadability: false,
+               otherMediaThreshold: 15,
+               size: 0.5,
+               vcReadability: true,
+               vcThreshold: 8 };
+    }
+
     // ========================================================
     // UI Functionality
     // ========================================================
@@ -269,9 +285,15 @@ $(document).ready(function() {
      *
      * @return {undefined}
      */
+
     function appendUI() {
 
       if ( !$('.de-spacer-trigger').length ) {
+
+        // title of show/hide dividers link
+        let trigger = show
+                    ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
+                    : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
 
         $('#tracklist .group').append(trigger);
       }
@@ -297,7 +319,7 @@ $(document).ready(function() {
     }
 
     // ========================================================
-    // DOM Manipulation
+    // DOM Setup
     // ========================================================
 
     // CDs (nuts)
@@ -328,7 +350,7 @@ $(document).ready(function() {
         trackpos.each(function(i, tpos) {
 
           // Make sure to match a real value, not null
-          if (tpos.match(/\D/g)) {
+          if ( tpos.match(/\D/g) ) {
 
             prefix.push(String(tpos.match(/\D/g)));
           }
@@ -349,6 +371,7 @@ $(document).ready(function() {
             insertSpacersBasedOnAlphaDifferences(prefix);
 
             if (debug) {
+
               console.log('');
               console.log('Tracklist Readability:');
               console.log('insert Spacers Based On Alpha Differences');
@@ -361,6 +384,7 @@ $(document).ready(function() {
           if ( config && config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
 
             if (debug) {
+
               console.log('');
               console.log('Tracklist Readability:');
               console.log('insert Spacers Every Nth');
@@ -380,6 +404,7 @@ $(document).ready(function() {
             insertSpacersBasedOnSides(trackpos);
 
             if (debug) {
+
               console.log('');
               console.log('Tracklist Readability:');
               console.log('insert Spacers Based On Sides');
@@ -395,6 +420,7 @@ $(document).ready(function() {
           handleMultiFormatRelease(trackpos);
 
           if (debug) {
+
             console.log('');
             console.log('Tracklist Readability:');
             console.log('handle Multi-Format Release');
@@ -409,6 +435,7 @@ $(document).ready(function() {
       appendUI();
 
       if (debug) {
+
         console.log('');
         console.log('Tracklist Readability:');
         console.log('handle index tracks');
