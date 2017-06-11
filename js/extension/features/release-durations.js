@@ -23,6 +23,58 @@ $(document).ready(function() {
         seconds,
         totalSeconds;
 
+    // ========================================================
+    // Functions
+    // ========================================================
+
+    /**
+     * Converts hh:mm:ss to seconds
+     *
+     * @method convertToSeconds
+     * @param  {String} str
+     * @return {Number}
+     */
+
+    function convertToSeconds(str) {
+
+      let p = str.split(':'),
+          sec = 0,
+          min = 1;
+
+      while ( p.length > 0 ) {
+
+        sec += min * Number(p.pop());
+
+        min *= 60;
+      }
+
+      return sec;
+    }
+
+
+    /**
+     * Grabs tracktimes from a target and inserts them into an array
+     *
+     * @method gatherTrackTimes
+     * @param  {object} target
+     * @return {method}
+     */
+
+    function gatherTrackTimes(target) {
+
+      target.each(function() {
+
+        let trackTime = $(this).text();
+
+        return trackTime === '' ? arr.push('0') : arr.push(trackTime);
+      });
+    }
+
+
+    // ========================================================
+    // DOM Setup
+    // ========================================================
+
     // Grab all track times from any Index Tracks in the tracklisting
     // and add them to the array.
     $('tr.index_track td.tracklist_track_duration span').each(function() {
@@ -44,6 +96,7 @@ $(document).ready(function() {
         return arr.push('0');
 
       } else {
+
         // Strip any times wrapped in parenthesis and add their numbers
         // to the array
         trackTime = trackTime.replace('(', '').replace(')', '');
@@ -53,55 +106,14 @@ $(document).ready(function() {
     });
 
     // Grab the track times from the subtrack entries.
-    if (emptyIndexTracks) {
+    if ( emptyIndexTracks ) {
 
-      $('.tracklist_track.subtrack .tracklist_track_duration span').each(function() {
-
-        let trackTime = $(this).text();
-
-        if ( trackTime === '' ) {
-
-          return arr.push('0');
-
-        } else {
-
-          return arr.push(trackTime);
-        }
-      });
+      gatherTrackTimes( $('.tracklist_track.subtrack .tracklist_track_duration span') );
     }
 
     // Grab all track times from any td that is not a child of .subtrack
     // and add them to the array.
-    $('tr.tracklist_track.track td.tracklist_track_duration span').each(function() {
-
-      let trackTime = $(this).text();
-
-      if ( trackTime === '' ) {
-
-        return arr.push('0');
-
-      } else {
-
-        return arr.push(trackTime);
-      }
-    });
-
-
-    function convertToSeconds(str) {
-
-      let p = str.split(':'),
-          sec = 0,
-          min = 1;
-
-      while ( p.length > 0 ) {
-
-        sec += min * Number(p.pop());
-
-        min *= 60;
-      }
-
-      return sec;
-    }
+    gatherTrackTimes( $('tr.tracklist_track.track td.tracklist_track_duration span') );
 
     // Calculate total seconds
     totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
@@ -116,14 +128,11 @@ $(document).ready(function() {
     seconds = totalSeconds % 60;
 
     // Assemble the result
-    if (hours) {
+    if ( hours ) { result = hours + ':'; }
 
-      result = hours + ':';
-    }
+    if ( minutes !== null ) { // 0 you falsy bastard!
 
-    if (minutes !== null) { // 0 you falsy bastard!
-
-      if (hours) {
+      if ( hours ) {
 
         resultMinutes = (minutes < 10 ? '0' + minutes : minutes);
 
@@ -135,9 +144,10 @@ $(document).ready(function() {
       }
     }
 
-    result += (seconds < 10 ? '0' + seconds : seconds);
+    result += ( seconds < 10 ? '0' + seconds : seconds );
 
-    if (result === '0:00' || result === 'NaN:NaN') {
+    // Don't insert any markup if necessary
+    if ( result === '0:00' || result === 'NaN:NaN' ) {
 
       return;
 
@@ -159,7 +169,7 @@ $(document).ready(function() {
                '</table>' +
              '</div>';
 
-      $(html).insertAfter($('#tracklist .section_content'));
+      $(html).insertAfter( $('#tracklist .section_content') );
     }
   }
 });
