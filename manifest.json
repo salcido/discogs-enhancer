@@ -79,6 +79,7 @@
       "js/extension/features/notes-counter.js",
       "js/extension/features/release-durations.js",
       "js/extension/features/release-history-legend.js",
+      "js/extension/features/release-ratings.js",
       "js/extension/features/seller-rep.js",
       "js/extension/features/sort-explore-lists.js",
       "js/extension/features/sort-marketplace-lists.js",

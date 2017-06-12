@@ -67,6 +67,7 @@ chrome.storage.sync.get('prefs', function(result) {
       notesCount: true,
       readability: false,
       releaseDurations: true,
+      releaseRatings: false,
       sellerRep: false,
       sortButtons: true,
       suggestedPrices: false,
@@ -383,6 +384,17 @@ chrome.storage.sync.get('prefs', function(result) {
     releaseDurations.className = 'de-init';
 
     elems.push(releaseDurations);
+  }
+
+  if (result.prefs.releaseRatings) {
+
+    let releaseRatings = document.createElement('script');
+
+    releaseRatings.type = 'text/javascript';
+    releaseRatings.src = chrome.extension.getURL('js/extension/features/release-ratings.js');
+    releaseRatings.className = 'de-init';
+
+    elems.push(releaseRatings);
   }
 
   if (result.prefs.sellerRep) {

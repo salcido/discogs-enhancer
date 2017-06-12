@@ -192,6 +192,12 @@ $(document).ready(function() {
 
             window.sellersRep();
           }
+
+          // Release ratings
+          if (window.insertRatingsLink) {
+
+            window.insertRatingsLink();
+          }
         }
       });
     }
