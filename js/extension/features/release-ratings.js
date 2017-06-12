@@ -6,6 +6,23 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * This feature will inject `Show release ratings` links into marketplace / seller items.
+ * When a user clicks an injected link, the script will fetch the release page, extract the
+ * release rating data and display it in the marketplace listing.
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
+ *
+ * The script is initiated with the code that follows the `init / DOM Setup` comment block.
+ *
+ * `insertRatingsLink` injects the links and calls the `addUiListeners` function.
+ *
+ * `addUiListeners` attaches click event listeners to each `Show release link` which
+ * call `getReleaseRating`.
+ *
+ * `getReleaseRating` feteches the relavant data from the release page and injects it into
+ * the marketplace listing.
  */
 
 $(document).ready(function() {
@@ -85,6 +102,7 @@ $(document).ready(function() {
    * @return {function}
    */
 
+  // attached to window object so it can be called by Everlasting Marketplace
   window.insertRatingsLink = function insertRatingsLink() {
 
     let releases = [...document.querySelectorAll('.item_release_link')];
