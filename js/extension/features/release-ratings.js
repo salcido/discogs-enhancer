@@ -6,27 +6,28 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
  *
  * This feature will inject `Show release ratings` links into marketplace / seller items.
  * When a user clicks an injected link, the script will fetch the release page, extract the
  * release rating data and display it in the marketplace listing.
  *
- * ---------------------------------------------------------------------------
- * Overview
- * ---------------------------------------------------------------------------
+ * The script is initiated with the code that follows the `init / DOM Setup` comment block.
  *
- * 1.) The script is initiated with the code that follows the `init / DOM Setup` comment block.
- * 2.) `insertRatingsLink` injects the links and calls the `addUiListeners` function.
- * 3.) `addUiListeners` attaches click event listeners to each `Show release link` which
+ * 1.) `insertRatingsLink` injects the links and calls the `addUiListeners` function.
+ * 2.) `addUiListeners` attaches click event listeners to each `Show release link` which
  * call `getReleaseRating`.
- * 4.) `getReleaseRating` feteches the relavant data from the release page and injects it into
+ * 3.) `getReleaseRating` feteches the relavant data from the release page and injects it into
  * the marketplace listing.
  */
 
 $(document).ready(function() {
 
-  let seller = window.location.href.includes('/seller/'),
-      marketplace = window.location.href.includes('/sell/');
+  const marketplace = window.location.href.includes('/sell/') &&
+                      !window.location.href.includes('/sell/release/'),
+        seller = window.location.href.includes('/seller/');
 
   // ========================================================
   // Functions
@@ -82,7 +83,7 @@ $(document).ready(function() {
         let result = $(res),
             ratingInfo = result.find('.release_info_buttons div').html();
 
-        parent.closest($('.preloader').remove());
+        parent.closest( $('.preloader').remove() );
 
         parent.append(ratingInfo);
       },
