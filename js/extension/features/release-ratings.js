@@ -6,22 +6,20 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ *
  * This feature will inject `Show release ratings` links into marketplace / seller items.
  * When a user clicks an injected link, the script will fetch the release page, extract the
  * release rating data and display it in the marketplace listing.
+ *
  * ---------------------------------------------------------------------------
  * Overview
  * ---------------------------------------------------------------------------
  *
- * The script is initiated with the code that follows the `init / DOM Setup` comment block.
- *
- * `insertRatingsLink` injects the links and calls the `addUiListeners` function.
- *
- * `addUiListeners` attaches click event listeners to each `Show release link` which
+ * 1.) The script is initiated with the code that follows the `init / DOM Setup` comment block.
+ * 2.) `insertRatingsLink` injects the links and calls the `addUiListeners` function.
+ * 3.) `addUiListeners` attaches click event listeners to each `Show release link` which
  * call `getReleaseRating`.
- *
- * `getReleaseRating` feteches the relavant data from the release page and injects it into
+ * 4.) `getReleaseRating` feteches the relavant data from the release page and injects it into
  * the marketplace listing.
  */
 
@@ -81,8 +79,7 @@ $(document).ready(function() {
 
       success: res => {
 
-        let
-            result = $(res),
+        let result = $(res),
             ratingInfo = result.find('.release_info_buttons div').html();
 
         parent.closest($('.preloader').remove());
@@ -113,6 +110,8 @@ $(document).ready(function() {
           div = document.createElement('div'),
           parent = release.parentElement;
 
+      div.className = 'de-rating-link-wrap';
+
       a.className = 'de-rating-link';
       a.dataset.id = $(parent).find('.item_description_title').attr('href');
       a.style = 'display:block;';
@@ -121,7 +120,7 @@ $(document).ready(function() {
       div.append(a);
 
       // don't insert links if they already exist
-      if ( !parent.getElementsByClassName('de-rating-link').length && !parent.getElementsByClassName('de-rating').length ) {
+      if ( !parent.getElementsByClassName('de-rating-link-wrap').length ) {
 
         release.insertAdjacentElement('beforebegin', div);
       }
