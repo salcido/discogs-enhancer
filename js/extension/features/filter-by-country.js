@@ -6,6 +6,21 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
+ *
+ * This feature will hide any listing in the Marketplace that is not from a specified country
+ * when filtering with a specified currency.
+ *
+ * The script is initiated with the code that follows the `DOM manipulation` comment block.
+ *
+ * 1a) The URL is examined to see if the user is in the marketplace.
+ * 1b) The URL is examined for the presence of query params.
+ * 1c) localStorage is queried for the `filterByCountry` item.
+ * 2.) If all these things are true, query params examined for `currency`
+ * 3.) If there is a `currency` param that matches the currency value saved in `filterByCountry`,
+ * any results that do not ship from the specified country are hidden in the DOM via CSS class.
  */
 
 $(document).ready(function() {
@@ -13,9 +28,12 @@ $(document).ready(function() {
   let
       href = window.location.href,
       params = href.includes('?') ? href.split('?')[1].split('&') : null,
+      prefs = JSON.parse(localStorage.getItem('filterByCountry')),
+      //
       currency,
       enabled = false,
-      prefs = JSON.parse(localStorage.getItem('filterByCountry'));
+      marketplace = href.includes('/sell/list') && params && prefs,
+      wantlist = href.includes('/sell/mywants') && params && prefs;
 
 
   /**
@@ -49,33 +67,29 @@ $(document).ready(function() {
   // ========================================================
 
   // Make sure the user is in the marketplace before doing all this stuff
-  if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
+  if ( wantlist || marketplace ) {
 
-    // if the current url has `currency` as a query param...
-    if (params) {
+    // find currency query param value
+    params.forEach(param => {
 
-      // find currency query param value
-      params.forEach(param => {
+      if ( param.includes('currency') ) {
 
-        if ( param.includes('currency') ) {
+        currency = param.split('=')[1];
 
-          currency = param.split('=')[1];
+        // if the user has a prefs object and the query param for currency matches
+        // the value set in the extension's popup set `enabled` to `true`.
+        if ( prefs.country && prefs.currency && currency === prefs.currency ) {
 
-          // if the user has a prefs object and the query param for currency matches
-          // the value set in the extension's popup set `enabled` to `true`. This seems
-          // a round about way of doing things but I did it this way so that all these
-          // if-statements only have to be checked once when using Everlasting Earketplace.
-          // Afterwards, only the `enabled`boolean value determins when filterByCountry() runs
-          if (prefs && prefs.country && prefs.currency && currency === prefs.currency) {
-
-            enabled = true;
-          }
+          enabled = true;
         }
-      });
-    }
+      }
+    });
 
-    // Finally, call filterByCountry();
     window.filterByCountry();
+
+    // ========================================================
+    // UI Functionality
+    // ========================================================
 
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
