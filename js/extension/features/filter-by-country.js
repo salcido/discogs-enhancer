@@ -18,7 +18,7 @@
  * 1a) The URL is examined to see if the user is in the marketplace.
  * 1b) The URL is examined for the presence of query params.
  * 1c) localStorage is queried for the `filterByCountry` item.
- * 2.) If all these things are true, query params examined for `currency`
+ * 2.) If all these things are true, query params are examined for a `currency` param
  * 3.) If there is a `currency` param that matches the currency value saved in `filterByCountry`,
  * any results that do not ship from the specified country are hidden in the DOM via CSS class.
  */
@@ -37,13 +37,15 @@ $(document).ready(function() {
 
 
   /**
-   * add to window object so it can be called by other features in
-   * the extension
+   * Iterates through the marketplace results and adds the `de-hide-country`
+   * class to any countries that do not match the user's specified
+   * country.
    *
    * @method filterByCountry
    * @return {undefined}
    */
 
+  // add to window object so it can be called by Everlasting Marketplace
   window.filterByCountry = function filterByCountry() {
 
     let listings = $('.seller_info ul li:nth-child(3)'),
@@ -61,6 +63,7 @@ $(document).ready(function() {
       });
     }
   };
+
 
   // ========================================================
   // DOM manipulation
