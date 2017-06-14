@@ -55,10 +55,12 @@ $(document).ready(function() {
 
       $(countries).each(function() {
 
-        if ( !$(this).text().includes(prefs.country) &&
-             !$(this).parent().parent().parent().hasClass('de-hide-country') ) {
+        let greatGrandParent = $(this).parent().parent().parent();
 
-          $(this).parent().parent().parent().addClass('de-hide-country');
+        if ( !$(this).text().includes(prefs.country) &&
+             !greatGrandParent.hasClass('de-hide-country') ) {
+
+          greatGrandParent.addClass('de-hide-country');
         }
       });
     }
