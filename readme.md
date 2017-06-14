@@ -48,7 +48,6 @@ Search Discogs and other online shops instantly with any highlighted text! Curre
 
 Convert between all the currencies Discogs supports — and Rubles (₽) too!
 
-
 ### Dark Theme
 
 Give discogs.com a dark look. Completely re-themed from top to bottom. Great for late night digging.
@@ -65,7 +64,6 @@ Get notified when new buyer or seller feedback is left on your profile. The Feed
 
 Tag any Seller in the Marketplace who's reputation is below a percentage specified by you.
 
-
 ### Filter Marketplace Items By Condition
 
 Automatically filter out any listing that's below your specified condition!
@@ -77,6 +75,10 @@ Only show items from a specific country when filtering in your currency.
 ### Marketplace Highlights
 
 Easily see at a glance what condition items are in.
+
+### Marketplace Release Ratings
+
+This will allow you to see the release's rating along with the number of votes received within the Marketplace results.
 
 ### Notes Counter
 
