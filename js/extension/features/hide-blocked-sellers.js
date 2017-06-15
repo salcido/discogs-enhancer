@@ -6,17 +6,30 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
+ *
+ * This feature will mark or hide specified users in the Marketplace.
+ *
+ * The script is initiated with the code that follows the `DOM manipulation` comment block.
+ *
+ * 1.) The URL is examined to see if the user is in the marketplace.
+ * 2.) localStorage is queried for a `blockList` item.
+ * 3.) If there is a `blockList` and a URL match the script will either mark or hide the
+ * specified user(s) (depending on the string value of `blockList.hide`) via either
+ * CSS class or setting the element's display property to `none`.
  */
 
 $(document).ready(function() {
 
   let
       blockList = JSON.parse(localStorage.getItem('blockList')),
-      loc = window.location.href,
-      sellPage = /sell\/list/g, // master releases && all items in marketplace
-      sellerPage = /seller/g,
-      sellRelease = /sell\/release/g,
-      wantsPage = /sell\/mywants/g;
+      href = window.location.href,
+      sellPage = href.match(/sell\/list/g), // master releases && all items in marketplace
+      sellerPage = href.match(/seller/g),
+      sellRelease = href.match(/sell\/release/g),
+      wantsPage = href.match(/sell\/mywants/g);
 
   // ========================================================
   // Functions
@@ -61,23 +74,19 @@ $(document).ready(function() {
 
 
   // ========================================================
-  // DOM manipulation (Blocking)
+  // DOM manipulation
   // ========================================================
 
   if (blockList) {
 
     switch ( blockList.hide ) {
 
-      // hide when page first loads
+      // Hide sellers in the Marketplace and on release sale pages
       // ---------------------------------------------------------------------------
       case 'global':
 
-        if ( loc.match(sellPage) ||
-             loc.match(sellRelease) ||
-             loc.match(sellerPage) ||
-             loc.match(wantsPage) ) {
+        if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
-          // hide when page first loads
           window.hideSellers();
 
           // Call hideSellers on prev/next clicks
@@ -91,13 +100,12 @@ $(document).ready(function() {
         }
         return;
 
-      // Hide sellers in the marketplace only
+      // Hide sellers in the Marketplace only (marked in red elsewhere)
       // ---------------------------------------------------------------------------
       case 'marketplace':
 
-        if ( loc.match(wantsPage) ) {
+        if (wantsPage) {
 
-          // hide when page first loads
           window.hideSellers();
 
           // Call hideSellers on prev/next clicks
@@ -108,27 +116,31 @@ $(document).ready(function() {
               window.hideSellers();
             });
           });
-        } else if ( loc.match(sellRelease) ||
-                    loc.match(sellPage) ||
-                    loc.match(sellerPage) ) {
+
+        } else if ( sellRelease || sellPage || sellerPage ) {
 
           window.tagSellers();
+
+          // Call tagSellers on prev/next clicks
+          $('body').on('click', '.pagination_next, .pagination_previous', function() {
+
+            $(document).ajaxSuccess(function() {
+
+              window.tagSellers();
+            });
+          });
         }
         return;
 
-      // Mark sellers in red
+      // Mark sellers in red everywhere
       // ---------------------------------------------------------------------------
       case 'tag':
 
-        if ( loc.match(sellPage) ||
-             loc.match(sellRelease) ||
-             loc.match(sellerPage) ||
-             loc.match(wantsPage) ) {
+        if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
-          // tag when page first loads
           window.tagSellers();
 
-          // Call hideSellers on prev/next clicks
+          // Call tagSellers on prev/next clicks
           $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
             $(document).ajaxSuccess(function() {
