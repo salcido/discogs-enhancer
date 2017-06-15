@@ -27,7 +27,10 @@
 
 $(document).ready(function() {
 
-  if ( document.location.href.includes('/release/') && !document.location.href.includes('/history') ) {
+    let releaseHistoryPage = document.location.href.includes('/history'),
+        releasePage = document.location.href.includes('/release/');
+
+  if ( releasePage && !releaseHistoryPage ) {
 
     let
         config = JSON.parse( localStorage.getItem('readability') ) || useDefaults(),

@@ -6,11 +6,25 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
+ *
+ * This will calculate the total time for a release if track durations are
+ * present.
+ *
+ * The script is initiated when a table with `.playlist` exists in the DOM
+ * except when viewing a release's edit history page because:
+ * https://www.discogs.com/forum/thread/731619
+ *
  */
 
 $(document).ready(function() {
 
-  if ( $('table.playlist').length && !document.location.href.includes('/history') ) {
+  let hasPlaylist = $('table.playlist').length,
+      releaseHistoryPage = document.location.href.includes('/history');
+
+  if ( hasPlaylist && !releaseHistoryPage ) {
 
     let
         arr = [],
