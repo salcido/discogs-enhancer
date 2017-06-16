@@ -6,24 +6,39 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
+ *
+ * This will attempt to discern where visual dividers should be inserted into
+ * the tracklist in an effort to improve its readability.
+ *
+ * The script is initiated after the `Init / DOM Setup` comment block.
+ *
+ * Functions are listed alphabetically.
+ *
+ * ---------------------------------------------------------------------------
+ * Use Case Examples:
+ * ---------------------------------------------------------------------------
+ *
+ * Vinyl:
+ * https://www.discogs.com/STL-Night-Grooves/release/1121308
+ * https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
+ *
+ * Cassette:
+ * https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
+ *
+ * Lots of tracks:
+ * https://www.discogs.com/Farmers-Manual-Fsck/release/106658
+ *
+ * Multi-formats:
+ * https://www.discogs.com/Muse-The-Resistance/release/4318500
+ * https://www.discogs.com/Bunbury-Archivos-Vol-2-Duetos/release/9495721
+ *
+ * Bad example:
+ * https://www.discogs.com/Various-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/release/6265588
+ *
  */
-
-// Examples:
-// https://www.discogs.com/STL-Night-Grooves/release/1121308
-// https://www.discogs.com/Jerry-Goldsmith-Gremlins-Original-Motion-Picture-Soundtrack/release/9436212
-
-// Cassette
-// https://www.discogs.com/Casino-Vs-Japan-Frozen-Geometry/release/9108134
-
-// lots of tracks
-// https://www.discogs.com/Farmers-Manual-Fsck/release/106658
-
-// multi-formats:
-// https://www.discogs.com/Muse-The-Resistance/release/4318500
-// https://www.discogs.com/Bunbury-Archivos-Vol-2-Duetos/release/9495721
-
-// Bad example
-// https://www.discogs.com/Various-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/release/6265588
 
 $(document).ready(function() {
 
@@ -294,9 +309,8 @@ $(document).ready(function() {
       if ( !$('.de-spacer-trigger').length ) {
 
         // title of show/hide dividers link
-        let trigger = show
-                    ? '<a class="smallish fright de-spacer-trigger">Hide Dividers</a>'
-                    : '<a class="smallish fright de-spacer-trigger">Show Dividers</a>';
+        let text = show ? 'Hide' : 'Show',
+            trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
 
         $('#tracklist .group').append(trigger);
       }
@@ -304,7 +318,7 @@ $(document).ready(function() {
       // Trigger functionality
       $('.de-spacer-trigger').on('click', function() {
 
-        if ($('.de-spacer').is(':visible')) {
+        if ( $('.de-spacer').is(':visible') ) {
 
           $(this).text('Show Dividers');
           show = false;
@@ -322,16 +336,15 @@ $(document).ready(function() {
     }
 
     // ========================================================
-    // DOM Setup
+    // Init / DOM Setup
     // ========================================================
 
-    // CDs (nuts)
     if ( noHeadings && !hasIndexTracks ) {
 
       let prefixes = false,
           trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
 
-      // Determine any common CD prefixes in the track positions
+      // Determine any common prefixes in the track positions
       for ( let i = 0; i < trackpos.length; i++ ) {
 
         if ( trackpos[i].includes('-') ||
@@ -346,7 +359,10 @@ $(document).ready(function() {
         }
       }
 
-      // No specialized prefixes
+
+      // No specialized prefixes (eg: CD-, BD-, VHS, DVD ...)
+      // ---------------------------------------------------------------------------
+
       if ( !prefixes ) {
 
         // Populate our arrays with whatever the prefix is and the remaining numbers
@@ -361,14 +377,19 @@ $(document).ready(function() {
           sequence.push(Number(tpos.match(/\d+/g)));
         });
 
+
+        // If there are both numbers and letters in the track positions
+        // ---------------------------------------------------------------------------
+
         isSequential = hasContinualNumberSequence(sequence);
 
-        // if there are both numbers and letters in the track positions
         if ( isSequential && prefix.length ) {
 
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
-          if ( config && config.vcReadability && tracklist.length > config.vcThreshold ) {
+          if ( config &&
+               config.vcReadability &&
+               tracklist.length > config.vcThreshold ) {
 
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
@@ -381,10 +402,15 @@ $(document).ready(function() {
             }
           }
 
+
         // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
+        // ---------------------------------------------------------------------------
+
         } else if ( isSequential && !prefix.length ) {
 
-          if ( config && config.otherMediaReadability && tracklist.length > config.otherMediaThreshold ) {
+          if ( config &&
+               config.otherMediaReadability &&
+               tracklist.length > config.otherMediaThreshold ) {
 
             if (debug) {
 
@@ -397,11 +423,16 @@ $(document).ready(function() {
             return insertSpacersEveryNth(tracklist, config.nth);
           }
 
+
         } else {
 
-          // If the numbering is not sequential ala
-          // Vinyl and Cassettes (eg: A1, A2, B, C1, C2)
-          if ( config && config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks ) {
+          // Track numbering is not sequential (eg: A1, A2, B, C1, C2)
+          // ---------------------------------------------------------------------------
+
+          if ( config &&
+               config.vcReadability &&
+               tracklist.length > config.vcThreshold &&
+               !hasIndexTracks ) {
 
             appendUI();
             insertSpacersBasedOnSides(trackpos);
@@ -415,9 +446,15 @@ $(document).ready(function() {
           }
         }
 
+
       } else {
 
-        if ( config && config.vcReadability && tracklist.length > config.vcReadability ) {
+        // Has Prefixes AKA Multi-Format releases (eg: CD + DVD, etc ...)
+        // ---------------------------------------------------------------------------
+
+        if ( config &&
+             config.vcReadability &&
+             tracklist.length > config.vcReadability ) {
 
           appendUI();
           handleMultiFormatRelease(trackpos);
@@ -432,8 +469,14 @@ $(document).ready(function() {
       }
     }
 
+
     // Index tracks
-    if ( config && noHeadings && config.indexTracks && hasIndexTracks ) {
+    // ---------------------------------------------------------------------------
+
+    if ( config &&
+         noHeadings &&
+         config.indexTracks &&
+         hasIndexTracks ) {
 
       appendUI();
 
