@@ -61,7 +61,7 @@ p {
 a.button_orange {
   display: inline-block;
   height: 2em;
-  width: 25%;
+  width: auto;
   margin: 0 25% 25px 33%;
   padding: 0 1em;
   background-color: #F98717;
