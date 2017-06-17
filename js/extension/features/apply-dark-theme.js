@@ -10,8 +10,7 @@
 
 (function() {
 
-  let
-      link = document.getElementById('darkThemeCss'),
+  let link = document.getElementById('darkThemeCss'),
       styles = link.getAttribute('disabled');
 
   if (styles) { link.removeAttribute('disabled'); }
