@@ -165,15 +165,15 @@ $(document).ready(function() {
           }
 
           // Hide/tag sellers in marketplace
-          if (blockList && blockList.hide === 'global' && window.hideSellers ||
-              blockList && blockList.hide === 'marketplace' && window.hideSellers) {
+          if (blockList && blockList.hide === 'global' && window.modifySellers ||
+              blockList && blockList.hide === 'marketplace' && window.modifySellers) {
 
-            window.hideSellers();
+            window.modifySellers('hide');
           }
 
-          if (blockList && blockList.hide === 'tag' && window.tagSellers) {
+          if (blockList && blockList.hide === 'tag' && window.modifySellers) {
 
-            window.tagSellers();
+            window.modifySellers('tag');
           }
 
           // filter marketplace item by condition

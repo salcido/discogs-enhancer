@@ -23,3 +23,7 @@
   border-bottom-color: #842827 !important;
   color: #CCCCCC !important;
 }
+
+.hidden-seller {
+  display: none;
+}

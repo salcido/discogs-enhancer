@@ -17,8 +17,7 @@
  * 1.) The URL is examined to see if the user is in the marketplace.
  * 2.) localStorage is queried for a `blockList` item.
  * 3.) If there is a `blockList` and a URL match the script will either mark or hide the
- * specified user(s) (depending on the string value of `blockList.hide`) via either
- * CSS class or setting the element's display property to `none`.
+ * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
 
 $(document).ready(function() {
@@ -26,48 +25,48 @@ $(document).ready(function() {
   let
       blockList = JSON.parse(localStorage.getItem('blockList')),
       href = window.location.href,
-      sellPage = href.match(/sell\/list/g), // master releases && all items in marketplace
-      sellerPage = href.match(/seller/g),
-      sellRelease = href.match(/sell\/release/g),
-      wantsPage = href.match(/sell\/mywants/g);
+      sellPage = href.includes('/sell/list'), // master releases && all items in marketplace
+      sellerPage = href.includes('/seller/'),
+      sellRelease = href.includes('/sell/release/'),
+      wantsPage = href.includes('/sell/mywants');
 
   // ========================================================
   // Functions
   // ========================================================
 
   /**
-   * Find all instances of sellers in list and hide them
+   * Adds event listners to the prev and next buttons
    *
-   * @method hideSellers
-   * @return {undefined}
+   * @method addUiListeners
+   * @param  {String} type  Either 'hide' or 'tag'
+   * @returns {undefined}
    */
 
-  window.hideSellers = function hideSellers() {
+  function addUiListeners(type) {
 
-    blockList.list.forEach(seller => {
+    $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
-      if ( $('td.seller_info:contains(' + seller + ')').length ) {
-
-        $('td.seller_info:contains(' + seller + ')').parent().css({display: 'none'});
-      }
+      $(document).ajaxSuccess(() => window.modifySellers(type) );
     });
-  };
-
+  }
 
   /**
-   * Find all instances of sellers in list and tag them
+   * Find all instances of sellers in list and hide them
    *
-   * @method tagSellers
+   * @method modifySellers
+   * @param {String} type Either 'hide' or 'tag'
    * @return {undefined}
    */
 
-  window.tagSellers = function tagSellers() {
+  window.modifySellers = function modifySellers(type) {
+
+    let cls = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
 
     blockList.list.forEach(seller => {
 
       if ( $('td.seller_info:contains(' + seller + ')').length ) {
 
-        $('td.seller_info:contains(' + seller + ')').parent().addClass('blocked-seller');
+        $('td.seller_info:contains(' + seller + ')').parent().addClass(cls);
       }
     });
   };
@@ -77,7 +76,7 @@ $(document).ready(function() {
   // DOM manipulation
   // ========================================================
 
-  if (blockList) {
+  if ( blockList ) {
 
     switch ( blockList.hide ) {
 
@@ -87,16 +86,9 @@ $(document).ready(function() {
 
         if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
-          window.hideSellers();
+          window.modifySellers('hide');
 
-          // Call hideSellers on prev/next clicks
-          $('body').on('click', '.pagination_next, .pagination_previous', function() {
-
-            $(document).ajaxSuccess(function() {
-
-              window.hideSellers();
-            });
-          });
+          addUiListeners('hide');
         }
         return;
 
@@ -104,31 +96,17 @@ $(document).ready(function() {
       // ---------------------------------------------------------------------------
       case 'marketplace':
 
-        if (wantsPage) {
+        if ( wantsPage ) {
 
-          window.hideSellers();
+          window.modifySellers('hide');
 
-          // Call hideSellers on prev/next clicks
-          $('body').on('click', '.pagination_next, .pagination_previous', function() {
-
-            $(document).ajaxSuccess(function() {
-
-              window.hideSellers();
-            });
-          });
+          addUiListeners('hide');
 
         } else if ( sellRelease || sellPage || sellerPage ) {
 
-          window.tagSellers();
+          window.modifySellers('tag');
 
-          // Call tagSellers on prev/next clicks
-          $('body').on('click', '.pagination_next, .pagination_previous', function() {
-
-            $(document).ajaxSuccess(function() {
-
-              window.tagSellers();
-            });
-          });
+          addUiListeners('tag');
         }
         return;
 
@@ -138,16 +116,9 @@ $(document).ready(function() {
 
         if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
-          window.tagSellers();
+          window.modifySellers('tag');
 
-          // Call tagSellers on prev/next clicks
-          $('body').on('click', '.pagination_next, .pagination_previous', function() {
-
-            $(document).ajaxSuccess(function() {
-
-              window.tagSellers();
-            });
-          });
+          addUiListeners('tag');
         }
         return;
     }
