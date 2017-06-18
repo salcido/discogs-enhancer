@@ -11,13 +11,20 @@
 $(document).ready(function() {
 
   let
-      loc = window.location.href,
-      sellPage = /sell\/list/g,
-      sellerPage = /seller/g,
-      sellRelease = /sell\/release/g,
-      wantsPage = /sell\/mywants/g;
+      href = window.location.href,
+      //
+      sellPage = href.includes('/sell/list'),
+      sellRelease = href.includes('/sell/release'),
+      sellerPage = href.includes('/seller'),
+      wantsPage = href.includes('/sell/mywants');
 
-  // Find all Marketplace item conditions and apply classes
+
+  /**
+   * Find all Marketplace item conditions and apply classes
+   * @method applyStyles
+   * @return {undefined}
+   */
+
   window.applyStyles = function applyStyles() {
 
     // Remove mobile clutter
@@ -44,23 +51,17 @@ $(document).ready(function() {
     $('span.item_sleeve_condition:contains("Poor (P)")').addClass('poor bold');
   };
 
-  // calls applyStyles on every |ajaxSuccess| method callback
-  function callApplyStyles() {
-
-    $(document).ajaxSuccess(function() {
-
-      window.applyStyles();
-    });
-  }
-
   // Apply styles on ready/prev/next clicks
-  if (loc.match(sellPage) || loc.match(sellRelease) || loc.match(sellerPage) || loc.match(wantsPage)) {
+  if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
     window.applyStyles();
 
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
-      callApplyStyles();
+      $(document).ajaxSuccess(function() {
+
+        window.applyStyles();
+      });
     });
   }
 });
