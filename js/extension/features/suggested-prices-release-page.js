@@ -40,51 +40,14 @@ $(document).ready(function() {
     // ========================================================
 
     /**
-     * Make sure the user has Seller permissions
-     * @method checkForSellerPermissions
-     * @return {function | undefined}
-     */
-
-    function checkForSellerPermissions() {
-
-      // User does not have seller setup
-      if ( $(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceKey['post:suggestedPrices'] ) {
-
-        $('.de-preloader').remove();
-
-        $('td.item_price').each(function() {
-
-          $(this).append(resourceLibrary.css.pleaseRegister);
-        });
-
-        return;
-      }
-
-      return getAndAppendPrices();
-     }
-
-
-    /**
      * Calculates all the prices and appends them to the DOM
      * @method getAndAppendPrices
-     * @return {undefined}
+     * @return {function|undefined}
      */
 
-    function getAndAppendPrices() {
+    function appendPrices() {
 
-      // Grab price / condition data from elements
-      prices.each(function(i) {
-
-        priceContainer.push({price: prices[i].textContent, mediaCondition: items[i]}); }
-      );
-
-      resourceLibrary.matchSymbols(priceContainer);
-      resourceLibrary.sanitizePrices(priceContainer);
-      resourceLibrary.convertPrices(priceContainer);
-
-      symbol = resourceLibrary.getSymbols(userCurrency, symbol);
-
-      // Iterate over each price...
+      // Insert price comparisons into each item on the page...
       $('td.item_price').each(function(j) {
 
         let
@@ -161,41 +124,51 @@ $(document).ready(function() {
 
 
     /**
-     * Generates suggested price markup
-     * @method makePriceMarkup
-     * @param  {number} percentage The percentage of the price difference
-     * @param  {string} printPrice The suggested price
-     * @param  {string} qt Either 'more', 'less' or ''
-     * @return {object}
+     * Make sure the user has Seller permissions
+     * @method checkForSellerPermissions
+     * @return {function | undefined}
      */
 
-    function makePriceMarkup(percentage, printPrice, qt) {
+    function checkForSellerPermissions() {
 
-      let
-          _class = qt === 'more' ? 'red' : 'green',
-          desc = qt.length ? 'around ' : 'within ',
-          plusmn = qt.length ? '' : '\u00B1',
-          spanOuter = document.createElement('span'),
-          spanPct = document.createElement('span'),
-          spanSug = document.createElement('span'),
-          spanPrice = document.createElement('span');
+      // User does not have seller setup
+      if ( $(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceKey['post:suggestedPrices'] ) {
 
-      spanOuter.textContent = desc;
-      spanOuter.className = 'converted_price de-price';
+        $('.de-preloader').remove();
 
-      spanPct.textContent = `${plusmn} ${Math.abs(percentage)}% ${qt}`;
-      spanPct.className = _class;
+        $('td.item_price').each(function() {
 
-      spanSug.textContent = 'than suggested:';
-      spanSug.className = 'd-block';
+          $(this).append(resourceLibrary.css.pleaseRegister);
+        });
 
-      spanPrice.textContent = printPrice;
+        return;
+      }
 
-      spanOuter.append(spanPct);
-      spanOuter.append(spanSug);
-      spanOuter.append(spanPrice);
+      return getPrices();
+    }
 
-      return spanOuter;
+
+    /**
+     * Collects the prices / conditions from the DOM
+     * @method getPrices
+     * @return {function}
+     */
+
+    function getPrices() {
+
+      // Grab price / condition data from elements
+      prices.each(function(i) {
+
+        priceContainer.push({price: prices[i].textContent, mediaCondition: items[i]}); }
+      );
+
+      resourceLibrary.matchSymbols(priceContainer);
+      resourceLibrary.sanitizePrices(priceContainer);
+      resourceLibrary.convertPrices(priceContainer);
+
+      symbol = resourceLibrary.getSymbols(userCurrency, symbol);
+
+      return appendPrices();
     }
 
 
@@ -246,6 +219,45 @@ $(document).ready(function() {
           return checkForSellerPermissions();
         }
       });
+    }
+
+
+    /**
+     * Generates suggested price markup
+     * @method makePriceMarkup
+     * @param  {number} percentage The percentage of the price difference
+     * @param  {string} printPrice The suggested price
+     * @param  {string} qt Either 'more', 'less' or ''
+     * @return {object}
+     */
+
+    function makePriceMarkup(percentage, printPrice, qt) {
+
+      let
+          _class = qt === 'more' ? 'red' : 'green',
+          desc = qt.length ? 'around ' : 'within ',
+          plusmn = qt.length ? '' : '\u00B1',
+          spanOuter = document.createElement('span'),
+          spanPct = document.createElement('span'),
+          spanSug = document.createElement('span'),
+          spanPrice = document.createElement('span');
+
+      spanOuter.textContent = desc;
+      spanOuter.className = 'converted_price de-price';
+
+      spanPct.textContent = `${plusmn} ${Math.abs(percentage)}% ${qt}`;
+      spanPct.className = _class;
+
+      spanSug.textContent = 'than suggested:';
+      spanSug.className = 'd-block';
+
+      spanPrice.textContent = printPrice;
+
+      spanOuter.append(spanPct);
+      spanOuter.append(spanSug);
+      spanOuter.append(spanPrice);
+
+      return spanOuter;
     }
 
 
