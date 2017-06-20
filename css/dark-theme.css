@@ -646,7 +646,9 @@ a.inset_button[disabled] {
 
 a.button.button_facebook_login span,
 .button.button_blue,
-a.button.blue,
+a.button.button_blue,
+a.button_blue,
+#user_header .button_blue,
 .button.button_blue span {
   background-color: #4588C4 !important;
   border-color: #3571A6 !important;
