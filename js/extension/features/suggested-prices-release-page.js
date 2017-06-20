@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     function getAndAppendPrices() {
 
-      // Collect price data from elements
+      // Grab price / condition data from elements
       prices.each(function(i) {
 
         priceContainer.push({price: prices[i].textContent, mediaCondition: items[i]}); }
@@ -90,25 +90,27 @@ $(document).ready(function() {
         let
             actual = priceContainer[j].convertedPrice,
             colorizePrices = resourceLibrary.options.colorize(),
-            //
-            spanOuter = document.createElement('span'),
-            threshold = resourceLibrary.options.threshold() || 0,
             suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
             difference = suggested - actual,
+            //
+            amount = '',
+            markup,
+            percentage = ( (difference / suggested) * 100 ).toFixed(0),
             printPrice = resourceLibrary.localizePrice(symbol, suggested),
-            percentage = ( (difference / suggested) * 100 ).toFixed(0);
+            spanOuter = document.createElement('span'),
+            threshold = resourceLibrary.options.threshold() || 0;
 
         $('.de-preloader').remove();
 
         if ( resourceLibrary.options.debug() ) {
 
-          let amt = difference > 0 ? ' less' : ' more',
-              pAmt = percentage > 0 ? '% less' : '% more',
+          let pAmt = percentage > 0 ? '% less' : '% more',
               pct = Math.abs(percentage),
-              value = Math.abs(difference).toFixed(3);
+              value = Math.abs(difference).toFixed(3),
+              vAmt = difference > 0 ? ' less' : ' more';
 
           console.log('Suggested: ', suggested);
-          console.log('Difference: ', value + ' ' + userCurrency + amt);
+          console.log('Difference: ', value + ' ' + userCurrency + vAmt);
           console.log('Percentage: ', pct + pAmt);
         }
 
@@ -128,39 +130,32 @@ $(document).ready(function() {
         // ---------------------------------------------------------------------------
         if ( percentage > threshold ) {
 
-          let markup = makePriceMarkup(percentage, printPrice, 'less');
-
-          $(this).append(markup);
-
-          if (colorizePrices) {
-
-            $(this).find('.price').addClass('green');
-          }
+          amount = 'less';
 
         // More than suggested
         // ---------------------------------------------------------------------------
         } else if ( percentage < -threshold ) {
 
-          let markup = makePriceMarkup(percentage, printPrice, 'more');
-
-          $(this).append(markup);
+          amount = 'more';
 
         // Within threshold
         // ---------------------------------------------------------------------------
         } else {
 
-          let markup = makePriceMarkup(percentage, printPrice, '');
-
-          $(this).append(markup);
-
-          if (colorizePrices) {
-
-            $(this).find('.price').addClass('green');
-          }
+          amount = '';
         }
+
+        markup = makePriceMarkup(percentage, printPrice, amount);
+
+        $(this).append(markup);
 
         // Fade in the results
         $(this).find('.de-price').hide().fadeIn(300);
+
+        if ( amount !== 'more' && colorizePrices ) {
+
+          $(this).find('.price').addClass('green');
+        }
       });
     }
 
