@@ -1,0 +1,26 @@
+.de-preloader {
+  margin: 20px auto;
+  position: relative;
+  font-style: normal;
+}
+
+.de-price {
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+  border-top: 1px dotted gray !important;
+}
+
+.d-block {
+  display: block;
+}
+
+.red {
+  color: #BF3A38 !important;
+  font-weight: bold;
+}
+
+.green {
+  color: #60C43F !important;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}

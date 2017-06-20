@@ -479,14 +479,14 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(suggestedPricesSingle);
 
     // Preloader css
-    let preloader = document.createElement('link');
+    let suggested = document.createElement('link');
 
-    preloader.rel = 'stylesheet';
-    preloader.type = 'text/css';
-    preloader.href = chrome.extension.getURL('css/pre-loader.css');
-    preloader.id = 'preloaderCss';
+    suggested.rel = 'stylesheet';
+    suggested.type = 'text/css';
+    suggested.href = chrome.extension.getURL('css/suggested-prices.css');
+    suggested.id = 'suggestedCss';
 
-    elems.push(preloader);
+    elems.push(suggested);
   }
 
   // unit-tests.js
