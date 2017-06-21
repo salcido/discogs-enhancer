@@ -132,7 +132,9 @@ $(document).ready(function() {
     function checkForSellerPermissions() {
 
       // User does not have seller setup
-      if ( $(result).html(':contains("' + resourceLibrary.unregistered + '")') && !priceKey['post:suggestedPrices'] ) {
+      if (
+           $(result).html(':contains("' + resourceLibrary.unregistered + '")')
+           && !priceKey['post:suggestedPrices'] ) {
 
         $('.de-preloader').remove();
 
