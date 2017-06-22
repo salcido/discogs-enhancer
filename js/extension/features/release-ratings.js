@@ -81,13 +81,14 @@ $(document).ready(function() {
       success: res => {
 
         let result = $(res),
-            ratingInfo = result.find('.release_info_buttons div').html();
+            ratingInfo = result.find('.statistics ul:first-of-type li:last-child').text();
 
         parent.closest( $('.preloader').remove() );
 
         parent.append(ratingInfo);
       },
 
+      // TODO render this error into the DOM for the user
       error: () => console.log('Discogs Enhancer: Cannot get release ratings.')
     });
   }
@@ -114,9 +115,9 @@ $(document).ready(function() {
       div.className = 'de-rating-link-wrap';
 
       a.className = 'de-rating-link';
-      a.dataset.id = $(parent).find('.item_description_title').attr('href');
+      a.dataset.id = $(release).attr('href');
       a.style = 'display:block;';
-      a.textContent = 'Show Release Rating';
+      a.textContent = 'Show Ratings';
 
       div.append(a);
 
