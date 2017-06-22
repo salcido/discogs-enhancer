@@ -96,7 +96,7 @@
 
       /**
        * Common colors used in price comparisons
-       *
+       * TODO Can I delete these?
        * @type {Object}
        */
 
