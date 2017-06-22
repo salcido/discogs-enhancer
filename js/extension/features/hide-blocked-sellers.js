@@ -46,7 +46,7 @@ $(document).ready(function() {
 
     $('body').on('click', '.pagination_next, .pagination_previous', function() {
 
-      $(document).ajaxSuccess(() => window.modifySellers(type) );
+      $(document).ajaxSuccess( () => window.modifySellers(type) );
     });
   }
 
@@ -55,20 +55,22 @@ $(document).ready(function() {
    *
    * @method modifySellers
    * @param {String} type Either 'hide' or 'tag'
-   * @return {undefined}
+   * @return {function}
    */
 
   window.modifySellers = function modifySellers(type) {
 
-    let cls = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
+    let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
 
     blockList.list.forEach(seller => {
 
       if ( $('td.seller_info:contains(' + seller + ')').length ) {
 
-        $('td.seller_info:contains(' + seller + ')').parent().addClass(cls);
+        $('td.seller_info:contains(' + seller + ')').parent().addClass(_class);
       }
     });
+
+    return addUiListeners(type);
   };
 
 
@@ -87,8 +89,6 @@ $(document).ready(function() {
         if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
           window.modifySellers('hide');
-
-          addUiListeners('hide');
         }
         return;
 
@@ -100,13 +100,9 @@ $(document).ready(function() {
 
           window.modifySellers('hide');
 
-          addUiListeners('hide');
-
         } else if ( sellRelease || sellPage || sellerPage ) {
 
           window.modifySellers('tag');
-
-          addUiListeners('tag');
         }
         return;
 
@@ -117,8 +113,6 @@ $(document).ready(function() {
         if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
           window.modifySellers('tag');
-
-          addUiListeners('tag');
         }
         return;
     }
