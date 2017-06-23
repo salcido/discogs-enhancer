@@ -201,7 +201,7 @@ $(document).ready(function() {
                           return $(this).data('condition');
                       }).get();
           } else {
-            //If the tooltip is missing, find the Media Condition via span:nth-child(2)
+            // If the tooltip is missing, find the Media Condition via span:nth-child(2)
             items = $('.shortcut_navigable .item_description .item_condition span:nth-child(2)').map(function() {
                         return $(this).text().trim();
                       });
