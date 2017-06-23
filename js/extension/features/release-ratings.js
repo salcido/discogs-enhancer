@@ -10,7 +10,7 @@
  * Overview
  * ---------------------------------------------------------------------------
  *
- * This feature will inject `Show release ratings` links into marketplace / seller items.
+ * This feature will inject `Show ratings` links into marketplace / seller items.
  * When a user clicks an injected link, the script will fetch the release page, extract the
  * release rating data and display it in the marketplace listing.
  *
