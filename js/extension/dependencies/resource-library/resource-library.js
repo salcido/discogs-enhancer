@@ -6,40 +6,30 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * ---------------------------------------------------------------------------
+ * Overview
+ * ---------------------------------------------------------------------------
+ *
+ * The resourceLibrary holds methods and properties that are shared between
+ * features. The `Init / Setup` is the place to put code that needs to run
+ * before anything else in the extension.
+ *
+ * Notes:
+ *
+ * Each object in `priceContainer` array
+ * looks something like this:
+
+   {
+    convertedPrice: 17.037037037037038,
+    exchangeName: "EUR",
+    isJPY: false,
+    mediaCondition: "Mint (M)",
+    price: "€14.95",
+    sanitizedPrice: "14.95"
+  }
  */
 
 (function() {
-
-  /**
-   * Each object in `priceContainer` array
-   * looks something like this:
-
-     {
-      convertedPrice: 17.037037037037038,
-      exchangeName: "EUR",
-      isJPY: false,
-      mediaCondition: "Mint (M)",
-      price: "€14.95",
-      sanitizedPrice: "14.95"
-    }
-
-   */
-
-  /* Instantiate default option values if not present */
-  if (!localStorage.getItem('options')) {
-
-    let options = {
-          analytics: true,
-          colorize: false,
-          debug: false,
-          threshold: 2,
-          unitTests: false
-        };
-
-    options = JSON.stringify(options);
-
-    localStorage.setItem('options', options);
-  }
 
   window.resourceLibrary = {
 
@@ -152,28 +142,28 @@
 
     convertPrices: function(source, rates) {
 
-      if (!rates) {
+      if ( !rates ) {
         // Current rates from Fixer.io
         rates = this.getItem('updateRatesObj').rates;
 
-        if (rates === null) {
+        if ( rates === null ) {
 
           console.log('Currency has recently been changed. Please refresh the page one more time.');
         }
       }
 
-      source.forEach((obj) => {
+      source.forEach(obj => {
 
-        if (!obj.isJPY) {
+        if ( !obj.isJPY ) {
 
           let injectionPoint = obj.sanitizedPrice.length - 2;
 
           obj.sanitizedPrice = obj.sanitizedPrice.splice(injectionPoint, 0, '.');
         }
 
-        for (let h = 0; h < source.length; h++) {
+        for ( let h = 0; h < source.length; h++ ) {
 
-          if (!rates.rates[obj.exchangeName]) {
+          if ( !rates.rates[obj.exchangeName] ) {
 
             obj.convertedPrice = Number(obj.sanitizedPrice);
 
@@ -182,12 +172,8 @@
             obj.convertedPrice = (obj.sanitizedPrice / rates.rates[obj.exchangeName]);
           }
 
-          if (this.options.debug()) {
-
-            console.log('Pre-conversion: ', obj.sanitizedPrice);
-
-            console.log('Converted Price: ', obj.convertedPrice);
-          }
+          this.log('Pre-conversion: ', obj.sanitizedPrice);
+          this.log('Converted Price: ', obj.convertedPrice);
         }
       });
 
@@ -211,9 +197,9 @@
 
     findNode: function(obj) {
 
-      for (let key in obj) {
+      for ( let key in obj ) {
 
-        if (obj[key].id === 'dsdata') {
+        if ( obj[key].id === 'dsdata' ) {
 
           return key;
         }
@@ -263,16 +249,13 @@
 
       this.exchangeList.forEach((name, f) => {
 
-        if (name === userCurrency) {
+        if ( name === userCurrency ) {
 
           symbol = this.printSymbol[language][f];
         }
       });
 
-      if (this.options.debug()) {
-
-        console.log('Print symbol: ', symbol);
-      }
+      this.log('Print symbol: ', symbol);
 
       return symbol;
     },
@@ -286,7 +269,7 @@
 
     isOnScreen(elem) {
 
-      if (elem && elem.getBoundingClientRect()) {
+      if ( elem && elem.getBoundingClientRect() ) {
 
         let elemTop = elem.getBoundingClientRect().top,
             elemBottom = elem.getBoundingClientRect().bottom,
@@ -324,7 +307,7 @@
           maxDigits,
           priceConfig;
 
-      if (!userCurrency || !language) {
+      if ( !userCurrency || !language ) {
 
         userCurrency = localStorage.getItem('userCurrency');
 
@@ -349,10 +332,7 @@
         case 'en':
         case 'ja':
 
-          if (this.options.debug()) {
-
-            console.log('Localized Suggestion: ', symbol + price);
-          }
+          this.log('Localized Suggestion: ', symbol + price);
 
           return symbol + price;
 
@@ -360,73 +340,82 @@
         case 'fr':
         case 'es':
 
-          if (this.options.debug()) {
-
-            console.log('Localized Suggestion: ', price + ' ' + symbol);
-          }
+          this.log('Localized Suggestion: ', price + ' ' + symbol);
 
           return price + ' ' + symbol;
 
         case 'it':
 
-          if (this.options.debug()) {
-
-            console.log('Localized Suggestion: ', symbol + ' ' + price);
-          }
+          this.log('Localized Suggestion: ', symbol + ' ' + price);
 
           return symbol + ' ' + price;
       }
     },
 
     /**
-     * Maps price symbol to `exchangeList` array
+     * Console.logs stuff
+     * @method
+     * @return {function}
+     */
+
+    log: function() {
+
+      if ( this.options.debug() ) {
+
+        return console.log(...arguments);
+      }
+    },
+
+    /**
+     * Maps price symbol to `exchangeList` array, determines if the release
+     * is listed in `JPY` and sets the exchange name.
      *
-     * @param    {array} source
-     * @return   {obj}
+     * @param    {array<object>} source An array of objects representing release data
+     * @return   {object}
      */
 
     matchSymbols: function(source, language) {
 
-      if (!language) {
+      if ( !language ) {
 
         language = this.language();
       }
 
-       source.forEach((obj, i) => {
+       source.forEach((releaseData, i) => {
 
-         for (i = 0; i < this.symbolRegex[language].length; i++) {
+         // An array of regexs based on the user's language
+         let symbol = this.symbolRegex[language];
 
-           if (obj.price.match(this.symbolRegex[language][i], 'g')) {
+         for ( i = 0; i < symbol.length; i++ ) {
 
-            switch (true) {
+            if ( releaseData.price.match(symbol[i], 'g') ) {
 
-              case this.symbolRegex[language][i] === 's*¥':
-              case this.symbolRegex[language][i] === 's*￥':
-              case this.symbolRegex[language][i] === 's*JP¥':
-              case this.symbolRegex[language][i] === 's*¥JP':
+              // Determine if the release is listed in JPY
+              switch ( symbol[i] ) {
 
-                obj.isJPY = true;
-                break;
+                case 's*¥':
+                case 's*￥':
+                case 's*JP¥':
+                case 's*¥JP':
 
-              default:
+                  releaseData.isJPY = true;
+                  break;
 
-                obj.isJPY = false;
-                break;
+                default:
+
+                  releaseData.isJPY = false;
+                  break;
+              }
+
+              // Set the exchange name
+              releaseData.exchangeName = this.exchangeList[i];
+
+              this.log(' ');
+              this.log('Exchange name: ', releaseData.exchangeName);
+              this.log('isJPY: ', releaseData.isJPY);
+
+              return releaseData;
             }
-
-             obj.exchangeName = this.exchangeList[i];
-
-             if (this.options.debug()) {
-
-               console.log(' ');
-
-               console.log('Exchange name: ', obj.exchangeName);
-
-               console.log('isJPY: ', obj.isJPY);
-             }
-
-             return obj;
-           }
          }
        });
      },
@@ -579,11 +568,13 @@
       let urlArr = url.split('/'),
           num = urlArr[urlArr.length - 1];
 
-      if (num.indexOf('-') > -1) {
+      if ( num.indexOf('-') > -1 ) {
+
         num = num.split('-')[0];
       }
 
-      if (num.indexOf('?') > -1) {
+      if ( num.indexOf('?') > -1 ) {
+
         num = num.split('?')[0];
       }
 
@@ -610,7 +601,8 @@
 
     /**
      * Symbols that will be used in price estimates injected into the DOM
-     *
+     * Symbol indexes correspond to currencies in this order:
+     * ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD']
      * @type {object}
      */
 
@@ -630,7 +622,7 @@
     },
 
     /**
-     * Parses the page url in order to remove any '&page='
+     * Parses the page url in order to remove any `&page=`
      * query params.
      *
      * @param    {string} url [current page URL]
@@ -641,7 +633,7 @@
 
       let params;
 
-        if (url.indexOf('?') > -1) {
+        if ( url.indexOf('?') > -1 ) {
 
           let page = /page=/g;
 
@@ -651,7 +643,7 @@
 
             let target;
 
-            if (param.match(page)) {
+            if ( param.match(page) ) {
 
               target = params.indexOf(param);
 
@@ -672,7 +664,7 @@
 
     sanitizePrices: function(source) {
 
-      source.forEach((obj) => {
+      source.forEach(obj => {
 
         obj.price = String(obj.price);
 
@@ -689,10 +681,7 @@
 
         obj.sanitizedPrice = digits;
 
-        if (this.options.debug()) {
-
-          console.log('Sanitized Price:', obj.sanitizedPrice);
-        }
+        this.log('Sanitized Price:', obj.sanitizedPrice);
 
         return obj;
       });
@@ -707,19 +696,19 @@
 
     setButtonText: function(elem) {
 
-      if (elem.text() === 'Sort A-Z') {
+      if ( elem.text() === 'Sort A-Z' ) {
 
         elem.text('Sort Z-A');
 
         return elem;
 
-      } else if (elem.text() === 'Sort Z-A') {
+      } else if ( elem.text() === 'Sort Z-A' ) {
 
         elem.text('Undo Sort');
 
         return elem;
 
-      } else if (elem.text() === 'Undo Sort') {
+      } else if ( elem.text() === 'Undo Sort' ) {
 
         elem.text('Sort A-Z');
 
@@ -745,8 +734,9 @@
     },
 
     /**
-     * Regular expressions for determining what currency a price is listed in
-     *
+     * Regular expressions for determining what currency a price is listed in.
+     * RegEx indexes correspond to currencies in this order:
+     * ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD']
      * @type {object}
      */
 
@@ -774,21 +764,39 @@
     unregistered: 'Please complete your Seller Settings before listing items for sale.'
   };
 
+  // ========================================================
+  // Init / Setup
+  // ========================================================
+
+  /* Instantiate default option values if not present */
+  if ( !localStorage.getItem('options') ) {
+
+    let options = {
+          analytics: true,
+          colorize: false,
+          debug: false,
+          threshold: 2,
+          unitTests: false
+        };
+
+    options = JSON.stringify(options);
+
+    localStorage.setItem('options', options);
+  }
+
   /**
    * Inserts characters into string
-   *
-   * Credit: http://www.bennadel.com/blog/2160-adding-a-splice-method-to-the-javascript-string-prototype.htm
    */
 
   if ( !('splice' in String.prototype) ) {
 
-    String.prototype.splice = function(index, howManyToDelete, stringToInsert) {
+    String.prototype.splice = function(index, remove, insert) {
 
-      let characterArray = this.split('');
+      let chars = this.split('');
 
-      Array.prototype.splice.apply(characterArray, arguments);
+      Array.prototype.splice.apply(chars, arguments);
 
-      return(characterArray.join(''));
+      return chars.join('');
     };
   }
 }());
