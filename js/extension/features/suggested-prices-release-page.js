@@ -59,7 +59,7 @@ $(document).ready(function() {
             amount = '',
             markup,
             percentage = ( (difference / suggested) * 100 ).toFixed(0),
-            printPrice = resourceLibrary.localizePrice(symbol, suggested),
+            printPrice = resourceLibrary.localizeSuggestion(symbol, suggested),
             spanOuter = document.createElement('span'),
             threshold = resourceLibrary.options.threshold() || 0;
 

@@ -145,23 +145,23 @@ $(document).ready(function() {
 
 
     /**
-     * localizePrice tests
+     * localizeSuggestion tests
      */
 
-    console.log('/// Testing localizePrice method ///');
+    console.log('/// Testing localizeSuggestion method ///');
 
 
     function testLocalization(symbol, price, currency, language, expected) {
 
-      let result = resourceLibrary.localizePrice(symbol, price, currency, language);
+      let result = resourceLibrary.localizeSuggestion(symbol, price, currency, language);
 
       if (result === expected) {
 
-        console.log('%c PASSED ', 'color: limegreen', language.toUpperCase() + ' localizePrice: ', result);
+        console.log('%c PASSED ', 'color: limegreen', language.toUpperCase() + ' localizeSuggestion: ', result);
 
       } else {
 
-        console.log( '%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizePrice should be ' + expected, 'value returned was: ', result);
+        console.log( '%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizeSuggestion should be ' + expected, 'value returned was: ', result);
       }
     }
 

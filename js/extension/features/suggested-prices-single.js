@@ -201,7 +201,7 @@ $(document).ready(function() {
 
       percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
-      printPrice = resourceLibrary.localizePrice(symbol, suggested);
+      printPrice = resourceLibrary.localizeSuggestion(symbol, suggested);
 
       return appendPrice();
     }

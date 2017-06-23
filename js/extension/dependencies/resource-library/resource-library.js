@@ -11,13 +11,13 @@
  * ---------------------------------------------------------------------------
  *
  * The resourceLibrary holds methods and properties that are shared between
- * features. The `Init / Setup` is the place to put code that needs to run
+ * features. The `Init / Setup` block is the place to put code that needs to run
  * before anything else in the extension.
  *
  * Notes:
  *
- * Each object in `priceContainer` array
- * looks something like this:
+ * Each release object in `priceContainer` || `source` array
+ * will ultimately look something like this:
 
    {
     convertedPrice: 17.037037037037038,
@@ -30,6 +30,51 @@
  */
 
 (function() {
+
+  // ========================================================
+  // Init / Setup
+  // ========================================================
+
+  // Instantiate default option values if not present
+  if ( !localStorage.getItem('options') ) {
+
+    let options = {
+          analytics: true,
+          colorize: false,
+          debug: false,
+          threshold: 2,
+          unitTests: false
+        };
+
+    options = JSON.stringify(options);
+
+    localStorage.setItem('options', options);
+  }
+
+ /**
+  * Array.splice method applied to Strings.
+  *
+  * @param    {number} index Where to begin in the string
+  * @param    {number} remove The number of chracters to remove from the string
+  * @param    {string} insert The string to insert
+  * @return   {string}
+  */
+
+  if ( !('splice' in String.prototype) ) {
+
+    String.prototype.splice = function(index, remove, insert) {
+
+      let chars = this.split('');
+
+      Array.prototype.splice.apply(chars, arguments);
+
+      return chars.join('');
+    };
+  }
+
+  // ========================================================
+  // Begin resourceLibrary
+  // ========================================================
 
   window.resourceLibrary = {
 
@@ -85,19 +130,6 @@
               'border-top: 1px dotted gray !important;"',
 
       /**
-       * Common colors used in price comparisons
-       * TODO Can I delete these?
-       * @type {Object}
-       */
-
-      colors: {
-
-        green: '#60C43F',
-
-        red: '#BF3A38'
-      },
-
-      /**
        * Displayed when Discogs has no price suggestion data on an item
        *
        * @type {string}
@@ -136,7 +168,7 @@
     /**
      * Converts prices to user's currency
      *
-     * @param    {array} source
+     * @param    {array<object>} source an array of releaes objects
      * @return   {array}
      */
 
@@ -295,13 +327,14 @@
     /**
      * Returns price suggestions in user's localized format
      *
-     * @param    {string} symbol
-     * @param    {string} price
+     * @param    {string} symbol The currency symbol
+     * @param    {string} price The suggested price of the release
+     * @param    {string} userCurrency The user's currency exchange name
+     * @param    {string} language The user's language setting
      * @return   {string}
      */
 
-    // TODO rename to 'localizeSuggestion'
-    localizePrice: function(symbol, price, userCurrency, language) {
+    localizeSuggestion: function(symbol, price, userCurrency, language) {
 
       let
           maxDigits,
@@ -354,6 +387,7 @@
 
     /**
      * Console.logs stuff
+     *
      * @method
      * @return {function}
      */
@@ -600,7 +634,8 @@
     },
 
     /**
-     * Symbols that will be used in price estimates injected into the DOM
+     * Symbols that will be used in price estimates injected into the DOM.
+     *
      * Symbol indexes correspond to currencies in this order:
      * ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD']
      * @type {object}
@@ -656,10 +691,11 @@
    },
 
     /**
-     * Strips currency symbol from prices
+     * Strips currency symbol, spaces and other characters
+     * from release prices
      *
-     * @param    {array} source
-     * @return   {obj}
+     * @param    {array<object>} source An array of release objects
+     * @return   {object}
      */
 
     sanitizePrices: function(source) {
@@ -690,7 +726,7 @@
     /**
      * Sets text for sort buttons
      *
-     * @param    {object} elem
+     * @param    {object} elem The button to set the text on
      * @return   {object} elem
      */
 
@@ -721,9 +757,9 @@
      * my values before setting them.
      *
      *
-     * @param    {string} name
-     * @param    {string|object} value
-     * @return   {object}
+     * @param    {string} name The name to set
+     * @param    {string|object} value The value to set
+     * @return   {function}
      */
 
     setItem: function(name, value) {
@@ -735,6 +771,7 @@
 
     /**
      * Regular expressions for determining what currency a price is listed in.
+     *
      * RegEx indexes correspond to currencies in this order:
      * ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD']
      * @type {object}
@@ -763,40 +800,4 @@
 
     unregistered: 'Please complete your Seller Settings before listing items for sale.'
   };
-
-  // ========================================================
-  // Init / Setup
-  // ========================================================
-
-  /* Instantiate default option values if not present */
-  if ( !localStorage.getItem('options') ) {
-
-    let options = {
-          analytics: true,
-          colorize: false,
-          debug: false,
-          threshold: 2,
-          unitTests: false
-        };
-
-    options = JSON.stringify(options);
-
-    localStorage.setItem('options', options);
-  }
-
-  /**
-   * Inserts characters into string
-   */
-
-  if ( !('splice' in String.prototype) ) {
-
-    String.prototype.splice = function(index, remove, insert) {
-
-      let chars = this.split('');
-
-      Array.prototype.splice.apply(chars, arguments);
-
-      return chars.join('');
-    };
-  }
 }());

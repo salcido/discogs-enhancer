@@ -120,7 +120,7 @@ $(document).ready(function() {
     symbol = resourceLibrary.printSymbol[language][symbolIndex];
 
     // Voilà
-    output.text( resourceLibrary.localizePrice(symbol, result, thatSelectedCurrency, language) );
+    output.text( resourceLibrary.localizeSuggestion(symbol, result, thatSelectedCurrency, language) );
 
     // Let's be reasonable about our conversion values
     if (input.val().length > 10 || input.val() > 9999999) {
