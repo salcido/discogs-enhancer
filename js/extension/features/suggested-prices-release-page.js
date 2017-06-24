@@ -65,17 +65,8 @@ $(document).ready(function() {
 
         $('.de-preloader').remove();
 
-        if ( resourceLibrary.options.debug() ) {
-
-          let pAmt = percentage > 0 ? '% less' : '% more',
-              pct = Math.abs(percentage),
-              value = Math.abs(difference).toFixed(3),
-              vAmt = difference > 0 ? ' less' : ' more';
-
-          console.log('Suggested: ', suggested);
-          console.log('Difference: ', value + ' ' + userCurrency + vAmt);
-          console.log('Percentage: ', pct + pAmt);
-        }
+        // Debugging
+        logOutput(percentage, difference, suggested);
 
         // No data from Discogs
         // ---------------------------------------------------------------------------
@@ -221,6 +212,34 @@ $(document).ready(function() {
           return checkForSellerPermissions();
         }
       });
+    }
+
+
+    /**
+     * Logs the values used to create the price comparison
+     *
+     * @method logOutput
+     * @param  {number} perc percentage
+     * @param  {number} diff difference
+     * @param  {number} sugg suggested
+     * @return {undefined}
+     */
+
+    function logOutput(perc, diff, sugg) {
+
+      let pAmt = perc > 0 ? '% less' : '% more',
+          pct = Math.abs(perc),
+          value = Math.abs(diff).toFixed(3),
+          vAmt = diff > 0 ? ' less' : ' more';
+
+      if ( resourceLibrary.options.debug() ) {
+
+        console.log('Suggested: ', sugg);
+        console.log('Difference: ', value + ' ' + userCurrency + vAmt);
+        console.log('Percentage: ', pct + pAmt);
+      }
+
+      return;
     }
 
 

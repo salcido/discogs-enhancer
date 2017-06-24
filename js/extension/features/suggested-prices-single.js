@@ -64,10 +64,7 @@ $(document).ready(function() {
       $(target).find('.de-preloader').remove();
 
       // Debugging
-      if ( resourceLibrary.options.debug() ) {
-
-        logOutput(percentage, difference, suggested);
-      }
+      logOutput(percentage, difference, suggested);
 
       // No data from Discogs
       if ( !isFinite(percentage) ) {
@@ -302,10 +299,12 @@ $(document).ready(function() {
           value = Math.abs(diff).toFixed(3),
           vAmt = diff > 0 ? ' less' : ' more';
 
-      console.log('Suggested: ', sugg);
-      console.log('Difference: ', value + ' ' + userCurrency + vAmt);
-      console.log('Percentage: ', pct + pAmt);
+      if ( resourceLibrary.options.debug() ) {
 
+        console.log('Suggested: ', sugg);
+        console.log('Difference: ', value + ' ' + userCurrency + vAmt);
+        console.log('Percentage: ', pct + pAmt);
+      }
       return;
     }
 
