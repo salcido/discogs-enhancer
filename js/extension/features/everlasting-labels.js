@@ -45,16 +45,16 @@ $(document).ready(function() {
 
   function releaseVersions(event) {
 
-    console.log($(event.target).parent().parent().data('shadowcat'));
+    console.log( $(event.target).parent().parent().data('shadowcat') );
   }
 
   /**
    * Summons Kurt upon request
    *
-   * @method summonKurtLoader
+   * @method summonkurtLoder
    * @returns {undefined}
    */
-  function summonKurtLoader() {
+  function summonkurtLoder() {
 
     if (!document.getElementById('de-next')) {
 
@@ -85,23 +85,23 @@ $(document).ready(function() {
         pTotal = pagination.split('von')[1];
         break;
 
-          // Italian
+      // Italian
       case 'it':
         pTotal = pagination.split('di')[1];
         break;
 
-          // Spanish and French
+      // Spanish and French
       case 'es':
       case 'fr':
         pTotal = pagination.split('de')[1];
         break;
 
-          // Japanese
+      // Japanese
       case 'ja':
         pTotal = pagination.split('中')[0];
         break;
 
-          // English
+      // English
       default:
         pTotal = pagination.split('of')[1];
         break;
@@ -135,7 +135,7 @@ $(document).ready(function() {
     $('.pagination_total').remove();
     $('.pagination_page_links').remove();
 
-    summonKurtLoader();
+    summonkurtLoder();
 
     // Scroll the browser up to the top so the user can change label result filters
     $('body').on('click', '#de-update-filters', function(event) {
@@ -186,7 +186,7 @@ $(document).ready(function() {
               // clean up returned markup
               releases.find('tr.headings').remove();
 
-              // remove kurtLoader
+              // remove kurtLoder
               $('#de-next').remove();
 
               // insert the page indicators into the response data
@@ -198,7 +198,7 @@ $(document).ready(function() {
               // Inject options into scroll-to-page select box
               selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
 
-              summonKurtLoader();
+              summonkurtLoder();
               pageNum++;
               hasLoaded = false;
 
@@ -226,13 +226,13 @@ $(document).ready(function() {
     // draxx them sklounst
     $(document).on('scroll', window, function() {
 
-      let kurtLoader = document.getElementById('de-next'),
+      let kurtLoder = document.getElementById('de-next'),
           currentPage = document.getElementsByClassName('de-current-page'),
           everlasting = $('.de-page-bar'),
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
-      if ( resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused ) {
+      if ( resourceLibrary.isOnScreen(kurtLoder) && !hasLoaded && !paused ) {
 
         hasLoaded = true;
         return getNextPage();
@@ -256,7 +256,7 @@ $(document).ready(function() {
       // Update the currently viewed page number in the Everlasting label top bar when scrolling
       if ( currentPage && currentPage.length > 0 ) {
 
-        for (let i = 0; i < pageNum; i++) {
+        for ( let i = 0; i < pageNum; i++ ) {
 
           try {
 
@@ -281,9 +281,9 @@ $(document).ready(function() {
       let target = event.target,
           targetId = '#de-page-' + target.value;
 
-      if (target.value) {
+      if ( target.value ) {
 
-        if (target.value === '1') {
+        if ( target.value === '1' ) {
 
           $('body, html').animate( {scrollTop:$('#site_header').position().top}, 300 );
 

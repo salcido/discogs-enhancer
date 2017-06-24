@@ -153,48 +153,48 @@ $(document).ready(function() {
           hasLoaded = false;
 
           // apply Marketplace Highlights
-          if (window.applyStyles) {
+          if ( window.applyStyles ) {
 
             window.applyStyles();
           }
 
           // apply price comparisons
-          if (window.injectPriceLinks) {
+          if ( window.injectPriceLinks ) {
 
             window.injectPriceLinks();
           }
 
           // Hide/tag sellers in marketplace
-          if (blockList && blockList.hide === 'global' && window.modifySellers ||
-              blockList && blockList.hide === 'marketplace' && window.modifySellers) {
+          if ( blockList && blockList.hide === 'global' && window.modifySellers ||
+              blockList && blockList.hide === 'marketplace' && window.modifySellers ) {
 
             window.modifySellers('hide');
           }
 
-          if (blockList && blockList.hide === 'tag' && window.modifySellers) {
+          if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
 
             window.modifySellers('tag');
           }
 
           // filter marketplace item by condition
-          if (window.hideItems) {
+          if ( window.hideItems ) {
 
             window.hideItems();
           }
 
           // Filter marketplace by country
-          if (window.filterByCountry) {
+          if ( window.filterByCountry ) {
 
             window.filterByCountry();
           }
 
-          if (window.sellersRep) {
+          if ( window.sellersRep ) {
 
             window.sellersRep();
           }
 
           // Release ratings
-          if (window.insertRatingsLink) {
+          if ( window.insertRatingsLink ) {
 
             window.insertRatingsLink();
           }
@@ -278,12 +278,12 @@ $(document).ready(function() {
 
       let
           everlasting = $('.de-page-bar'), // wrapped in jQ selector so it can use position() method
-          kurtLoader = document.getElementById('de-next'),
+          kurtLoder = document.getElementById('de-next'), // also former MTV anchor,
           currentPage = document.getElementsByClassName('de-current-page'),
           pageIndicator = document.getElementsByClassName('de-page')[0],
           siteHeader = document.getElementById('site_header');
 
-      if ( resourceLibrary.isOnScreen(kurtLoader) && !hasLoaded && !paused ) {
+      if ( resourceLibrary.isOnScreen(kurtLoder) && !hasLoaded && !paused ) {
 
         hasLoaded = true;
 
@@ -299,7 +299,7 @@ $(document).ready(function() {
 
       } else {
 
-        if (!resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30) {
+        if ( !resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30 ) {
 
           everlasting.animate({top: '0px'});
         }
@@ -309,7 +309,7 @@ $(document).ready(function() {
       // of results in the Everlasting Marketplace top bar.
       // I feel bad for writing this and even worse now that
       // you're looking at it.
-      if (currentPage && currentPage.length > 0) {
+      if ( currentPage && currentPage.length > 0 ) {
 
         for ( let i = 0; i < pageNum; i++ ) {
 
