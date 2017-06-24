@@ -415,44 +415,44 @@
         language = this.language();
       }
 
-       source.forEach((releaseData, i) => {
+      source.forEach((releaseData, i) => {
 
-         // An array of regexs based on the user's language
-         let symbol = this.symbolRegex[language];
+        // An array of regexs based on the user's language
+        let symbol = this.symbolRegex[language];
 
-         for ( i = 0; i < symbol.length; i++ ) {
+        for ( i = 0; i < symbol.length; i++ ) {
 
-            if ( releaseData.price.match(symbol[i], 'g') ) {
+          if ( releaseData.price.match(symbol[i], 'g') ) {
 
-              // Determine if the release is listed in JPY
-              switch ( symbol[i] ) {
+            // Determine if the release is listed in JPY
+            switch ( symbol[i] ) {
 
-                case 's*¥':
-                case 's*￥':
-                case 's*JP¥':
-                case 's*¥JP':
+              case 's*¥':
+              case 's*￥':
+              case 's*JP¥':
+              case 's*¥JP':
 
-                  releaseData.isJPY = true;
-                  break;
+                releaseData.isJPY = true;
+                break;
 
-                default:
+              default:
 
-                  releaseData.isJPY = false;
-                  break;
-              }
-
-              // Set the exchange name
-              releaseData.exchangeName = this.exchangeList[i];
-
-              this.log(' ');
-              this.log('Exchange name: ', releaseData.exchangeName);
-              this.log('isJPY: ', releaseData.isJPY);
-
-              return releaseData;
+                releaseData.isJPY = false;
+                break;
             }
-         }
-       });
-     },
+
+            // Set the exchange name
+            releaseData.exchangeName = this.exchangeList[i];
+
+            this.log(' ');
+            this.log('Exchange name: ', releaseData.exchangeName);
+            this.log('isJPY: ', releaseData.isJPY);
+
+            return releaseData;
+          }
+        }
+      });
+    },
 
      /**
       * Config values for various features
@@ -460,142 +460,142 @@
       * @type {Object}
       */
 
-     options: {
+    options: {
 
-       /**
-        * Whether or not to use analytics
-        *
-        * @return {boolean}
-        */
+      /**
+       * Whether or not to use analytics
+       *
+       * @return {boolean}
+       */
 
-       analytics: function() {
+      analytics: function() {
 
-         return JSON.parse(localStorage.getItem('options')).analytics;
-       },
+        return JSON.parse(localStorage.getItem('options')).analytics;
+      },
 
-       /**
-        * Whether or not to change price colors
-        *
-        * @return {boolean}
-        */
+      /**
+       * Whether or not to change price colors
+       *
+       * @return {boolean}
+       */
 
-       colorize: function() {
+      colorize: function() {
 
-         return JSON.parse(localStorage.getItem('options')).colorize;
-       },
+        return JSON.parse(localStorage.getItem('options')).colorize;
+      },
 
-       /**
-        * Whether or not to log values
-        *
-        * @return {Boolean}
-        */
+      /**
+       * Whether or not to log values
+       *
+       * @return {Boolean}
+       */
 
-       debug: function() {
+      debug: function() {
 
-         return JSON.parse(localStorage.getItem('options')).debug;
-       },
+        return JSON.parse(localStorage.getItem('options')).debug;
+      },
 
-       /**
-        * Gets current options state
-        *
-        * @return {undefined}
-        */
+      /**
+       * Gets current options state
+       *
+       * @return {undefined}
+       */
 
-       getOptions: function() {
+      getOptions: function() {
 
-         let
-             doc = document,
-             options = resourceLibrary.getItem('options'),
-             //
-             analytics = options.analytics,
-             colorize = options.colorize,
-             debug = options.debug,
-             threshold = options.threshold,
-             unitTests = options.unitTests;
+        let
+            doc = document,
+            options = resourceLibrary.getItem('options'),
+            //
+            analytics = options.analytics,
+            colorize = options.colorize,
+            debug = options.debug,
+            threshold = options.threshold,
+            unitTests = options.unitTests;
 
-         if (analytics) { doc.getElementById('analytics').checked = true; }
+        if (analytics) { doc.getElementById('analytics').checked = true; }
 
-         if (colorize) { doc.getElementById('colorize').checked = true; }
+        if (colorize) { doc.getElementById('colorize').checked = true; }
 
-         if (debug) { doc.getElementById('debug').checked = true; }
+        if (debug) { doc.getElementById('debug').checked = true; }
 
-         if (threshold) { doc.getElementById('threshold').value = threshold; }
+        if (threshold) { doc.getElementById('threshold').value = threshold; }
 
-         if (unitTests) { doc.getElementById('unittests').checked = true; }
-       },
+        if (unitTests) { doc.getElementById('unittests').checked = true; }
+      },
 
-       /**
-        * Saves selected options on options modal
-        *
-        * @return {function}
-        */
+      /**
+       * Saves selected options on options modal
+       *
+       * @return {function}
+       */
 
-       saveOptions: function() {
+      saveOptions: function() {
 
-         let
-             doc = document,
-             analytics = doc.getElementById('analytics').checked,
-             colorize = doc.getElementById('colorize').checked,
-             debug = doc.getElementById('debug').checked,
-             options,
-             threshold = doc.getElementById('threshold').value,
-             unitTests = doc.getElementById('unittests').checked;
+        let
+            doc = document,
+            analytics = doc.getElementById('analytics').checked,
+            colorize = doc.getElementById('colorize').checked,
+            debug = doc.getElementById('debug').checked,
+            options,
+            threshold = doc.getElementById('threshold').value,
+            unitTests = doc.getElementById('unittests').checked;
 
-         doc.getElementById('saveOptions').disabled = true;
+        doc.getElementById('saveOptions').disabled = true;
 
-         /* get options object */
-         options = JSON.parse(localStorage.getItem('options'));
+        /* get options object */
+        options = JSON.parse(localStorage.getItem('options'));
 
-         /* update values */
-         options.analytics = analytics;
-         options.colorize = colorize;
-         options.debug = debug;
-         options.threshold = threshold;
-         options.unitTests = unitTests;
+        /* update values */
+        options.analytics = analytics;
+        options.colorize = colorize;
+        options.debug = debug;
+        options.threshold = threshold;
+        options.unitTests = unitTests;
 
-         options = JSON.stringify(options);
+        options = JSON.stringify(options);
 
-         /* save that ish */
-         localStorage.setItem('options', options);
+        /* save that ish */
+        localStorage.setItem('options', options);
 
-         resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
+        resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
 
-         return location.reload();
-       },
+        return location.reload();
+      },
 
-       /**
-        * The maximum percentage that an item will be ballpark estimated with: ±
-        *
-        * @return {number}
-        */
+      /**
+       * The maximum percentage that an item will be ballpark estimated with: ±
+       *
+       * @return {number}
+       */
 
-       threshold: function() {
+      threshold: function() {
 
-         let threshold = JSON.parse(localStorage.getItem('options')).threshold;
+        let threshold = JSON.parse(localStorage.getItem('options')).threshold;
 
-         return Number(threshold);
-       },
+        return Number(threshold);
+      },
 
-       /**
-        * Whether or not to run unit tests
-        *
-        * @return {Boolean}
-        */
+      /**
+       * Whether or not to run unit tests
+       *
+       * @return {Boolean}
+       */
 
-       unitTests: function() {
+      unitTests: function() {
 
-         return JSON.parse(localStorage.getItem('options')).unitTests;
-       }
-     },
+        return JSON.parse(localStorage.getItem('options')).unitTests;
+      }
+    },
 
     /**
-    * Parses the URL passed into it and
-    * returns the release/master/artist/forum
-    * number.
-    *
-    * @param    {string} url [the URL passed into the function]
-    * @return   {string} num [the parsed id number]
-    */
+     * Parses the URL passed into it and
+     * returns the release/master/artist/forum
+     * number.
+     *
+     * @param    {string} url [the URL passed into the function]
+     * @return   {string} num [the parsed id number]
+     */
 
     parseURL: function(url) {
 
@@ -668,27 +668,27 @@
 
       let params;
 
-        if ( url.indexOf('?') > -1 ) {
+      if ( url.indexOf('?') > -1 ) {
 
-          let page = /page=/g;
+        let page = /page=/g;
 
-          params = url.split('?')[1].split('&');
+        params = url.split('?')[1].split('&');
 
-          params.forEach(function(param) {
+        params.forEach(function(param) {
 
-            let target;
+          let target;
 
-            if ( param.match(page) ) {
+          if ( param.match(page) ) {
 
-              target = params.indexOf(param);
+            target = params.indexOf(param);
 
-              params.splice(target, 1);
-            }
+            params.splice(target, 1);
+          }
         });
-     }
+      }
 
-     return params && params.length ? '&' + params.join('&') : '';
-   },
+      return params && params.length ? '&' + params.join('&') : '';
+    },
 
     /**
      * Strips currency symbol, spaces and other characters
