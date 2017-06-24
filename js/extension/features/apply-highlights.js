@@ -12,7 +12,7 @@ $(document).ready(function() {
 
   let
       href = window.location.href,
-      //
+      // ordersPage = href.includes('/sell/order/'),
       sellPage = href.includes('/sell/list'),
       sellRelease = href.includes('/sell/release'),
       sellerPage = href.includes('/seller'),
@@ -49,6 +49,39 @@ $(document).ready(function() {
     $('span.item_sleeve_condition:contains("Good (G)")').addClass('good bold');
     $('span.item_sleeve_condition:contains("Fair (F)")').addClass('fair bold');
     $('span.item_sleeve_condition:contains("Poor (P)")').addClass('poor bold');
+
+    // ========================================================
+    // Orders Page
+    // ========================================================
+
+    /*
+     * Commenting this out for now. Sleeve conditions are not wrapped in a span like media conditions
+     * so it's not easy to isolate their values to colorize/embolden them. I've decided not to use this
+     * because it won't be consistent with the Marketplace Highlights since both Media and Sleeve are
+     * highlighted there. If Discogs ever updates their markup, this could be pretty rad.
+
+    // Media conditions
+
+    $('.order-item-conditions span:nth-child(2):contains("Mint (M)")').addClass('mint bold');
+    $('.order-item-conditions span:nth-child(2):contains("Near Mint (NM or M-)")').addClass('near-mint bold');
+    $('.order-item-conditions span:nth-child(2):contains("Very Good Plus (VG+)")').addClass('very-good-plus bold');
+    $('.order-item-conditions span:nth-child(2):contains("Very Good (VG)")').addClass('very-good bold');
+    $('.order-item-conditions span:nth-child(2):contains("Good Plus (G+)")').addClass('good-plus bold');
+    $('.order-item-conditions span:nth-child(2):contains("Good (G)")').addClass('good bold');
+    $('.order-item-conditions span:nth-child(2):contains("Fair (F)")').addClass('fair bold');
+    $('.order-item-conditions span:nth-child(2):contains("Poor (P)")').addClass('poor bold');
+
+    // Sleeve conditions
+    $('.order-item-conditions span:nth-child(4):contains("Mint (M)")').addClass('mint bold');
+    $('.order-item-conditions span:nth-child(4):contains("Near Mint (NM or M-)")').addClass('near-mint bold');
+    $('.order-item-conditions span:nth-child(4):contains("Very Good Plus (VG+)")').addClass('very-good-plus bold');
+    $('.order-item-conditions span:nth-child(4):contains("Very Good (VG)")').addClass('very-good bold');
+    $('.order-item-conditions span:nth-child(4):contains("Good Plus (G+)")').addClass('good-plus bold');
+    $('.order-item-conditions span:nth-child(4):contains("Good (G)")').addClass('good bold');
+    $('.order-item-conditions span:nth-child(4):contains("Fair (F)")').addClass('fair bold');
+    $('.order-item-conditions span:nth-child(4):contains("Poor (P)")').addClass('poor bold');
+
+    */
   };
 
   // Apply styles on ready/prev/next clicks
