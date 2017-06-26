@@ -75,6 +75,7 @@
       "js/extension/features/feedback-notifier.js",
       "js/extension/features/filter-by-condition.js",
       "js/extension/features/filter-by-country.js",
+      "js/extension/features/friend-counter.js",
       "js/extension/features/hide-blocked-sellers.js",
       "js/extension/features/notes-counter.js",
       "js/extension/features/release-durations.js",

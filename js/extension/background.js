@@ -13,6 +13,7 @@ let
     darkTheme,
     elems = [],
     filterByCountry_css,
+    friendCounter,
     initElems = [],
     jQ,
     prefs = {},
@@ -137,6 +138,14 @@ chrome.storage.sync.get('prefs', function(result) {
   resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library/resource-library.js');
 
   initElems.push(resourceLibrary);
+
+  // friend-counter (always enabled)
+  friendCounter = document.createElement('script');
+  friendCounter.type = 'text/javascript';
+  friendCounter.className = 'de-init';
+  friendCounter.src = chrome.extension.getURL('js/extension/features/friend-counter.js');
+
+  initElems.push(friendCounter);
 
   // Stick it in
   appendFragment(initElems);
