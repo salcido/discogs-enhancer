@@ -17,17 +17,43 @@
  * a secret to everybody!
  */
 
-window.addEventListener('load', function() {
+(function() {
 
   let href = window.location.href,
-      friendPage = href.includes('/users/friends');
+      friendPage = href.includes('/users/friends'),
+      appended = false;
 
-  if ( friendPage ) {
+  // ========================================================
+  // Setup
+  // ========================================================
 
-    let count = document.querySelectorAll('.linked_username').length,
-        max = '50+',
-        total = count > 50 ? max : count;
+  switch ( document.readyState ) {
 
-    document.querySelector('#page_content h1').textContent += ` (${total})`;
+    case 'interactive':
+    case 'complete':
+
+      init();
   }
-});
+
+  /**
+   * Initializes the feature and sets `appended` to true
+   * so it's only executed once.
+   * @method init
+   * @return {boolean}
+   */
+
+  function init() {
+
+    if ( friendPage && !appended ) {
+
+      let count = document.querySelectorAll('.linked_username').length,
+          max = '50+',
+          total = count > 50 ? max : count;
+
+      document.querySelector('#page_content h1').textContent += ` (${total})`;
+
+      appended = true;
+      return appended;
+    }
+  }
+}());
