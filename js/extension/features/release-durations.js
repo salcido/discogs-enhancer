@@ -19,197 +19,171 @@
  *
  */
 
-(function() {
+$(document).ready(function() {
 
   let hasPlaylist = $('table.playlist').length,
-      releaseHistoryPage = document.location.href.includes('/history'),
-      appended = false;
+      releaseHistoryPage = document.location.href.includes('/history');
 
-  // ========================================================
-  // Setup
-  // ========================================================
+  if ( hasPlaylist && !releaseHistoryPage ) {
 
-  switch ( document.readyState ) {
+    let
+        arr = [],
+        emptyIndexTracks = false,
+        hours,
+        html,
+        minutes,
+        result = '',
+        resultMinutes,
+        seconds,
+        totalSeconds;
 
-    case 'interactive':
-    case 'complete':
+    // ========================================================
+    // Functions
+    // ========================================================
 
-      init();
-  }
+    /**
+     * Converts hh:mm:ss to seconds
+     *
+     * @method convertToSeconds
+     * @param  {String} str
+     * @return {Number}
+     */
 
-  /**
-   * Initializes the feature and sets `appended` to true
-   * so it's only executed once.
-   * @method init
-   * @return {boolean}
-   */
+    function convertToSeconds(str) {
 
-  function init() {
+      let p = str.split(':'),
+          sec = 0,
+          min = 1;
 
-    if ( hasPlaylist && !releaseHistoryPage && !appended ) {
+      while ( p.length > 0 ) {
 
-      let
-          arr = [],
-          emptyIndexTracks = false,
-          hours,
-          html,
-          minutes,
-          result = '',
-          resultMinutes,
-          seconds,
-          totalSeconds;
+        sec += min * Number(p.pop());
 
-      // ========================================================
-      // Functions
-      // ========================================================
-
-      /**
-       * Converts hh:mm:ss to seconds
-       *
-       * @method convertToSeconds
-       * @param  {String} str
-       * @return {Number}
-       */
-
-      function convertToSeconds(str) {
-
-        let p = str.split(':'),
-            sec = 0,
-            min = 1;
-
-        while ( p.length > 0 ) {
-
-          sec += min * Number(p.pop());
-
-          min *= 60;
-        }
-
-        return sec;
+        min *= 60;
       }
 
-
-      /**
-       * Grabs tracktimes from a target and inserts them into an array
-       *
-       * @method gatherTrackTimes
-       * @param  {object} target
-       * @return {method}
-       */
-
-      function gatherTrackTimes(target) {
-
-        target.each(function() {
-
-          let trackTime = $(this).text();
-
-          return trackTime === '' ? arr.push('0') : arr.push(trackTime);
-        });
-      }
+      return sec;
+    }
 
 
-      // ========================================================
-      // DOM Manipulation
-      // ========================================================
+    /**
+     * Grabs tracktimes from a target and inserts them into an array
+     *
+     * @method gatherTrackTimes
+     * @param  {object} target
+     * @return {method}
+     */
 
-      // Grab all track times from any Index Tracks in the tracklisting
-      // and add them to the array.
-      $('tr.index_track td.tracklist_track_duration span').each(function() {
+    function gatherTrackTimes(target) {
 
-        let trackTime = $(this).text(),
-            subtracks = $('.tracklist_track.subtrack .tracklist_track_duration span').text();
+      target.each(function() {
 
-        // If there are Index Tracks present but they are empty AND
-        // they have subtracks WITH data, set `emptyIndexTracks` to true
-        // and use the subtrack data to calculate the total playing time.
-        if ( trackTime === '' && subtracks !== '' ) {
+        let trackTime = $(this).text();
 
-          return emptyIndexTracks = true;
-
-        // If there are Index Tracks and subtracks present but they are
-        // both empty, don't count them in the total.
-        } else if ( trackTime === '' && subtracks === '' ) {
-
-          return arr.push('0');
-
-        } else {
-
-          // Strip any times wrapped in parenthesis and add their numbers
-          // to the array
-          trackTime = trackTime.replace('(', '').replace(')', '');
-
-          return arr.push(trackTime);
-        }
+        return trackTime === '' ? arr.push('0') : arr.push(trackTime);
       });
+    }
 
-      // Grab the track times from the subtrack entries.
-      if ( emptyIndexTracks ) {
 
-        gatherTrackTimes( $('.tracklist_track.subtrack .tracklist_track_duration span') );
-      }
+    // ========================================================
+    // DOM Setup
+    // ========================================================
 
-      // Grab all track times from any td that is not a child of .subtrack
-      // and add them to the array.
-      gatherTrackTimes( $('tr.tracklist_track.track td.tracklist_track_duration span') );
+    // Grab all track times from any Index Tracks in the tracklisting
+    // and add them to the array.
+    $('tr.index_track td.tracklist_track_duration span').each(function() {
 
-      // Calculate total seconds
-      totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
+      let trackTime = $(this).text(),
+          subtracks = $('.tracklist_track.subtrack .tracklist_track_duration span').text();
 
-      // calculate hours...
-      hours = parseInt(totalSeconds / 3600, 10) % 24;
+      // If there are Index Tracks present but they are empty AND
+      // they have subtracks WITH data, set `emptyIndexTracks` to true
+      // and use the subtrack data to calculate the total playing time.
+      if ( trackTime === '' && subtracks !== '' ) {
 
-      // ...mins...
-      minutes = parseInt(totalSeconds / 60, 10) % 60;
+        return emptyIndexTracks = true;
 
-      // ...and seconds
-      seconds = totalSeconds % 60;
+      // If there are Index Tracks and subtracks present but they are
+      // both empty, don't count them in the total.
+      } else if ( trackTime === '' && subtracks === '' ) {
 
-      // Assemble the result
-      if ( hours ) { result = hours + ':'; }
-
-      if ( minutes !== null ) { // 0 you falsy bastard!
-
-        if ( hours ) {
-
-          resultMinutes = (minutes < 10 ? '0' + minutes : minutes);
-
-          result += resultMinutes + ':';
-
-        } else {
-
-          result += minutes + ':';
-        }
-      }
-
-      result += ( seconds < 10 ? '0' + seconds : seconds );
-
-      // Don't insert any markup if necessary
-      if ( result === '0:00' || result === 'NaN:NaN' ) {
-
-        return;
+        return arr.push('0');
 
       } else {
 
-        html = '<div class="section_content de-durations">' +
-                 '<table>' +
-                   '<tbody>' +
-                     '<tr class="tracklist_track track_heading">' +
-                       '<td class="tracklist_track_pos">' +
-                          '<span style="padding-left:5px; font-weight:bold;">Total Time:</span>' +
-                       '</td>' +
-                       '<td class="track tracklist_track_title"></td>' +
-                       '<td width="25" class="tracklist_track_duration">' +
-                          '<span style="font-weight:bold;">' + result + '</span>' +
-                       '</td>' +
-                     '</tr>' +
-                   '</tbody>' +
-                 '</table>' +
-               '</div>';
+        // Strip any times wrapped in parenthesis and add their numbers
+        // to the array
+        trackTime = trackTime.replace('(', '').replace(')', '');
 
-        $(html).insertAfter( $('#tracklist .section_content') );
+        return arr.push(trackTime);
+      }
+    });
+
+    // Grab the track times from the subtrack entries.
+    if ( emptyIndexTracks ) {
+
+      gatherTrackTimes( $('.tracklist_track.subtrack .tracklist_track_duration span') );
+    }
+
+    // Grab all track times from any td that is not a child of .subtrack
+    // and add them to the array.
+    gatherTrackTimes( $('tr.tracklist_track.track td.tracklist_track_duration span') );
+
+    // Calculate total seconds
+    totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
+
+    // calculate hours...
+    hours = parseInt(totalSeconds / 3600, 10) % 24;
+
+    // ...mins...
+    minutes = parseInt(totalSeconds / 60, 10) % 60;
+
+    // ...and seconds
+    seconds = totalSeconds % 60;
+
+    // Assemble the result
+    if ( hours ) { result = hours + ':'; }
+
+    if ( minutes !== null ) { // 0 you falsy bastard!
+
+      if ( hours ) {
+
+        resultMinutes = (minutes < 10 ? '0' + minutes : minutes);
+
+        result += resultMinutes + ':';
+
+      } else {
+
+        result += minutes + ':';
       }
     }
 
-    appended = true;
-    return appended;
+    result += ( seconds < 10 ? '0' + seconds : seconds );
+
+    // Don't insert any markup if necessary
+    if ( result === '0:00' || result === 'NaN:NaN' ) {
+
+      return;
+
+    } else {
+
+      html = '<div class="section_content de-durations">' +
+               '<table>' +
+                 '<tbody>' +
+                   '<tr class="tracklist_track track_heading">' +
+                     '<td class="tracklist_track_pos">' +
+                        '<span style="padding-left:5px; font-weight:bold;">Total Time:</span>' +
+                     '</td>' +
+                     '<td class="track tracklist_track_title"></td>' +
+                     '<td width="25" class="tracklist_track_duration">' +
+                        '<span style="font-weight:bold;">' + result + '</span>' +
+                     '</td>' +
+                   '</tr>' +
+                 '</tbody>' +
+               '</table>' +
+             '</div>';
+
+      $(html).insertAfter( $('#tracklist .section_content') );
+    }
   }
-}());
+});
