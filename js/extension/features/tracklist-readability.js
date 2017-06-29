@@ -13,6 +13,10 @@
  * This will attempt to discern where visual dividers should be inserted into
  * the tracklist in an effort to improve its readability.
  *
+ * The script is initiated after the `Init / DOM Setup` comment block.
+ *
+ * Functions are listed alphabetically.
+ *
  * ---------------------------------------------------------------------------
  * Use Case Examples:
  * ---------------------------------------------------------------------------
@@ -36,488 +40,461 @@
  *
  */
 
-(function() {
+$(document).ready(function() {
 
-  let href = document.location.href,
-      releaseHistoryPage = href.includes('/history'),
-      releasePage = href.includes('/release/'),
-      appended = false;
+    let releaseHistoryPage = document.location.href.includes('/history'),
+        releasePage = document.location.href.includes('/release/');
 
-  // ========================================================
-  // Setup
-  // ========================================================
+  if ( releasePage && !releaseHistoryPage ) {
 
-  switch ( document.readyState ) {
+    let
+        config = JSON.parse( localStorage.getItem('readability') ) || useDefaults(),
+        show = JSON.parse( localStorage.getItem('readabilityDividers') ) || setReadabilityTrue(),
 
-    case 'interactive':
-    case 'complete':
+        debug = resourceLibrary.options.debug(),
 
-      init();
-  }
+        // don't insert spacers if headings or index tracks already exist.
+        // And don't confuse release durations with track headers
+        durations = $('.de-durations').length,
+        noHeadings = durations ? $('.track_heading').length <= 1 : $('.track_heading').length < 1,
+        hasIndexTracks = $('.index_track').length > 0,
 
-  /**
-   * Initializes the feature and sets `appended` to true
-   * so it's only executed once.
-   * @method init
-   * @return {boolean}
-   */
+        // Compilations have different markup requirements when rendering track headings...
+        isCompilation = $('.tracklist_track_artists').length > 0,
 
-  function init() {
+        // ...so only insert the duration markup if it's a compilation
+        duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
 
-    if ( releasePage && !releaseHistoryPage && !appended ) {
+        // jQ object of all tracks on a release
+        tracklist = $('.playlist tbody tr'),
 
-      let
-          config = JSON.parse( localStorage.getItem('readability') ) || useDefaults(),
-          show = JSON.parse( localStorage.getItem('readabilityDividers') ) || setReadabilityTrue(),
+        // size of dividers inserted between tracks
+        size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
 
-          debug = resourceLibrary.options.debug(),
+        prefix = [],
+        sequence = [],
+        isSequential = false,
 
-          // don't insert spacers if headings or index tracks already exist.
-          // And don't confuse release durations with track headers
-          durations = $('.de-durations').length,
-          noHeadings = durations ? $('.track_heading').length <= 1 : $('.track_heading').length < 1,
-          hasIndexTracks = $('.index_track').length > 0,
+        // divider markup to be injected
+        display = show ? '' : 'display:none;',
+        spacer = `<tr class="tracklist_track track_heading de-spacer" style="${size} ${display}">` +
+                    '<td class="tracklist_track_pos"></td>' +
+                    '<td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
+                    `${duration}` +
+                  '</tr>';
 
-          // Compilations have different markup requirements when rendering track headings...
-          isCompilation = $('.tracklist_track_artists').length > 0,
+    // ========================================================
+    // Functions
+    // ========================================================
 
-          // ...so only insert the duration markup if it's a compilation
-          duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
+    /**
+     * When releases have multiple discs or formats, examine
+     * the last two characters of each track position and push them
+     * into an array.
+     *
+     * Then iterate over the array and compare the number sequence.
+     * If the sequence is interupted, this likely means it's a
+     * new disc (etc) so insert the divider at that position.
+     *
+     * @method handleMultiFormatRelease
+     * @param  {array} arr [an array of all track positions in a release]
+     * @return {undefined}
+     */
 
-          // jQ object of all tracks on a release
-          tracklist = $('.playlist tbody tr'),
+    function handleMultiFormatRelease(arr) {
 
-          // size of dividers inserted between tracks
-          size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
+      let counter = 1,
+          suffix = [];
 
-          prefix = [],
-          sequence = [],
-          isSequential = false,
+      for ( let i = 0; i < arr.length; i++ ) {
 
-          // divider markup to be injected
-          display = show ? '' : 'display:none;',
-          spacer = `<tr class="tracklist_track track_heading de-spacer" style="${size} ${display}">` +
-                      '<td class="tracklist_track_pos"></td>' +
-                      '<td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
-                      `${duration}` +
-                    '</tr>';
+        if ( !arr[i][arr[i].length - 2] ) {
 
-      // ========================================================
-      // Functions (Alphabetical)
-      // ========================================================
-
-      /**
-       * When releases have multiple discs or formats, examine
-       * the last two characters of each track position and push them
-       * into an array.
-       *
-       * Then iterate over the array and compare the number sequence.
-       * If the sequence is interupted, this likely means it's a
-       * new disc (etc) so insert the divider at that position.
-       *
-       * @method handleMultiFormatRelease
-       * @param  {array} arr [an array of all track positions in a release]
-       * @return {undefined}
-       */
-
-      function handleMultiFormatRelease(arr) {
-
-        let counter = 1,
-            suffix = [];
-
-        for ( let i = 0; i < arr.length; i++ ) {
-
-          if ( !arr[i][arr[i].length - 2] ) {
-
-            break;
-          }
-
-          // Get the last two numerical digits from each track position
-          let lastTwo = ( arr[i][arr[i].length - 2] + arr[i][arr[i].length - 1] ).match(/\d/g);
-
-          if (lastTwo) {
-
-            suffix.push(lastTwo.join(''));
-
-          } else {
-
-            // if there aren't two digits
-            // push '1' so the number sequence will be broken
-            // and dividers will be inserted
-            suffix.push('1');
-          }
+          break;
         }
 
-        for ( let i = 0; i < suffix.length; i++ ) {
+        // Get the last two numerical digits from each track position
+        let lastTwo = ( arr[i][arr[i].length - 2] + arr[i][arr[i].length - 1] ).match(/\d/g);
 
-          // using '==' specifcally for coercion
-          if ( suffix[i] == counter ) {
+        if (lastTwo) {
 
-            counter++;
-
-          } else if ( suffix[i] && suffix[i] != counter ) {
-
-            $(spacer).insertAfter(tracklist[i - 1]);
-
-            // reset counter and `i` to continue comparison
-            counter = 1;
-            i--;
-          }
-        }
-      }
-
-
-      /**
-       * Examines an array and determines if it has
-       * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
-       *
-       * It's designed to suit tracklists that have positions like:
-       * A1, A2, B3, B4, B5, C6, C7, C8 ...
-       *
-       * @method hasContinualNumberSequence
-       * @param  {array} arr [the array to iterate over]
-       * @return {Boolean}
-       */
-
-      function hasContinualNumberSequence(arr) {
-
-        let count = 0;
-
-        arr.forEach((num, i) => {
-
-          if ( num === i + 1 ) { count++; }
-        });
-
-        return count === arr.length ? true : false;
-      }
-
-
-      /**
-       * Examines an array and inserts some markup when the next
-       * index of the array differs from the current index.
-       *
-       * It's designed to find the differences in sides on a
-       * tracklist like when the numbers are sequential
-       * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
-       *
-       * @method insertSpacersBasedOnAlphaDifferences
-       * @param  {array} arr [the array to iterate over]
-       * @return {undefined}
-       */
-
-      function insertSpacersBasedOnAlphaDifferences(arr) {
-
-        arr.forEach((letter, i) => {
-
-          let current = arr[i],
-              next = arr[i + 1];
-
-          if ( next && current !== next ) {
-
-            $(spacer).insertAfter( tracklist[i] );
-          }
-        });
-      }
-
-
-      /**
-       * Inserts a spacer after every nth track
-       * Used for releases that are CDs, files, VHS, DVD, etc...
-       *
-       * @method   insertSpacersEveryNth
-       * @param    {array}  arr [the array to iterate over]
-       * @param    {number} nth [the number of tracks before a spacer is inserted]
-       * @return   {undefined}
-       */
-
-      function insertSpacersEveryNth(arr, nth) {
-
-        arr.each(i => {
-
-          if ( i % nth === 0 && i !== 0 ) {
-
-            $(spacer).insertAfter( tracklist[i - 1] );
-          }
-        });
-      }
-
-
-      /**
-       * Inserts a spacer if the next track's number is less than the
-       * current tracks number (eg: A2, B1 ...) or the current track
-       * has no number and the next one does (eg: A, B1, ...)
-       *
-       * @method   insertSpacersBasedOnSides
-       * @param    {array} arr [the array to iterate over]
-       * @return   {undefined}
-       */
-
-      function insertSpacersBasedOnSides(arr) {
-
-        try {
-
-          arr.each(i => {
-
-            let current = Number( arr[i].match(/\d+/g) ),
-                next = Number( arr[i + 1].match(/\d+/g) );
-
-            // check for 0 value which can be returned when a
-            // track is simply listed as A, B, C, etc ...
-            if ( next <= current && current !== 0 || !current && next ) {
-
-              if ( i !== tracklist.length - 1 ) {
-
-                $(spacer).insertAfter( tracklist[i] );
-              }
-            }
-          });
-        } catch (e) {
-          // just catch the errors
-        }
-      }
-
-
-      /**
-       * Sets default value for readabilityDividers
-       *
-       * @method setReadabilityTrue
-       * @return {object}
-       */
-
-      function setReadabilityTrue() {
-
-        if ( !localStorage.getItem('readabilityDividers') ) {
-
-          localStorage.setItem('readabilityDividers', 'true');
-        }
-
-        return JSON.parse(localStorage.getItem('readabilityDividers'));
-      }
-
-
-      /**
-       * Returns a set of defaults if none are present in localStorage.
-       *
-       * @method useDefaults
-       * @return {object}
-       */
-
-      function useDefaults() {
-
-        return { indexTracks: false,
-                 nth: 10,
-                 otherMediaReadability: false,
-                 otherMediaThreshold: 15,
-                 size: 0.5,
-                 vcReadability: true,
-                 vcThreshold: 8 };
-      }
-
-      // ========================================================
-      // UI Functionality
-      // ========================================================
-
-      /**
-       * Appends the show/hide dividers trigger
-       *
-       * @return {undefined}
-       */
-
-      function appendUI() {
-
-        if ( !$('.de-spacer-trigger').length ) {
-
-          // title of show/hide dividers link
-          let text = show ? 'Hide' : 'Show',
-              trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
-
-          $('#tracklist .group').append(trigger);
-        }
-
-        // Trigger functionality
-        $('.de-spacer-trigger').on('click', function() {
-
-          if ( $('.de-spacer').is(':visible') ) {
-
-            $(this).text('Show Dividers');
-            show = false;
-
-          } else {
-
-            $(this).text('Hide Dividers');
-            show = true;
-          }
-
-          $('.de-spacer').toggle('fast');
-
-          localStorage.setItem('readabilityDividers', JSON.stringify(show));
-        });
-      }
-
-      // ========================================================
-      // DOM Manipulation
-      // ========================================================
-
-      if ( noHeadings && !hasIndexTracks ) {
-
-        let prefixes = false,
-            trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
-
-        // Determine any common prefixes in the track positions
-        for ( let i = 0; i < trackpos.length; i++ ) {
-
-          if ( trackpos[i].includes('-') ||
-               trackpos[i].includes('.') ||
-               trackpos[i].includes('CD') ||
-               trackpos[i].includes('LP') ||
-               trackpos[i].includes('BD') ||
-               trackpos[i].includes('VHS') ||
-               trackpos[i].includes('DVD') ) {
-
-            prefixes = true;
-          }
-        }
-
-
-        // No specialized prefixes (eg: CD-, BD-, VHS, DVD ...)
-        // ---------------------------------------------------------------------------
-
-        if ( !prefixes ) {
-
-          // Populate our arrays with whatever the prefix is and the remaining numbers
-          trackpos.each(function(i, tpos) {
-
-            // Make sure to match a real value, not null
-            if ( tpos.match(/\D/g) ) {
-
-              prefix.push(String(tpos.match(/\D/g)));
-            }
-
-            sequence.push(Number(tpos.match(/\d+/g)));
-          });
-
-
-          // If there are both numbers and letters in the track positions
-          // ---------------------------------------------------------------------------
-
-          isSequential = hasContinualNumberSequence(sequence);
-
-          if ( isSequential && prefix.length ) {
-
-            // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
-            // use the alpha-prefixes to determine where to insert the spacer markup
-            if ( config &&
-                 config.vcReadability &&
-                 tracklist.length > config.vcThreshold ) {
-
-              appendUI();
-              insertSpacersBasedOnAlphaDifferences(prefix);
-
-              if (debug) {
-
-                console.log('');
-                console.log('Tracklist Readability:');
-                console.log('insert Spacers Based On Alpha Differences');
-              }
-            }
-
-
-          // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
-          // ---------------------------------------------------------------------------
-
-          } else if ( isSequential && !prefix.length ) {
-
-            if ( config &&
-                 config.otherMediaReadability &&
-                 tracklist.length > config.otherMediaThreshold ) {
-
-              if (debug) {
-
-                console.log('');
-                console.log('Tracklist Readability:');
-                console.log('insert Spacers Every Nth');
-              }
-
-              appendUI();
-              return insertSpacersEveryNth(tracklist, config.nth);
-            }
-
-
-          } else {
-
-            // Track numbering is not sequential (eg: A1, A2, B, C1, C2)
-            // ---------------------------------------------------------------------------
-
-            if ( config &&
-                 config.vcReadability &&
-                 tracklist.length > config.vcThreshold &&
-                 !hasIndexTracks ) {
-
-              appendUI();
-              insertSpacersBasedOnSides(trackpos);
-
-              if (debug) {
-
-                console.log('');
-                console.log('Tracklist Readability:');
-                console.log('insert Spacers Based On Sides');
-              }
-            }
-          }
-
+          suffix.push(lastTwo.join(''));
 
         } else {
 
-          // Has Prefixes AKA Multi-Format releases (eg: CD + DVD, etc ...)
-          // ---------------------------------------------------------------------------
+          // if there aren't two digits
+          // push '1' so the number sequence will be broken
+          // and dividers will be inserted
+          suffix.push('1');
+        }
+      }
 
+      for ( let i = 0; i < suffix.length; i++ ) {
+
+        // using '==' specifcally for coercion
+        if ( suffix[i] == counter ) {
+
+          counter++;
+
+        } else if ( suffix[i] && suffix[i] != counter ) {
+
+          $(spacer).insertAfter(tracklist[i - 1]);
+
+          // reset counter and `i` to continue comparison
+          counter = 1;
+          i--;
+        }
+      }
+    }
+
+
+    /**
+     * Examines an array and determines if it has
+     * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
+     *
+     * It's designed to suit tracklists that have positions like:
+     * A1, A2, B3, B4, B5, C6, C7, C8 ...
+     *
+     * @method hasContinualNumberSequence
+     * @param  {array} arr [the array to iterate over]
+     * @return {Boolean}
+     */
+
+    function hasContinualNumberSequence(arr) {
+
+      let count = 0;
+
+      arr.forEach((num, i) => {
+
+        if ( num === i + 1 ) { count++; }
+      });
+
+      return count === arr.length ? true : false;
+    }
+
+
+    /**
+     * Examines an array and inserts some markup when the next
+     * index of the array differs from the current index.
+     *
+     * It's designed to find the differences in sides on a
+     * tracklist like when the numbers are sequential
+     * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
+     *
+     * @method insertSpacersBasedOnAlphaDifferences
+     * @param  {array} arr [the array to iterate over]
+     * @return {undefined}
+     */
+
+    function insertSpacersBasedOnAlphaDifferences(arr) {
+
+      arr.forEach((letter, i) => {
+
+        let current = arr[i],
+            next = arr[i + 1];
+
+        if ( next && current !== next ) {
+
+          $(spacer).insertAfter( tracklist[i] );
+        }
+      });
+    }
+
+
+    /**
+     * Inserts a spacer after every nth track
+     * Used for releases that are CDs, files, VHS, DVD, etc...
+     *
+     * @method   insertSpacersEveryNth
+     * @param    {array}  arr [the array to iterate over]
+     * @param    {number} nth [the number of tracks before a spacer is inserted]
+     * @return   {undefined}
+     */
+
+    function insertSpacersEveryNth(arr, nth) {
+
+      arr.each(i => {
+
+        if ( i % nth === 0 && i !== 0 ) {
+
+          $(spacer).insertAfter( tracklist[i - 1] );
+        }
+      });
+    }
+
+
+    /**
+     * Inserts a spacer if the next track's number is less than the
+     * current tracks number (eg: A2, B1 ...) or the current track
+     * has no number and the next one does (eg: A, B1, ...)
+     *
+     * @method   insertSpacersBasedOnSides
+     * @param    {array} arr [the array to iterate over]
+     * @return   {undefined}
+     */
+
+    function insertSpacersBasedOnSides(arr) {
+
+      try {
+
+        arr.each(i => {
+
+          let current = Number( arr[i].match(/\d+/g) ),
+              next = Number( arr[i + 1].match(/\d+/g) );
+
+          // check for 0 value which can be returned when a
+          // track is simply listed as A, B, C, etc ...
+          if ( next <= current && current !== 0 || !current && next ) {
+
+            if ( i !== tracklist.length - 1 ) {
+
+              $(spacer).insertAfter( tracklist[i] );
+            }
+          }
+        });
+      } catch (e) {
+        // just catch the errors
+      }
+    }
+
+
+    /**
+     * Sets default value for readabilityDividers
+     *
+     * @method setReadabilityTrue
+     * @return {object}
+     */
+
+    function setReadabilityTrue() {
+
+      if ( !localStorage.getItem('readabilityDividers') ) {
+
+        localStorage.setItem('readabilityDividers', 'true');
+      }
+
+      return JSON.parse(localStorage.getItem('readabilityDividers'));
+    }
+
+
+    /**
+     * Returns a set of defaults if none are present in localStorage.
+     *
+     * @method useDefaults
+     * @return {object}
+     */
+
+    function useDefaults() {
+
+      return { indexTracks: false,
+               nth: 10,
+               otherMediaReadability: false,
+               otherMediaThreshold: 15,
+               size: 0.5,
+               vcReadability: true,
+               vcThreshold: 8 };
+    }
+
+    // ========================================================
+    // UI Functionality
+    // ========================================================
+
+    /**
+     * Appends the show/hide dividers trigger
+     *
+     * @return {undefined}
+     */
+
+    function appendUI() {
+
+      if ( !$('.de-spacer-trigger').length ) {
+
+        // title of show/hide dividers link
+        let text = show ? 'Hide' : 'Show',
+            trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
+
+        $('#tracklist .group').append(trigger);
+      }
+
+      // Trigger functionality
+      $('.de-spacer-trigger').on('click', function() {
+
+        if ( $('.de-spacer').is(':visible') ) {
+
+          $(this).text('Show Dividers');
+          show = false;
+
+        } else {
+
+          $(this).text('Hide Dividers');
+          show = true;
+        }
+
+        $('.de-spacer').toggle('fast');
+
+        localStorage.setItem('readabilityDividers', JSON.stringify(show));
+      });
+    }
+
+    // ========================================================
+    // Init / DOM Setup
+    // ========================================================
+
+    if ( noHeadings && !hasIndexTracks ) {
+
+      let prefixes = false,
+          trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
+
+      // Determine any common prefixes in the track positions
+      for ( let i = 0; i < trackpos.length; i++ ) {
+
+        if ( trackpos[i].includes('-') ||
+             trackpos[i].includes('.') ||
+             trackpos[i].includes('CD') ||
+             trackpos[i].includes('LP') ||
+             trackpos[i].includes('BD') ||
+             trackpos[i].includes('VHS') ||
+             trackpos[i].includes('DVD') ) {
+
+          prefixes = true;
+        }
+      }
+
+
+      // No specialized prefixes (eg: CD-, BD-, VHS, DVD ...)
+      // ---------------------------------------------------------------------------
+
+      if ( !prefixes ) {
+
+        // Populate our arrays with whatever the prefix is and the remaining numbers
+        trackpos.each(function(i, tpos) {
+
+          // Make sure to match a real value, not null
+          if ( tpos.match(/\D/g) ) {
+
+            prefix.push(String(tpos.match(/\D/g)));
+          }
+
+          sequence.push(Number(tpos.match(/\d+/g)));
+        });
+
+
+        // If there are both numbers and letters in the track positions
+        // ---------------------------------------------------------------------------
+
+        isSequential = hasContinualNumberSequence(sequence);
+
+        if ( isSequential && prefix.length ) {
+
+          // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
+          // use the alpha-prefixes to determine where to insert the spacer markup
           if ( config &&
                config.vcReadability &&
-               tracklist.length > config.vcReadability ) {
+               tracklist.length > config.vcThreshold ) {
 
             appendUI();
-            handleMultiFormatRelease(trackpos);
+            insertSpacersBasedOnAlphaDifferences(prefix);
 
             if (debug) {
 
               console.log('');
               console.log('Tracklist Readability:');
-              console.log('handle Multi-Format Release');
+              console.log('insert Spacers Based On Alpha Differences');
+            }
+          }
+
+
+        // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
+        // ---------------------------------------------------------------------------
+
+        } else if ( isSequential && !prefix.length ) {
+
+          if ( config &&
+               config.otherMediaReadability &&
+               tracklist.length > config.otherMediaThreshold ) {
+
+            if (debug) {
+
+              console.log('');
+              console.log('Tracklist Readability:');
+              console.log('insert Spacers Every Nth');
+            }
+
+            appendUI();
+            return insertSpacersEveryNth(tracklist, config.nth);
+          }
+
+
+        } else {
+
+          // Track numbering is not sequential (eg: A1, A2, B, C1, C2)
+          // ---------------------------------------------------------------------------
+
+          if ( config &&
+               config.vcReadability &&
+               tracklist.length > config.vcThreshold &&
+               !hasIndexTracks ) {
+
+            appendUI();
+            insertSpacersBasedOnSides(trackpos);
+
+            if (debug) {
+
+              console.log('');
+              console.log('Tracklist Readability:');
+              console.log('insert Spacers Based On Sides');
             }
           }
         }
-      }
 
 
-      // Index tracks
-      // ---------------------------------------------------------------------------
+      } else {
 
-      if ( config &&
-           noHeadings &&
-           config.indexTracks &&
-           hasIndexTracks ) {
+        // Has Prefixes AKA Multi-Format releases (eg: CD + DVD, etc ...)
+        // ---------------------------------------------------------------------------
 
-        appendUI();
+        if ( config &&
+             config.vcReadability &&
+             tracklist.length > config.vcReadability ) {
 
-        if (debug) {
+          appendUI();
+          handleMultiFormatRelease(trackpos);
 
-          console.log('');
-          console.log('Tracklist Readability:');
-          console.log('handle index tracks');
-        }
+          if (debug) {
 
-        tracklist.each(function(i) {
-
-          if ( $(this).hasClass('index_track') && i !== 0 ) {
-
-            $(spacer).insertBefore(tracklist[i]);
-            //$(this).addClass('track_heading')
+            console.log('');
+            console.log('Tracklist Readability:');
+            console.log('handle Multi-Format Release');
           }
-        });
+        }
       }
     }
 
-    appended = true;
-    return appended;
+
+    // Index tracks
+    // ---------------------------------------------------------------------------
+
+    if ( config &&
+         noHeadings &&
+         config.indexTracks &&
+         hasIndexTracks ) {
+
+      appendUI();
+
+      if (debug) {
+
+        console.log('');
+        console.log('Tracklist Readability:');
+        console.log('handle index tracks');
+      }
+
+      tracklist.each(function(i) {
+
+        if ( $(this).hasClass('index_track') && i !== 0 ) {
+
+          $(spacer).insertBefore(tracklist[i]);
+          //$(this).addClass('track_heading')
+        }
+      });
+    }
   }
-}());
+});
