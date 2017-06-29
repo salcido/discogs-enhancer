@@ -31,7 +31,7 @@ function appendFragment(source) {
 
   let fragment = document.createDocumentFragment();
 
-  source.forEach(function(elm) {
+  source.forEach(elm => {
 
     fragment.appendChild(elm);
   });
@@ -139,16 +139,19 @@ chrome.storage.sync.get('prefs', function(result) {
 
   initElems.push(resourceLibrary);
 
-  // friend-counter (always enabled)
+  // Append initial dependencies
+  appendFragment(initElems);
+
+  // ========================================================
+  // Friend-counter (always enabled)
+  // ========================================================
+
   friendCounter = document.createElement('script');
   friendCounter.type = 'text/javascript';
   friendCounter.className = 'de-init';
   friendCounter.src = chrome.extension.getURL('js/extension/features/friend-counter.js');
 
-  initElems.push(friendCounter);
-
-  // Stick it in
-  appendFragment(initElems);
+  elems.push(friendCounter);
 
   // ========================================================
   // User Preferences
@@ -712,11 +715,8 @@ chrome.storage.sync.get('prefs', function(result) {
     localStorage.setItem('userCurrency', result.prefs.userCurrency);
   }
 
-  // append nodes to the DOM
-  setTimeout(function() {
-
-    appendFragment(elems);
-  }, 100);
+  // append user preferences to the DOM
+  setTimeout(appendFragment(elems), 100);
 });
 
 // ========================================================
@@ -802,7 +802,9 @@ checkForAnalytics = setInterval(function() {
 // ========================================================
 
 window.onload = function() {
+
   [...document.querySelectorAll('.de-init')].forEach(child => {
+
     child.parentNode.removeChild(child);
   });
 };
