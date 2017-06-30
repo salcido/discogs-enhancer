@@ -19,21 +19,24 @@
 
 (function() {
 
-  let href = window.location.href,
-      friendPage = href.includes('/users/friends'),
-      appended = false;
+  let appended = false,
+      friendPage = window.location.href.includes('/users/friends');
 
   // ========================================================
   // Setup
   // ========================================================
 
-  switch ( document.readyState ) {
+  let int = setInterval(() => {
 
-    case 'interactive':
-    case 'complete':
+    switch ( document.readyState ) {
 
-      init();
-  }
+      case 'interactive':
+      case 'complete':
+
+        clearInterval(int);
+        init();
+    }
+  }, 13);
 
   /**
    * Initializes the feature and sets `appended` to true
@@ -44,16 +47,13 @@
 
   function init() {
 
-    if ( friendPage && !appended ) {
+    let count = document.querySelectorAll('.linked_username').length;
 
-      let count = document.querySelectorAll('.linked_username').length,
-          max = '50+',
-          total = count > 50 ? max : count;
+    if ( friendPage && !appended && count ) {
 
-      document.querySelector('#page_content h1').textContent += ` (${total})`;
+      document.querySelector('#page_content h1').textContent += ` (${count})`;
 
-      appended = true;
-      return appended;
+      return appended = true;
     }
   }
 }());
