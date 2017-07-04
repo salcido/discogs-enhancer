@@ -32,6 +32,7 @@ $(document).ready(function() {
   /**
    * Generates the CSS that will highlight
    * questionable seller reputations
+   * TODO: move this to background.js?
    * @method   generateCss
    * @return   {undefined}
    */
