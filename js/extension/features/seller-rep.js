@@ -38,14 +38,15 @@ $(document).ready(function() {
     /**
      * Finds all the seller's reputation scores in the DOM and
      * adds a `de-seller-rep` class to them if necessary
-     *
+     * TODO: delete old CSS file
      * @method sellersRep
      * @return {undefined}
      */
 
     window.sellersRep = function sellersRep() {
 
-      let ratingVals = Array.from( $('.star_rating').next() ),
+      let color = '#ff8122',
+          ratingVals = Array.from( $('.star_rating').next() ),
           ratings = ratingVals.map(val => Number( val.textContent.match(/\d+\.+\d/g) ));
 
       // Tag any sellers below threshold
@@ -53,8 +54,9 @@ $(document).ready(function() {
 
         if ( rating < threshold ) {
 
-          $('.star_rating').eq(i).addClass('de-seller-rep');
-          $('.star_rating').eq(i).next().addClass('de-seller-rep');
+          $('.seller_label').eq(i).next().children().attr('style', `color: ${color} !important;`);
+          $('.star_rating').eq(i).children().attr('style',`color: ${color} !important;`);
+          $('.star_rating').eq(i).next().attr('style', `color: ${color} !important;`);
         }
       });
     };
