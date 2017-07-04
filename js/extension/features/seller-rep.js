@@ -29,11 +29,37 @@ $(document).ready(function() {
       sellRelease = href.includes('/sell/release') && threshold,
       wantsPage = href.includes('/sell/mywants') && threshold;
 
+  /**
+   * Generates the CSS that will highlight
+   * questionable seller reputations
+   * @method   generateCss
+   * @return   {undefined}
+   */
+
+  function generateCss() {
+
+    let style = document.createElement('style'),
+        color = localStorage.getItem('sellerRepColor') || '#ff8122';
+
+    style.type = 'text/css';
+    style.textContent = `.de-seller-rep ul li i,
+                         .de-seller-rep ul li strong,
+                         .de-seller-rep ul li:not(:last-child) strong a {
+                           color: ${color} !important;
+                         }`;
+
+    document.getElementsByTagName('head')[0].appendChild(style);
+  }
+
+
   // ========================================================
   // DOM manipulation
   // ========================================================
 
   if ( wantsPage || sellPage || sellRelease ) {
+
+    // Inject the CSS if we're on the right page
+    generateCss();
 
     /**
      * Finds all the seller's reputation scores in the DOM and
@@ -45,18 +71,18 @@ $(document).ready(function() {
 
     window.sellersRep = function sellersRep() {
 
-      let color = '#ff8122',
-          ratingVals = Array.from( $('.star_rating').next() ),
-          ratings = ratingVals.map(val => Number( val.textContent.match(/\d+\.+\d/g) ));
+      let
+          ratingVals = Array.from( $('.seller_info') ),
+          ratings = ratingVals.map(val => Number( val.textContent.match(/\d+\.+\d/g) ) );
 
       // Tag any sellers below threshold
       ratings.forEach((rating, i) => {
 
-        if ( rating < threshold ) {
+        // if you want to tag new sellers as well change this to:
+        // if ( rating < threshold ) {
+        if ( rating && rating < threshold ) {
 
-          $('.seller_label').eq(i).next().children().attr('style', `color: ${color} !important;`);
-          $('.star_rating').eq(i).children().attr('style',`color: ${color} !important;`);
-          $('.star_rating').eq(i).next().attr('style', `color: ${color} !important;`);
+          $('.seller_info').eq(i).addClass('de-seller-rep');
         }
       });
     };
