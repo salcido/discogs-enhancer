@@ -171,7 +171,7 @@ window.addEventListener('load', function load() {
   // SELLER REPUTATION
   // ========================================================
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-    optionsToggle('.hide-percentage', this, '.seller-rep', 100 );
+    optionsToggle('.hide-percentage', this, '.seller-rep', 125 );
   });
 
   // ========================================================

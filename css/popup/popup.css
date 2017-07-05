@@ -437,6 +437,34 @@ input[type="checkbox"]:focus {
   -webkit-appearance: none;
 }
 
+.seller-rep-color-wrap {
+  margin: 5px 5px 5px 0;
+}
+
+.seller-rep-color-wrap .color {
+  width: 20px;
+  height: 10px;
+  border: 1px solid gray;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.seller-rep-color-wrap .orange {
+  background-color: #ff8122;
+}
+
+.seller-rep-color-wrap .red {
+  background-color: red;
+}
+
+.seller-rep-color-wrap .gray {
+  background-color: gray;
+}
+
+.seller-rep-color-wrap .yellow {
+  background-color: yellow;
+}
+
 .toggle-group.menus,
 .toggle-group.condition,
 .toggle-group.country,
