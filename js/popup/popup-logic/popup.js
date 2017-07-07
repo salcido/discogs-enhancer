@@ -171,7 +171,17 @@ window.addEventListener('load', function load() {
   // SELLER REPUTATION
   // ========================================================
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-    optionsToggle('.hide-percentage', this, '.seller-rep', 125 );
+
+    optionsToggle('.hide-percentage', this, '.seller-rep', 200 );
+  });
+
+  // Swatches
+  [...document.querySelectorAll('.rep-color')].forEach(swatch => {
+
+    swatch.addEventListener('click', function(event) {
+
+      sellerRep.selectSwatch(event);
+    });
   });
 
   // ========================================================

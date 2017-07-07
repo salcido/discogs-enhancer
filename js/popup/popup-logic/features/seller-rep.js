@@ -72,11 +72,15 @@ export function setSellerRep() {
 
   let input = document.getElementById('percent'),
       percent = localStorage.getItem('sellerRep') || null,
+      color = localStorage.getItem('sellerRepColor') || 'orange',
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
+      swatch = document.querySelector(`.rep-color.${color}`),
       toggle = document.getElementById('toggleSellerRep');
 
   if (percent !== null) { input.value = percent; }
+
+  swatch.className += ' selected';
 
   chrome.storage.sync.get('prefs', function(result) {
 
@@ -98,4 +102,41 @@ export function setSellerRep() {
       setEnabledStatus( self, 'Disabled' );
     }
   });
+}
+
+// ========================================================
+// selectSwatch
+// ========================================================
+/**
+ * Selects the swatch when clicked and sets the
+ * value in localStorage
+ *
+ * @method selectSwatch
+ * @param  {object} event The event object
+ * @return {string}
+ */
+export function selectSwatch(event) {
+
+  let
+      color,
+      swatch = event.target;
+
+  // Remove .selected from className
+  [...document.querySelectorAll('.rep-color')].forEach(el => {
+
+    if ( el.className.includes('selected') ) {
+
+      let classes = el.className.split(' ');
+
+      classes.length = 2;
+
+      el.className = classes.join(' ');
+    }
+  });
+
+  color = swatch.className.split(' ')[1];
+
+  localStorage.setItem('sellerRepColor', color);
+
+  return swatch.className += ' selected';
 }

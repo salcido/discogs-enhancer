@@ -230,7 +230,8 @@ export function optionsToggle(options, toggleGroup, parentClass, height) {
            event.target.nodeName !== 'LABEL' &&
            event.target.nodeName !== 'SPAN' &&
            event.target.nodeName !== 'A' &&
-           event.target.nodeName !== 'SELECT') {
+           event.target.nodeName !== 'SELECT' &&
+           !event.target.className.includes('rep-color')) {
 
     fadeOut(options);
 
