@@ -79,12 +79,20 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({readability: readability});
       break;
 
-    // Seller Rep
+    // Seller Rep Percentage
     case 'getSellerRep':
 
       let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
 
       sendResponse({sellerRep: sellerRep});
+      break;
+
+    // Seller Rep Color
+    case 'getSellerRepColor':
+
+      let sellerRepColor = localStorage.getItem('sellerRepColor');
+
+      sendResponse({sellerRepColor: sellerRepColor});
       break;
   }
 });
