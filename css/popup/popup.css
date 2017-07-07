@@ -371,6 +371,16 @@ input[type="checkbox"]:focus {
   position: relative;
 }
 
+.percent-wrap {
+  margin-bottom: 15px;
+  margin-top: 2px;
+  font-size: 18px;
+}
+
+#percent {
+  margin-bottom: 10px;
+}
+
 .percentage-interface {
   width: 300px;
   position: absolute;
@@ -384,14 +394,17 @@ input[type="checkbox"]:focus {
   display: inline-block;
   max-width: 80px;
   margin-right: 3px;
-  margin-left: 5px;
+  margin-left: 0;
   font-size: inherit;
+  border-radius: 3px;
+  border: 2px solid white;
 }
 
 .percentage-interface label {
   margin-bottom: 8px;
   font-size: 13px;
   color: #CCCCCC;
+  display: block;
 }
 
 .percentage-interface a {
@@ -406,6 +419,39 @@ input[type="checkbox"]:focus {
   display: inline-block;
   font-size: 13px;
   color: #60C43F;
+}
+
+.rep-color {
+  width: 30px;
+  height: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.rep-color:hover,
+.rep-color.selected {
+  box-shadow:inset 0px 0px 0px 2px white;
+}
+
+.rep-color.orange {
+  background-color: #ff8122;
+}
+
+.rep-color.gray {
+  background-color: gray;
+}
+
+.rep-color.black {
+  background-color: black;
+}
+
+.rep-color.red {
+  background-color: red;
+}
+
+.rep-color.yellow {
+  background-color: yellow;
 }
 
 .save-wrap {
@@ -451,18 +497,6 @@ input[type="checkbox"]:focus {
 
 .seller-rep-color-wrap .orange {
   background-color: #ff8122;
-}
-
-.seller-rep-color-wrap .red {
-  background-color: red;
-}
-
-.seller-rep-color-wrap .gray {
-  background-color: gray;
-}
-
-.seller-rep-color-wrap .yellow {
-  background-color: yellow;
 }
 
 .toggle-group.menus,

@@ -1072,16 +1072,20 @@
         </div>
 
         <div class="hide-percentage percentage-interface">
-          <label for="percent">Tag sellers with reputations below:</label>
-          <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
+          <div class="percent-wrap">
+            <label for="percent">Tag sellers with reputations below:</label>
+            <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
+          </div>
 
-          <label for="percent">Select a color:</label>
-          <div class="seller-rep-color-wrap">
-            <div class="color orange"></div>
-            <div class="color red"></div>
-            <div class="color gray"></div>
-            <div class="color yellow"></div>
-            <input type="text" />
+          <div class="rep-color-wrap">
+            <label for="rep-color">Select a tag color:</label>
+            <div id="rep-color">
+              <div class="rep-color orange"></div>
+              <div class="rep-color gray"></div>
+              <div class="rep-color black"></div>
+              <div class="rep-color red"></div>
+              <div class="rep-color yellow"></div>
+            </div>
           </div>
         </div>
       </div>
