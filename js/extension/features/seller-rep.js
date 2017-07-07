@@ -29,38 +29,11 @@ $(document).ready(function() {
       sellRelease = href.includes('/sell/release') && threshold,
       wantsPage = href.includes('/sell/mywants') && threshold;
 
-  /**
-   * Generates the CSS that will highlight
-   * questionable seller reputations
-   * TODO: move this to background.js?
-   * @method   generateCss
-   * @return   {undefined}
-   */
-
-  function generateCss() {
-
-    let style = document.createElement('style'),
-        color = localStorage.getItem('sellerRepColor') || '#ff8122';
-
-    style.type = 'text/css';
-    style.textContent = `.de-seller-rep ul li i,
-                         .de-seller-rep ul li strong,
-                         .de-seller-rep ul li:not(:last-child) strong a {
-                           color: ${color} !important;
-                         }`;
-
-    document.getElementsByTagName('head')[0].appendChild(style);
-  }
-
-
   // ========================================================
   // DOM manipulation
   // ========================================================
 
   if ( wantsPage || sellPage || sellRelease ) {
-
-    // Inject the CSS if we're on the right page
-    generateCss();
 
     /**
      * Finds all the seller's reputation scores in the DOM and

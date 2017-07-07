@@ -387,6 +387,7 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(readability);
   }
 
+  // release-durations
   if (result.prefs.releaseDurations) {
 
     let releaseDurations = document.createElement('script');
@@ -398,6 +399,7 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(releaseDurations);
   }
 
+  // release-ratings
   if (result.prefs.releaseRatings) {
 
     let releaseRatings = document.createElement('script');
@@ -409,15 +411,29 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(releaseRatings);
   }
 
+  // seller-rep css
   if (result.prefs.sellerRep) {
 
-    // seller-rep.css
-    let sellerRepCss = document.createElement('link');
+    // Seller Reputation Color
+    chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
 
+      let sellerRepColor = JSON.stringify(response.sellerRepColor);
+
+      localStorage.setItem('sellerRepColor', sellerRepColor);
+    });
+
+    let sellerRepCss = document.createElement('style'),
+        lsColor = localStorage.getItem('sellerRepColor'),
+        color = lsColor.match(/\w/g).join('') || '#ff8122';
+
+    sellerRepCss.id = 'sellerRepCss';
     sellerRepCss.rel = 'stylesheet';
     sellerRepCss.type = 'text/css';
-    sellerRepCss.href = chrome.extension.getURL('css/seller-rep.css');
-    sellerRepCss.id = 'sellerRepCss';
+    sellerRepCss.textContent = `.de-seller-rep ul li i,
+                                .de-seller-rep ul li strong,
+                                .de-seller-rep ul li:not(:last-child) strong a {
+                                  color: ${color} !important;
+                                }`;
 
     elems.push(sellerRepCss);
 
@@ -858,7 +874,7 @@ try {
     localStorage.setItem('readability', readability);
   });
 
-  // Seller Reputation
+  // Seller Reputation Percentage
   chrome.runtime.sendMessage({request: 'getSellerRep'}, function(response) {
 
     let sellerRep = response.sellerRep;
