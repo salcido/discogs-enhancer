@@ -2,3 +2,4 @@ node_modules
 dist
 js/chart
 .vscode
+.DS_Store
