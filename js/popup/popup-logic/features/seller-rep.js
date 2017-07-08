@@ -72,7 +72,7 @@ export function setSellerRep() {
 
   let input = document.getElementById('percent'),
       percent = localStorage.getItem('sellerRep') || null,
-      color = localStorage.getItem('sellerRepColor') || 'orange',
+      color = localStorage.getItem('sellerRepColor').match(/\w/g).join('') || 'orange',
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
       swatch = document.querySelector(`.rep-color.${color}`),
@@ -136,7 +136,7 @@ export function selectSwatch(event) {
 
   color = swatch.className.split(' ')[1];
 
-  localStorage.setItem('sellerRepColor', color);
+  localStorage.setItem('sellerRepColor', JSON.stringify(color));
 
   return swatch.className += ' selected';
 }

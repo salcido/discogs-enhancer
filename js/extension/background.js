@@ -400,7 +400,7 @@ chrome.storage.sync.get('prefs', function(result) {
   }
 
   // release-ratings
-  if (result.prefs.releaseRatings) {
+  if ( result.prefs.releaseRatings ) {
 
     let releaseRatings = document.createElement('script');
 
@@ -412,30 +412,26 @@ chrome.storage.sync.get('prefs', function(result) {
   }
 
   // seller-rep css
-  if (result.prefs.sellerRep) {
+  // `sendMessage` is async so handle everything in the callback
+  // and call `appendFragment` directly
+  if ( result.prefs.sellerRep ) {
 
-    // Seller Reputation Color
     chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
 
-      let sellerRepColor = JSON.stringify(response.sellerRepColor);
+      let sellerRepCss = document.createElement('style'),
+          color = response.sellerRepColor.match(/\w/g).join('') || '#ff8122';
 
-      localStorage.setItem('sellerRepColor', sellerRepColor);
+      sellerRepCss.id = 'sellerRepCss';
+      sellerRepCss.rel = 'stylesheet';
+      sellerRepCss.type = 'text/css';
+      sellerRepCss.textContent = `.de-seller-rep ul li i,
+                                  .de-seller-rep ul li strong,
+                                  .de-seller-rep ul li:not(:last-child) strong a {
+                                    color: ${color} !important;
+                                  }`;
+
+      appendFragment( [sellerRepCss] );
     });
-
-    let sellerRepCss = document.createElement('style'),
-        lsColor = localStorage.getItem('sellerRepColor'),
-        color = lsColor.match(/\w/g).join('') || '#ff8122';
-
-    sellerRepCss.id = 'sellerRepCss';
-    sellerRepCss.rel = 'stylesheet';
-    sellerRepCss.type = 'text/css';
-    sellerRepCss.textContent = `.de-seller-rep ul li i,
-                                .de-seller-rep ul li strong,
-                                .de-seller-rep ul li:not(:last-child) strong a {
-                                  color: ${color} !important;
-                                }`;
-
-    elems.push(sellerRepCss);
 
     // seller-rep.js
     let sellerRep = document.createElement('script');
@@ -447,7 +443,7 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(sellerRep);
   }
 
-  if (result.prefs.sortButtons) {
+  if ( result.prefs.sortButtons ) {
 
     // sort-explore-lists.js
     let sortExploreScript = document.createElement('script');
@@ -884,7 +880,7 @@ try {
     localStorage.setItem('sellerRep', sellerRep);
   });
 
-} catch(err) {
+} catch (err) {
 
   // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...
   if (err.message !== 'Invalid arguments to connect.') {
