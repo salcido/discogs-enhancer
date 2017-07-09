@@ -225,13 +225,14 @@ export function optionsToggle(options, toggleGroup, parentClass, height) {
   }
   // Collapse
   // (don't collapse when clicking these elements)
-  else if (event.target.nodeName !== 'INPUT' &&
-           event.target.type !== 'checkbox' &&
-           event.target.nodeName !== 'LABEL' &&
-           event.target.nodeName !== 'SPAN' &&
-           event.target.nodeName !== 'A' &&
-           event.target.nodeName !== 'SELECT' &&
-           !event.target.className.includes('rep-color')) {
+  else if ( event.target.nodeName !== 'INPUT' &&
+            event.target.type !== 'checkbox' &&
+            event.target.nodeName !== 'LABEL' &&
+            event.target.nodeName !== 'SPAN' &&
+            event.target.nodeName !== 'A' &&
+            event.target.nodeName !== 'SELECT' &&
+            !event.target.className.includes('rep-color') &&
+            event.target.parentNode.className !== 'rep-color-wrap' ) {
 
     fadeOut(options);
 
