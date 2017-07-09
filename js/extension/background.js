@@ -419,7 +419,7 @@ chrome.storage.sync.get('prefs', function(result) {
     chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
 
       let sellerRepCss = document.createElement('style'),
-          color = response.sellerRepColor.match(/\w/g).join('') || '#ff8122';
+          color = response.sellerRepColor.match(/#*\w/g).join('') || 'darkorange';
 
       sellerRepCss.id = 'sellerRepCss';
       sellerRepCss.rel = 'stylesheet';
@@ -452,7 +452,7 @@ chrome.storage.sync.get('prefs', function(result) {
     sortExploreScript.src = chrome.extension.getURL('js/extension/features/sort-explore-lists.js');
     sortExploreScript.className = 'de-init';
 
-    elems.push(sortExploreScript);
+    elems.push( sortExploreScript );
 
     // sort-marketplace-lists.js
     let sortMarketplaceScript = document.createElement('script');
@@ -461,7 +461,7 @@ chrome.storage.sync.get('prefs', function(result) {
     sortMarketplaceScript.src = chrome.extension.getURL('js/extension/features/sort-marketplace-lists.js');
     sortMarketplaceScript.className = 'de-init';
 
-    elems.push(sortMarketplaceScript);
+    elems.push( sortMarketplaceScript );
 
     // sort-personal-lists.js
     let sortPersonalListsScript = document.createElement('script');
@@ -470,7 +470,7 @@ chrome.storage.sync.get('prefs', function(result) {
     sortPersonalListsScript.src = chrome.extension.getURL('js/extension/features/sort-personal-lists.js');
     sortPersonalListsScript.className = 'de-init';
 
-    elems.push(sortPersonalListsScript);
+    elems.push( sortPersonalListsScript );
   }
 
   if (result.prefs.suggestedPrices) {
