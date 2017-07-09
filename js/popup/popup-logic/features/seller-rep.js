@@ -72,7 +72,7 @@ export function setSellerRep() {
 
   let input = document.getElementById('percent'),
       percent = localStorage.getItem('sellerRep') || null,
-      color = localStorage.getItem('sellerRepColor').match(/\w/g).join('') || 'orange',
+      color = localStorage.getItem('sellerRepColor').match(/\w/g).join('') || 'darkorange',
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
       swatch = document.querySelector(`.rep-color.${color}`),
@@ -109,7 +109,12 @@ export function setSellerRep() {
 // ========================================================
 /**
  * Selects the swatch when clicked and sets the
- * value in localStorage
+ * value in localStorage.
+ *
+ * Each key in the `colorTable` object corresponds with a
+ * CSS class. Swatch color values are determined by class
+ * and then saved as their value from the `colorTable`
+ * object.
  *
  * @method selectSwatch
  * @param  {object} event The event object
@@ -117,8 +122,16 @@ export function setSellerRep() {
  */
 export function selectSwatch(event) {
 
-  let
-      color,
+  let classname,
+      colorTable = {
+                darkgoldenrod: 'darkgoldenrod',
+                dimgray: 'dimgray',
+                BF3A38: '#BF3A38',
+                darkorange: 'darkorange',
+                slategray: 'slategray',
+                darkslategray: 'darkslategray',
+                black: 'black'
+              },
       swatch = event.target;
 
   // Remove .selected from className
@@ -134,9 +147,10 @@ export function selectSwatch(event) {
     }
   });
 
-  color = swatch.className.split(' ')[1];
+  // Extract the class name for the `colorTable` value
+  classname = swatch.className.split(' ')[1];
 
-  localStorage.setItem('sellerRepColor', JSON.stringify(color));
+  localStorage.setItem('sellerRepColor', JSON.stringify(colorTable[classname]));
 
   return swatch.className += ' selected';
 }
