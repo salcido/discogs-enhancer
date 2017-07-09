@@ -434,24 +434,32 @@ input[type="checkbox"]:focus {
   box-shadow:inset 0px 0px 0px 2px white;
 }
 
-.rep-color.orange {
-  background-color: #ff8122;
+.rep-color.BF3A38 {
+  background-color: #BF3A38;
 }
 
-.rep-color.gray {
-  background-color: gray;
+.rep-color.darkorange {
+  background-color: darkorange;
+}
+
+.rep-color.darkgoldenrod {
+  background-color: darkgoldenrod;
+}
+
+.rep-color.darkslategray {
+  background-color: darkslategray;
+}
+
+.rep-color.slategray {
+  background-color: slategray;
+}
+
+.rep-color.dimgray {
+  background-color: dimgray;
 }
 
 .rep-color.black {
   background-color: black;
-}
-
-.rep-color.red {
-  background-color: red;
-}
-
-.rep-color.yellow {
-  background-color: yellow;
 }
 
 .save-wrap {
