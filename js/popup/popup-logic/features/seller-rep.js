@@ -152,5 +152,7 @@ export function selectSwatch(event) {
 
   localStorage.setItem('sellerRepColor', JSON.stringify(colorTable[classname]));
 
+  applySave('refresh', event);
+
   return swatch.className += ' selected';
 }
