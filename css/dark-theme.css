@@ -356,12 +356,12 @@ li.current.menu-item a span {
 
 /* white icons on colored buttons */
 a#profile_friends_url,
-button.button_blue i,
-a.button_blue i,
-button.button_green i,
-a.button_green i,
-button.button_red i,
-a.button_red i {
+button.button-blue i,
+a.button-blue i,
+button.button-green i,
+a.button-green i,
+button.button-red i,
+a.button-red i {
   color: white !important;
 }
 
@@ -533,36 +533,36 @@ a.button,
 .header-actions a.button:visited, /* settings button on profile page */
 .inline_buttons.no_offer a,
 a.button.inv_add_button,
-.section_content.release_info_buttons a:not(.button_blue) {
+.section_content.release_info_buttons a:not(.button-blue) {
   color: #454545 !important;
 }
 
-.button.button_green[disabled],
-.button.button_green[disabled] i,
-.button.button_green[disabled]:hover,
-.button.button_green[disabled]:active,
-.button.button_green[disabled]:visited,
-.button.button_green[disabled]:focus,
-.button.button_blue[disabled],
-.button.button_blue[disabled]:hover,
-.button.button_blue[disabled]:active,
-.button.button_blue[disabled]:visited,
-.button.button_blue[disabled]:focus,
-.button.button_red[disabled],
-.button.button_red[disabled]:hover,
-.button.button_red[disabled]:active,
-.button.button_red[disabled]:visited,
-.button.button_red[disabled]:focus,
+.button.button-green[disabled],
+.button.button-green[disabled] i,
+.button.button-green[disabled]:hover,
+.button.button-green[disabled]:active,
+.button.button-green[disabled]:visited,
+.button.button-green[disabled]:focus,
+.button.button-blue[disabled],
+.button.button-blue[disabled]:hover,
+.button.button-blue[disabled]:active,
+.button.button-blue[disabled]:visited,
+.button.button-blue[disabled]:focus,
+.button.button-red[disabled],
+.button.button-red[disabled]:hover,
+.button.button-red[disabled]:active,
+.button.button-red[disabled]:visited,
+.button.button-red[disabled]:focus,
 .button.button_dark[disabled],
 .button.button_dark[disabled]:hover,
 .button.button_dark[disabled]:active,
 .button.button_dark[disabled]:visited,
 .button.button_dark[disabled]:focus,
-.button.button_white[disabled],
-.button.button_white[disabled]:hover,
-.button.button_white[disabled]:active,
-.button.button_white[disabled]:visited,
-.button.button_white[disabled]:focus,
+.button.button-white[disabled],
+.button.button-white[disabled]:hover,
+.button.button-white[disabled]:active,
+.button.button-white[disabled]:visited,
+.button.button-white[disabled]:focus,
 .button[disabled],
 .button[disabled] i,
 .button[disabled] span,
@@ -619,12 +619,12 @@ a.inset_button[disabled] {
   color: white !important;
 }
 
-#site_header .button_green.button,
-.button.button_green,
+#site_header .button-green.button,
+.button.button-green,
 #login button,
-.inline_buttons.no_offer a.button.button_green,
+.inline_buttons.no_offer a.button.button-green,
 .bulk_actions_submit input,
-.button.button_green span {
+.button.button-green span {
   background-color: #60C43F !important;
   border-color: #4EA332 !important;
   border-top-color: #52AB34 !important;
@@ -636,8 +636,8 @@ a.inset_button[disabled] {
   border: 1px solid #9ACD89 !important;
 }
 
-.button.button_red,
-.button.button_red span {
+.button.button-red,
+.button.button-red span {
   border-color: #982E2C !important;
   border-top-color: #902C2A !important;
   border-bottom-color: #842827 !important;
@@ -645,11 +645,11 @@ a.inset_button[disabled] {
 }
 
 a.button.button_facebook_login span,
-.button.button_blue,
-a.button.button_blue,
-a.button_blue,
-#user_header .button_blue,
-.button.button_blue span {
+.button.button-blue,
+a.button.button-blue,
+a.button-blue,
+#user_header .button-blue,
+.button.button-blue span {
   background-color: #4588C4 !important;
   border-color: #3571A6 !important;
   border-top-color: #3776AE !important;
@@ -657,8 +657,8 @@ a.button_blue,
   color: white !important;
 }
 
-.button.button_green .icon,
-.button.button_red .icon {
+.button.button-green .icon,
+.button.button-red .icon {
   color: white !important;
 }
 
@@ -712,14 +712,14 @@ a.btn-default.active,
   color: white !important;
 }
 
-button.button.button_white {
+button.button.button-white {
   background-color: white !important;
   background-image: none !important;
   color: #595959;
 }
 
-button.mr_toggler.button.button_white,
-button.mr_toggler.button.button_white i {
+button.mr_toggler.button.button-white,
+button.mr_toggler.button.button-white i {
   background-color: gray !important;
   background-image: none !important;
   color: #CCCCCC !important;
@@ -729,7 +729,7 @@ button.mr_toggler.button.button_white i {
   background: none !important;
 }
 
-.button.button_white:hover {
+.button.button-white:hover {
   background-color: #F2F2F2 !important;
 }
 
