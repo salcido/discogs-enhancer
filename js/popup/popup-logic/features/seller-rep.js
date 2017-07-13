@@ -72,7 +72,8 @@ export function setSellerRep() {
 
   let input = document.getElementById('percent'),
       percent = localStorage.getItem('sellerRep') || null,
-      color = localStorage.getItem('sellerRepColor').match(/\w/g).join('') || 'darkorange',
+      lscolor = localStorage.getItem('sellerRepColor') || 'darkorange',
+      color = lscolor.match(/\w/g).join(''),
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
       swatch = document.querySelector(`.rep-color.${color}`),

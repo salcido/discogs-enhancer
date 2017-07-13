@@ -419,7 +419,8 @@ chrome.storage.sync.get('prefs', function(result) {
     chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
 
       let sellerRepCss = document.createElement('style'),
-          color = response.sellerRepColor.match(/#*\w/g).join('') || 'darkorange';
+          respColor = response.sellerRepColor || 'darkorange',
+          color = respColor.match(/#*\w/g).join('');
 
       sellerRepCss.id = 'sellerRepCss';
       sellerRepCss.rel = 'stylesheet';
