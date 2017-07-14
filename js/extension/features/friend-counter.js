@@ -10,11 +10,10 @@
  * Overview ㊙
  * ---------------------------------------------------------------------------
  *
- * This will count the number of friends you have in your friend list. It stops
- * counting after 50 and just lists "50+" at that point. It is always enabled
- * when using this extension and it's not listed as a feature. I personally
- * find it useful but I'm not sure it has much value for anyone else so it's
- * a secret to everybody!
+ * This will count the number of friends you have in your friend list.
+ * It is always enabled when using this extension and it's not listed as a
+ * feature. I personally find it useful but I'm not sure it has much value
+ * for anyone else so it's a secret to everybody!
  */
 
 (function() {
