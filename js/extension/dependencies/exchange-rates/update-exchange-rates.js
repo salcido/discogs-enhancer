@@ -50,12 +50,18 @@ $(document).ready(function() {
    */
   function updateRates() {
 
-    return $.ajax({
+    let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.';
 
-      url:'https://api.fixer.io/latest?base=' + userCurrency + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD',
-      type: 'GET',
+    return fetch('https://api.fixer.io/latest?base=' + userCurrency + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD', { method: 'get' })
 
-      success: function(response) {
+      .then( response => {
+
+        if (response.ok) { return response.json(); }
+
+        // TODO: delete rates object on failure?
+        return console.log(errorMsg);
+      })
+      .then( res => {
 
         /*
            Fixer.io has, on occasion, not sent a content-type in the response
@@ -63,13 +69,13 @@ $(document).ready(function() {
            then proceed accordingly.
         */
 
-        if (typeof response === 'string') {
+        if (typeof res === 'string') {
 
-          updateRatesObj.rates = JSON.parse(response);
+          updateRatesObj.rates = JSON.parse(res);
 
-        } else if (typeof response === 'object') {
+        } else if (typeof res === 'object') {
 
-          updateRatesObj.rates = response;
+          updateRatesObj.rates = res;
         }
 
         // set last saved currency,
@@ -87,15 +93,8 @@ $(document).ready(function() {
         // Save object to localStorage
         resourceLibrary.setItem('updateRatesObj', updateRatesObj);
         updateRatesObj = resourceLibrary.getItem('updateRatesObj');
-      },
-
-      error: function() {
-
-        let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.';
-        // TODO: delete rates object on failure?
-        console.log(errorMsg);
       }
-    });
+    );
   }
 
   // ========================================================
