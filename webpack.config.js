@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
@@ -17,6 +17,21 @@ module.exports = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+       test: /\.(png|jpg|gif)$/,
+       use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        loader: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },

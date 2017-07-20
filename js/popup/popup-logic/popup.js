@@ -7,7 +7,7 @@
  * @github: https://github.com/salcido
  *
  */
-
+require('../../../css/popup/popup.scss');
 import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
