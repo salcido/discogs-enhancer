@@ -138,13 +138,9 @@ export function selectSwatch(event) {
   // Remove .selected from className
   [...document.querySelectorAll('.rep-color')].forEach(el => {
 
-    if ( el.className.includes('selected') ) {
+    if ( el.classList.contains('selected') ) {
 
-      let classes = el.className.split(' ');
-
-      classes.length = 2;
-
-      el.className = classes.join(' ');
+      el.classList.remove('selected');
     }
   });
 
@@ -155,5 +151,5 @@ export function selectSwatch(event) {
 
   applySave('refresh', event);
 
-  return swatch.className += ' selected';
+  return swatch.classList.add('selected');
 }
