@@ -33,7 +33,7 @@ $(document).ready(function() {
 
     let sortFilterButton = '<div style="text-align: center;">' +
                            '<button id="sortFilters" ' +
-                           'class="button button_blue" ' +
+                           'class="button button-blue" ' +
                            'style="width: 100px;">Sort A-Z</button>' +
                            '</div>',
         // This is so we only append one filter button at the top of the list
