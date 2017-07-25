@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     let sortButton = '<div style="text-align: center;">' +
                      '<button id="sortExplore" ' +
-                     'class="button button_blue" ' +
+                     'class="button button-blue" ' +
                      'style="margin-bottom: 10px;' +
                      'width: 100px;">Sort A-Z</button>' +
                      '</div>';
