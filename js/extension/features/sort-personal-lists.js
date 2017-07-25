@@ -122,7 +122,7 @@ $(document).ready(function() {
         findAdd,
         sortButton = '<div style="position: absolute; left: 295px; top: 10px;">' +
                      '<button id="sortPLists" ' +
-                     'class="button button_blue" ' +
+                     'class="button button-blue" ' +
                      'style="margin-bottom: 10px;' +
                      'width: 95px;">Sort A-Z</button>' +
                      '</div>';
