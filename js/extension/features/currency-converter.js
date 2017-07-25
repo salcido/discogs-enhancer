@@ -69,7 +69,7 @@ $(document).ready(function() {
                         '</select>' +
                       '</div>' +
                       '<div id="clearBtn">' +
-                        '<button id="clear" class="button button_blue">Clear</button>' +
+                        '<button id="clear" class="button button-blue">Clear</button>' +
                       '</div>' +
                       '<div class="value-output">' +
                         '<span id="ccOutput"></span>' +
