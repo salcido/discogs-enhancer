@@ -309,6 +309,18 @@ input[type="checkbox"]:focus {
     left: 50px;
     outline: none;
   }
+
+  #filter-by-country-always {
+    position: absolute;
+    top: 103px;
+    left: 50px;
+
+    span {
+      color: white;
+      font-weight: 300;
+      font-size: 12px;
+    }
+  }
 }
 
 /* Seller Reputation */
