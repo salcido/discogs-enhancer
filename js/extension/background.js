@@ -729,7 +729,15 @@ chrome.storage.sync.get('prefs', function(result) {
   }
 
   // append user preferences to the DOM
-  setTimeout(appendFragment(elems), 100);
+  // Hack fix for Chrome not loading JQ at start
+  (function() {
+    let z = setInterval(function() {
+      if (window.$) {
+        clearInterval(z);
+        appendFragment(elems);
+      }
+    }, 13);
+  }());
 });
 
 // ========================================================
