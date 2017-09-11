@@ -15,8 +15,8 @@
 }
 
 /* override green styles with red ones */
-.blocked-seller .button.button_green,
-.blocked-seller .button.button_green span {
+.blocked-seller .button.button-green,
+.blocked-seller .button.button-green span {
   background-image: linear-gradient(#BF3A38, #B33635);
   border-color: #982E2C !important;
   border-top-color: #902C2A !important;
