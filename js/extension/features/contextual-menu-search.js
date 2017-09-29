@@ -29,7 +29,7 @@ function searchClone(event) {
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
-  chrome.tabs.create({url: 'https://clone.nl/search/' + encodeStr + '?page=0'});
+  chrome.tabs.create({ url: 'https://clone.nl/search/?instock=1&query=' + encodeStr });
 }
 
 function searchDecks(event) {
