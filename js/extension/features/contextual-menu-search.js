@@ -93,7 +93,7 @@ function searchJuno(event) {
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
-  chrome.tabs.create({url: 'http://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=' + encodeStr});
+  chrome.tabs.create({url: 'https://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=' + encodeStr});
 }
 
 function searchKristina(event) {
