@@ -84,25 +84,11 @@ $(document).ready(function() {
      * highlighted there. If Discogs ever updates their markup, this could be pretty rad.
 
     // Media conditions
+    const orderMedia = [...document.querySelectorAll('.order-item-conditions span:nth-child(2)')],
+          orderSleeves = [...document.querySelectorAll('.order-item-conditions span:nth-child(4)')]
 
-    $('.order-item-conditions span:nth-child(2):contains("Mint (M)")').addClass('mint bold');
-    $('.order-item-conditions span:nth-child(2):contains("Near Mint (NM or M-)")').addClass('near-mint bold');
-    $('.order-item-conditions span:nth-child(2):contains("Very Good Plus (VG+)")').addClass('very-good-plus bold');
-    $('.order-item-conditions span:nth-child(2):contains("Very Good (VG)")').addClass('very-good bold');
-    $('.order-item-conditions span:nth-child(2):contains("Good Plus (G+)")').addClass('good-plus bold');
-    $('.order-item-conditions span:nth-child(2):contains("Good (G)")').addClass('good bold');
-    $('.order-item-conditions span:nth-child(2):contains("Fair (F)")').addClass('fair bold');
-    $('.order-item-conditions span:nth-child(2):contains("Poor (P)")').addClass('poor bold');
-
-    // Sleeve conditions
-    $('.order-item-conditions span:nth-child(4):contains("Mint (M)")').addClass('mint bold');
-    $('.order-item-conditions span:nth-child(4):contains("Near Mint (NM or M-)")').addClass('near-mint bold');
-    $('.order-item-conditions span:nth-child(4):contains("Very Good Plus (VG+)")').addClass('very-good-plus bold');
-    $('.order-item-conditions span:nth-child(4):contains("Very Good (VG)")').addClass('very-good bold');
-    $('.order-item-conditions span:nth-child(4):contains("Good Plus (G+)")').addClass('good-plus bold');
-    $('.order-item-conditions span:nth-child(4):contains("Good (G)")').addClass('good bold');
-    $('.order-item-conditions span:nth-child(4):contains("Fair (F)")').addClass('fair bold');
-    $('.order-item-conditions span:nth-child(4):contains("Poor (P)")').addClass('poor bold');
+    addHighlights(orderMedia);
+    addHighlights(orderSleeves);
 
     */
   };
