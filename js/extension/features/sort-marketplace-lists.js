@@ -31,11 +31,11 @@ $(document).ready(function() {
   // Inject sort button into modal
   function appendFilterSortButton() {
 
-    let sortFilterButton = '<div style="text-align: center;">' +
-                           '<button id="sortFilters" ' +
-                           'class="button button-blue" ' +
-                           'style="width: 100px;">Sort A-Z</button>' +
-                           '</div>',
+    let sortFilterButton = `<div style="text-align: center;">
+                              <button id="sortFilters"
+                              class="button button-blue"
+                              style="width: 100px;">Sort A-Z</button>
+                           </div>`,
         // This is so we only append one filter button at the top of the list
         // Two buttons might be more useful on large lists.
         // Still thinking that one over.
@@ -61,7 +61,7 @@ $(document).ready(function() {
 
     let
         liHead,
-        listElms = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav li'),
+        listElms = $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget } ul.facets_nav li`),
         newUl,
         vals = [];
 
@@ -88,7 +88,7 @@ $(document).ready(function() {
     moreFiltersContainer.html('');
 
     // Insert new markup with custom |modified| class to hook on to
-    moreFiltersContainer.append('<ul class="marketplace_filters more_filters marketplace_filters_' + filterTarget + '"><li style="min-width:16%;"><ul class="facets_nav modified">');
+    moreFiltersContainer.append(`<ul class="marketplace_filters more_filters marketplace_filters_${filterTarget}"><li style="min-width:16%;"><ul class="facets_nav modified">`);
 
     // Hook on to our new list
     newUl = $('ul.facets_nav.modified');
@@ -115,7 +115,7 @@ $(document).ready(function() {
 
       if (clicks > 3) {
 
-        $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).html(storage.html());
+        $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget }`).html(storage.html());
 
         clicks = 1;
 
@@ -125,7 +125,7 @@ $(document).ready(function() {
 
       } else {
 
-        sortUnorderedFilterList($('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget + ' ul.facets_nav'), desc);
+        sortUnorderedFilterList($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget } ul.facets_nav`), desc);
 
         $(this).text(sortName);
 
@@ -164,13 +164,13 @@ $(document).ready(function() {
        before storing it. */
     checkForMarkup = setInterval(function() {
 
-      if ( $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).length ) {
+      if ($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget }`).length ) {
 
         /* Store current markup of #more_filters_container. If the user does not
            select a filter, it will be restored when .hide_more_filters is clicked */
         moreFiltersStorage = moreFiltersContainer.clone(true);
 
-        storage = $('.marketplace_filters.more_filters.marketplace_filters_' + filterTarget).clone(true);
+        storage = $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget }`).clone(true);
 
         clearInterval(checkForMarkup);
       }
