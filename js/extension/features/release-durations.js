@@ -167,21 +167,21 @@ $(document).ready(function() {
 
     } else {
 
-      html = '<div class="section_content de-durations">' +
-               '<table>' +
-                 '<tbody>' +
-                   '<tr class="tracklist_track track_heading">' +
-                     '<td class="tracklist_track_pos">' +
-                        '<span style="padding-left:5px; font-weight:bold;">Total Time:</span>' +
-                     '</td>' +
-                     '<td class="track tracklist_track_title"></td>' +
-                     '<td width="25" class="tracklist_track_duration">' +
-                        '<span style="font-weight:bold;">' + result + '</span>' +
-                     '</td>' +
-                   '</tr>' +
-                 '</tbody>' +
-               '</table>' +
-             '</div>';
+      html = `<div class="section_content de-durations">
+                <table>
+                  <tbody>
+                    <tr class="tracklist_track track_heading">
+                      <td class="tracklist_track_pos">
+                        <span style="padding-left:5px; font-weight:bold;">Total Time:</span>
+                      </td>
+                      <td class="track tracklist_track_title"></td>
+                      <td width="25" class="tracklist_track_duration">
+                        <span style="font-weight:bold;"> ${result} </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>;`
 
       $(html).insertAfter( $('#tracklist .section_content') );
     }
