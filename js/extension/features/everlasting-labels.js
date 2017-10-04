@@ -16,12 +16,12 @@ $(document).ready(function() {
       pagination,
       pageNum = 2,
       paused = false,
-      loaderMarkup = '<div id="de-next" class="offers_box" >' +
-                        '<div class="de-next-text"> ' +
-                          'Loading next page...' +
-                        '</div>' +
-                        resourceLibrary.css.preloader +
-                      '</div>';
+      loaderMarkup = `<div id="de-next" class="offers_box" >
+                        <div class="de-next-text">
+                          Loading next page...
+                        </div>
+                        ${resourceLibrary.css.preloader}
+                      </div>`;
 
   /**
    * Extracts the label info and any query params from the href
@@ -107,23 +107,23 @@ $(document).ready(function() {
         break;
     }
 
-    filterUpdateLink = '<div class="de-page-bar">' +
-                        '<span class="de-page-info">' +
-                          '<span class="de-page de-page-num">Page: 1</span>' +
-                            '<span>' + pTotal + ' results</span>' +
-                          '</span>' +
-                          '<a href="#" id="de-update-filters">Top of page</a>' +
-                          '<div class="de-select-wrap">' +
-                            '<span>Scroll to: &nbsp;</span>' +
-                              '<select class="de-scroll-to-page">' +
-                                '<option value="" selected>Select</option>' +
-                                '<option value="1">Page: 1</option>' +
-                              '</select>' +
-                            '<span class="de-pause">' +
-                              '<i class="icon icon-pause" title="Pause Everlasting labels"></i>' +
-                            '</span>' +
-                          '</div>' +
-                        '</div>';
+    filterUpdateLink = `<div class="de-page-bar">
+                        <span class="de-page-info">
+                          <span class="de-page de-page-num">Page: 1</span>
+                            <span> ${pTotal} results</span>
+                          </span>
+                          <a href="#" id="de-update-filters">Top of page</a>
+                          <div class="de-select-wrap">
+                            <span>Scroll to: &nbsp;</span>
+                              <select class="de-scroll-to-page">
+                                <option value="" selected>Select</option>
+                                <option value="1">Page: 1</option>
+                              </select>
+                            <span class="de-pause">
+                              <i class="icon icon-pause" title="Pause Everlasting labels"></i>
+                            </span>
+                          </div>
+                        </div>`;
 
     // Don't do anything if there are fewer releases than the default number to show
     if ( pTotal <= Number(document.getElementById('limit_top').value) ) { return; }
@@ -162,24 +162,24 @@ $(document).ready(function() {
         success: function(res) {
 
           let releases = $(res).find('.section_content table tbody'),
-              nextSetIndicator = '<tr class="card r_tr main release shortcut_navigable" id="de-page-' + pageNum + '">' +
-                                    '<td class = "status hide_mobile"></td>' +
-                                    '<td class="catno_first"></td>' +
-                                    '<td class="image"></td>' +
-                                    '<td class="artist">' +
-                                      '<h2 class="de-current-page">Page: ' + pageNum + '</h2>' +
-                                    '</td>' +
-                                    '<td class="title"></td>' +
-                                    '<td class="label has_header"></td>' +
-                                    '<td class="catno has_header"></td>' +
-                                    '<td class="country has_header"></td>' +
-                                    '<td class="year has_header"></td>' +
-                                    '<td class="mr_checkbox hide_mobile"></td>' +
-                                    '<td class="skittles"></td>' +
-                                    '<td class="actions"></td>' +
-                                    '<td class="sell_this_version"></td>' +
-                                    '<td class="mr_toggler_mobile hide_desktop"></td>' +
-                                  '</tr>';
+              nextSetIndicator = `<tr class="card r_tr main release shortcut_navigable" id="de-page-${pageNum}">
+                                    <td class = "status hide_mobile"></td>
+                                    <td class="catno_first"></td>
+                                    <td class="image"></td>
+                                    <td class="artist">
+                                      <h2 class="de-current-page">Page:  ${pageNum} </h2>
+                                    </td>
+                                    <td class="title"></td>
+                                    <td class="label has_header"></td>
+                                    <td class="catno has_header"></td>
+                                    <td class="country has_header"></td>
+                                    <td class="year has_header"></td>
+                                    <td class="mr_checkbox hide_mobile"></td>
+                                    <td class="skittles"></td>
+                                    <td class="actions"></td>
+                                    <td class="sell_this_version"></td>
+                                    <td class="mr_toggler_mobile hide_desktop"></td>
+                                  </tr>`;
 
             if (releases) {
 

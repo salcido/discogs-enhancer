@@ -27,12 +27,12 @@ $(document).ready(function() {
   // Inject sort button into modal
   function appendSortButton() {
 
-    let sortButton = '<div style="text-align: center;">' +
-                     '<button id="sortExplore" ' +
-                     'class="button button-blue" ' +
-                     'style="margin-bottom: 10px;' +
-                     'width: 100px;">Sort A-Z</button>' +
-                     '</div>';
+    let sortButton = `<div style="text-align: center;">
+                        <button id="sortExplore"
+                        class="button button-blue"
+                        style="margin-bottom: 10px;
+                        width: 100px;">Sort A-Z</button>
+                     </div>`;
 
     $('.react-modal-header').append(sortButton);
   }

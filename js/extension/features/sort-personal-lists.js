@@ -120,12 +120,12 @@ $(document).ready(function() {
 
     let findList,
         findAdd,
-        sortButton = '<div style="position: absolute; left: 295px; top: 10px;">' +
-                     '<button id="sortPLists" ' +
-                     'class="button button-blue" ' +
-                     'style="margin-bottom: 10px;' +
-                     'width: 95px;">Sort A-Z</button>' +
-                     '</div>';
+        sortButton = `<div style="position: absolute; left: 295px; top: 10px;">
+                        <button id="sortPLists"
+                        class="button button-blue"
+                        style="margin-bottom: 10px;
+                        width: 95px;">Sort A-Z</button>
+                      </div>`;
 
     desc = false;
 

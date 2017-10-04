@@ -18,68 +18,68 @@ $(document).ready(function() {
       rates,
       thisSelectedCurrency,
       today = d.toISOString().split('T')[0],
-      markup = '<div class="currency-converter">' +
-                  '<div class="toggle">¥ € $</div>' +
-                  '<div class="top">' +
-                    '<div class="ui-wrap">' +
-                      '<div class="currency">Convert:</div>' +
-                      '<div class="currency-select">' +
-                        '<select id="thisCurrency">' +
-                          '<option value="-">-</option>' +
-                          '<option value="AUD">AUD (A$)</option>' +
-                          '<option value="BRL">BRL (R$)</option>' +
-                          '<option value="CAD">CAD (CA$)</option>' +
-                          '<option value="CHF">CHF (CHF)</option>' +
-                          '<option value="EUR">EUR (€)</option>' +
-                          '<option value="GBP">GBP (£)</option>' +
-                          '<option value="JPY">JPY (¥)</option>' +
-                          '<option value="MXN">MXN (MX$)</option>' +
-                          '<option value="NZD">NZD (NZ$)</option>' +
-                          '<option value="RUB">RUB (&#8381;)</option>' +
-                          '<option value="SEK">SEK (SEK)</option>' +
-                          '<option value="USD">USD ($)</option>' +
-                          '<option value="ZAR">ZAR (ZAR)</option>' +
-                        '</select>' +
-                      '</div>' +
-                      '<div class="<value-input></value-input>">' +
-                        '<input type="number" id="ccInput" max="999999999" min="0"></input>' +
-                      '</div>' +
-                    '</div>' +
-                  '</div>' +
+      markup = `<div class="currency-converter">
+                  <div class="toggle">¥ € $</div>
+                  <div class="top">
+                    <div class="ui-wrap">
+                      <div class="currency">Convert:</div>
+                      <div class="currency-select">
+                        <select id="thisCurrency">
+                          <option value="-">-</option>
+                          <option value="AUD">AUD (A$)</option>
+                          <option value="BRL">BRL (R$)</option>
+                          <option value="CAD">CAD (CA$)</option>
+                          <option value="CHF">CHF (CHF)</option>
+                          <option value="EUR">EUR (€)</option>
+                          <option value="GBP">GBP (£)</option>
+                          <option value="JPY">JPY (¥)</option>
+                          <option value="MXN">MXN (MX$)</option>
+                          <option value="NZD">NZD (NZ$)</option>
+                          <option value="RUB">RUB (&#8381;)</option>
+                          <option value="SEK">SEK (SEK)</option>
+                          <option value="USD">USD ($)</option>
+                          <option value="ZAR">ZAR (ZAR)</option>
+                        </select>
+                      </div>
+                      <div class="<value-input></value-input>">
+                        <input type="number" id="ccInput" max="999999999" min="0"></input>
+                      </div>
+                    </div>
+                  </div>
 
-                  '<div class="bottom">' +
-                    '<div class="ui-wrap">' +
-                      '<div class="currency">To:</div>' +
-                      '<div class="currency-select">' +
-                        '<select id="thatCurrency">' +
-                          '<option value="-">-</option>' +
-                          '<option value="AUD">AUD (A$)</option>' +
-                          '<option value="BRL">BRL (R$)</option>' +
-                          '<option value="CAD">CAD (CA$)</option>' +
-                          '<option value="CHF">CHF (CHF)</option>' +
-                          '<option value="EUR">EUR (€)</option>' +
-                          '<option value="GBP">GBP (£)</option>' +
-                          '<option value="JPY">JPY (¥)</option>' +
-                          '<option value="MXN">MXN (MX$)</option>' +
-                          '<option value="NZD">NZD (NZ$)</option>' +
-                          '<option value="RUB">RUB (&#8381;)</option>' +
-                          '<option value="SEK">SEK (SEK)</option>' +
-                          '<option value="USD">USD ($)</option>' +
-                          '<option value="ZAR">ZAR (ZAR)</option>' +
-                        '</select>' +
-                      '</div>' +
-                      '<div id="clearBtn">' +
-                        '<button id="clear" class="button button-blue">Clear</button>' +
-                      '</div>' +
-                      '<div class="value-output">' +
-                        '<span id="ccOutput"></span>' +
-                      '</div>' +
-                    '</div>' +
-                  '</div>' +
-                  '<div>' +
-                    '<span id="errors" style="color: red !important;"></span>' +
-                  '</div>' +
-                '</div>';
+                  <div class="bottom">
+                    <div class="ui-wrap">
+                      <div class="currency">To:</div>
+                      <div class="currency-select">
+                        <select id="thatCurrency">
+                          <option value="-">-</option>
+                          <option value="AUD">AUD (A$)</option>
+                          <option value="BRL">BRL (R$)</option>
+                          <option value="CAD">CAD (CA$)</option>
+                          <option value="CHF">CHF (CHF)</option>
+                          <option value="EUR">EUR (€)</option>
+                          <option value="GBP">GBP (£)</option>
+                          <option value="JPY">JPY (¥)</option>
+                          <option value="MXN">MXN (MX$)</option>
+                          <option value="NZD">NZD (NZ$)</option>
+                          <option value="RUB">RUB (&#8381;)</option>
+                          <option value="SEK">SEK (SEK)</option>
+                          <option value="USD">USD ($)</option>
+                          <option value="ZAR">ZAR (ZAR)</option>
+                        </select>
+                      </div>
+                      <div id="clearBtn">
+                        <button id="clear" class="button button-blue">Clear</button>
+                      </div>
+                      <div class="value-output">
+                        <span id="ccOutput"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span id="errors" style="color: red !important;"></span>
+                  </div>
+                </div>`;
 
   // Draxx them sklounst
   function convertCurrency() {

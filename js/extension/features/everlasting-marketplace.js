@@ -58,23 +58,23 @@ $(document).ready(function() {
         break;
     }
 
-    filterUpdateLink = '<div class="de-page-bar">' +
-                          '<span class="de-page-info">' +
-                            '<span class="de-page de-page-num">Page: 1</span>' +
-                            '<span>' + pTotal + ' results</span>' +
-                          '</span>' +
-                          '<a href="#" id="de-update-filters">Add or remove filters</a>' +
-                          '<div class="de-select-wrap">' +
-                            '<span>Scroll to: &nbsp;</span>' +
-                            '<select class="de-scroll-to-page">' +
-                              '<option value="" selected>Select</option>' +
-                              '<option value="1">Page: 1</option>' +
-                            '</select>' +
-                            '<span class="de-pause">' +
-                              '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>' +
-                            '</span>' +
-                          '</div>' +
-                       '</div>';
+    filterUpdateLink = `<div class="de-page-bar">
+                          <span class="de-page-info">
+                            <span class="de-page de-page-num">Page: 1</span>
+                            <span> ${pTotal} results</span>
+                          </span>
+                          <a href="#" id="de-update-filters">Add or remove filters</a>
+                          <div class="de-select-wrap">
+                            <span>Scroll to: &nbsp;</span>
+                            <select class="de-scroll-to-page">
+                              <option value="" selected>Select</option>
+                              <option value="1">Page: 1</option>
+                            </select>
+                            <span class="de-pause">
+                              <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
+                            </span>
+                          </div>
+                       </div>`;
 
     // Everlasting Marketplace add/remove filters bar
     $('body').append(filterUpdateLink);
@@ -82,12 +82,12 @@ $(document).ready(function() {
     // append preloader to bottom
     if ( !document.getElementById('de-next') ) {
 
-      let loaderMarkup = '<div id="de-next" class="offers_box" >' +
-                            '<div class="de-next-text"> ' +
-                              'Loading next page...' +
-                            '</div>' +
-                              resourceLibrary.css.preloader +
-                         '</div>';
+      let loaderMarkup = `<div id="de-next" class="offers_box" >
+                            <div class="de-next-text">
+                              Loading next page...
+                            </div>
+                              ${resourceLibrary.css.preloader}
+                         </div>`;
 
       $('#pjax_container').append(loaderMarkup);
     }
@@ -126,11 +126,11 @@ $(document).ready(function() {
 
           if (markup) {
 
-            let nextSetIndicator = '<tr class="shortcut_navigable">' +
-                                      '<td class="item_description">' +
-                                         '<h2 class="de-current-page" id="de-page-' + pageNum + '">' + page + '</h2>' +
-                                      '</td>' +
-                                   '</tr>';
+            let nextSetIndicator = `<tr class="shortcut_navigable">
+                                      <td class="item_description">
+                                         <h2 class="de-current-page" id="de-page-${pageNum}">${page}</h2>
+                                      </td>
+                                   </tr>`;
 
             // Append page number to the DOM
             $('#pjax_container tbody:last-child').append(nextSetIndicator);
