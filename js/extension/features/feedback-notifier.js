@@ -62,29 +62,29 @@ $(document).ready(function() {
     neu = (neu > 0 ? neu : '');
     neg = (neg > 0 ? neg : '');
 
-    badge = '<li style="position: relative;">' +
-              '<span id="' + id + '">' +
-                '<a class="nav_group_control ' + id + '">' +
-                  '<span class="skittle skittle_collection" style="cursor: pointer;">' +
-                    '<span class="count" style="color: white !important;"></span>' +
-                  '</span>' +
-                '</a>' +
-                '<ul class="feedback-chart ' + type + '">' +
-                  '<li class="pos-reviews" alt="View Positive reviews">' +
-                    '<h3 class="pos">Positive</h3>' +
-                    '<h2 class="pos-count">' + pos + '</h2>' +
-                  '</li>' +
-                  '<li class="neu-reviews" alt="View Neutral reviews">' +
-                    '<h3 class="neu">Neutral</h3>' +
-                    '<h2 class="neu-count">' + neu + '</h2>' +
-                  '</li>' +
-                  '<li class="neg-reviews last" alt="View negative reviews">' +
-                    '<h3 class="neg">Negative</h3>' +
-                    '<h2 class="neg-count">' + neg + '</h2>' +
-                  '</li>' +
-                '</ul>' +
-              '</span>' +
-            '</li>';
+    badge = `<li style="position: relative;">
+              <span id="${id}">
+                <a class="nav_group_control ${id}">
+                  <span class="skittle skittle_collection" style="cursor: pointer;">
+                    <span class="count" style="color: white !important;"></span>
+                  </span>
+                </a>
+                <ul class="feedback-chart ${type}">
+                  <li class="pos-reviews" alt="View Positive reviews">
+                    <h3 class="pos">Positive</h3>
+                    <h2 class="pos-count">${pos}</h2>
+                  </li>
+                  <li class="neu-reviews" alt="View Neutral reviews">
+                    <h3 class="neu">Neutral</h3>
+                    <h2 class="neu-count">${neu}</h2>
+                  </li>
+                  <li class="neg-reviews last" alt="View negative reviews">
+                    <h3 class="neg">Negative</h3>
+                    <h2 class="neg-count">${neg}</h2>
+                  </li>
+                </ul>
+              </span>
+            </li>`;
 
     /* Remove preloader */
     $('.' + type + '_feedbackLoader').remove();
