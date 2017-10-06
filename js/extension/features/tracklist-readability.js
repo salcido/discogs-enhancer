@@ -77,11 +77,11 @@ $(document).ready(function() {
 
         // divider markup to be injected
         display = show ? '' : 'display:none;',
-        spacer = `<tr class="tracklist_track track_heading de-spacer" style="${size} ${display}">` +
-                    '<td class="tracklist_track_pos"></td>' +
-                    '<td colspan="2" class="tracklist_track_title">&nbsp;</td>' +
-                    `${duration}` +
-                  '</tr>';
+        spacer = `<tr class="tracklist_track track_heading de-spacer" style="${size} ${display}">
+                    <td class="tracklist_track_pos"></td>
+                    <td colspan="2" class="tracklist_track_title">&nbsp;</td>
+                    ${duration}
+                  </tr>`;
 
     // ========================================================
     // Functions (Alphabetical)

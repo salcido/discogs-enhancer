@@ -194,15 +194,15 @@ $(document).ready(function() {
 
   function insertShortcuts() {
 
-    let markup = '<div class="quick-menu">' +
-                    '<button class="quick-button quick-link" title="Insert url">' +
-                      '<i class="icon icon-chain"></i>' +
-                    '</button>' +
-                    '<button class="quick-button quick-bold" title="Insert bold code">B</button>' +
-                    '<button class="quick-button quick-italic" title="Insert italic code">I</button>' +
-                    '<button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>' +
-                    '<button class="quick-button quick-underline" title="Insert underline code">U</button>' +
-                  '</div>';
+    let markup = `<div class="quick-menu">
+                    <button class="quick-button quick-link" title="Insert url">
+                      <i class="icon icon-chain"></i>
+                    </button>
+                    <button class="quick-button quick-bold" title="Insert bold code">B</button>
+                    <button class="quick-button quick-italic" title="Insert italic code">I</button>
+                    <button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>
+                    <button class="quick-button quick-underline" title="Insert underline code">U</button>
+                  </div>`;
 
     // Inject buttons into DOM
     $(markup).insertAfter( $('textarea') );

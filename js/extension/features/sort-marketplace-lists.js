@@ -115,7 +115,7 @@ $(document).ready(function() {
 
       if (clicks > 3) {
 
-        $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget }`).html(storage.html());
+        $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget}`).html(storage.html());
 
         clicks = 1;
 
@@ -125,7 +125,7 @@ $(document).ready(function() {
 
       } else {
 
-        sortUnorderedFilterList($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget } ul.facets_nav`), desc);
+        sortUnorderedFilterList($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget} ul.facets_nav`), desc);
 
         $(this).text(sortName);
 
@@ -164,13 +164,13 @@ $(document).ready(function() {
        before storing it. */
     checkForMarkup = setInterval(function() {
 
-      if ($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget }`).length ) {
+      if ($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget}`).length ) {
 
         /* Store current markup of #more_filters_container. If the user does not
            select a filter, it will be restored when .hide_more_filters is clicked */
         moreFiltersStorage = moreFiltersContainer.clone(true);
 
-        storage = $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget }`).clone(true);
+        storage = $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget}`).clone(true);
 
         clearInterval(checkForMarkup);
       }
