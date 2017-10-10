@@ -8,6 +8,14 @@
  *
  */
 
+function searchAllDay(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({url: 'https://www.alldayrecords.com/search?type=product&q=' + encodeStr});
+}
+
 function searchBandcamp(event) {
 
   let str = event.selectionText,
