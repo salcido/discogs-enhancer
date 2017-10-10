@@ -543,7 +543,7 @@ chrome.storage.sync.get('prefs', function(result) {
       fn: 'searchAllDay',
       id: 'allday',
       method: 'create',
-      name: 'AllDay',
+      name: 'All Day',
       request: 'updateContextMenu'
     });
   }
