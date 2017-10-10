@@ -74,6 +74,7 @@ chrome.storage.sync.get('prefs', function(result) {
       suggestedPrices: false,
       userCurrency: null,
       //
+      useAllDay: false,
       useBandcamp: false,
       useBoomkat: false,
       useClone: false,
@@ -535,6 +536,17 @@ chrome.storage.sync.get('prefs', function(result) {
   // ========================================================
   // Contextual Menu Options
   // ========================================================
+
+  if (result.prefs.useAllDay) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchAllDay',
+      id: 'allday',
+      method: 'create',
+      name: 'AllDay',
+      request: 'updateContextMenu'
+    });
+  }
 
   if (result.prefs.useBandcamp) {
 
