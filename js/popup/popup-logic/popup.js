@@ -64,6 +64,7 @@ window.addEventListener('load', function load() {
       userCurrency = document.getElementById('currency'),
 
       // Contextual menus
+      toggleAllDay,
       toggleBandcamp,
       toggleBoomkat,
       toggleClone,
@@ -222,6 +223,7 @@ window.addEventListener('load', function load() {
     contextualMenus.createContextualMenuElements();
 
     // Assign contextual menu elements to vars
+    toggleAllDay = document.getElementById('allday');
     toggleBandcamp = document.getElementById('bandcamp');
     toggleBoomkat = document.getElementById('boomkat');
     toggleClone = document.getElementById('clone');
@@ -264,6 +266,7 @@ window.addEventListener('load', function load() {
       togglePrices.checked = result.prefs.suggestedPrices;
 
       // Contextual menus
+      toggleAllDay.checked = result.prefs.useAllDay;
       toggleBandcamp.checked = result.prefs.useBandcamp;
       toggleBoomkat.checked = result.prefs.useBoomkat;
       toggleClone.checked = result.prefs.useClone;
