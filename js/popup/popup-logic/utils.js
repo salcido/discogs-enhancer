@@ -52,6 +52,7 @@ export function applySave(message, event) {
         userCurrency: document.getElementById('currency').value,
 
         // Contextual menus
+        useAllDay: document.getElementById('allday').checked,
         useBandcamp: document.getElementById('bandcamp').checked,
         useBoomkat: document.getElementById('boomkat').checked,
         useClone: document.getElementById('clone').checked,
