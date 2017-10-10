@@ -19,6 +19,11 @@ export function createContextualMenuElements() {
       fragment = document.createDocumentFragment(),
       menus = [
           {
+            name: 'All Day',
+            fn: 'searchAllDay',
+            id: 'allday'
+          },
+          {
             name: 'Bandcamp',
             fn: 'searchBandcamp',
             id: 'bandcamp'
