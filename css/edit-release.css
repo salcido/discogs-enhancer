@@ -1,0 +1,16 @@
+/* Longer BAOI fields */
+td[data-ref-overview="barcode"] fieldset {
+  width: 100%;
+}
+
+td[data-ref-overview="barcode"] input {
+  width: 100%;
+  margin: .5rem 0;
+}
+
+/* Don't change the size of the description fields
+td[data-ref-overview="barcode"] fieldset input:first-of-type {
+  width: 100%;
+  margin: .5rem 0;
+}
+*/
