@@ -52,6 +52,7 @@ module.exports = {
     { from: 'css/blocked-seller.css', to: 'css/blocked-seller.css'},
     { from: 'css/currency-converter.css', to: 'css/currency-converter.css'},
     { from: 'css/dark-theme.css', to: 'css/dark-theme.css'},
+    { from: 'css/edit-release.css', to: 'css/edit-release.css' },
     { from: 'css/everlasting-marketplace.css', to: 'css/everlasting-marketplace.css'},
     { from: 'css/feedback-notifier.css', to: 'css/feedback-notifier.css'},
     { from: 'css/filter-by-country.css', to: 'css/filter-by-country.css'},
