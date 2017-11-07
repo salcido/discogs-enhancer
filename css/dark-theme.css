@@ -1814,3 +1814,12 @@ i.icon-google-plus {
 .page-loading-bar.page-loading-bar-has-message .loading-message span a {
   color: white !important;
 }
+
+/* Edit Release page */
+.format .format_current_desc_list span,
+.facet-tag,
+.facet-tag span,
+.facet-tag i {
+  color: white !important;
+  background: #326FB2 !important;
+}
