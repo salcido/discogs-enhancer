@@ -44,6 +44,7 @@ window.addEventListener('load', function load() {
   let
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
       searchbox = document.getElementById('searchbox'),
+      toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleHighlights = document.getElementById('toggleHighlights'),
@@ -190,6 +191,7 @@ window.addEventListener('load', function load() {
   // ========================================================
   hideMarketplaceItems.addEventListener('change', filterByCondition.setFilterByConditionValue);
   userCurrency.addEventListener('change', function(){ applySave(null, event); });
+  toggleBaoiFields.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
@@ -247,6 +249,7 @@ window.addEventListener('load', function load() {
 
       // Feature preferences
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
+      toggleBaoiFields.checked = result.prefs.baoiFields;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleHighlights.checked = result.prefs.highlightMedia;
