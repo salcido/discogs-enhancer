@@ -127,7 +127,7 @@ window.addEventListener('load', function load() {
   // FILTER ITEMS BY COUNTRY OPTIONS
   // ========================================================
   document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
-    optionsToggle('.hide-country', this, '.country', 135 );
+    optionsToggle('.hide-country', this, '.country', 115 );
   });
 
   // Save the Filter Items By Country CURRENCY select value to localStorage
