@@ -31,6 +31,7 @@ export function applySave(message, event) {
   let chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
       manifest = chrome.runtime.getManifest(),
       prefs = {
+        baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         converter: document.getElementById('toggleConverter').checked,
