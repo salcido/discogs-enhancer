@@ -54,6 +54,7 @@ chrome.storage.sync.get('prefs', function(result) {
   if (!result.prefs) {
 
     prefs = {
+      baoiFields: false,
       blockSellers: true,
       collectionUi: true,
       converter: true,
@@ -157,6 +158,26 @@ chrome.storage.sync.get('prefs', function(result) {
   // ========================================================
   // User Preferences
   // ========================================================
+
+  if (result.prefs.baoiFields) {
+
+    // let baoi_js = document.createElement('script');
+
+    // baoi_js.type = 'text/javascript';
+    // baoi_js.src = chrome.extension.getURL('js/extension/features/baoi.js');
+    // baoi_js.className = 'de-init';
+
+    // elems.push(baoi_js);
+
+    // edit-release.css
+    let baoi_css = document.createElement('link');
+
+    baoi_css.rel = 'stylesheet';
+    baoi_css.type = 'text/css';
+    baoi_css.href = chrome.extension.getURL('css/edit-release.css');
+
+    elems.push(baoi_css);
+  }
 
   if (result.prefs.blockSellers) {
 
