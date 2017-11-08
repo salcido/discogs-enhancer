@@ -42,7 +42,7 @@ Compare the prices that Discogs suggests to the seller's listed price.
 
 ### Contextual Menu Searching
 
-Search Discogs and other online shops instantly with any highlighted text! Current selection includes: Bandcamp, Boomkat, Clone, Decks.de, DeeJay, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye, Pacific Beach Vinyl, Phonica, Sounds of The Universe and YouTube.
+Search Discogs and other online shops instantly with any highlighted text! Current selection includes: All Day Records, Bandcamp, Boomkat, Clone, Decks.de, DeeJay, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye, Pacific Beach Vinyl, Phonica, Sounds of The Universe and YouTube.
 
 ### Quick Currency Converter
 
@@ -59,6 +59,10 @@ The Everlasting Marketplace lets you scroll forever through the Marketplace list
 ### Feedback Notifications
 
 Get notified when new buyer or seller feedback is left on your profile. The Feedback Notifier monitors your feedback stats for changes and alerts you when a new one shows up.
+
+### Large BAOI Fields
+
+Makes the Barcodes and Other Identifier fields larger when you are editing a release. Helpful if you're working with longer texts on a release.
 
 ### Tag Sellers Based on Reputation
 
