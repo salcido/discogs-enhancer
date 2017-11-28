@@ -1493,7 +1493,7 @@ div.react-modal,
 .user-details-tooltip,
 ul.dropdown-button-options {
   background-color: #323334 !important;
-  border: 2px solid white !important;
+  border: 2px solid #ccc !important;
 }
 
 .is_not_mobile .action_menu li.menu-item:hover,
