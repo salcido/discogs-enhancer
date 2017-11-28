@@ -1180,7 +1180,7 @@ table.release_list_table tr.edit td.status {
 
 /* ghost arrow */
 
-.ui-dialog-arrow-left-top:after,
+/* .ui-dialog-arrow-left-top:after,
 .ui-dialog-arrow-left-bottom:after,
 .ui-dialog-arrow-right-top:after,
 .ui-dialog-arrow-right-bottom:after {
@@ -1200,6 +1200,16 @@ table.release_list_table tr.edit td.status {
 .ui-dialog-arrow-top-right:after {
   border-top-color: #2F2F2F !important;
   border-right-color: #2F2F2F !important;
+  border-bottom-color: #323334 !important;
+} */
+
+.ui-dialog-arrow-top-left:after, 
+.ui-dialog-arrow-top-right:after,
+.ui-dialog-arrow-left-bottom:after,
+.ui-dialog-arrow-left-top:after,
+.ui-dialog-arrow-right-bottom:after,
+.ui-dialog-arrow-right-top:after {
+  display: none;
 }
 
 /* all gray border */
