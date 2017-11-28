@@ -1823,3 +1823,41 @@ i.icon-google-plus {
   color: white !important;
   background: #326FB2 !important;
 }
+
+/* Beta Tracks UI */
+
+.tracks-beta-banner {
+  background: #2b5c87 !important;
+}
+
+.tracks-beta-banner .open-survey-modal {
+  background: #3b7eb9 !important;
+  color: #ccc !important;
+}
+
+.tracks-beta-banner .open-survey-modal i {
+  color: #ccc !important;
+}
+
+.TracksApp .search input {
+  width: 90% !important;
+}
+
+#discography_header,
+.TracksTable header,
+.TracksTable .row {
+  border-bottom: 1px solid #454545 !important;
+}
+
+.viewing-tracks .TracksApp .CompositionDetails {
+  background: #292929 !important;
+}
+
+.viewing-tracks .TracksApp .CompositionDetails .Releases {
+  background: #323334 !important;
+}
+
+.TracksTable .row.expanded:after, 
+.TracksTable .row.expanded:before {
+  background:  #454545 !important;
+}
