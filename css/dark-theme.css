@@ -312,8 +312,12 @@ a.readmore_toggler {
 /* search input */
 .aside_search_form,
 .cw_block .notes_textarea {
-  background: #404040 !important;
+  background: #292929 !important;
   color: white !important;
+}
+
+.aside_search_form {
+  border: 1px solid #454545 !important;
 }
 
 /* TODO: might make this an option */
@@ -371,10 +375,6 @@ a.button-red i {
 
 .discography_nav span.facet_count {
   color: white !important;
-}
-
-#discography_wrapper .search {
-  padding-right: 0 !important;
 }
 
 table.cards tr.sub_first.card.sub,
@@ -723,6 +723,10 @@ button.mr_toggler.button.button-white i {
   background-color: gray !important;
   background-image: none !important;
   color: #CCCCCC !important;
+}
+
+.artist_search_form {
+  background: #292929 !important;
 }
 
 .artist_search_form button {
@@ -1120,7 +1124,7 @@ textarea.thread-compose-message,
 #pw_confirm_new,
 input[type="text"]:not(.image_copy_permalink_text) {
   background: #292929 !important;
-  border: 1px solid #525252 !important;
+  border: none !important;
   outline: none !important;
   box-shadow: none !important;
   color: #FFFFFF !important;
@@ -1849,13 +1853,11 @@ i.icon-google-plus {
   color: #ccc !important;
 }
 
-.TracksApp .search input {
-  width: 90% !important;
-}
-
 #discography_header,
 .TracksTable header,
-.TracksTable .row {
+.TracksTable .row,
+.CompositionApp h3, 
+.CompositionApp .TrackOverview .TrackTitle {
   border-bottom: 1px solid #454545 !important;
 }
 
@@ -1870,4 +1872,10 @@ i.icon-google-plus {
 .TracksTable .row.expanded:after, 
 .TracksTable .row.expanded:before {
   background:  #454545 !important;
+}
+
+.CommunityStats .label,
+.track-title .CountLabel,
+.CompositionDetails footer {
+  color: #858585 !important;
 }
