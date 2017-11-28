@@ -373,7 +373,7 @@ a.button-red i {
   border: 3px solid white !important;
 }
 
-.discography_nav span.facet_count {
+.credit_type.selected .facet_count {
   color: white !important;
 }
 
