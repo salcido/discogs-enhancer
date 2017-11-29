@@ -1207,7 +1207,7 @@ table.release_list_table tr.edit td.status {
   border-bottom-color: #323334 !important;
 } */
 
-.ui-dialog-arrow-top-left:after, 
+.ui-dialog-arrow-top-left:after,
 .ui-dialog-arrow-top-right:after,
 .ui-dialog-arrow-left-bottom:after,
 .ui-dialog-arrow-left-top:after,
@@ -1856,7 +1856,7 @@ i.icon-google-plus {
 #discography_header,
 .TracksTable header,
 .TracksTable .row,
-.CompositionApp h3, 
+.CompositionApp h3,
 .CompositionApp .TrackOverview .TrackTitle {
   border-bottom: 1px solid #454545 !important;
 }
@@ -1869,7 +1869,7 @@ i.icon-google-plus {
   background: #323334 !important;
 }
 
-.TracksTable .row.expanded:after, 
+.TracksTable .row.expanded:after,
 .TracksTable .row.expanded:before {
   background:  #454545 !important;
 }
@@ -1878,4 +1878,9 @@ i.icon-google-plus {
 .track-title .CountLabel,
 .CompositionDetails footer {
   color: #858585 !important;
+}
+
+table.table_block tbody tr.even.has-comments,
+table.table_block tbody tr.odd.has-comments {
+  background-color: #2a3a48 !important;
 }
