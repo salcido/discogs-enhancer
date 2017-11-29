@@ -545,6 +545,15 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(unitTests);
 
+  // highlight-comments.js
+  let comments = document.createElement('script');
+
+  comments.type = 'text/javascript';
+  comments.src = chrome.extension.getURL('js/extension/features/highlight-comments.js');
+  comments.className = 'de-init';
+
+  elems.push(comments);
+
   // filter-by-condition.js
   let hideItems = document.createElement('script');
 
