@@ -42,6 +42,7 @@
           analytics: true,
           colorize: false,
           debug: false,
+          comments: false,
           threshold: 2,
           unitTests: false
         };
@@ -496,6 +497,17 @@
       },
 
       /**
+       * Whether or not to highlight comments on the dashboard
+       *
+       * @return {Boolean}
+       */
+
+      highlightComments: function() {
+
+        return JSON.parse(localStorage.getItem('options')).comments;
+      },
+
+      /**
        * Gets current options state
        *
        * @return {undefined}
@@ -510,6 +522,7 @@
             analytics = options.analytics,
             colorize = options.colorize,
             debug = options.debug,
+            comments = options.comments,
             threshold = options.threshold,
             unitTests = options.unitTests;
 
@@ -518,6 +531,8 @@
         if (colorize) { doc.getElementById('colorize').checked = true; }
 
         if (debug) { doc.getElementById('debug').checked = true; }
+
+        if (comments) { doc.getElementById('comments').checked = true; }
 
         if (threshold) { doc.getElementById('threshold').value = threshold; }
 
@@ -537,6 +552,7 @@
             analytics = doc.getElementById('analytics').checked,
             colorize = doc.getElementById('colorize').checked,
             debug = doc.getElementById('debug').checked,
+            comments = doc.getElementById('comments').checked,
             options,
             threshold = doc.getElementById('threshold').value,
             unitTests = doc.getElementById('unittests').checked;
@@ -550,6 +566,7 @@
         options.analytics = analytics;
         options.colorize = colorize;
         options.debug = debug;
+        options.comments = comments;
         options.threshold = threshold;
         options.unitTests = unitTests;
 
