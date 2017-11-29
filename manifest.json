@@ -78,6 +78,7 @@
       "js/extension/features/filter-by-country.js",
       "js/extension/features/friend-counter.js",
       "js/extension/features/hide-blocked-sellers.js",
+      "js/extension/features/highlight-comments.js",
       "js/extension/features/notes-counter.js",
       "js/extension/features/release-durations.js",
       "js/extension/features/release-history-legend.js",
