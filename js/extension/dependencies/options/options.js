@@ -31,6 +31,10 @@ $(document).ready(function() {
                       '<label for="debug">Debug Messages</label>' +
                     '</li>' +
                     '<li>' +
+                      '<input id="comments" name="comments" type="checkbox" value="comments" />' +
+                      '<label for="comments">Highlight Comments</label>' +
+                    '</li>' +
+                    '<li>' +
                       '<input id="unittests" name="unittests" type="checkbox" value="unittests" />' +
                       '<label for="unittests">Unit Tests</label>' +
                     '</li>' +
