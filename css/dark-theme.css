@@ -1880,6 +1880,8 @@ i.icon-google-plus {
   color: #858585 !important;
 }
 
+/* Dashboard friend comments */
+
 table.table_block tbody tr.even.has-comments,
 table.table_block tbody tr.odd.has-comments {
   background-color: #2a3a48 !important;
