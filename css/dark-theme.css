@@ -657,6 +657,10 @@ a.button-blue,
   color: white !important;
 }
 
+a.button.button_facebook_login.blue {
+  background-color: #4588c4 !important;
+}
+
 .button.button-green .icon,
 .button.button-red .icon {
   color: white !important;
