@@ -363,3 +363,19 @@ span.new {
 #didUpdate {
   margin-top: 10px;
 }
+
+.donate {
+  text-align: center;
+}
+
+.donation-wrap {
+  background-color: #272727;
+  padding: 1rem;
+  border-radius: .5rem;
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.donation-wrap p {
+  font-size: 1.2rem;
+}
