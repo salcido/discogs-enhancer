@@ -1890,3 +1890,10 @@ table.table_block tbody tr.even.has-comments,
 table.table_block tbody tr.odd.has-comments {
   background-color: #2a3a48 !important;
 }
+
+/* Pay billing page */
+
+.form-block legend.first {
+  background: #2F2F2F !important;
+  border-bottom: 1px solid #454545 !important;
+}
