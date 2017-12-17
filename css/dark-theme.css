@@ -1900,10 +1900,11 @@ table.table_block tbody tr.odd.has-comments {
 
 /* Advanced Search */
 
-.form-block {
+#advanced_search_form.form-block {
   border: 1px solid #454545 !important;
 }
 
+/* Disabled inputs */
 input[type="text"][disabled],
 input[type="password"][disabled],
 textarea[disabled],
