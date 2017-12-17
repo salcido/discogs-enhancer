@@ -1897,3 +1897,16 @@ table.table_block tbody tr.odd.has-comments {
   background: #2F2F2F !important;
   border-bottom: 1px solid #454545 !important;
 }
+
+/* Advanced Search */
+
+.form-block {
+  border: 1px solid #454545 !important;
+}
+
+input[type="text"][disabled],
+input[type="password"][disabled],
+textarea[disabled],
+.fake-input[disabled] {
+  background: #2F2F2F !important;
+}
