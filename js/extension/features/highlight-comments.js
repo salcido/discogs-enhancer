@@ -18,11 +18,11 @@
 
 $(document).ready(function() {
 
-  let comments = resourceLibrary.options.highlightComments(),
+  let highlightComments = resourceLibrary.options.highlightComments(),
       href = window.location.href;
 
   // Check if we are on the dashboard
-  if ( comments && href.includes('/my') ) {
+  if ( highlightComments && href.includes('/my') ) {
 
     // wait for the modules to load
     let int = setInterval(function() {
