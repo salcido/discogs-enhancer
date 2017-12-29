@@ -1911,3 +1911,18 @@ textarea[disabled],
 .fake-input[disabled] {
   background: #2F2F2F !important;
 }
+
+/* Edit Release: free text field */
+#subform>table:nth-child(2)>tbody>tr.formats>td>div>ul>li>div>div>div.format_descriptions.arrow_nav_container>div>div:nth-child(4)>div:nth-child(2)>ul>li>input {
+  border: 1px solid #454545 !important;
+}
+
+/* Edit Release: credits boxes */
+.lookup-field.credit-lookup.fake-input {
+  box-shadow: none !important;
+}
+
+/* Edit Release: BAOI fields */
+#subform>table:nth-child(2)>tbody>tr:nth-child(4)>td>div>ul>li>div>fieldset>input[type="text"] {
+  border: 1px solid #454545 !important;
+}
