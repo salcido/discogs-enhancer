@@ -1,0 +1,11 @@
+
+/*
+/////////////////////////////////////
+Hides the min, median and max columns
+in the collection page
+/////////////////////////////////////
+*/
+
+.collection-value-column {
+  display: none;
+}
