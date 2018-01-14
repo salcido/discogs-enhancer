@@ -16,6 +16,7 @@ import * as filterByCountry from './features/filter-by-country.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as sellerRep from './features/seller-rep.js';
 import * as suggestedPrices from './features/suggested-prices.js';
+import * as minMaxColumns from './features/min-max-columns.js';
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
@@ -50,10 +51,11 @@ window.addEventListener('load', function load() {
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
-      toggleFeedback = document.getElementById('toggleFeedback'),
-      toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
       //toggleEverlastingLabels = document.getElementById('toggleEverlastingLabels'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
+      toggleFeedback = document.getElementById('toggleFeedback'),
+      toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
+      toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
       toggleReadability = document.getElementById('toggleReadability'),
@@ -201,6 +203,7 @@ window.addEventListener('load', function load() {
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
+  toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
@@ -246,7 +249,7 @@ window.addEventListener('load', function load() {
 
     // Get the user's saved preferences and set the toggles accordingly
     chrome.storage.sync.get('prefs', function(result) {
-
+      console.log(result.prefs.hideMinMaxColumns);
       // Feature preferences
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBaoiFields.checked = result.prefs.baoiFields;
@@ -259,6 +262,7 @@ window.addEventListener('load', function load() {
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
+      toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
       toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
