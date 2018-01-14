@@ -16,11 +16,13 @@ let
     friendCounter,
     initElems = [],
     jQ,
+    minMax_css,
     prefs = {},
     resourceLibrary;
 
 /**
- * Appends js/css nodes to the DOM
+ * Used to append the js/css nodes to the DOM when the
+ * extension first runs.
  *
  * @method   appendFragment
  * @param    {Object}       source [The node to be appeneded]
@@ -31,18 +33,14 @@ function appendFragment(source) {
 
   let fragment = document.createDocumentFragment();
 
-  source.forEach(elm => {
-
-    fragment.appendChild(elm);
-  });
+  source.forEach(elm => fragment.appendChild(elm));
 
   (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
 }
 
 /**
  * Get the users preferences or create them if they
- * do not yet exist and setup the extension with the
- * returned preferences object.
+ * do not yet exist.
  *
  * @method   get
  * @param    {Object} 'prefs'  [The prefs object]
@@ -66,6 +64,7 @@ chrome.storage.sync.get('prefs', function(result) {
       formatShortcuts: true,
       highlightMedia: true,
       hideMarketplaceItems: null,
+      hideMinMaxColumns: false,
       notesCount: true,
       readability: false,
       releaseDurations: true,
@@ -101,7 +100,13 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
+  // ========================================================
+  // Dependencies
+  // ========================================================
+
+  ///////////////////////////////////////
   // jQuery
+  ///////////////////////////////////////
   jQ = document.createElement('script');
   jQ.type = 'text/javascript';
   jQ.className = 'de-init';
@@ -109,7 +114,15 @@ chrome.storage.sync.get('prefs', function(result) {
 
   initElems.push(jQ);
 
-  // Create dark theme css element...
+  // ========================================================
+  // Toggleable CSS files
+  //
+  // These are always appended and enabled/disabled via
+  // JS so that the user can toggle them from the extension
+  // menu and not have to refresh to see the effects.
+  // ========================================================
+
+  // Dark Theme
   darkTheme = document.createElement('link');
   darkTheme.rel = 'stylesheet';
   darkTheme.type = 'text/css';
@@ -133,7 +146,22 @@ chrome.storage.sync.get('prefs', function(result) {
 
   initElems.push(filterByCountry_css);
 
-  // resource-library.js
+  // min-max-columns.css
+  minMax_css = document.createElement('link');
+  minMax_css.rel = 'stylesheet';
+  minMax_css.type = 'text/css';
+  minMax_css.href = chrome.extension.getURL('css/min-max-columns.css');
+  minMax_css.id = 'minMaxColumnsCss';
+
+  // disable if needed
+  if (!result.prefs.hideMinMaxColumns) { minMax_css.setAttribute('disabled', true); }
+
+  initElems.push(minMax_css);
+
+  // ========================================================
+  // Resource Library
+  // ========================================================
+
   resourceLibrary = document.createElement('script');
   resourceLibrary.type = 'text/javascript';
   resourceLibrary.className = 'de-init';
@@ -146,6 +174,8 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // ========================================================
   // Friend-counter (always enabled)
+  //
+  // See comments in friend-counter.js for more details
   // ========================================================
 
   friendCounter = document.createElement('script');
@@ -157,17 +187,11 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // ========================================================
   // User Preferences
+  //
+  // Set based on the `result.prefs` object
   // ========================================================
 
   if (result.prefs.baoiFields) {
-
-    // let baoi_js = document.createElement('script');
-
-    // baoi_js.type = 'text/javascript';
-    // baoi_js.src = chrome.extension.getURL('js/extension/features/baoi.js');
-    // baoi_js.className = 'de-init';
-
-    // elems.push(baoi_js);
 
     // edit-release.css
     let baoi_css = document.createElement('link');
@@ -243,6 +267,7 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(releaseHistoryScript);
 
     // options.js
+    // The option menu is only available when the dark theme is in use
     let options = document.createElement('script');
 
     options.type = 'text/javascript';
@@ -770,8 +795,14 @@ chrome.storage.sync.get('prefs', function(result) {
     localStorage.setItem('userCurrency', result.prefs.userCurrency);
   }
 
-  // append user preferences to the DOM
-  // Hack fix for Chrome not loading JQ at start
+  // Append user preferences to the DOM
+  //
+  // Hack fix for Chrome not loading JQ at start.
+  // Added this after Chrome 62 or 63(?) when it seems
+  // Google changed the way Chrome loads assests
+  // for extensions. If JQ isn't appended first
+  // the extension can't run. So make sure JS exists
+  // before appending extension-related files
   (function() {
     let z = setInterval(function() {
       if (window.$) {
@@ -804,7 +835,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
       /* Don't show an update notice on patches */
 
       /**
-       * versions look something like: "1.10.8".
+       * Versions look something like: "1.10.8".
        * split('.') returns an array of stringed numbers like: ["1", "10", "8"]
        * and compares Major and Minor versions to see if there
        * should be an update notification.
@@ -861,7 +892,7 @@ checkForAnalytics = setInterval(function() {
 
 
 // ========================================================
-// Remove unnecessary elements from DOM
+// DOM clean up
 // ========================================================
 
 window.onload = function() {
