@@ -43,29 +43,13 @@ module.exports = {
   new CopyWebpackPlugin([
     { from: 'manifest.json', to: 'manifest.json' },
     { from: 'html', to: 'html' },
-    // Popup-related / configuration pages CSS assets
-    { from: 'css/popup/about.css', to: 'css/popup/about.css' },
-    { from: 'css/popup/popup-block-sellers.css', to: 'css/popup/popup-block-sellers.css' },
-    { from: 'css/popup/popup-readability.css', to: 'css/popup/popup-readability.css' },
-    { from: 'css/popup/toggle-style.css', to: 'css/popup/toggle-style.css' },
-    // DOM-side injected CSS assets
-    { from: 'css/blocked-seller.css', to: 'css/blocked-seller.css'},
-    { from: 'css/currency-converter.css', to: 'css/currency-converter.css'},
-    { from: 'css/dark-theme.css', to: 'css/dark-theme.css'},
-    { from: 'css/edit-release.css', to: 'css/edit-release.css' },
-    { from: 'css/everlasting-marketplace.css', to: 'css/everlasting-marketplace.css'},
-    { from: 'css/feedback-notifier.css', to: 'css/feedback-notifier.css'},
-    { from: 'css/filter-by-country.css', to: 'css/filter-by-country.css'},
-    { from: 'css/marketplace-highlights.css', to: 'css/marketplace-highlights.css'},
-    { from: 'css/suggested-prices.css', to: 'css/suggested-prices.css'},
-    { from: 'css/text-format-shortcuts.css', to: 'css/text-format-shortcuts.css'},
+    // CSS assets
+    { from: 'css', to: 'css' },
     { from: 'img', to: 'img' },
     // DOM-side extension functionality
     { from: 'js/extension', to: 'js/extension' },
     // Configuration settings JS assets
-    { from: 'js/popup/configuration-pages/about.js', to: 'js/popup/configuration-pages/about.js' },
-    { from: 'js/popup/configuration-pages/blocked-sellers.js', to: 'js/popup/configuration-pages/blocked-sellers.js' },
-    { from: 'js/popup/configuration-pages/readability.js', to: 'js/popup/configuration-pages/readability.js' }
+    { from: 'js/popup/configuration-pages', to: 'js/popup/configuration-pages' }
   ])
  ]
 };
