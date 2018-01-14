@@ -8,7 +8,7 @@
 /**
  * Clears the update notification
  * @method   acknowledgeUpdate
- * @param    {string}          message [The message displayed to the user]
+ * @param    {string}  message [The message displayed to the user]
  * @return   {undefined}
  */
 export function acknowledgeUpdate(message) {
@@ -42,6 +42,7 @@ export function applySave(message, event) {
         filterByCountry: document.getElementById('toggleFilterByCountry').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
         hideMarketplaceItems: document.getElementById('marketplaceItems').value,
+        hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         readability: document.getElementById('toggleReadability').checked,
