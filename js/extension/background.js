@@ -6,6 +6,11 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * This is essentially the backbone of the extension.
+ * All feature scripts and preferences are loaded/appended from here.
+ * It also serves as the intermediary between Discogs and the extension's
+ * popover.
+ *
  */
 
 let
