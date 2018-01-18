@@ -76,6 +76,10 @@ Automatically filter out any listing that's below your specified condition!
 
 Only show items from a specific country when filtering in your currency.
 
+### Hide Min, Median, Max Columns
+
+Show/hide the Min, Median, and Max columns in the Collections page.
+
 ### Marketplace Highlights
 
 Easily see at a glance what condition items are in.
