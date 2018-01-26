@@ -14,6 +14,7 @@
  */
 
 let
+    blurryImageFix_css,
     checkForAnalytics,
     darkTheme,
     elems = [],
@@ -118,6 +119,17 @@ chrome.storage.sync.get('prefs', function(result) {
   jQ.src = chrome.extension.getURL('js/extension/dependencies/jquery/jquery-min.js');
 
   initElems.push(jQ);
+
+  // Blurry Image Fix
+  // Always appened until Discogs implements the fix themselves
+  // or it's fixed in Webkit
+  blurryImageFix_css = document.createElement('link');
+  blurryImageFix_css.rel = 'stylesheet';
+  blurryImageFix_css.type = 'text/css';
+  blurryImageFix_css.href = chrome.extension.getURL('css/blurry-image-fix.css');
+  blurryImageFix_css.id = 'blurryImageFixCss';
+
+  initElems.push(blurryImageFix_css);
 
   // ========================================================
   // Toggleable CSS files
