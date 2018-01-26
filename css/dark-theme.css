@@ -1926,3 +1926,8 @@ textarea[disabled],
 #subform>table:nth-child(2)>tbody>tr:nth-child(4)>td>div>ul>li>div>fieldset>input[type="text"] {
   border: 1px solid #454545 !important;
 }
+
+/* Fix weird margin on border with the dark theme */
+.is_not_mobile #collection .pagination.top {
+  margin-left: auto !important;
+}
