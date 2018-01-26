@@ -46,6 +46,7 @@
 
     "web_accessible_resources": [
       "css/blocked-seller.css",
+      "css/blurry-image-fix.css",
       "css/currency-converter.css",
       "css/dark-theme.css",
       "css/edit-release.css",
