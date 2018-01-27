@@ -45,73 +45,82 @@ $(document).ready(function() {
      * @return {function|undefined}
      */
 
-    function appendPrices() {
+    window.appendPrices = function appendPrices() {
 
       // Insert price comparisons into each item on the page...
       $('td.item_price').each(function(j) {
 
-        let
-            actual = priceContainer[j].convertedPrice,
-            colorizePrices = resourceLibrary.options.colorize(),
-            suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
-            difference = suggested - actual,
-            //
-            amount = '',
-            markup,
-            percentage = ( (difference / suggested) * 100 ).toFixed(0),
-            printPrice = resourceLibrary.localizeSuggestion(symbol, suggested),
-            spanOuter = document.createElement('span'),
-            threshold = resourceLibrary.options.threshold() || 0;
+        // Since adding everlasting marketplace scrolling to individual release
+        // pages, make sure the empty pagination <td> elements are not
+        // included when this each loop runs...
+        if (priceContainer[j] && priceContainer[j].convertedPrice) {
 
-        $('.de-preloader').remove();
+          let
+              actual = priceContainer[j].convertedPrice,
+              colorizePrices = resourceLibrary.options.colorize(),
+              suggested = priceKey['post:suggestedPrices'][priceContainer[j].mediaCondition],
+              difference = suggested - actual,
+              //
+              amount = '',
+              markup,
+              percentage = ( (difference / suggested) * 100 ).toFixed(0),
+              printPrice = resourceLibrary.localizeSuggestion(symbol, suggested),
+              spanOuter = document.createElement('span'),
+              threshold = resourceLibrary.options.threshold() || 0;
 
-        // Debugging
-        logOutput(percentage, difference, suggested);
+          $('.de-preloader').remove();
 
-        // No data from Discogs
-        // ---------------------------------------------------------------------------
-        if ( !isFinite(percentage) ) {
+          // Debugging
+          logOutput(percentage, difference, suggested);
 
-          spanOuter.className = 'converted_price de-price';
-          spanOuter.innerHTML = resourceLibrary.css.noData;
+          // No data from Discogs
+          // ---------------------------------------------------------------------------
+          if ( !isFinite(percentage) ) {
 
-          $(this).append(spanOuter);
+            spanOuter.className = 'converted_price de-price';
+            spanOuter.innerHTML = resourceLibrary.css.noData;
 
-          return $(this).find('.de-price').hide().fadeIn(300);
-        }
+            $(this).append(spanOuter);
 
-        // Less than suggested
-        // ---------------------------------------------------------------------------
-        if ( percentage > threshold ) {
+            return $(this).find('.de-price').hide().fadeIn(300);
+          }
 
-          amount = 'less';
+          // Less than suggested
+          // ---------------------------------------------------------------------------
+          if ( percentage > threshold ) {
 
-        // More than suggested
-        // ---------------------------------------------------------------------------
-        } else if ( percentage < -threshold ) {
+            amount = 'less';
 
-          amount = 'more';
+          // More than suggested
+          // ---------------------------------------------------------------------------
+          } else if ( percentage < -threshold ) {
 
-        // Within threshold
-        // ---------------------------------------------------------------------------
-        } else {
+            amount = 'more';
 
-          amount = '';
-        }
+          // Within threshold
+          // ---------------------------------------------------------------------------
+          } else {
 
-        markup = makePriceMarkup(percentage, printPrice, amount);
+            amount = '';
+          }
 
-        $(this).append(markup);
+          markup = makePriceMarkup(percentage, printPrice, amount);
 
-        // Fade in the results
-        $(this).find('.de-price').hide().fadeIn(300);
+          if (!$(this).find('.de-price').length) {
 
-        if ( amount !== 'more' && colorizePrices ) {
+            $(this).append(markup);
+          }
 
-          $(this).find('.price').addClass('green');
+          // Fade in the results
+          $(this).find('.de-price').hide().fadeIn(300);
+
+          if ( amount !== 'more' && colorizePrices ) {
+
+            $(this).find('.price').addClass('green');
+          }
         }
       });
-    }
+    };
 
 
     /**
@@ -161,7 +170,7 @@ $(document).ready(function() {
 
       symbol = resourceLibrary.getSymbols(userCurrency, symbol);
 
-      return appendPrices();
+      return window.appendPrices();
     }
 
 
@@ -171,7 +180,7 @@ $(document).ready(function() {
      * @return {function}
      */
 
-    function init() {
+    window.releasePricesInit = function init() {
 
       $.ajax({
 
@@ -294,7 +303,7 @@ $(document).ready(function() {
         // Only append prices once
         if ( !$('.de-price').length ) {
 
-          init();
+          window.releasePricesInit();
         }
       });
     });
@@ -317,6 +326,6 @@ $(document).ready(function() {
     extract = href.match(/([\d]+)/g);
     releaseId = extract[0];
 
-    init();
+    window.releasePricesInit();
   }
 });
