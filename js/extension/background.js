@@ -317,14 +317,21 @@ chrome.storage.sync.get('prefs', function(result) {
 
   if (result.prefs.everlastingMarket) {
 
-    // everlasting-marketplace.js
-    let everlastingMarket = document.createElement('script');
+    // everlasting-marketplace.js && everlasting-marketplace-release-page.js
+    let everlastingMarket = document.createElement('script'),
+        everlastingMarketReleases = document.createElement('script');
 
     everlastingMarket.type = 'text/javascript';
     everlastingMarket.src = chrome.extension.getURL('js/extension/features/everlasting-marketplace.js');
     everlastingMarket.className = 'de-init';
 
     elems.push(everlastingMarket);
+
+    everlastingMarketReleases.type = 'text/javascript';
+    everlastingMarketReleases.src = chrome.extension.getURL('js/extension/features/everlasting-marketplace-release-page.js');
+    everlastingMarketReleases.className = 'de-init';
+
+    elems.push(everlastingMarketReleases);
 
     // everlasting-marketplace.css
     let everlastingMarketCss = document.createElement('link');
