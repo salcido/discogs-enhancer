@@ -1,3 +1,0 @@
-.image_gallery_slide img {
-  transform: translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px));
-}
