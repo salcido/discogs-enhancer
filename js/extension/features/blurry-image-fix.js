@@ -93,7 +93,8 @@ $(document).ready(function(){
      */
     function unblur() {
 
-      let i = [...document.querySelectorAll('.image_gallery_slide img.loaded')];
+      let i = [...document.querySelectorAll('.image_gallery_slide img.loaded')],
+          calc = 'calc(-50% + 0.5px)';
 
       i.forEach(img => {
 
@@ -101,11 +102,11 @@ $(document).ready(function(){
             h = img.clientHeight;
 
         if ( w % 2 === 1 && h % 2 === 1 ) {
-          img.style.transform = 'translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px))';
+          img.style.transform = `translateX(${calc}) translateY(${calc})`;
         } else if ( w % 2 === 1 && h % 2 === 0 ) {
-          img.style.transform = 'translateX(calc(-50% + 0.5px)) translateY(-50%)';
+          img.style.transform = `translateX(${calc}) translateY(-50%)`;
         } else if ( w % 2 === 0 && h % 2 === 1 ) {
-          img.style.transform = 'translateX(-50%) translateY(calc(-50% + 0.5px))';
+          img.style.transform = `translateX(-50%) translateY(${calc})`;
         }
       });
     }
