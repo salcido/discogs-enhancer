@@ -46,7 +46,6 @@
 
     "web_accessible_resources": [
       "css/blocked-seller.css",
-      "css/blurry-image-fix.css",
       "css/currency-converter.css",
       "css/dark-theme.css",
       "css/edit-release.css",
@@ -72,6 +71,7 @@
       "js/extension/features/apply-filter-by-country-css.js",
       "js/extension/features/apply-highlights.js",
       "js/extension/features/better-collection-ui.js",
+      "js/extension/features/blurry-image-fix.js",
       "js/extension/features/currency-converter.js",
       "js/extension/features/everlasting-labels.js",
       "js/extension/features/everlasting-marketplace.js",
