@@ -33,6 +33,7 @@ export function applySave(message, event) {
       prefs = {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
+        blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
