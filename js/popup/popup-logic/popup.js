@@ -47,6 +47,7 @@ window.addEventListener('load', function load() {
       searchbox = document.getElementById('searchbox'),
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
+      toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleConverter = document.getElementById('toggleConverter'),
@@ -195,6 +196,7 @@ window.addEventListener('load', function load() {
   userCurrency.addEventListener('change', function(){ applySave(null, event); });
   toggleBaoiFields.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
+  toggleBlurryImageFix.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleConverter.addEventListener('change', triggerSave);
@@ -254,6 +256,7 @@ window.addEventListener('load', function load() {
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBaoiFields.checked = result.prefs.baoiFields;
       toggleBlockSellers.checked = result.prefs.blockSellers;
+      toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;
