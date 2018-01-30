@@ -10,7 +10,7 @@
  * See this thread for more info:
  * https://www.discogs.com/forum/thread/759801?page=1#7536285
  */
-$(document).ready(function(){
+$(document).ready(function() {
 
   let gallery = document.querySelector('.image_gallery.image_gallery_large');
 
@@ -107,6 +107,8 @@ $(document).ready(function(){
           img.style.transform = `translateX(${calc}) translateY(-50%)`;
         } else if ( w % 2 === 0 && h % 2 === 1 ) {
           img.style.transform = `translateX(-50%) translateY(${calc})`;
+        } else {
+          img.style.transform = 'translateX(-50%) translateY(-50%)';
         }
       });
     }
@@ -131,5 +133,10 @@ $(document).ready(function(){
         addUIListeners();
       }, 200);
     });
+
+    // Call these functions when the page loads in case the browser is loading
+    // a url that links directly to an image gallery
+    // e.g.: https://www.discogs.com/Various-The-Sony-CD-Sampler-Volume-One-Jazz/release/5668328#images/31064157
+    unblur();
   }
 });
