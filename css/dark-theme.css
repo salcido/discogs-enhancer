@@ -811,6 +811,7 @@ button.lazy_gallery_nav.lazy_gallery_prev {
 select {
   background-color: default !important;
   border-color: default !important;
+  color: #000000 !important;
 }
 
 /* bottom line border rule */
