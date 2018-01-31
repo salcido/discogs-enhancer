@@ -6,116 +6,117 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * Fixes blurry images in galleries.
+ * Fixes blurry images in galleries on non-HD screens (e.g.: not 4k/Retina screens).
  * See this thread for more info:
  * https://www.discogs.com/forum/thread/759801?page=1#7536285
  */
 $(document).ready(function() {
 
-  let gallery = document.querySelector('.image_gallery.image_gallery_large');
+  let gallery = document.querySelector('.image_gallery.image_gallery_large'),
+      hasListeners = false;
 
-  if (gallery) {
+  // ========================================================
+  // Functions
+  // ========================================================
 
-    // ========================================================
-    // Functions
-    // ========================================================
+  /**
+   * Attaches event listeners to UI elements to call unblur with
+   * @method addUIListeners
+   * @return {undefined}
+   */
+  function addUIListeners() {
 
-    /**
-     * Attaches event listeners to UI elements to call unblur with
-     * @method addUIListeners
-     * @return {undefined}
-     */
-    function addUIListeners() {
+    let next = document.querySelector('.image_gallery_nav.image_gallery_next'),
+        prev = document.querySelector('.image_gallery_nav.image_gallery_prev'),
+        slide = [...document.querySelectorAll('.image_gallery_slide img')],
+        thumb = [...document.querySelectorAll('.image_gallery_thumb')];
 
-      let next = document.querySelector('.image_gallery_nav.image_gallery_next'),
-          prev = document.querySelector('.image_gallery_nav.image_gallery_prev'),
-          slide = [...document.querySelectorAll('.image_gallery_slide img')],
-          thumb = [...document.querySelectorAll('.image_gallery_thumb')];
+    // Next button
+    next.addEventListener('click', function() {
+      setTimeout(()=> {
+        checkForZoom();
+      }, 0);
+    });
 
-      // Next button
-      next.addEventListener('click', function() {
+    // Previous button
+    prev.addEventListener('click', function() {
+      setTimeout(()=> {
+        checkForZoom();
+      }, 0);
+    });
+
+    // Image slide
+    slide.forEach(s => {
+      s.addEventListener('click', function() {
         setTimeout(()=> {
           checkForZoom();
         }, 0);
       });
+    });
 
-      // Previous button
-      prev.addEventListener('click', function() {
+    // Gallery thumbs
+    thumb.forEach(t => {
+      t.addEventListener('click', function() {
         setTimeout(()=> {
           checkForZoom();
         }, 0);
       });
+    });
+  }
+  /**
+   * Checks to see if the gallery image is zoomed. If it is, then the transform
+   * property is reset so that the image remains centered. Otherwise, the image
+   * is unblurred.
+   *
+   * @method checkForZoom
+   * @return {undefined}
+   */
+  function checkForZoom() {
 
-      // Image slide
-      slide.forEach(s => {
-        s.addEventListener('click', function() {
-          setTimeout(()=> {
-            checkForZoom();
-          }, 0);
-        });
-      });
+    let isZoomed = document.getElementById('image_gallery_modal').classList.contains('image_zoomed');
 
-      // Gallery thumbs
-      thumb.forEach(t => {
-        t.addEventListener('click', function() {
-          setTimeout(()=> {
-            checkForZoom();
-          }, 0);
-        });
-      });
+    if (isZoomed) {
+
+      let img = [...document.querySelectorAll('.image_gallery_slide img.loaded')];
+
+      img.forEach(i => i.style.transform = 'translate(0, 0)');
+
+    } else {
+      unblur();
     }
-    /**
-     * Checks to see if the gallery image is zoomed. If it is, then the transform
-     * property is reset so that the image remains centered. Otherwise, the image
-     * is unblurred.
-     *
-     * @method checkForZoom
-     * @return {undefined}
-     */
-    function checkForZoom() {
+  }
+  /**
+   * Centers the images so that the blur from `transform` is remedied
+   * @method unblur
+   * @return {undefined}
+   */
+  function unblur() {
 
-      let isZoomed = document.getElementById('image_gallery_modal').classList.contains('image_zoomed');
+    let img = [...document.querySelectorAll('.image_gallery_slide img.loaded')],
+        calc = 'calc(-50% + 0.5px)';
 
-      if (isZoomed) {
+    img.forEach(i => {
 
-        let i = [...document.querySelectorAll('.image_gallery_slide img.loaded')];
+      let w = i.clientWidth,
+          h = i.clientHeight;
 
-        i.forEach(img => img.style.transform = 'translate(0, 0)');
-
+      if ( w % 2 === 1 && h % 2 === 1 ) {
+        i.style.transform = `translateX(${calc}) translateY(${calc})`;
+      } else if ( w % 2 === 1 && h % 2 === 0 ) {
+        i.style.transform = `translateX(${calc}) translateY(-50%)`;
+      } else if ( w % 2 === 0 && h % 2 === 1 ) {
+        i.style.transform = `translateX(-50%) translateY(${calc})`;
       } else {
-        unblur();
+        i.style.transform = 'translateX(-50%) translateY(-50%)';
       }
-    }
-    /**
-     * Centers the images so that the blur from `transform` is remedied
-     * @method unblur
-     * @return {undefined}
-     */
-    function unblur() {
+    });
+  }
 
-      let i = [...document.querySelectorAll('.image_gallery_slide img.loaded')],
-          calc = 'calc(-50% + 0.5px)';
+  // ========================================================
+  // DOM setup
+  // ========================================================
 
-      i.forEach(img => {
-
-        let w = img.clientWidth,
-            h = img.clientHeight;
-
-        if ( w % 2 === 1 && h % 2 === 1 ) {
-          img.style.transform = `translateX(${calc}) translateY(${calc})`;
-        } else if ( w % 2 === 1 && h % 2 === 0 ) {
-          img.style.transform = `translateX(${calc}) translateY(-50%)`;
-        } else if ( w % 2 === 0 && h % 2 === 1 ) {
-          img.style.transform = `translateX(-50%) translateY(${calc})`;
-        } else {
-          img.style.transform = 'translateX(-50%) translateY(-50%)';
-        }
-      });
-    }
-
-    // ========================================================
-    // DOM setup
-    // ========================================================
+  if ( gallery ) {
 
     // Left and Right key presses
     document.addEventListener('keyup', function(event) {
@@ -129,14 +130,17 @@ $(document).ready(function() {
     gallery.addEventListener('click', function() {
 
       setTimeout(()=> {
+
+        // Fix initial image that is loaded
         unblur();
-        addUIListeners();
+
+        if ( !hasListeners ) {
+
+          // add event listeners only once
+          addUIListeners();
+          hasListeners = true;
+        }
       }, 200);
     });
-
-    // Call these functions when the page loads in case the browser is loading
-    // a url that links directly to an image gallery
-    // e.g.: https://www.discogs.com/Various-The-Sony-CD-Sampler-Volume-One-Jazz/release/5668328#images/31064157
-    unblur();
   }
 });
