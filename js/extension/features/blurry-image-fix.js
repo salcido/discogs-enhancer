@@ -75,7 +75,7 @@ $(document).ready(function() {
 
     let isZoomed = document.getElementById('image_gallery_modal').classList.contains('image_zoomed');
 
-    if (isZoomed) {
+    if ( isZoomed ) {
 
       let img = [...document.querySelectorAll('.image_gallery_slide img.loaded')];
 
@@ -126,7 +126,10 @@ $(document).ready(function() {
       if ( code === 39 || code === 37 ) { checkForZoom(); }
     });
 
-    // Add initial event listener to gallery element
+    // Add initial event listener to gallery element.
+    // Delaying a bit so that the UI elements that
+    // this script hooks on to have time to be
+    // rendered in the DOM
     gallery.addEventListener('click', function() {
 
       setTimeout(()=> {
