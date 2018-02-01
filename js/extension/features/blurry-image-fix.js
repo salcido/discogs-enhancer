@@ -118,14 +118,6 @@ $(document).ready(function() {
 
   if ( gallery ) {
 
-    // Left and Right key presses
-    document.addEventListener('keyup', function(event) {
-
-      let code = event.keyCode || event.which;
-
-      if ( code === 39 || code === 37 ) { checkForZoom(); }
-    });
-
     // Add initial event listener to gallery element.
     // Delaying a bit so that the UI elements that
     // this script hooks on to have time to be
@@ -144,6 +136,14 @@ $(document).ready(function() {
           hasListeners = true;
         }
       }, 200);
+    });
+
+    // Left and Right key presses
+    document.addEventListener('keyup', function(event) {
+
+      let code = event.keyCode || event.which;
+
+      if ( code === 39 || code === 37 ) { checkForZoom(); }
     });
   }
 });
