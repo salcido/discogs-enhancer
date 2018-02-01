@@ -33,19 +33,16 @@ $(document).ready(function() {
         thumb = [...document.querySelectorAll('.image_gallery_thumb')];
 
     // Next button
-    next.addEventListener('click', () => setTimeout(checkForZoom, 0));
-
+    next.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
     // Previous button
-    prev.addEventListener('click', () => setTimeout(checkForZoom, 0));
-
+    prev.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
     // Image slide
     slide.forEach(s => {
-      s.addEventListener('click', () => setTimeout(checkForZoom, 0));
+      s.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
     });
-
     // Gallery thumbs
     thumb.forEach(t => {
-      t.addEventListener('click', () => setTimeout(checkForZoom, 0));
+      t.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
     });
   }
   /**
@@ -107,7 +104,7 @@ $(document).ready(function() {
     // Delaying a bit so that the UI elements that
     // this script hooks on to have time to be
     // rendered in the DOM
-    gallery.addEventListener('click', function() {
+    gallery.addEventListener('click', ()=> {
 
       setTimeout(()=> {
 
@@ -124,7 +121,7 @@ $(document).ready(function() {
     });
 
     // Left and Right key presses
-    document.addEventListener('keyup', function(event) {
+    document.addEventListener('keyup', event => {
 
       let code = event.keyCode || event.which;
 
@@ -136,7 +133,7 @@ $(document).ready(function() {
     // to an image.
     if ( href.includes('#images') ) {
 
-      let int = setInterval(() => {
+      let int = setInterval(()=> {
         // Check to make sure the image has been loaded
         // then wait a bit so that the gallery can animate
         // into position. Then call the unblur/ui methods.
