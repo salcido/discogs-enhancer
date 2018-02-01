@@ -97,26 +97,27 @@ $(document).ready(function() {
      * new disc (etc) so insert the divider at that position.
      *
      * @method handleMultiFormatRelease
-     * @param  {array} arr [an array of all track positions in a release]
+     * @param  {array} tPos [an array of all track positions in a release]
      * @return {undefined}
      */
 
-    function handleMultiFormatRelease(arr) {
+    function handleMultiFormatRelease(tPos) {
 
       let counter = 1,
+          infLoop = 0,
           suffix = [];
 
-      for ( let i = 0; i < arr.length; i++ ) {
+      for ( let i = 0; i < tPos.length; i++ ) {
 
-        if ( !arr[i][arr[i].length - 2] ) {
+        if ( !tPos[i][tPos[i].length - 2] ) {
 
           break;
         }
 
         // Get the last two numerical digits from each track position
-        let lastTwo = ( arr[i][arr[i].length - 2] + arr[i][arr[i].length - 1] ).match(/\d/g);
+        let lastTwo = ( tPos[i][tPos[i].length - 2] + tPos[i][tPos[i].length - 1] ).match(/\d/g);
 
-        if (lastTwo) {
+        if ( lastTwo ) {
 
           suffix.push(lastTwo.join(''));
 
@@ -143,6 +144,20 @@ $(document).ready(function() {
           // reset counter and `i` to continue comparison
           counter = 1;
           i--;
+          infLoop++;
+
+          if ( infLoop > 500 ) {
+            // Need to check to see if we're caught in an infinite loop
+            // because of this release: https://www.discogs.com/Various-Blech/release/30565
+            // the `218.5` track breaks this feature and causes the browser to hang.
+            // I'm not sure exactly how to remedy this so, for now, I'm checking for an
+            // infinite loop using a simple counter and then breaking the loop if it
+            // exceeds 1000. Then remove all the spacers that were inserted because
+            // there's a ton of them at this point.
+            [...document.getElementsByClassName('de-spacer')].forEach(spcr => spcr.remove());
+
+            break;
+          }
         }
       }
     }
@@ -156,20 +171,20 @@ $(document).ready(function() {
      * A1, A2, B3, B4, B5, C6, C7, C8 ...
      *
      * @method hasContinualNumberSequence
-     * @param  {array} arr [the array to iterate over]
+     * @param  {array} tPos [an array of all track positions in a release]
      * @return {Boolean}
      */
 
-    function hasContinualNumberSequence(arr) {
+    function hasContinualNumberSequence(tPos) {
 
       let count = 0;
 
-      arr.forEach((num, i) => {
+      tPos.forEach((num, i) => {
 
         if ( num === i + 1 ) { count++; }
       });
 
-      return count === arr.length ? true : false;
+      return count === tPos.length ? true : false;
     }
 
 
@@ -182,16 +197,16 @@ $(document).ready(function() {
      * eg: A1, A2, *insert html here* B3, B4, C5, C6 ...
      *
      * @method insertSpacersBasedOnAlphaDifferences
-     * @param  {array} arr [the array to iterate over]
+     * @param  {array} tPos [an array of all track positions in a release]
      * @return {undefined}
      */
 
-    function insertSpacersBasedOnAlphaDifferences(arr) {
+    function insertSpacersBasedOnAlphaDifferences(tPos) {
 
-      arr.forEach((letter, i) => {
+      tPos.forEach((letter, i) => {
 
-        let current = arr[i],
-            next = arr[i + 1];
+        let current = tPos[i],
+            next = tPos[i + 1];
 
         if ( next && current !== next ) {
 
@@ -206,14 +221,14 @@ $(document).ready(function() {
      * Used for releases that are CDs, files, VHS, DVD, etc...
      *
      * @method   insertSpacersEveryNth
-     * @param    {array}  arr [the array to iterate over]
+     * @param    {array}  tPos [an array of all track positions in a release]
      * @param    {number} nth [the number of tracks before a spacer is inserted]
      * @return   {undefined}
      */
 
-    function insertSpacersEveryNth(arr, nth) {
+    function insertSpacersEveryNth(tPos, nth) {
 
-      arr.each(i => {
+      tPos.each(i => {
 
         if ( i % nth === 0 && i !== 0 ) {
 
@@ -229,18 +244,18 @@ $(document).ready(function() {
      * has no number and the next one does (eg: A, B1, ...)
      *
      * @method   insertSpacersBasedOnSides
-     * @param    {array} arr [the array to iterate over]
+     * @param    {array} tPos [an array of all track positions in a release]
      * @return   {undefined}
      */
 
-    function insertSpacersBasedOnSides(arr) {
+    function insertSpacersBasedOnSides(tPos) {
 
       try {
 
-        arr.each(i => {
+        tPos.each(i => {
 
-          let current = Number( arr[i].match(/\d+/g) ),
-              next = Number( arr[i + 1].match(/\d+/g) );
+          let current = Number( tPos[i].match(/\d+/g) ),
+              next = Number( tPos[i + 1].match(/\d+/g) );
 
           // check for 0 value which can be returned when a
           // track is simply listed as A, B, C, etc ...
