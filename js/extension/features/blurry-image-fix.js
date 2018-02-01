@@ -13,7 +13,8 @@
 $(document).ready(function() {
 
   let gallery = document.querySelector('.image_gallery.image_gallery_large'),
-      hasListeners = false;
+      hasListeners = false,
+      href =  window.location.href;
 
   // ========================================================
   // Functions
@@ -32,35 +33,19 @@ $(document).ready(function() {
         thumb = [...document.querySelectorAll('.image_gallery_thumb')];
 
     // Next button
-    next.addEventListener('click', function() {
-      setTimeout(()=> {
-        checkForZoom();
-      }, 0);
-    });
+    next.addEventListener('click', () => setTimeout(checkForZoom, 0));
 
     // Previous button
-    prev.addEventListener('click', function() {
-      setTimeout(()=> {
-        checkForZoom();
-      }, 0);
-    });
+    prev.addEventListener('click', () => setTimeout(checkForZoom, 0));
 
     // Image slide
     slide.forEach(s => {
-      s.addEventListener('click', function() {
-        setTimeout(()=> {
-          checkForZoom();
-        }, 0);
-      });
+      s.addEventListener('click', () => setTimeout(checkForZoom, 0));
     });
 
     // Gallery thumbs
     thumb.forEach(t => {
-      t.addEventListener('click', function() {
-        setTimeout(()=> {
-          checkForZoom();
-        }, 0);
-      });
+      t.addEventListener('click', () => setTimeout(checkForZoom, 0));
     });
   }
   /**
@@ -135,7 +120,7 @@ $(document).ready(function() {
           addUIListeners();
           hasListeners = true;
         }
-      }, 200);
+      }, 300);
     });
 
     // Left and Right key presses
@@ -145,5 +130,29 @@ $(document).ready(function() {
 
       if ( code === 39 || code === 37 ) { checkForZoom(); }
     });
+
+    // Check the url for `#images` for instances
+    // when a user might follow a link that goes directly
+    // to an image.
+    if ( href.includes('#images') ) {
+
+      let int = setInterval(() => {
+        // Check to make sure the image has been loaded
+        // then wait a bit so that the gallery can animate
+        // into position. Then call the unblur/ui methods.
+        let img = document.querySelectorAll('#image_gallery_modal .image_gallery_slide_wrapper img.loaded');
+
+        if ( img.length ) {
+
+          clearInterval(int);
+
+          setTimeout(() => {
+            addUIListeners();
+            unblur();
+            hasListeners = true;
+          }, 300);
+        }
+      }, 13);
+    }
   }
 });
