@@ -152,8 +152,8 @@ $(document).ready(function() {
             // the `218.5` track breaks this feature and causes the browser to hang.
             // I'm not sure exactly how to remedy this so, for now, I'm checking for an
             // infinite loop using a simple counter and then breaking the loop if it
-            // exceeds 1000. Then remove all the spacers that were inserted because
-            // there's a ton of them at this point.
+            // exceeds 500. Then remove all the spacers that were inserted because
+            // there's a ton of them at that point.
             [...document.getElementsByClassName('de-spacer')].forEach(spcr => spcr.remove());
 
             break;
