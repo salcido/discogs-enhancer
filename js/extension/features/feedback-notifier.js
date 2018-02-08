@@ -130,9 +130,9 @@ $(document).ready(function() {
   /**
    * Finds the differences between old/new stats.
    *
-   * @param    {string}      type        Either 'Negative' or 'Neutral' used for debugging
-   * @param    {array}       oldStat     Previous value
-   * @param    {array}       newStat     Current value
+   * @param    {string} type    Either 'Negative' or 'Neutral' used for debugging
+   * @param    {array} oldStat  Previous value
+   * @param    {array} newStat  Current value
    * @return   {number}
    */
 
@@ -589,17 +589,14 @@ $(document).ready(function() {
       switch (elem) {
 
         case 'pos-reviews':
-
           queryParam = '?show=Positive';
           break;
 
         case 'neu-reviews':
-
           queryParam = '?show=Neutral';
           break;
 
         case 'neg-reviews last':
-
           queryParam = '?show=Negative';
           break;
       }
