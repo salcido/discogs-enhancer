@@ -144,6 +144,7 @@ $(document).ready(function() {
           clearInterval(int);
 
           setTimeout(() => {
+
             addUIListeners();
             unblur();
             hasListeners = true;
