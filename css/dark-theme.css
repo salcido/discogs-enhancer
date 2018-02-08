@@ -1913,8 +1913,9 @@ textarea[disabled],
   background: #2F2F2F !important;
 }
 
-/* Edit Release: free text field */
-#subform>table:nth-child(2)>tbody>tr.formats>td>div>ul>li>div>div>div.format_descriptions.arrow_nav_container>div>div:nth-child(4)>div:nth-child(2)>ul>li>input {
+/* Edit Release: free text field and credits inputs */
+#subform>table:nth-child(2)>tbody>tr.formats>td>div>ul>li>div>div>div.format_descriptions.arrow_nav_container>div>div:nth-child(4)>div:nth-child(2)>ul>li>input,
+.subform_react table.subform_table input {
   border: 1px solid #454545 !important;
 }
 
