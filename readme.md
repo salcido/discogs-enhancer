@@ -1,6 +1,6 @@
 # Discogs Enhancer
 
-![version 1.25.6](https://img.shields.io/badge/Version-1.25.6-green.svg)
+![version 1.25.6](https://img.shields.io/badge/Version-1.25.6-green.svg) ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg) [![GitHub forks](https://img.shields.io/github/forks/badges/shields.svg?style=social&logo=github&label=Fork)](https://github.com/salcido/discogs-enhancer)
 
 #### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
