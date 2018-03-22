@@ -1,5 +1,7 @@
 # Discogs Enhancer
-# ![version 1.25.6](https://img.shields.io/badge/Version-1.25.6-green.svg)
+
+![version 1.25.6](https://img.shields.io/badge/Version-1.25.6-green.svg)
+
 #### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
 
