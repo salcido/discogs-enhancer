@@ -72,6 +72,7 @@ chrome.storage.sync.get('prefs', function(result) {
       hideMarketplaceItems: null,
       hideMinMaxColumns: false,
       notesCount: true,
+      randomItem: false,
       readability: false,
       releaseDurations: true,
       releaseRatings: false,
@@ -445,6 +446,18 @@ chrome.storage.sync.get('prefs', function(result) {
     notesCount.className = 'de-init';
 
     elems.push(notesCount);
+  }
+
+  if (result.prefs.randomItem) {
+
+    // random-item.js
+    let randomItem = document.createElement('script');
+
+    randomItem.type = 'text/javascript';
+    randomItem.src = chrome.extension.getURL('js/extension/features/random-item.js');
+    randomItem.className = 'de-init';
+
+    elems.push(randomItem);
   }
 
   if (result.prefs.readability) {
