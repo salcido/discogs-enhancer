@@ -46,6 +46,7 @@ export function applySave(message, event) {
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
+        randomItem: document.getElementById('toggleRandomItem').checked,
         readability: document.getElementById('toggleReadability').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
         releaseRatings: document.getElementById('toggleReleaseRatings').checked,
