@@ -58,6 +58,7 @@ window.addEventListener('load', function load() {
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
+      toggleRandomItem = document.getElementById('toggleRandomItem'),
       togglePrices = document.getElementById('togglePrices'),
       toggleReadability = document.getElementById('toggleReadability'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
@@ -207,6 +208,7 @@ window.addEventListener('load', function load() {
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
+  toggleRandomItem.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleReleaseRatings.addEventListener('change', triggerSave);
@@ -267,6 +269,7 @@ window.addEventListener('load', function load() {
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
+      toggleRandomItem.checked = result.prefs.randomItem;
       toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleReleaseRatings.checked = result.prefs.releaseRatings;
