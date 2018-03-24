@@ -1,6 +1,6 @@
 # Discogs Enhancer
 
-![version 1.25.6](https://img.shields.io/badge/Version-1.25.6-brightgreen.svg) [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/nimelepbpejjlbmoobocpfnjhihnpked.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn) ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
+![version 1.26.0](https://img.shields.io/badge/Version-1.26.0-brightgreen.svg) [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/nimelepbpejjlbmoobocpfnjhihnpked.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn) ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
 
 #### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
@@ -93,6 +93,12 @@ This will allow you to see the release's rating along with the number of votes r
 ### Notes Counter
 
 This will count the characters for any "notes" field in your Collection or Wantlist so you will know when you are getting close to the maximum character limit (255).
+
+### Random Item From Collection
+
+This will add a &#x267a; button to the nav bar that will show you a random item from your collection when clicked.
+
+The functionality is identical to the "Random Item" feature in the Collection page but allows you to access it from the nav bar rather than going back to the Collection page and clicking "Random Item" again.
 
 ### See Release Durations
 
