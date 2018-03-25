@@ -38,19 +38,25 @@ $(document).ready(function() {
    */
   function getRandomItem() {
 
-    let user = document.querySelector('#site_account_menu .user_image').alt,
-        data = {'Action.RandomItem': 'Random+Item'};
+    let data = 'Action.RandomItem=Random%2BItem',
+        user = document.querySelector('#site_account_menu .user_image').alt,
+        url = `https://www.discogs.com/user/${user}/collection`,
+        xhr = new XMLHttpRequest();
 
-    $.ajax({
-      type: 'POST',
-      url: `https://www.discogs.com/user/${user}/collection`,
-      data: data,
-      beforeSend: (jqXHR, settings) => {
-          let oXHR = settings.xhr;
-          settings.xhr = () => jqXHR.raw = oXHR();
-      },
-      success: (data, status, jqXHR) => window.location = jqXHR.raw.responseURL
-    });
+    xhr.open('POST', url);
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState > 3 && xhr.status === 200) {
+        window.location = xhr.responseURL;
+      }
+    };
+
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.send(data);
+
+    return xhr;
   }
 
   // ========================================================
