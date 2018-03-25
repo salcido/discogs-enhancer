@@ -16,7 +16,8 @@
 
 $(document).ready(function() {
 
-  let icon = `<li style="position: relative;">
+  let button,
+      icon = `<li style="position: relative;">
                 <span>
                   <a class="nav_group_control de-random-item" style="font-size: 12px; margin-top: 2px;>
                     <span style="cursor: pointer;">
@@ -37,12 +38,13 @@ $(document).ready(function() {
    */
   function getRandomItem() {
 
-    let user = $('#site_account_menu').find('.user_image').attr('alt');
+    let user = document.querySelector('#site_account_menu .user_image').alt,
+        data = {'Action.RandomItem': 'Random+Item'};
 
     $.ajax({
       type: 'POST',
       url: `https://www.discogs.com/user/${user}/collection`,
-      data: {'Action.RandomItem': 'Random+Item'},
+      data: data,
       beforeSend: (jqXHR, settings) => {
           let oXHR = settings.xhr;
           settings.xhr = () => jqXHR.raw = oXHR();
@@ -56,13 +58,14 @@ $(document).ready(function() {
   // ========================================================
 
   // Append the markup
-  $('#activity_menu').append(icon);
+  document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
+
+  button = document.getElementsByClassName('de-random-item')[0];
 
   // Add click functionality to badge markup
-  $('.de-random-item').on('click', () => {
+  button.addEventListener('click', () => {
 
+    button.classList.add('rotate');
     getRandomItem();
-
-    $('.de-random-item').addClass('rotate');
   });
 });
