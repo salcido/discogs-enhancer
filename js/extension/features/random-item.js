@@ -57,6 +57,12 @@ $(document).ready(function() {
 
   // Append the markup
   $('#activity_menu').append(icon);
+
   // Add click functionality to badge markup
-  $('.de-random-item').on('click', () => getRandomItem());
+  $('.de-random-item').on('click', () => {
+
+    getRandomItem();
+
+    $('.de-random-item').addClass('rotate');
+  });
 });
