@@ -23,7 +23,9 @@
  * the marketplace listing.
  */
 
-$(document).ready(function() {
+ // TODO refactor to vanilla js
+
+resourceLibrary.ready(function() {
 
   const marketplace = window.location.href.includes('/sell/') &&
                       !window.location.href.includes('/sell/release/'),
@@ -143,15 +145,21 @@ $(document).ready(function() {
     // UI Functionality
     // ---------------------------------------------------------------------------
 
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess(function() {
+    pagination.forEach(elem => {
 
-        if ( !document.getElementsByClassName('de-rating-link').length ) {
+      elem.addEventListener('click', () => {
 
-          window.insertRatingsLink();
-        }
+        resourceLibrary.xhrSuccess(() => {
+
+          if ( !document.getElementsByClassName('de-rating-link').length ) {
+
+            window.insertRatingsLink();
+          }
+        });
       });
     });
+
   }
 });

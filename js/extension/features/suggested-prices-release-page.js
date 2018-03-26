@@ -16,8 +16,8 @@
  * The script is initiated with the code that follows the `Init / DOM setup` comment block.
  *
  */
-
-$(document).ready(function() {
+// TODO refactor to vanilla js
+resourceLibrary.ready(function() {
 
   let href = window.location.href;
 
@@ -296,15 +296,19 @@ $(document).ready(function() {
     // ========================================================
 
     // Fire init() on prev/next page transitions
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess(function() {
+    pagination.forEach(elem => {
 
-        // Only append prices once
-        if ( !$('.de-price').length ) {
+      elem.addEventListener('click', () => {
 
-          window.releasePricesInit();
-        }
+        resourceLibrary.xhrSuccess(() => {
+          // Only append prices once
+          if ( !document.getElementsByClassName('.de-price').length ) {
+
+            window.releasePricesInit();
+          }
+        });
       });
     });
 

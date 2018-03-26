@@ -20,7 +20,7 @@
  * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
 
-$(document).ready(function() {
+resourceLibrary.ready(function() {
 
   let
       blockList = JSON.parse(localStorage.getItem('blockList')),
@@ -44,9 +44,14 @@ $(document).ready(function() {
 
   function addUiListeners(type) {
 
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess( () => window.modifySellers(type) );
+    pagination.forEach(elem => {
+
+      elem.addEventListener('click', () => {
+
+        resourceLibrary.xhrSuccess(window.modifySellers(type));
+      });
     });
   }
 
@@ -63,7 +68,7 @@ $(document).ready(function() {
     let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
 
     blockList.list.forEach(seller => {
-
+// TODO refactor to vanilla js
       if ( $('td.seller_info:contains(' + seller + ')').length ) {
 
         $('td.seller_info:contains(' + seller + ')').parent().addClass(_class);

@@ -16,8 +16,8 @@
  * The script is initiated with the code that follows the `Init / DOM setup`
  * comment block.
  */
-
-$(document).ready(function() {
+// TODO refactor to vanilla js
+resourceLibrary.ready(function() {
 
   let
       loc = window.location.href,
@@ -341,14 +341,19 @@ $(document).ready(function() {
 
 
     // Fire `injectPriceLinks` on prev/next page transitions
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess(function() {
+    pagination.forEach(elem => {
 
-        if ($('.de-price-link').length < 1) {
+      elem.addEventListener('click', () => {
 
-          return window.injectPriceLinks();
-        }
+        resourceLibrary.xhrSuccess(() => {
+
+          if ($('.de-price-link').length < 1) {
+
+            return window.injectPriceLinks();
+          }
+        });
       });
     });
 

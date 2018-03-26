@@ -103,8 +103,8 @@ resourceLibrary.ready(function() {
     pagination.forEach(elem => {
 
       elem.addEventListener('click', () => {
-        // TODO write custom ajaxSuccess method
-        $(document).ajaxSuccess(() => window.applyStyles());
+
+        resourceLibrary.xhrSuccess(window.applyStyles);
       });
     });
   }

@@ -836,6 +836,35 @@
      * @type {string}
      */
 
-    unregistered: 'Please complete your Seller Settings before listing items for sale.'
+    unregistered: 'Please complete your Seller Settings before listing items for sale.',
+
+    /**
+     * Hooks into `XMLHttpRequest` so that functions can be called
+     * after a successful XHR.
+     *
+     * @param {function} fn the callback function to execute
+     * @returns {method}
+     */
+    xhrSuccess: function(fn) {
+
+      let proxied = window.XMLHttpRequest.prototype.send;
+
+      window.XMLHttpRequest.prototype.send = () => {
+
+        let pointer = this,
+            intervalId;
+
+        intervalId = window.setInterval(() => {
+
+          if (pointer.readyState !== 4) { return; }
+
+          fn();
+
+          clearInterval(intervalId);
+        }, 1);
+
+        return proxied.apply(this, [].slice.call(arguments));
+      };
+    }
   };
 }());

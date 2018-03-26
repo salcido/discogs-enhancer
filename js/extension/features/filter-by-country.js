@@ -23,7 +23,7 @@
  * any results that do not ship from the specified country are hidden in the DOM via CSS class.
  */
 
-$(document).ready(function() {
+resourceLibrary.ready(function() {
 
   let
       href = window.location.href,
@@ -96,11 +96,13 @@ $(document).ready(function() {
     // UI Functionality
     // ========================================================
 
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess(function() {
+    pagination.forEach(elem => {
 
-        window.filterByCountry();
+      elem.addEventListener('click', () => {
+
+        resourceLibrary.xhrSuccess(window.filterByCountry);
       });
     });
   }

@@ -20,8 +20,8 @@
  * is then iterated over and any remaining values in the array are used to remove items in
  * those conditions from the DOM.
  */
-
-$(document).ready(function() {
+// TODO refactor to vanilla js
+resourceLibrary.ready(function() {
 
   let
       href = window.location.href,
@@ -96,11 +96,13 @@ $(document).ready(function() {
     window.hideItems();
 
     // Call hideItems on prev/next clicks
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess(function() {
+    pagination.forEach(elem => {
 
-        window.hideItems();
+      elem.addEventListener('click', () => {
+
+        resourceLibrary.xhrSuccess(window.hideItems);
       });
     });
   }

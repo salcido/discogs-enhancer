@@ -19,7 +19,8 @@
  * class is added to the seller's rating element in the DOM.
  */
 
-$(document).ready(function() {
+ // TODO refactor to vanilla js
+resourceLibrary.ready(function() {
 
   let
       href = window.location.href,
@@ -67,11 +68,13 @@ $(document).ready(function() {
     // UI Functionality
     // ========================================================
 
-    $('body').on('click', '.pagination_next, .pagination_previous', function() {
+    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
 
-      $(document).ajaxSuccess(function() {
+    pagination.forEach(elem => {
 
-        window.sellersRep();
+      elem.addEventListener('click', () => {
+
+        resourceLibrary.xhrSuccess(window.sellersRep);
       });
     });
   }
