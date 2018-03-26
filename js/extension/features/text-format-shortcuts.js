@@ -7,7 +7,7 @@
  * @github: https://github.com/salcido
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   let hasTextarea = false,

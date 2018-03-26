@@ -14,7 +14,7 @@
  * user's personal lists.
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   let

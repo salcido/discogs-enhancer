@@ -14,7 +14,7 @@
  * This will colorize the legend on the release history page.
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   let

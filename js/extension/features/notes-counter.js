@@ -19,7 +19,7 @@
  * found, it will be removed and a new one appended in its place.
  * 2.) The count is updated with `keyup` events.
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   $('body').on('click', '.notes_show, .notes_text', function() {

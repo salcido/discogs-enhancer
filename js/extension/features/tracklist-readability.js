@@ -39,7 +39,7 @@
  * https://www.discogs.com/Various-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/release/6265588
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
     let releaseHistoryPage = document.location.href.includes('/history'),

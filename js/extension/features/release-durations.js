@@ -18,7 +18,7 @@
  * https://www.discogs.com/forum/thread/731619
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   let hasPlaylist = $('table.playlist').length,

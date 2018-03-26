@@ -15,7 +15,7 @@
  * Format, Media Condition and Year)
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   let

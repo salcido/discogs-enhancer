@@ -14,7 +14,7 @@
  * Explore modals (Genre, Style, Format, Country and Decade)
  *
  */
-
+// TODO refactor to vanilla js
 $(document).ready(function() {
 
   let
