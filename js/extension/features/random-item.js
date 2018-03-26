@@ -13,7 +13,6 @@
  * makes it accessable from the nav bar.
  */
 
-
 resourceLibrary.ready(function() {
 
   let button,
