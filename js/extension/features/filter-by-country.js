@@ -22,7 +22,7 @@
  * 3.) If there is a `currency` param that matches the currency value saved in `filterByCountry`,
  * any results that do not ship from the specified country are hidden in the DOM via CSS class.
  */
-
+// TODO refactor to vanilla js
 resourceLibrary.ready(function() {
 
   let
