@@ -16,7 +16,7 @@
  * `dependencies/options/options.js` for more info :)
  */
 
-$(document).ready(function() {
+resourceLibrary.ready(function() {
 
   let highlightComments = resourceLibrary.options.highlightComments(),
       href = window.location.href;
