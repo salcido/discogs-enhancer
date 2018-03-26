@@ -16,43 +16,13 @@
  * for anyone else so it's a secret to everybody!
  */
 
-(function() {
+resourceLibrary.ready(() => {
 
-  let appended = false,
+  let count = document.querySelectorAll('.linked_username').length,
       friendPage = window.location.href.includes('/users/friends');
 
-  // ========================================================
-  // Setup
-  // ========================================================
+  if ( friendPage && count ) {
 
-  let int = setInterval(() => {
-
-    switch ( document.readyState ) {
-
-      case 'interactive':
-      case 'complete':
-
-        clearInterval(int);
-        init();
-    }
-  }, 13);
-
-  /**
-   * Initializes the feature and sets `appended` to true
-   * so it's only executed once.
-   * @method init
-   * @return {boolean}
-   */
-
-  function init() {
-
-    let count = document.querySelectorAll('.linked_username').length;
-
-    if ( friendPage && !appended && count ) {
-
-      document.querySelector('#page_content h1').textContent += ` (${count})`;
-
-      return appended = true;
-    }
+    document.querySelector('#page_content h1').textContent += ` (${count})`;
   }
-}());
+});
