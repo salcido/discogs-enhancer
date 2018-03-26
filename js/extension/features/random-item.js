@@ -14,7 +14,7 @@
  */
 
 
-$(document).ready(function() {
+resourceLibrary.ready(function() {
 
   let button,
       icon = `<li style="position: relative;">

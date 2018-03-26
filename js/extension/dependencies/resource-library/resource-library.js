@@ -674,6 +674,27 @@
     },
 
     /**
+     * Checks the `readyState` of the document before executing
+     * the callback.
+     *
+     * @param    {function} fn [the code to be run when the DOM is ready]
+     * @return   {undefined}
+     */
+
+    ready: function(fn) {
+
+      if ( document.readyState === 'complete' ||
+           document.readyState !== 'loading' ) {
+
+        fn();
+
+      } else {
+
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    },
+
+    /**
      * Parses the page url in order to remove any `&page=`
      * query params.
      *
