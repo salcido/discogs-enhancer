@@ -21,11 +21,12 @@
  * those conditions from the DOM.
  */
 // TODO refactor to vanilla js
-resourceLibrary.ready(function() {
+resourceLibrary.ready(() => {
 
   let
       href = window.location.href,
       itemCondition = JSON.parse(localStorage.getItem('itemCondition')),
+      hasRemovedItems = false,
       sellPage = href.match(/sell\/list/g),
       sellerPage = href.match(/seller/g),
       sellRelease = href.match(/sell\/release/g),
@@ -42,9 +43,9 @@ resourceLibrary.ready(function() {
   window.hideItems = function hideItems() {
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
-    $('.condition-label-mobile').remove();
+    [...document.getElementsByClassName('.condition-label-mobile')].forEach(elem => elem.remove());
 
-    if (itemCondition) {
+    if ( itemCondition ) {
 
       let conditions = ['Poor (P)',
                         'Fair (F)',
@@ -55,30 +56,56 @@ resourceLibrary.ready(function() {
                         'Near Mint (NM or M-)',
                         'Mint (M)'];
 
+      // Truncate conditions array based on localStorage value
       conditions.length = Number(itemCondition);
 
-      // Remove offending items from the DOM
-      conditions.forEach(function(condition) {
+      // Remove offending items from the DOM based on whatever's left in the conditions array
+      conditions.forEach(condition => {
 
-        let elem = $('td.item_description p.item_condition').find('.condition-label-desktop:first').next(':contains(' + condition + ')');
+        let elems = [...document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:first-child + span')];
 
-        if ( elem.length ) {
+        elems.forEach(el => {
 
-          elem.parent().parent().parent().remove();
+          if ( el.textContent.trim() === condition ) {
+
+            el.parentElement.parentElement.parentElement.remove();
+            hasRemovedItems = true;
+          }
+        });
+
+        if ( hasRemovedItems ) {
+
+          let key = ['Poor (P)',
+                     'Fair (F)',
+                     'Good (G)',
+                     'Good Plus (G+)',
+                     'Very Good (VG)',
+                     'Very Good Plus (VG+)',
+                     'Near Mint (NM or M-)',
+                     'Mint (M)'];
 
           // Update page with filter notice
-          $('.pagination_total').text('Some results have been removed.');
+          [...document.querySelectorAll('.pagination_total')].forEach(e => {
+            e.textContent = `Filtering items below "${key[conditions.length]}"`;
+          });
         }
       });
 
       // Show message if all results have been removed
-      if ( !$('.shortcut_navigable').length ) {
+      if ( !document.getElementsByClassName('shortcut_navigable').length ) {
 
-        let html = '<tr class="shortcut_navigable"><th>Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera. If you do not want this effect please change the "Hide Marketplace Items Below" setting in Discogs Enhancer.</th></tr>';
+        let html = `<tr class="shortcut_navigable">
+                      <th>
+                        Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera.
+                        If you do not want this effect please adjust the "Filter By Condition" setting in Discogs Enhancer.
+                      </th>
+                    </tr>`;
 
-        $('#pjax_container tbody').html(html);
+        document.querySelector('#pjax_container tbody').innerHTML = html;
 
-        $('.pagination_total').text('All results have been removed.');
+        [...document.querySelectorAll('.pagination_total')].forEach(e => {
+          e.textContent = 'All results have been removed.';
+        });
       }
     } else {
 
