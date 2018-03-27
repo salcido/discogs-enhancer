@@ -20,7 +20,7 @@
  * 2.) The count is updated with `keyup` events.
  */
 
-resourceLibrary.ready(function() {
+resourceLibrary.ready(() => {
 
   let notes = [...document.querySelectorAll('.notes_show, .notes_text')];
 
@@ -80,12 +80,12 @@ resourceLibrary.ready(function() {
   // Keyup listener for updating count values
   document.addEventListener('keyup', () => {
 
-    let focus = document.querySelector(':focus');
+    let count,
+        focus = document.querySelector(':focus');
 
     if ( focus.classList.contains('notes_textarea') ) {
 
-      let parent = focus.parentElement,
-          notesCount = parent.querySelector('.de-notes-count');
+      let notesCount = focus.parentElement.querySelector('.de-notes-count');
 
       // update count value
       count = focus.value.length;
@@ -104,11 +104,12 @@ resourceLibrary.ready(function() {
 
     let id = event.target.id;
 
-    switch(id, event) {
+    switch(id) {
 
       case 'notes_edit_save':
       case 'notes_edit_cancel':
-        event.target.querySelector('.de-notes-count').remove();
+        event.target.parentElement.querySelector('.de-notes-count').remove();
+        break;
 
       default:
        return;
