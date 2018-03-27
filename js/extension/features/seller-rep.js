@@ -19,8 +19,7 @@
  * class is added to the seller's rating element in the DOM.
  */
 
- // TODO refactor to vanilla js
-resourceLibrary.ready(function() {
+resourceLibrary.ready(() => {
 
   let
       href = window.location.href,
@@ -46,8 +45,7 @@ resourceLibrary.ready(function() {
 
     window.sellersRep = function sellersRep() {
 
-      let
-          ratingVals = Array.from( $('.seller_info') ),
+      let ratingVals = [...document.getElementsByClassName('seller_info')],
           ratings = ratingVals.map(val => Number( val.textContent.match(/\d+\.+\d/g) ) );
 
       // Tag any sellers below threshold
@@ -57,7 +55,7 @@ resourceLibrary.ready(function() {
         // if ( rating < threshold ) {
         if ( rating && rating < threshold ) {
 
-          $('.seller_info').eq(i).addClass('de-seller-rep');
+          document.getElementsByClassName('seller_info')[i].classList.add('de-seller-rep');
         }
       });
     };
