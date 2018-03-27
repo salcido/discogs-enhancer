@@ -14,8 +14,8 @@
  * This will colorize the legend on the release history page.
  *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
+
+resourceLibrary.ready(() => {
 
   let
       artistHistory = /\/artist\//g,
@@ -23,15 +23,15 @@ $(document).ready(function() {
       loc = window.location.href,
       releaseHistory = /\/release\//g;
 
-  if (artistHistory.test(loc) || releaseHistory.test(loc) || labelHistory.test(loc)) {
+  if ( artistHistory.test(loc) || releaseHistory.test(loc) || labelHistory.test(loc) ) {
 
     setTimeout(() => {
 
-      $('td[bgcolor="#ffaaaa"]').attr('style', 'color: #ffaaaa !important');
+      document.querySelector('td[bgcolor="#ffaaaa"]').setAttribute('style', 'color: #ffaaaa !important');
 
-      $('td[bgcolor="#ffff77"]').attr('style', 'color: #ffff77 !important');
+      document.querySelector('td[bgcolor="#ffff77"]').setAttribute('style', 'color: #ffff77 !important');
 
-      $('td[bgcolor="#aaffaa"]').attr('style', 'color: #aaffaa !important');
+      document.querySelector('td[bgcolor="#aaffaa"]').setAttribute('style', 'color: #aaffaa !important');
 
     }, 200);
   }
