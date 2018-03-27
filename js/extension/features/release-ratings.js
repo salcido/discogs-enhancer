@@ -23,13 +23,11 @@
  * the marketplace listing.
  */
 
- // TODO refactor to vanilla js
+resourceLibrary.ready(() => {
 
-resourceLibrary.ready(function() {
-
-  const marketplace = window.location.href.includes('/sell/') &&
+  let marketplace = window.location.href.includes('/sell/') &&
                       !window.location.href.includes('/sell/release/'),
-        seller = window.location.href.includes('/seller/');
+      seller = window.location.href.includes('/seller/');
 
   // ========================================================
   // Functions
@@ -44,21 +42,24 @@ resourceLibrary.ready(function() {
 
   function addUiListeners() {
 
-    $('.de-rating-link').on('click', function(event) {
+    [...document.getElementsByClassName('de-rating-link')].forEach(elem => {
 
-      let preloader = document.createElement('i'),
-          parent = $(event.target).parent();
+        elem.addEventListener('click', event => {
 
-      preloader.className = 'icon icon-spinner icon-spin preloader';
-      preloader.style = 'font-style: normal; position: relative; margin-left: 10px;';
+        let preloader = document.createElement('i'),
+            parent = event.target.parentElement;
 
-      event.preventDefault();
+        preloader.className = 'icon icon-spinner icon-spin preloader';
+        preloader.style = 'font-style: normal; position: relative; margin-left: 10px;';
 
-      parent.append(preloader);
+        event.preventDefault();
 
-      $(event.target).remove();
+        parent.append(preloader);
 
-      getReleaseRating(event.target.dataset.id, parent);
+        event.target.remove();
+
+        getReleaseRating(event.target.dataset.id, parent);
+      });
     });
   }
 
@@ -69,30 +70,30 @@ resourceLibrary.ready(function() {
    * @method getReleaseRating
    * @param  {String} id [the event's data-id attribute value]
    * @param  {object} parent [the parent of the event.target element]
-   * @return {undefined}
+   * @return {object}
    */
 
   function getReleaseRating(id, parent) {
+    return fetch(id, { method: 'GET' })
+      .then(response => {
+        // Make sure we got something useable
+        if ( response.ok ) { return response.text(); }
+        // Otherwise log an error
+        return console.log('Could not fetch release ratings.');
+      })
+      .then(res => {
+        // Extract the rating string from the response
+        let div = document.createElement('div'),
+            rating;
 
-    $.ajax({
+        div.innerHTML = res;
+        rating = div.querySelector('.statistics ul:first-of-type li:last-child').textContent;
 
-      url: id,
-      type: 'GET',
-      dataType: 'html',
+        parent.querySelector('.preloader').remove();
 
-      success: res => {
-
-        let result = $(res),
-            ratingInfo = result.find('.statistics ul:first-of-type li:last-child').text();
-
-        parent.closest( $('.preloader').remove() );
-
-        parent.append(ratingInfo);
-      },
-
-      // TODO render this error into the DOM for the user
-      error: () => console.log('Discogs Enhancer: Cannot get release ratings.')
-    });
+        parent.append(rating);
+      })
+      .catch(err => console.log('Discogs Enhancer: Cannot get release ratings.', err));
   }
 
 
@@ -106,7 +107,7 @@ resourceLibrary.ready(function() {
   // attached to window object so it can be called by Everlasting Marketplace
   window.insertRatingsLink = function insertRatingsLink() {
 
-    let releases = [...document.querySelectorAll('.item_release_link')];
+    let releases = [...document.getElementsByClassName('item_release_link')];
 
     releases.forEach(release => {
 
@@ -117,7 +118,7 @@ resourceLibrary.ready(function() {
       div.className = 'de-rating-link-wrap';
 
       a.className = 'de-rating-link';
-      a.dataset.id = $(release).attr('href');
+      a.dataset.id = release.href;
       a.style = 'display:block;';
       a.textContent = 'Show Ratings';
 
@@ -160,6 +161,5 @@ resourceLibrary.ready(function() {
         });
       });
     });
-
   }
 });
