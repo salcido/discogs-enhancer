@@ -19,7 +19,7 @@
  * 3.) If there is a `blockList` and a URL match the script will either mark or hide the
  * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
-
+// TODO refactor to vanilla js
 resourceLibrary.ready(function() {
 
   let
