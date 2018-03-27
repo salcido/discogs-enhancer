@@ -16,7 +16,7 @@
  * `dependencies/options/options.js` for more info :)
  */
 
-resourceLibrary.ready(function() {
+resourceLibrary.ready(() => {
 
   let highlightComments = resourceLibrary.options.highlightComments(),
       href = window.location.href;
@@ -25,7 +25,7 @@ resourceLibrary.ready(function() {
   if ( highlightComments && href.includes('/my') ) {
 
     // wait for the modules to load
-    let int = setInterval(function() {
+    let int = setInterval(() => {
 
       // Check if the friend module has been populated
       let friends = document.querySelectorAll('#dashboard_friendactivity tr').length;
@@ -48,7 +48,7 @@ resourceLibrary.ready(function() {
 
     // Clear the interval regardless so the `setInterval` doesn't run forever
     // in case there's no friend module on the dashboard
-    setTimeout(function () {
+    setTimeout(() => {
 
       clearInterval(int);
     }, 7000);
