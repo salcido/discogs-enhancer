@@ -19,69 +19,57 @@
  * found, it will be removed and a new one appended in its place.
  * 2.) The count is updated with `keyup` events.
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
 
-  $('body').on('click', '.notes_show, .notes_text', function() {
+resourceLibrary.ready(function() {
 
-    let count;
+  let notes = [...document.querySelectorAll('.notes_show, .notes_text')];
 
-    // Wait for text field to be rendered in the DOM before
-    // looking for its length value
-    setTimeout(() => {
+  notes.forEach(elem => {
 
-      if ( $(':focus') ) {
+    elem.addEventListener('click', () => {
 
-        let notes = $(':focus').val(),
-            s = document.createElement('span'),
-            siblings = $(':focus').siblings();
+      let count;
 
-        // Look for existing count spans and remove them if necessary
-        if ( siblings.hasClass('de-notes-count') ) {
+      // Wait for text field to be rendered in the DOM before
+      // looking for its length value
+      setTimeout(() => {
 
-          siblings.closest( $('.de-notes-count') ).remove();
-        }
+        let focus = document.querySelector(':focus');
 
-        // This is necessary to prevent logging an error if
-        // a focused element does not have a value
-        // e.g.: Folder or Media/Sleeve Condition (select elements)
-        count = notes ? notes.length : '0';
+        if ( focus ) {
 
-        // append the current character count from field
-        s.className = 'de-notes-count';
-        s.style = 'display:inline-block; padding:3px;';
-        s.textContent = `${count} / 255`;
+          let notes = focus.value,
+              s = document.createElement('span'),
+              siblings = [...focus.parentNode.childNodes];
 
-        $(':focus').parent().append(s);
+          // Look for existing count spans and remove them if necessary
+          siblings.forEach(elem => {
 
-      } else {
+            if ( elem
+                 && elem.classList
+                 && elem.classList.contains('de-notes-count') ) {
 
-        return;
-      }
-    }, 100);
+              elem.remove();
+            }
+          });
 
-    // Keyup listener for updating count values
-    $(document).keyup(() => {
+          // This is necessary to prevent logging an error if
+          // a focused element does not have a value
+          // e.g.: Folder or Media/Sleeve Condition (select elements)
+          count = notes ? notes.length : '0';
 
-      if ( $(':focus').hasClass('notes_textarea') ) {
+          // append the current character count from field
+          s.className = 'de-notes-count';
+          s.style = 'display:inline-block; padding:3px;';
+          s.textContent = `${count} / 255`;
 
-        let parent = $(':focus').parent();
-
-        // update count value
-        count = $(':focus').val().length;
-
-        parent.find('.de-notes-count').text(`${count} / 255`);
-
-        // warn when count total approaches limit
-        if ( count > 240 ) {
-
-          parent.find('.de-notes-count').addClass('price');
+          focus.parentElement.appendChild(s);
 
         } else {
 
-          parent.find('.de-notes-count').removeClass('price');
+          return;
         }
-      }
+      }, 100);
     });
   });
 
@@ -89,9 +77,41 @@ $(document).ready(function() {
   // UI Funcitonality
   // ========================================================
 
-  // Remove/reset stuff on save/cancel
-  $('body').on('click', '#notes_edit_save, #notes_edit_cancel', function(event) {
+  // Keyup listener for updating count values
+  document.addEventListener('keyup', () => {
 
-    $(event.target).find('.de-notes-count').remove();
+    let focus = document.querySelector(':focus');
+
+    if ( focus.classList.contains('notes_textarea') ) {
+
+      let parent = focus.parentElement,
+          notesCount = parent.querySelector('.de-notes-count');
+
+      // update count value
+      count = focus.value.length;
+
+      notesCount.textContent = `${count} / 255`;
+
+      // warn when count total approaches limit
+      return count > 240
+              ? notesCount.classList.add('price')
+              : notesCount.classList.remove('price');
+    }
+  });
+
+  // Remove/reset stuff on save/cancel
+  document.body.addEventListener('click', event => {
+
+    let id = event.target.id;
+
+    switch(id, event) {
+
+      case 'notes_edit_save':
+      case 'notes_edit_cancel':
+        event.target.querySelector('.de-notes-count').remove();
+
+      default:
+       return;
+    }
   });
 });
