@@ -8,10 +8,9 @@
  *
  */
 
-$(document).ready(function() {
+resourceLibrary.ready(() => {
 
-  let
-      visible = false,
+  let visible = false,
       loc = window.location.href,
       modal = `<div id="optionsModal" class="options-modal" style="display: none;">
                 <div class="options-modal-content">
@@ -48,32 +47,30 @@ $(document).ready(function() {
               </div>`;
 
   // Keyboard Shortcut
-  document.addEventListener('keyup', function(e) {
+  document.addEventListener('keyup', event => {
+
+    let close = document.querySelector('.options-close'),
+        modalElem = document.querySelector('.options-modal'),
+        save = document.querySelector('.options-save');
 
     // Alt + Ctrl + 7
-    if (e.altKey && e.ctrlKey && e.which === 55) {
+    if ( event.altKey && event.ctrlKey && event.which === 55 ) {
 
-      if (!visible) {
+      if ( !visible ) {
 
         visible = true;
-
-        $('.options-modal').show();
-
+        modalElem.style = 'display:block;';
         resourceLibrary.options.getOptions();
 
         // Close it
-        $('body').on('click', '.options-close', function() {
+        close.addEventListener('click', () => {
 
-          $('.options-modal').hide();
-
+          modalElem.style = 'display: none;';
           visible = false;
         });
 
         // Save it
-        $('body').on('click', '.options-save', function() {
-
-          resourceLibrary.options.saveOptions();
-        });
+        save.addEventListener('click', () => resourceLibrary.options.saveOptions());
       }
 
       return false;
@@ -82,12 +79,9 @@ $(document).ready(function() {
 
   // The options form screws with the checkbox count on the collection page
   // so I'm not appending it if a user is currently on the collection page.
-  // I considered iterating through the checkboxes and removing the options
-  // from the jq object so that enabling/disabling the move button
-  // would work as intended but this seems more performant. And easy (lazy).
   if ( !loc.includes('/collection') ) {
 
-    $('body').append(modal);
+    document.body.insertAdjacentHTML('beforeend', modal);
 
     resourceLibrary.options.getOptions();
   }
