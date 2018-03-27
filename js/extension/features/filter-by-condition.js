@@ -20,7 +20,7 @@
  * is then iterated over and any remaining values in the array are used to remove items in
  * those conditions from the DOM.
  */
-// TODO refactor to vanilla js
+
 resourceLibrary.ready(() => {
 
   let
