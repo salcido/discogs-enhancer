@@ -18,10 +18,10 @@
  * https://www.discogs.com/forum/thread/731619
  *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
 
-  let hasPlaylist = $('table.playlist').length,
+resourceLibrary.ready(() => {
+
+  let hasPlaylist = document.querySelector('table.playlist'),
       releaseHistoryPage = document.location.href.includes('/history');
 
   if ( hasPlaylist && !releaseHistoryPage ) {
@@ -70,15 +70,15 @@ $(document).ready(function() {
      * Grabs tracktimes from a target and inserts them into an array
      *
      * @method gatherTrackTimes
-     * @param  {object} target
+     * @param  {array} target
      * @return {method}
      */
 
     function gatherTrackTimes(target) {
 
-      target.each(function() {
+      [...target].forEach(time => {
 
-        let trackTime = $(this).text();
+        let trackTime = time.textContent;
 
         return trackTime === '' ? arr.push('0') : arr.push(trackTime);
       });
@@ -91,10 +91,10 @@ $(document).ready(function() {
 
     // Grab all track times from any Index Tracks in the tracklisting
     // and add them to the array.
-    $('tr.index_track td.tracklist_track_duration span').each(function() {
+    [...document.querySelectorAll('tr.index_track td.tracklist_track_duration span')].forEach(time => {
 
-      let trackTime = $(this).text(),
-          subtracks = $('.tracklist_track.subtrack .tracklist_track_duration span').text();
+      let trackTime = time.textContent,
+          subtracks = [...document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span')].textContent;
 
       // If there are Index Tracks present but they are empty AND
       // they have subtracks WITH data, set `emptyIndexTracks` to true
@@ -122,12 +122,12 @@ $(document).ready(function() {
     // Grab the track times from the subtrack entries.
     if ( emptyIndexTracks ) {
 
-      gatherTrackTimes( $('.tracklist_track.subtrack .tracklist_track_duration span') );
+      gatherTrackTimes( document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span') );
     }
 
     // Grab all track times from any td that is not a child of .subtrack
     // and add them to the array.
-    gatherTrackTimes( $('tr.tracklist_track.track td.tracklist_track_duration span') );
+    gatherTrackTimes( document.querySelectorAll('tr.tracklist_track.track td.tracklist_track_duration span') );
 
     // Calculate total seconds
     totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
@@ -181,9 +181,9 @@ $(document).ready(function() {
                     </tr>
                   </tbody>
                 </table>
-              </div>;`
+              </div>`;
 
-      $(html).insertAfter( $('#tracklist .section_content') );
+      document.querySelector('#tracklist .section_content').insertAdjacentHTML('beforeend', html);
     }
   }
 });
