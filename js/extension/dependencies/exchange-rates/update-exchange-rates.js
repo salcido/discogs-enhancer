@@ -9,7 +9,7 @@
  *
  */
 
-$(document).ready(function() {
+resourceLibrary.ready(() => {
 
   let
       d = new Date(),
@@ -53,16 +53,16 @@ $(document).ready(function() {
 
     let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.';
 
-    return fetch('https://api.fixer.io/latest?base=' + userCurrency + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD', { method: 'get' })
+    return fetch(`https://api.fixer.io/latest?base=${userCurrency}&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD`, { method: 'GET' })
 
       .then( response => {
 
-        if (response.ok) { return response.json(); }
+        if ( response.ok ) { return response.json(); }
 
         // TODO: delete rates object on failure?
         return console.log(errorMsg);
       })
-      .then( res => {
+      .then(res => {
 
         /*
            Fixer.io has, on occasion, not sent a content-type in the response
@@ -70,11 +70,11 @@ $(document).ready(function() {
            then proceed accordingly.
         */
 
-        if (typeof res === 'string') {
+        if ( typeof res === 'string' ) {
 
           updateRatesObj.rates = JSON.parse(res);
 
-        } else if (typeof res === 'object') {
+        } else if ( typeof res === 'object' ) {
 
           updateRatesObj.rates = res;
         }
@@ -84,7 +84,7 @@ $(document).ready(function() {
         // trigger exchange rates update
         updateRatesObj.currency = userCurrency;
 
-        if (debug) {
+        if ( debug ) {
 
           console.log('*** Fresh rates ***');
           console.log('Last update:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
@@ -134,7 +134,7 @@ $(document).ready(function() {
 
   default:
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' ');
       console.log('Discogs Enhancer: Using cached rates:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
