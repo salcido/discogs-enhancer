@@ -22,8 +22,8 @@
  * 3.) If there is a `currency` param that matches the currency value saved in `filterByCountry`,
  * any results that do not ship from the specified country are hidden in the DOM via CSS class.
  */
-// TODO refactor to vanilla js
-resourceLibrary.ready(function() {
+
+resourceLibrary.ready(() => {
 
   let
       href = window.location.href,
@@ -48,19 +48,18 @@ resourceLibrary.ready(function() {
   // add to window object so it can be called by Everlasting Marketplace
   window.filterByCountry = function filterByCountry() {
 
-    let listings = $('.seller_info ul li:nth-child(3)'),
-        countries = listings.toArray();
+    let countries = [...document.querySelectorAll('.seller_info ul li:nth-child(3)')];
 
-    if (enabled) {
+    if ( enabled ) {
 
-      $(countries).each(function() {
+      countries.forEach(elem => {
 
-        let greatGrandParent = $(this).parent().parent().parent();
+        let greatGrandParent = elem.parentElement.parentElement.parentElement;
 
-        if ( !$(this).text().includes(prefs.country) &&
-             !greatGrandParent.hasClass('de-hide-country') ) {
+        if ( !elem.textContent.includes(prefs.country) &&
+             !greatGrandParent.classList.contains('de-hide-country') ) {
 
-          greatGrandParent.addClass('de-hide-country');
+          greatGrandParent.classList.add('de-hide-country');
         }
       });
     }
