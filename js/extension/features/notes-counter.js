@@ -38,25 +38,25 @@ resourceLibrary.ready(() => {
 
         if ( focus ) {
 
-          let notes = focus.value,
+          let noteValue = focus.value,
               s = document.createElement('span'),
               siblings = [...focus.parentNode.childNodes];
 
           // Look for existing count spans and remove them if necessary
-          siblings.forEach(elem => {
+          siblings.forEach(el => {
 
-            if ( elem
-                 && elem.classList
-                 && elem.classList.contains('de-notes-count') ) {
+            if ( el
+                 && el.classList
+                 && el.classList.contains('de-notes-count') ) {
 
-              elem.remove();
+              el.remove();
             }
           });
 
           // This is necessary to prevent logging an error if
           // a focused element does not have a value
           // e.g.: Folder or Media/Sleeve Condition (select elements)
-          count = notes ? notes.length : '0';
+          count = noteValue ? noteValue.length : '0';
 
           // append the current character count from field
           s.className = 'de-notes-count';
@@ -83,7 +83,9 @@ resourceLibrary.ready(() => {
     let count,
         focus = document.querySelector(':focus');
 
-    if ( focus.classList.contains('notes_textarea') ) {
+    if ( focus
+          && focus.classList
+          && focus.classList.contains('notes_textarea') ) {
 
       let notesCount = focus.parentElement.querySelector('.de-notes-count');
 
@@ -104,7 +106,7 @@ resourceLibrary.ready(() => {
 
     let id = event.target.id;
 
-    switch(id) {
+    switch (id) {
 
       case 'notes_edit_save':
       case 'notes_edit_cancel':
@@ -112,7 +114,7 @@ resourceLibrary.ready(() => {
         break;
 
       default:
-       return;
+        return;
     }
   });
 });
