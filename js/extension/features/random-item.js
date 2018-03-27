@@ -18,7 +18,7 @@ resourceLibrary.ready(function() {
   let button,
       icon = `<li style="position: relative;">
                 <span>
-                  <a class="nav_group_control de-random-item" style="font-size: 12px; margin-top: 2px;>
+                  <a class="nav_group_control de-random-item" style="font-size: 14px; margin-top: 2px;>
                     <span style="cursor: pointer;">
                       <span style="color: white;" title="Random Item">\u267A</span>
                     </span>
