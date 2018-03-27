@@ -8,7 +8,7 @@
  *
  */
 
-resourceLibrary.ready(function() {
+resourceLibrary.ready(() => {
 
   let
       href = window.location.href,

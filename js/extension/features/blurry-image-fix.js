@@ -10,7 +10,7 @@
  * See this thread for more info:
  * https://www.discogs.com/forum/thread/759801?page=1#7536285
  */
-resourceLibrary.ready(function() {
+resourceLibrary.ready(() => {
 
   let gallery = document.querySelector('.image_gallery.image_gallery_large'),
       hasListeners = false,
@@ -104,9 +104,9 @@ resourceLibrary.ready(function() {
     // Delaying a bit so that the UI elements that
     // this script hooks on to have time to be
     // rendered in the DOM
-    gallery.addEventListener('click', ()=> {
+    gallery.addEventListener('click', () => {
 
-      setTimeout(()=> {
+      setTimeout(() => {
 
         // Fix initial image that is loaded
         unblur();
@@ -133,7 +133,7 @@ resourceLibrary.ready(function() {
     // to an image.
     if ( href.includes('#images') ) {
 
-      let int = setInterval(()=> {
+      let int = setInterval(() => {
         // Check to make sure the image has been loaded
         // then wait a bit so that the gallery can animate
         // into position. Then call the unblur/ui methods.
