@@ -62,6 +62,7 @@ resourceLibrary.ready(() => {
       // Remove offending items from the DOM based on whatever's left in the conditions array
       conditions.forEach(condition => {
 
+        // Create array of media conditions
         let elems = [...document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:first-child + span')];
 
         elems.forEach(el => {
