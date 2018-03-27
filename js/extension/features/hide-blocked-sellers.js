@@ -19,8 +19,8 @@
  * 3.) If there is a `blockList` and a URL match the script will either mark or hide the
  * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
-// TODO refactor to vanilla js
-resourceLibrary.ready(function() {
+
+resourceLibrary.ready(() => {
 
   let
       blockList = JSON.parse(localStorage.getItem('blockList')),
@@ -68,11 +68,16 @@ resourceLibrary.ready(function() {
     let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
 
     blockList.list.forEach(seller => {
-// TODO refactor to vanilla js
-      if ( $('td.seller_info:contains(' + seller + ')').length ) {
 
-        $('td.seller_info:contains(' + seller + ')').parent().addClass(_class);
-      }
+      let sellerNames = [...document.querySelectorAll('td.seller_info ul li:first-child')];
+
+      sellerNames.forEach(name => {
+
+        if ( name.textContent.includes(seller) ) {
+
+          name.parentElement.parentElement.parentElement.classList.add(_class);
+        }
+      });
     });
 
     return addUiListeners(type);
