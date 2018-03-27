@@ -17,13 +17,7 @@
 
 resourceLibrary.ready(() => {
 
-  let
-      artistHistory = /\/artist\//g,
-      labelHistory = /\/label\//g,
-      loc = window.location.href,
-      releaseHistory = /\/release\//g;
-
-  if ( artistHistory.test(loc) || releaseHistory.test(loc) || labelHistory.test(loc) ) {
+  if ( window.location.href.includes('/history') ) {
 
     setTimeout(() => {
 
