@@ -43,7 +43,7 @@ resourceLibrary.ready(() => {
   window.hideItems = function hideItems() {
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
-    [...document.getElementsByClassName('.condition-label-mobile')].forEach(elem => elem.remove());
+    [...document.getElementsByClassName('condition-label-mobile')].forEach(elem => elem.remove());
 
     if ( itemCondition ) {
 
