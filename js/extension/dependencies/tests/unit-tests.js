@@ -8,7 +8,7 @@
  *
  */
 
-$(document).ready(function() {
+resourceLibrary.ready(() => {
 
   let unitTests = resourceLibrary.options.unitTests();
 
