@@ -34,7 +34,7 @@
       ]
    },
 
-  "minimum_chrome_version": "48",
+  "minimum_chrome_version": "55",
 
   "permissions": [
     "*://*.discogs.com/*",
