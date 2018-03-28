@@ -49,53 +49,35 @@ resourceLibrary.ready(() => {
    * @method updateRates
    * @return {object}
    */
-  function updateRates() {
+  async function updateRates() {
 
-    let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.';
+    let url = `https://api.fixer.io/latest?base=${userCurrency}&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD`;
 
-    return fetch(`https://api.fixer.io/latest?base=${userCurrency}&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD`, { method: 'GET' })
+    try {
 
-      .then( response => {
+      let response = await fetch(url),
+          data = await response.json();
 
-        if ( response.ok ) { return response.json(); }
+      updateRatesObj.rates = data;
 
-        // TODO: delete rates object on failure?
-        return console.log(errorMsg);
-      })
-      .then(res => {
+      // Set last saved currency
+      // If different from userCurrency it will trigger exchange rates update
+      updateRatesObj.currency = userCurrency;
 
-        /*
-           Fixer.io has, on occasion, not sent a content-type in the response
-           header which blows up the extension, so check the type and
-           then proceed accordingly.
-        */
+      if ( debug ) {
 
-        if ( typeof res === 'string' ) {
-
-          updateRatesObj.rates = JSON.parse(res);
-
-        } else if ( typeof res === 'object' ) {
-
-          updateRatesObj.rates = res;
-        }
-
-        // set last saved currency,
-        // if different from userCurrency will
-        // trigger exchange rates update
-        updateRatesObj.currency = userCurrency;
-
-        if ( debug ) {
-
-          console.log('*** Fresh rates ***');
-          console.log('Last update:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-          console.log('rates', updateRatesObj.rates.rates);
-        }
-
-        // Save object to localStorage
-        resourceLibrary.setItem('updateRatesObj', updateRatesObj);
-        updateRatesObj = resourceLibrary.getItem('updateRatesObj');
+        console.log('*** Fresh rates ***');
+        console.log('Last update:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
+        console.log('rates', updateRatesObj.rates.rates);
       }
-    );
+
+      // Save object to localStorage
+      resourceLibrary.setItem('updateRatesObj', updateRatesObj);
+      updateRatesObj = resourceLibrary.getItem('updateRatesObj');
+
+    } catch (err) {
+      return console.log('Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.', err);
+    }
   }
 
   // ========================================================
