@@ -6,177 +6,209 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- */
-
-/**
- *
  * These functions are used exclusively for sorting the
  * Marketplace sidebar filters: (Currency, Genre, Style,
  * Format, Media Condition and Year)
- *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
+
+resourceLibrary.ready(() => {
 
   let
-      clicks = 1,
+      clicks = 0,
       desc = false,
       filterTarget,
-      moreFiltersContainer = $('#more_filters_container'),
+      filterSelector = '.marketplace_filters.more_filters.marketplace_filters_',
+      moreFiltersContainer = document.getElementById('more_filters_container'),
       moreFiltersStorage,
-      sortName,
       storage;
 
+  // ========================================================
+  // Functions (Alphabetical)
+  // ========================================================
 
-  // Inject sort button into modal
+  /**
+   * Creates and injects the Sort A-Z button into the DOM
+   * @method appendFilterSortButton
+   * @return {undefined}
+   */
   function appendFilterSortButton() {
 
-    let sortFilterButton = `<div style="text-align: center;">
-                              <button id="sortFilters"
-                              class="button button-blue"
-                              style="width: 100px;">Sort A-Z</button>
-                           </div>`,
-        // This is so we only append one filter button at the top of the list
-        // Two buttons might be more useful on large lists.
-        // Still thinking that one over.
-        firstHideMoreFilter = $('.hide_more_filters').first();
+    let div = document.createElement('div'),
+        button = document.createElement('button');
 
-    $(sortFilterButton).insertAfter(firstHideMoreFilter);
+    // Assemble the necessary markup
+    div.style.textAlign = 'center';
+
+    button.id = 'sortFilters';
+    button.className = 'button button-blue';
+    button.style.width = '100px';
+    button.textContent = 'Sort A-Z';
+
+    div.append(button);
+
+    // Inject it in to the DOM
+    document.querySelector('.hide_more_filters').insertAdjacentElement('afterend', div);
   }
 
-
-  // Link sorter function
-  function compareText(a1, a2) {
-
-    let x = $(a1).find('a').attr('href'),
-        y = $(a2).find('a').attr('href');
-
-    return x > y ? 1 : (x < y ? -1 : 0);
-  }
-
-
-  /* Sort our lists and create new HTML, then insert
-  the newly sorted list array elements. */
-  function sortUnorderedFilterList(ul, sortDescending) {
-
-    let
-        liHead,
-        listElms = $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget } ul.facets_nav li`),
-        newUl,
-        vals = [];
-
-    // Grab all the list elements and push them into our array
-    listElms.each(function(index) { vals.push(listElms[index]); });
-
-    /* Examine the list elements and remove the no_link element
-       assign that to |liHead| for later use */
-    $(vals).each(function(index) {
-
-      if ( $(vals[index]).hasClass('no_link') ) {
-
-        liHead = vals[index];
-
-        vals.splice(vals[index], 1);
-      }
-    });
-
-    vals.sort(compareText);
-
-    if (sortDescending) { vals.reverse(); }
-
-    // Clear out old markup
-    moreFiltersContainer.html('');
-
-    // Insert new markup with custom |modified| class to hook on to
-    moreFiltersContainer.append(`<ul class="marketplace_filters more_filters marketplace_filters_${filterTarget}"><li style="min-width:16%;"><ul class="facets_nav modified">`);
-
-    // Hook on to our new list
-    newUl = $('ul.facets_nav.modified');
-
-    // Insert newly sorted list elements
-    $(vals).each(function(index) {
-
-      newUl.append(vals[index]);
-
-      newUl.prepend(liHead);
-    });
-  }
-
-
-  // Add new button functionalities
-  function registerFilterButtonClicks() {
+  /**
+   * Attaches the event listeners to the injected sort button
+   * and the 'All Filters' anchor.
+   *
+   * @method attachButtonListeners
+   * @return {undefined}
+   */
+  function attachButtonListeners() {
 
     // Injected 'Sort A-Z' button
-    $('#sortFilters').click(function() {
-
-      resourceLibrary.setButtonText($(this));
-
-      clicks++;
-
-      if (clicks > 3) {
-
-        $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget}`).html(storage.html());
-
-        clicks = 1;
-
-        $(this).text(sortName);
-
-        return false;
-
-      } else {
-
-        sortUnorderedFilterList($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget} ul.facets_nav`), desc);
-
-        $(this).text(sortName);
-
-        desc = !desc;
-
-        return false;
-      }
-    });
-
+    document.getElementById('sortFilters').addEventListener('click', event => trackClicks());
     // '<- All Filters' page link
-    $('.hide_more_filters').click(function() {
+    document.querySelector('.hide_more_filters').addEventListener('click', () => {
 
-      // Tear down the button
-      $('#sortFilters').remove();
+      try {
+        // Tear down the 'Sort A-Z' button
+        document.getElementById('sortFilters').remove();
+      } catch (err) { /* Just catch the error */ }
 
       // Restore the unfiltered markup
-      moreFiltersContainer.html(moreFiltersStorage.html());
-
-      // Reset |desc| so that subsequent filter calls begin with A-Z
+      moreFiltersContainer.innerHTML = moreFiltersStorage.innerHTML;
+      // Reset `desc` so that subsequent filter calls begin with A-Z
       desc = false;
     });
   }
 
+  /**
+   * Alphabetizes the links
+   * @method compareText
+   * @param {string} a1 The string value of the href
+   * @param {string} a2 The string value of the href
+   * @return {integer}
+   */
+  function compareText(a1, a2) {
 
-  // Map functions to modal dialog buttons
-  $('.show_more_filters').click(function() {
+    let x = a1.querySelector('a').href.toLowerCase(),
+        y = a2.querySelector('a').href.toLowerCase();
 
-    let checkForMarkup;
+    return x > y ? 1 : (x < y ? -1 : 0);
+  }
 
-    desc = false;
+  /**
+   * Injects the sorted list in to the DOM
+   *
+   * @method injectListMarkup
+   * @param {array} lis An array of <li> elements
+   * @param {object} liHead A <li> element to be the first in the list
+   * @return {method}
+   */
+  function injectListMarkup(lis, liHead) {
 
-    // Find the right UL to filter
-    filterTarget = $(this).data('label');
+    let newUl,
+        markup = `<ul class="marketplace_filters more_filters marketplace_filters_${filterTarget}">
+                      <li style="min-width:16%;">
+                        <ul class="facets_nav modified">`;
 
-    /* Make sure the correct child element exists in |#more_filters_container|
-       before storing it. */
-    checkForMarkup = setInterval(function() {
+    // Clear out old markup
+    moreFiltersContainer.innerHTML = '';
+    // Insert new markup with custom |modified| class to hook on to
+    moreFiltersContainer.insertAdjacentHTML('beforeend', markup);
+    // Hook on to our new list
+    newUl = document.querySelector('ul.facets_nav.modified');
+    // Insert newly sorted list elements
+    lis.forEach(li => newUl.append(li));
 
-      if ($(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget}`).length ) {
+    return newUl.prepend(liHead);
+  }
 
-        /* Store current markup of #more_filters_container. If the user does not
-           select a filter, it will be restored when .hide_more_filters is clicked */
-        moreFiltersStorage = moreFiltersContainer.clone(true);
+  /**
+   * Sort our lists and create new HTML
+   *
+   * @method sortList
+   * @param {object} target The `Sort A-Z` button that generated the event
+   * @param {boolean} descending Order of the sorted list
+   * @return {method}
+   */
+  function sortList(target, descending) {
 
-        storage = $(`.marketplace_filters.more_filters.marketplace_filters_${filterTarget}`).clone(true);
+    let liHead,
+        listElems = document.querySelectorAll(`${filterSelector}${filterTarget} ul.facets_nav li`),
+        lis = [];
 
-        clearInterval(checkForMarkup);
+    // Grab all the list elements and push them into our array
+    [...listElems].forEach(li => lis.push(li));
+
+    // Examine the list elements and remove the `no_link` element
+    // assign that to `liHead` for later use.
+    lis.forEach(li => {
+
+      if ( li.classList.contains('no_link') ) {
+
+        liHead = li;
+        lis.splice(li, 1);
       }
-    }, 100);
+    });
 
-    appendFilterSortButton();
-    registerFilterButtonClicks();
+    lis.sort(compareText);
+
+    if ( descending ) { lis.reverse(); }
+
+    resourceLibrary.setButtonText(target);
+
+    return injectListMarkup(lis, liHead);
+  }
+
+  /**
+   * Tracks the number of times the 'Sort A-Z' button
+   * has been pressed and flips the `desc` boolean
+   * to reverse the sort order.
+   *
+   * @method attachButtonListeners
+   * @return {integer|boolean}
+   */
+  function trackClicks() {
+
+    clicks++;
+
+    if ( clicks > 2 ) {
+
+      document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
+      return clicks = 0;
+    }
+
+    sortList(event.target, desc);
+    return desc = !desc;
+  }
+
+  // ========================================================
+  // UI Functionality
+  // ========================================================
+
+  // Map functions to 'Show more...' anchors
+  [...document.getElementsByClassName('show_more_filters')].forEach(anchor => {
+
+    anchor.addEventListener('click', event => {
+
+      let checkForMarkup;
+
+      desc = false;
+      // Find the right UL to filter
+      filterTarget = event.target.dataset.label;
+
+      // Make sure the correct child element exists in `#more_filters_container`
+      // before storing it.
+      checkForMarkup = setInterval(() => {
+
+        if ( document.querySelector(`${filterSelector}${filterTarget}`) ) {
+          // Store current markup of `#more_filters_container`. If the user does not
+          // select a filter, it will be restored when `.hide_more_filters` is clicked
+          moreFiltersStorage = moreFiltersContainer.cloneNode(true);
+
+          storage = document.querySelector(`${filterSelector}${filterTarget}`).cloneNode(true);
+
+          clearInterval(checkForMarkup);
+        }
+      }, 100);
+
+      appendFilterSortButton();
+      attachButtonListeners();
+    });
   });
 });
