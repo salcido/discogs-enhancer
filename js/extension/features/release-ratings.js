@@ -73,27 +73,26 @@ resourceLibrary.ready(() => {
    * @return {object}
    */
 
-  function getReleaseRating(id, parent) {
-    return fetch(id, { method: 'GET' })
-      .then(response => {
-        // Make sure we got something useable
-        if ( response.ok ) { return response.text(); }
-        // Otherwise log an error
-        return console.log('Could not fetch release ratings.');
-      })
-      .then(res => {
-        // Extract the rating string from the response
-        let div = document.createElement('div'),
-            rating;
+  async function getReleaseRating(id, parent) {
 
-        div.innerHTML = res;
-        rating = div.querySelector('.statistics ul:first-of-type li:last-child').textContent;
+    try {
 
-        parent.querySelector('.preloader').remove();
+      let response = await fetch(id),
+          data = await response.text(),
+          div = document.createElement('div'),
+          rating;
 
-        parent.append(rating);
-      })
-      .catch(err => console.log('Discogs Enhancer: Cannot get release ratings.', err));
+      div.innerHTML = data;
+      rating = div.querySelector('.statistics ul:first-of-type li:last-child').textContent;
+
+      parent.querySelector('.preloader').remove();
+
+      return parent.append(rating);
+
+    } catch (err) {
+
+      return console.log('Discogs Enhancer: Cannot get release ratings.', err);
+    }
   }
 
 
