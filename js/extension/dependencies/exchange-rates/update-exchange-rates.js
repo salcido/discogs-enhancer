@@ -67,8 +67,8 @@ resourceLibrary.ready(() => {
       if ( debug ) {
 
         console.log('*** Fresh rates ***');
-        console.log('Last update:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-        console.log('rates', updateRatesObj.rates.rates);
+        console.log(`Last update: ${updateRatesObj.rates.date} language: ${language} Currency: ${userCurrency}`);
+        console.log('rates:', updateRatesObj.rates.rates);
       }
 
       // Save object to localStorage
@@ -106,7 +106,7 @@ resourceLibrary.ready(() => {
       // these rates before they have been returned from fixer.io
       updateRatesObj.rates = null;
 
-      if (debug) {
+      if ( debug ) {
         console.log(' ');
         console.log('Getting fresh rates... One moment please.');
       }
@@ -114,16 +114,16 @@ resourceLibrary.ready(() => {
       updateRates();
       break;
 
-  default:
+    default:
 
-    if ( debug ) {
+      if ( debug ) {
 
-      console.log(' ');
-      console.log('Discogs Enhancer: Using cached rates:', updateRatesObj.rates.date, ' ', 'language:', language, ' ', 'Currency:', userCurrency);
-      console.log('rates', updateRatesObj.rates);
-    }
+        console.log(' ');
+        console.log(`Using cached rates: ${updateRatesObj.rates.date} language: ${language} Currency: ${userCurrency}`);
+        console.log('rates', updateRatesObj.rates);
+      }
 
-    break;
+      break;
   }
 
   // Store user's language preference
