@@ -6,83 +6,52 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * This rearranges the UI on the collection page
+ * to what I think is a better layout and colors the
+ * Move and Remove Selected buttons.
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
 
-  let
-      bottomSelectFolder,
-      checkboxes,
-      interval,
-      loc = window.location.href,
-      marketPlaceBtn,
-      moveButtonMarkup,
-      moveButtons,
-      topSelectFolder;
+resourceLibrary.ready(() => {
+
+  let loc = window.location.href;
 
   if ( loc.includes('/collection') ) {
 
-    interval = setInterval(function() {
+    let int = setInterval(() => {
 
-      if ( $('#move_folder_id_bottom').length ) {
+      if ( document.getElementById('move_folder_id_bottom').length ) {
 
-        clearInterval(interval);
+        clearInterval(int);
 
-        bottomSelectFolder = $('#move_folder_id_bottom').html();
-        moveButtonMarkup = $('[name^="Action.MoveItems"]').html();
-        topSelectFolder = $('#move_folder_id_top').html();
+        let
+            bottomButtons = document.querySelector('.release_list_actions.multiple-buttons.bottom .fright'),
+            bottomSelectFolder = document.getElementById('move_folder_id_bottom').outerHTML,
+            moveButtonMarkup = document.querySelector('[name^="Action.MoveItems"]').outerHTML,
+            toFolderString = `&nbsp; to folder: &nbsp;`,
+            topButtons = document.querySelector('.release_list_actions.multiple-buttons.top .fright'),
+            topSelectFolder = document.getElementById('move_folder_id_top').outerHTML;
 
-        $('label[for="folder_top"]').text('Current folder: ');
+        // Swap the 'Move Selected' button with the 'Folder' select element on top
+        topButtons.innerHTML = '';
+        topButtons.insertAdjacentHTML('beforeend', moveButtonMarkup);
+        topButtons.insertAdjacentHTML('beforeend', toFolderString);
+        topButtons.insertAdjacentHTML('beforeend', topSelectFolder);
+        // Swap the 'Move Selected' button with the 'Folder' select element on bottom
+        bottomButtons.innerHTML = '';
+        bottomButtons.insertAdjacentHTML('beforeend', moveButtonMarkup);
+        bottomButtons.insertAdjacentHTML('beforeend', toFolderString);
+        bottomButtons.insertAdjacentHTML('beforeend', bottomSelectFolder);
 
-        $('#random_list_form').css({ float: 'right', marginTop: '11px' });
-
-        $('.release_list_remove').addClass('button_red');
-
-        $('[name^="Action.MoveItems"]').addClass('button_green');
-
-        $('.release_list_actions.multiple_buttons.top .fright').html(
-          '<button class="button button_green" disabled type="submit" name="Action.MoveItems">' + moveButtonMarkup + '</button>' +
-          ' &nbsp; to folder: &nbsp; ' +
-          '<select id="move_folder_id_top" name="move_folder_id" class="button move_folder_select top">' + topSelectFolder + '</select>');
-
-        $('.release_list_actions.multiple_buttons.bottom .fright').html(
-          '<button class="button button_green" disabled type="submit" name="Action.MoveItems">' + moveButtonMarkup + '</button>' +
-          ' &nbsp; to folder: &nbsp; ' +
-          '<select id="move_folder_id_bottom" name="move_folder_id" class="button move_folder_select botom">' + bottomSelectFolder + '</select>');
-
-        $('input[type="checkbox"]').change(function() {
-
-            moveButtons = $('[name^="Action.MoveItems"]');
-
-            checkboxes = $('input[type="checkbox"]');
-
-            return moveButtons.prop('disabled', checkboxes.filter(':checked').length < 1);
-        });
+        // Label the 'Folder' select element with "Current folder:"
+        document.querySelector('label[for="folder_top"]').textContent = 'Current folder: ';
+        document.querySelector('label[for="folder_bottom"]').textContent = 'Current folder: ';
+        // Move the 'Random Item' link over to the right
+        document.getElementById('random_list_form').style = 'float: right; margin-top: 11px;';
+        // Make the 'Remove Selected' buttons red
+        [...document.querySelectorAll('.release_list_remove')].forEach(b => b.classList.add('button-red'));
+        // Make the 'Move Selected' buttons green
+        [...document.querySelectorAll('[name^="Action.MoveItems"]')].forEach(b => b.classList.add('button-green'));
       }
     }, 100);
-  }
-
-  if ( loc.includes('/mywantlist') ) {
-
-    marketPlaceBtn = $('ul.table_actions_list.wantlist li:eq(1)').clone();
-
-    $('li a[href^="/sell/mywants?ev=wsim"]').hide();
-
-    $('ul.table_actions_list.wantlist').prepend('<li>' + marketPlaceBtn.html() + '</li>');
-
-    $('.release_list_remove').addClass('button_red');
-
-    $('#random_list_form').css({ float: 'right', marginTop: '11px' });
-
-    $('[name^="Action.MoveToCollection"]').addClass('button_green').prop('disabled', true);
-
-    $('input[type="checkbox"]').change(function() {
-
-        moveButtons = $('[name^="Action.MoveToCollection"]');
-
-        checkboxes = $('input[type="checkbox"]');
-
-        return moveButtons.prop('disabled', checkboxes.filter(':checked').length < 1);
-    });
   }
 });
