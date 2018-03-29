@@ -18,13 +18,15 @@ resourceLibrary.ready(() => {
   let button,
       iconSize = '14px',
       icon = `<li style="position: relative;">
-                <span>
-                  <a class="nav_group_control de-random-item" style="font-size: ${iconSize}; margin-top: 2px;>
-                    <span style="cursor: pointer;">
-                      <span style="color: white;" title="Random Item">\u267A</span>
-                    </span>
-                  </a>
-                </span>
+                <a class="nav_group_control de-random-item" style="font-size: ${iconSize}; margin-top: 2px;>
+                  <span style="cursor: pointer;">
+                    <span style="color: white;">\u267A</span>
+                  </span>
+                </a>
+                <div class="tooltip fade bottom in de-random-tooltip" style="top: 56px; left: -30px; display:none;">
+                  <div class="tooltip-arrow"></div>
+                  <div class="tooltip-inner">Random Item</div>
+                </div>
               </li>`;
 
   // ========================================================
@@ -46,7 +48,7 @@ resourceLibrary.ready(() => {
     xhr.open('POST', url);
 
     xhr.onreadystatechange = () => {
-      if (xhr.readyState > 3 && xhr.status === 200) {
+      if ( xhr.readyState > 3 && xhr.status === 200 ) {
         window.location = xhr.responseURL;
       }
     };
@@ -66,7 +68,8 @@ resourceLibrary.ready(() => {
   // Append the markup
   document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
 
-  button = document.getElementsByClassName('de-random-item')[0];
+  button = document.querySelector('.de-random-item'),
+  tooltip = document.querySelector('.de-random-tooltip');
 
   // Add click functionality to badge markup
   button.addEventListener('click', () => {
@@ -74,4 +77,8 @@ resourceLibrary.ready(() => {
     button.classList.add('rotate');
     getRandomItem();
   });
+
+  // Show/Hide the tooltip
+  button.addEventListener('mouseover', () => tooltip.style.display = 'block');
+  button.addEventListener('mouseleave', () => tooltip.style.display = 'none');
 });
