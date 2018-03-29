@@ -616,20 +616,23 @@
 
     parseURL: function(url) {
 
-      let urlArr = url.split('/'),
-          num = urlArr[urlArr.length - 1];
+      if (url) {
 
-      if ( num.indexOf('-') > -1 ) {
+        let urlArr = url.split('/'),
+            num = urlArr[urlArr.length - 1];
 
-        num = num.split('-')[0];
+        if ( num.includes('-') ) {
+
+          num = num.split('-')[0];
+        }
+
+        if ( num.includes('?') ) {
+
+          num = num.split('?')[0];
+        }
+
+        return num;
       }
-
-      if ( num.indexOf('?') > -1 ) {
-
-        num = num.split('?')[0];
-      }
-
-      return num;
     },
 
     /**
