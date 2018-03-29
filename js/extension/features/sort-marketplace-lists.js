@@ -9,6 +9,9 @@
  * These functions are used exclusively for sorting the
  * Marketplace sidebar filters: (Currency, Genre, Style,
  * Format, Media Condition and Year)
+ *
+ * The sorting functionalty is kicked off when the `initFilter`
+ * method is fired.
  */
 
 resourceLibrary.ready(() => {
@@ -28,10 +31,10 @@ resourceLibrary.ready(() => {
 
   /**
    * Creates and injects the Sort A-Z button into the DOM
-   * @method appendFilterSortButton
+   * @method injectSortButton
    * @return {undefined}
    */
-  function appendFilterSortButton() {
+  function injectSortButton() {
 
     let div = document.createElement('div'),
         button = document.createElement('button');
@@ -39,7 +42,7 @@ resourceLibrary.ready(() => {
     // Assemble the necessary markup
     div.style.textAlign = 'center';
 
-    button.id = 'sortFilters';
+    button.id = 'initFilter';
     button.className = 'button button-blue';
     button.style.width = '100px';
     button.textContent = 'Sort A-Z';
@@ -54,21 +57,23 @@ resourceLibrary.ready(() => {
    * Attaches the event listeners to the injected sort button
    * and the 'All Filters' anchor.
    *
-   * @method attachButtonListeners
+   * @method attachListeners
    * @return {undefined}
    */
-  function attachButtonListeners() {
+  function attachListeners() {
 
-    // Injected 'Sort A-Z' button
-    document.getElementById('sortFilters').addEventListener('click', event => trackClicks());
+    // 'Sort A-Z' button
+    // Everything starts when this button is clicked
+    document.getElementById('initFilter').addEventListener('click', () => initFilter());
     // '<- All Filters' page link
     document.querySelector('.hide_more_filters').addEventListener('click', () => {
 
       try {
         // Tear down the 'Sort A-Z' button
-        document.getElementById('sortFilters').remove();
-      } catch (err) { /* Just catch the error */ }
-
+        document.getElementById('initFilter').remove();
+      } catch (err) {
+        /* Just catch the error */
+      }
       // Restore the unfiltered markup
       moreFiltersContainer.innerHTML = moreFiltersStorage.innerHTML;
       // Reset `desc` so that subsequent filter calls begin with A-Z
@@ -92,6 +97,30 @@ resourceLibrary.ready(() => {
   }
 
   /**
+   * Kicks off the sorting process and tracks the
+   * number of times the sort button has
+   * been clicked.
+   *
+   * @method initFilter
+   * @return {integer}
+   */
+  function initFilter() {
+
+    clicks++;
+
+    if ( clicks > 2 ) {
+      document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
+      return clicks = 0;
+    }
+
+    // The sorting process begins here...
+    sortList(event.target, desc);
+    desc = !desc;
+
+    return clicks;
+  }
+
+  /**
    * Injects the sorted list in to the DOM
    *
    * @method injectListMarkup
@@ -108,7 +137,7 @@ resourceLibrary.ready(() => {
 
     // Clear out old markup
     moreFiltersContainer.innerHTML = '';
-    // Insert new markup with custom |modified| class to hook on to
+    // Insert new markup with custom `modified` class to hook on to
     moreFiltersContainer.insertAdjacentHTML('beforeend', markup);
     // Hook on to our new list
     newUl = document.querySelector('ul.facets_nav.modified');
@@ -129,11 +158,7 @@ resourceLibrary.ready(() => {
   function sortList(target, descending) {
 
     let liHead,
-        listElems = document.querySelectorAll(`${filterSelector}${filterTarget} ul.facets_nav li`),
-        lis = [];
-
-    // Grab all the list elements and push them into our array
-    [...listElems].forEach(li => lis.push(li));
+        lis = [...document.querySelectorAll(`${filterSelector}${filterTarget} ul.facets_nav li`)];
 
     // Examine the list elements and remove the `no_link` element
     // assign that to `liHead` for later use.
@@ -145,40 +170,18 @@ resourceLibrary.ready(() => {
         lis.splice(li, 1);
       }
     });
-
+    // Alphabetize things
     lis.sort(compareText);
-
+    // Reverse if necessary
     if ( descending ) { lis.reverse(); }
-
+    // Update the Sort A-Z button
     resourceLibrary.setButtonText(target);
-
-    return injectListMarkup(lis, liHead);
-  }
-
-  /**
-   * Tracks the number of times the 'Sort A-Z' button
-   * has been pressed and flips the `desc` boolean
-   * to reverse the sort order.
-   *
-   * @method attachButtonListeners
-   * @return {integer|boolean}
-   */
-  function trackClicks() {
-
-    clicks++;
-
-    if ( clicks > 2 ) {
-
-      document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
-      return clicks = 0;
-    }
-
-    sortList(event.target, desc);
-    return desc = !desc;
+    // Append the sorted list
+    injectListMarkup(lis, liHead);
   }
 
   // ========================================================
-  // UI Functionality
+  // DOM Setup
   // ========================================================
 
   // Map functions to 'Show more...' anchors
@@ -207,8 +210,8 @@ resourceLibrary.ready(() => {
         }
       }, 100);
 
-      appendFilterSortButton();
-      attachButtonListeners();
+      injectSortButton();
+      attachListeners();
     });
   });
 });
