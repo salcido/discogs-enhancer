@@ -76,7 +76,7 @@ resourceLibrary.ready(() => {
       updateRatesObj = resourceLibrary.getItem('updateRatesObj');
 
     } catch (err) {
-      return console.log('Discogs Enhancer could not get currency exchange rates. Price comparisons may not be accurate. Please try again later.', err);
+      return console.log('Could not get currency exchange rates.', err);
     }
   }
 
