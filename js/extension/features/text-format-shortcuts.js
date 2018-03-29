@@ -6,9 +6,13 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * This will inject text format shortcut buttons
+ * to textarea elements within discogs that allow
+ * the user to quickly insert URLs or stylize text
+ * when leaving comments or notes.
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
+
+resourceLibrary.ready(() => {
 
   let hasTextarea = false,
       int,
@@ -21,167 +25,113 @@ $(document).ready(function() {
   /**
    * Attaches event listeners to the B, I, S, U quick-link buttons
    *
-   * @method attachButtonListeners
+   * @method attachBISUlisteners
    * @return {undefined}
    */
+  function attachBISUlisteners() {
 
-  function attachButtonListeners() {
+    let buttons = [...document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline')];
 
-    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').click(function(event) {
+    buttons.forEach(b => b.addEventListener('click', event => {
 
-      let
-          closer,
-          opener,
-          textarea = $(this).parent().siblings('textarea'),
-          syntax,
-          position = textarea.getCursorPosition(),
-          text = textarea.val();
+        let
+            closer,
+            opener,
+            syntax,
+            textarea = event.target.parentElement.parentElement.querySelector('textarea'),
+            text = textarea.value,
+            position = textarea.selectionStart || 0;
 
-      event.preventDefault();
+        event.preventDefault();
 
-      if ( $(this).hasClass('quick-bold') ) {
+        if ( event.target.classList.contains('quick-bold') ) {
+          opener = '[b]';
+          closer = '[/b]';
 
-        opener = '[b]';
-        closer = '[/b]';
+        } else if ( event.target.classList.contains('quick-italic') ) {
+          opener = '[i]';
+          closer = '[/i]';
 
-      } else if ( $(this).hasClass('quick-italic') ) {
+        } else if ( event.target.classList.contains('quick-strikethrough') ) {
+          opener = '[s]';
+          closer = '[/s]';
 
-        opener = '[i]';
-        closer = '[/i]';
+        } else if ( event.target.classList.contains('quick-underline') ) {
+          opener = '[u]';
+          closer = '[/u]';
+        }
 
-      } else if ( $(this).hasClass('quick-strikethrough') ) {
-
-        opener = '[s]';
-        closer = '[/s]';
-
-      } else if ( $(this).hasClass('quick-underline') ) {
-
-        opener = '[u]';
-        closer = '[/u]';
-      }
-
-      // Either wrap the selected text with the markup or insert it by itself
-      syntax = selected ? opener + selected + closer : opener + closer;
-
-      // insert appropriate tag syntax
-      textarea.val( text.substr(0, position) + syntax + text.substr(position + selected.length) );
-
-      // adjust cursor position to fit between the tags
-      textarea.selectRange( position + 3 );
-
-      // set the focus
-      textarea.focus().change();
-    });
-  }
-
+        // Either wrap the selected text with the markup or insert it by itself
+        syntax = selected ? opener + selected + closer : opener + closer;
+        // insert appropriate tag syntax
+        textarea.value = ( text.substr(0, position) + syntax + text.substr(position + selected.length) );
+        // adjust cursor position to fit between the tags
+        selectRange( textarea, position + 3 );
+        // set the focus
+        textarea.focus();
+        textarea.dispatchEvent(new Event('change', { 'bubbles': true }));
+      })
+    );
+  };
 
   /**
    * Adds an event listener to the link `.quick-link` button
    *
    * @method attachLinkListener
-   * @return {function|undefined}
+   * @return {method}
    */
-
   function attachLinkListener() {
 
-    $('.quick-button.quick-link').click(function(event) {
-
-      let
-          textarea = $(this).parent().siblings('textarea'),
-          discogs = 'https://www.discogs.com',
-          guideline = /(\d+\.+\d*)/g,
-          link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
-          parsed = resourceLibrary.parseURL(link),
-          position = textarea.getCursorPosition(),
-          syntax,
-          text = textarea.val();
+    document.querySelector('.quick-button.quick-link').addEventListener('click', event => {
 
       event.preventDefault();
 
-      if ( link.includes('/artist/') && link.includes(discogs) ) {
-
-        // artists
-        syntax = '[a' + parsed + ']';
-
-      } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
-
-        // guidelines
-        syntax = '[g' + link + ']';
-
-      } else if ( link.includes('/label/') && link.includes(discogs) ) {
-
-        // labels
-        syntax = '[l' + parsed + ']';
-
-      } else if ( link.includes('/master/') && link.includes(discogs) ) {
-
-        // masters
-        syntax = '[m' + parsed + ']';
-
-      } else if ( link.includes('/release/') && link.includes(discogs) ) {
-
-        // releases
-        syntax = '[r' + parsed + ']';
-
-      } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
-
-        // topics
-        syntax = '[t=' + parsed + ']';
-
-      } else if ( link.includes('/user/') && link.includes(discogs) ) {
-
-        // users
-        syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
-
-      } else if ( link.includes('http') ) {
-
-        // urls
-        syntax = '[url=' + link + '][/url]';
-
-        // insert appropriate tag syntax
-        textarea.val( text.substr(0, position) + syntax + text.substr(position) );
-
-        // adjust cursor position to fit between URL tags
-        textarea.selectRange(position + (link.length + 6));
-
-        // set the focus
-        return textarea.focus().change();
-
-      } else {
-
-        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".';
-
-        // 'a link has no name...'
-        return alert(notRecognized);
-      }
-
-      // insert appropriate tag syntax
-      textarea.val( text.substr(0, position) + syntax + text.substr(position) );
-
-      // adjust cursor position to end of the inserted tag
-      textarea.selectRange( position + syntax.length );
-
-      // set the focus
-      textarea.focus().change();
+      return parseLink(event.target);
     });
   }
-
 
   /**
-  * Grabs the text selected by the user
+  * Maintains the text value selected by the user
   *
-  * @method grabSelectedText
+  * @method attachTextSelectionListeners
   * @return {undefined}
   */
+  function attachTextSelectionListeners() {
 
-  function grabSelectedText() {
+    let textareaElement,
+        buttons = document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline');
 
-    $('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline').mousedown(function(event) {
+    [...buttons].forEach(b => {
 
-      selected = $(this).parent().siblings('textarea').getSelectedText();
+      b.addEventListener('mousedown', event => {
+
+        textareaElement = event.target.parentElement.parentElement.querySelector('textarea')
+        selected = getSelectedText(textareaElement);
+      });
     });
   }
 
+  /**
+   * Gets the selected text from an input/textarea
+   * @method getSelectedText
+   * @param  {object} target The intput/textarea element
+   * @return {string}
+   */
+  function getSelectedText(target) {
+
+    let sSelectedText = '';
+
+    if ( window.getSelection ) {
+
+      let sTagName = target.tagName.toLowerCase();
+
+      sSelectedText = ( sTagName === 'input' || sTagName === 'textarea'
+                        ? target.value.substring (target.selectionStart, target.selectionEnd)
+                        : document.getSelection().toString() );
+    }
+    console.log(sSelectedText);
+    return sSelectedText;
+  }
 
   /**
    * Injects the shortcut markup and calls click
@@ -191,12 +141,11 @@ $(document).ready(function() {
    * @method   insertShortcuts
    * @return   {undefined}
    */
-
   function insertShortcuts() {
 
     let markup = `<div class="quick-menu">
                     <button class="quick-button quick-link" title="Insert url">
-                      <i class="icon icon-chain"></i>
+                      <i class="icon icon-chain" style="pointer-events: none;"></i>
                     </button>
                     <button class="quick-button quick-bold" title="Insert bold code">B</button>
                     <button class="quick-button quick-italic" title="Insert italic code">I</button>
@@ -205,18 +154,13 @@ $(document).ready(function() {
                   </div>`;
 
     // Inject buttons into DOM
-    $(markup).insertAfter( $('textarea') );
-
-    // maintain selected text
-    grabSelectedText();
-
+    document.getElementsByTagName('textarea')[0].insertAdjacentHTML('afterend', markup);
     // bold, italic, strikethrough and underline
-    attachButtonListeners();
-
+    attachBISUlisteners();
+    attachTextSelectionListeners();
     // Links
     attachLinkListener();
   }
-
 
   /**
    * Iterate over all textarea elements and look for
@@ -226,7 +170,6 @@ $(document).ready(function() {
    * @method   inspectTextareas
    * @return   {object|boolean}
    */
-
   function inspectTextareas() {
 
     let t = [...document.getElementsByTagName('textarea')];
@@ -254,58 +197,147 @@ $(document).ready(function() {
     }
   }
 
+  /**
+   * Parses the text passed into the prompt
+   *
+   * @method   parseLink
+   * @param    {object} target The target textarea element
+   * @return   {method}
+   */
+  function parseLink(target) {
+
+    let
+        textarea = target.parentElement.parentElement.querySelector('textarea'),
+        discogs = 'https://www.discogs.com',
+        guideline = /(\d+\.+\d*)/g,
+        link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
+        parsed = resourceLibrary.parseURL(link),
+        position = textarea.selectionStart || 0,
+        syntax,
+        text = textarea.value;
+
+    if ( parsed ) {
+
+      if ( link.includes('/artist/') && link.includes(discogs) ) {
+        // artists
+        syntax = '[a' + parsed + ']';
+
+      } else if ( guideline.test(link) && !link.includes(discogs) && !link.includes('http') ) {
+        // guidelines
+        syntax = '[g' + link + ']';
+
+      } else if ( link.includes('/label/') && link.includes(discogs) ) {
+        // labels
+        syntax = '[l' + parsed + ']';
+
+      } else if ( link.includes('/master/') && link.includes(discogs) ) {
+        // masters
+        syntax = '[m' + parsed + ']';
+
+      } else if ( link.includes('/release/') && link.includes(discogs) ) {
+        // releases
+        syntax = '[r' + parsed + ']';
+
+      } else if ( link.includes('/forum/thread/') && link.includes(discogs) ) {
+        // topics
+        syntax = '[t=' + parsed + ']';
+
+      } else if ( link.includes('/user/') && link.includes(discogs) ) {
+        // users
+        syntax = '[u=' + link.split('/')[link.split('/').length - 1] + ']';
+
+      } else if ( link.includes('http') ) {
+        // urls
+        syntax = '[url=' + link + '][/url]';
+        // insert appropriate tag syntax
+        textarea.value = text.substr(0, position) + syntax + text.substr(position);
+        // adjust cursor position to fit between URL tags
+        selectRange(textarea, (position + (link.length + 6)) );
+        // set the focus
+        textarea.focus()
+        // return early
+        return textarea.dispatchEvent(new Event('change', { 'bubbles': true }));
+
+      } else {
+
+        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".';
+
+        // 'a link has no name...'
+        return alert(notRecognized);
+      }
+
+      // insert appropriate tag syntax
+      textarea.value = text.substr(0, position) + syntax + text.substr(position);
+      // adjust cursor position to end of the inserted tag
+      selectRange( textarea, position + syntax.length );
+      // set the focus
+      textarea.focus();
+      return textarea.dispatchEvent(new Event('change', { 'bubbles': true }));
+    }
+  }
+
+  /**
+   * Inserts the cursor at a specific location inside
+   * a textarea
+   * @param    {object} target [The textarea element to inspect]
+   * @param    {string} start [The start position]
+   * @param    {string} end   [The end position]
+   * @return   {object}
+   */
+  function selectRange(target, start, end) {
+
+    if ( end === undefined ) { end = start; }
+
+    if ( 'selectionStart' in target ) {
+
+      target.selectionStart = start;
+      target.selectionEnd = end;
+
+    } else if ( target.setSelectionRange ) {
+
+      target.setSelectionRange(start, end);
+    }
+
+    return target;
+  }
 
   // ========================================================
   // Init / DOM Setup
   // ========================================================
 
-  // Check for `getCursorPosition` & `getSelectedText` in jQ prototype.
-  // If they exist (ie: jQ has been successfully extended) call
-  // `inspectTextareas`. Because the comments field doesn't seem to
-  // be part of the DOM even after the document onDOMContentLoaded
-  // event has fired, I am waiting a bit before calling `inspectTextareas`.
-  int = setInterval(() => {
-
-    if ( !!$.prototype.getCursorPosition && !!$.prototype.getSelectedText ) {
-
-      clearInterval(int);
-
-      setTimeout(inspectTextareas, 750);
-    }
-  }, 100);
-
+  // Because the textareas on Discogs seem to load later than
+  // other elements, we wait for the 'load' event to fire
+  // before looking for textareas to attach our buttons to
+  window.addEventListener('load', event => inspectTextareas());
 
   // ========================================================
   // UI functionality
   // ========================================================
+  try {
+    // insert shortcuts when replying to reviews
+    document.querySelector('.review_action1.review_action1-reply').addEventListener('click', () => {
 
-  // insert shortcuts when replying to reviews
-  $('.review_action1.review_action1-reply').click(() => {
-
-    setTimeout(() => {
-
-      insertShortcuts();
-
-      // add eventlistener to cancel button once it
-      // exists in the DOM.
-      $('.reviews-cancel-event').click(() => {
-
-        // if a user cancels out of a reply,
-        // insert shortcuts on the main review textarea
-        setTimeout(insertShortcuts, 500);
-      });
-    }, 500);
-  });
-
-  // insert shortcuts when editing list items
-  $('.textedit_content').click(() => {
-
-    setTimeout(() => {
-
-      if ( !document.getElementsByClassName('quick-menu').length ) {
-
+      setTimeout(() => {
         insertShortcuts();
-      }
-    }, 500);
-  });
+        // add eventlistener to cancel button once it
+        // exists in the DOM.
+        document.querySelector('.reviews-cancel-event').addEventListener('click', () => {
+          // if a user cancels out of a reply,
+          // insert shortcuts on the main review textarea
+          setTimeout(insertShortcuts, 500);
+        });
+      }, 500);
+    });
+
+    // insert shortcuts when editing list items
+    document.querySelector('.textedit_content').addEventListener('click', () => {
+
+      setTimeout(() => {
+
+        if ( !document.getElementsByClassName('quick-menu').length ) {
+          insertShortcuts();
+        }
+      }, 500);
+    });
+  } catch(err) { /* Just catch the error */ }
 });
