@@ -771,12 +771,15 @@
     setButtonText: function(elem) {
 
       switch(elem.textContent) {
+
         case 'Sort A-Z':
           elem.textContent = 'Sort Z-A';
           return elem;
+
         case 'Sort Z-A':
           elem.textContent = 'Undo Sort';
           return elem;
+
         case 'Undo Sort':
           elem.textContent = 'Sort A-Z';
           return elem;
