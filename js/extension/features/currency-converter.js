@@ -7,8 +7,17 @@
  * @github: https://github.com/salcido
  *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
+
+ /**
+  * REFACTOR NOTES
+  *
+  * set vars for each UI element (document.querySelector('#thatCurrency'))
+  * Document functions
+  * Alphabetize functions
+  * Break up convertCurrency into smaller functions
+  */
+
+resourceLibrary.ready(() => {
 
   let
       d = new Date(),
@@ -81,173 +90,219 @@ $(document).ready(function() {
                   </div>
                 </div>`;
 
-  // Draxx them sklounst
+  // ========================================================
+  // Functions
+  // ========================================================
+
+  /**
+   * Clears the errors in the currency converter
+   * @method clearErrors
+   * @returns {string}
+   */
+  function clearErrors() {
+
+    let base = getOptionValue(document.querySelector('#thisCurrency')),
+        thatC = getOptionValue(document.querySelector('#thatCurrency'));
+
+    if ( base !== '-' && thatC !== '-' ) {
+
+      return document.querySelector('#errors').textContent = '';
+    }
+  }
+
+  /**
+   * Converts the currencies set by the user
+   * @method convertCurrency
+   * @returns {undefined}
+   */
   function convertCurrency() {
 
     let
-        errors = $('#errors'),
-        input = $('.currency-converter #ccInput'),
-        output = $('.currency-converter #ccOutput'),
+        errors = document.querySelector('#errors'),
+        input = document.querySelector('.currency-converter #ccInput'),
+        output = document.querySelector('.currency-converter #ccOutput'),
         result,
         symbol,
         symbolIndex,
-        thatSelectedCurrency = $('#thatCurrency option:selected').val(),
-        thisCurrency = $('#thisCurrency option:selected').val();
+        thatSelectedCurrency = document.querySelector('#thatCurrency').options[document.querySelector('#thatCurrency').selectedIndex].value,
+        thisCurrency = document.querySelector('#thisCurrency').options[document.querySelector('#thisCurrency').selectedIndex].value;
 
     // Figure out what we are converting to and use that symbol
-    resourceLibrary.exchangeList.forEach(function(exchangeName, i) {
+    resourceLibrary.exchangeList.forEach((exchangeName, i) => {
 
-      if (exchangeName === thatSelectedCurrency) {
+      if ( exchangeName === thatSelectedCurrency ) {
 
         return symbolIndex = i;
       }
     });
 
     // Make sure stuff is selected
-    if (thisCurrency === '-' || thatSelectedCurrency === '-') {
+    if ( thisCurrency === '-' || thatSelectedCurrency === '-' ) {
 
-      input.val('');
+      input.value = '';
 
-      output.text('');
+      output.textContent = '';
 
-      return errors.text('Please select two currencies.');
+      return errors.textContent = 'Please select two currencies.';
     }
 
     // Calculate the result
-    result = (input.val() * rates.rates[thatSelectedCurrency]).toFixed(2);
+    result = ( input.value * rates.rates[thatSelectedCurrency] ).toFixed(2);
 
     // Grab correct symbol from printSymbol array
     symbol = resourceLibrary.printSymbol[language][symbolIndex];
 
     // Voilà
-    output.text( resourceLibrary.localizeSuggestion(symbol, result, thatSelectedCurrency, language) );
+    output.textContent =  resourceLibrary.localizeSuggestion(symbol, result, thatSelectedCurrency, language);
 
     // Let's be reasonable about our conversion values
-    if (input.val().length > 10 || input.val() > 9999999) {
+    if ( input.value.length > 10 || input.value > 9999999 ) {
 
-      input.val('');
+      input.value = '';
 
       // ¯\_(ツ)_/¯
-      output.text('\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF');
+      output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF';
 
       return;
     }
 
-    if (input.val() === '') {
+    if ( input.value === '' ) {
 
-      output.text('');
-    }
-  }
-
-  // Update rates
-  function getConverterRates(base) {
-// TODO: do a check on the JSON response similar to exchange rates
-    $('#thatCurrency').prop('disabled', true);
-
-    $('.currency-converter #ccInput').prop('disabled', true);
-
-    $('.currency-converter #ccInput').attr('placeholder', 'Updating...');
-
-    $.ajax({
-
-      url:'https://api.fixer.io/latest?base=' + base + '&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,RUB,BRL,USD',
-      type: 'GET',
-
-      success: function(ratesObj) {
-
-        if (typeof ratesObj === 'object') {
-
-          resourceLibrary.setItem('converterRates', ratesObj);
-
-        } else if (typeof ratesObj === 'string') {
-
-          resourceLibrary.setItem('converterRates', JSON.parse(ratesObj));
-        }
-
-        rates = resourceLibrary.getItem('converterRates');
-
-        $('#thatCurrency').prop('disabled', false);
-
-        $('.currency-converter #ccInput').prop('disabled', false);
-
-        $('.currency-converter #ccInput').attr('placeholder', '');
-
-        convertCurrency();
-
-        if (debug) {
-
-          console.log(' ');
-          console.log('*** Converter Rates ***');
-          console.log('Date: ', rates.date);
-          console.log('Base: ', rates.base);
-          console.log(rates.rates);
-        }
-      },
-
-      error: function() {
-
-        let errorMsg = 'Discogs Enhancer could not get currency exchange rates. Price conversions may not be accurate. Please try again later.';
-
-        console.log(errorMsg);
-      }
-    });
-  }
-
-  // Clear errors
-  function clearErrors() {
-
-    let base = $('#thisCurrency option:selected').val(),
-        thatC = $('#thatCurrency option:selected').val();
-
-    if (base !== '-' && thatC !== '-') {
-
-      return $('#errors').text('');
+      output.textContent = '';
     }
   }
 
   /**
-   *
-   * DOM Setup
-   *
+   * Enables or disables the UI when the converter
+   * is updating the rates
+   * @method setUIforUpdating
+   * @param {boolean} disable Whether to enable the select/input element
+   * @param {string} placeholderText The placeholder text to display during an update
    */
+  function setUIforUpdating(disable, placeholderText) {
 
-  // Append form
-  $('body').append(markup);
+    document.querySelector('#thatCurrency').disabled = disable;
+    document.querySelector('.currency-converter #ccInput').disabled = disable;
+    document.querySelector('.currency-converter #ccInput').placeholder = placeholderText;
+  }
+
+  /**
+   * Fetches the current exchange rates from fixer.io based on the
+   * value set in the converter.
+   * @method getConverterRates
+   * @param {string} base The exchange name of the currency
+   * @returns {object}
+   */
+  async function getConverterRates(base) {
+
+    let url = `https://api.fixer.io/latest?base=${base}&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,RUB,BRL,USD`;
+
+    setUIforUpdating(true, 'Updating...');
+
+    try {
+
+      let response = await fetch(url),
+          data = await response.json();
+
+      resourceLibrary.setItem('converterRates', data);
+      rates = resourceLibrary.getItem('converterRates');
+
+      setUIforUpdating(false, '');
+      convertCurrency();
+
+      if ( debug ) {
+
+        console.log(' ');
+        console.log('*** Converter Rates ***');
+        console.log('Date: ', rates.date);
+        console.log('Base: ', rates.base);
+        console.log(rates.rates);
+      }
+    } catch(err) {
+
+      console.log('Could not get exchange rates for currency converter', err);
+
+      document.querySelector('.currency-converter #ccInput').placeholder = '';
+      document.querySelector('#errors').textContent = 'Error. Please try again later.'
+    }
+  }
+
+  /**
+   * Returns the value of the selected option from a select element
+   * @method getOptionValue
+   * @param {object} elem The select element to get the option value from
+   * @returns {string}
+   */
+  function getOptionValue(elem) {
+    return elem.options[elem.options.selectedIndex].value;
+  }
+
+  // ========================================================
+  // DOM Setup
+  // ========================================================
+
+  // First thing to do is inject the form into the page
+  document.body.insertAdjacentHTML('beforeend', markup);
+  // TODO set element vars here
 
   // Check for existing rates
-  if (!resourceLibrary.getItem('converterRates')) {
+  if ( !resourceLibrary.getItem('converterRates') ) {
 
     rates = null;
     thisSelectedCurrency = null;
 
   } else {
 
+    let sel = document.querySelector('#thisCurrency');
+
     rates = resourceLibrary.getItem('converterRates');
     thisSelectedCurrency = rates.base;
+
+    // Select the value for thisCurrency if available
+    [...sel.options].forEach(o => {
+      if ( o.value === rates.base ) {
+        o.selected = true;
+      }
+    });
   }
 
-  // Set default value for #thisCurrency select
-  if (thisSelectedCurrency) {
+  // Disable the matching currency in the other select box
+  // so that you can't compare EUR to EUR, etc...
+  if ( thisSelectedCurrency ) {
 
-    $('#thisCurrency').val(thisSelectedCurrency);
+    let sel = document.querySelector('#thatCurrency');
 
-    $('#thatCurrency option[value="' + thisSelectedCurrency + '"]').prop('disabled', true);
+    [...sel.options].forEach(o => {
+      if ( o.value === thisSelectedCurrency ) {
+        o.disabled = true;
+      }
+    });
   }
 
   // Remember state for #thatCurrency
-  if (lastUsedCurrency) {
+  if ( lastUsedCurrency ) {
 
-    $('#thatCurrency').val(lastUsedCurrency);
+    let sel = document.querySelector('#thatCurrency');
+
+    [...sel.options].forEach(o => {
+      if ( o.value === lastUsedCurrency ) {
+        o.selected = true;
+      }
+    });
   }
 
   // Disable ability to select '-' option
   // so ajax call does not come back 422 (Unprocessable Entity)
-  $('#thisCurrency option[value="-"]').prop('disabled', true);
+  [...document.querySelector('#thisCurrency').options].forEach(o => {
+    if ( o.value === '-' ) {
+      o.disabled = true;
+    }
+  });
 
   // Check to see how old the rates are and update them if needed
-  if (rates && rates.date !== today) {
+  if ( rates && rates.date !== today ) {
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' ');
       console.log(' *** Auto-updating Currency Converter rates *** ');
@@ -258,58 +313,50 @@ $(document).ready(function() {
     getConverterRates(rates.base);
   }
 
+  // ========================================================
+  // Form Functionality
+  // ========================================================
 
-  /**
-   *
-   * Form Functionality
-   *
-   */
+  // Calculate currency value on each key stroke.
+  // `setTimeout` is used here because without it, calculations are not performed in
+  // realtime and, instead, are one calculation behind the last digit entered.
+  document.querySelector('.currency-converter #ccInput').addEventListener('keyup', () => setTimeout(convertCurrency, 0));
+  document.querySelector('.currency-converter #ccInput').addEventListener('keydown', () => setTimeout(convertCurrency, 0));
 
-  $('.currency-converter #ccInput').on('keyup, keydown', function() {
-    /* setTimeout is used here because without it, calculations are not performed in
-       realtime and, instead, are one calculation behind the last digit entered.
-       What is a better way to do this? */
-    setTimeout(convertCurrency, 0);
-  });
-
-
-  /**
-   *
-   * UI Functionality
-   *
-   */
+  // ========================================================
+  // UI Functionality
+  // ========================================================
 
   // Clear out all data
-  $('.currency-converter #clear').on('click', function() {
+  document.querySelector('.currency-converter #clear').addEventListener('click', () => {
 
-    let
-        disolve,
-        hasDecimal = $('.currency-converter #ccInput').val().includes('.');
+    let disolve,
+        input = document.querySelector('.currency-converter #ccInput'),
+        hasDecimal = input.value.includes('.');
 
     // Strip decimal to stop Chrome from console.warning on invalid number
-    if (hasDecimal) {
+    if ( hasDecimal ) {
 
-      let amount = $('.currency-converter #ccInput').val();
+      let amount = input.value;
 
       amount = amount.replace('.', '');
-      $('.currency-converter #ccInput').val(amount);
+      input.value = amount;
     }
 
-    disolve = setInterval(function() {
+    // Delete the value from the input in an animated fashion
+    disolve = setInterval(() => {
 
-      let
-          input = $('.currency-converter #ccInput'),
-          output = $('.currency-converter #ccOutput'),
-          text = input.text(),
-          val = input.val();
+      let output = document.querySelector('.currency-converter #ccOutput'),
+          text = input.textContent,
+          val = input.value;
 
       text = val.substring(0, val.length - 1);
 
-      input.val(text);
+      input.value = text;
 
-      output.text( input.val() );
+      output.textContent = input.value;
 
-      if (val <= 0 && val.length < 1) {
+      if ( val <= 0 && val.length < 1 ) {
 
         clearInterval(disolve);
       }
@@ -318,75 +365,61 @@ $(document).ready(function() {
 
 
   // Update base value on change
-  $('#thisCurrency').on('change', function() {
+  document.querySelector('#thisCurrency').addEventListener('change', () => {
 
-    let
-        base = $('#thisCurrency option:selected').val(),
-        thatC = $('#thatCurrency option:selected').val();
+    let base = document.querySelector('#thisCurrency'),
+        baseValue = getOptionValue(base),
+        thatC = document.querySelector('#thatCurrency'),
+        thatCvalue = getOptionValue(thatC);
 
     // Reset #thatCurrency if #thisCurrency is the same
-    if (base === thatC) {
+    if ( baseValue === thatCvalue ) {
 
-      $('#thatCurrency option:eq(0)').prop('selected', true);
+      thatC.options.selectedIndex = 0;
     }
 
     clearErrors();
-
     // Disable option if used as base currency
-    $('#thatCurrency option[value="' + base + '"]').prop('disabled', true).siblings().prop('disabled', false);
-
+    $('#thatCurrency option[value="' + baseValue + '"]').prop('disabled', true).siblings().prop('disabled', false);
     // Update rates
-    getConverterRates(base);
+    getConverterRates(baseValue);
   });
 
 
-  // Show/Hide converter
-  $('body').on('click', '.currency-converter .toggle', function() {
+  // Show/Hide converter on click
+  document.querySelector('.currency-converter .toggle').addEventListener('click', event => {
 
-    let
-        base = $('#thisCurrency option:selected').val(),
-        thatC = $('#thatCurrency option:selected').val();
+    let base = getOptionValue(document.querySelector('#thisCurrency')),
+        thatC = getOptionValue(document.querySelector('#thatCurrency')),
+        converter = document.querySelector('.currency-converter');
 
     // Reset #thatCurrency if #thisCurrency is the same
-    if (base === thatC) {
-
-      $('#thatCurrency option:eq(0)').prop('selected', true);
+    if ( base === thatC ) {
+      document.querySelector('#thatCurrency').options.selectedIndex = 0;
     }
 
-    $('.currency-converter').toggleClass('show-converter');
+    // Show/Hide the converter
+    converter.classList.contains('show-converter')
+      ? converter.classList.remove('show-converter')
+      : converter.classList.add('show-converter');
 
-    document.getElementById('ccInput').focus();
-
+    // Set the focus on the input
+    document.querySelector('#ccInput').focus();
     // Clear out errors so hiding continues to work as expected
-    $('#errors').text('');
-
-    return $(this).text() === '¥ € $' ? $(this).text('£ € $ $') : $(this).text('¥ € $');
+    document.querySelector('#errors').textContent = '';
+    // Change the tab text
+    return event.target.textContent === '¥ € $'
+            ? event.target.textContent = '£ € $ $'
+            : event.target.textContent = '¥ € $';
   });
 
 
   // Save last known state of #thatCurrency
-  $('#thatCurrency').on('change', function() {
+  document.querySelector('#thatCurrency').addEventListener('change', () => {
 
     clearErrors();
     convertCurrency();
 
-    resourceLibrary.setItem('lastUsedCurrency', $('#thatCurrency option:selected').val());
-  });
-
-
-  // Keyboard shortcut
-  document.addEventListener('keyup', function(e) {
-
-    // Shift + Ctrl + C
-    if (e.shiftKey && e.ctrlKey && e.which === 67) {
-
-      let tab = $('.currency-converter .toggle');
-
-      $('.currency-converter').toggleClass('show-converter');
-
-      document.getElementById('ccInput').focus();
-
-      return tab.text() === '¥ € $' ? tab.text('£ € $ $') : tab.text('¥ € $');
-    }
+    resourceLibrary.setItem('lastUsedCurrency', getOptionValue(document.querySelector('#thatCurrency')));
   });
 });
