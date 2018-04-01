@@ -129,7 +129,7 @@ resourceLibrary.ready(() => {
                         ? target.value.substring (target.selectionStart, target.selectionEnd)
                         : document.getSelection().toString() );
     }
-    console.log(sSelectedText);
+
     return sSelectedText;
   }
 
