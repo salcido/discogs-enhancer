@@ -140,6 +140,21 @@ resourceLibrary.ready(() => {
   }
 
   /**
+   * Disables an option in a select element
+   * @param {object} select The select element to iterate over
+   * @param {string} value The string to compare the option value to
+   * @returns {undefined}
+   */
+  function disableOption(select, value) {
+
+    [...select.options].forEach(opt => {
+      if (opt.value === value) {
+        opt.disabled = true;
+      }
+    });
+  }
+
+  /**
    * Deletion animation that runs when clear is pressed.
    * @method disolveAnimation
    * @returns {undefined}
@@ -235,6 +250,21 @@ resourceLibrary.ready(() => {
   }
 
   /**
+   * Selects an option from a select element
+   * @param {object} select The select element to iterate over
+   * @param {string} value The value to compare the options to
+   * @returns {undefined}
+   */
+  function selectOption(select, value) {
+
+    [...select.options].forEach(opt => {
+      if (opt.value === value) {
+        opt.selected = true;
+      }
+    });
+  }
+
+  /**
    * Enables or disables the UI when the converter
    * is updating the rates
    * @method setUIforUpdating
@@ -285,41 +315,20 @@ resourceLibrary.ready(() => {
 
     rates = resourceLibrary.getItem('converterRates');
     // Select the value for `baseCurrency` if available
-    [...baseCurrency.options].forEach(opt => {
-      if ( opt.value === rates.base ) {
-        opt.selected = true;
-      }
-    });
+    selectOption(baseCurrency, rates.base);
   }
-
   // Remember state for #userCurrency
   if ( lastUsedCurrency ) {
-
-    [...userCurrency.options].forEach(opt => {
-      if ( opt.value === lastUsedCurrency ) {
-        opt.selected = true;
-      }
-    });
+    selectOption(userCurrency, lastUsedCurrency);
   }
-
+  // Disable ability to select '-' option
+  // so ajax call does not come back 422 (Unprocessable Entity)
+  disableOption(baseCurrency, '-');
   // Disable the matching currency in the other select box
   // so that you can't compare EUR to EUR, etc...
   if ( rates.base ) {
-
-    [...userCurrency.options].forEach(opt => {
-      if ( opt.value === rates.base ) {
-        opt.disabled = true;
-      }
-    });
+    disableOption(userCurrency, rates.base);
   }
-
-  // Disable ability to select '-' option
-  // so ajax call does not come back 422 (Unprocessable Entity)
-  [...baseCurrency.options].forEach(opt => {
-    if ( opt.value === '-' ) {
-      opt.disabled = true;
-    }
-  });
 
   // Check to see how old the rates are and update them if needed
   if ( rates && rates.date !== today ) {
@@ -351,7 +360,6 @@ resourceLibrary.ready(() => {
   document.querySelector('.currency-converter #clear').addEventListener('click', () => {
 
     let hasDecimal = input.value.includes('.');
-
     // Strip decimal to stop Chrome from console.warning on invalid number
     if ( hasDecimal ) { input.value = input.value.replace('.', ''); }
     // Delete the value from the input in an animated fashion
