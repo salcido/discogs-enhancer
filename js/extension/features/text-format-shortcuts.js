@@ -15,7 +15,6 @@
 resourceLibrary.ready(() => {
 
   let hasTextarea = false,
-      int,
       selected = '';
 
   // ========================================================
@@ -69,10 +68,10 @@ resourceLibrary.ready(() => {
         selectRange( textarea, position + 3 );
         // set the focus
         textarea.focus();
-        textarea.dispatchEvent(new Event('change', { 'bubbles': true }));
+        textarea.dispatchEvent(new Event('change', { bubbles: true }));
       })
     );
-  };
+  }
 
   /**
    * Adds an event listener to the link `.quick-link` button
@@ -105,7 +104,7 @@ resourceLibrary.ready(() => {
 
       b.addEventListener('mousedown', event => {
 
-        textareaElement = event.target.parentElement.parentElement.querySelector('textarea')
+        textareaElement = event.target.parentElement.parentElement.querySelector('textarea');
         selected = getSelectedText(textareaElement);
       });
     });
@@ -254,9 +253,9 @@ resourceLibrary.ready(() => {
         // adjust cursor position to fit between URL tags
         selectRange(textarea, (position + (link.length + 6)) );
         // set the focus
-        textarea.focus()
+        textarea.focus();
         // return early
-        return textarea.dispatchEvent(new Event('change', { 'bubbles': true }));
+        return textarea.dispatchEvent(new Event('change', { bubbles: true }));
 
       } else {
 
@@ -272,7 +271,7 @@ resourceLibrary.ready(() => {
       selectRange( textarea, position + syntax.length );
       // set the focus
       textarea.focus();
-      return textarea.dispatchEvent(new Event('change', { 'bubbles': true }));
+      return textarea.dispatchEvent(new Event('change', { bubbles: true }));
     }
   }
 
