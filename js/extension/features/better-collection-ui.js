@@ -27,7 +27,7 @@ resourceLibrary.ready(() => {
             bottomButtons = document.querySelector('.release_list_actions.multiple-buttons.bottom .fright'),
             bottomSelectFolder = document.getElementById('move_folder_id_bottom').outerHTML,
             moveButtonMarkup = document.querySelector('[name^="Action.MoveItems"]').outerHTML,
-            toFolderString = `&nbsp; to folder: &nbsp;`,
+            toFolderString = '&nbsp; to folder: &nbsp;',
             topButtons = document.querySelector('.release_list_actions.multiple-buttons.top .fright'),
             topSelectFolder = document.getElementById('move_folder_id_top').outerHTML;
 
