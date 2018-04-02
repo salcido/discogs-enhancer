@@ -16,6 +16,7 @@
 resourceLibrary.ready(() => {
 
   let button,
+      tooltip,
       iconSize = '14px',
       icon = `<li style="position: relative;">
                 <a class="nav_group_control de-random-item" style="font-size: ${iconSize}; margin-top: 2px;>
@@ -68,7 +69,7 @@ resourceLibrary.ready(() => {
   // Append the markup
   document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
 
-  button = document.querySelector('.de-random-item'),
+  button = document.querySelector('.de-random-item');
   tooltip = document.querySelector('.de-random-tooltip');
 
   // Add click functionality to badge markup
