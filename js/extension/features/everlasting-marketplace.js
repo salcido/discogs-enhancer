@@ -7,8 +7,8 @@
  * @github: https://github.com/salcido
  *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
+
+resourceLibrary.ready(() => {
 
   let
       hasLoaded = false,
@@ -25,11 +25,11 @@ $(document).ready(function() {
         filterUpdateLink,
         language = resourceLibrary.language();
 
-    pagination = document.getElementsByClassName('pagination_total')[0].textContent;
+    pagination = document.querySelector('.pagination_total').textContent;
 
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
-    switch (language) {
+    switch ( language ) {
 
       // German
       case 'de':
@@ -77,7 +77,7 @@ $(document).ready(function() {
                        </div>`;
 
     // Everlasting Marketplace add/remove filters bar
-    $('body').append(filterUpdateLink);
+    document.body.insertAdjacentHTML('beforeend', filterUpdateLink);
 
     // append preloader to bottom
     if ( !document.getElementById('de-next') ) {
@@ -89,21 +89,17 @@ $(document).ready(function() {
                               ${resourceLibrary.css.preloader}
                          </div>`;
 
-      $('#pjax_container').append(loaderMarkup);
+      document.querySelector('#pjax_container').insertAdjacentHTML('beforeend', loaderMarkup);
     }
 
     // Hide standard means of page navigation
-    $('.pagination_page_links').hide();
-
-    // Remove results total and replace with NM indicator
-    pagination.textContent = 'Everlasting Marketplace: ' + pTotal + ' results';
+    [...document.querySelectorAll('.pagination_page_links')].forEach(el => el.style.display = 'none');
 
     // Scroll the browser up to the top so the user can change Marketplace filters
-    $('body').on('click', '#de-update-filters', function(event) {
+    document.querySelector('#de-update-filters').addEventListener('click', event => {
 
       event.preventDefault();
-
-      $('body, html').animate({scrollTop: 0}, 300);
+      window.scroll({ top: 0, left: 0 });
     });
 
     /**
@@ -111,94 +107,101 @@ $(document).ready(function() {
      * @method   getNextPage
      * @return   {undefined}
      */
-    function getNextPage() {
+    async function getNextPage() {
 
-      let selectBox = $('.de-scroll-to-page'),
-          type = href.includes('/sell/mywants') ? 'mywants' : 'list';
+      let type = href.includes('/sell/mywants') ? 'mywants' : 'list',
+          url = `/sell/${type}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
 
-      $.ajax({
-        url: '/sell/' + type + '?page=' + Number(pageNum) + resourceLibrary.removePageParam(href),
-        type: 'GET',
-        success: function(res) {
+      try {
 
-          let markup = $(res).find('#pjax_container tbody').html(),
-              page = 'Page: ' + pageNum;
+        let selectBox = document.querySelector('.de-scroll-to-page'),
+            response = await fetch(url, { credentials: 'include' }),
+            data = await response.text(),
+            div = document.createElement('div'),
+            opt = document.createElement('option'),
+            page = 'Page: ' + pageNum,
+            markup;
+        // TODO move all this into a method
+        div.innerHTML = data;
 
-          if (markup) {
+        markup = div.querySelector('#pjax_container tbody')
+                  ? div.querySelector('#pjax_container tbody').innerHTML
+                  : null;
 
-            let nextSetIndicator = `<tr class="shortcut_navigable">
-                                      <td class="item_description">
-                                         <h2 class="de-current-page" id="de-page-${pageNum}">${page}</h2>
-                                      </td>
-                                   </tr>`;
+        if ( markup ) {
 
-            // Append page number to the DOM
-            $('#pjax_container tbody:last-child').append(nextSetIndicator);
+          let nextSetIndicator = `<tr class="shortcut_navigable">
+                                    <td class="item_description">
+                                      <h2 class="de-current-page" id="de-page-${pageNum}">${page}</h2>
+                                    </td>
+                                  </tr>`;
 
-            // Append new items to the DOM
-            $('#pjax_container tbody:last-child').append(markup);
+          // Append page number to the DOM
+          document.querySelector('#pjax_container tbody:last-child').insertAdjacentHTML('afterEnd', nextSetIndicator);
+          // Append new items to the DOM
+          document.querySelector('#pjax_container tbody:last-child').insertAdjacentHTML('afterEnd', markup);
 
-            // Inject options into scroll-to-page select box
-            selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
+          // Inject options into scroll-to-page select box
+          opt.value = pageNum;
+          opt.textContent = `Page: ${pageNum}`;
+          selectBox.insertAdjacentElement('beforeend', opt);
 
-          } else {
+        } else {
 
-            $('#de-next').remove();
-
-            $('#pjax_container').append('<h1 class="de-no-results">No more items for sale found</h1>');
-          }
-
-          pageNum++;
-
-          hasLoaded = false;
-
-          // apply Marketplace Highlights
-          if ( window.applyStyles ) {
-
-            window.applyStyles();
-          }
-
-          // apply price comparisons
-          if ( window.injectPriceLinks ) {
-
-            window.injectPriceLinks();
-          }
-
-          // Hide/tag sellers in marketplace
-          if ( blockList && blockList.hide === 'global' && window.modifySellers ||
-              blockList && blockList.hide === 'marketplace' && window.modifySellers ) {
-
-            window.modifySellers('hide');
-          }
-
-          if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
-
-            window.modifySellers('tag');
-          }
-
-          // filter marketplace item by condition
-          if ( window.hideItems ) {
-
-            window.hideItems();
-          }
-
-          // Filter marketplace by country
-          if ( window.filterByCountry ) {
-
-            window.filterByCountry();
-          }
-
-          if ( window.sellersRep ) {
-
-            window.sellersRep();
-          }
-
-          // Release ratings
-          if ( window.insertRatingsLink ) {
-
-            window.insertRatingsLink();
-          }
+          document.querySelector('#de-next').remove();
+          document.querySelector('#pjax_container').insertAdjacentHTML('beforeend','<h1 class="de-no-results">No more items for sale found</h1>');
         }
+
+        pageNum++;
+        hasLoaded = false;
+
+        // apply Marketplace Highlights
+        if (window.applyStyles) { window.applyStyles(); }
+
+        // apply price comparisons
+        if (window.injectPriceLinks) { window.injectPriceLinks(); }
+
+        // Hide/tag sellers in marketplace
+        if ( blockList && blockList.hide === 'global' && window.modifySellers ||
+             blockList && blockList.hide === 'marketplace' && window.modifySellers ) {
+
+          window.modifySellers('hide');
+        }
+
+        if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
+          window.modifySellers('tag');
+        }
+
+        // filter marketplace item by condition
+        if ( window.hideItems ) { window.hideItems(); }
+
+        // Filter marketplace by country
+        if ( window.filterByCountry ) { window.filterByCountry(); }
+
+        if ( window.sellersRep ) { window.sellersRep(); }
+
+        // Release ratings
+        if ( window.insertRatingsLink ) { window.insertRatingsLink(); }
+
+      } catch (err) {
+        console.error('ahh snap', err);
+      }
+    }
+
+    // Resume loading shortcut
+    function addResumeListener() {
+
+      document.querySelector('.de-resume').addEventListener('click', event => {
+
+        event.preventDefault();
+
+        document.querySelector('.icon-play').parentElement.innerHTML = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>';
+        document.querySelector('#de-next .icon-spinner').style.display = 'block';
+        document.querySelector('.de-next-text').textContent = 'Loading next page...';
+
+        paused = false;
+
+        return getNextPage();
       });
     }
 
@@ -207,65 +210,50 @@ $(document).ready(function() {
     // ========================================================
 
     // Pause/resume Everlasting Marketplace
-    $('body').on('click', '.de-pause', function(event) {
+    document.querySelector('.de-pause').addEventListener('click', event => {
 
       let target = event.target;
 
       // Paused
-      if ( $(target).hasClass('icon-pause') ) {
+      if ( target.classList.contains('icon-pause') ) {
 
-        $(target).parent().html('<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>');
+        target.parentElement.innerHTML = '<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>';
 
-        $('#de-next .icon-spinner').hide();
-
-        $('.de-next-text').html('<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>');
+        document.querySelector('#de-next .icon-spinner').style.display = 'none';
+        document.querySelector('.de-next-text').innerHTML = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>';
 
         paused = true;
+
+        addResumeListener();
 
       // Resume
       } else {
 
-        $(target).parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
+        target.parentElement.innerHTML = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>';
 
-        $('#de-next .icon-spinner').show();
-
-        $('.de-next-text').text('Loading next page...');
+        document.querySelector('#de-next .icon-spinner').style.display = 'block';
+        document.querySelector('.de-next-text').textContent = 'Loading next page...';
 
         paused = false;
       }
     });
 
-    // Resume loading shortcut
-    $('body').on('click', '.de-resume', function(event) {
-
-      event.preventDefault();
-
-      $('.icon-play').parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
-
-      $('#de-next .icon-spinner').show();
-
-      $('.de-next-text').text('Loading next page...');
-
-      paused = false;
-
-      return getNextPage();
-    });
-
     // scroll to page section select box functionality
-    $('.de-scroll-to-page').on('change', function(event) {
+    document.querySelector('.de-scroll-to-page').addEventListener('change', event => {
 
       let target = event.target,
           targetId = '#de-page-' + target.value;
 
-      if (target.value) {
+      if ( target.value ) {
 
-        if (target.value === '1') {
+        if ( target.value === '1' ) {
 
-          $('body, html').animate( {scrollTop:$('#site_header').position().top}, 300 );
+          window.scroll({ top: 0, left: 0 });
 
         } else {
 
-          $('body, html').animate( {scrollTop:$(targetId).position().top}, 300 );
+          document.querySelector(targetId).scrollIntoView();
+          window.scroll({top: window.scrollY - 30, left: 0});
         }
       }
     });
@@ -274,32 +262,34 @@ $(document).ready(function() {
     // Scrolling Functionality
     // ========================================================
 
-    $(document).on('scroll', window, function() {
+    window.addEventListener('scroll', () => {
 
       let
-          everlasting = $('.de-page-bar'), // wrapped in jQ selector so it can use position() method
-          kurtLoder = document.getElementById('de-next'), // also former MTV anchor,
-          currentPage = document.getElementsByClassName('de-current-page'),
-          pageIndicator = document.getElementsByClassName('de-page')[0],
-          siteHeader = document.getElementById('site_header');
+          everlasting = $('.de-page-bar'), // TODO move animation to CSS file
+          kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
+          pageIndicator = document.getElementsByClassName('de-current-page'),
+          currentPage = document.querySelector('.de-page'),
+          siteHeader = document.querySelector('#site_header');
 
-      if ( resourceLibrary.isOnScreen(kurtLoder) && !hasLoaded && !paused ) {
+      if ( resourceLibrary.isOnScreen(kurtLoder)
+            && !hasLoaded
+            && !paused ) {
 
         hasLoaded = true;
 
         return getNextPage();
       }
 
-      // hide the page bar if at top of screen
+      // Hide the page bar if at top of screen
       if ( resourceLibrary.isOnScreen(siteHeader) ) {
 
-        everlasting.animate({top: '-35px'});
-
-        pageIndicator.textContent = 'Page: 1';
+        everlasting.animate({top: '-35px'}); // TODO move animation to CSS file
+        currentPage.textContent = 'Page: 1';
 
       } else {
 
-        if ( !resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30 ) {
+        if ( !resourceLibrary.isOnScreen(siteHeader)
+              && everlasting.position().top < -30 ) {
 
           everlasting.animate({top: '0px'});
         }
@@ -309,15 +299,15 @@ $(document).ready(function() {
       // of results in the Everlasting Marketplace top bar.
       // I feel bad for writing this and even worse now that
       // you're looking at it.
-      if ( currentPage && currentPage.length > 0 ) {
+      if ( pageIndicator && pageIndicator.length > 0 ) {
 
         for ( let i = 0; i < pageNum; i++ ) {
 
           try {
 
-            if ( resourceLibrary.isOnScreen(currentPage[i]) ) {
+            if ( resourceLibrary.isOnScreen(pageIndicator[i]) ) {
 
-              pageIndicator.textContent = currentPage[i].textContent;
+              currentPage.textContent = pageIndicator[i].textContent;
             }
           } catch (e) {
             // I'm just here so I don't throw errors
