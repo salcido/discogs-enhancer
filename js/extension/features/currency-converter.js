@@ -110,7 +110,7 @@ resourceLibrary.ready(() => {
 
     let result,
         symbol,
-        symbolIndex = getExchangeSymbol();
+        symbolIndex = getExchangeSymbolIndex();
 
     // Make sure stuff is selected
     if ( baseCurrency.value === '-' || userCurrency.value === '-' ) {
@@ -153,13 +153,13 @@ resourceLibrary.ready(() => {
 
       text = val.substring(0, val.length - 1);
       input.value = text;
-      output.textContent = input.value;
+      convertCurrency();
 
       if ( val <= 0 && val.length < 1 ) {
 
         clearInterval(disolve);
       }
-    }, 20);
+    }, 30);
   }
 
   /**
@@ -208,20 +208,20 @@ resourceLibrary.ready(() => {
    * that matches the user's currency value which is used
    * to look up the currency symbol to display in the
    * converter.
-   * @method getExchangeSymbol
+   * @method getExchangeSymbolIndex
    * @returns {integer}
    */
-  function getExchangeSymbol() {
+  function getExchangeSymbolIndex() {
 
-    let idx;
+    let index;
 
     resourceLibrary.exchangeList.forEach((exchangeName, i) => {
       if ( exchangeName === userCurrency.value ) {
-        idx = i;
+        index = i;
       }
     });
 
-    return idx;
+    return index;
   }
 
   /**
@@ -345,7 +345,7 @@ resourceLibrary.ready(() => {
     disolveAnimation();
   });
 
-  // Update base value on change
+  // Update the UI depending on the selected base currency
   document.querySelector('#baseCurrency').addEventListener('change', () => {
 
     let baseValue = getOptionValue(baseCurrency),
@@ -357,7 +357,8 @@ resourceLibrary.ready(() => {
     }
 
     clearErrors();
-    // Disable option if used as base currency
+    // Disable the cooresponding option in `userCurrency` if
+    // it is the same as `baseCurrency`
     [...userCurrency.options].forEach(opt => {
       return opt.value === baseValue ? opt.disabled = true : opt.disabled = false;
     });
