@@ -8,24 +8,19 @@
  *
  */
 
- /**
-  * REFACTOR NOTES
-  *
-  * set vars for each UI element (document.querySelector('#thatCurrency'))
-  * Document functions
-  * Alphabetize functions
-  * Break up convertCurrency into smaller functions
-  */
-
 resourceLibrary.ready(() => {
 
   let
       d = new Date(),
       debug = resourceLibrary.options.debug(),
+      errors,
       language = resourceLibrary.language(),
       lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency'),
       rates,
-      thisSelectedCurrency,
+      input,
+      output,
+      baseCurrency,
+      userCurrency,
       today = d.toISOString().split('T')[0],
       markup = `<div class="currency-converter">
                   <div class="toggle">¥ € $</div>
@@ -33,7 +28,7 @@ resourceLibrary.ready(() => {
                     <div class="ui-wrap">
                       <div class="currency">Convert:</div>
                       <div class="currency-select">
-                        <select id="thisCurrency">
+                        <select id="baseCurrency">
                           <option value="-">-</option>
                           <option value="AUD">AUD (A$)</option>
                           <option value="BRL">BRL (R$)</option>
@@ -60,7 +55,7 @@ resourceLibrary.ready(() => {
                     <div class="ui-wrap">
                       <div class="currency">To:</div>
                       <div class="currency-select">
-                        <select id="thatCurrency">
+                        <select id="userCurrency">
                           <option value="-">-</option>
                           <option value="AUD">AUD (A$)</option>
                           <option value="BRL">BRL (R$)</option>
@@ -101,12 +96,8 @@ resourceLibrary.ready(() => {
    */
   function clearErrors() {
 
-    let base = getOptionValue(document.querySelector('#thisCurrency')),
-        thatC = getOptionValue(document.querySelector('#thatCurrency'));
-
-    if ( base !== '-' && thatC !== '-' ) {
-
-      return document.querySelector('#errors').textContent = '';
+    if ( baseCurrency !== '-' && userCurrency !== '-' ) {
+      return errors.textContent = '';
     }
   }
 
@@ -117,73 +108,58 @@ resourceLibrary.ready(() => {
    */
   function convertCurrency() {
 
-    let
-        errors = document.querySelector('#errors'),
-        input = document.querySelector('.currency-converter #ccInput'),
-        output = document.querySelector('.currency-converter #ccOutput'),
-        result,
+    let result,
         symbol,
-        symbolIndex,
-        thatSelectedCurrency = document.querySelector('#thatCurrency').options[document.querySelector('#thatCurrency').selectedIndex].value,
-        thisCurrency = document.querySelector('#thisCurrency').options[document.querySelector('#thisCurrency').selectedIndex].value;
-
-    // Figure out what we are converting to and use that symbol
-    resourceLibrary.exchangeList.forEach((exchangeName, i) => {
-
-      if ( exchangeName === thatSelectedCurrency ) {
-
-        return symbolIndex = i;
-      }
-    });
+        symbolIndex = getExchangeSymbol();
 
     // Make sure stuff is selected
-    if ( thisCurrency === '-' || thatSelectedCurrency === '-' ) {
+    if ( baseCurrency.value === '-' || userCurrency.value === '-' ) {
 
       input.value = '';
-
       output.textContent = '';
 
       return errors.textContent = 'Please select two currencies.';
     }
 
     // Calculate the result
-    result = ( input.value * rates.rates[thatSelectedCurrency] ).toFixed(2);
-
+    result = ( input.value * rates.rates[userCurrency.value] ).toFixed(2);
     // Grab correct symbol from printSymbol array
     symbol = resourceLibrary.printSymbol[language][symbolIndex];
-
     // Voilà
-    output.textContent =  resourceLibrary.localizeSuggestion(symbol, result, thatSelectedCurrency, language);
+    output.textContent =  resourceLibrary.localizeSuggestion(symbol, result, userCurrency.value, language);
 
     // Let's be reasonable about our conversion values
     if ( input.value.length > 10 || input.value > 9999999 ) {
 
       input.value = '';
-
       // ¯\_(ツ)_/¯
-      output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF';
-
-      return;
+      return output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF';
     }
 
-    if ( input.value === '' ) {
-
-      output.textContent = '';
-    }
+    if ( input.value === '' ) { output.textContent = ''; }
   }
 
   /**
-   * Enables or disables the UI when the converter
-   * is updating the rates
-   * @method setUIforUpdating
-   * @param {boolean} disable Whether to enable the select/input element
-   * @param {string} placeholderText The placeholder text to display during an update
+   * Deletion animation that runs when clear is pressed.
+   * @method disolveAnimation
+   * @returns {undefined}
    */
-  function setUIforUpdating(disable, placeholderText) {
+  function disolveAnimation() {
 
-    document.querySelector('#thatCurrency').disabled = disable;
-    document.querySelector('.currency-converter #ccInput').disabled = disable;
-    document.querySelector('.currency-converter #ccInput').placeholder = placeholderText;
+    let disolve = setInterval(() => {
+
+      let text = input.textContent,
+          val = input.value;
+
+      text = val.substring(0, val.length - 1);
+      input.value = text;
+      output.textContent = input.value;
+
+      if ( val <= 0 && val.length < 1 ) {
+
+        clearInterval(disolve);
+      }
+    }, 20);
   }
 
   /**
@@ -218,13 +194,34 @@ resourceLibrary.ready(() => {
         console.log('Base: ', rates.base);
         console.log(rates.rates);
       }
-    } catch(err) {
+    } catch ( err ) {
 
       console.log('Could not get exchange rates for currency converter', err);
 
-      document.querySelector('.currency-converter #ccInput').placeholder = '';
-      document.querySelector('#errors').textContent = 'Error. Please try again later.'
+      input.placeholder = '';
+      errors.textContent = 'Error. Please try again later.'
     }
+  }
+
+  /**
+   * Returns the index number from the exchangeList array
+   * that matches the user's currency value which is used
+   * to look up the currency symbol to display in the
+   * converter.
+   * @method getExchangeSymbol
+   * @returns {integer}
+   */
+  function getExchangeSymbol() {
+
+    let idx;
+
+    resourceLibrary.exchangeList.forEach((exchangeName, i) => {
+      if ( exchangeName === userCurrency.value ) {
+        idx = i;
+      }
+    });
+
+    return idx;
   }
 
   /**
@@ -237,65 +234,76 @@ resourceLibrary.ready(() => {
     return elem.options[elem.options.selectedIndex].value;
   }
 
+  /**
+   * Enables or disables the UI when the converter
+   * is updating the rates
+   * @method setUIforUpdating
+   * @param {boolean} disable Whether to enable the select/input element
+   * @param {string} placeholderText The placeholder text to display during an update
+   */
+  function setUIforUpdating(disable, placeholderText) {
+
+    userCurrency.disabled = disable;
+    output.disabled = disable;
+    input.placeholder = placeholderText;
+  }
+
   // ========================================================
-  // DOM Setup
+  // DOM Setup / Init
   // ========================================================
 
   // First thing to do is inject the form into the page
   document.body.insertAdjacentHTML('beforeend', markup);
-  // TODO set element vars here
+
+  // UI Element selectors
+  userCurrency = document.querySelector('#userCurrency');
+  baseCurrency = document.querySelector('#baseCurrency');
+  input = document.querySelector('.currency-converter #ccInput');
+  output = document.querySelector('.currency-converter #ccOutput');
+  errors = document.querySelector('#errors');
 
   // Check for existing rates
   if ( !resourceLibrary.getItem('converterRates') ) {
 
     rates = null;
-    thisSelectedCurrency = null;
 
   } else {
 
-    let sel = document.querySelector('#thisCurrency');
-
     rates = resourceLibrary.getItem('converterRates');
-    thisSelectedCurrency = rates.base;
-
-    // Select the value for thisCurrency if available
-    [...sel.options].forEach(o => {
-      if ( o.value === rates.base ) {
-        o.selected = true;
+    // Select the value for `baseCurrency` if available
+    [...baseCurrency.options].forEach(opt => {
+      if ( opt.value === rates.base ) {
+        opt.selected = true;
       }
     });
   }
 
   // Disable the matching currency in the other select box
   // so that you can't compare EUR to EUR, etc...
-  if ( thisSelectedCurrency ) {
+  if ( rates.base ) {
 
-    let sel = document.querySelector('#thatCurrency');
-
-    [...sel.options].forEach(o => {
-      if ( o.value === thisSelectedCurrency ) {
-        o.disabled = true;
+    [...userCurrency.options].forEach(opt => {
+      if ( opt.value === rates.base ) {
+        opt.disabled = true;
       }
     });
   }
 
-  // Remember state for #thatCurrency
+  // Remember state for #userCurrency
   if ( lastUsedCurrency ) {
 
-    let sel = document.querySelector('#thatCurrency');
-
-    [...sel.options].forEach(o => {
-      if ( o.value === lastUsedCurrency ) {
-        o.selected = true;
+    [...userCurrency.options].forEach(opt => {
+      if ( opt.value === lastUsedCurrency ) {
+        opt.selected = true;
       }
     });
   }
 
   // Disable ability to select '-' option
   // so ajax call does not come back 422 (Unprocessable Entity)
-  [...document.querySelector('#thisCurrency').options].forEach(o => {
-    if ( o.value === '-' ) {
-      o.disabled = true;
+  [...baseCurrency.options].forEach(opt => {
+    if ( opt.value === '-' ) {
+      opt.disabled = true;
     }
   });
 
@@ -309,7 +317,6 @@ resourceLibrary.ready(() => {
     }
 
     rates = resourceLibrary.getItem('converterRates');
-
     getConverterRates(rates.base);
   }
 
@@ -320,8 +327,7 @@ resourceLibrary.ready(() => {
   // Calculate currency value on each key stroke.
   // `setTimeout` is used here because without it, calculations are not performed in
   // realtime and, instead, are one calculation behind the last digit entered.
-  document.querySelector('.currency-converter #ccInput').addEventListener('keyup', () => setTimeout(convertCurrency, 0));
-  document.querySelector('.currency-converter #ccInput').addEventListener('keydown', () => setTimeout(convertCurrency, 0));
+  input.addEventListener('keydown', () => setTimeout(convertCurrency, 0));
 
   // ========================================================
   // UI Functionality
@@ -331,71 +337,44 @@ resourceLibrary.ready(() => {
   document.querySelector('.currency-converter #clear').addEventListener('click', () => {
 
     let disolve,
-        input = document.querySelector('.currency-converter #ccInput'),
         hasDecimal = input.value.includes('.');
 
     // Strip decimal to stop Chrome from console.warning on invalid number
-    if ( hasDecimal ) {
-
-      let amount = input.value;
-
-      amount = amount.replace('.', '');
-      input.value = amount;
-    }
-
+    if ( hasDecimal ) { input.value = input.value.replace('.', ''); }
     // Delete the value from the input in an animated fashion
-    disolve = setInterval(() => {
-
-      let output = document.querySelector('.currency-converter #ccOutput'),
-          text = input.textContent,
-          val = input.value;
-
-      text = val.substring(0, val.length - 1);
-
-      input.value = text;
-
-      output.textContent = input.value;
-
-      if ( val <= 0 && val.length < 1 ) {
-
-        clearInterval(disolve);
-      }
-    }, 20);
+    disolveAnimation();
   });
 
-
   // Update base value on change
-  document.querySelector('#thisCurrency').addEventListener('change', () => {
+  document.querySelector('#baseCurrency').addEventListener('change', () => {
 
-    let base = document.querySelector('#thisCurrency'),
-        baseValue = getOptionValue(base),
-        thatC = document.querySelector('#thatCurrency'),
-        thatCvalue = getOptionValue(thatC);
+    let baseValue = getOptionValue(baseCurrency),
+        userValue = getOptionValue(userCurrency);
 
-    // Reset #thatCurrency if #thisCurrency is the same
-    if ( baseValue === thatCvalue ) {
-
-      thatC.options.selectedIndex = 0;
+    // Reset #userCurrency if #baseCurrency is the same
+    if ( baseValue === userValue ) {
+      userCurrency.options.selectedIndex = 0;
     }
 
     clearErrors();
     // Disable option if used as base currency
-    $('#thatCurrency option[value="' + baseValue + '"]').prop('disabled', true).siblings().prop('disabled', false);
+    [...userCurrency.options].forEach(opt => {
+      return opt.value === baseValue ? opt.disabled = true : opt.disabled = false;
+    });
     // Update rates
     getConverterRates(baseValue);
   });
 
-
   // Show/Hide converter on click
   document.querySelector('.currency-converter .toggle').addEventListener('click', event => {
 
-    let base = getOptionValue(document.querySelector('#thisCurrency')),
-        thatC = getOptionValue(document.querySelector('#thatCurrency')),
+    let baseValue = getOptionValue(baseCurrency),
+        userValue = getOptionValue(userCurrency),
         converter = document.querySelector('.currency-converter');
 
-    // Reset #thatCurrency if #thisCurrency is the same
-    if ( base === thatC ) {
-      document.querySelector('#thatCurrency').options.selectedIndex = 0;
+    // Reset #userCurrency if #baseCurrency is the same
+    if ( baseValue === userValue ) {
+      userCurrency.options.selectedIndex = 0;
     }
 
     // Show/Hide the converter
@@ -404,22 +383,21 @@ resourceLibrary.ready(() => {
       : converter.classList.add('show-converter');
 
     // Set the focus on the input
-    document.querySelector('#ccInput').focus();
+    input.focus();
     // Clear out errors so hiding continues to work as expected
-    document.querySelector('#errors').textContent = '';
+    errors.textContent = '';
     // Change the tab text
     return event.target.textContent === '¥ € $'
             ? event.target.textContent = '£ € $ $'
             : event.target.textContent = '¥ € $';
   });
 
-
-  // Save last known state of #thatCurrency
-  document.querySelector('#thatCurrency').addEventListener('change', () => {
+  // Save last known state of #userCurrency
+  userCurrency.addEventListener('change', () => {
 
     clearErrors();
     convertCurrency();
 
-    resourceLibrary.setItem('lastUsedCurrency', getOptionValue(document.querySelector('#thatCurrency')));
+    resourceLibrary.setItem('lastUsedCurrency', getOptionValue(userCurrency));
   });
 });
