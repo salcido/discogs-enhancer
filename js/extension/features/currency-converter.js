@@ -11,17 +11,17 @@
 resourceLibrary.ready(() => {
 
   let
-      d = new Date(),
+      baseCurrency,
       debug = resourceLibrary.options.debug(),
       errors,
+      input,
       language = resourceLibrary.language(),
       lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency'),
-      rates,
-      input,
       output,
-      baseCurrency,
+      rates,
+      today = new Date().toISOString().split('T')[0],
       userCurrency,
-      today = d.toISOString().split('T')[0],
+      //
       markup = `<div class="currency-converter">
                   <div class="toggle">¥ € $</div>
                   <div class="top">
@@ -86,7 +86,7 @@ resourceLibrary.ready(() => {
                 </div>`;
 
   // ========================================================
-  // Functions
+  // Functions (Alphabetical)
   // ========================================================
 
   /**
@@ -126,7 +126,7 @@ resourceLibrary.ready(() => {
     // Grab correct symbol from printSymbol array
     symbol = resourceLibrary.printSymbol[language][symbolIndex];
     // Voilà
-    output.textContent =  resourceLibrary.localizeSuggestion(symbol, result, userCurrency.value, language);
+    output.textContent = resourceLibrary.localizeSuggestion(symbol, result, userCurrency.value, language);
 
     // Let's be reasonable about our conversion values
     if ( input.value.length > 10 || input.value > 9999999 ) {
@@ -199,7 +199,7 @@ resourceLibrary.ready(() => {
       console.log('Could not get exchange rates for currency converter', err);
 
       input.placeholder = '';
-      errors.textContent = 'Error. Please try again later.'
+      errors.textContent = 'Error. Please try again later.';
     }
   }
 
@@ -246,6 +246,20 @@ resourceLibrary.ready(() => {
     userCurrency.disabled = disable;
     output.disabled = disable;
     input.placeholder = placeholderText;
+  }
+
+  /**
+   * Shows or Hides the currency converter
+   * @method toggleConverter
+   * @returns {method}
+   */
+  function toggleConverter() {
+
+    let converter = document.querySelector('.currency-converter');
+
+    return converter.classList.contains('show-converter')
+            ? converter.classList.remove('show-converter')
+            : converter.classList.add('show-converter');
   }
 
   // ========================================================
@@ -336,8 +350,7 @@ resourceLibrary.ready(() => {
   // Clear out all data
   document.querySelector('.currency-converter #clear').addEventListener('click', () => {
 
-    let disolve,
-        hasDecimal = input.value.includes('.');
+    let hasDecimal = input.value.includes('.');
 
     // Strip decimal to stop Chrome from console.warning on invalid number
     if ( hasDecimal ) { input.value = input.value.replace('.', ''); }
@@ -370,8 +383,7 @@ resourceLibrary.ready(() => {
   document.querySelector('.currency-converter .toggle').addEventListener('click', event => {
 
     let baseValue = getOptionValue(baseCurrency),
-        userValue = getOptionValue(userCurrency),
-        converter = document.querySelector('.currency-converter');
+        userValue = getOptionValue(userCurrency);
 
     // Reset #userCurrency if #baseCurrency is the same
     if ( baseValue === userValue ) {
@@ -379,9 +391,7 @@ resourceLibrary.ready(() => {
     }
 
     // Show/Hide the converter
-    converter.classList.contains('show-converter')
-      ? converter.classList.remove('show-converter')
-      : converter.classList.add('show-converter');
+    toggleConverter();
 
     // Set the focus on the input
     input.focus();
