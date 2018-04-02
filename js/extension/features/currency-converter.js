@@ -278,6 +278,16 @@ resourceLibrary.ready(() => {
     });
   }
 
+  // Remember state for #userCurrency
+  if ( lastUsedCurrency ) {
+
+    [...userCurrency.options].forEach(opt => {
+      if ( opt.value === lastUsedCurrency ) {
+        opt.selected = true;
+      }
+    });
+  }
+
   // Disable the matching currency in the other select box
   // so that you can't compare EUR to EUR, etc...
   if ( rates.base ) {
@@ -285,16 +295,6 @@ resourceLibrary.ready(() => {
     [...userCurrency.options].forEach(opt => {
       if ( opt.value === rates.base ) {
         opt.disabled = true;
-      }
-    });
-  }
-
-  // Remember state for #userCurrency
-  if ( lastUsedCurrency ) {
-
-    [...userCurrency.options].forEach(opt => {
-      if ( opt.value === lastUsedCurrency ) {
-        opt.selected = true;
       }
     });
   }
