@@ -70,7 +70,7 @@
 
 .currency-converter #errors {
   position: absolute;
-  top: 72px;
+  top: 75px;
   left: 80px;
   font-weight: bold;
   color: red;
