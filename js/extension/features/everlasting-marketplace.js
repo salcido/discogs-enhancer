@@ -35,7 +35,7 @@ resourceLibrary.ready(() => {
 
       let loadingText = document.querySelector('.de-next-text'),
           pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>',
-          playBtn = document.querySelector('.icon-play'),
+          controls = document.querySelector('.de-pause'),
           resume = document.querySelector('.de-resume'),
           spinner = document.querySelector('#de-next .icon-spinner');
 
@@ -43,7 +43,7 @@ resourceLibrary.ready(() => {
 
         event.preventDefault();
 
-        playBtn.parentElement.innerHTML = pauseIcon;
+        controls.innerHTML = pauseIcon;
         spinner.style.display = 'block';
         loadingText.textContent = 'Loading next page...';
 
