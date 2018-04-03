@@ -31,6 +31,7 @@ resourceLibrary.ready(() => {
 
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
+    // TODO move this into a function (resourceLibrary?)
     switch ( language ) {
 
       // German
