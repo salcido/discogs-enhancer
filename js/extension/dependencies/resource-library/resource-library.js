@@ -306,7 +306,7 @@
 
         let elemTop = elem.getBoundingClientRect().top,
             elemBottom = elem.getBoundingClientRect().bottom,
-            isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight * 1.7);
+            isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight * 2);
 
         return isVisible;
       }
@@ -603,6 +603,50 @@
 
         return JSON.parse(localStorage.getItem('options')).unitTests;
       }
+    },
+
+    /**
+     * Returns the total number of results from the Marketplace
+     *
+     * @method paginationTotal
+     * @param {string} pagination The text from the .pagination_total element
+     * @returns {string}
+     */
+    paginationTotal: function(pagination) {
+
+      let total,
+          lang = this.language();
+
+      switch (lang) {
+
+        // German
+        case 'de':
+          total = pagination.split('von')[1];
+          break;
+
+        // Italian
+        case 'it':
+          total = pagination.split('di')[1];
+          break;
+
+        // Spanish and French
+        case 'es':
+        case 'fr':
+          total = pagination.split('de')[1];
+          break;
+
+        // Japanese
+        case 'ja':
+          total = pagination.split('中')[0];
+          break;
+
+        // English
+        default:
+          total = pagination.split('of')[1];
+          break;
+      }
+
+      return total;
     },
 
     /**

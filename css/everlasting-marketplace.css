@@ -75,3 +75,33 @@
 .de-pause .icon {
   font-size: 12px;
 }
+
+.de-page-bar.show {
+  animation-duration: 0.5s;
+  animation-name: slidein;
+  animation-fill-mode: forwards;
+}
+
+.de-page-bar.hide {
+    animation-duration: 0.5s;
+    animation-name: slideOut;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slidein {
+  from {
+    top: -35px;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    top: 0;
+  }
+  to {
+    top: -35px;
+  }
+}
