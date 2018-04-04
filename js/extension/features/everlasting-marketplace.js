@@ -64,9 +64,9 @@ resourceLibrary.ready(() => {
           opt = document.createElement('option'),
           selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = `<tr class="shortcut_navigable">
-                         <td class="item_description">
-                           <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
-                         </td>
+                          <td class="item_description">
+                            <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
+                          </td>
                        </tr>`;
 
       // Append page results number to the DOM
