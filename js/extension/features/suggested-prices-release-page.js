@@ -68,7 +68,7 @@ resourceLibrary.ready(function() {
               spanOuter = document.createElement('span'),
               threshold = resourceLibrary.options.threshold() || 0;
 
-          $('.de-preloader').remove();
+          $('.de-price-preloader').remove();
 
           // Debugging
           logOutput(percentage, difference, suggested);
@@ -136,7 +136,7 @@ resourceLibrary.ready(function() {
            $(result).html(':contains("' + resourceLibrary.unregistered + '")')
            && !priceKey['post:suggestedPrices'] ) {
 
-        $('.de-preloader').remove();
+        $('.de-price-preloader').remove();
 
         $('td.item_price').each(function() {
 
@@ -221,7 +221,7 @@ resourceLibrary.ready(function() {
           return checkForSellerPermissions();
         }
       });
-    }
+    };
 
 
     /**
@@ -323,7 +323,7 @@ resourceLibrary.ready(function() {
     // Insert preloader animation
     $('td.item_price').each(function() {
 
-      $(this).append(resourceLibrary.css.preloader);
+      $(this).append(resourceLibrary.css.pricePreloader);
     });
 
     // Grab the releaseId from the URL

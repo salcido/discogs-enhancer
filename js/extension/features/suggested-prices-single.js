@@ -61,7 +61,7 @@ resourceLibrary.ready(function() {
           spanOuter = document.createElement('span'),
           threshold = resourceLibrary.options.threshold() || 0;
 
-      $(target).find('.de-preloader').remove();
+      $(target).find('.de-price-preloader').remove();
 
       // Debugging
       logOutput(percentage, difference, suggested);
@@ -120,7 +120,7 @@ resourceLibrary.ready(function() {
            $(result).html(':contains("' + resourceLibrary.unregistered + '")')
            && !priceKey['post:suggestedPrices'] ) {
 
-        $('.de-preloader').remove();
+        $('.de-price-preloader').remove();
 
         $('td.item_price').each(function() {
 
@@ -218,7 +218,7 @@ resourceLibrary.ready(function() {
 
       $(targ).find('.de-price-link').remove();
 
-      $(targ).append(resourceLibrary.css.preloader);
+      $(targ).append(resourceLibrary.css.pricePreloader);
 
       $.ajax({
 
@@ -243,7 +243,7 @@ resourceLibrary.ready(function() {
           s.className = 'd-block';
           s.textContent = 'Error getting price data.';
 
-          $('.de-preloader').remove();
+          $('.de-price-preloader').remove();
 
           $(targ).append(s);
         }
