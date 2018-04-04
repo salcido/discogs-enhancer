@@ -139,12 +139,22 @@
       noData: 'Discogs<br>does not have<br>price data on<br>this item.',
 
       /**
-       * Preloader markup
+       * Preloader markup for anything not suggested-price related
+       * Has `de-preloader` class
        *
        * @type {string}
        */
 
       preloader: '<i class="icon icon-spinner icon-spin converted_price de-preloader" style="font-style: normal;"></i>',
+
+      /**
+       * Preloader markup for suggested prices
+       * Has `de-price-preloader` class
+       *
+       * @type {string}
+       */
+
+      pricePreloader: '<i class="icon icon-spinner icon-spin converted_price de-price-preloader" style="font-style: normal;"></i>',
 
       /**
        * Displayed when a user has price comparisons enabled but does
