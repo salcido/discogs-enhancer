@@ -183,7 +183,6 @@ resourceLibrary.ready(() => {
     // depending on the language that the user has set
     pTotal = resourceLibrary.paginationTotal(pagination);
     // Markup for the black bar that appears at the top of the Marketplace
-    // TODO move this into RL
     blackBar = `<div class="de-page-bar">
                           <span class="de-page-info">
                             <span class="de-page de-page-num">Page: 1</span>
