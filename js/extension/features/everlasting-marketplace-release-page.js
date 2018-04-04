@@ -7,61 +7,184 @@
  * @github: https://github.com/salcido
  *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
 
-  let
-      hasLoaded = false,
-      href = window.location.href,
-      pageNum = 2,
-      pagination,
-      hasPageLinks = document.querySelectorAll('.pagination_page_links').length > 0,
-      paused = false;
+resourceLibrary.ready(() => {
 
-  if ( href.includes('/sell/release') && hasPageLinks) {
+  let hasPageLinks = document.querySelectorAll('.pagination_page_links').length > 0,
+      href = window.location.href;
 
-    let
-        blockList = JSON.parse(localStorage.getItem('blockList')) || null,
+
+  if ( href.includes('/sell/release') && hasPageLinks ) {
+
+    let blackBar,
+        hasLoaded = false,
         pTotal,
-        releaseMatch = href.match(/(release\/)\d{1,}/),
-        releaseId = releaseMatch[0].split('release/')[1],
-        filterUpdateLink,
-        language = resourceLibrary.language();
+        pageNum = 2,
+        pagination,
+        paused = false,
+        pjax = document.querySelector('#pjax_container');
 
-    pagination = document.getElementsByClassName('pagination_total')[0].textContent;
+    // ========================================================
+    // Functions (Alphabetical)
+    // ========================================================
 
-    // This will grab the total number of results returned by discogs
-    // depending on the language that the user has set
-    switch (language) {
+    /**
+     * Adds the click event listner for `.de-resume`
+     * @method addResumeListener
+     * @returns {method}
+     */
+    function addResumeListener() {
 
-      // German
-      case 'de':
-        pTotal = pagination.split('von')[1];
-        break;
+      let loadingText = document.querySelector('.de-next-text'),
+          pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>',
+          controls = document.querySelector('.de-pause'),
+          resume = document.querySelector('.de-resume'),
+          spinner = document.querySelector('#de-next .icon-spinner');
 
-      // Italian
-      case 'it':
-        pTotal = pagination.split('di')[1];
-        break;
+      resume.addEventListener('click', event => {
 
-      // Spanish and French
-      case 'es':
-      case 'fr':
-        pTotal = pagination.split('de')[1];
-        break;
+        event.preventDefault();
 
-      // Japanese
-      case 'ja':
-        pTotal = pagination.split('中')[0];
-        break;
+        controls.innerHTML = pauseIcon;
+        if (spinner){
+          spinner.style.display = 'block';
+        }
+        loadingText.textContent = 'Loading next page...';
 
-      // English
-      default:
-        pTotal = pagination.split('of')[1];
-        break;
+        paused = false;
+
+        return getNextPage();
+      });
     }
 
-    filterUpdateLink = `<div class="de-page-bar">
+    function appendMarketplaceResults(markup) {
+
+      let lastChild = '#pjax_container tbody:last-child',
+          opt = document.createElement('option'),
+          selectBox = document.querySelector('.de-scroll-to-page'),
+          pageStamp = `<tr class="shortcut_navigable">
+                                <td class="item_picture as_float"></td>
+                                <td class="item_description">
+                                  <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>`;
+
+      // Append page number to the DOM
+      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp);
+      // Append new items to the DOM
+      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', markup);
+
+      // Inject options into scroll-to-page select box
+      opt.value = pageNum;
+      opt.textContent = `Page: ${pageNum}`;
+      selectBox.insertAdjacentElement('beforeend', opt);
+    }
+
+    /**
+     * Calls any other Marketplace filtering features
+     * the user might have enabled.
+     * @method callOtherMarketplaceFeatures
+     * @returns {undefined}
+     */
+    function callOtherMarketplaceFeatures() {
+
+      let blockList = JSON.parse(localStorage.getItem('blockList')) || null;
+
+      // apply Marketplace Highlights
+      if ( window.applyStyles ) { window.applyStyles(); }
+
+      // apply price comparisons
+      if ( window.appendPrices ) {
+        window.releasePricesInit();
+        window.appendPrices();
+      }
+
+      // Hide/tag sellers in marketplace
+      if ( blockList && blockList.hide === 'global' && window.modifySellers ||
+           blockList && blockList.hide === 'marketplace' && window.modifySellers ) {
+
+        window.modifySellers('hide');
+      }
+
+      if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
+        window.modifySellers('tag');
+      }
+
+      // filter marketplace item by condition
+      if ( window.hideItems ) {
+
+        window.hideItems();
+      }
+
+      // filter marketplace item by condition
+      if ( window.hideItems ) { window.hideItems(); }
+      // Filter marketplace by country
+      if ( window.filterByCountry ) { window.filterByCountry(); }
+      // Tag sellers by reputation
+      if ( window.sellersRep ) { window.sellersRep(); }
+      // Release ratings
+      if ( window.insertRatingsLink ) { window.insertRatingsLink(); }
+    }
+
+    /**
+     * Grabs the next set of items
+     * @method   getNextPage
+     * @return   {undefined}
+     */
+    async function getNextPage() {
+
+      let releaseMatch = href.match(/(release\/)\d{1,}/),
+          releaseId = releaseMatch[0].split('release/')[1],
+          url = `/sell/release/${releaseId}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
+
+      try {
+
+        let response = await fetch(url),
+            data = await response.text(),
+            div = document.createElement('div'),
+            loader = document.querySelector('#de-next'),
+            markup,
+            noItems = '<h1 class="de-no-results">No more items for sale found</h1>',
+            tbody = '#pjax_container tbody:last-child';
+
+        div.innerHTML = data;
+
+        markup = div.querySelector(tbody) ? div.querySelector(tbody).innerHTML : null;
+
+        if ( markup.match(/\S/) ) {
+
+          appendMarketplaceResults(markup);
+
+        } else {
+
+          loader.remove();
+          pjax.insertAdjacentHTML('beforeend', noItems);
+        }
+
+        pageNum++;
+        hasLoaded = false;
+
+        callOtherMarketplaceFeatures();
+
+      } catch (err) {
+        console.log('Everlastning Marketplace could not fetch data', err);
+      }
+    }
+
+    // ========================================================
+    // DOM Setup
+    // ========================================================
+
+    pagination = document.getElementsByClassName('pagination_total')[0].textContent;
+    // This will grab the total number of results returned by discogs
+    // depending on the language that the user has set
+    pTotal = resourceLibrary.paginationTotal(pagination);
+    // Markup for the black bar that appears at the top of the Marketplace
+    // TODO move this into RL
+    blackBar = `<div class="de-page-bar">
                           <span class="de-page-info">
                             <span class="de-page de-page-num">Page: 1</span>
                             <span> ${pTotal} results</span>
@@ -80,7 +203,7 @@ $(document).ready(function() {
                        </div>`;
 
     // Everlasting Marketplace add/remove filters bar
-    $('body').append(filterUpdateLink);
+    document.body.insertAdjacentHTML('beforeend', blackBar);
 
     // append preloader to bottom
     if ( !document.getElementById('de-next') ) {
@@ -90,189 +213,75 @@ $(document).ready(function() {
                               Loading next page...
                             </div>
                               ${resourceLibrary.css.preloader}
-                         </div>`;
+                          </div>`;
 
-      $('#pjax_container').append(loaderMarkup);
+      pjax.insertAdjacentHTML('beforeend', loaderMarkup);
     }
 
     // Hide standard means of page navigation
-    $('.pagination_page_links').hide();
-
-    // Remove results total and replace with NM indicator
-    pagination.textContent = 'Everlasting Marketplace: ' + pTotal + ' results';
-
-    // Scroll the browser up to the top so the user can change Marketplace filters
-    $('body').on('click', '#de-update-filters', function(event) {
-
-      event.preventDefault();
-
-      $('body, html').animate({scrollTop: 0}, 300);
-    });
-
-    /**
-     * Grabs the next set of items
-     * @method   getNextPage
-     * @return   {undefined}
-     */
-    function getNextPage() {
-
-      let selectBox = $('.de-scroll-to-page');
-
-      $.ajax({
-        url: '/sell/release/' + releaseId + '?page=' + Number(pageNum) + resourceLibrary.removePageParam(href),
-        type: 'GET',
-        success: function(res) {
-
-          let markup = $(res).find('#pjax_container tbody').html(),
-              hasMarkup = markup.match(/\S/),
-              page = 'Page: ' + pageNum;
-
-          if (hasMarkup) {
-
-            let nextSetIndicator = `<tr class="shortcut_navigable">
-                                      <td class="item_picture as_float"></td>
-                                      <td class="item_description">
-                                         <h2 class="de-current-page" id="de-page-${pageNum}">${page}</h2>
-                                      </td>
-                                      <td></td>
-                                      <td></td>
-                                      <td></td>
-                                   </tr>`;
-
-            // Append page number to the DOM
-            $('#pjax_container tbody:last-child').append(nextSetIndicator);
-
-            // Append new items to the DOM
-            $('#pjax_container tbody:last-child').append(markup);
-
-            // Inject options into scroll-to-page select box
-            selectBox.append( $('<option/>', { value: pageNum, text: 'Page: ' + pageNum }) );
-
-          } else {
-
-            $('#de-next').remove();
-
-            $('#pjax_container').append('<h1 class="de-no-results">No more items for sale found</h1>');
-          }
-
-          pageNum++;
-
-          hasLoaded = false;
-
-          // apply Marketplace Highlights
-          if ( window.applyStyles ) {
-
-            window.applyStyles();
-          }
-
-          // apply price comparisons
-          if ( window.appendPrices ) {
-            window.releasePricesInit();
-            window.appendPrices();
-          }
-
-          // Hide/tag sellers in marketplace
-          if ( blockList && blockList.hide === 'global' && window.modifySellers ||
-              blockList && blockList.hide === 'marketplace' && window.modifySellers ) {
-
-            window.modifySellers('hide');
-          }
-
-          if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
-
-            window.modifySellers('tag');
-          }
-
-          // filter marketplace item by condition
-          if ( window.hideItems ) {
-
-            window.hideItems();
-          }
-
-          // Filter marketplace by country
-          if ( window.filterByCountry ) {
-
-            window.filterByCountry();
-          }
-
-          if ( window.sellersRep ) {
-
-            window.sellersRep();
-          }
-
-          // Release ratings
-          if ( window.insertRatingsLink ) {
-
-            window.insertRatingsLink();
-          }
-        }
-      });
-    }
+    [...document.querySelectorAll('.pagination_page_links')].forEach(el => el.style.display = 'none');
 
     // ========================================================
     // UI Functionalty
     // ========================================================
 
-    // Pause/resume Everlasting Marketplace
-    $('body').on('click', '.de-pause', function(event) {
+    // Scroll the browser up to the top so the user can change Marketplace filters
+    document.querySelector('#de-update-filters').addEventListener('click', event => {
 
-      let target = event.target;
+      event.preventDefault();
+      window.scroll({ top: 0, left: 0 });
+    });
+
+    // Pause/resume Everlasting Marketplace
+    document.querySelector('.de-pause').addEventListener('click', event => {
+
+      let loader = document.querySelector('.de-next-text'),
+          pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>',
+          playIcon = '<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>',
+          resumeLink = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
+          spinner = document.querySelector('#de-next .icon-spinner'),
+          target = event.target;
 
       // Paused
-      if ( $(target).hasClass('icon-pause') ) {
+      if ( target.classList.contains('icon-pause') ) {
 
-        $(target).parent().html('<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>');
+        target.parentElement.innerHTML = playIcon;
 
-        $('#de-next .icon-spinner').hide();
-
-        $('.de-next-text').html('<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>');
+        if ( spinner ) { spinner.style.display = 'none'; }
+        loader.innerHTML = resumeLink;
 
         paused = true;
+
+        addResumeListener();
 
       // Resume
       } else {
 
-        $(target).parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
+        target.parentElement.innerHTML = pauseIcon;
 
-        $('#de-next .icon-spinner').show();
-
-        $('.de-next-text').text('Loading next page...');
+        if ( spinner ) { spinner.style.display = 'block'; }
+        loader.textContent = 'Loading next page...';
 
         paused = false;
       }
     });
 
-    // Resume loading shortcut
-    $('body').on('click', '.de-resume', function(event) {
-
-      event.preventDefault();
-
-      $('.icon-play').parent().html('<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>');
-
-      $('#de-next .icon-spinner').show();
-
-      $('.de-next-text').text('Loading next page...');
-
-      paused = false;
-
-      return getNextPage();
-    });
-
     // scroll to page section select box functionality
-    $('.de-scroll-to-page').on('change', function(event) {
+    document.querySelector('.de-scroll-to-page').addEventListener('change', event => {
 
       let target = event.target,
           targetId = '#de-page-' + target.value;
 
-      if (target.value) {
+      if ( target.value ) {
 
-        if (target.value === '1') {
+        if ( target.value === '1' ) {
 
-          $('body, html').animate( {scrollTop:$('#site_header').position().top}, 300 );
+          window.scroll({ top: 0, left: 0 });
 
         } else {
 
-          $('body, html').animate( {scrollTop:$(targetId).position().top}, 300 );
+          document.querySelector(targetId).scrollIntoView();
+          window.scroll({top: window.scrollY - 30, left: 0});
         }
       }
     });
@@ -281,34 +290,37 @@ $(document).ready(function() {
     // Scrolling Functionality
     // ========================================================
 
-    $(document).on('scroll', window, function() {
+    window.addEventListener('scroll', () => {
 
-      let
-          everlasting = $('.de-page-bar'), // wrapped in jQ selector so it can use position() method
-          kurtLoder = document.getElementById('de-next'), // also former MTV anchor,
-          currentPage = document.getElementsByClassName('de-current-page'),
-          pageIndicator = document.getElementsByClassName('de-page')[0],
-          siteHeader = document.getElementById('site_header');
+      let currentPage = document.querySelector('.de-page'),
+          everlasting = document.querySelector('.de-page-bar'),
+          kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
+          pageIndicator = document.getElementsByClassName('de-current-page'),
+          siteHeader = document.querySelector('#site_header');
 
-      if ( resourceLibrary.isOnScreen(kurtLoder) && !hasLoaded && !paused ) {
+      if ( resourceLibrary.isOnScreen(kurtLoder)
+            && !hasLoaded
+            && !paused ) {
 
         hasLoaded = true;
 
         return getNextPage();
       }
 
-      // hide the page bar if at top of screen
+      // Hide the page bar if at top of screen
       if ( resourceLibrary.isOnScreen(siteHeader) ) {
 
-        everlasting.animate({top: '-35px'});
-
-        pageIndicator.textContent = 'Page: 1';
+        everlasting.classList.remove('show');
+        everlasting.classList.add('hide');
+        currentPage.textContent = 'Page: 1';
 
       } else {
 
-        if ( !resourceLibrary.isOnScreen(siteHeader) && everlasting.position().top < -30 ) {
+        if ( !resourceLibrary.isOnScreen(siteHeader)
+             && everlasting.getBoundingClientRect().top < -30 ) {
 
-          everlasting.animate({top: '0px'});
+          everlasting.classList.remove('hide');
+          everlasting.classList.add('show');
         }
       }
 
@@ -316,15 +328,15 @@ $(document).ready(function() {
       // of results in the Everlasting Marketplace top bar.
       // I feel bad for writing this and even worse now that
       // you're looking at it.
-      if ( currentPage && currentPage.length > 0 ) {
+      if ( pageIndicator && pageIndicator.length > 0 ) {
 
         for ( let i = 0; i < pageNum; i++ ) {
 
           try {
 
-            if ( resourceLibrary.isOnScreen(currentPage[i]) ) {
+            if ( resourceLibrary.isOnScreen(pageIndicator[i]) ) {
 
-              pageIndicator.textContent = currentPage[i].textContent;
+              currentPage.textContent = pageIndicator[i].textContent;
             }
           } catch (e) {
             // I'm just here so I don't throw errors
