@@ -8,10 +8,9 @@
 /**
  * Clears the update notification
  * @method   acknowledgeUpdate
- * @param    {string}  message [The message displayed to the user]
  * @return   {undefined}
  */
-export function acknowledgeUpdate(message) {
+export function acknowledgeUpdate() {
   chrome.storage.sync.set({didUpdate: false}, function() { /*noop*/ });
 }
 
@@ -28,7 +27,7 @@ export function acknowledgeUpdate(message) {
  */
 export function applySave(message, event) {
 
-  let chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],
+  let chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[undefined,0])[1],
       manifest = chrome.runtime.getManifest(),
       prefs = {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
