@@ -1,6 +1,8 @@
 # Discogs Enhancer
 
-![version 1.26.0](https://img.shields.io/badge/Version-1.26.0-brightgreen.svg) [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/nimelepbpejjlbmoobocpfnjhihnpked.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn) ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
+![version 1.26.0](https://img.shields.io/badge/Version-1.26.0-brightgreen.svg) [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/nimelepbpejjlbmoobocpfnjhihnpked.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/nimelepbpejjlbmoobocpfnjhihnpked.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+ ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
 
 #### Project Overview
 <http://www.msalcido.com/discogs-enhancer>
