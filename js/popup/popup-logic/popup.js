@@ -91,7 +91,7 @@ window.addEventListener('load', function load() {
   // ========================================================
   // Open About page
   // ========================================================
-  document.getElementById('about').addEventListener('click', function(event) {
+  document.getElementById('about').addEventListener('click', function() {
 
     chrome.tabs.create({url: '../html/about.html'});
     acknowledgeUpdate();
@@ -102,40 +102,40 @@ window.addEventListener('load', function load() {
   // ========================================================
   // Open Block Sellers Configuration page
   // ========================================================
-  document.getElementById('editList').addEventListener('click', function(event) {
+  document.getElementById('editList').addEventListener('click', function() {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
   // ========================================================
   // Open Readability Configuration page
   // ========================================================
-  document.getElementById('editReadability').addEventListener('click', function(event) {
+  document.getElementById('editReadability').addEventListener('click', function() {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
   // ========================================================
   // CONTEXTUAL MENU SEARCHING OPTIONS
   // ========================================================
-  document.querySelector('.toggle-group.menus').addEventListener('click', function(event) {
+  document.querySelector('.toggle-group.menus').addEventListener('click', function() {
     optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
   // ========================================================
   // FILTER BY CONDITION OPTIONS
   // ========================================================
-  document.querySelector('.toggle-group.condition').addEventListener('click', function(event) {
+  document.querySelector('.toggle-group.condition').addEventListener('click', function() {
     optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
   // ========================================================
   // FILTER ITEMS BY COUNTRY OPTIONS
   // ========================================================
-  document.querySelector('.toggle-group.country').addEventListener('click', function(event) {
+  document.querySelector('.toggle-group.country').addEventListener('click', function() {
     optionsToggle('.hide-country', this, '.country', 115 );
   });
 
   // Save the Filter Items By Country CURRENCY select value to localStorage
-  document.getElementById('filterCountryCurrency').addEventListener('change', function(event) {
+  document.getElementById('filterCountryCurrency').addEventListener('change', function() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
@@ -147,7 +147,7 @@ window.addEventListener('load', function load() {
   });
 
   // Save the Filter Items By Country COUNTRY select value to localStorage
-  document.getElementById('filterCountry').addEventListener('change', function(event) {
+  document.getElementById('filterCountry').addEventListener('change', function() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
@@ -252,8 +252,7 @@ window.addEventListener('load', function load() {
     toggleYoutube = document.getElementById('youtube');
 
     // Get the user's saved preferences and set the toggles accordingly
-    chrome.storage.sync.get('prefs', function(result) {
-      console.log(result.prefs.hideMinMaxColumns);
+    chrome.storage.sync.get('prefs', result => {
       // Feature preferences
       hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBaoiFields.checked = result.prefs.baoiFields;
