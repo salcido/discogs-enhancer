@@ -111,7 +111,7 @@ export function createContextualMenuElements() {
         ];
 
   // Create contextual menu elements
-  menus.forEach(function(menu, i) {
+  menus.forEach(menu => {
 
     let
         boxwrap = document.createElement('div'),
