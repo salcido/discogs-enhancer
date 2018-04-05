@@ -17,9 +17,9 @@ export function setCountryEnabledStatus() {
   let self = document.querySelector('.toggle-group.country .status'),
       filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
-  chrome.storage.sync.get('prefs', function(result) {
+  chrome.storage.sync.get('prefs', result => {
 
-    if (result.prefs.filterByCountry === true) {
+    if ( result.prefs.filterByCountry ) {
 
       setEnabledStatus( self, 'Enabled' );
 
@@ -74,7 +74,7 @@ export function setCountryFilterValues() {
 /**
  * Validates then enables/disables the CSS for Filter Items by Country
  * @method toggleHideCountries
- * @param  {object}            event [the event object]
+ * @param  {object} event [the event object]
  * @return {undefined}
  */
 export function toggleHideCountries(event) {
