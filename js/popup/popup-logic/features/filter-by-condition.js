@@ -53,7 +53,7 @@ export function setupFilterByCondition() {
  * Sets the value that will hide items in the
  * Marketplace based on condition
  * @method   setFilterByConditionValue
- * @param    {Object}       event [The event object]
+ * @param    {Object} event [The event object]
  */
 export function setFilterByConditionValue(event) {
 
