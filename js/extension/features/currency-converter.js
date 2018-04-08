@@ -186,7 +186,7 @@ resourceLibrary.ready(() => {
    */
   async function getConverterRates(base) {
 
-    let url = `https://api.fixer.io/latest?base=${base}&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,RUB,BRL,USD`;
+    let url = `https://discogs-enhancer.com/rates?base=${base}`;
 
     setUIforUpdating(true, 'Updating...');
 
