@@ -120,7 +120,7 @@ resourceLibrary.ready(() => {
 
         console.log(' ');
         console.log(`Using cached rates: ${updateRatesObj.rates.date} language: ${language} Currency: ${userCurrency}`);
-        console.log('rates', updateRatesObj.rates);
+        console.log('rates:', updateRatesObj.rates);
       }
 
       break;
