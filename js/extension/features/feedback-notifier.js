@@ -17,7 +17,7 @@ resourceLibrary.ready(() => {
       language = resourceLibrary.language(),
       timeStamp = new Date().getTime(),
       user = document.querySelector('#site_account_menu .user_image').alt,
-      //user = 'recordsale-de',
+      // user = 'recordsale-de', /* used for testing */
       waitTime = (1000 * 60) * 2; // 2 mins
 
   // ========================================================
@@ -26,8 +26,8 @@ resourceLibrary.ready(() => {
 
   /**
    * Appends badges to menu bar
-   * @param    {string} type         Either buyer or seller
-   * @return   {function}
+   * @param {string} type Either buyer or seller
+   * @returns {function}
    */
   function appendBadge(type) {
 
@@ -113,10 +113,9 @@ resourceLibrary.ready(() => {
    * @returns {undefined}
    */
   function bindUi() {
-
-    // ========================================================
+    // --------------------------------------------------------
     // Clear notifications and save "viewed" states
-    // ========================================================
+    // --------------------------------------------------------
     [...document.querySelectorAll('.de-buyer-feedback, .de-seller-feedback')].forEach(elem => {
 
       elem.addEventListener('click', ({ target }) => {
@@ -134,10 +133,9 @@ resourceLibrary.ready(() => {
         return target.parentElement.style.display = 'none';
       });
     });
-
-    // ========================================================
+    // --------------------------------------------------------
     // Menu interactions
-    // ========================================================
+    // --------------------------------------------------------
     [...document.querySelectorAll('.pos-reviews, .neu-reviews, .neg-reviews')].forEach(elem => {
 
       elem.addEventListener('click', ({ target }) => {
@@ -182,9 +180,9 @@ resourceLibrary.ready(() => {
   /**
    * Updates the `buyer`/`seller` objects hasViewed prop
    * after user clicks on notifications
-   * @param {string} type  Either buyer or seller
-   * @param {object} obj   The object written to localStorage
-   * @return {method}
+   * @param {string} type Either buyer or seller
+   * @param {object} obj The object written to localStorage
+   * @returns {method}
    */
   function clearNotification(type, obj) {
 
@@ -205,7 +203,7 @@ resourceLibrary.ready(() => {
 
   /**
    * Creates the buyer/seller objects when none exist.
-   * @return {function}
+   * @returns {function}
    */
   async function createBuyerSellerObjs() {
 
@@ -217,9 +215,11 @@ resourceLibrary.ready(() => {
     }
 
     let div = await fetchBuyerSellerTotals(),
-        selector = '#page_aside .list_no_style.user_marketplace_rating ',
-        buyerTotal = Number(div.querySelector(selector + 'a[href*="buyer_feedback"]').textContent.trim().replace(/,/g, '')),
-        sellerTotal = Number(div.querySelector(selector + 'a[href*="seller_feedback"]').textContent.trim().replace(/,/g, '')),
+        sel = '#page_aside .list_no_style.user_marketplace_rating ',
+        bfsel = 'a[href*="buyer_feedback"]',
+        sfsel = 'a[href*="seller_feedback"]',
+        buyerTotal = Number(div.querySelector(sel + bfsel).textContent.trim().replace(/,/g, '')),
+        sellerTotal = Number(div.querySelector(sel + sfsel).textContent.trim().replace(/,/g, '')),
         response = { seller: sellerTotal, buyer: buyerTotal };
 
     if (debug) { console.timeEnd('createBuyerSellerObjs'); }
@@ -264,10 +264,10 @@ resourceLibrary.ready(() => {
 
   /**
    * Finds the differences between old/new stats.
-   * @param {string} type    Either 'Negative' or 'Neutral' used for debugging
-   * @param {array} oldStat  Previous value
-   * @param {array} newStat  Current value
-   * @return {number}
+   * @param {string} type Either 'Negative' or 'Neutral' used for debugging
+   * @param {array} oldStat Previous value
+   * @param {array} newStat Current value
+   * @returns {number}
    */
   function findStatsShift(type, oldStat, newStat) {
 
@@ -290,8 +290,8 @@ resourceLibrary.ready(() => {
    * Sets the object with the most recent stats
    * from the profile page when feedback-notifier is
    * first run.
-   * @param {string} type  Either 'buyer' or 'seller'
-   * @return {undefined}
+   * @param {string} type Either 'buyer' or 'seller'
+   * @returns {undefined}
    */
   async function getStatsFor(type) {
 
@@ -352,9 +352,9 @@ resourceLibrary.ready(() => {
    * parses the HTML returned in the response for the Positive,
    * Neutral and Negative totals and then appends those numbers
    * (if any) to the nav bar.
-   * @param {string} type    Either `buyer` or `seller`
-   * @param {number} gTotal  Total number of all transactions
-   * @return {function}
+   * @param {string} type Either `buyer` or `seller`
+   * @param {number} gTotal Total number of all transactions
+   * @returns {function}
    */
   async function getUpdates(type, gTotal) {
 
