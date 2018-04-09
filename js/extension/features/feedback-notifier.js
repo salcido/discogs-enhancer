@@ -7,8 +7,6 @@
  * @github: https://github.com/salcido
  *
  */
-// TODO refactor to vanilla js
-
 resourceLibrary.ready(() => {
 
   let
@@ -26,19 +24,13 @@ resourceLibrary.ready(() => {
 
   /**
    * Appends badges to menu bar
-   *
    * @param    {string} type         Either buyer or seller
-   * @param    {number|string} pos   The number of new feedback reviews
-   * @param    {number|string} neu   ""
-   * @param    {number|string} neg   ""
-   * @return   {undefined}
+   * @return   {function}
    */
-
   function appendBadge(type) {
 
-    let
-        obj = resourceLibrary.getItem('feedbackObj')[type],
-        existing = (obj.hasViewed ? false : true),
+    let obj = resourceLibrary.getItem('feedbackObj')[type],
+        existing = !obj.hasViewed,
         badge,
         id,
         neg,
@@ -87,15 +79,11 @@ resourceLibrary.ready(() => {
             </li>`;
 
     /* Remove preloader */
-    $('.' + type + '_feedbackLoader').remove();
-
-    /* Remove if appended already. */
-    if (existing) {
-
-      $('.' + type).parent().remove();
+    if ( document.querySelector(`.${type}_feedbackLoader`) ) {
+      document.querySelector(`.${type}_feedbackLoader`).remove();
     }
 
-    $('#activity_menu').append(badge);
+    document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', badge);
 
     return bindUi();
   }
@@ -104,12 +92,10 @@ resourceLibrary.ready(() => {
   /**
    * Updates the `buyer`/`seller` objects hasViewed prop
    * after user clicks on notifications
-   *
    * @param    {string} type  Either buyer or seller
    * @param    {object} obj   The object written to localStorage
    * @return   {method}
    */
-
   function clearNotification(type, obj) {
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
@@ -129,13 +115,11 @@ resourceLibrary.ready(() => {
 
   /**
    * Finds the differences between old/new stats.
-   *
    * @param    {string} type    Either 'Negative' or 'Neutral' used for debugging
    * @param    {array} oldStat  Previous value
    * @param    {array} newStat  Current value
    * @return   {number}
    */
-
   function findStatsShift(type, oldStat, newStat) {
 
     let shift = newStat - oldStat;
@@ -153,20 +137,107 @@ resourceLibrary.ready(() => {
     return shift;
   }
 
+  /**
+   * Fetches the most recent Pos, Neu, and Neg numbers from a
+   * user's profile.
+   * @param {string} type Buyer or seller
+   * @returns {object}
+   */
+  async function fetchFeedbackData(type) {
+
+    let url = `https://www.discogs.com/sell/${type}_feedback/${user}`,
+        response = await fetch(url),
+        data = await response.text(),
+        div = document.createElement('div');
+
+    div.innerHTML = data;
+    return div;
+  }
 
   /**
-   * Gets Buyer/Seller number updates from profile
-   *
+   * Parses the DOM elements passed in for feedback numbers from
+   * the user's profile.
+   * @param {object} data The feedback elements from the user's page
+   * @param {object} obj An object used to store the new data to be written into localStorage
+   * @param {string} type Buyer or seller
+   * @param {string} gTotal Total number of feedbacks received
+   * @returns {undefined}
+   */
+  function parseFeedbackData(data, obj, type, gTotal) {
+
+    let
+        pos = getTabCount(data,0),
+        neu = getTabCount(data,1),
+        neg = getTabCount(data,2),
+        negAnswer,
+        neuAnswer,
+        posAnswer,
+        newStats,
+        oldStats;
+
+    /* Our stats objects */
+    newStats = {
+      posCount: pos,
+      neuCount: neu,
+      negCount: neg
+    };
+
+    oldStats = {
+      posCount: obj.posCount,
+      neuCount: obj.neuCount,
+      negCount: obj.negCount
+    };
+
+    negAnswer = findStatsShift('Negative', oldStats.negCount, newStats.negCount);
+    neuAnswer = findStatsShift('Neutral', oldStats.neuCount, newStats.neuCount);
+    posAnswer = findStatsShift('Positive', oldStats.posCount, newStats.posCount);
+
+    /* Assign new diff values to obj for reference */
+    obj.posDiff = (obj.posDiff > 0 ? obj.posDiff + posAnswer : posAnswer);
+    obj.neuDiff = (obj.neuDiff > 0 ? obj.neuDiff + neuAnswer : neuAnswer);
+    obj.negDiff = (obj.negDiff > 0 ? obj.negDiff + negAnswer : negAnswer);
+    obj.hasViewed = false;
+    obj.gTotal = gTotal;
+
+    /* Update feedbackObj[type] with new stats */
+    obj.posCount = pos;
+    obj.neuCount = neu;
+    obj.negCount = neg;
+
+    feedbackObj[type] = obj;
+
+    /* Set timestamp when checked */
+    feedbackObj.lastChecked = timeStamp;
+
+    /* Save our object with the new stats/notification totals */
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
+
+    if (debug) {
+
+      console.log(' ');
+      console.log(' *** Got ' + type + ' Updates *** ');
+      console.log('pos: ', posAnswer, 'neu: ', neuAnswer, 'neg: ', negAnswer);
+      console.log('Previous stats:');
+      console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
+      console.log(type + ' obj: ', feedbackObj[type]);
+      console.log('Results from new stats', 'pos', posAnswer, 'neu', neuAnswer, 'neg', negAnswer);
+      console.timeEnd('getUpdates');
+    }
+  }
+
+  /**
+   * Get's the user's feedback numbers from their profile,
+   * parses the HTML returned in the response for the Positive,
+   * Neutral and Negative totals and then appends those numbers
+   * (if any) to the nav bar.
    * @param    {string} type    Either `buyer` or `seller`
    * @param    {number} gTotal  Total number of all transactions
    * @return   {function}
    */
+  async function getUpdates(type, gTotal) {
 
-  function getUpdates(type, gTotal) {
-
-    let obj,
-        newStats,
-        oldStats;
+    let data,
+        obj;
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
@@ -178,83 +249,32 @@ resourceLibrary.ready(() => {
       console.time('getUpdates');
     }
 
-    return $.ajax({
+    data = await fetchFeedbackData(type);
+    parseFeedbackData(data, obj, type, gTotal);
+    return appendBadge(type);
+  }
 
-      url: `https://www.discogs.com/${language}sell/${type}_feedback/${user}`,
-      type: 'GET',
-      dataType: 'html',
+  /**
+   * Fetches the buyer and seller total numbers
+   * from a user's profile.
+   * @returns {object}
+   */
+  async function fetchBuyerSellerTotals() {
 
-      success: function(response) {
+    let url = `https://www.discogs.com/user/${user}`,
+        response = await fetch(url),
+        data = await response.text(),
+        div = document.createElement('div');
 
-        let
-            pos = Number( $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '') ),
-            neu = Number( $(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, '') ),
-            neg = Number( $(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, '') ),
-            negAnswer,
-            neuAnswer,
-            posAnswer;
-
-        /* Our stats objects */
-        newStats = {
-          posCount: pos,
-          neuCount: neu,
-          negCount: neg
-        };
-
-        oldStats = {
-          posCount: obj.posCount,
-          neuCount: obj.neuCount,
-          negCount: obj.negCount
-        };
-
-        negAnswer = findStatsShift('Negative', oldStats.negCount, newStats.negCount);
-        neuAnswer = findStatsShift('Neutral', oldStats.neuCount, newStats.neuCount);
-        posAnswer = findStatsShift('Positive', oldStats.posCount, newStats.posCount);
-
-        /* Assign new diff values to obj for reference */
-        obj.posDiff = (obj.posDiff > 0 ? obj.posDiff + posAnswer : posAnswer);
-        obj.neuDiff = (obj.neuDiff > 0 ? obj.neuDiff + neuAnswer : neuAnswer);
-        obj.negDiff = (obj.negDiff > 0 ? obj.negDiff + negAnswer : negAnswer);
-        obj.hasViewed = false;
-        obj.gTotal = gTotal;
-
-        /* Update feedbackObj[type] with new stats */
-        obj.posCount = pos;
-        obj.neuCount = neu;
-        obj.negCount = neg;
-
-        feedbackObj[type] = obj;
-
-        /* Set timestamp when checked */
-        feedbackObj.lastChecked = timeStamp;
-
-        /* Save our object with the new stats/notification totals */
-        resourceLibrary.setItem('feedbackObj', feedbackObj);
-
-        if (debug) {
-
-          console.log(' ');
-          console.log(' *** Got ' + type + ' Updates *** ');
-          console.log('pos: ', posAnswer, 'neu: ', neuAnswer, 'neg: ', negAnswer);
-          console.log('Previous stats:');
-          console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
-          console.log(type + ' obj: ', feedbackObj[type]);
-          console.log('Results from new stats', 'pos', posAnswer, 'neu', neuAnswer, 'neg', negAnswer);
-          console.timeEnd('getUpdates');
-        }
-
-        return appendBadge(type);
-      }
-    });
+    div.innerHTML = data;
+    return div;
   }
 
   /**
    * Creates the buyer/seller objects when none exist.
-   *
    * @return {function}
    */
-
-  function createBuyerSellerObjs() {
+  async function createBuyerSellerObjs() {
 
     if (debug) {
 
@@ -263,91 +283,89 @@ resourceLibrary.ready(() => {
       console.time('createBuyerSellerObjs');
     }
 
-    return $.ajax({
+    let div = await fetchBuyerSellerTotals(),
+        selector = '#page_aside .list_no_style.user_marketplace_rating ',
+        buyerTotal = Number( div.querySelector(selector + 'a[href*="buyer_feedback"]').textContent.trim().replace(/,/g, '') ),
+        sellerTotal = Number( div.querySelector(selector + 'a[href*="seller_feedback"]').textContent.trim().replace(/,/g, '') ),
+        response = { seller: sellerTotal, buyer: buyerTotal };
 
-      url: `https://www.discogs.com/${language}user/${user}`,
-      type: 'GET',
-      dataType: 'html',
+    if (debug) { console.timeEnd('createBuyerSellerObjs'); }
 
-      success: function(response) {
-
-        let
-            selector = '#page_aside .list_no_style.user_marketplace_rating ',
-            buyerTotal = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-            sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
-            response = { seller: sellerTotal, buyer: buyerTotal };
-
-        if (debug) { console.timeEnd('createBuyerSellerObjs'); }
-
-        return resetStats(response).then(getStatsFor('seller')).then(getStatsFor('buyer'));
-      }
-    });
+    resetStats(response);
+    getStatsFor('seller');
+    getStatsFor('buyer');
   }
 
 
   /**
    * Resets the objects and adds the most recent buyer/seller grand total stats
-   *
-   * @param    {object} obj: {seller: seller, buyer: buyer}
+   * @param {object} obj {seller: seller, buyer: buyer}
+   * @returns {method}
    */
-
   function resetStats(obj) {
 
-    return new Promise(function(resolve, reject) {
+    let
+        buyerObj = {
+          posCount: 0,
+          posDiff: 0,
+          neuCount: 0,
+          neuDiff: 0,
+          negCount: 0,
+          negDiff: 0,
+          gTotal: obj.buyer,
+          hasViewed: true
+        },
 
-      let
-          buyerObj = {
-            posCount: 0,
-            posDiff: 0,
-            neuCount: 0,
-            neuDiff: 0,
-            negCount: 0,
-            negDiff: 0,
-            gTotal: obj.buyer,
-            hasViewed: true
-          },
+        sellerObj = {
+          posCount: 0,
+          posDiff: 0,
+          neuCount: 0,
+          neuDiff: 0,
+          negCount: 0,
+          negDiff: 0,
+          gTotal: obj.seller,
+          hasViewed: true
+        };
 
-          sellerObj = {
-            posCount: 0,
-            posDiff: 0,
-            neuCount: 0,
-            neuDiff: 0,
-            negCount: 0,
-            negDiff: 0,
-            gTotal: obj.seller,
-            hasViewed: true
-          };
+    /* Get current object state */
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
 
-      /* Get current object state */
-      feedbackObj = resourceLibrary.getItem('feedbackObj');
+    if (debug) {
 
-      if (debug) {
+      console.log(' *** Resetting Object Values *** ');
+      console.log('Reset sellerObj: ');
+      console.log(sellerObj);
+      console.log(' ');
+      console.log('Reset buyerObj: ');
+      console.log(buyerObj);
+      console.time('resetStats');
+    }
 
-        console.log(' *** Resetting Object Values *** ');
-        console.log('Reset sellerObj: ');
-        console.log(sellerObj);
-        console.log(' ');
-        console.log('Reset buyerObj: ');
-        console.log(buyerObj);
-        console.time('resetStats');
-      }
+    feedbackObj.seller = sellerObj;
+    feedbackObj.buyer = buyerObj;
 
-      feedbackObj.seller = sellerObj;
-      feedbackObj.buyer = buyerObj;
+    /* Save current state */
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-      /* Save current state */
-      resourceLibrary.setItem('feedbackObj', feedbackObj);
+    if (debug) {
 
-      if (debug) {
-
-        console.log('Done resetting buyer/seller objects.');
-        console.timeEnd('resetStats');
-      }
-
-      resolve();
-    });
+      console.log('Done resetting buyer/seller objects.');
+      console.timeEnd('resetStats');
+    }
   }
 
+  /**
+   * Gets the number from the specified feedback tab on
+   * a user's profile.
+   * @param {object} data The element to pull the total from
+   * @param {integer} index The index position of the element
+   * @returns {integer}
+   */
+  function getTabCount(data, index) {
+
+    let sel = '.tab_menu .menu-item .facet_count';
+    return Number(data.querySelectorAll(sel)[index].textContent.trim().replace(/,/g, ''));
+  }
 
   /**
    * Sets the object with the most recent stats
@@ -357,8 +375,7 @@ resourceLibrary.ready(() => {
    * @param    {string} type  Either 'buyer' or 'seller'
    * @return   {undefined}
    */
-
-  function getStatsFor(type) {
+  async function getStatsFor(type) {
 
     /* used to report time elapsed for debugging */
     let randomTime = Math.random();
@@ -372,45 +389,120 @@ resourceLibrary.ready(() => {
       console.time(randomTime);
     }
 
-    return $.ajax({
+    let data = await fetchFeedbackData(type),
+        obj = feedbackObj[type],
+        pos = getTabCount(data,0),
+        neu = getTabCount(data,1),
+        neg = getTabCount(data,2);
 
-      url: `https://www.discogs.com/${language}sell/${type}'_feedback/${user}`,
-      type: 'GET',
-      dataType: 'html',
+    /* Assign new values to obj */
+    obj.negCount = neg;
+    obj.neuCount = neu;
+    obj.posCount = pos;
+    obj.hasViewed = true;
 
-      success: response => {
-console.log(response);
-        let
-            obj = feedbackObj[type],
-            pos = Number( $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '') ),
-            neu = Number( $(response).find('.tab_menu .menu-item:eq(2) .facet_count').text().trim().replace(/,/g, '') ),
-            neg = Number( $(response).find('.tab_menu .menu-item:eq(3) .facet_count').text().trim().replace(/,/g, '') );
+    /* Save obj updates */
+    feedbackObj[type] = obj;
 
-        /* Assign new values to obj */
-        obj.negCount = neg;
-        obj.neuCount = neu;
-        obj.posCount = pos;
-        obj.hasViewed = true;
+    /* Set timestamp when checked */
+    feedbackObj.lastChecked = timeStamp;
 
-        /* Save obj updates */
-        feedbackObj[type] = obj;
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-        /* Set timestamp when checked */
-        feedbackObj.lastChecked = timeStamp;
+    if (debug) {
 
-        resourceLibrary.setItem('feedbackObj', feedbackObj);
-
-        if (debug) {
-
-          console.log(obj);
-          console.timeEnd(randomTime);
-        }
-      }
-    });
+      console.log(obj);
+      console.timeEnd(randomTime);
+    }
   }
 
+  /**
+   * Checks the user's profile for changes to their total number of
+   * feedbacks received and calls
+   */
+  async function pollForChanges() {
+
+    let
+        type,
+        preloader,
+        div = await fetchBuyerSellerTotals(),
+        selector = '#page_aside .list_no_style.user_marketplace_rating ',
+        buyerTotal = Number(div.querySelector(selector + 'a[href*="buyer_feedback"]').textContent.trim().replace(/,/g, '')),
+        sellerTotal = Number(div.querySelector(selector + 'a[href*="seller_feedback"]').textContent.trim().replace(/,/g, ''));
+
+    /* Set timestamp when checked */
+    feedbackObj.lastChecked = timeStamp;
+
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
+
+    if (debug) {
+
+      console.log(' ');
+      console.log(' *** Polling for changes *** ');
+      console.log('Buyer count: ', buyerTotal, 'Seller count: ', sellerTotal);
+      console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedbackObj.lastChecked + waitTime).toLocaleTimeString());
+      console.timeEnd('poll-time');
+    }
+
+    if ( sellerTotal > feedbackObj.seller.gTotal ) {
+
+      if (debug) {
+
+        console.log(' ');
+        console.log(' *** Changes in Seller stats detected *** ');
+        console.log('difference of: ', sellerTotal - feedbackObj.seller.gTotal);
+        console.log(feedbackObj.seller);
+      }
+
+      type = 'seller_';
+
+      preloader = `<li style="position: relative;" class="${type}feedbackLoader">
+                      <i class="icon icon-spinner icon-spin nav_group_control"></i>
+                   </li>`;
+
+      // remove previous badge if it exists
+      if ( document.querySelector('#de-seller-feedback') ) {
+        document.querySelector('#de-seller-feedback').parentElement.remove();
+      }
+
+      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
+
+      /* Pass in new grand total from polling; */
+      getUpdates('seller', sellerTotal);
+    }
+
+    if ( buyerTotal > feedbackObj.buyer.gTotal ) {
+
+      if (debug) {
+
+        console.log(' ');
+        console.log(' *** Changes in Buyer stats detected *** ');
+        console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
+        console.log(feedbackObj.buyer);
+      }
+
+      type = 'buyer_';
+
+      preloader = `<li style="position: relative;" class="${type}feedbackLoader">
+                      <i class="icon icon-spinner icon-spin nav_group_control"></i>
+                  </li>`;
+
+      // remove previous badge if it exists
+      if ( document.querySelector('#de-buyer-feedback') ) {
+        document.querySelector('#de-buyer-feedback').parentElement.remove();
+      }
+
+      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
+
+      getUpdates('buyer', buyerTotal);
+    }
+  }
+
+  // ========================================================
+  // DOM Setup/Init
+  // ========================================================
+
   /* Set language for URL formation */
-  // TODO is this needed? Profile can be grabbed without it...
   language = ( language === 'en' ? '' : language + '/' );
 
   /* Create our object if it does not exist */
@@ -452,87 +544,7 @@ console.log(response);
 
     if (debug) { console.time('poll-time'); }
 
-    return $.ajax({
-
-      url: `https://www.discogs.com/${language}user/${user}`,
-      type: 'GET',
-      dataType: 'html',
-
-      success: response => {
-
-        let
-            type,
-            preloader,
-            selector = '#page_aside .list_no_style.user_marketplace_rating ',
-            buyerTotal = Number( $(response).find(selector + 'a[href*="buyer_feedback"]').text().trim().replace(/,/g, '') ),
-            sellerTotal = Number( $(response).find(selector + 'a[href*="seller_feedback"]').text().trim().replace(/,/g, '') );
-
-        /* Set timestamp when checked */
-        feedbackObj.lastChecked = timeStamp;
-
-        resourceLibrary.setItem('feedbackObj', feedbackObj);
-
-        if (debug) {
-
-          console.log(' ');
-          console.log(' *** Polling for changes *** ');
-          console.log('Buyer count: ', buyerTotal, 'Seller count: ', sellerTotal);
-          console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedbackObj.lastChecked + waitTime).toLocaleTimeString());
-          console.timeEnd('poll-time');
-        }
-
-        if ( sellerTotal > feedbackObj.seller.gTotal ) {
-
-          if (debug) {
-
-            console.log(' ');
-            console.log(' *** Changes in Seller stats detected *** ');
-            console.log('difference of: ', sellerTotal - feedbackObj.seller.gTotal);
-            console.log(feedbackObj.seller);
-          }
-
-          type = 'seller_';
-
-          preloader = `<li style="position: relative;" class="${type}feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>`;
-
-          // remove previous badge if it exists
-          if ($('#de-seller-feedback').length) {
-
-            $('#de-seller-feedback').parent().remove();
-          }
-
-          $('#activity_menu').append(preloader);
-
-          /* Pass in new grand total from polling; */
-          getUpdates('seller', sellerTotal);
-        }
-
-        if ( buyerTotal > feedbackObj.buyer.gTotal ) {
-
-          if (debug) {
-
-            console.log(' ');
-            console.log(' *** Changes in Buyer stats detected *** ');
-            console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
-            console.log(feedbackObj.buyer);
-          }
-
-          type = 'buyer_';
-
-          preloader = `<li style="position: relative;" class="${type}feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>`;
-
-          // remove previous badge if it exists
-          if ($('#de-buyer-feedback').length) {
-
-            $('#de-buyer-feedback').parent().remove();
-          }
-
-          $('#activity_menu').append(preloader);
-
-          getUpdates('buyer', buyerTotal);
-        }
-      }
-    });
+    pollForChanges();
   }
 
   // ========================================================
@@ -548,7 +560,7 @@ console.log(response);
 
       elem.addEventListener('click', ({ target }) => {
 
-        let elemClass = event.target.className,
+        let elemClass = target.className,
             type,
             obj;
 
