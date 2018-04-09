@@ -6,11 +6,13 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * This will monitor the user's Buyer and Seller feedback numbers
+ * and append badges to the navbar when any new feedback has been
+ * detected.
  */
 resourceLibrary.ready(() => {
 
-  let
-      debug = resourceLibrary.options.debug(),
+  let debug = resourceLibrary.options.debug(),
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
       timeStamp = new Date().getTime(),
@@ -19,7 +21,7 @@ resourceLibrary.ready(() => {
       waitTime = (1000 * 60) * 2; // 2 mins
 
   // ========================================================
-  // Functions
+  // Functions (Alphabetical)
   // ========================================================
 
   /**
@@ -39,7 +41,7 @@ resourceLibrary.ready(() => {
 
     id = (type === 'seller' ? 'de-seller-feedback' : 'de-buyer-feedback');
 
-    if (existing && debug) {
+    if ( existing && debug ) {
 
       console.log(' ');
       console.log(' *** Existing notifications for: ' + type + ' *** ');
@@ -88,13 +90,101 @@ resourceLibrary.ready(() => {
     return bindUi();
   }
 
+  /**
+   * Appends the badge preloader to the navbar.
+   * @param {string} type buyer or seller
+   * @returns {method}
+   */
+  function appendPreloader(type) {
+
+    let preloader = `<li style="position: relative;" class="${type}feedbackLoader">
+                        <i class="icon icon-spinner icon-spin nav_group_control"></i>
+                     </li>`;
+    // remove previous badge if it exists
+    if (document.querySelector(`#de-${type}-feedback`)) {
+      document.querySelector(`#de-${type}-feedback`).parentElement.remove();
+    }
+
+    return document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
+  }
+
+  /**
+   * Attaches event listeners to the buyer and seller badges.
+   * @returns {undefined}
+   */
+  function bindUi() {
+
+    // ========================================================
+    // Clear notifications and save "viewed" states
+    // ========================================================
+    [...document.querySelectorAll('.de-buyer-feedback, .de-seller-feedback')].forEach(elem => {
+
+      elem.addEventListener('click', ({ target }) => {
+
+        let elemClass = target.className,
+            type,
+            obj;
+
+        type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
+
+        obj = resourceLibrary.getItem('feedbackObj')[type];
+
+        clearNotification(type, obj);
+
+        return target.parentElement.style.display = 'none';
+      });
+    });
+
+    // ========================================================
+    // Menu interactions
+    // ========================================================
+    [...document.querySelectorAll('.pos-reviews, .neu-reviews, .neg-reviews')].forEach(elem => {
+
+      elem.addEventListener('click', ({ target }) => {
+
+        let elem = target.className,
+            id = target.parentElement.parentElement.id,
+            obj,
+            queryParam,
+            type;
+
+        type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
+
+        obj = resourceLibrary.getItem('feedbackObj')[type];
+
+        switch (elem) {
+
+          case 'pos-reviews':
+            queryParam = '?show=Positive';
+            break;
+
+          case 'neu-reviews':
+            queryParam = '?show=Neutral';
+            break;
+
+          case 'neg-reviews last':
+            queryParam = '?show=Negative';
+            break;
+        }
+
+        clearNotification(type, obj);
+
+        /*
+          The href is declared here because I need to be able to update
+          the object props before the transition. Don't try to pass them into the
+          appendBadge markup. It won't work.
+        */
+        return window.location.href = `https://www.discogs.com/${language}sell/${type}_feedback/${user}${queryParam}`;
+      });
+    });
+  }
 
   /**
    * Updates the `buyer`/`seller` objects hasViewed prop
    * after user clicks on notifications
-   * @param    {string} type  Either buyer or seller
-   * @param    {object} obj   The object written to localStorage
-   * @return   {method}
+   * @param {string} type  Either buyer or seller
+   * @param {object} obj   The object written to localStorage
+   * @return {method}
    */
   function clearNotification(type, obj) {
 
@@ -114,11 +204,70 @@ resourceLibrary.ready(() => {
   }
 
   /**
+   * Creates the buyer/seller objects when none exist.
+   * @return {function}
+   */
+  async function createBuyerSellerObjs() {
+
+    if (debug) {
+
+      console.log(' ');
+      console.log(' *** initializing base object values *** ');
+      console.time('createBuyerSellerObjs');
+    }
+
+    let div = await fetchBuyerSellerTotals(),
+        selector = '#page_aside .list_no_style.user_marketplace_rating ',
+        buyerTotal = Number(div.querySelector(selector + 'a[href*="buyer_feedback"]').textContent.trim().replace(/,/g, '')),
+        sellerTotal = Number(div.querySelector(selector + 'a[href*="seller_feedback"]').textContent.trim().replace(/,/g, '')),
+        response = { seller: sellerTotal, buyer: buyerTotal };
+
+    if (debug) { console.timeEnd('createBuyerSellerObjs'); }
+
+    resetStats(response);
+    getStatsFor('seller');
+    getStatsFor('buyer');
+  }
+
+  /**
+   * Fetches the buyer and seller total numbers
+   * from a user's profile.
+   * @returns {object}
+   */
+  async function fetchBuyerSellerTotals() {
+
+    let url = `https://www.discogs.com/user/${user}`,
+        response = await fetch(url),
+        data = await response.text(),
+        div = document.createElement('div');
+
+    div.innerHTML = data;
+    return div;
+  }
+
+  /**
+   * Fetches the most recent Pos, Neu, and Neg numbers from a
+   * user's profile.
+   * @param {string} type Buyer or seller
+   * @returns {object}
+   */
+  async function fetchFeedbackData(type) {
+
+    let url = `https://www.discogs.com/sell/${type}_feedback/${user}`,
+        response = await fetch(url),
+        data = await response.text(),
+        div = document.createElement('div');
+
+    div.innerHTML = data;
+    return div;
+  }
+
+  /**
    * Finds the differences between old/new stats.
-   * @param    {string} type    Either 'Negative' or 'Neutral' used for debugging
-   * @param    {array} oldStat  Previous value
-   * @param    {array} newStat  Current value
-   * @return   {number}
+   * @param {string} type    Either 'Negative' or 'Neutral' used for debugging
+   * @param {array} oldStat  Previous value
+   * @param {array} newStat  Current value
+   * @return {number}
    */
   function findStatsShift(type, oldStat, newStat) {
 
@@ -138,20 +287,93 @@ resourceLibrary.ready(() => {
   }
 
   /**
-   * Fetches the most recent Pos, Neu, and Neg numbers from a
-   * user's profile.
-   * @param {string} type Buyer or seller
-   * @returns {object}
+   * Sets the object with the most recent stats
+   * from the profile page when feedback-notifier is
+   * first run.
+   * @param {string} type  Either 'buyer' or 'seller'
+   * @return {undefined}
    */
-  async function fetchFeedbackData(type) {
+  async function getStatsFor(type) {
 
-    let url = `https://www.discogs.com/sell/${type}_feedback/${user}`,
-        response = await fetch(url),
-        data = await response.text(),
-        div = document.createElement('div');
+    /* used to report time elapsed for debugging */
+    let randomTime = Math.random();
 
-    div.innerHTML = data;
-    return div;
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
+
+    if (debug) {
+
+      console.log(' ');
+      console.log(' *** updating ' + type + ' object stats *** ');
+      console.time(randomTime);
+    }
+
+    let data = await fetchFeedbackData(type),
+        obj = feedbackObj[type],
+        pos = getTabCount(data, 0),
+        neu = getTabCount(data, 1),
+        neg = getTabCount(data, 2);
+
+    /* Assign new values to obj */
+    obj.negCount = neg;
+    obj.neuCount = neu;
+    obj.posCount = pos;
+    obj.hasViewed = true;
+
+    /* Save obj updates */
+    feedbackObj[type] = obj;
+
+    /* Set timestamp when checked */
+    feedbackObj.lastChecked = timeStamp;
+
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
+
+    if (debug) {
+
+      console.log(obj);
+      console.timeEnd(randomTime);
+    }
+  }
+
+  /**
+   * Gets the number from the specified feedback tab on
+   * a user's profile.
+   * @param {object} data The element to pull the total from
+   * @param {integer} index The index position of the element
+   * @returns {integer}
+   */
+  function getTabCount(data, index) {
+
+    let sel = '.tab_menu .menu-item .facet_count';
+    return Number(data.querySelectorAll(sel)[index].textContent.trim().replace(/,/g, ''));
+  }
+
+  /**
+   * Get's the user's feedback numbers from their profile,
+   * parses the HTML returned in the response for the Positive,
+   * Neutral and Negative totals and then appends those numbers
+   * (if any) to the nav bar.
+   * @param {string} type    Either `buyer` or `seller`
+   * @param {number} gTotal  Total number of all transactions
+   * @return {function}
+   */
+  async function getUpdates(type, gTotal) {
+
+    let data,
+        obj;
+
+    feedbackObj = resourceLibrary.getItem('feedbackObj');
+
+    obj = feedbackObj[type];
+
+    if (debug) {
+
+      console.log(' *** Getting updates for ' + type + ' *** ');
+      console.time('getUpdates');
+    }
+
+    data = await fetchFeedbackData(type);
+    parseFeedbackData(data, obj, type, gTotal);
+    return appendBadge(type);
   }
 
   /**
@@ -226,76 +448,63 @@ resourceLibrary.ready(() => {
   }
 
   /**
-   * Get's the user's feedback numbers from their profile,
-   * parses the HTML returned in the response for the Positive,
-   * Neutral and Negative totals and then appends those numbers
-   * (if any) to the nav bar.
-   * @param    {string} type    Either `buyer` or `seller`
-   * @param    {number} gTotal  Total number of all transactions
-   * @return   {function}
+   * Checks the user's profile for changes to their total number of
+   * feedbacks received and calls
+   * @returns {undefined}
    */
-  async function getUpdates(type, gTotal) {
+  async function pollForChanges() {
 
-    let data,
-        obj;
+    let div = await fetchBuyerSellerTotals(),
+        selector = '#page_aside .list_no_style.user_marketplace_rating ',
+        bfsel = 'a[href*="buyer_feedback"]',
+        sfsel = 'a[href*="seller_feedback"]',
+        buyerTotal = Number(div.querySelector(selector + bfsel).textContent.trim().replace(/,/g, '')),
+        sellerTotal = Number(div.querySelector(selector + sfsel).textContent.trim().replace(/,/g, ''));
 
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
+    /* Set timestamp when checked */
+    feedbackObj.lastChecked = timeStamp;
 
-    obj = feedbackObj[type];
-
-    if (debug) {
-
-      console.log(' *** Getting updates for ' + type + ' *** ');
-      console.time('getUpdates');
-    }
-
-    data = await fetchFeedbackData(type);
-    parseFeedbackData(data, obj, type, gTotal);
-    return appendBadge(type);
-  }
-
-  /**
-   * Fetches the buyer and seller total numbers
-   * from a user's profile.
-   * @returns {object}
-   */
-  async function fetchBuyerSellerTotals() {
-
-    let url = `https://www.discogs.com/user/${user}`,
-        response = await fetch(url),
-        data = await response.text(),
-        div = document.createElement('div');
-
-    div.innerHTML = data;
-    return div;
-  }
-
-  /**
-   * Creates the buyer/seller objects when none exist.
-   * @return {function}
-   */
-  async function createBuyerSellerObjs() {
+    resourceLibrary.setItem('feedbackObj', feedbackObj);
 
     if (debug) {
 
       console.log(' ');
-      console.log(' *** initializing base object values *** ');
-      console.time('createBuyerSellerObjs');
+      console.log(' *** Polling for changes *** ');
+      console.log('Buyer count: ', buyerTotal, 'Seller count: ', sellerTotal);
+      console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedbackObj.lastChecked + waitTime).toLocaleTimeString());
+      console.timeEnd('poll-time');
     }
 
-    let div = await fetchBuyerSellerTotals(),
-        selector = '#page_aside .list_no_style.user_marketplace_rating ',
-        buyerTotal = Number( div.querySelector(selector + 'a[href*="buyer_feedback"]').textContent.trim().replace(/,/g, '') ),
-        sellerTotal = Number( div.querySelector(selector + 'a[href*="seller_feedback"]').textContent.trim().replace(/,/g, '') ),
-        response = { seller: sellerTotal, buyer: buyerTotal };
+    // Check Seller stats
+    if ( sellerTotal > feedbackObj.seller.gTotal ) {
 
-    if (debug) { console.timeEnd('createBuyerSellerObjs'); }
+      if (debug) {
 
-    resetStats(response);
-    getStatsFor('seller');
-    getStatsFor('buyer');
+        console.log(' ');
+        console.log(' *** Changes in Seller stats detected *** ');
+        console.log('difference of: ', sellerTotal - feedbackObj.seller.gTotal);
+        console.log(feedbackObj.seller);
+      }
+
+      appendPreloader('seller_');
+      getUpdates('seller', sellerTotal);
+    }
+
+    // Check buyer stats
+    if ( buyerTotal > feedbackObj.buyer.gTotal ) {
+
+      if (debug) {
+
+        console.log(' ');
+        console.log(' *** Changes in Buyer stats detected *** ');
+        console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
+        console.log(feedbackObj.buyer);
+      }
+
+      appendPreloader('buyer_');
+      getUpdates('buyer', buyerTotal);
+    }
   }
-
 
   /**
    * Resets the objects and adds the most recent buyer/seller grand total stats
@@ -354,150 +563,6 @@ resourceLibrary.ready(() => {
     }
   }
 
-  /**
-   * Gets the number from the specified feedback tab on
-   * a user's profile.
-   * @param {object} data The element to pull the total from
-   * @param {integer} index The index position of the element
-   * @returns {integer}
-   */
-  function getTabCount(data, index) {
-
-    let sel = '.tab_menu .menu-item .facet_count';
-    return Number(data.querySelectorAll(sel)[index].textContent.trim().replace(/,/g, ''));
-  }
-
-  /**
-   * Sets the object with the most recent stats
-   * from the profile page when feedback-notifier is
-   * first run.
-   *
-   * @param    {string} type  Either 'buyer' or 'seller'
-   * @return   {undefined}
-   */
-  async function getStatsFor(type) {
-
-    /* used to report time elapsed for debugging */
-    let randomTime = Math.random();
-
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
-
-    if (debug) {
-
-      console.log(' ');
-      console.log(' *** updating ' + type + ' object stats *** ');
-      console.time(randomTime);
-    }
-
-    let data = await fetchFeedbackData(type),
-        obj = feedbackObj[type],
-        pos = getTabCount(data,0),
-        neu = getTabCount(data,1),
-        neg = getTabCount(data,2);
-
-    /* Assign new values to obj */
-    obj.negCount = neg;
-    obj.neuCount = neu;
-    obj.posCount = pos;
-    obj.hasViewed = true;
-
-    /* Save obj updates */
-    feedbackObj[type] = obj;
-
-    /* Set timestamp when checked */
-    feedbackObj.lastChecked = timeStamp;
-
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
-
-    if (debug) {
-
-      console.log(obj);
-      console.timeEnd(randomTime);
-    }
-  }
-
-  /**
-   * Checks the user's profile for changes to their total number of
-   * feedbacks received and calls
-   */
-  async function pollForChanges() {
-
-    let
-        type,
-        preloader,
-        div = await fetchBuyerSellerTotals(),
-        selector = '#page_aside .list_no_style.user_marketplace_rating ',
-        buyerTotal = Number(div.querySelector(selector + 'a[href*="buyer_feedback"]').textContent.trim().replace(/,/g, '')),
-        sellerTotal = Number(div.querySelector(selector + 'a[href*="seller_feedback"]').textContent.trim().replace(/,/g, ''));
-
-    /* Set timestamp when checked */
-    feedbackObj.lastChecked = timeStamp;
-
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
-
-    if (debug) {
-
-      console.log(' ');
-      console.log(' *** Polling for changes *** ');
-      console.log('Buyer count: ', buyerTotal, 'Seller count: ', sellerTotal);
-      console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedbackObj.lastChecked + waitTime).toLocaleTimeString());
-      console.timeEnd('poll-time');
-    }
-
-    if ( sellerTotal > feedbackObj.seller.gTotal ) {
-
-      if (debug) {
-
-        console.log(' ');
-        console.log(' *** Changes in Seller stats detected *** ');
-        console.log('difference of: ', sellerTotal - feedbackObj.seller.gTotal);
-        console.log(feedbackObj.seller);
-      }
-
-      type = 'seller_';
-
-      preloader = `<li style="position: relative;" class="${type}feedbackLoader">
-                      <i class="icon icon-spinner icon-spin nav_group_control"></i>
-                   </li>`;
-
-      // remove previous badge if it exists
-      if ( document.querySelector('#de-seller-feedback') ) {
-        document.querySelector('#de-seller-feedback').parentElement.remove();
-      }
-
-      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
-
-      /* Pass in new grand total from polling; */
-      getUpdates('seller', sellerTotal);
-    }
-
-    if ( buyerTotal > feedbackObj.buyer.gTotal ) {
-
-      if (debug) {
-
-        console.log(' ');
-        console.log(' *** Changes in Buyer stats detected *** ');
-        console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
-        console.log(feedbackObj.buyer);
-      }
-
-      type = 'buyer_';
-
-      preloader = `<li style="position: relative;" class="${type}feedbackLoader">
-                      <i class="icon icon-spinner icon-spin nav_group_control"></i>
-                  </li>`;
-
-      // remove previous badge if it exists
-      if ( document.querySelector('#de-buyer-feedback') ) {
-        document.querySelector('#de-buyer-feedback').parentElement.remove();
-      }
-
-      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
-
-      getUpdates('buyer', buyerTotal);
-    }
-  }
-
   // ========================================================
   // DOM Setup/Init
   // ========================================================
@@ -509,7 +574,7 @@ resourceLibrary.ready(() => {
   if ( !resourceLibrary.getItem('feedbackObj') ) {
 
     feedbackObj = {
-      baseValsChecked: timeStamp, // not used but might be useful as install date.
+      baseValsChecked: timeStamp, // not used anymore but might be useful as install date?
       buyer: null,
       seller: null,
       lastChecked: timeStamp
@@ -521,7 +586,6 @@ resourceLibrary.ready(() => {
     feedbackObj = resourceLibrary.getItem('feedbackObj');
   }
 
-
   /* Create the `buyer` / `seller` objects; */
   if ( !feedbackObj.buyer || !feedbackObj.seller ) {
     return createBuyerSellerObjs();
@@ -531,7 +595,6 @@ resourceLibrary.ready(() => {
   if ( !feedbackObj.seller.hasViewed ) { appendBadge('seller'); }
 
   if ( !feedbackObj.buyer.hasViewed ) { appendBadge('buyer'); }
-
 
   // ========================================================
   // Poll for changes
@@ -546,75 +609,4 @@ resourceLibrary.ready(() => {
 
     pollForChanges();
   }
-
-  // ========================================================
-  // UI Functionality
-  // ========================================================
-
-  function bindUi() {
-
-    // ========================================================
-    // Clear notifications and save "viewed" states
-    // ========================================================
-    [...document.querySelectorAll('.de-buyer-feedback, .de-seller-feedback')].forEach(elem => {
-
-      elem.addEventListener('click', ({ target }) => {
-
-        let elemClass = target.className,
-            type,
-            obj;
-
-        type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
-
-        obj = resourceLibrary.getItem('feedbackObj')[type];
-
-        clearNotification(type, obj);
-
-        return target.parentElement.style.display = 'none';
-      });
-    });
-
-    // ========================================================
-    // Menu interactions
-    // ========================================================
-    [...document.querySelectorAll('.pos-reviews, .neu-reviews, .neg-reviews')].forEach(elem => {
-
-        elem.addEventListener('click', ({ target }) => {
-
-          let elem = target.className,
-              id = target.parentElement.parentElement.id,
-              obj,
-              queryParam,
-              type;
-
-          type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
-
-          obj = resourceLibrary.getItem('feedbackObj')[type];
-
-          switch (elem) {
-
-            case 'pos-reviews':
-              queryParam = '?show=Positive';
-              break;
-
-            case 'neu-reviews':
-              queryParam = '?show=Neutral';
-              break;
-
-            case 'neg-reviews last':
-              queryParam = '?show=Negative';
-              break;
-          }
-
-          clearNotification(type, obj);
-
-          /*
-            The href is declared here because I need to be able to update
-            the object props before the transition. Don't try to pass them into the
-            appendBadge markup. It won't work.
-          */
-          return window.location.href = `https://www.discogs.com/${language}sell/${type}_feedback/${user}${queryParam}`;
-        });
-      });
-    }
 });
