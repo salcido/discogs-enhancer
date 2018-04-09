@@ -8,15 +8,15 @@
  *
  */
 // TODO refactor to vanilla js
-$(document).ready(function() {
+
+resourceLibrary.ready(() => {
 
   let
-      d = new Date(),
       debug = resourceLibrary.options.debug(),
       feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
       language = resourceLibrary.language(),
-      timeStamp = d.getTime(),
-      user = $('#site_account_menu').find('.user_image').attr('alt'),
+      timeStamp = new Date().getTime(),
+      user = document.querySelector('#site_account_menu .user_image').alt,
       //user = 'recordsale-de',
       waitTime = (1000 * 60) * 2; // 2 mins
 
@@ -65,7 +65,7 @@ $(document).ready(function() {
     badge = `<li style="position: relative;">
               <span id="${id}">
                 <a class="nav_group_control ${id}">
-                  <span class="skittle skittle_collection" style="cursor: pointer;">
+                  <span class="skittle skittle_collection" style="cursor: pointer; pointer-events: none;">
                     <span class="count" style="color: white !important;"></span>
                   </span>
                 </a>
@@ -140,21 +140,17 @@ $(document).ready(function() {
 
     let shift = newStat - oldStat;
 
-    if (oldStat === newStat || shift < 0) {
+    if ( oldStat === newStat || shift < 0 ) {
 
       /* No changes were found */
-      if (debug) {
+      if ( debug ) {
 
           console.log('No changes in ' + type + ' stats');
           console.log('Stats for:', type, 'old:', oldStat, 'new:', newStat);
         }
-
       return 0;
-
-    } else {
-
-      return shift;
     }
+    return shift;
   }
 
 
@@ -184,7 +180,7 @@ $(document).ready(function() {
 
     return $.ajax({
 
-      url: 'https://www.discogs.com/' + language + 'sell/' + type +'_feedback/' + user,
+      url: `https://www.discogs.com/${language}sell/${type}_feedback/${user}`,
       type: 'GET',
       dataType: 'html',
 
@@ -269,7 +265,7 @@ $(document).ready(function() {
 
     return $.ajax({
 
-      url: 'https://www.discogs.com/' + language + 'user/' + user,
+      url: `https://www.discogs.com/${language}user/${user}`,
       type: 'GET',
       dataType: 'html',
 
@@ -378,12 +374,12 @@ $(document).ready(function() {
 
     return $.ajax({
 
-      url: 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user,
+      url: `https://www.discogs.com/${language}sell/${type}'_feedback/${user}`,
       type: 'GET',
       dataType: 'html',
 
       success: response => {
-
+console.log(response);
         let
             obj = feedbackObj[type],
             pos = Number( $(response).find('.tab_menu .menu-item:eq(1) .facet_count').text().trim().replace(/,/g, '') ),
@@ -413,10 +409,9 @@ $(document).ready(function() {
     });
   }
 
-
   /* Set language for URL formation */
+  // TODO is this needed? Profile can be grabbed without it...
   language = ( language === 'en' ? '' : language + '/' );
-
 
   /* Create our object if it does not exist */
   if ( !resourceLibrary.getItem('feedbackObj') ) {
@@ -430,25 +425,20 @@ $(document).ready(function() {
 
     /* Save it... */
     resourceLibrary.setItem('feedbackObj', feedbackObj);
-
     /* Get newly saved object */
     feedbackObj = resourceLibrary.getItem('feedbackObj');
   }
 
 
   /* Create the `buyer` / `seller` objects; */
-  if (!feedbackObj.buyer || !feedbackObj.seller) {
+  if ( !feedbackObj.buyer || !feedbackObj.seller ) {
     return createBuyerSellerObjs();
   }
 
   /* Append notifictions if they are unread. */
-  if (!feedbackObj.seller.hasViewed) {
-    appendBadge('seller');
-  }
+  if ( !feedbackObj.seller.hasViewed ) { appendBadge('seller'); }
 
-  if (!feedbackObj.buyer.hasViewed) {
-    appendBadge('buyer');
-  }
+  if ( !feedbackObj.buyer.hasViewed ) { appendBadge('buyer'); }
 
 
   // ========================================================
@@ -464,7 +454,7 @@ $(document).ready(function() {
 
     return $.ajax({
 
-      url: 'https://www.discogs.com/' + language + 'user/' + user,
+      url: `https://www.discogs.com/${language}user/${user}`,
       type: 'GET',
       dataType: 'html',
 
@@ -503,7 +493,7 @@ $(document).ready(function() {
 
           type = 'seller_';
 
-          preloader = '<li style="position: relative;" class="' + type + 'feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>';
+          preloader = `<li style="position: relative;" class="${type}feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>`;
 
           // remove previous badge if it exists
           if ($('#de-seller-feedback').length) {
@@ -529,7 +519,7 @@ $(document).ready(function() {
 
           type = 'buyer_';
 
-          preloader = '<li style="position: relative;" class="' + type + 'feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>';
+          preloader = `<li style="position: relative;" class="${type}feedbackLoader"><i class="icon icon-spinner icon-spin nav_group_control"></i></li>`;
 
           // remove previous badge if it exists
           if ($('#de-buyer-feedback').length) {
@@ -554,61 +544,65 @@ $(document).ready(function() {
     // ========================================================
     // Clear notifications and save "viewed" states
     // ========================================================
-    $('body').on('click', '.de-buyer-feedback, .de-seller-feedback', function() {
+    [...document.querySelectorAll('.de-buyer-feedback, .de-seller-feedback')].forEach(elem => {
 
-      let
-          elemClass = this.className,
-          type,
-          obj;
+      elem.addEventListener('click', ({ target }) => {
 
-      type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
+        let elemClass = event.target.className,
+            type,
+            obj;
 
-      obj = resourceLibrary.getItem('feedbackObj')[type];
+        type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
 
-      clearNotification(type, obj);
+        obj = resourceLibrary.getItem('feedbackObj')[type];
 
-      return $(this).parent().hide();
+        clearNotification(type, obj);
+
+        return target.parentElement.style.display = 'none';
+      });
     });
 
     // ========================================================
     // Menu interactions
     // ========================================================
-    $('body').on('click', '.pos-reviews, .neu-reviews, .neg-reviews', function() {
+    [...document.querySelectorAll('.pos-reviews, .neu-reviews, .neg-reviews')].forEach(elem => {
 
-      let
-          elem = this.className,
-          id = $(this).parent().parent().attr('id'),
-          obj,
-          queryParam,
-          type;
+        elem.addEventListener('click', ({ target }) => {
 
-      type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
+          let elem = target.className,
+              id = target.parentElement.parentElement.id,
+              obj,
+              queryParam,
+              type;
 
-      obj = resourceLibrary.getItem('feedbackObj')[type];
+          type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
 
-      switch (elem) {
+          obj = resourceLibrary.getItem('feedbackObj')[type];
 
-        case 'pos-reviews':
-          queryParam = '?show=Positive';
-          break;
+          switch (elem) {
 
-        case 'neu-reviews':
-          queryParam = '?show=Neutral';
-          break;
+            case 'pos-reviews':
+              queryParam = '?show=Positive';
+              break;
 
-        case 'neg-reviews last':
-          queryParam = '?show=Negative';
-          break;
-      }
+            case 'neu-reviews':
+              queryParam = '?show=Neutral';
+              break;
 
-      clearNotification(type, obj);
+            case 'neg-reviews last':
+              queryParam = '?show=Negative';
+              break;
+          }
 
-      /*
-         The href is declared here because I need to be able to update
-         the object props before the transition. Don't try to pass them into the
-         appendBadge markup. It won't work.
-      */
-      return window.location.href = 'https://www.discogs.com/' + language + 'sell/' + type + '_feedback/' + user + queryParam;
-    });
-  }
+          clearNotification(type, obj);
+
+          /*
+            The href is declared here because I need to be able to update
+            the object props before the transition. Don't try to pass them into the
+            appendBadge markup. It won't work.
+          */
+          return window.location.href = `https://www.discogs.com/${language}sell/${type}_feedback/${user}${queryParam}`;
+        });
+      });
+    }
 });

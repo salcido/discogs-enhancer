@@ -1,4 +1,5 @@
-.de-preloader {
+.de-preloader,
+.de-price-preloader {
   margin: 20px auto;
   position: relative;
   font-style: normal;

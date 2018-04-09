@@ -13,6 +13,7 @@
   margin-top: 4px;
   background: none !important;
   color: white !important;
+  pointer-events: none;
 }
 
 #de-seller-feedback:hover .feedback-chart.seller {
@@ -118,12 +119,27 @@ ul.feedback-chart h3 {
 
 ul.feedback-chart .pos {
   color: #69C34B !important;
+  pointer-events: none;
 }
 
 ul.feedback-chart .neu {
   color: #CCCCCC !important;
+  pointer-events: none;
 }
 
 ul.feedback-chart .neg {
   color: #E04526 !important;
+  pointer-events: none;
+}
+
+ul.feedback-chart .pos-count {
+  pointer-events: none;
+}
+
+ul.feedback-chart .neu-count {
+  pointer-events: none;
+}
+
+ul.feedback-chart .neg-count {
+  pointer-events: none;
 }
