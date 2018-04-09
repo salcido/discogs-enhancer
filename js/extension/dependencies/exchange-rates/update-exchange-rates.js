@@ -51,7 +51,7 @@ resourceLibrary.ready(() => {
    */
   async function updateRates() {
 
-    let url = `https://api.fixer.io/latest?base=${userCurrency}&symbols=AUD,CAD,CHF,EUR,SEK,ZAR,GBP,JPY,MXN,NZD,BRL,USD`;
+    let url = `https://discogs-enhancer.com/rates?base=${userCurrency}`;
 
     try {
 

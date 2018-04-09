@@ -5,7 +5,7 @@
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
 
 #### Project Overview
-<http://www.msalcido.com/discogs-enhancer>
+<https://www.discogs-enhancer.com>
 
 #### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
