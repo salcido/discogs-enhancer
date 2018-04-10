@@ -10,7 +10,7 @@
  * Marketplace sidebar filters: (Currency, Genre, Style,
  * Format, Media Condition and Year)
  *
- * The sorting functionalty is kicked off when the `initFilter`
+ * The sorting functionalty is kicked off when the `sortMpLists`
  * method is fired.
  */
 
@@ -42,9 +42,8 @@ resourceLibrary.ready(() => {
     // Assemble the necessary markup
     div.style.textAlign = 'center';
 
-    button.id = 'initFilter';
+    button.id = 'sortMpLists';
     button.className = 'button button-blue';
-    button.style.width = '100px';
     button.textContent = 'Sort A-Z';
 
     div.append(button);
@@ -64,13 +63,13 @@ resourceLibrary.ready(() => {
 
     // 'Sort A-Z' button
     // Everything starts when this button is clicked
-    document.getElementById('initFilter').addEventListener('click', () => initFilter());
+    document.getElementById('sortMpLists').addEventListener('click', trackClicks);
     // '<- All Filters' page link
     document.querySelector('.hide_more_filters').addEventListener('click', () => {
 
       try {
         // Tear down the 'Sort A-Z' button
-        document.getElementById('initFilter').remove();
+        document.getElementById('sortMpLists').remove();
       } catch (err) {
         /* Just catch the error */
       }
@@ -100,24 +99,21 @@ resourceLibrary.ready(() => {
    * Kicks off the sorting process and tracks the
    * number of times the sort button has
    * been clicked.
-   *
-   * @method initFilter
-   * @return {integer}
+   * @returns {assignment}
    */
-  function initFilter() {
+  function trackClicks() {
 
     clicks++;
+    resourceLibrary.setButtonText(document.querySelector('#sortMpLists'));
 
     if ( clicks > 2 ) {
-      document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
-      return clicks = 0;
+      clicks = 0;
+      return document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
     }
 
     // The sorting process begins here...
     sortList(event.target, desc);
-    desc = !desc;
-
-    return clicks;
+    return desc = !desc;
   }
 
   /**
@@ -174,8 +170,6 @@ resourceLibrary.ready(() => {
     lis.sort(compareText);
     // Reverse if necessary
     if ( descending ) { lis.reverse(); }
-    // Update the Sort A-Z button
-    resourceLibrary.setButtonText(target);
     // Append the sorted list
     injectListMarkup(lis, liHead);
   }
