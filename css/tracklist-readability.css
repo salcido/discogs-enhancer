@@ -1,0 +1,9 @@
+.de-spacer {
+  line-height: 0.5rem;
+  transition: line-height 0.5s;
+  transition-timing-function: ease;
+}
+
+.de-spacer.hide {
+    line-height: 0 !important;
+}

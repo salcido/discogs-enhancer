@@ -39,8 +39,8 @@
  * https://www.discogs.com/Various-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/release/6265588
  *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
+
+resourceLibrary.ready(() => {
 
     let releaseHistoryPage = document.location.href.includes('/history'),
         releasePage = document.location.href.includes('/release/');
@@ -55,18 +55,18 @@ $(document).ready(function() {
 
         // don't insert spacers if headings or index tracks already exist.
         // And don't confuse release durations with track headers
-        durations = $('.de-durations').length,
-        noHeadings = durations ? $('.track_heading').length <= 1 : $('.track_heading').length < 1,
-        hasIndexTracks = $('.index_track').length > 0,
+        durations = document.querySelector('.de-durations'),
+        noHeadings = durations ? document.querySelectorAll('.track_heading').length <= 1 : document.querySelectorAll('.track_heading').length < 1,
+        hasIndexTracks = document.querySelectorAll('.index_track').length > 0,
 
         // Compilations have different markup requirements when rendering track headings...
-        isCompilation = $('.tracklist_track_artists').length > 0,
+        isCompilation = document.querySelectorAll('.tracklist_track_artists').length > 0,
 
         // ...so only insert the duration markup if it's a compilation
         duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
 
-        // jQ object of all tracks on a release
-        tracklist = $('.playlist tbody tr'),
+        // array of all tracks on a release
+        tracklist = [...document.querySelectorAll('.playlist tbody tr')],
 
         // size of dividers inserted between tracks
         size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
@@ -139,8 +139,7 @@ $(document).ready(function() {
 
         } else if ( suffix[i] && suffix[i] != counter ) {
 
-          $(spacer).insertAfter(tracklist[i - 1]);
-
+          tracklist[i - 1].insertAdjacentHTML('afterend', spacer);
           // reset counter and `i` to continue comparison
           counter = 1;
           i--;
@@ -210,7 +209,8 @@ $(document).ready(function() {
 
         if ( next && current !== next ) {
 
-          $(spacer).insertAfter( tracklist[i] );
+          // $(spacer).insertAfter( tracklist[i] );
+          tracklist[i].insertAdjacentHTML('afterend', spacer);
         }
       });
     }
@@ -228,11 +228,11 @@ $(document).ready(function() {
 
     function insertSpacersEveryNth(tPos, nth) {
 
-      tPos.each(i => {
+      tPos.forEach((t,i) => {
 
         if ( i % nth === 0 && i !== 0 ) {
 
-          $(spacer).insertAfter( tracklist[i - 1] );
+          tracklist[i - 1].insertAdjacentHTML('afterend', spacer);
         }
       });
     }
@@ -263,7 +263,8 @@ $(document).ready(function() {
 
             if ( i !== tracklist.length - 1 ) {
 
-              $(spacer).insertAfter( tracklist[i] );
+              // $(spacer).insertAfter( tracklist[i] );
+              tracklist[i].insertAdjacentHTML('afterend', spacer);
             }
           }
         });
@@ -321,30 +322,32 @@ $(document).ready(function() {
 
     function appendUI() {
 
-      if ( !$('.de-spacer-trigger').length ) {
+      if ( !document.querySelectorAll('.de-spacer-trigger').length ) {
 
         // title of show/hide dividers link
         let text = show ? 'Hide' : 'Show',
             trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
 
-        $('#tracklist .group').append(trigger);
+        document.querySelector('#tracklist .group').insertAdjacentHTML('beforeend',trigger);
       }
 
       // Trigger functionality
-      $('.de-spacer-trigger').on('click', function() {
+      document.querySelector('.de-spacer-trigger').addEventListener('click', event => {
 
-        if ( $('.de-spacer').is(':visible') ) {
+        if ( !document.querySelector('.de-spacer').hidden ) {
 
-          $(this).text('Show Dividers');
+          event.target.textContent = 'Show Dividers';
           show = false;
 
         } else {
 
-          $(this).text('Hide Dividers');
+          event.target.textContent = 'Hide Dividers';
           show = true;
         }
-
-        $('.de-spacer').toggle('fast');
+// here
+        [...document.querySelectorAll('.de-spacer')].forEach(elem => {
+          elem.classList.contains('hide') ? elem.classList.remove('hide') : elem.classList.add('hide');
+        });
 
         localStorage.setItem('readabilityDividers', JSON.stringify(show));
       });
@@ -506,7 +509,8 @@ $(document).ready(function() {
 
         if ( $(this).hasClass('index_track') && i !== 0 ) {
 
-          $(spacer).insertBefore(tracklist[i]);
+          // $(spacer).insertBefore(tracklist[i]);
+          tracklist[i].insertAdjacentHTML('beforeend', spacer)
           //$(this).addClass('track_heading')
         }
       });

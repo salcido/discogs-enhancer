@@ -472,7 +472,16 @@ chrome.storage.sync.get('prefs', function(result) {
 
   if (result.prefs.readability) {
 
-    // filter-by-country.js
+    let tracklist_css = document.createElement('link');
+
+    tracklist_css.rel = 'stylesheet';
+    tracklist_css.type = 'text/css';
+    tracklist_css.href = chrome.extension.getURL('css/tracklist-readability.css');
+    tracklist_css.id = 'tracklist_css';
+
+    elems.push(tracklist_css);
+
+    // tracklist-readability.js
     let readability = document.createElement('script');
 
     readability.type = 'text/javascript';
