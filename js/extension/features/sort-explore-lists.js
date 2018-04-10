@@ -6,139 +6,134 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- */
-
-/**
- *
  * These functions are used exclusively for sorting the
  * Explore modals (Genre, Style, Format, Country and Decade)
- *
  */
-// TODO refactor to vanilla js
-$(document).ready(function() {
 
-  let
-      clicks = 1,
+resourceLibrary.ready(() => {
+
+  let clicks = 0,
       desc = false,
-      sortName,
-      storage,
-      width = '';
+      storage;
 
-  // Inject sort button into modal
+  // ========================================================
+  // Functions (Alphabetical)
+  // ========================================================
+
+  /**
+   * Injects sort button into modal
+   * @returns {undefined}
+   */
   function appendSortButton() {
 
     let sortButton = `<div style="text-align: center;">
-                        <button id="sortExplore"
-                        class="button button-blue"
-                        style="margin-bottom: 10px;
-                        width: 100px;">Sort A-Z</button>
+                        <button id="sortExplore" class="button button-blue">
+                          Sort A-Z
+                        </button>
                      </div>`;
 
-    $('.react-modal-header').append(sortButton);
+    document.querySelector('.react-modal-header').insertAdjacentHTML('beforeend', sortButton);
   }
 
-  // Link sorter function
+  /**
+   * Alphabetizes the links
+   * @method compareText
+   * @param {string} a1 The string value of the href
+   * @param {string} a2 The string value of the href
+   * @return {integer}
+   */
   function compareText(a1, a2) {
 
-    let x = $(a1).find('a').attr('href'),
-        y = $(a2).find('a').attr('href');
+    let x = a1.querySelector('a').href.toLowerCase(),
+        y = a2.querySelector('a').href.toLowerCase();
 
     return x > y ? 1 : (x < y ? -1 : 0);
   }
 
-  /* Sort our lists and create new HTML, then insert
-     the newly sorted list array elements. */
-  function sortUnorderedList(ul, sortDescending) {
-
-    let listElms = $('.react-modal-content div ul.facets_nav li'),
-        vals = [],
-        newUl = null;
-
-    vals = listElms.map(function() { return this; }).get();
-
-    vals.sort(compareText);
-
-    if (sortDescending) { vals.reverse(); }
-
-    ul.html('');
-
-    ul.append('<ul class="facets_nav">');
-
-    newUl = $('.react-modal-content div ul.facets_nav');
-
-    for (let i = 0, l = vals.length; i < l; i++) {
-
-      newUl.append(vals[i]);
-    }
-
-    // shrink modal to small column size (for looks)
-    $('.react-modal.more_facets_dialog').animate({width: '180px'}, 300, 'swing');
-  }
-
-
-  // Add new button functionality
+  /**
+   * Adds click event listeners to the `Sort A-Z` button
+   * @returns {undefined}
+   */
   function registerButtonClicks() {
 
-    $('#sortExplore').click(function() {
-
-      resourceLibrary.setButtonText($(this));
-
-      clicks++;
-
-      if (clicks > 3) {
-
-        $('.react-modal-content div').html(storage.html());
-
-        $('.react-modal.more_facets_dialog').animate({width: width}, 200, 'swing');
-
-        clicks = 1;
-
-        $(this).text(sortName);
-
-        return false;
-
-      } else {
-
-        sortUnorderedList($('.react-modal-content div'), desc);
-
-        desc = !desc;
-
-        $(this).text(sortName);
-
-        return false;
-      }
-    });
-
-    $('.react-modal-close-button-icon').click(function() {
-
-      desc = false;
-    });
+    document.querySelector('#sortExplore').addEventListener('click', trackClicks);
+    // reset `desc` when modal is closed with the 'X' button
+    document.querySelector('.react-modal-close-button-icon').addEventListener('click', () => desc = false);
   }
 
+  /**
+   * Sorts the lists and injects the newly sorted elements
+   * into a custom UL element.
+   * @param {object} ul The target UL element
+   * @param {boolean} sortDescending The sort direction
+   * @returns {undefined}
+   */
+  function sortUnorderedList(ul, sortDescending) {
 
-  // Map functions to modal dialog buttons
-  $('.more_facets_link').click(function() {
+    let listElms = [...document.querySelectorAll('.react-modal-content div ul.facets_nav li')],
+        ulstub = document.createElement('ul'),
+        newUl = null;
 
-    let append;
+    listElms.sort(compareText);
 
-    desc = false;
+    if ( sortDescending ) { listElms.reverse(); }
 
-    append = setInterval(function() {
+    ul.innerHTML = '';
+    ulstub.className = 'facets_nav';
+    ul.append(ulstub);
 
-      /* Wait for modal to be rendered into the DOM
-         then attach our button */
-      if ( $('.react-modal.more_facets_dialog').length ) {
+    newUl = document.querySelector('.react-modal-content div ul.facets_nav');
 
-        width = $('.react-modal.more_facets_dialog').width();
+    listElms.forEach(elem => newUl.insertAdjacentElement('beforeend', elem));
+    // shrink modal to small column size (for looks)
+    document.querySelector('.react-modal.more_facets_dialog').classList.add('contract');
+  }
 
-        // Store current state
-        storage = $('.react-modal-content div').clone(true);
+  /**
+   * Tracks the number of times the `Sort A-Z` button has been clicked
+   * and calls `sortUnorderedList` accordingly.
+   * @returns {assignment}
+   */
+  function trackClicks() {
 
-        appendSortButton();
-        registerButtonClicks();
+    clicks++;
+    resourceLibrary.setButtonText(document.querySelector('#sortExplore'));
 
-        clearInterval(append);
-      }
-    }, 100);
+    if ( clicks > 2 ) {
+
+      document.querySelector('.react-modal-content div').innerHTML = storage.innerHTML;
+      document.querySelector('.react-modal.more_facets_dialog').classList.remove('contract');
+      return clicks = 0;
+    }
+
+    sortUnorderedList(document.querySelector('.react-modal-content div'), desc);
+    return desc = !desc;
+  }
+
+  // ========================================================
+  // DOM Setup / Init
+  // ========================================================
+
+  // Attach listeners to `All` anchors to kick things off...
+  [...document.querySelectorAll('.more_facets_link')].forEach(link => {
+
+    link.addEventListener('click', () => {
+
+      desc = false;
+
+      let append = setInterval(() => {
+
+        if ( document.querySelector('.react-modal.more_facets_dialog') ) {
+
+          // Store current state
+          storage = document.querySelector('.react-modal-content div').cloneNode(true);
+
+          appendSortButton();
+          registerButtonClicks();
+
+          clearInterval(append);
+        }
+      }, 100);
+    });
   });
 });
