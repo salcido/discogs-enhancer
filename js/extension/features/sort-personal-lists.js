@@ -5,17 +5,12 @@
  * @author: Matthew Salcido
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
- *
- */
-
-/**
- *
  * These functions are used exclusively for sorting the
  * user's personal lists.
- *
  */
+
 // TODO refactor to vanilla js
-$(document).ready(function() {
+resourceLibrary.ready(() => {
 
   let
       clicks = 1,
@@ -23,16 +18,20 @@ $(document).ready(function() {
       sortName,
       storage;
 
-  // Link sorter function
-  function compareOptions(a1, a2) {
+  /**
+   * Alphabetizes the links
+   * @method compareText
+   * @param {string} o1 The string value of the option
+   * @param {string} o2 The string value of the option
+   * @return {integer}
+   */
+  function compareOptions(o1, o2) {
 
-    let t1 = $(a1).text(),
-        t2 = $(a2).text();
+    let x = o1.textContent.toLowerCase(),
+        y = o2.textContent.toLowerCase();
 
-    return t1 > t2 ? 1 : (t1 < t2 ? -1 : 0);
+    return x > y ? 1 : ( x < y ? -1 : 0 );
   }
-
-
 
   function sortPersonalLists(options, sortDescending) {
 
