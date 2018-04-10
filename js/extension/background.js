@@ -541,6 +541,15 @@ chrome.storage.sync.get('prefs', function(result) {
 
   if ( result.prefs.sortButtons ) {
 
+    let sortButton_css = document.createElement('link');
+
+    sortButton_css.rel = 'stylesheet';
+    sortButton_css.type = 'text/css';
+    sortButton_css.href = chrome.extension.getURL('css/sort-buttons.css');
+    sortButton_css.id = 'sortButton_css';
+
+    elems.push( sortButton_css );
+
     // sort-explore-lists.js
     let sortExploreScript = document.createElement('script');
 
