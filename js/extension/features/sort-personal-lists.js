@@ -5,25 +5,46 @@
  * @author: Matthew Salcido
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
+ *
  * These functions are used exclusively for sorting the
  * user's personal lists.
  */
 
-// TODO refactor to vanilla js
 resourceLibrary.ready(() => {
 
-  let
-      clicks = 1,
+  let clicks = 0,
+      delay = 125,
       desc = false,
-      sortName,
       storage;
 
+  // ========================================================
+  // Functions
+  // ========================================================
+
+  /**
+   * Adds an event listener to the `Sort A-Z` button
+   * and resets the `desc` value when the modal is dismissed.
+   * @returns {undefined}
+   */
+  function addClickListener() {
+
+    document.querySelector('#sortPLists').addEventListener('click', event => {
+      resourceLibrary.setButtonText(event.target);
+      trackClicks();
+    });
+
+    // Reset our `desc` value when canceled or saved.
+    [...document.querySelectorAll('.ui-dialog-titlebar-close',
+                                  '.lists_list_add_cancel',
+                                  '.lists_list_add_save')].forEach(elem => {
+                                    elem.addEventListener('click', () => desc = false);
+                                  });
+  }
   /**
    * Alphabetizes the links
-   * @method compareText
    * @param {string} o1 The string value of the option
    * @param {string} o2 The string value of the option
-   * @return {integer}
+   * @returns {integer}
    */
   function compareOptions(o1, o2) {
 
@@ -33,129 +54,114 @@ resourceLibrary.ready(() => {
     return x > y ? 1 : ( x < y ? -1 : 0 );
   }
 
-  function sortPersonalLists(options, sortDescending) {
+  /**
+   * Waits for the list modal to render the
+   * form inside it before adding the `Sort A-Z`
+   * button
+   * @returns {undefined}
+   */
+  function injectSortButton() {
 
-    let listOldPick = $('#list_oldpick'),
-        optionsArray = [];
+    let injectSortButton,
+      sortButton = `<div style="position: absolute; left: 295px; top: 10px;">
+                          <button id="sortPLists" class="button button-blue" style="margin-bottom: 10px;
+                          width: 95px;">Sort A-Z</button>
+                      </div>`;
 
-    /* The options are rewritten everytime the modal is called
-      so we wait 150ms then sort them. */
-    optionsArray = options.map(function() { return this; }).get();
+    injectSortButton = setInterval(() => {
+
+      if ( document.querySelector('#listadd') ) {
+
+        clearInterval(injectSortButton);
+
+        storage = document.querySelector('#list_oldpick').cloneNode(true);
+
+        document.querySelector('#listadd').insertAdjacentHTML('afterend', sortButton);
+        addClickListener();
+      }
+    }, 100);
+  }
+
+  /**
+   * Sorts the options from A-Z or Z-A
+   * @param {boolean} sortDescending The sort direction
+   * @returns {undefined}
+   */
+  function sortOptions(sortDescending) {
+
+    let select = document.querySelector('#list_oldpick'),
+        opt = document.createElement('option'),
+        optionsArray = [...select.querySelectorAll('option')];
 
     optionsArray.sort(compareOptions);
 
     if (sortDescending) { optionsArray.reverse(); }
+    // Clear out select element
+    [...select.querySelectorAll('option')].forEach(opt => opt.remove());
 
-    listOldPick.find('option').remove();
-
-    listOldPick.append( $('<option></option>').text('Sorting...') );
+    // Create temporary option
+    opt.textContent = 'Sorting...';
+    select.insertAdjacentElement('beforeend', opt);
 
     // intentional delay for illustrative purposes only
-    setTimeout(function(){
-
-      listOldPick.find('option').remove();
-
-      $(optionsArray).each(function(index) {
-
-        listOldPick.append(optionsArray[index]);
-      });
-
+    setTimeout(() => {
+      // Remove temporary option
+      select.querySelector('option').remove();
+      // Insert newly sorted options
+      optionsArray.forEach(opt => select.append(opt));
       // Select the first option after reordering
-      listOldPick.val( $('#list_oldpick option:first').val() );
-    }, 100);
+      select.value = select.querySelector('option').value;
+
+    }, delay);
   }
 
+  /**
+   * Tracks the `Sort A-Z` button clicks
+   * @returns {assignment}
+   */
+  function trackClicks() {
 
-  // Add new button functionality
-  function registerOptionButtonClicks() {
+    let select = document.querySelector('#list_oldpick'),
+        opt = document.createElement('option');
 
-    let listOldPick = $('#list_oldpick');
+    clicks++;
 
-    $('#sortPLists').click(function() {
+    if ( clicks > 2 ) {
 
-      resourceLibrary.setButtonText($(this));
+      [...select.querySelectorAll('option')].forEach(opt => opt.remove());
 
-      clicks++;
+      opt.textContent = 'Undoing...';
+      select.insertAdjacentElement('beforeend', opt);
 
-      if (clicks > 3) {
+      // intentional delay for illustrative purposes only
+      setTimeout(() => {
+        select.innerHTML = storage.innerHTML;
+      }, delay);
 
-        listOldPick.find('option').remove();
+      return clicks = 0;
+    }
 
-        listOldPick.append( $('<option></option>').text('Undoing...') );
+    sortOptions(desc);
+    return desc = !desc;
+  }
 
-        // intentional delay for illustrative purposes only
-        setTimeout(function() {
+  // ========================================================
+  // DOM Setup / Init
+  // ========================================================
+  try {
+    document.querySelector('.add_to_list').addEventListener('click', () => {
 
-          listOldPick.html(storage.html());
-        }, 100);
-
-        clicks = 1;
-
-        $(this).text(sortName);
-
-        return false;
-
-      } else {
-
-        sortPersonalLists( $('#list_oldpick option'), desc );
-
-        desc = !desc;
-
-        $(this).text(sortName);
-
-        return false;
-      }
+      let waitForListModal = setInterval(() => {
+        desc = false;
+        // Make sure the select exists
+        if ( document.querySelector('#list_oldpick option') ) {
+          clearInterval(waitForListModal);
+          // Insert our sort button
+          injectSortButton();
+        }
+      }, 100);
     });
-
-    // Reset our |desc| value when canceled or saved.
-    $('.ui-dialog-titlebar-close').click(function() { desc = false; });
-    $('.lists_list_add_cancel').click(function() { desc = false; });
-    $('.lists_list_add_save').click(function() { desc = false; });
+  } catch (err) {
+    // just catch the error
   }
-
-
-
-  $('.add_to_list').on('click', function() {
-
-    let findList,
-        findAdd,
-        sortButton = `<div style="position: absolute; left: 295px; top: 10px;">
-                        <button id="sortPLists"
-                        class="button button-blue"
-                        style="margin-bottom: 10px;
-                        width: 95px;">Sort A-Z</button>
-                      </div>`;
-
-    desc = false;
-
-    findList = setInterval(function() {
-
-      // Make sure the select exists
-      if ( $('#list_oldpick option').length > 0 ) {
-
-        /* fire sorting upon first click
-           (might be cool to make this an option in the menu) */
-
-        //sortPersonalLists($('#list_oldpick option'), desc);
-
-        // Insert our sort button
-        findAdd = setInterval(function() {
-
-          if ( $('#listadd').length ) {
-
-            clearInterval(findAdd);
-
-            storage = $('#list_oldpick').clone(true);
-
-            $(sortButton).insertAfter( $('#listadd') );
-
-            registerOptionButtonClicks();
-          }
-        }, 100);
-
-        clearInterval(findList);
-      }
-    }, 100);
-  });
-
 });
