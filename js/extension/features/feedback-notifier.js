@@ -215,11 +215,8 @@ resourceLibrary.ready(() => {
     }
 
     let div = await fetchBuyerSellerTotals(),
-        sel = '#page_aside .list_no_style.user_marketplace_rating ',
-        bfsel = 'a[href*="buyer_feedback"]',
-        sfsel = 'a[href*="seller_feedback"]',
-        buyerTotal = Number(div.querySelector(sel + bfsel).textContent.trim().replace(/,/g, '')),
-        sellerTotal = Number(div.querySelector(sel + sfsel).textContent.trim().replace(/,/g, '')),
+        buyerTotal = getTotalCount(div, 'buyer'),
+        sellerTotal = getTotalCount(div, 'seller'),
         response = { seller: sellerTotal, buyer: buyerTotal };
 
     if (debug) { console.timeEnd('createBuyerSellerObjs'); }
@@ -348,6 +345,20 @@ resourceLibrary.ready(() => {
   }
 
   /**
+   * Gets the total feedback count from the user's profile
+   * @param {object} div The HTML element to pull the total from
+   * @param {string} type Buyer or seller
+   * @returns {integer}
+   */
+  function getTotalCount(div, type) {
+
+    let sel = '#page_aside .list_no_style.user_marketplace_rating ',
+        typeSel = `a[href*="${type}_feedback"]`;
+
+    return Number(div.querySelector(sel + typeSel).textContent.trim().replace(/,/g, ''));
+  }
+
+  /**
    * Get's the user's feedback numbers from their profile,
    * parses the HTML returned in the response for the Positive,
    * Neutral and Negative totals and then appends those numbers
@@ -378,7 +389,10 @@ resourceLibrary.ready(() => {
 
   /**
    * Parses the DOM elements passed in for feedback numbers from
-   * the user's profile.
+   * the user's profile. As an aside, I tried writing this using
+   * a `forEach` loop with computed properties. It was way shorter
+   * but it sucked to read so I'm sticking with this verbose
+   * version because it's much easier to understand.
    * @param {object} data The feedback elements from the user's page
    * @param {object} obj An object used to store the new data to be written into localStorage
    * @param {string} type Buyer or seller
@@ -387,8 +401,7 @@ resourceLibrary.ready(() => {
    */
   function parseFeedbackData(data, obj, type, gTotal) {
 
-    let
-        pos = getTabCount(data,0),
+    let pos = getTabCount(data,0),
         neu = getTabCount(data,1),
         neg = getTabCount(data,2),
         negAnswer,
@@ -455,11 +468,8 @@ resourceLibrary.ready(() => {
   async function pollForChanges() {
 
     let div = await fetchBuyerSellerTotals(),
-        selector = '#page_aside .list_no_style.user_marketplace_rating ',
-        bfsel = 'a[href*="buyer_feedback"]',
-        sfsel = 'a[href*="seller_feedback"]',
-        buyerTotal = Number(div.querySelector(selector + bfsel).textContent.trim().replace(/,/g, '')),
-        sellerTotal = Number(div.querySelector(selector + sfsel).textContent.trim().replace(/,/g, ''));
+        buyerTotal = getTotalCount(div, 'buyer'),
+        sellerTotal = getTotalCount(div, 'seller');
 
     /* Set timestamp when checked */
     feedbackObj.lastChecked = timeStamp;
