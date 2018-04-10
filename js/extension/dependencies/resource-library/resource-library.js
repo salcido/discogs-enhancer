@@ -827,7 +827,7 @@
 
     setButtonText: function(elem) {
 
-      switch(elem.textContent) {
+      switch(elem.textContent.trim()) {
 
         case 'Sort A-Z':
           elem.textContent = 'Sort Z-A';
