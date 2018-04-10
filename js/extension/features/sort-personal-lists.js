@@ -28,10 +28,7 @@ resourceLibrary.ready(() => {
    */
   function addClickListener() {
 
-    document.querySelector('#sortPLists').addEventListener('click', event => {
-      resourceLibrary.setButtonText(event.target);
-      trackClicks();
-    });
+    document.querySelector('#sortPLists').addEventListener('click', trackClicks);
 
     // Reset our `desc` value when canceled or saved.
     [...document.querySelectorAll('.ui-dialog-titlebar-close',
@@ -63,9 +60,10 @@ resourceLibrary.ready(() => {
   function injectSortButton() {
 
     let injectSortButton,
-      sortButton = `<div style="position: absolute; left: 295px; top: 10px;">
-                          <button id="sortPLists" class="button button-blue" style="margin-bottom: 10px;
-                          width: 95px;">Sort A-Z</button>
+        sortButton = `<div style="position: absolute; left: 295px; top: 10px;">
+                        <button id="sortPLists" class="button button-blue">
+                          Sort A-Z
+                        </button>
                       </div>`;
 
     injectSortButton = setInterval(() => {
@@ -125,6 +123,7 @@ resourceLibrary.ready(() => {
         opt = document.createElement('option');
 
     clicks++;
+    resourceLibrary.setButtonText(document.querySelector('#sortPLists'));
 
     if ( clicks > 2 ) {
 
@@ -149,6 +148,7 @@ resourceLibrary.ready(() => {
   // DOM Setup / Init
   // ========================================================
   try {
+
     document.querySelector('.add_to_list').addEventListener('click', () => {
 
       let waitForListModal = setInterval(() => {
