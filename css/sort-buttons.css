@@ -1,0 +1,25 @@
+/* sort-marketplace-lists.js */
+#sortMpLists {
+  width: 100px;
+}
+
+/* sort-personal-lists.js */
+#sortPLists {
+  margin-bottom: 10px;
+  width: 100px !important;
+}
+
+/* Sort-explore-lists.js */
+#sortExplore {
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+.react-modal.more_facets_dialog {
+  transition: width 0.3s;
+  transition-timing-function: ease;
+}
+
+.react-modal.more_facets_dialog.contract {
+  width: 180px !important;
+}
