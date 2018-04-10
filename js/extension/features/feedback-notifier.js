@@ -584,7 +584,6 @@ resourceLibrary.ready(() => {
   if ( !resourceLibrary.getItem('feedbackObj') ) {
 
     feedbackObj = {
-      baseValsChecked: timeStamp, // not used anymore but might be useful as install date?
       buyer: null,
       seller: null,
       lastChecked: timeStamp
