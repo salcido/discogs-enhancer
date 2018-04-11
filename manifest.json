@@ -16,10 +16,7 @@
   "content_scripts": [
       {
        "matches": ["*://*.discogs.com/*"],
-       "js": [
-          "js/extension/dependencies/jquery/jquery-min.js",
-          "js/extension/background.js"
-        ],
+       "js": ["js/extension/background.js"],
        "run_at" : "document_start"
       }
   ],
@@ -66,8 +63,6 @@
       "html/readability.html",
       "js/chart/chart.js",
       "js/extension/dependencies/exchange-rates/update-exchange-rates.js",
-      "js/extension/dependencies/jquery/extensions.js",
-      "js/extension/dependencies/jquery/jquery-min.js",
       "js/extension/dependencies/options/options.js",
       "js/extension/dependencies/resource-library/resource-library.js",
       "js/extension/dependencies/tests/unit-tests.js",

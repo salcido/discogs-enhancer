@@ -20,7 +20,6 @@ let
     filterByCountry_css,
     friendCounter,
     initElems = [],
-    jQ,
     minMax_css,
     prefs = {},
     resourceLibrary;
@@ -110,16 +109,6 @@ chrome.storage.sync.get('prefs', function(result) {
   // ========================================================
   // Dependencies
   // ========================================================
-
-  ///////////////////////////////////////
-  // jQuery
-  ///////////////////////////////////////
-  jQ = document.createElement('script');
-  jQ.type = 'text/javascript';
-  jQ.className = 'de-init';
-  jQ.src = chrome.extension.getURL('js/extension/dependencies/jquery/jquery-min.js');
-
-  initElems.push(jQ);
 
   // ========================================================
   // Toggleable CSS files
@@ -379,15 +368,6 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // text format shortcuts
   if (result.prefs.formatShortcuts) {
-
-    // extensions.js
-    let extensions = document.createElement('script');
-
-    extensions.type = 'text/javascript';
-    extensions.className = 'de-init';
-    extensions.src = chrome.extension.getURL('js/extension/dependencies/jquery/extensions.js');
-
-    elems.push(extensions);
 
     // text-format-shortcuts.js
     let shortcuts = document.createElement('script');
@@ -861,22 +841,7 @@ chrome.storage.sync.get('prefs', function(result) {
     localStorage.setItem('userCurrency', result.prefs.userCurrency);
   }
 
-  // Append user preferences to the DOM
-  //
-  // Hack fix for Chrome not loading JQ at start.
-  // Added this after Chrome 62 or 63(?) when it seems
-  // Google changed the way Chrome loads assests
-  // for extensions. If JQ isn't appended first
-  // the extension can't run. So make sure JS exists
-  // before appending extension-related files
-  (function() {
-    let z = setInterval(function() {
-      if (window.$) {
-        clearInterval(z);
-        appendFragment(elems);
-      }
-    }, 13);
-  }());
+  appendFragment(elems);
 });
 
 // ========================================================
