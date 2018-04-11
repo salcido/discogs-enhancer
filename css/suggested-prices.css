@@ -9,6 +9,12 @@
   margin-top: 10px !important;
   padding-top: 10px !important;
   border-top: 1px dotted gray !important;
+  transition: opacity 0.3s ease-in;
+  opacity: 0;
+}
+
+.de-price.show {
+  opacity: 1;
 }
 
 .d-block {
