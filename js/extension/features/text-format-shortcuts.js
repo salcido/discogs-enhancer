@@ -307,7 +307,7 @@ resourceLibrary.ready(() => {
   // Because the textareas on Discogs seem to load later than
   // other elements, we wait for the 'load' event to fire
   // before looking for textareas to attach our buttons to
-  window.addEventListener('load', () => inspectTextareas());
+  window.addEventListener('load', () => setTimeout(() => { inspectTextareas(); }, 100));
 
   // ========================================================
   // UI functionality
