@@ -13,17 +13,16 @@
  * This feature will compare the listed price of a single release with the price
  * suggested by Discogs.
  *
- * The script is initiated with the code that follows the `Init / DOM setup`
+ * The script is initiated with the code that follows the `DOM setup / Init`
  * comment block.
  */
-// TODO refactor to vanilla js
-resourceLibrary.ready(function() {
 
-  let
-      loc = window.location.href,
-      wantlist = loc.includes('/sell/mywants'),
+resourceLibrary.ready(() => {
+
+  let loc = window.location.href,
       allItems = loc.includes('/sell/list'),
-      seller = loc.includes('/seller/');
+      seller = loc.includes('/seller/'),
+      wantlist = loc.includes('/sell/mywants');
 
 
   if ( wantlist || allItems || seller ) {
@@ -36,7 +35,6 @@ resourceLibrary.ready(function() {
         priceContainer,
         priceKey,
         printPrice,
-        result,
         suggested,
         symbol,
         target,
@@ -48,20 +46,17 @@ resourceLibrary.ready(function() {
 
     /**
      * Appends the price comparison to the DOM
-     *
      * @method appendPrice
-     * @return {undefined}
+     * @returns {undefined}
      */
-
     function appendPrice() {
 
-      let
-          amount = '',
+      let amount = '',
           markup,
           spanOuter = document.createElement('span'),
           threshold = resourceLibrary.options.threshold() || 0;
 
-      $(target).find('.de-price-preloader').remove();
+      target.querySelector('.de-price-preloader').remove();
 
       // Debugging
       logOutput(percentage, difference, suggested);
@@ -72,82 +67,48 @@ resourceLibrary.ready(function() {
         spanOuter.className = 'converted_price de-price';
         spanOuter.innerHTML = resourceLibrary.css.noData;
 
-        $(target).append(spanOuter);
+        target.insertAdjacentElement('beforeend', spanOuter);
 
-        return $(target).find('.de-price').hide().fadeIn(300);
+        return resourceLibrary.fade(target);
       }
 
-      // Less than suggested
-      if ( percentage > threshold ) {
-
-        amount = 'less';
-
-      // More than suggested
-      } else if ( percentage < -threshold ) {
-
-        amount = 'more';
-
-      // Within threshold
-      } else {
-
-        amount = '';
-      }
-
+      amount = getAmountString(percentage, threshold);
       markup = createPriceMarkup(percentage, printPrice, amount);
+      target.append(markup);
+      resourceLibrary.fade(target);
 
-      $(target).append(markup);
-
-      // Fade in the results
-      $(target).find('.de-price').hide().fadeIn(300);
-
+      // Colorize the price if it's under the threshold
       if ( amount !== 'more' && colorizePrices ) {
-
-        $(target).find('.price').addClass('green');
+        target.querySelector('.price').classList.add('green');
       }
     }
-
 
     /**
      * Make sure the user has Seller permissions
-     *
      * @method checkForSellerPermissions
-     * @return {function | undefined}
+     * @returns {undefined}
      */
+    function checkForSellerPermissions(result) {
 
-    function checkForSellerPermissions() {
-
-      if (
-           $(result).html(':contains("' + resourceLibrary.unregistered + '")')
+      if ( result.innerHTML.includes(resourceLibrary.unregistered)
            && !priceKey['post:suggestedPrices'] ) {
 
-        $('.de-price-preloader').remove();
-
-        $('td.item_price').each(function() {
-
-          $(target).append(resourceLibrary.css.pleaseRegister);
-        });
-
-        return;
+        document.querySelector('.de-price-preloader').remove();
+        target.insertAdjacentHTML('beforeend', resourceLibrary.css.pleaseRegister);
       }
-
-      return generateComparison();
     }
-
 
     /**
      * Generates suggested price markup
-     *
      * @method createPriceMarkup
      * @param  {number} perc The percentage of the price difference
      * @param  {string} printPri The suggested price
-     * @param  {string} qt Either 'more', 'less' or ''
-     * @return {object}
+     * @param  {string} qt Quantity: either 'more', 'less' or ''
+     * @returns {object}
      */
-
     function createPriceMarkup(perc, printPri, qt) {
 
-      let
-          _class = qt === 'more' ? 'red' : 'green',
+      let _class = qt === 'more' ? 'red' : 'green',
           desc = qt.length ? 'around ' : 'within ',
           plusmn = qt.length ? '' : '\u00B1',
           spanOuter = document.createElement('span'),
@@ -173,14 +134,11 @@ resourceLibrary.ready(function() {
       return spanOuter;
     }
 
-
     /**
      * Calculates the price comparison
-     *
      * @method generateComparison
-     * @return {function}
+     * @returns {undefined}
      */
-
     function generateComparison() {
 
       let actual;
@@ -199,66 +157,75 @@ resourceLibrary.ready(function() {
       percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
       printPrice = resourceLibrary.localizeSuggestion(symbol, suggested);
-
-      return appendPrice();
     }
 
+    /**
+     * Determins the 'more' or 'less' word to use in the
+     * price comparison string.
+     * @param {number} percentage The +/- percent an item is priced at
+     * @param {number} threshold The number the item has to exceed to be listed in red
+     * @returns {string}
+     */
+    function getAmountString(percentage, threshold) {
+
+      let amount;
+      // Less than suggested
+      if ( percentage > threshold ) {
+        amount = 'less';
+        // More than suggested
+      } else if ( percentage < -threshold ) {
+        amount = 'more';
+        // Within threshold
+      } else {
+        amount = '';
+      }
+
+      return amount;
+    }
 
     /**
      * Inject price comparisons
-     *
-     * @method getAndAppendPrice
      * @param  {string} releaseId The id of the release to look up
      * @param  {array.<object>} container The price/condition
      * @param  {object} targ The target element to gather info from
-     * @return {undefined}
+     * @returns {undefined}
      */
+    async function getPrice(releaseId) {
 
-    function getPrice(releaseId, container, targ) {
+      target.querySelector('.de-price-link').remove();
+      target.insertAdjacentHTML('beforeend', resourceLibrary.css.pricePreloader);
 
-      $(targ).find('.de-price-link').remove();
+      try {
 
-      $(targ).append(resourceLibrary.css.pricePreloader);
+        let url = `https://www.discogs.com/sell/post/${releaseId}`,
+            response = await fetch(url, { credentials: 'include' }),
+            data = await response.text(),
+            div = document.createElement('div');
 
-      $.ajax({
+        div.innerHTML = data;
+        nodeId = div.querySelector('#dsdata');
+        priceKey = resourceLibrary.prepareObj(nodeId.outerHTML);
 
-        url:'https://www.discogs.com/sell/post/' + releaseId,
-        type: 'GET',
-        dataType: 'html',
+      return div;
 
-        success: function(response) {
+      } catch (err) {
 
-          result = $(response);
-          nodeId = resourceLibrary.findNode(result);
-          priceKey = resourceLibrary.prepareObj( $(result[nodeId]).prop('outerHTML') );
+        let s = document.createElement('span');
 
-          // User does not have seller setup
-          return checkForSellerPermissions();
-        },
+        s.className = 'd-block';
+        s.textContent = 'Error getting price data.';
 
-        error: function() {
-
-          let s = document.createElement('span');
-
-          s.className = 'd-block';
-          s.textContent = 'Error getting price data.';
-
-          $('.de-price-preloader').remove();
-
-          $(targ).append(s);
-        }
-      });
+        document.querySelector('.de-price-preloader').remove();
+        target.insertAdjacentHTML('beforeend', s);
+      }
     }
-
 
     /**
      * Insert preloader animation
      * (attached to window object to allow use with Everlasting Marketplace option)
-     *
      * @method injectPriceLinks
-     * @return {undefined}
+     * @returns {undefined}
      */
-
     window.injectPriceLinks = function injectPriceLinks() {
 
       let p = document.querySelectorAll('td.item_price');
@@ -272,26 +239,23 @@ resourceLibrary.ready(function() {
         a.textContent = 'Show Price\r\nComparison';
 
         // Only append price comparison links if they do not yet exist on each item
-        if (
-             p[i].getElementsByClassName('de-price-link').length < 1
-             && p[i].getElementsByClassName('de-price').length < 1 ) {
+        if ( p[i].getElementsByClassName('de-price-link').length < 1
+             && p[i].getElementsByClassName('de-price').length < 1
+             && p[i].getElementsByClassName('de-price-preloader').length < 1 ) {
 
           p[i].appendChild(a);
         }
       }
     };
 
-
     /**
      * Logs the values used to create the price comparison
-     *
-     * @method logOutput
+     * when debugging
      * @param  {number} perc percentage
      * @param  {number} diff difference
      * @param  {number} sugg suggested
-     * @return {undefined}
+     * @returns {undefined}
      */
-
     function logOutput(perc, diff, sugg) {
 
       let pAmt = perc > 0 ? '% less' : '% more',
@@ -305,7 +269,6 @@ resourceLibrary.ready(function() {
         console.log('Difference: ', value + ' ' + userCurrency + vAmt);
         console.log('Percentage: ', pct + pAmt);
       }
-      return;
     }
 
 
@@ -313,32 +276,35 @@ resourceLibrary.ready(function() {
     // UI Functionality
     // ========================================================
 
-    // init it a bit
-    $('body').on('click', '.de-price-link', function(event) {
+    // Kick off the process when the price link is clicked
+    document.body.addEventListener('click', event => {
 
-      let
-          link = $(event.target),
-          linkHref = link
-                     .closest('.shortcut_navigable')
-                     .children('.item_description')
-                     .find('a.item_release_link')
-                     .attr('href'),
-          slash = linkHref.lastIndexOf('/') + 1,
-          len = linkHref.length,
-          itemCondition = link
-                          .closest('.shortcut_navigable')
-                          .children('.item_description')
-                          .children('.item_condition')
-                          .find('.condition-label-desktop:first').next().text().trim(),
-          releaseId = linkHref.substring(slash, len),
-          price = link.closest('.shortcut_navigable').find('.price').text();
+      if ( event.target.classList.contains('de-price-link') ) {
 
-      target = $(event.target).closest('.item_price');
-      priceContainer = [{ price: price, mediaCondition: itemCondition }];
+        let
+            link = event.target,
+            linkHref = link
+                       .closest('.shortcut_navigable')
+                       .querySelector('.item_description a.item_release_link').href,
+            slash = linkHref.lastIndexOf('/') + 1,
+            len = linkHref.length,
+            itemCondition = link.closest('.shortcut_navigable')
+                            .querySelector('.item_description .item_condition .condition-label-desktop + span')
+                            .textContent.trim(),
+            releaseId = linkHref.substring(slash, len),
+            price = link.closest('.shortcut_navigable').querySelector('.price').textContent;
 
-      getPrice(releaseId, priceContainer, target);
+        target = event.target.closest('.item_price');
+        priceContainer = [{ price: price, mediaCondition: itemCondition }];
+
+        // Run the comparison process...
+        getPrice(releaseId).then(div => {
+          checkForSellerPermissions(div);
+          generateComparison();
+          appendPrice();
+        });
+      }
     });
-
 
     // Fire `injectPriceLinks` on prev/next page transitions
     let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
@@ -349,7 +315,7 @@ resourceLibrary.ready(function() {
 
         resourceLibrary.xhrSuccess(() => {
 
-          if ($('.de-price-link').length < 1) {
+          if ( document.querySelectorAll('.de-price-link').length < 1 ) {
 
             return window.injectPriceLinks();
           }
@@ -357,16 +323,15 @@ resourceLibrary.ready(function() {
       });
     });
 
-
     // ========================================================
-    // Init / DOM Setup
+    // DOM Setup / Init
     // ========================================================
 
     // Remove mobile clutter
-    $('.hide_desktop').remove();
+    [...document.querySelectorAll('.hide_desktop')].forEach(elem => elem.remove());
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
-    $('.condition-label-mobile').remove();
+    [...document.querySelectorAll('.condition-label-mobile')].forEach(elem => elem.remove());
 
     symbol = resourceLibrary.getSymbols(userCurrency, symbol);
 
