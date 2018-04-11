@@ -76,8 +76,8 @@ resourceLibrary.ready(() => {
         isSequential = false,
 
         // divider markup to be injected
-        display = show ? '' : 'display:none;',
-        spacer = `<tr class="tracklist_track track_heading de-spacer" style="${size} ${display}">
+        display = show ? '' : 'hide',
+        spacer = `<tr class="tracklist_track track_heading de-spacer ${display}" style="${size}">
                     <td class="tracklist_track_pos"></td>
                     <td colspan="2" class="tracklist_track_title">&nbsp;</td>
                     ${duration}
@@ -86,6 +86,53 @@ resourceLibrary.ready(() => {
     // ========================================================
     // Functions (Alphabetical)
     // ========================================================
+
+    /**
+     * Appends the show/hide dividers trigger
+     * @return {undefined}
+     */
+    function appendUI() {
+
+      // add the show/hide trigger if it does not exist
+      if ( !document.querySelectorAll('.de-spacer-trigger').length ) {
+
+        // title of show/hide dividers link
+        let text = show ? 'Hide' : 'Show',
+            trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
+
+        document.querySelector('#tracklist .group').insertAdjacentHTML('beforeend',trigger);
+      }
+
+      // Trigger functionality
+      document.querySelector('.de-spacer-trigger').addEventListener('click', event => {
+
+        if ( dividersAreHidden() ) {
+
+          event.target.textContent = 'Hide Dividers';
+        } else {
+          event.target.textContent = 'Show Dividers';
+        }
+
+        [...document.querySelectorAll('.de-spacer')].forEach(elem => {
+          elem.classList.contains('hide')
+            ? elem.classList.remove('hide')
+            : elem.classList.add('hide');
+        });
+
+        show = !show;
+        localStorage.setItem('readabilityDividers', JSON.stringify(show));
+      });
+    }
+
+    /**
+     * Checks to see if dividers have a `hide` class on them
+     * @returns {boolean}
+     */
+    function dividersAreHidden() {
+
+      let spacers = document.querySelectorAll('.de-spacer');
+      return [...spacers].some(e => e.classList.contains('hide'));
+    }
 
     /**
      * When releases have multiple discs or formats, examine
@@ -161,7 +208,6 @@ resourceLibrary.ready(() => {
       }
     }
 
-
     /**
      * Examines an array and determines if it has
      * a continual number sequence like: 1, 2, 3, 4, 5, 6, 7, 8, etc...
@@ -185,7 +231,6 @@ resourceLibrary.ready(() => {
 
       return count === tPos.length ? true : false;
     }
-
 
     /**
      * Examines an array and inserts some markup when the next
@@ -215,6 +260,39 @@ resourceLibrary.ready(() => {
       });
     }
 
+    /**
+     * Inserts a spacer if the next track's number is less than the
+     * current tracks number (eg: A2, B1 ...) or the current track
+     * has no number and the next one does (eg: A, B1, ...)
+     *
+     * @method   insertSpacersBasedOnSides
+     * @param    {array} tPos [an array of all track positions in a release]
+     * @return   {undefined}
+     */
+
+    function insertSpacersBasedOnSides(tPos) {
+
+      try {
+
+        tPos.forEach((t,i) => {
+
+          let current = Number( tPos[i].match(/\d+/g) ),
+              next = Number( tPos[i + 1].match(/\d+/g) );
+
+          // check for 0 value which can be returned when a
+          // track is simply listed as A, B, C, etc ...
+          if ( next <= current && current !== 0 || !current && next ) {
+
+            if ( i !== tracklist.length - 1 ) {
+
+              tracklist[i].insertAdjacentHTML('afterend', spacer);
+            }
+          }
+        });
+      } catch (e) {
+        // just catch the errors
+      }
+    }
 
     /**
      * Inserts a spacer after every nth track
@@ -237,43 +315,6 @@ resourceLibrary.ready(() => {
       });
     }
 
-
-    /**
-     * Inserts a spacer if the next track's number is less than the
-     * current tracks number (eg: A2, B1 ...) or the current track
-     * has no number and the next one does (eg: A, B1, ...)
-     *
-     * @method   insertSpacersBasedOnSides
-     * @param    {array} tPos [an array of all track positions in a release]
-     * @return   {undefined}
-     */
-
-    function insertSpacersBasedOnSides(tPos) {
-
-      try {
-
-        tPos.each(i => {
-
-          let current = Number( tPos[i].match(/\d+/g) ),
-              next = Number( tPos[i + 1].match(/\d+/g) );
-
-          // check for 0 value which can be returned when a
-          // track is simply listed as A, B, C, etc ...
-          if ( next <= current && current !== 0 || !current && next ) {
-
-            if ( i !== tracklist.length - 1 ) {
-
-              // $(spacer).insertAfter( tracklist[i] );
-              tracklist[i].insertAdjacentHTML('afterend', spacer);
-            }
-          }
-        });
-      } catch (e) {
-        // just catch the errors
-      }
-    }
-
-
     /**
      * Sets default value for readabilityDividers
      *
@@ -290,7 +331,6 @@ resourceLibrary.ready(() => {
 
       return JSON.parse(localStorage.getItem('readabilityDividers'));
     }
-
 
     /**
      * Returns a set of defaults if none are present in localStorage.
@@ -311,56 +351,13 @@ resourceLibrary.ready(() => {
     }
 
     // ========================================================
-    // UI Functionality
-    // ========================================================
-
-    /**
-     * Appends the show/hide dividers trigger
-     *
-     * @return {undefined}
-     */
-
-    function appendUI() {
-
-      if ( !document.querySelectorAll('.de-spacer-trigger').length ) {
-
-        // title of show/hide dividers link
-        let text = show ? 'Hide' : 'Show',
-            trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
-
-        document.querySelector('#tracklist .group').insertAdjacentHTML('beforeend',trigger);
-      }
-
-      // Trigger functionality
-      document.querySelector('.de-spacer-trigger').addEventListener('click', event => {
-
-        if ( !document.querySelector('.de-spacer').hidden ) {
-
-          event.target.textContent = 'Show Dividers';
-          show = false;
-
-        } else {
-
-          event.target.textContent = 'Hide Dividers';
-          show = true;
-        }
-// here
-        [...document.querySelectorAll('.de-spacer')].forEach(elem => {
-          elem.classList.contains('hide') ? elem.classList.remove('hide') : elem.classList.add('hide');
-        });
-
-        localStorage.setItem('readabilityDividers', JSON.stringify(show));
-      });
-    }
-
-    // ========================================================
     // Init / DOM Setup
     // ========================================================
 
     if ( noHeadings && !hasIndexTracks ) {
 
       let prefixes = false,
-          trackpos = $('.tracklist_track_pos').map(function() { return $(this).text(); });
+          trackpos = [...document.querySelectorAll('.tracklist_track_pos')].map(t => t.textContent );
 
       // Determine any common prefixes in the track positions
       for ( let i = 0; i < trackpos.length; i++ ) {
@@ -377,14 +374,13 @@ resourceLibrary.ready(() => {
         }
       }
 
-
       // No specialized prefixes (eg: CD-, BD-, VHS, DVD ...)
       // ---------------------------------------------------------------------------
 
       if ( !prefixes ) {
 
         // Populate our arrays with whatever the prefix is and the remaining numbers
-        trackpos.each(function(i, tpos) {
+        trackpos.forEach(tpos => {
 
           // Make sure to match a real value, not null
           if ( tpos.match(/\D/g) ) {
@@ -394,7 +390,6 @@ resourceLibrary.ready(() => {
 
           sequence.push(Number(tpos.match(/\d+/g)));
         });
-
 
         // If there are both numbers and letters in the track positions
         // ---------------------------------------------------------------------------
@@ -420,7 +415,6 @@ resourceLibrary.ready(() => {
             }
           }
 
-
         // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
         // ---------------------------------------------------------------------------
 
@@ -440,7 +434,6 @@ resourceLibrary.ready(() => {
             appendUI();
             return insertSpacersEveryNth(tracklist, config.nth);
           }
-
 
         } else {
 
@@ -464,7 +457,6 @@ resourceLibrary.ready(() => {
           }
         }
 
-
       } else {
 
         // Has Prefixes AKA Multi-Format releases (eg: CD + DVD, etc ...)
@@ -487,7 +479,6 @@ resourceLibrary.ready(() => {
       }
     }
 
-
     // Index tracks
     // ---------------------------------------------------------------------------
 
@@ -505,13 +496,11 @@ resourceLibrary.ready(() => {
         console.log('handle index tracks');
       }
 
-      tracklist.each(function(i) {
+      tracklist.forEach((trk, i) => {
 
-        if ( $(this).hasClass('index_track') && i !== 0 ) {
+        if ( trk.classList.contains('index_track') && i !== 0 ) {
 
-          // $(spacer).insertBefore(tracklist[i]);
-          tracklist[i].insertAdjacentHTML('beforeend', spacer)
-          //$(this).addClass('track_heading')
+          trk.insertAdjacentHTML('beforebegin', spacer);
         }
       });
     }
