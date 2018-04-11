@@ -226,7 +226,8 @@ resourceLibrary.ready(() => {
         }
       } catch (err) {
 
-        console.log('Could not handleMultiFormatRelease', err);
+        if (debug) console.log('Could not handleMultiFormatRelease', err);
+
         checkForSpacerErrors();
       }
       checkForSpacerErrors();
@@ -285,7 +286,8 @@ resourceLibrary.ready(() => {
           }
         });
       } catch (err) {
-        console.log('Could not insertSpacersBasedOnAlphaDifferences', err);
+
+        if (debug) console.log('Could not insertSpacersBasedOnAlphaDifferences', err);
         checkForSpacerErrors();
       }
     }
@@ -320,7 +322,8 @@ resourceLibrary.ready(() => {
           }
         });
       } catch (err) {
-        console.log('Could not insertSpacersBasedOnSides', err);
+
+        if (debug) console.log('Could not insertSpacersBasedOnSides', err);
         checkForSpacerErrors();
       }
     }
