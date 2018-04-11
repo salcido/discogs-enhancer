@@ -232,8 +232,20 @@
     exchangeList: ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD'],
 
     /**
+     * Fades the `.de-price` element in by adding the
+     * 'show' class
+     * @param {object} elem The target element to fade in
+     * @returns {method}
+     */
+
+    fade: function(elem) {
+
+      return setTimeout(() => elem.querySelector('.de-price').classList.add('show'), 100);
+    },
+
+    /**
      * Finds the `dsdata` node
-     *
+     * TODO: delete this method
      * @param    {object} obj
      * @return   {object}
      */
