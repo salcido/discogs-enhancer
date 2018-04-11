@@ -1,9 +1,13 @@
-.de-spacer {
-  line-height: 0.5rem;
-  transition: line-height 0.5s;
+.de-spacer,
+.de-spacer td {
+  transition: line-height 0.1s, padding 0.1s, border-top 0.1s;
   transition-timing-function: ease;
 }
 
-.de-spacer.hide {
-    line-height: 0 !important;
+.section.tracklist table tr.de-spacer.hide,
+.de-spacer.hide td {
+  padding: 0px !important;
+  border-top: 0px !important;
+  line-height: 0rem !important;
+  border-top-color: transparent !important;
 }
