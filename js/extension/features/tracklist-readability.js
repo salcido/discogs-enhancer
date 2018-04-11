@@ -38,6 +38,9 @@
  * Bad example:
  * https://www.discogs.com/Various-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/release/6265588
  *
+ * TODO:
+ * fix: https://www.discogs.com/The-Orb-Moonbuilding-2703-AD/release/7144376
+ *
  */
 
 resourceLibrary.ready(() => {
@@ -200,6 +203,7 @@ resourceLibrary.ready(() => {
             // infinite loop using a simple counter and then breaking the loop if it
             // exceeds 500. Then remove all the spacers that were inserted because
             // there's a ton of them at that point.
+            document.querySelector('.de-spacer-trigger').remove();
             [...document.getElementsByClassName('de-spacer')].forEach(spcr => spcr.remove());
 
             break;
