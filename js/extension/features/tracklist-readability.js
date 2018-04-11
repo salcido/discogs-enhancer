@@ -128,6 +128,18 @@ resourceLibrary.ready(() => {
     }
 
     /**
+     * If the insertions don't go as expected this will
+     * delete the show/hide trigger from the DOM.
+     * @returns {undefined}
+     */
+    function checkForSpacerErrors() {
+
+      if ( !document.querySelectorAll('.de-spacer').length ) {
+        document.querySelector('.de-spacer-trigger').remove();
+      }
+    }
+
+    /**
      * Checks to see if dividers have a `hide` class on them
      * @returns {boolean}
      */
@@ -157,59 +169,66 @@ resourceLibrary.ready(() => {
           infLoop = 0,
           suffix = [];
 
-      for ( let i = 0; i < tPos.length; i++ ) {
+      try {
 
-        if ( !tPos[i][tPos[i].length - 2] ) {
+       for ( let i = 0; i < tPos.length; i++ ) {
 
-          break;
-        }
-
-        // Get the last two numerical digits from each track position
-        let lastTwo = ( tPos[i][tPos[i].length - 2] + tPos[i][tPos[i].length - 1] ).match(/\d/g);
-
-        if ( lastTwo ) {
-
-          suffix.push(lastTwo.join(''));
-
-        } else {
-
-          // if there aren't two digits
-          // push '1' so the number sequence will be broken
-          // and dividers will be inserted
-          suffix.push('1');
-        }
-      }
-
-      for ( let i = 0; i < suffix.length; i++ ) {
-
-        // using '==' specifcally for coercion
-        if ( suffix[i] == counter ) {
-
-          counter++;
-
-        } else if ( suffix[i] && suffix[i] != counter ) {
-
-          tracklist[i - 1].insertAdjacentHTML('afterend', spacer);
-          // reset counter and `i` to continue comparison
-          counter = 1;
-          i--;
-          infLoop++;
-
-          if ( infLoop > 500 ) {
-            // Need to check to see if we're caught in an infinite loop
-            // because of this release: https://www.discogs.com/Various-Blech/release/30565
-            // the `218.5` track breaks this feature and causes the browser to hang.
-            // I'm not sure exactly how to remedy this so, for now, I'm checking for an
-            // infinite loop using a simple counter and then breaking the loop if it
-            // exceeds 500. Then remove all the spacers that were inserted because
-            // there's a ton of them at that point.
-            document.querySelector('.de-spacer-trigger').remove();
-            [...document.getElementsByClassName('de-spacer')].forEach(spcr => spcr.remove());
+          if ( !tPos[i][tPos[i].length - 2] ) {
 
             break;
           }
+
+          // Get the last two numerical digits from each track position
+          let lastTwo = ( tPos[i][tPos[i].length - 2] + tPos[i][tPos[i].length - 1] ).match(/\d/g);
+
+          if ( lastTwo ) {
+
+            suffix.push(lastTwo.join(''));
+
+          } else {
+
+            // if there aren't two digits
+            // push '1' so the number sequence will be broken
+            // and dividers will be inserted
+            suffix.push('1');
+          }
         }
+
+        for ( let i = 0; i < suffix.length; i++ ) {
+
+          // using '==' specifcally for coercion
+          if ( suffix[i] == counter ) {
+
+            counter++;
+
+          } else if ( suffix[i] && suffix[i] != counter ) {
+
+            tracklist[i - 1].insertAdjacentHTML('afterend', spacer);
+            // reset counter and `i` to continue comparison
+            counter = 1;
+            i--;
+            infLoop++;
+
+            if ( infLoop > 500 ) {
+              // Need to check to see if we're caught in an infinite loop
+              // because of this release: https://www.discogs.com/Various-Blech/release/30565
+              // the `218.5` track breaks this feature and causes the browser to hang.
+              // I'm not sure exactly how to remedy this so, for now, I'm checking for an
+              // infinite loop using a simple counter and then breaking the loop if it
+              // exceeds 500. Then remove all the spacers that were inserted because
+              // there's a ton of them at that point.
+              [...document.getElementsByClassName('de-spacer')].forEach(spcr => spcr.remove());
+              checkForSpacerErrors();
+              break;
+            }
+          }
+        }
+      } catch (err) {
+
+        console.log('Could not handleMultiFormatRelease', err);
+        checkForSpacerErrors();
       }
+      checkForSpacerErrors();
     }
 
     /**
@@ -251,17 +270,23 @@ resourceLibrary.ready(() => {
 
     function insertSpacersBasedOnAlphaDifferences(tPos) {
 
-      tPos.forEach((letter, i) => {
+      try {
 
-        let current = tPos[i],
-            next = tPos[i + 1];
+        tPos.forEach((letter, i) => {
 
-        if ( next && current !== next ) {
+          let current = tPos[i],
+              next = tPos[i + 1];
 
-          // $(spacer).insertAfter( tracklist[i] );
-          tracklist[i].insertAdjacentHTML('afterend', spacer);
-        }
-      });
+          if ( next && current !== next ) {
+
+            // $(spacer).insertAfter( tracklist[i] );
+            tracklist[i].insertAdjacentHTML('afterend', spacer);
+          }
+        });
+      } catch (err) {
+        console.log('Could not insertSpacersBasedOnAlphaDifferences', err);
+        checkForSpacerErrors();
+      }
     }
 
     /**
@@ -293,8 +318,9 @@ resourceLibrary.ready(() => {
             }
           }
         });
-      } catch (e) {
-        // just catch the errors
+      } catch (err) {
+        console.log('Could not insertSpacersBasedOnSides', err);
+        checkForSpacerErrors();
       }
     }
 
