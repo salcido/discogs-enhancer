@@ -72,7 +72,7 @@ resourceLibrary.ready(() => {
         return resourceLibrary.fade(target);
       }
 
-      amount = getAmountString(percentage, threshold);
+      amount = resourceLibrary.getAmountString(percentage, threshold);
       markup = createPriceMarkup(percentage, printPrice, amount);
       target.append(markup);
       resourceLibrary.fade(target);
@@ -157,30 +157,6 @@ resourceLibrary.ready(() => {
       percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
       printPrice = resourceLibrary.localizeSuggestion(symbol, suggested);
-    }
-
-    /**
-     * Determins the 'more' or 'less' word to use in the
-     * price comparison string.
-     * @param {number} percentage The +/- percent an item is priced at
-     * @param {number} threshold The number the item has to exceed to be listed in red
-     * @returns {string}
-     */
-    function getAmountString(percentage, threshold) {
-
-      let amount;
-      // Less than suggested
-      if ( percentage > threshold ) {
-        amount = 'less';
-        // More than suggested
-      } else if ( percentage < -threshold ) {
-        amount = 'more';
-        // Within threshold
-      } else {
-        amount = '';
-      }
-
-      return amount;
     }
 
     /**
@@ -270,7 +246,6 @@ resourceLibrary.ready(() => {
         console.log('Percentage: ', pct + pAmt);
       }
     }
-
 
     // ========================================================
     // UI Functionality
