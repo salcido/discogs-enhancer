@@ -46,9 +46,10 @@
 resourceLibrary.ready(() => {
 
     let releaseHistoryPage = document.location.href.includes('/history'),
-        releasePage = document.location.href.includes('/release/');
+        releasePage = document.location.href.includes('/release/'),
+        sellReleasePage = document.location.href.includes('/sell/release/');
 
-  if ( releasePage && !releaseHistoryPage ) {
+  if ( releasePage && !releaseHistoryPage && !sellReleasePage ) {
 
     let
         config = JSON.parse( localStorage.getItem('readability') ) || useDefaults(),
