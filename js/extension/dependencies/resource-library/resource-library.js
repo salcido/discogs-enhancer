@@ -240,7 +240,16 @@
 
     fade: function(elem) {
 
-      return setTimeout(() => elem.querySelector('.de-price').classList.add('show'), 100);
+      return setTimeout(() => {
+
+        [...elem.querySelectorAll('.de-price')].forEach(el => {
+
+          if ( !el.classList.contains('show') ) {
+
+            el.classList.add('show');
+          }
+        });
+      }, 100);
     },
 
     /**
@@ -259,6 +268,37 @@
           return key;
         }
       }
+    },
+
+    /**
+     * Determins the 'more' or 'less' word to use in the
+     * price comparison string.
+     * @param {number} percentage The +/- percent an item is priced at
+     * @param {number} threshold The number the item has to exceed to be listed in red
+     * @returns {string}
+     */
+
+    getAmountString: function(percentage, threshold) {
+
+      let amount;
+
+      // Less than suggested
+      if ( percentage > threshold ) {
+
+        amount = 'less';
+
+        // More than suggested
+      } else if ( percentage < -threshold ) {
+
+        amount = 'more';
+
+        // Within threshold
+      } else {
+
+        amount = '';
+      }
+
+      return amount;
     },
 
     /**
