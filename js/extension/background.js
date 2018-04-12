@@ -14,6 +14,7 @@
  */
 
 let
+    baoi_css,
     checkForAnalytics,
     darkTheme,
     elems = [],
@@ -147,6 +148,18 @@ chrome.storage.sync.get('prefs', function(result) {
 
   initElems.push(minMax_css);
 
+
+  // baoi-fields.css
+  baoi_css = document.createElement('link');
+  baoi_css.rel = 'stylesheet';
+  baoi_css.type = 'text/css';
+  baoi_css.href = chrome.extension.getURL('css/baoi-fields.css');
+  baoi_css.id = 'baoiFieldsCss',
+  baoi_css.disabled = !result.prefs.baoiFields;
+
+  initElems.push(baoi_css);
+
+
   // ========================================================
   // Resource Library
   // ========================================================
@@ -201,18 +214,6 @@ chrome.storage.sync.get('prefs', function(result) {
   //
   // Set based on the `result.prefs` object
   // ========================================================
-
-  if (result.prefs.baoiFields) {
-
-    // edit-release.css
-    let baoi_css = document.createElement('link');
-
-    baoi_css.rel = 'stylesheet';
-    baoi_css.type = 'text/css';
-    baoi_css.href = chrome.extension.getURL('css/edit-release.css');
-
-    elems.push(baoi_css);
-  }
 
   if (result.prefs.blockSellers) {
 
