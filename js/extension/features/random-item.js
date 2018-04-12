@@ -17,6 +17,7 @@ resourceLibrary.ready(() => {
 
   let button,
       tooltip,
+      user = document.querySelector('#site_account_menu .user_image').alt,
       iconSize = '14px',
       icon = `<li style="position: relative;">
                 <a class="nav_group_control de-random-item" style="font-size: ${iconSize}; margin-top: 2px;>
@@ -42,7 +43,6 @@ resourceLibrary.ready(() => {
   function getRandomItem() {
 
     let data = 'Action.RandomItem=Random%2BItem',
-        user = document.querySelector('#site_account_menu .user_image').alt,
         url = `https://www.discogs.com/user/${user}/collection`,
         xhr = new XMLHttpRequest();
 
@@ -67,7 +67,9 @@ resourceLibrary.ready(() => {
   // ========================================================
 
   // Append the markup
-  document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
+  if (user) {
+    document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
+  }
 
   button = document.querySelector('.de-random-item');
   tooltip = document.querySelector('.de-random-tooltip');
