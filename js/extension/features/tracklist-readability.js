@@ -281,7 +281,6 @@ resourceLibrary.ready(() => {
 
           if ( next && current !== next ) {
 
-            // $(spacer).insertAfter( tracklist[i] );
             tracklist[i].insertAdjacentHTML('afterend', spacer);
           }
         });
