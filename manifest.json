@@ -42,10 +42,10 @@
     ],
 
   "web_accessible_resources": [
+    "css/baoi-fields.css",
     "css/blocked-seller.css",
     "css/currency-converter.css",
     "css/dark-theme.css",
-    "css/baoi-fields.css",
     "css/everlasting-labels.css",
     "css/everlasting-marketplace.css",
     "css/feedback-notifier.css",
