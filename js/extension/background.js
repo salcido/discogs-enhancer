@@ -123,9 +123,7 @@ chrome.storage.sync.get('prefs', function(result) {
   darkTheme.type = 'text/css';
   darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
   darkTheme.id = 'darkThemeCss';
-
-  // disable if needed
-  if (!result.prefs.darkTheme) { darkTheme.setAttribute('disabled', true); }
+  darkTheme.disabled = !result.prefs.darkTheme;
 
   initElems.push(darkTheme);
 
@@ -135,9 +133,7 @@ chrome.storage.sync.get('prefs', function(result) {
   filterByCountry_css.type = 'text/css';
   filterByCountry_css.href = chrome.extension.getURL('css/filter-by-country.css');
   filterByCountry_css.id = 'filterByCountryCss';
-
-  // disable if needed
-  if (!result.prefs.filterByCountry) { filterByCountry_css.setAttribute('disabled', true); }
+  filterByCountry_css.disabled = !result.prefs.filterByCountry;
 
   initElems.push(filterByCountry_css);
 
@@ -147,9 +143,7 @@ chrome.storage.sync.get('prefs', function(result) {
   minMax_css.type = 'text/css';
   minMax_css.href = chrome.extension.getURL('css/min-max-columns.css');
   minMax_css.id = 'minMaxColumnsCss';
-
-  // disable if needed
-  if (!result.prefs.hideMinMaxColumns) { minMax_css.setAttribute('disabled', true); }
+  minMax_css.disabled = !result.prefs.hideMinMaxColumns;
 
   initElems.push(minMax_css);
 
@@ -179,6 +173,28 @@ chrome.storage.sync.get('prefs', function(result) {
   friendCounter.src = chrome.extension.getURL('js/extension/features/friend-counter.js');
 
   elems.push(friendCounter);
+
+  // ========================================================
+  // Marketplace Highlights
+  // ========================================================
+  let highlightScript = document.createElement('script');
+
+  highlightScript.type = 'text/javascript';
+  highlightScript.src = chrome.extension.getURL('js/extension/features/apply-highlights.js');
+  highlightScript.className = 'de-init';
+
+  elems.push(highlightScript);
+
+  // marketplace-highlights.css
+  let highlightCss = document.createElement('link');
+
+  highlightCss.rel = 'stylesheet';
+  highlightCss.type = 'text/css';
+  highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
+  highlightCss.id = 'mediaHighLightsCss';
+  highlightCss.disabled = !result.prefs.highlightMedia;
+
+  elems.push(highlightCss);
 
   // ========================================================
   // User Preferences
@@ -370,28 +386,6 @@ chrome.storage.sync.get('prefs', function(result) {
   if (result.prefs.hideMarketplaceItems) {
 
     localStorage.setItem('itemCondition', result.prefs.hideMarketplaceItems);
-  }
-
-  if (result.prefs.highlightMedia) {
-
-    // apply-highlights.js
-    let highlightScript = document.createElement('script');
-
-    highlightScript.type = 'text/javascript';
-    highlightScript.src = chrome.extension.getURL('js/extension/features/apply-highlights.js');
-    highlightScript.className = 'de-init';
-
-    elems.push(highlightScript);
-
-    // marketplace-highlights.css
-    let highlightCss = document.createElement('link');
-
-    highlightCss.rel = 'stylesheet';
-    highlightCss.type = 'text/css';
-    highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
-    highlightCss.id = 'mediaHighLightsCss';
-
-    elems.push(highlightCss);
   }
 
   if (result.prefs.notesCount) {
