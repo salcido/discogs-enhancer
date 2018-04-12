@@ -14,14 +14,9 @@
  */
 
 let
-    baoi_css,
     checkForAnalytics,
-    darkTheme,
     elems = [],
-    filterByCountry_css,
-    friendCounter,
     initElems = [],
-    minMax_css,
     prefs = {},
     resourceLibrary;
 
@@ -108,60 +103,14 @@ chrome.storage.sync.get('prefs', function(result) {
 
   // ========================================================
   // Dependencies
-  // ========================================================
-
-  // ========================================================
-  // Toggleable CSS files
   //
-  // These are always appended and enabled/disabled via
-  // JS so that the user can toggle them from the extension
-  // menu and not have to refresh to see the effects.
+  // Add these first before any other features
   // ========================================================
-
-  // Dark Theme
-  darkTheme = document.createElement('link');
-  darkTheme.rel = 'stylesheet';
-  darkTheme.type = 'text/css';
-  darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
-  darkTheme.id = 'darkThemeCss';
-  darkTheme.disabled = !result.prefs.darkTheme;
-
-  initElems.push(darkTheme);
-
-  // filter-by-country.css
-  filterByCountry_css = document.createElement('link');
-  filterByCountry_css.rel = 'stylesheet';
-  filterByCountry_css.type = 'text/css';
-  filterByCountry_css.href = chrome.extension.getURL('css/filter-by-country.css');
-  filterByCountry_css.id = 'filterByCountryCss';
-  filterByCountry_css.disabled = !result.prefs.filterByCountry;
-
-  initElems.push(filterByCountry_css);
-
-  // min-max-columns.css
-  minMax_css = document.createElement('link');
-  minMax_css.rel = 'stylesheet';
-  minMax_css.type = 'text/css';
-  minMax_css.href = chrome.extension.getURL('css/min-max-columns.css');
-  minMax_css.id = 'minMaxColumnsCss';
-  minMax_css.disabled = !result.prefs.hideMinMaxColumns;
-
-  initElems.push(minMax_css);
-
-
-  // baoi-fields.css
-  baoi_css = document.createElement('link');
-  baoi_css.rel = 'stylesheet';
-  baoi_css.type = 'text/css';
-  baoi_css.href = chrome.extension.getURL('css/baoi-fields.css');
-  baoi_css.id = 'baoiFieldsCss',
-  baoi_css.disabled = !result.prefs.baoiFields;
-
-  initElems.push(baoi_css);
-
 
   // ========================================================
   // Resource Library
+  //
+  // A singleton of shared methods for the extension
   // ========================================================
 
   resourceLibrary = document.createElement('script');
@@ -175,12 +124,65 @@ chrome.storage.sync.get('prefs', function(result) {
   appendFragment(initElems);
 
   // ========================================================
+  // Toggleable CSS files
+  //
+  // These are always appended and enabled/disabled via
+  // JS so that the user can toggle them from the extension
+  // menu and not have to refresh to see the effects.
+  // ========================================================
+
+  // Dark Theme
+  let darkTheme = document.createElement('link');
+
+  darkTheme.rel = 'stylesheet';
+  darkTheme.type = 'text/css';
+  darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
+  darkTheme.id = 'darkThemeCss';
+  darkTheme.disabled = !result.prefs.darkTheme;
+
+  elems.push(darkTheme);
+
+  // filter-by-country.css
+  let filterByCountry_css = document.createElement('link');
+
+  filterByCountry_css.rel = 'stylesheet';
+  filterByCountry_css.type = 'text/css';
+  filterByCountry_css.href = chrome.extension.getURL('css/filter-by-country.css');
+  filterByCountry_css.id = 'filterByCountryCss';
+  filterByCountry_css.disabled = !result.prefs.filterByCountry;
+
+  elems.push(filterByCountry_css);
+
+  // min-max-columns.css
+  let minMax_css = document.createElement('link');
+
+  minMax_css.rel = 'stylesheet';
+  minMax_css.type = 'text/css';
+  minMax_css.href = chrome.extension.getURL('css/min-max-columns.css');
+  minMax_css.id = 'minMaxColumnsCss';
+  minMax_css.disabled = !result.prefs.hideMinMaxColumns;
+
+  elems.push(minMax_css);
+
+  // baoi-fields.css
+  let baoi_css = document.createElement('link');
+
+  baoi_css.rel = 'stylesheet';
+  baoi_css.type = 'text/css';
+  baoi_css.href = chrome.extension.getURL('css/baoi-fields.css');
+  baoi_css.id = 'baoiFieldsCss',
+  baoi_css.disabled = !result.prefs.baoiFields;
+
+  elems.push(baoi_css);
+
+  // ========================================================
   // Friend-counter (always enabled)
   //
   // See comments in friend-counter.js for more details
   // ========================================================
 
-  friendCounter = document.createElement('script');
+  let friendCounter = document.createElement('script');
+
   friendCounter.type = 'text/javascript';
   friendCounter.className = 'de-init';
   friendCounter.src = chrome.extension.getURL('js/extension/features/friend-counter.js');
