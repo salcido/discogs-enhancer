@@ -10,9 +10,8 @@
 
 (function() {
 
-  let id = 'darkThemeCss',
-      link = document.getElementById(id),
-      state = link.disabled ? false : true;
+  let link = document.getElementById('darkThemeCss'),
+      state = link.disabled;
 
-  if (link) { link.disabled = state; }
+  if (link) { link.disabled = !state; }
 }());
