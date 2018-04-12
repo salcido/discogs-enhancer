@@ -9,6 +9,7 @@
  */
 require('../../../css/popup/popup.scss');
 import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils';
+import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterByCondition from './features/filter-by-condition.js';
@@ -194,7 +195,7 @@ window.addEventListener('load', function load() {
   // ========================================================
   hideMarketplaceItems.addEventListener('change', filterByCondition.setFilterByConditionValue);
   userCurrency.addEventListener('change', function(){ applySave(null, event); });
-  toggleBaoiFields.addEventListener('change', triggerSave);
+  toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
