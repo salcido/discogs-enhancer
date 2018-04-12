@@ -92,8 +92,8 @@ export function toggleHideCountries(event) {
     country.disabled = true;
     country.className = '';
 
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-filter-by-country-css.js'}, function() {});
-    applySave('refresh', event);
+    chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-filter-by-country-css.js'}, function() {});
+    applySave(null, event);
 
     // Delay updating the UI so that Chrome has a chance to write the new preference
     setTimeout(setCountryEnabledStatus, 50);
@@ -112,7 +112,7 @@ export function toggleHideCountries(event) {
     country.disabled = false;
     country.className = '';
 
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-filter-by-country-css.js'}, function() {});
+    chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-filter-by-country-css.js'}, function() {});
     applySave(null, event);
 
     // Delay updating the UI so that Chrome has a change to write the new preference
