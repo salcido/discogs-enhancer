@@ -18,6 +18,7 @@ import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as sellerRep from './features/seller-rep.js';
 import * as suggestedPrices from './features/suggested-prices.js';
 import * as minMaxColumns from './features/min-max-columns.js';
+import * as ytPlaylists from './features/youtube-playlists.js';
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
@@ -66,6 +67,7 @@ window.addEventListener('load', function load() {
       toggleSellerRep = document.getElementById('toggleSellerRep'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
+      toggleYtPlaylists = document.getElementById('toggleYtPlaylists'),
       userCurrency = document.getElementById('currency'),
 
       // Contextual menus
@@ -215,6 +217,7 @@ window.addEventListener('load', function load() {
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.showPrices);
+  toggleYtPlaylists.addEventListener('change', ytPlaylists.toggleYtPlaylists);
 
   // ========================================================
   // DOM Setup
@@ -266,6 +269,7 @@ window.addEventListener('load', function load() {
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
+      togglePrices.checked = result.prefs.suggestedPrices;
       toggleRandomItem.checked = result.prefs.randomItem;
       toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
@@ -273,7 +277,7 @@ window.addEventListener('load', function load() {
       toggleSellerRep.checked = result.prefs.sellerRep;
       toggleShortcuts.checked = result.prefs.formatShortcuts;
       toggleSortBtns.checked = result.prefs.sortButtons;
-      togglePrices.checked = result.prefs.suggestedPrices;
+      toggleYtPlaylists.checked = result.prefs.ytPlaylists;
 
       // Contextual menus
       toggleAllDay.checked = result.prefs.useAllDay;

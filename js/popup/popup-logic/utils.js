@@ -18,7 +18,7 @@ export function acknowledgeUpdate() {
 // applySave
 // ========================================================
 /**
- * Saves the users preferences
+ * Saves the users preferences when a toggle is clicked
  *
  * @method   applySave
  * @param    {String}  message [The message displayed to the user]
@@ -51,6 +51,7 @@ export function applySave(message, event) {
         sellerRep: document.getElementById('toggleSellerRep').checked,
         sortButtons: document.getElementById('toggleSortBtns').checked,
         suggestedPrices: document.getElementById('togglePrices').checked,
+        ytPlaylists: document.getElementById('toggleYtPlaylists').checked,
         userCurrency: document.getElementById('currency').value,
 
         // Contextual menus

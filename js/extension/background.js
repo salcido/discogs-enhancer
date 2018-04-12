@@ -74,6 +74,7 @@ chrome.storage.sync.get('prefs', function(result) {
       sortButtons: true,
       suggestedPrices: false,
       userCurrency: null,
+      ytPlaylists: false,
       //
       useAllDay: false,
       useBandcamp: false,
@@ -175,6 +176,17 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(baoi_css);
 
+  // large-youtube-playlists.css
+  let ytPlaylists_css = document.createElement('link');
+
+  ytPlaylists_css.rel = 'stylesheet';
+  ytPlaylists_css.type = 'text/css';
+  ytPlaylists_css.href = chrome.extension.getURL('css/large-youtube-playlists.css');
+  ytPlaylists_css.id = 'ytPlaylistsCss',
+  ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
+
+  elems.push(ytPlaylists_css);
+
   // ========================================================
   // Friend-counter (always enabled)
   //
@@ -192,6 +204,7 @@ chrome.storage.sync.get('prefs', function(result) {
   // ========================================================
   // Marketplace Highlights
   // ========================================================
+  // apply-highlights.js
   let highlightScript = document.createElement('script');
 
   highlightScript.type = 'text/javascript';
