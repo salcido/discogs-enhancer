@@ -15,14 +15,6 @@ import { applySave } from '../utils';
  */
 export function useDarkTheme(event) {
 
-  if (event.target.checked) {
-
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-dark-theme.js'},
-      function() { applySave(null, event); });
-
-  } else {
-
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-dark-theme.js'},
-      function() { applySave(null, event); });
-  }
+  chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-dark-theme.js'},
+    function() { applySave(null, event); });
 }
