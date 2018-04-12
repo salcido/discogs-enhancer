@@ -6,7 +6,7 @@
 
 #### Project Overview
 
-A 100% vanilla JS Chrome extension for Discogs.com.
+100% vanilla JS Chrome extension for Discogs.com.
 
 <https://www.discogs-enhancer.com>
 
