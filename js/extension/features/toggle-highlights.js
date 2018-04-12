@@ -10,9 +10,8 @@
 
 (function() {
 
-  let id = 'mediaHighLightsCss',
-      link = document.getElementById(id),
-      state = link.disabled ? false : true;
+  let link = document.getElementById('mediaHighLightsCss'),
+      state = link.disabled;
 
-  if (link) { link.disabled = state; }
+  if (link) { link.disabled = !state; }
 }());
