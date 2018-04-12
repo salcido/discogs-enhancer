@@ -14,15 +14,6 @@ import { applySave } from '../utils';
  * @return   {undefined}
  */
 export function toggleMediaHighlights(event) {
-
-  if (event.target.checked) {
-
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/apply-highlights.js'},
-      function() { applySave( 'refresh', event); });
-
-  } else {
-
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/remove-highlights.js'},
-      function() { applySave(null, event); });
-  }
+  chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-highlights.js'},
+    function() { applySave(null, event); });
 }
