@@ -64,7 +64,7 @@ resourceLibrary.ready(() => {
               spanOuter = document.createElement('span'),
               threshold = resourceLibrary.options.threshold() || 0;
 
-        [...document.querySelectorAll('.de-price-preloader')].forEach(e => e.remove());
+          [...document.querySelectorAll('.de-price-preloader')].forEach(e => e.remove());
 
           // Debugging
           logOutput(percentage, difference, suggested);
