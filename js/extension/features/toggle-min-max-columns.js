@@ -10,8 +10,7 @@
 
 (function () {
 
-  let link = document.getElementById('minMaxColumnsCss'),
-      styles = link.getAttribute('disabled');
+  let link = document.getElementById('minMaxColumnsCss');
 
-  if (styles) { link.removeAttribute('disabled'); }
+  if ( link ) { link.disabled = !link.disabled; }
 }());

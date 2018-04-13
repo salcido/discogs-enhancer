@@ -15,14 +15,6 @@ import { applySave } from '../utils';
  */
 export function toggleColumns(event) {
 
-  if (event.target.checked) {
-
-    chrome.tabs.executeScript(null, { file: 'js/extension/features/hide-min-max-columns.js' },
-      function () { applySave(null, event); });
-
-  } else {
-
-    chrome.tabs.executeScript(null, { file: 'js/extension/features/show-min-max-columns.js' },
-      function () { applySave(null, event); });
-  }
+  chrome.tabs.executeScript(null, { file: 'js/extension/features/toggle-min-max-columns.js' },
+    function () { applySave(null, event); });
 }
