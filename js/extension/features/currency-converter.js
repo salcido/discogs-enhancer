@@ -17,9 +17,10 @@ resourceLibrary.ready(() => {
       input,
       language = resourceLibrary.language(),
       lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency'),
+      now = Date.now(),
       output,
       rates,
-      today = new Date().toISOString().split('T')[0],
+      twoHours = (60 * 1000) * 120,
       userCurrency,
       //
       markup = `<div class="currency-converter">
@@ -195,6 +196,8 @@ resourceLibrary.ready(() => {
       let response = await fetch(url),
           data = await response.json();
 
+      data.lastChecked = now;
+
       resourceLibrary.setItem('converterRates', data);
       rates = resourceLibrary.getItem('converterRates');
 
@@ -329,12 +332,12 @@ resourceLibrary.ready(() => {
   disableOption(baseCurrency, '-');
   // Disable the matching currency in the other select box
   // so that you can't compare EUR to EUR, etc...
-  if ( rates.base ) {
+  if ( rates && rates.base ) {
     disableOption(userCurrency, rates.base);
   }
 
   // Check to see how old the rates are and update them if needed
-  if ( rates && rates.date !== today ) {
+  if ( rates && now > rates.lastChecked + twoHours || rates && !rates.timestamp ) {
 
     if ( debug ) {
 
@@ -384,14 +387,14 @@ resourceLibrary.ready(() => {
     // Disable the cooresponding option in `userCurrency` if
     // it is the same as `baseCurrency`
     [...userCurrency.options].forEach(opt => {
-      return opt.value === baseValue ? opt.disabled = true : opt.disabled = false;
+      return opt.disabled = opt.value === baseValue ? true : false;
     });
     // Update rates
     getConverterRates(baseValue);
   });
 
   // Show/Hide converter on click
-  document.querySelector('.currency-converter .toggle').addEventListener('click', event => {
+  document.querySelector('.currency-converter .toggle').addEventListener('click', ({ target }) => {
 
     let baseValue = getOptionValue(baseCurrency),
         userValue = getOptionValue(userCurrency);
@@ -409,9 +412,9 @@ resourceLibrary.ready(() => {
     // Clear out errors so hiding continues to work as expected
     errors.textContent = '';
     // Change the tab text
-    return event.target.textContent === '¥ € $'
-            ? event.target.textContent = '£ € $ $'
-            : event.target.textContent = '¥ € $';
+    return target.textContent = target.textContent === '¥ € $'
+            ? '£ € $ $'
+            : '¥ € $';
   });
 
   // Save last known state of #userCurrency
