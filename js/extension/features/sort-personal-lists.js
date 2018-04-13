@@ -37,6 +37,7 @@ resourceLibrary.ready(() => {
                                     elem.addEventListener('click', () => desc = false);
                                   });
   }
+
   /**
    * Alphabetizes the links
    * @param {string} o1 The string value of the option
