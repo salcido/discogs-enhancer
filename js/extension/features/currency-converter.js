@@ -231,6 +231,7 @@ resourceLibrary.ready(() => {
     let index;
 
     resourceLibrary.exchangeList.forEach((exchangeName, i) => {
+
       if ( exchangeName === userCurrency.value ) {
         index = i;
       }
@@ -258,7 +259,9 @@ resourceLibrary.ready(() => {
   function selectOption(select, value) {
 
     [...select.options].forEach(opt => {
+
       if (opt.value === value) {
+
         opt.selected = true;
       }
     });
