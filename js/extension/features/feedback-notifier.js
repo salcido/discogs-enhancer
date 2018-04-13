@@ -207,7 +207,7 @@ resourceLibrary.ready(() => {
    */
   async function createBuyerSellerObjs() {
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' ');
       console.log(' *** initializing base object values *** ');
@@ -219,7 +219,7 @@ resourceLibrary.ready(() => {
         sellerTotal = getTotalCount(div, 'seller'),
         response = { seller: sellerTotal, buyer: buyerTotal };
 
-    if (debug) { console.timeEnd('createBuyerSellerObjs'); }
+    if ( debug ) { console.timeEnd('createBuyerSellerObjs'); }
 
     resetStats(response);
     getStatsFor('seller');
@@ -297,7 +297,7 @@ resourceLibrary.ready(() => {
 
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' ');
       console.log(' *** updating ' + type + ' object stats *** ');
@@ -324,7 +324,7 @@ resourceLibrary.ready(() => {
 
     resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(obj);
       console.timeEnd(randomTime);
@@ -341,6 +341,7 @@ resourceLibrary.ready(() => {
   function getTabCount(data, index) {
 
     let sel = '.tab_menu .menu-item .facet_count';
+
     return Number(data.querySelectorAll(sel)[index].textContent.trim().replace(/,/g, ''));
   }
 
@@ -376,7 +377,7 @@ resourceLibrary.ready(() => {
 
     obj = feedbackObj[type];
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' *** Getting updates for ' + type + ' *** ');
       console.time('getUpdates');
@@ -447,7 +448,7 @@ resourceLibrary.ready(() => {
     /* Save our object with the new stats/notification totals */
     resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' ');
       console.log(' *** Got ' + type + ' Updates *** ');
@@ -476,7 +477,7 @@ resourceLibrary.ready(() => {
 
     resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' ');
       console.log(' *** Polling for changes *** ');
@@ -488,7 +489,7 @@ resourceLibrary.ready(() => {
     // Check Seller stats
     if ( sellerTotal > feedbackObj.seller.gTotal ) {
 
-      if (debug) {
+      if ( debug ) {
 
         console.log(' ');
         console.log(' *** Changes in Seller stats detected *** ');
@@ -503,7 +504,7 @@ resourceLibrary.ready(() => {
     // Check buyer stats
     if ( buyerTotal > feedbackObj.buyer.gTotal ) {
 
-      if (debug) {
+      if ( debug ) {
 
         console.log(' ');
         console.log(' *** Changes in Buyer stats detected *** ');
@@ -549,7 +550,7 @@ resourceLibrary.ready(() => {
     /* Get current object state */
     feedbackObj = resourceLibrary.getItem('feedbackObj');
 
-    if (debug) {
+    if ( debug ) {
 
       console.log(' *** Resetting Object Values *** ');
       console.log('Reset sellerObj: ');
@@ -566,7 +567,7 @@ resourceLibrary.ready(() => {
     /* Save current state */
     resourceLibrary.setItem('feedbackObj', feedbackObj);
 
-    if (debug) {
+    if ( debug ) {
 
       console.log('Done resetting buyer/seller objects.');
       console.timeEnd('resetStats');
@@ -614,7 +615,7 @@ resourceLibrary.ready(() => {
   /* If it's been longer than the `waitTime` */
   if ( timeStamp > feedbackObj.lastChecked + waitTime ) {
 
-    if (debug) { console.time('poll-time'); }
+    if ( debug ) { console.time('poll-time'); }
 
     pollForChanges();
   }
