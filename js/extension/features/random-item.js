@@ -37,29 +37,24 @@ resourceLibrary.ready(() => {
 
   /**
    * Requests a random item from the user's collection
-   * @method getRandomItem
-   * @return {object}
+   * @returns {assignment}
    */
-  function getRandomItem() {
+  async function getRandomItem() {
 
-    let data = 'Action.RandomItem=Random%2BItem',
+    let
+        action = 'Action.RandomItem=Random%2BItem',
+        headers = { 'content-type': 'application/x-www-form-urlencoded' },
         url = `https://www.discogs.com/user/${user}/collection`,
-        xhr = new XMLHttpRequest();
+        initObj = {
+          body: action,
+          credentials: 'include',
+          headers: headers,
+          method: 'POST'
+        },
+        response = await fetch(url, initObj),
+        location = await response.url;
 
-    xhr.open('POST', url);
-
-    xhr.onreadystatechange = () => {
-      if ( xhr.readyState > 3 && xhr.status === 200 ) {
-        window.location = xhr.responseURL;
-      }
-    };
-
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    xhr.send(data);
-
-    return xhr;
+    window.location.href = location;
   }
 
   // ========================================================
@@ -67,7 +62,7 @@ resourceLibrary.ready(() => {
   // ========================================================
 
   // Append the markup
-  if (user) {
+  if ( user ) {
     document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
   }
 
