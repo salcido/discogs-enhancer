@@ -22,7 +22,7 @@
  */
 
 resourceLibrary.ready(() => {
-// TODO viewing a profile for feedback will cause this script to throw an error
+// TODO: viewing a profile for feedback will cause this script to throw an error
   let
       href = window.location.href,
       itemCondition = JSON.parse(localStorage.getItem('itemCondition')),
