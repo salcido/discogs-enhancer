@@ -12,10 +12,10 @@
 resourceLibrary.ready(() => {
 
   let
-      d = new Date(),
       debug = resourceLibrary.options.debug(),
       language = resourceLibrary.language(),
-      today = d.toISOString().split('T')[0],
+      now = Date.now(),
+      twoHours = (60 * 1000) * 120,
       updateRatesObj = resourceLibrary.getItem('updateRatesObj') || setUpdateRatesObj(),
       userCurrency = resourceLibrary.getItem('userCurrency');
 
@@ -33,7 +33,7 @@ resourceLibrary.ready(() => {
 
     let obj = {
       currency: null,
-      rates: null
+      data: null
     };
 
     // Save it...
@@ -58,17 +58,18 @@ resourceLibrary.ready(() => {
       let response = await fetch(url),
           data = await response.json();
 
-      updateRatesObj.rates = data;
+      updateRatesObj.data = data;
 
       // Set last saved currency
       // If different from userCurrency it will trigger exchange rates update
       updateRatesObj.currency = userCurrency;
+      updateRatesObj.data.lastChecked = now;
 
       if ( debug ) {
 
         console.log('*** Fresh rates ***');
-        console.log(`Last update: ${updateRatesObj.rates.date} language: ${language} Currency: ${userCurrency}`);
-        console.log('rates:', updateRatesObj.rates.rates);
+        console.log(`Last update: ${updateRatesObj.data.date} language: ${language} Currency: ${userCurrency}`);
+        console.log('rates:', updateRatesObj.data.rates);
       }
 
       // Save object to localStorage
@@ -84,12 +85,12 @@ resourceLibrary.ready(() => {
   // Update functionality
   // ========================================================
 
-  switch (true) {
+  switch ( true ) {
 
     // if there's no rates prop it could
     // mean possible data corruption
-    case !updateRatesObj.rates:
-    case typeof updateRatesObj.rates !== 'object':
+    case !updateRatesObj.data:
+    case typeof updateRatesObj.data !== 'object':
 
       // kill it with fire
       localStorage.removeItem('updateRatesObj');
@@ -98,13 +99,13 @@ resourceLibrary.ready(() => {
       break;
 
     // Data is stale or user has changed currency
-    case updateRatesObj.rates.date !== today:
+    case now > updateRatesObj.data.lastChecked + twoHours:
     case userCurrency !== updateRatesObj.currency:
 
       // Remove old prices.
       // This will trigger a user alert if something tries to access
       // these rates before they have been returned from fixer.io
-      updateRatesObj.rates = null;
+      updateRatesObj.data = null;
 
       if ( debug ) {
         console.log(' ');
@@ -119,8 +120,8 @@ resourceLibrary.ready(() => {
       if ( debug ) {
 
         console.log(' ');
-        console.log(`Using cached rates: ${updateRatesObj.rates.date} language: ${language} Currency: ${userCurrency}`);
-        console.log('rates:', updateRatesObj.rates);
+        console.log(`Using cached rates: ${updateRatesObj.data.date} language: ${language} Currency: ${userCurrency}`);
+        console.log('rates:', updateRatesObj.data);
       }
 
       break;
