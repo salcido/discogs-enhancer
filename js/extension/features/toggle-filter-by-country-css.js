@@ -10,8 +10,7 @@
 
 (function() {
 
-  let link = document.getElementById('filterByCountryCss'),
-      state = link.disabled;
+  let link = document.getElementById('filterByCountryCss');
 
-  if (link) { link.disabled = !state; }
+  if ( link ) { link.disabled = !link.disabled; }
 }());
