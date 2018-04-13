@@ -14,7 +14,8 @@ resourceLibrary.ready(() => {
 
   if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
 
-    let blackBar,
+    let
+        blackBar,
         hasLoaded = false,
         pTotal,
         pageNum = 2,
@@ -226,13 +227,13 @@ resourceLibrary.ready(() => {
     // Pause/resume Everlasting Marketplace
     document.querySelector('.de-pause').addEventListener('click', event => {
 
-      let loader = document.querySelector('.de-next-text'),
+      let
+          loader = document.querySelector('.de-next-text'),
           pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>',
           playIcon = '<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>',
           resumeLink = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
           spinner = document.querySelector('#de-next .icon-spinner'),
           target = event.target;
-
       // Paused
       if ( target.classList.contains('icon-pause') ) {
 
@@ -283,7 +284,8 @@ resourceLibrary.ready(() => {
 
     window.addEventListener('scroll', () => {
 
-      let currentPage = document.querySelector('.de-page'),
+      let
+          currentPage = document.querySelector('.de-page'),
           everlasting = document.querySelector('.de-page-bar'),
           kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
           pageIndicator = document.getElementsByClassName('de-current-page'),
