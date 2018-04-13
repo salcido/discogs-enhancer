@@ -10,8 +10,7 @@
 
 (function () {
 
-  let link = document.getElementById('baoiFieldsCss'),
-      state = link.disabled;
+  let link = document.getElementById('baoiFieldsCss');
 
-  if (link) { link.disabled = !state; }
+  if ( link ) { link.disabled = !link.disabled; }
 }());
