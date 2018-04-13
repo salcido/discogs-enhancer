@@ -16,7 +16,8 @@ resourceLibrary.ready(() => {
 
   if ( href.includes('/sell/release') && hasPageLinks ) {
 
-    let blackBar,
+    let
+        blackBar,
         hasLoaded = false,
         pTotal,
         pageNum = 2,
@@ -46,9 +47,11 @@ resourceLibrary.ready(() => {
         event.preventDefault();
 
         controls.innerHTML = pauseIcon;
+
         if (spinner){
           spinner.style.display = 'block';
         }
+
         loadingText.textContent = 'Loading next page...';
 
         paused = false;
