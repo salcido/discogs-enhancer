@@ -52,7 +52,7 @@ resourceLibrary.ready(() => {
           method: 'POST'
         },
         response = await fetch(url, initObj),
-        location = await response.url;
+        location = response.url;
 
     window.location.href = location;
   }
