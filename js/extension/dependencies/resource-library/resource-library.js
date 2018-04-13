@@ -180,16 +180,17 @@
      * Converts prices to user's currency
      *
      * @param    {array<object>} source an array of releaes objects
+     * @param    {object} data the exchange rates data
      * @return   {array}
      */
 
-    convertPrices: function(source, rates) {
+    convertPrices: function(source, data) {
 
-      if ( !rates ) {
+      if ( !data ) {
         // Current rates from Fixer.io
-        rates = this.getItem('updateRatesObj').rates;
+        data = this.getItem('updateRatesObj').data;
 
-        if ( rates === null ) {
+        if ( data === null ) {
 
           console.log('Currency has recently been changed. Please refresh the page one more time.');
         }
@@ -206,13 +207,13 @@
 
         for ( let h = 0; h < source.length; h++ ) {
 
-          if ( !rates.rates[obj.exchangeName] ) {
+          if ( !data.rates[obj.exchangeName] ) {
 
             obj.convertedPrice = Number(obj.sanitizedPrice);
 
           } else {
 
-            obj.convertedPrice = (obj.sanitizedPrice / rates.rates[obj.exchangeName]);
+            obj.convertedPrice = (obj.sanitizedPrice / data.rates[obj.exchangeName]);
           }
 
           this.log('Pre-conversion: ', obj.sanitizedPrice);
