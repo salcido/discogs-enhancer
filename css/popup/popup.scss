@@ -110,6 +110,7 @@ a.button {
   margin-left: 10px;
   outline: none;
   color: var(--gray);
+  vertical-align: top;
 }
 
 .rep-value {
@@ -560,6 +561,19 @@ span.clear-search {
   top: 7px;
   left: 20px;
   color:var(--gray);
+}
+
+.help {
+  display: inline-block;
+  margin-left: 90px;
+  stroke: var(--gray);
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.help svg {
+  padding-top: 18px;
 }
 
 #noResults .label {
