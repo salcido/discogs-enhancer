@@ -6,6 +6,9 @@ html {
   --gray: #808080;
   --bg-accent: #292929;
   --text-color: #cccccc;
+  --logo: whitesmoke;
+  --green: #51B32C;
+  --green-hover: #61D335;
 }
 
 html.light {
@@ -13,8 +16,9 @@ html.light {
   --off-white: #CCCCCC;
   --white: #222222;
   --gray: #808080;
-  --bg-accent: lightGray;
+  --bg-accent: #F0F0F0;
   --text-color: dimgray;
+  --logo: dimgray;
 }
 
 /* hide scrollbar in popup */
@@ -38,12 +42,12 @@ body {
 }
 
 h1 {
-  font-family: 'Merriweather', serif;
-  color: var(--white);
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
-  letter-spacing: 0.2rem;
-  text-transform: uppercase;
-  font-size: 1.25rem;
+  font-family: 'Raleway', sans-serif;
+  color: var(--logo);
+  font-size: 1.5rem;
+  margin-left: 15px;
+  margin-top: 10px;
+  display: inline-block;
 }
 
 p {
@@ -58,25 +62,18 @@ p {
 }
 
 a.button {
-  background-size: 100%;
   border-radius: 5px;
-  border-style: solid;
-  border-width: 1px;
-  color: white !important;
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
   font-weight: normal;
   height: 2em;
   line-height: 2em;
-  margin: 0 25% 25px 34%;
+  margin: 0 0 0 20px;
   outline: none;
-  padding: 0.20em 1em;
   text-align: center;
   text-decoration: none;
-  // text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
   text-transform: uppercase;
-  vertical-align: middle;
 
   &.button_orange {
     background-color: #F98717;
@@ -88,22 +85,21 @@ a.button {
   }
 
   &.button_green {
-    background-color: #60C43F !important;
-    background-image: linear-gradient(#60C43F,#59BA39);
     background-size: 100%;
-    border-bottom-color: #49972E !important;
-    border-color: #4EA332 !important;
-    border-top-color: #52AB34 !important;
+    color: var(--green);
+    border: 1px solid var(--green) !important;
     width: 25%;
 
     &:hover {
-      background-image: linear-gradient(#73CB56,#6AC84B);
+      border:1px solid #61D335 !important;
+      color: var(--green-hover) !important;
     }
   }
 }
 
-#about {
-  margin-bottom: 15px;
+#learn {
+  position: absolute;
+  top: 20px;
 }
 
 #editList,
@@ -126,11 +122,11 @@ a.button {
 }
 
 .header {
-  height: 30px;
-  width: 350px;
-  margin: 0 -20px 0 -20px;
-  padding: 0 10px 8px 25px;
-  text-align: center;
+  // height: 30px;
+  // width: 350px;
+  // margin: 0 -20px 0 -20px;
+  // padding: 0 10px 8px 25px;
+  // text-align: center;
   /*  cursor: pointer;*/
 
   .title img {
@@ -276,18 +272,15 @@ input[type="checkbox"]:focus {
 }
 
 .rate-button {
-  clear: both;
-  height: 50px;
-  width: 100%;
-  margin: 0 0 0 -6px;
-  padding: 0 0 25px 18px;
   border-top: 1px solid var(--bg-accent);
   transition: all 0.3s ease;
 }
 
 #rate {
   width: 50%;
-  margin: 23px 0 0 63px;
+  margin: 25px auto;
+  display: block;
+  padding: 0 20px;
 }
 
 /* Filter Marketplace Items by Condition */
@@ -541,8 +534,8 @@ input[type="checkbox"]:focus {
   height: 20px;
   margin: 0 auto 15px;
   outline: none;
-  padding: 5px 25px 5px 5px;
-  width: 50%;
+  padding: 5px 25px 5px 32px;
+  width: 75%;
 }
 
 span.clear-search {
@@ -551,7 +544,7 @@ span.clear-search {
   position: absolute;
   z-index: 10;
   top: 9px;
-  right: 80px;
+  right: 25px;
   background-image: url("../../img/clear-search.png");
   background-repeat: none;
   background-size: contain;
@@ -560,6 +553,13 @@ span.clear-search {
   &:hover {
     background-image: url("../../img/clear-search-hover.png");
   }
+}
+
+.feather-search {
+  position: absolute;
+  top: 7px;
+  left: 20px;
+  color:var(--gray);
 }
 
 #noResults .label {
