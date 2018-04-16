@@ -329,11 +329,10 @@ window.addEventListener('load', () => {
     // Check for #toggleDarkTheme then remove the class if needed
     let a = setInterval(() => {
 
-      let elem = document.querySelector('#toggleDarkTheme');
+      if ( document.querySelector('#toggleDarkTheme') ) {
 
-      if ( elem ) {
-        if ( toggleDarkTheme.checked ) {
-          document.querySelector('html').classList.remove('light');
+        if ( !toggleDarkTheme.checked ) {
+          document.querySelector('html').classList.add('light');
         }
         clearInterval(a);
       }
