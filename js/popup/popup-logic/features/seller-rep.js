@@ -18,6 +18,7 @@ export function saveSellerRep() {
       input = document.getElementById('percent'),
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
+      tag,
       toggle = document.getElementById('toggleSellerRep');
 
   // enabled -and- has value entered
@@ -40,8 +41,11 @@ export function saveSellerRep() {
     setEnabledStatus( self, 'Enabled' );
     applySave('refresh', event);
 
-    if (_gaq) {
-      _gaq.push(['_trackEvent', ` Seller Rep Percentage: ${input.value}`, 'Seller Reputation']);
+    if ( _gaq ) {
+
+      tag = ` Seller Rep Percentage: ${input.value}`;
+
+      _gaq.push(['_trackEvent', tag, 'Seller Reputation']);
     }
 
   } else if ( input.value && !toggle.checked ) {
@@ -79,13 +83,13 @@ export function setSellerRep() {
       swatch = document.querySelector(`.rep-color.${color}`),
       toggle = document.getElementById('toggleSellerRep');
 
-  if (percent !== null) { input.value = percent; }
+  if ( percent !== null ) { input.value = percent; }
 
   swatch.className += ' selected';
 
   chrome.storage.sync.get('prefs', function(result) {
 
-    if (result.prefs.sellerRep && percent !== null) {
+    if ( result.prefs.sellerRep && percent !== null ) {
 
       input.disabled = true;
       // Displays percentage value like: - 80%
@@ -93,7 +97,7 @@ export function setSellerRep() {
       setEnabledStatus( self, 'Enabled' );
     }
 
-    else if (result.prefs.sellerRep && percent === null) {
+    else if ( result.prefs.sellerRep && percent === null ) {
 
       toggle.checked = false;
       setEnabledStatus( self, 'Disabled' );
