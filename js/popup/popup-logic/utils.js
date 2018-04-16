@@ -111,7 +111,7 @@ export function applySave(message, event) {
 // ========================================================
 /**
  * Checks extension for any recent updates and sets
- * the `about` button color if an update has occured
+ * the `learn` button color if an update has occured
  * @method   checkForUpdate
  * @return   {undefined}
  */
@@ -120,21 +120,21 @@ export function checkForUpdate() {
 
   chrome.storage.sync.get('didUpdate', function(result) {
 
-    let about = document.getElementById('about');
+    let learn = document.getElementById('learn');
 
     if ( result.didUpdate ) {
 
-      about.textContent = 'New updates!';
-      about.classList.remove('button_green');
-      about.classList.add('button_orange');
+      learn.textContent = 'Updates!';
+      learn.classList.remove('button_green');
+      learn.classList.add('button_orange');
 
       chrome.browserAction.setBadgeText({text: ''});
 
     } else {
 
-      about.textContent = 'About';
-      about.classList.add('button_green');
-      about.classList.remove('button_orange');
+      learn.textContent = 'Learn';
+      learn.classList.add('button_green');
+      learn.classList.remove('button_orange');
     }
   });
 }

@@ -105,14 +105,14 @@ window.addEventListener('load', () => {
   });
 
   // ========================================================
-  // Open About page
+  // Open Learn page
   // ========================================================
-  document.getElementById('about').addEventListener('click', function() {
+  document.getElementById('learn').addEventListener('click', function() {
 
     chrome.tabs.create({url: '../html/about.html'});
     acknowledgeUpdate();
 
-    if (_gaq) { _gaq.push(['_trackEvent', 'about', 'about clicked']); }
+    if (_gaq) { _gaq.push(['_trackEvent', 'learn', 'learn clicked']); }
   });
 
   // ========================================================
