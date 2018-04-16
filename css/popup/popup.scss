@@ -31,22 +31,23 @@ p {
 
 a.button {
   background-size: 100%;
-  border-radius: 3px;
+  border-radius: 5px;
   border-style: solid;
   border-width: 1px;
   color: white !important;
   cursor: pointer;
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   height: 2em;
   line-height: 2em;
-  margin: 0 25% 25px 33%;
+  margin: 0 25% 25px 34%;
   outline: none;
-  padding: 0 1em;
+  padding: 0.20em 1em;
   text-align: center;
   text-decoration: none;
-  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  // text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  text-transform: uppercase;
   vertical-align: middle;
 
   &.button_orange {
@@ -122,7 +123,7 @@ a.button {
   width: 105%;
   margin: 0 0 0 -10px;
   position: relative;
-  border-top: 1px solid #464646;
+  border-top: 1px solid #292929;
   transition: all 0.3s ease;
 
   &:hover {
@@ -266,9 +267,9 @@ input[type="checkbox"]:focus {
   clear: both;
   height: 50px;
   width: 100%;
-  margin: 0 0 0 -8px;
+  margin: 0 0 0 -6px;
   padding: 0 0 25px 18px;
-  border-top: 1px solid #464646;
+  border-top: 1px solid #292929;
   transition: all 0.3s ease;
 }
 
@@ -520,15 +521,16 @@ input[type="checkbox"]:focus {
 }
 
 #searchbox {
-  height: 20px;
-  width: 50%;
-  margin: 0 auto 15px;
-  padding: 5px 25px 5px 5px;
   background-color: #292929;
-  border: 1px solid #464646;
-  outline: none;
-  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #292929;
   color: #FFFFFF;
+  font-size: 14px;
+  height: 20px;
+  margin: 0 auto 15px;
+  outline: none;
+  padding: 5px 25px 5px 5px;
+  width: 50%;
 }
 
 span.clear-search {
