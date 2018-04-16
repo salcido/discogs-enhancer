@@ -1,3 +1,22 @@
+// Dark version
+html {
+  --bg-color: #313335;
+  --off-white: #CCCCCC;
+  --white: #FFFFFF;
+  --gray: #808080;
+  --bg-accent: #292929;
+  --text-color: #cccccc;
+}
+
+html.light {
+  --bg-color: #FFFFFF;
+  --off-white: #CCCCCC;
+  --white: #222222;
+  --gray: #808080;
+  --bg-accent: lightGray;
+  --text-color: dimgray;
+}
+
 /* hide scrollbar in popup */
 .mac {
   overflow: scroll;
@@ -9,19 +28,19 @@
 }
 
 html {
-  background-color: #313335;
+  background-color: var(--bg-color);
 }
 
 body {
   height: auto;
   width: 350px;
-  background-color: #313335;
+  background-color: var(--bg-color);
 }
 
 p {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 300;
-  color: #CCCCCC;
+  color: var(--text-color);
   text-transform: uppercase;
   word-spacing: 2px;
   cursor: default;
@@ -85,7 +104,7 @@ a.button {
   margin-top: 18px;
   margin-left: 10px;
   outline: none;
-  color: gray;
+  color: var(--gray);
 }
 
 .rep-value {
@@ -94,7 +113,7 @@ a.button {
 
 #editList:hover,
 #editReadability:hover {
-  color: white;
+  color: var(--white);
 }
 
 .header {
@@ -123,14 +142,14 @@ a.button {
   width: 105%;
   margin: 0 0 0 -10px;
   position: relative;
-  border-top: 1px solid #292929;
+  border-top: 1px solid var(--bg-accent);
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #292929;
+    background-color: var(--bg-accent);
 
     p {
-      color: white;
+      color: var(--white);
     }
   }
 
@@ -202,27 +221,11 @@ a.button {
   margin: 46px;
   padding-right: 10px;
   font-weight: 400;
-  color: #CCCCCC;
+  color: var(--off-white);
 }
 
 sup {
   color: #454545;
-}
-
-.credits,
-.show-credits {
-  margin-bottom: 10px;
-  color: #CCCCCC;
-}
-
-.credits a,
-.credits a:hover,
-.credits a:visited,
-#showCredits,
-#showCredits:visited,
-#showCredits:hover {
-  outline: none;
-  color: #809BBE;
 }
 
 .hide {
@@ -242,7 +245,7 @@ input[type="checkbox"]:focus {
 .checkbox-wrap {
   float: left;
   width: 110px;
-  color: #CCCCCC;
+  color: var(--text-color);
 
   input {
     margin-right: 10px;
@@ -269,7 +272,7 @@ input[type="checkbox"]:focus {
   width: 100%;
   margin: 0 0 0 -6px;
   padding: 0 0 25px 18px;
-  border-top: 1px solid #292929;
+  border-top: 1px solid var(--bg-accent);
   transition: all 0.3s ease;
 }
 
@@ -317,7 +320,7 @@ input[type="checkbox"]:focus {
     left: 50px;
 
     span {
-      color: white;
+      color: var(--white);
       font-weight: 300;
       font-size: 12px;
     }
@@ -346,7 +349,7 @@ input[type="checkbox"]:focus {
   top: 52px;
   left: 50px;
   font-size: 15px;
-  color: white;
+  color: var(--white);
 
   input {
     display: inline-block;
@@ -355,13 +358,13 @@ input[type="checkbox"]:focus {
     margin-left: 0;
     font-size: inherit;
     border-radius: 3px;
-    border: 2px solid white;
+    border: 2px solid var(--white);
   }
 
   label {
     margin-bottom: 8px;
     font-size: 13px;
-    color: #CCCCCC;
+    color: var(--text-color);
     display: block;
   }
 
@@ -390,7 +393,7 @@ input[type="checkbox"]:focus {
   /* Hightlight */
   &:hover,
   &.selected {
-    box-shadow:inset 0px 0px 0px 2px white;
+    box-shadow:inset 0px 0px 0px 2px var(--white);
   }
 
   /* Swatch colors */
@@ -439,9 +442,9 @@ input[type="checkbox"]:focus {
 #filterCountryCurrency:disabled,
 #filterCountry:disabled,
 #currency:disabled {
-  background-color: gray;
-  border: 2px solid gray;
-  color: #292929;
+  background-color: var(--gray);
+  border: 2px solid var(--gray);
+  color: var(--bg-accent);
 }
 
 /* hide arrows in number input */
@@ -475,7 +478,7 @@ input[type="checkbox"]:focus {
 }
 
 .disabled {
-  color: white;
+  color: var(--white);
 }
 
 .mint {
@@ -521,10 +524,10 @@ input[type="checkbox"]:focus {
 }
 
 #searchbox {
-  background-color: #292929;
+  background-color: var(--bg-accent);
   border-radius: 5px;
-  border: 1px solid #292929;
-  color: #FFFFFF;
+  border: 1px solid var(--bg-accent);
+  color: var(--white);
   font-size: 14px;
   height: 20px;
   margin: 0 auto 15px;
