@@ -37,6 +37,15 @@ body {
   background-color: var(--bg-color);
 }
 
+h1 {
+  font-family: 'Merriweather', serif;
+  color: var(--white);
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+}
+
 p {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 300;
@@ -119,7 +128,7 @@ a.button {
 .header {
   height: 30px;
   width: 350px;
-  margin: 0 -20px 15px -20px;
+  margin: 0 -20px 0 -20px;
   padding: 0 10px 8px 25px;
   text-align: center;
   /*  cursor: pointer;*/
