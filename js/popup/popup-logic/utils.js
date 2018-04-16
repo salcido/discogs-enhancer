@@ -77,7 +77,7 @@ export function applySave(message, event) {
 
   chrome.storage.sync.set({prefs: prefs}, function() {
 
-    if (message) {
+    if ( message ) {
 
       let notifications = document.getElementsByClassName('notifications')[0];
 
@@ -91,7 +91,7 @@ export function applySave(message, event) {
   });
 
   // Google Analyitcs
-  if (_gaq) {
+  if ( _gaq ) {
 
     let checked = event.target.checked;
 
@@ -122,7 +122,7 @@ export function checkForUpdate() {
 
     let about = document.getElementById('about');
 
-    if (result.didUpdate) {
+    if ( result.didUpdate ) {
 
       about.textContent = 'New updates!';
       about.classList.remove('button_green');
@@ -209,7 +209,7 @@ export function optionsToggle(options, toggleGroup, parentClass, height) {
 
   // Expand
   // Check the current height and either expand or collapse it
-  if (toggleGroup.clientHeight === 50) {
+  if ( toggleGroup.clientHeight === 50 ) {
 
     toggleGroup.style.height = height + 'px';
 
@@ -240,13 +240,13 @@ export function optionsToggle(options, toggleGroup, parentClass, height) {
 
     fadeOut(options);
 
-    if (status) { status.classList.add('fadeIn'); }
+    if ( status ) { status.classList.add('fadeIn'); }
 
     arrow.classList.remove('rotate90');
 
     let int = setInterval(function() {
 
-     if (options.offsetParent === null) {
+     if ( options.offsetParent === null ) {
 
         toggleGroup.style.height = '50px';
 
@@ -313,7 +313,7 @@ export function searchFeatures() {
  */
 export function setEnabledStatus(target, status) {
 
-  if (status === 'Enabled') {
+  if ( status === 'Enabled' ) {
 
     target.classList.add('enabled');
     target.classList.remove('disabled');
