@@ -23,7 +23,7 @@ resourceLibrary.ready(() => {
   /**
    * Attaches event listeners to UI elements to call unblur with
    * @method addUIListeners
-   * @return {undefined}
+   * @returns {undefined}
    */
   function addUIListeners() {
 
@@ -45,13 +45,13 @@ resourceLibrary.ready(() => {
       t.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
     });
   }
+
   /**
    * Checks to see if the gallery image is zoomed. If it is, then the transform
    * property is reset so that the image remains centered. Otherwise, the image
    * is unblurred.
-   *
    * @method checkForZoom
-   * @return {undefined}
+   * @returns {undefined}
    */
   function checkForZoom() {
 
@@ -70,7 +70,7 @@ resourceLibrary.ready(() => {
   /**
    * Centers the images so that the blur from `transform` is remedied
    * @method unblur
-   * @return {undefined}
+   * @returns {undefined}
    */
   function unblur() {
 
