@@ -87,7 +87,7 @@ resourceLibrary.ready(() => {
 
           // Update page with filter notice
           [...document.querySelectorAll('.pagination_total')].forEach(e => {
-            e.textContent = `Filtering items below "${key[conditions.length]}"`;
+            e.textContent = `Filtering items below: ${key[conditions.length]}`;
           });
         }
       });
