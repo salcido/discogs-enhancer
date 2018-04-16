@@ -20,11 +20,11 @@ import { applySave, fadeOut } from '../utils';
    chrome.storage.sync.get('prefs', function(result) {
 
      // if there is a saved value, set the select with it
-     if (result.prefs.userCurrency) {
+     if ( result.prefs.userCurrency ) {
        userCurrency.value = result.prefs.userCurrency;
 
        // validation
-       if (userCurrency.value !== '-' && togglePrices.checked === true) {
+       if ( userCurrency.value !== '-' && togglePrices.checked === true ) {
          userCurrency.disabled = true;
        }
 
@@ -51,7 +51,7 @@ import { applySave, fadeOut } from '../utils';
    let togglePrices = document.getElementById('togglePrices'),
        userCurrency = document.getElementById('currency');
 
-   if (event.target.checked && userCurrency.value !== '-') {
+   if ( event.target.checked && userCurrency.value !== '-' ) {
 
        userCurrency.disabled = true;
        togglePrices.checked = true;
@@ -61,14 +61,14 @@ import { applySave, fadeOut } from '../utils';
 
      }
 
-     else if (userCurrency.value === '-') {
+     else if ( userCurrency.value === '-' ) {
 
        let message =  'Please choose a currency from the select box first.',
-           notifications = document.getElementsByClassName('notifications')[0];
+           notifications = document.querySelector('.notifications');
 
        document.getElementById('notify').textContent = message;
 
-       notifications.addClasses('show');
+       notifications.classList.add('show');
 
        setTimeout(() => { fadeOut(notifications); }, 1500);
 
