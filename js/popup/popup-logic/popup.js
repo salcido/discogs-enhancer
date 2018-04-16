@@ -29,20 +29,20 @@ import * as ytPlaylists from './features/youtube-playlists.js';
 // ========================================================
 if ( !Element.prototype.removeClasses ) {
   Element.prototype.removeClasses = function(...remove) {
-    remove.forEach(cls => { this.classList.remove(cls); });
+    remove.forEach(cls => this.classList.remove(cls));
   };
 }
 
 if ( !Element.prototype.addClasses ) {
   Element.prototype.addClasses = function(...add) {
-    add.forEach(cls => { this.classList.add(cls); });
+    add.forEach(cls => this.classList.add(cls));
   };
 }
 
 // ========================================================
 // Document ready
 // ========================================================
-window.addEventListener('load', function load() {
+window.addEventListener('load', () => {
 
   let
       hideMarketplaceItems = document.getElementById('marketplaceItems'),
@@ -51,16 +51,16 @@ window.addEventListener('load', function load() {
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
-      toggleHighlights = document.getElementById('toggleHighlights'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
+      toggleHighlights = document.getElementById('toggleHighlights'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
-      toggleRandomItem = document.getElementById('toggleRandomItem'),
       togglePrices = document.getElementById('togglePrices'),
+      toggleRandomItem = document.getElementById('toggleRandomItem'),
       toggleReadability = document.getElementById('toggleReadability'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),
@@ -141,7 +141,7 @@ window.addEventListener('load', function load() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
-    if (this.value !== '-') {
+    if ( this.value !== '-' ) {
 
       filterByCountryPrefs.currency = this.value;
       localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
@@ -153,7 +153,7 @@ window.addEventListener('load', function load() {
 
     let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
 
-    if (this.value) {
+    if ( this.value ) {
 
       filterByCountryPrefs.country = this.value;
       localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
@@ -186,7 +186,7 @@ window.addEventListener('load', function load() {
   // Swatches
   [...document.querySelectorAll('.rep-color')].forEach(swatch => {
 
-    swatch.addEventListener('click', function(event) {
+    swatch.addEventListener('click', event => {
 
       sellerRep.selectSwatch(event);
     });
@@ -308,8 +308,8 @@ window.addEventListener('load', function load() {
     sellerRep.setSellerRep();
 
     // .mac class will remove scrollbars from the popup menu
-    if (navigator.userAgent.includes('Mac OS X')) {
-      document.getElementsByTagName('html')[0].addClasses('mac');
+    if ( navigator.userAgent.includes('Mac OS X') ) {
+      document.getElementsByTagName('html')[0].classList.add('mac');
     }
 
     // Set the focus on the search box
