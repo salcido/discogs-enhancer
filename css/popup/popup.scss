@@ -98,8 +98,8 @@ a.button {
 }
 
 #learn {
-  position: absolute;
-  top: 20px;
+  vertical-align: top;
+  margin-top: 0.7rem;
 }
 
 #editList,
@@ -123,17 +123,9 @@ a.button {
 }
 
 .header {
-  // height: 30px;
-  // width: 350px;
-  // margin: 0 -20px 0 -20px;
-  // padding: 0 10px 8px 25px;
-  // text-align: center;
-  /*  cursor: pointer;*/
 
-  .title img {
-    width: 256px;
-    margin: 0 auto;
-    margin-top: 18px;
+  .title {
+    margin: 1rem 0 0.5rem 0;
   }
 }
 
