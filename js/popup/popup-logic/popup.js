@@ -91,6 +91,20 @@ window.addEventListener('load', () => {
       toggleYoutube;
 
   // ========================================================
+  // Toggle light/dark theme
+  // ========================================================
+  toggleDarkTheme.addEventListener('click', () => {
+
+    let html = document.querySelector('html');
+
+    if ( toggleDarkTheme.checked ) {
+      html.classList.remove('light');
+    } else {
+      html.classList.add('light');
+    }
+  });
+
+  // ========================================================
   // Open About page
   // ========================================================
   document.getElementById('about').addEventListener('click', function() {
@@ -311,6 +325,19 @@ window.addEventListener('load', () => {
     if ( navigator.userAgent.includes('Mac OS X') ) {
       document.getElementsByTagName('html')[0].classList.add('mac');
     }
+
+    // Check for #toggleDarkTheme then remove the class if needed
+    let a = setInterval(() => {
+
+      let elem = document.querySelector('#toggleDarkTheme');
+
+      if ( elem ) {
+        if ( toggleDarkTheme.checked ) {
+          document.querySelector('html').classList.remove('light');
+        }
+        clearInterval(a);
+      }
+    }, 13);
 
     // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
