@@ -81,10 +81,15 @@ export function toggleHideCountries(event) {
 
   let country = document.getElementById('filterCountry'),
       currency = document.getElementById('filterCountryCurrency'),
+      path,
+      tag,
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry');
 
   // If everything checks out, enable filtering
-  if (validateFilterByCountry() === 'valid' && event.target.checked) {
+  if ( validateFilterByCountry() === 'valid'
+       && event.target.checked ) {
+
+    path = 'js/extension/features/toggle-filter-by-country-css.js';
 
     currency.disabled = true;
     currency.className = '';
@@ -92,19 +97,24 @@ export function toggleHideCountries(event) {
     country.disabled = true;
     country.className = '';
 
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-filter-by-country-css.js'}, function() {});
+    chrome.tabs.executeScript(null, {file: path}, () => {} );
     applySave(null, event);
 
     // Delay updating the UI so that Chrome has a chance to write the new preference
     setTimeout(setCountryEnabledStatus, 50);
 
-    if (_gaq) {
+    if ( _gaq ) {
 
-      _gaq.push(['_trackEvent', ` Country: ${country.value}, Cur: ${currency.value}`, 'Filter By Country']);
+      tag = ` Country: ${country.value}, Cur: ${currency.value}`;
+
+      _gaq.push(['_trackEvent', tag, 'Filter By Country']);
     }
   }
   // If everything checks out, disable filtering
-  else if (validateFilterByCountry() === 'valid' && !event.target.checked) {
+  else if ( validateFilterByCountry() === 'valid'
+            && !event.target.checked ) {
+
+    path = 'js/extension/features/toggle-filter-by-country-css.js';
 
     currency.disabled = false;
     currency.className = '';
@@ -112,14 +122,15 @@ export function toggleHideCountries(event) {
     country.disabled = false;
     country.className = '';
 
-    chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-filter-by-country-css.js'}, function() {});
+    chrome.tabs.executeScript(null, {file: path}, () => {});
     applySave(null, event);
 
     // Delay updating the UI so that Chrome has a change to write the new preference
     setTimeout(setCountryEnabledStatus, 50);
   }
   // Everything is terrible
-  else if (validateFilterByCountry() === 'invalid' && event.target.checked) {
+  else if ( validateFilterByCountry() === 'invalid'
+            && event.target.checked ) {
 
     toggleFilterByCountry.checked = false;
 
