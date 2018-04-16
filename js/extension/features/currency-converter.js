@@ -263,7 +263,7 @@ resourceLibrary.ready(() => {
 
     [...select.options].forEach(opt => {
 
-      if (opt.value === value) {
+      if ( opt.value === value ) {
 
         opt.selected = true;
       }
