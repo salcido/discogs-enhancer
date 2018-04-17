@@ -11,6 +11,7 @@ html {
   --green-hover: #61D335;
   --help: #222222;
   --help-icon: #606060;
+  --help-text: #CCCCCC;
 }
 
 html.light {
@@ -23,6 +24,7 @@ html.light {
   --text-color: dimgray;
   --logo: dimgray;
   --help-icon: #CCCCCC;
+  --help-text: #FFFFFF;
 }
 
 /* hide scrollbar in popup */
@@ -468,8 +470,12 @@ input[type="checkbox"]:focus {
 .status,
 .condition-status {
   position: absolute;
-  top: 17px;
+  top: 18px;
   right: 23px;
+}
+
+.condition-status.very-good-plus {
+  font-size: 12px;
 }
 
 .enabled {
@@ -560,14 +566,18 @@ span.clear-search {
 }
 
 .help {
-  margin-right: 10px;
-  stroke: var(--help-icon);
   cursor: pointer;
-  width: 15px;
-  height: 15px;
-  z-index: 100;
-  position: relative;
   float: right;
+  margin-right: 10px;
+  position: relative;
+  stroke: var(--help-icon);
+  transition: stroke 0.2s ease-in;
+  width: 15px;
+  z-index: 100;
+}
+
+.help:hover {
+  stroke: var(--text-color);
 }
 
 .help svg {
@@ -577,15 +587,15 @@ span.clear-search {
 .help .help-bubble {
   background-color: var(--help);
   border-radius: 5px;
-  box-shadow: -3px 3px 2px 0px var(--bg-accent);
-  color: var(--off-white);
+  box-shadow: -2px 3px 5px 0px var(--bg-accent);
+  color: var(--help-text);
   display: none;
   padding: 10px;
   position: absolute;
-  top: 50%;
+  top: 25%;
   transform: translateY(-50%) translateX(-107%);
   width: 150px;
-  z-index: 10000;
+  z-index: 100;
 }
 
 .help:hover .help-bubble {
@@ -593,20 +603,20 @@ span.clear-search {
 }
 
 .help-bubble .help-text p {
-  text-transform: none !important;
+  color: var(--help-text);
   padding: 0;
-  color: var(--off-white);
+  text-transform: none !important;
 }
 
 .arrow-right {
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-left: 10px solid var(--help);
+  border-top: 10px solid transparent;
+  height: 0;
   position: absolute;
   top: 60%;
   transform: translateY(-50%) translateX(1600%);
+  width: 0;
 }
 
 #noResults .label {
