@@ -566,6 +566,7 @@ span.clear-search {
   color:var(--gray);
 }
 
+// Help Bubbles
 .help {
   cursor: pointer;
   float: right;
@@ -606,6 +607,10 @@ span.clear-search {
   color: var(--help-text);
   padding: 0;
   text-transform: none !important;
+}
+
+.help-bubble .help-text p.learn-more::before {
+  content: 'Click the \"Learn\" button for more details.';
 }
 
 .arrow-right {
