@@ -32,7 +32,6 @@ html.light {
   display: block;
   width: 200%;
   margin-left: -100%;
-  /*transition: margin 0.3s ease-in 0s;*/
 }
 
 .onoffswitch-inner:before, .onoffswitch-inner:after {
@@ -75,7 +74,6 @@ html.light {
   right: 20px;
   border: 2px solid var(--border);
   border-radius: 50px;
-  /*transition: all 0.3s ease-in 0s;*/
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
