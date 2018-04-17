@@ -9,16 +9,20 @@ html {
   --logo: whitesmoke;
   --green: #51B32C;
   --green-hover: #61D335;
+  --help: #222222;
+  --help-icon: #606060;
 }
 
 html.light {
   --bg-color: #FFFFFF;
   --off-white: #CCCCCC;
   --white: #222222;
+  --help: dimgray;
   --gray: #808080;
   --bg-accent: #F0F0F0;
   --text-color: dimgray;
   --logo: dimgray;
+  --help-icon: #CCCCCC;
 }
 
 /* hide scrollbar in popup */
@@ -51,8 +55,6 @@ h1 {
 }
 
 p {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 300;
   color: var(--text-color);
   text-transform: uppercase;
   word-spacing: 2px;
@@ -106,7 +108,7 @@ a.button {
 #editReadability,
 #sellerRepConfig {
   display: inline-block;
-  margin-top: 18px;
+  margin-top: 17px;
   margin-left: 10px;
   outline: none;
   color: var(--gray);
@@ -176,8 +178,10 @@ a.button {
 
 .label {
   float: left;
-  padding: 8px 0 0 28px;
-  font-size: 12px;
+  padding: 4px 0 0 28px;
+  font-size: 13px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
 }
 
 .onoffswitch {
@@ -197,8 +201,7 @@ a.button {
   top: -30px;
   left: 0;
   background-color: #666666;
-  // font-family: "Source Sans Pro", sans-serif;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 12px;
   font-weight: bold;
 
@@ -557,16 +560,53 @@ span.clear-search {
 }
 
 .help {
-  display: inline-block;
-  margin-left: 90px;
-  stroke: var(--gray);
+  margin-right: 10px;
+  stroke: var(--help-icon);
   cursor: pointer;
   width: 15px;
   height: 15px;
+  z-index: 100;
+  position: relative;
+  float: right;
 }
 
 .help svg {
   padding-top: 18px;
+}
+
+.help .help-bubble {
+  background-color: var(--help);
+  border-radius: 5px;
+  box-shadow: -3px 3px 2px 0px var(--bg-accent);
+  color: var(--off-white);
+  display: none;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-107%);
+  width: 150px;
+  z-index: 10000;
+}
+
+.help:hover .help-bubble {
+  display: block;
+}
+
+.help-bubble .help-text p {
+  text-transform: none !important;
+  padding: 0;
+  color: var(--off-white);
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid var(--help);
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%) translateX(1600%);
 }
 
 #noResults .label {
