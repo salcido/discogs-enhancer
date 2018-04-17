@@ -85,7 +85,8 @@ a.button {
     border-bottom-color: #F96C17 !important;
     border-color: #EEA236;
     border-top-color: #F98717 !important;
-    width: auto;
+    width: 25%;
+    color: white !important;
   }
 
   &.button_green {
@@ -571,7 +572,6 @@ span.clear-search {
   margin-right: 10px;
   position: relative;
   stroke: var(--help-icon);
-  transition: stroke 0.2s ease-in;
   width: 15px;
   z-index: 100;
 }
