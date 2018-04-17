@@ -6,7 +6,7 @@ html {
   --gray: #808080;
   --bg-accent: #292929;
   --text-color: #cccccc;
-  --logo: whitesmoke;
+  --logo: #e8e8e8;
   --green: #51B32C;
   --green-hover: #61D335;
   --help: #222222;
@@ -23,7 +23,7 @@ html.light {
   --gray: #808080;
   --bg-accent: #F0F0F0;
   --text-color: dimgray;
-  --logo: dimgray;
+  --logo: darkgray;
   --help-icon: #CCCCCC;
   --help-text: #FFFFFF;
   --disabled-element: lightgray;
@@ -44,27 +44,28 @@ html {
 }
 
 body {
+  background-color: var(--bg-color);
+  font-family: 'Lato', sans-serif;
   height: auto;
   width: 350px;
-  background-color: var(--bg-color);
 }
 
 h1 {
-  font-family: 'Raleway', sans-serif;
   color: var(--logo);
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
   font-size: 1.5rem;
   margin-left: 15px;
   margin-top: 10px;
-  display: inline-block;
 }
 
 p {
   color: var(--text-color);
-  text-transform: uppercase;
-  word-spacing: 2px;
   cursor: default;
-  user-select: none;
+  text-transform: uppercase;
   transition: all 0.3s ease;
+  user-select: none;
+  word-spacing: 2px;
 }
 
 a.button {
@@ -72,8 +73,9 @@ a.button {
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
-  font-weight: normal;
+  font-weight: 100;
   height: 2em;
+  letter-spacing: 0.05rem;
   line-height: 2em;
   margin: 0 0 0 20px;
   outline: none;
@@ -279,7 +281,7 @@ input[type="checkbox"]:focus {
 }
 
 #rate {
-  width: 50%;
+  width: 60%;
   margin: 25px auto;
   display: block;
   padding: 0 20px;
@@ -475,10 +477,7 @@ input[type="checkbox"]:focus {
   position: absolute;
   top: 18px;
   right: 23px;
-}
-
-.condition-status.very-good-plus {
-  font-size: 12px;
+  letter-spacing: 0.05rem;
 }
 
 .enabled {
@@ -614,10 +613,10 @@ span.clear-search {
   text-transform: none !important;
 }
 
-.help.filter-condition {
-  margin-top: 38px;
-  margin-right: 74px;
-}
+// .help.filter-condition {
+//   margin-top: 38px;
+//   margin-right: 74px;
+// }
 
 .help-bubble .help-text span.learn-more::before {
   color: var(--green);
