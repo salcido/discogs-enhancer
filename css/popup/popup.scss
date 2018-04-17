@@ -603,6 +603,7 @@ span.clear-search {
 
 .help:hover .help-bubble {
   display: block;
+  border: 1px solid dimgray;
 }
 
 .help-bubble .help-text span {
@@ -620,7 +621,7 @@ span.clear-search {
 
 .help-bubble .help-text span.learn-more::before {
   color: var(--green);
-  content: 'Click the \"Learn\" button for more details.';
+  content: 'Click the \"Learn\" button for additional important details.';
   display: block;
   margin-top: 10px;
 }
@@ -632,8 +633,13 @@ span.clear-search {
   height: 0;
   position: absolute;
   top: 60%;
-  transform: translateY(-50%) translateX(1650%);
+  transform: translateY(-50%) translateX(1635%);
   width: 0;
+}
+
+.arrow-right.stroke {
+  border-left: 10px solid dimgray;
+  transform: translateY(-50%) translateX(1650%);
 }
 
 #noResults .label {
