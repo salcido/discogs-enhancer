@@ -603,14 +603,24 @@ span.clear-search {
   display: block;
 }
 
-.help-bubble .help-text p {
+.help-bubble .help-text span {
   color: var(--help-text);
+  display: block;
+  margin-top: 10px;
   padding: 0;
   text-transform: none !important;
 }
 
-.help-bubble .help-text p.learn-more::before {
+.help.filter-condition {
+  margin-top: 38px;
+  margin-right: 74px;
+}
+
+.help-bubble .help-text span.learn-more::before {
+  color: var(--green);
   content: 'Click the \"Learn\" button for more details.';
+  display: block;
+  margin-top: 10px;
 }
 
 .arrow-right {
