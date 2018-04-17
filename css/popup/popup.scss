@@ -12,6 +12,7 @@ html {
   --help: #222222;
   --help-icon: #606060;
   --help-text: #CCCCCC;
+  --disabled-element: #808080;
 }
 
 html.light {
@@ -25,6 +26,7 @@ html.light {
   --logo: dimgray;
   --help-icon: #CCCCCC;
   --help-text: #FFFFFF;
+  --disabled-element: lightgray;
 }
 
 /* hide scrollbar in popup */
@@ -200,7 +202,7 @@ a.button {
   width: 100%;
   margin: 8px 0;
   position: fixed;
-  z-index: 1;
+  z-index: 101;
   top: -30px;
   left: 0;
   background-color: #666666;
@@ -444,8 +446,8 @@ input[type="checkbox"]:focus {
 #filterCountryCurrency:disabled,
 #filterCountry:disabled,
 #currency:disabled {
-  background-color: var(--gray);
-  border: 2px solid var(--gray);
+  background-color: var(--disabled-element);
+  border: 2px solid var(--disabled-element);
   color: var(--bg-accent);
 }
 
