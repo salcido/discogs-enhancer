@@ -2,7 +2,41 @@
  * Filter by Country feature
  */
 
-import { setEnabledStatus, applySave } from '../utils';
+import { setEnabledStatus, applySave, optionsToggle } from '../utils';
+
+/**
+ * Sets up the event listeners for the Filter By Country UI
+ */
+export function init() {
+
+  document.querySelector('.toggle-group.country').addEventListener('click', function () {
+    optionsToggle('.hide-country', this, '.country', 115);
+  });
+
+  // Save the Filter Items By Country CURRENCY select value to localStorage
+  document.getElementById('filterCountryCurrency').addEventListener('change', function () {
+
+    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if ( this.value !== '-' ) {
+
+      filterByCountryPrefs.currency = this.value;
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
+    }
+  });
+
+  // Save the Filter Items By Country COUNTRY select value to localStorage
+  document.getElementById('filterCountry').addEventListener('change', function () {
+
+    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
+
+    if ( this.value ) {
+
+      filterByCountryPrefs.country = this.value;
+      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
+    }
+  });
+}
 
 // ========================================================
 // setCountryEnabledStatus
