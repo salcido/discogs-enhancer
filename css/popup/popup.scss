@@ -588,18 +588,20 @@ span.clear-search {
   border-radius: 5px;
   box-shadow: -2px 3px 5px 0px var(--bg-accent);
   color: var(--help-text);
-  display: none;
   padding: 15px;
   position: absolute;
   top: 50%;
   transform: translateY(-51%) translateX(-107%);
+  transition: 0s visibility;
+  visibility: hidden;
   width: 150px;
   z-index: 100;
 }
 
 .help:hover .help-bubble {
-  display: block;
   border: 1px solid dimgray;
+  transition-delay: 0.2s;
+  visibility: visible;
 }
 
 .help-bubble .help-text span {
@@ -616,6 +618,10 @@ span.clear-search {
   display: block;
   margin-top: 10px;
 }
+
+// .help.contextual-help {
+//   margin-right: 74px;
+// }
 
 .arrow-right {
   border-bottom: 10px solid transparent;
