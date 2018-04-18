@@ -48,51 +48,54 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
 
     // block sellers
-    case 'getBlockedSellers':
+    case 'getBlockedSellers': {
 
       let blockList = JSON.parse(localStorage.getItem('blockList'));
 
       sendResponse({blockList: blockList});
       break;
+    }
 
     // filter by country
-    case 'filterByCountry':
+    case 'filterByCountry': {
 
       let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
 
       sendResponse({filterByCountry: filterByCountry});
       break;
+    }
 
     // filter by conditions
-    case 'getHideItems':
+    case 'getConditions': {
 
       let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
 
       sendResponse({itemCondition: itemCondition});
       break;
-
+    }
     // Readability
-    case 'getReadability':
+    case 'getReadability': {
 
       let readability = JSON.parse(localStorage.getItem('readability'));
 
       sendResponse({readability: readability});
       break;
-
+    }
     // Seller Rep Percentage
-    case 'getSellerRep':
+    case 'getSellerRep': {
 
       let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
 
       sendResponse({sellerRep: sellerRep});
       break;
-
+    }
     // Seller Rep Color
-    case 'getSellerRepColor':
+    case 'getSellerRepColor': {
 
       let sellerRepColor = localStorage.getItem('sellerRepColor');
 
       sendResponse({sellerRepColor: sellerRepColor});
       break;
+    }
   }
 });

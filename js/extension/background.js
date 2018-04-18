@@ -60,11 +60,12 @@ chrome.storage.sync.get('prefs', function(result) {
       darkTheme: false,
       everlastingMarket: true,
       feedback: true,
+      filterByCondition: false,
+      filterByConditionValue: null,
       filterByCountry: false,
       formatShortcuts: true,
-      highlightMedia: true,
-      hideMarketplaceItems: null,
       hideMinMaxColumns: false,
+      highlightMedia: true,
       notesCount: true,
       randomItem: false,
       readability: false,
@@ -364,6 +365,18 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(feedback_css);
   }
 
+  if (result.prefs.filterByCondition) {
+
+    // filter-by-Condition.js
+    let filterByCondition = document.createElement('script');
+
+    filterByCondition.type = 'text/javascript';
+    filterByCondition.src = chrome.extension.getURL('js/extension/features/filter-by-condition.js');
+    filterByCondition.className = 'de-init';
+
+    elems.push(filterByCondition);
+  }
+
   if (result.prefs.filterByCountry) {
 
     // filter-by-country.js
@@ -398,10 +411,10 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(shortcuts_css);
   }
 
-  // Set value for filter-by-condition.js
-  if (result.prefs.hideMarketplaceItems) {
+  // Set value for filter-by-condition.js // todo
+  if (result.prefs.filterByConditionValue) {
 
-    localStorage.setItem('itemCondition', result.prefs.hideMarketplaceItems);
+    localStorage.setItem('itemCondition', result.prefs.filterByConditionValue);
   }
 
   if (result.prefs.notesCount) {
@@ -612,15 +625,6 @@ chrome.storage.sync.get('prefs', function(result) {
   comments.className = 'de-init';
 
   elems.push(comments);
-
-  // filter-by-condition.js
-  let hideItems = document.createElement('script');
-
-  hideItems.type = 'text/javascript';
-  hideItems.src = chrome.extension.getURL('js/extension/features/filter-by-condition.js');
-  hideItems.className = 'de-init';
-
-  elems.push(hideItems);
 
   // ========================================================
   // Contextual Menu Options
@@ -952,7 +956,7 @@ try {
   });
 
   // Filter by item condition
-  chrome.runtime.sendMessage({request: 'getHideItems'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getConditions'}, function(response) {
 
     let itemCondition = response.itemCondition;
 

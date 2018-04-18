@@ -45,7 +45,6 @@ if ( !Element.prototype.addClasses ) {
 window.addEventListener('load', () => {
 
   let
-      hideMarketplaceItems = document.getElementById('marketplaceItems'),
       searchbox = document.getElementById('searchbox'),
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
@@ -55,6 +54,7 @@ window.addEventListener('load', () => {
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleFeedback = document.getElementById('toggleFeedback'),
+      toggleFilterByCondition = document.getElementById('toggleFilterByCondition'),
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
@@ -143,6 +143,42 @@ window.addEventListener('load', () => {
     optionsToggle('.hide-condition', this, '.condition', 100 );
   });
 
+  // Save the Filter by Condition Select value to localStorage
+  document.getElementById('conditionValue').addEventListener('change', function() {
+
+    let condition = localStorage.getItem('itemCondition'),
+        status = document.querySelector('.toggle-group.condition .label .status'),
+        conditions = ['Poor',
+                      'Fair',
+                      'Good',
+                      'Good Plus',
+                      'Very Good',
+                      'Very Good Plus',
+                      'Near Mint',
+                      'Mint'],
+        colors = ['poor',
+                  'fair',
+                  'good',
+                  'good-plus',
+                  'very-good',
+                  'very-good-plus',
+                  'near-mint',
+                  'mint'];
+
+    condition = this.value;
+    localStorage.setItem( 'itemCondition', String(condition) );
+
+    if ( !toggleFilterByCondition.checked ) {
+
+      toggleFilterByCondition.checked = true;
+    }
+
+    filterByCondition.removeClasses(colors, status);
+    status.textContent = conditions[this.value];
+    status.classList.add(colors[this.value]);
+    applySave('refresh', event);
+  });
+
   // ========================================================
   // FILTER ITEMS BY COUNTRY OPTIONS
   // ========================================================
@@ -209,7 +245,6 @@ window.addEventListener('load', () => {
   // ========================================================
   // Event listeners for toggles
   // ========================================================
-  hideMarketplaceItems.addEventListener('change', filterByCondition.setFilterByConditionValue);
   userCurrency.addEventListener('change', function(){ applySave(null, event); });
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockSellers.addEventListener('change', triggerSave);
@@ -220,6 +255,7 @@ window.addEventListener('load', () => {
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
+  toggleFilterByCondition.addEventListener('change', filterByCondition.toggleHideConditions);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
@@ -270,7 +306,6 @@ window.addEventListener('load', () => {
     // Get the user's saved preferences and set the toggles accordingly
     chrome.storage.sync.get('prefs', result => {
       // Feature preferences
-      hideMarketplaceItems.value = localStorage.getItem('itemCondition') || '';
       toggleBaoiFields.checked = result.prefs.baoiFields;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
@@ -280,6 +315,7 @@ window.addEventListener('load', () => {
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFeedback.checked = result.prefs.feedback;
+      toggleFilterByCondition.checked = result.prefs.filterByCondition;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
@@ -317,9 +353,12 @@ window.addEventListener('load', () => {
     // Set values for features with options
     checkForUpdate();
     suggestedPrices.getCurrency();
-    filterByCondition.setupFilterByCondition();
-    filterByCountry.setCountryFilterValues();
     sellerRep.setSellerRep();
+    filterByCountry.setCountryFilterValues();
+
+    setTimeout(() => {
+      filterByCondition.setupFilterByCondition(toggleFilterByCondition.checked);
+    }, 0);
 
     // .mac class will remove scrollbars from the popup menu
     if ( navigator.userAgent.includes('Mac OS X') ) {

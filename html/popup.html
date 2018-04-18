@@ -178,13 +178,12 @@
       <p class="label" title="Click to display options">
         <span class="arrow">&rsaquo;&nbsp;</span>
           Filter by Condition
-        <span class="condition-status"></span>
+        <span class="status"></span>
       </p>
       <div class="meta hide">Filter By Condition Media Vinyl CD Cassette Record Tape Quality marketplace</div>
 
       <div class="hide-condition hide">
-        <select id="marketplaceItems">
-          <option value="">Disabled</option>
+        <select id="conditionValue">
           <option value="7">Mint (M)</option>
           <option value="6">Near Mint (NM/M-)</option>
           <option value="5">Very Good Plus (VG+)</option>
@@ -193,6 +192,15 @@
           <option value="2">Good (G)</option>
           <option value="1">Fair (F)</option>
         </select>
+
+        <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleFilterByCondition" checked>
+          <label class="onoffswitch-label" for="toggleFilterByCondition">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+          </label>
+        </div>
+
         <div class="help filter-condition" style="display:block">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="feather feather-help-circle" color="#384047">

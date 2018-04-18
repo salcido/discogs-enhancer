@@ -38,9 +38,9 @@ export function applySave(message, event) {
         darkTheme: document.getElementById('toggleDarkTheme').checked,
         everlastingMarket: document.getElementById('toggleEverlastingMarket').checked,
         feedback: document.getElementById('toggleFeedback').checked,
+        filterByCondition: document.getElementById('toggleFilterByCondition').checked,
         filterByCountry: document.getElementById('toggleFilterByCountry').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
-        hideMarketplaceItems: document.getElementById('marketplaceItems').value,
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
@@ -185,7 +185,7 @@ export function fadeOut(elem) {
  * @return {Boolean}
  */
 export function isHidden(element) {
-  return element.parentNode.className.includes('hide');
+  return element.parentNode.classList.contains('hide');
 }
 
 // ========================================================
