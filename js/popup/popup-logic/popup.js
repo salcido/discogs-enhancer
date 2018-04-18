@@ -91,6 +91,10 @@ window.addEventListener('load', () => {
       toggleYoutube;
 
   // ========================================================
+  // UI EVENT LISTENERS
+  // ========================================================
+
+
   // Toggle light/dark theme
   // ========================================================
   toggleDarkTheme.addEventListener('click', () => {
@@ -104,7 +108,6 @@ window.addEventListener('load', () => {
     }
   });
 
-  // ========================================================
   // Open Learn page
   // ========================================================
   document.getElementById('learn').addEventListener('click', function() {
@@ -115,90 +118,33 @@ window.addEventListener('load', () => {
     if (_gaq) { _gaq.push(['_trackEvent', 'learn', 'learn clicked']); }
   });
 
-  // ========================================================
   // Open Block Sellers Configuration page
   // ========================================================
   document.getElementById('editList').addEventListener('click', function() {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
-  // ========================================================
   // Open Readability Configuration page
   // ========================================================
   document.getElementById('editReadability').addEventListener('click', function() {
     chrome.tabs.create({url: '../html/readability.html'});
   });
 
-  // ========================================================
-  // CONTEXTUAL MENU SEARCHING OPTIONS
+  // Contextual Menu Searching Options
   // ========================================================
   document.querySelector('.toggle-group.menus').addEventListener('click', function() {
     optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
+  // Filter by Condition Options
   // ========================================================
-  // FILTER BY CONDITION OPTIONS
+  filterByCondition.init();
+
+  // Filter Items by Country Options
   // ========================================================
-  document.querySelector('.toggle-group.condition').addEventListener('click', function() {
-    optionsToggle('.hide-condition', this, '.condition', 100 );
-  });
+  filterByCountry.init();
 
-  // Save the Filter by Condition Select value to localStorage
-  document.getElementById('conditionValue').addEventListener('change', function() {
-
-    let { clearClasses, colors, conditions } = filterByCondition,
-        itemCondition = localStorage.getItem('itemCondition'),
-        status = document.querySelector('.toggle-group.condition .label .status');
-
-    itemCondition = this.value;
-    localStorage.setItem( 'itemCondition', String(itemCondition) );
-
-    if ( !toggleFilterByCondition.checked ) {
-
-      toggleFilterByCondition.checked = true;
-    }
-
-    clearClasses(colors, status);
-
-    status.textContent = conditions[this.value];
-    status.classList.add(colors[this.value]);
-
-    applySave('refresh', event);
-  });
-
-  // ========================================================
-  // FILTER ITEMS BY COUNTRY OPTIONS
-  // ========================================================
-  document.querySelector('.toggle-group.country').addEventListener('click', function() {
-    optionsToggle('.hide-country', this, '.country', 115 );
-  });
-
-  // Save the Filter Items By Country CURRENCY select value to localStorage
-  document.getElementById('filterCountryCurrency').addEventListener('change', function() {
-
-    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    if ( this.value !== '-' ) {
-
-      filterByCountryPrefs.currency = this.value;
-      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
-    }
-  });
-
-  // Save the Filter Items By Country COUNTRY select value to localStorage
-  document.getElementById('filterCountry').addEventListener('change', function() {
-
-    let filterByCountryPrefs = JSON.parse(localStorage.getItem('filterByCountry'));
-
-    if ( this.value ) {
-
-      filterByCountryPrefs.country = this.value;
-      localStorage.setItem('filterByCountry', JSON.stringify(filterByCountryPrefs));
-    }
-  });
-
-  // ========================================================
-  // SEARCH FUNCTIONALITY
+  // Search Functionality
   // ========================================================
   searchbox.addEventListener('keydown', searchFeatures);
 
@@ -212,22 +158,9 @@ window.addEventListener('load', () => {
     setTimeout(() => { searchbox.focus(); }, 200);
   });
 
+  // Seller Reputation
   // ========================================================
-  // SELLER REPUTATION
-  // ========================================================
-  document.querySelector('.toggle-group.seller-rep').addEventListener('click', function() {
-
-    optionsToggle('.hide-percentage', this, '.seller-rep', 200 );
-  });
-
-  // Swatches
-  [...document.querySelectorAll('.rep-color')].forEach(swatch => {
-
-    swatch.addEventListener('click', event => {
-
-      sellerRep.selectSwatch(event);
-    });
-  });
+  sellerRep.init();
 
   // ========================================================
   // Event listeners for toggles

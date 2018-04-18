@@ -2,22 +2,61 @@
  * Filter By Condition feature
  */
 
-import { applySave } from '../utils';
+import { applySave, optionsToggle } from '../utils';
 
-// ========================================================
-// Condition strings and color classes
-// ========================================================
 /**
  * These arrays corespond to the `.status` string [conditions] and
  * the `.status` element's classes [colors] that change when the condition
  * select element is changed.
  */
-export const conditions = ['Poor','Fair','Good','Good Plus','Very Good','Very Good Plus','Near Mint','Mint'];
-export const colors = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'];
+const conditions = ['Poor','Fair','Good','Good Plus','Very Good','Very Good Plus','Near Mint','Mint'];
+const colors = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'];
 
-// ========================================================
-// setupFilterByCondition
-// ========================================================
+/**
+ * Removes the condition classes from the select element
+ * @param {Array} classes An array of class lists for each condition
+ * @param {object} status The status element to remove classes from
+ * @returns {undefined}
+ */
+export function clearClasses(classes, status) {
+  for (let i = 0; i < classes.length; i++) {
+    status.classList.remove(classes[i]);
+  }
+}
+
+/**
+ * Sets up the event listeners for the Filter By Condition UI
+ */
+export function init() {
+
+  document.querySelector('.toggle-group.condition').addEventListener('click', function () {
+    optionsToggle('.hide-condition', this, '.condition', 100);
+  });
+
+  // Save the Filter by Condition Select value to localStorage
+  document.getElementById('conditionValue').addEventListener('change', function () {
+
+    let toggle = document.getElementById('toggleFilterByCondition'),
+      itemCondition = localStorage.getItem('itemCondition'),
+      status = document.querySelector('.toggle-group.condition .label .status');
+
+    itemCondition = this.value;
+    localStorage.setItem('itemCondition', String(itemCondition));
+
+    if (!toggle.checked) {
+
+      toggle.checked = true;
+    }
+
+    clearClasses(colors, status);
+
+    status.textContent = conditions[this.value];
+    status.classList.add(colors[this.value]);
+
+    applySave('refresh', event);
+  });
+}
+
 /**
  * Sets the text value/color of the Filter by Condition
  * setting in the popup menu when it is first rendered
@@ -46,21 +85,6 @@ export function setupFilterByCondition(enabled) {
   }
 }
 
-/**
- * Removes the condition classes from the select element
- * @param {Array} classes An array of class lists for each condition
- * @param {object} status The status element to remove classes from
- * @returns {undefined}
- */
-export function clearClasses(classes, status) {
-  for ( let i = 0; i < classes.length; i++ ) {
-    status.classList.remove(classes[i]);
-  }
-}
-
-// ========================================================
-// toggleHideConditions
-// ========================================================
 /**
  * Validates that the user has a condition selected from
  * the select element before letting the user
