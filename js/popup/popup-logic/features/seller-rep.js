@@ -2,11 +2,21 @@
  * Seller Reputation feature
  */
 
-import { applySave, setEnabledStatus } from '../utils';
+import { applySave, optionsToggle, setEnabledStatus } from '../utils';
 
-// ========================================================
-// saveSellerRep
-// ========================================================
+export function init() {
+
+  document.querySelector('.toggle-group.seller-rep').addEventListener('click', function () {
+    optionsToggle('.hide-percentage', this, '.seller-rep', 200);
+  });
+
+  // Swatches
+  [...document.querySelectorAll('.rep-color')].forEach(swatch => {
+    swatch.addEventListener('click', event => {
+      selectSwatch(event);
+    });
+  });
+}
 /**
  * Saves the sellerRep percentage
  * @method saveSellerRep
@@ -125,7 +135,7 @@ export function setSellerRep() {
  * @param  {object} event The event object
  * @return {string}
  */
-export function selectSwatch(event) {
+function selectSwatch(event) {
 
   let classname,
       colorTable = {
