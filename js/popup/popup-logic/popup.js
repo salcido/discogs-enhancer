@@ -148,22 +148,7 @@ window.addEventListener('load', () => {
 
     let condition = localStorage.getItem('itemCondition'),
         status = document.querySelector('.toggle-group.condition .label .status'),
-        conditions = ['Poor',
-                      'Fair',
-                      'Good',
-                      'Good Plus',
-                      'Very Good',
-                      'Very Good Plus',
-                      'Near Mint',
-                      'Mint'],
-        colors = ['poor',
-                  'fair',
-                  'good',
-                  'good-plus',
-                  'very-good',
-                  'very-good-plus',
-                  'near-mint',
-                  'mint'];
+        { colors, conditions } = filterByCondition;
 
     condition = this.value;
     localStorage.setItem( 'itemCondition', String(condition) );
@@ -173,7 +158,7 @@ window.addEventListener('load', () => {
       toggleFilterByCondition.checked = true;
     }
 
-    filterByCondition.removeClasses(colors, status);
+    filterByCondition.clearClasses(colors, status);
     status.textContent = conditions[this.value];
     status.classList.add(colors[this.value]);
     applySave('refresh', event);
