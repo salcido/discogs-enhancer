@@ -8,17 +8,17 @@
  *
  */
 require('../../../css/popup/popup.scss');
-import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils';
 import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterByCondition from './features/filter-by-condition.js';
 import * as filterByCountry from './features/filter-by-country.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
+import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
 import * as suggestedPrices from './features/suggested-prices.js';
-import * as minMaxColumns from './features/min-max-columns.js';
 import * as ytPlaylists from './features/youtube-playlists.js';
+import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils';
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
@@ -146,21 +146,23 @@ window.addEventListener('load', () => {
   // Save the Filter by Condition Select value to localStorage
   document.getElementById('conditionValue').addEventListener('change', function() {
 
-    let condition = localStorage.getItem('itemCondition'),
-        status = document.querySelector('.toggle-group.condition .label .status'),
-        { colors, conditions } = filterByCondition;
+    let { clearClasses, colors, conditions } = filterByCondition,
+        itemCondition = localStorage.getItem('itemCondition'),
+        status = document.querySelector('.toggle-group.condition .label .status');
 
-    condition = this.value;
-    localStorage.setItem( 'itemCondition', String(condition) );
+    itemCondition = this.value;
+    localStorage.setItem( 'itemCondition', String(itemCondition) );
 
     if ( !toggleFilterByCondition.checked ) {
 
       toggleFilterByCondition.checked = true;
     }
 
-    filterByCondition.clearClasses(colors, status);
+    clearClasses(colors, status);
+
     status.textContent = conditions[this.value];
     status.classList.add(colors[this.value]);
+
     applySave('refresh', event);
   });
 
@@ -230,20 +232,20 @@ window.addEventListener('load', () => {
   // ========================================================
   // Event listeners for toggles
   // ========================================================
-  userCurrency.addEventListener('change', function(){ applySave(null, event); });
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
-  toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCondition.addEventListener('change', filterByCondition.toggleHideConditions);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
+  toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
+  togglePrices.addEventListener('change', suggestedPrices.showPrices);
   toggleRandomItem.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
@@ -251,8 +253,8 @@ window.addEventListener('load', () => {
   toggleSellerRep.addEventListener('change', sellerRep.saveSellerRep);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
-  togglePrices.addEventListener('change', suggestedPrices.showPrices);
   toggleYtPlaylists.addEventListener('change', ytPlaylists.toggleYtPlaylists);
+  userCurrency.addEventListener('change', () => applySave(null, event));
 
   // ========================================================
   // DOM Setup
@@ -295,13 +297,13 @@ window.addEventListener('load', () => {
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
       toggleCollectionUi.checked = result.prefs.collectionUi;
-      toggleHighlights.checked = result.prefs.highlightMedia;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterByCondition.checked = result.prefs.filterByCondition;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
+      toggleHighlights.checked = result.prefs.highlightMedia;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
       togglePrices.checked = result.prefs.suggestedPrices;
