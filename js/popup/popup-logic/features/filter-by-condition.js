@@ -5,6 +5,17 @@
 import { applySave } from '../utils';
 
 // ========================================================
+// Condition strings and color classes
+// ========================================================
+/**
+ * These arrays corespond to the `.status` string [conditions] and
+ * the `.status` element's classes [colors] that change when the condition
+ * select element is changed.
+ */
+export const conditions = ['Poor','Fair','Good','Good Plus','Very Good','Very Good Plus','Near Mint','Mint'];
+export const colors = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'];
+
+// ========================================================
 // setupFilterByCondition
 // ========================================================
 /**
@@ -15,26 +26,9 @@ import { applySave } from '../utils';
  */
 export function setupFilterByCondition(enabled) {
 
-  let
+  let select = document.getElementById('conditionValue'),
       setting = Number(localStorage.getItem('itemCondition')),
-      status = document.querySelector('.toggle-group.condition .label .status'),
-      select = document.getElementById('conditionValue'),
-      conditions = ['Poor',
-                    'Fair',
-                    'Good',
-                    'Good Plus',
-                    'Very Good',
-                    'Very Good Plus',
-                    'Near Mint',
-                    'Mint'],
-      colors = ['poor',
-                'fair',
-                'good',
-                'good-plus',
-                'very-good',
-                'very-good-plus',
-                'near-mint',
-                'mint'];
+      status = document.querySelector('.toggle-group.condition .label .status');
 
   if ( enabled ) {
 
@@ -58,7 +52,7 @@ export function setupFilterByCondition(enabled) {
  * @param {object} status The status element to remove classes from
  * @returns {undefined}
  */
-export function removeClasses(classes, status) {
+export function clearClasses(classes, status) {
   for ( let i = 0; i < classes.length; i++ ) {
     status.classList.remove(classes[i]);
   }
@@ -76,23 +70,7 @@ export function removeClasses(classes, status) {
 export function toggleHideConditions(event) {
 
   let setting = Number(localStorage.getItem('itemCondition')),
-      status = document.querySelector('.toggle-group.condition .label .status'),
-      conditions = ['Poor',
-                    'Fair',
-                    'Good',
-                    'Good Plus',
-                    'Very Good',
-                    'Very Good Plus',
-                    'Near Mint',
-                    'Mint'],
-      colors = ['poor',
-                'fair',
-                'good',
-                'good-plus',
-                'very-good',
-                'very-good-plus',
-                'near-mint',
-                'mint'];
+      status = document.querySelector('.toggle-group.condition .label .status');
 
   if ( !event.target.checked ) {
 
