@@ -572,6 +572,7 @@ span.clear-search {
   cursor: pointer;
   float: right;
   margin-right: 10px;
+  margin-top: 18px;
   position: relative;
   stroke: var(--help-icon);
   width: 15px;
@@ -582,10 +583,6 @@ span.clear-search {
   stroke: var(--text-color);
 }
 
-.help svg {
-  padding-top: 18px;
-}
-
 .help .help-bubble {
   background-color: var(--help);
   border-radius: 5px;
@@ -594,8 +591,8 @@ span.clear-search {
   display: none;
   padding: 15px;
   position: absolute;
-  top: 25%;
-  transform: translateY(-50%) translateX(-107%);
+  top: 50%;
+  transform: translateY(-51%) translateX(-107%);
   width: 150px;
   z-index: 100;
 }
@@ -613,11 +610,6 @@ span.clear-search {
   text-transform: none !important;
 }
 
-.help.filter-condition {
-  margin-top: 38px;
-  margin-right: 74px;
-}
-
 .help-bubble .help-text span.learn-more::before {
   color: var(--green);
   content: 'Click the \"Learn\" button for additional important details.';
@@ -631,7 +623,7 @@ span.clear-search {
   border-top: 10px solid transparent;
   height: 0;
   position: absolute;
-  top: 60%;
+  top: 50%;
   transform: translateY(-50%) translateX(1635%);
   width: 0;
 }
