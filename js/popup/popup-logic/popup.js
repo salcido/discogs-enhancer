@@ -6,6 +6,9 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * This file get inserted into the Popup.html file and contains
+ * all the logic that the popup needs to function.
+ *
  */
 require('../../../css/popup/popup.scss');
 import * as baoiFields from './features/baoi-fields.js';
@@ -22,7 +25,7 @@ import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSav
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
-// classes from a target element. Yes, I realize we've all
+// classes from a target element. I realize we've all
 // been told this is a bad thing to do but since this
 // extension is self-contained there will likely never be
 // any method-naming conflicts.
@@ -102,10 +105,11 @@ window.addEventListener('load', () => {
     let html = document.querySelector('html');
 
     if ( toggleDarkTheme.checked ) {
-      html.classList.remove('light');
-    } else {
-      html.classList.add('light');
+
+      return html.classList.remove('light');
     }
+
+    return html.classList.add('light');
   });
 
   // Open Learn page
@@ -115,7 +119,7 @@ window.addEventListener('load', () => {
     chrome.tabs.create({url: '../html/about.html'});
     acknowledgeUpdate();
 
-    if (_gaq) { _gaq.push(['_trackEvent', 'learn', 'learn clicked']); }
+    if ( _gaq ) { _gaq.push(['_trackEvent', 'learn', 'learn clicked']); }
   });
 
   // Open Block Sellers Configuration page
@@ -195,7 +199,8 @@ window.addEventListener('load', () => {
 
   /**
    * Sets toggle button values when the popup is rendered
-   * and calls necessary methods
+   * and calls necessary methods in order to render
+   * the popup's UI in the correct state
    * @method   init
    * @return   {undefined}
    */
