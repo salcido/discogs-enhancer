@@ -1,0 +1,152 @@
+body {
+  align-items: center;
+  background: #313335;
+  color: #f2f2f2;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+h1 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: #f2f2f2;
+  font-family: 'Raleway', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+a {
+  color: #82AAD2;
+  text-decoration: none;
+}
+
+b {
+  font-weight: 700;
+  letter-spacing: 0.03rem;
+  letter-spacing: 0.04rem;
+  text-shadow: 1px 2px #242424;
+}
+
+.sidebar {
+  align-content: flex-start;
+  align-items: center;
+  background: #242424;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  max-width: 500px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  position: fixed;
+  top: 0;
+}
+
+.sidebar h1 {
+  padding: 0 2rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar .version {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.05rem;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.sidebar .navigation > * {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.sidebar .navigation select {
+  height: 25px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar .navigation input {
+  font-size: 16px;
+  height: 35px;
+  padding-left: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+}
+
+.sidebar .info-box {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.sidebar .info-box .nav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.sidebar .info-box .nav a {
+  color: #fafafa;
+  position: relative;
+  border-bottom: 0px solid #fafafa;
+  transition: all 0.1s ease-in-out;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.15rem;
+}
+
+.sidebar .info-box .nav a:hover {
+  padding-bottom: 2px;
+  border-bottom: 2px solid #fafafa;
+}
+
+.sidebar .info-box .nav a.selected {
+  padding-bottom: 2px;
+  border-bottom: 2px solid #59C231;
+}
+
+.sidebar .info-box .info-wrap {
+  max-width: 400px;
+  margin-top: 2rem;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.info-wrap {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  overflow: scroll;
+}
+
+.info-wrap .update {
+  margin-bottom: 2rem;
+}
+
+.info-wrap span {
+  color: #59C231;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.info-wrap span.warn {
+  color: #F2994A;
+}
+
+.info-wrap span.warn::before {
+  content: "⚠️ ";
+}
+span.m {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.hide {
+  display: none;
+}
