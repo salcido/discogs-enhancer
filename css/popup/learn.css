@@ -210,7 +210,7 @@ span.m {
   max-width: 500px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 4rem;
+  margin-bottom: 10rem;
 }
 
 .feature-block p {
@@ -328,4 +328,50 @@ span.m {
   width: 28px;
   background: url(../../img/about/shortcuts.png) -114px 0 no-repeat;
   background-size: cover;
+}
+
+.thanks ul {
+  margin: 0 auto;
+}
+
+.thanks li {
+  margin: 0 auto;
+}
+
+.love {
+  margin: 45px auto 10px;
+}
+
+.copyright,
+.copyright a {
+  font-size: 11px;
+  color: #CCCCCC;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.copyright a:hover {
+  color: #CCCCCC;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.content .short {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.content p.short-title {
+  display: inline-block;
+  margin-top: -26px;
+  margin-left: 35px;
+  padding-top: 0;
+  font-size: 15px;
+  vertical-align: middle;
 }
