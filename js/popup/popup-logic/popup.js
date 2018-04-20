@@ -116,7 +116,7 @@ window.addEventListener('load', () => {
   // ========================================================
   document.getElementById('learn').addEventListener('click', function() {
 
-    chrome.tabs.create({url: '../html/about.html'});
+    chrome.tabs.create({url: '../html/learn.html'});
     acknowledgeUpdate();
 
     if ( _gaq ) { _gaq.push(['_trackEvent', 'learn', 'learn clicked']); }

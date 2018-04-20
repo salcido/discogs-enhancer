@@ -59,6 +59,7 @@ position wasn't fixed. */
 .sidebar h1 {
   padding: 0 2rem;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .sidebar .version {
@@ -202,7 +203,7 @@ span.m {
 .content h2 {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .feature-block {
@@ -245,7 +246,8 @@ span.m {
   color: #85AB11 !important;
 }
 
-.good-plus {
+.good-plus,
+.highlight {
   color: #F6BF48 !important;
 }
 
@@ -335,7 +337,7 @@ span.m {
 }
 
 .thanks li {
-  margin: 0 auto;
+  margin: 0.5rem auto;
 }
 
 .love {
