@@ -25,6 +25,19 @@ document.addEventListener('DOMContentLoaded', function () {
   // ======================================================
 
   /**
+   * Adds the `.highlight` class to the target element
+   *
+   * @param {object} value The value from the selected feature
+   * @returns {method}
+   */
+  function addHighlight(value) {
+
+    let target = document.querySelector(`#${value}`);
+
+    return target.classList.add('highlight');
+  }
+
+  /**
    * Appends the version and year to the DOM
    *
    * @method   getVersionAndYear
@@ -54,17 +67,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function populateNavigation() {
 
-    let features = [...document.getElementsByClassName('feature')];
+    let features = [...document.querySelectorAll('.feature-block')];
 
     features.forEach(feature => {
 
       let option = document.createElement('option');
 
-      option.textContent = feature.textContent;
-      option.value = feature.id;
+      option.textContent = feature.querySelector('h2').textContent;
+      option.value = feature.querySelector('h2').id;
 
       select.add(option);
     });
+  }
+
+  /**
+   * Removes all `.highlight` classes from the h2 elements
+   *
+   * @method removeHighlight
+   * @returns {undefined}
+   */
+
+  function removeHighlight() {
+
+    let h2s = [...document.querySelectorAll('.feature-block h2')];
+
+    h2s.forEach(h => h.classList.remove('highlight'));
   }
 
 
@@ -74,6 +101,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Scroll the page to the selected element
   select.addEventListener('change', () => {
+
+    removeHighlight();
+    addHighlight(select.value);
 
     location.hash = '#' + select.value;
 
