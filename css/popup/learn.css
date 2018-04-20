@@ -2,10 +2,13 @@ body {
   align-items: center;
   background: #313335;
   color: #f2f2f2;
-  display: flex;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 300;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
 }
 
 h1 {
@@ -32,18 +35,25 @@ b {
 }
 
 .sidebar {
-  align-content: flex-start;
-  align-items: center;
   background: #242424;
-  display: flex;
-  flex-direction: column;
+  position:fixed;
   height: 100%;
-  justify-content: flex-start;
-  max-width: 500px;
+  min-width: 450px;
   padding-left: 1rem;
   padding-right: 1rem;
-  position: fixed;
-  top: 0;
+  overflow: scroll;
+}
+/* I need a fixed position nav but I want to
+scroll the content so this will take up the same
+amount of space that the sidebar would take if it's
+position wasn't fixed. */
+.sidebar-spacer {
+  display: inline-block;
+  height: 100%;
+  min-width: 450px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow: scroll;
 }
 
 .sidebar h1 {
@@ -57,9 +67,15 @@ b {
   letter-spacing: 0.05rem;
   margin-bottom: 3rem;
   text-transform: uppercase;
+  text-align: center;
 }
 
-.sidebar .navigation > * {
+.sidebar .navigation {
+  position: relative;
+}
+
+.sidebar .navigation > input,
+.sidebar .navigation > select {
   width: 100%;
   margin-bottom: 1rem;
 }
@@ -72,11 +88,19 @@ b {
 .sidebar .navigation input {
   font-size: 16px;
   height: 35px;
-  padding-left: 1.5rem;
+  padding-left: 2.1rem;
   font-family: 'Roboto', sans-serif;
   outline: none;
   border-radius: 5px;
   border: none;
+}
+
+.feather-search {
+  position: absolute;
+  top: 50px;
+  left: -7px;
+  color: #434343;
+  width: 50px;
 }
 
 .sidebar .info-box {
@@ -108,7 +132,7 @@ b {
 
 .sidebar .info-box .nav a.selected {
   padding-bottom: 2px;
-  border-bottom: 2px solid #59C231;
+  border-bottom: 3px solid #59C231;
 }
 
 .sidebar .info-box .info-wrap {
@@ -121,15 +145,13 @@ b {
 .info-wrap {
   padding-left: 2rem;
   padding-right: 2rem;
-  overflow: scroll;
 }
 
-.info-wrap .update {
+.info-wrap .news-item {
   margin-bottom: 2rem;
 }
 
 .info-wrap span {
-  color: #59C231;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
@@ -139,8 +161,17 @@ b {
   color: #F2994A;
 }
 
+.info-wrap span.feature {
+  color: #59C231;
+}
+
+.info-wrap span.update {
+  color: #56CCF2;
+}
+
 .info-wrap span.warn::before {
   content: "⚠️ ";
+  font-size: 10px;
 }
 span.m {
   margin-bottom: 8px;
@@ -149,4 +180,152 @@ span.m {
 
 .hide {
   display: none;
+}
+
+/* Content */
+
+.content {
+  display: flex;
+  width: 100%;
+  padding-right: 5rem;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 2rem;
+  padding-top: 5rem;
+}
+
+.content img {
+  height: auto;
+  margin: 1rem auto;
+}
+
+.content h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  margin-bottom: 2rem;
+}
+
+.feature-block {
+  min-width: 200px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+.feature-block p {
+  line-height: 1.4;
+}
+
+.marketplace-highlights {
+  list-style-type: none;
+  margin-bottom: 10px;
+  padding-left: 25px;
+}
+
+.marketplace-highlights li {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+
+.mint {
+  color: #00B4DB !important;
+}
+
+.near-mint {
+  color: #00DBB4 !important;
+}
+
+.very-good-plus {
+  color: #00DB1F !important;
+}
+
+.very-good {
+  color: #85AB11 !important;
+}
+
+.good-plus {
+  color: #F6BF48 !important;
+}
+
+.good {
+  color: #D87307 !important;
+}
+
+.fair {
+  color: #E54803 !important;
+}
+
+.poor {
+  color: #FF0000 !important;
+}
+
+.content em,
+.content p b {
+  font-weight: bold;
+  color: #fafafa;
+}
+
+.content ul li.no-bullet {
+  list-style-type: none;
+}
+
+.max-width {
+  display: block;
+  max-width: 350px;
+  margin: 15px auto;
+}
+
+.max-height {
+  display: block;
+  max-height: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.price-example {
+  display: block;
+  max-height: 200px;
+  max-width: 200px;
+  margin: 10px auto;
+}
+
+.short-desc {
+  margin-bottom: 20px;
+}
+
+.short-link {
+  height: 25px;
+  width: 28px;
+  background: url(../../img/about/shortcuts.png) 0 0;
+  background-size: cover;
+}
+
+.short-bold {
+  height: 25px;
+  width: 28px;
+  background: url(../../img/about/shortcuts.png) -31px 0;
+  background-size: cover;
+}
+
+.short-italic {
+  height: 25px;
+  width: 28px;
+  background: url(../../img/about/shortcuts.png) -58px 0;
+  background-size: cover;
+}
+
+.short-strike {
+  height: 25px;
+  width: 28px;
+  background: url(../../img/about/shortcuts.png) -86px 0;
+  background-size: cover;
+}
+
+.short-underline {
+  height: 25px;
+  width: 28px;
+  background: url(../../img/about/shortcuts.png) -114px 0 no-repeat;
+  background-size: cover;
 }
