@@ -21,7 +21,7 @@
       </select>
 
     <!-- Search -->
-    <input type="text" class="search" id="search" maxlength="50" autofocus placeholder="Search for features">
+    <input type="text" class="search" id="search" maxlength="40" autofocus placeholder="Search for features">
     <div class="search-status"></div>
     <!-- Magnifying glass -->
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search" color="#384047" data-reactid="1001">
@@ -61,7 +61,7 @@
         </div>
         <!-- donate -->
         <div class="donate hide tab-content">
-          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer's exchanges rates are supported by a custom API. Hosting for the API is $5 a month. Even the smallest contribution helps pay for the server!</p>
+          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API is $5 a month ($60/year) via <a href="https://www.digitalocean.com/pricing/">Digial Ocean</a>. Even the smallest contribution helps pay for the server!</p>
           <div class="donation-wrap">
             <div class="donate">
               <h3>Ethereum (or any ERC20 token):</h3>
@@ -114,9 +114,9 @@
     <div class="feature-block">
       <!-- Currency Converter -->
       <h2 id="currency-converter">Currency Converter</h2>
-      <p>Have you ever looked at a seller's shipping rates and wondered how much they would be in your currency?</p>
-
-      <p>Now you can quickly find out with the Currency Converter!</p>
+      <p>Convert between any of the currencies Discogs supports with the on-screen
+        Currency Converter.
+      </p>
 
       <p><em>Step 1:</em> Click the '¥ € $' button in the lower-right corner of the screen.</p>
 
@@ -130,7 +130,7 @@
 
       <img src="../img/about/converter-step-3.png" />
 
-      <p><em>Step 4:</em> Now just type the value into the box and see your results instantly!</p>
+      <p><em>Step 4:</em> Now simply type the value into the box and see your results instantly!</p>
 
       <img src="../img/about/converter-step-4.png" />
 
@@ -145,9 +145,8 @@
     <div class="feature-block">
       <h2 id="everlasting-marketplace">Everlasting Marketplace</h2>
 
-      <p>The Everlasting Marketplace lets you continuously scroll through the Marketplace listings so you'll never have to click "prev" or "next" again!</p>
-
-      <p>More results are automatically loaded once you reach the bottom of the Marketplace listings.</p>
+      <p>The Everlasting Marketplace lets you continuously scroll through the Marketplace listings.
+         More results are automatically loaded once you reach the bottom of the Marketplace listings.</p>
 
       <p>If you want to change your filter criteria, click the "Add or remove filters" link and you'll be taken to the filters at the top of the page where you can make your adjustments.</p>
 
@@ -158,8 +157,7 @@
       <img class="max-width" src="../img/about/everlasting-market-scroll.png" />
 
       <p>
-        <em>Pro tip:</em> You can stop Everlasting Marketplace from loading more results by clicking the Pause button next to the "Scroll
-        to:" select box at the top.
+        <em>Pro tip:</em> You can stop Everlasting Marketplace from loading more results by clicking the Pause button next to the <i>"Scroll to:"</i> select box at the top.
       </p>
     </div>
 
@@ -186,19 +184,15 @@
       <!-- filter items by condition -->
       <h2 id="hideMarketplace">Filter By Condition</h2>
 
-      <p>This will hide all items in the Marketplace that are below a specified condition.</p>
+      <p>Hide all items in the Marketplace that are below a specified condition.</p>
 
-      <p>For instance, if you select "Near Mint", only
-        <i>Mint</i> and <i>Near Mint</i> condition items will be shown. If you select "Very Good", only
-        <i>Mint, Near Mint, Very Good Plus, and Very Good</i> items will be shown (etc...).</p>
+      <p>For example, if you select <i>"Near Mint"</i>, only
+        Mint and Near Mint condition items will be shown. If you select "Very Good", only
+        Mint, Near Mint, Very Good Plus, and Very Good items will be shown (etc &hellip;).</p>
 
-      <p>When results have been filtered, you will see a note that says "<b>Filtering items below [condition].</b>" next to the pagination links.</p>
+      <p>When results have been filtered, you will see a note that says "<b>Filtering items below [condition]</b>" next to the pagination links.</p>
 
-      <p>To enable this feature, click on the "Filter By Condition" feature in the popup and select an option from the dropdown that appears.</p>
-
-      <p>To disable this feature, simply select "Disabled" from the select box.</p>
-
-      <p>It's worth noting that this simply hides these items from view. So if there are 25 items per page and 5 of those are hidden, you will only see 20 results on that particular page. Sleeve condition is ignored when filtering items.</p>
+      <p><em>Pro tip:</em>It's worth noting that this simply hides these items from view. So if there are 25 items per page and 5 of those are hidden, you will only see 20 results on that particular page. <i>Sleeve condition is ignored when filtering items.</i></p>
     </div>
 
     <div class="feature-block">
@@ -213,7 +207,7 @@
         <b>How to use the Filter By Country feature:</b>
       </p>
 
-      <p>First, select the currency you want to use. It must match the Currency Filter in the Marketplace as this is how Discogs Enhancer knows when to activate this feature.</p>
+      <p>First, select the currency you want to use. <b class="very-good">It must match the Currency Filter in the Marketplace</b> as this is how Discogs Enhancer knows when to activate this feature.</p>
 
       <img class="max-width" src="../img/about/filter-by-country-1.png" />
 
@@ -236,7 +230,7 @@
 
       <p>If you've ever noticed that some scanned release images have blurry text, this option should fix it.</p>
 
-      <p>This will only work on monitors that are not hi-res so if you use a 4k display or have a Retina screen, you won't see any improvement.</p>
+      <p>This will only work on monitors that are not HD so if you use a 4k display or have a Retina screen, you won't see any improvement.</p>
 
       <p>Please be aware that by enabling this option, you may notice the images "jump" a bit when clicking the zoomed in view. This is a side effect of the way that the extension repositions the images so that they are no longer blurry.</p>
 
@@ -253,7 +247,7 @@
     <div class="feature-block">
       <!-- Improved Collection UI -->
       <h2 id="improved-ui">Improved Collection UI</h2>
-      <p>This makes the Collection page a little more organized and easier to understand.</p>
+      <p>This makes the Collection page a little more organized by moving some links around and colorizing the Move Selected and Remove Selected buttons.</p>
     </div>
 
     <div class="feature-block">
@@ -261,10 +255,10 @@
       <h2 id="baoi-fields">Large BAOI Fields</h2>
       <p>Makes the <b>Barcodes and Other Identifiers</b> fields larger when you are editing a release. Helpful if you're working with longer texts on a release. (Click on the images below to enlarge them.)
       <br><br>
-      Before:
+      <b class="text-center">Before:</b>
       <a href="../img/about/baoi-before.jpg"><img src="../img/about/baoi-before.jpg" class="max-width" title="click to enlarge"/></a>
 
-      After:
+      <b class="text-center">After:</b>
       <a href="../img/about/baoi-after.jpg"><img src="../img/about/baoi-after.jpg" class="max-width" title="click to enlarge" /></a>
       </p>
     </div>
@@ -272,15 +266,15 @@
     <div class="feature-block">
       <!-- Large YouTube Playlists -->
       <h2 id="youtube-playlists">Large YouTube Playlists</h2>
-      <p>Doubles the maximum size of the YouTube playlists on a release or list page. Helpful if there are a lot of videos and you want to be able to see more of them in the playlist at once. Please note: if there are only a few videos on a page, the size of the playlist won't change. You'll only see a larger playlist if there are more than three videos with a maximum of 6 visible at any given time.
-      </p>
+      <p>Doubles the maximum size of the YouTube playlists on a release or list page. Helpful if there are a lot of videos and you want to be able to see more of them at once.</p>
+      <p>Please note: if there are only a few videos on a page, the size of the playlist won't change. You'll only see a larger playlist if there are more than three videos with a maximum of 6 visible at any given time.</p>
     </div>
 
     <div class="feature-block">
       <!-- Marketplace Highlights -->
       <h2 id="highlights">Marketplace Highlights</h2>
 
-      <p>This can make it easier to see what condition items are in by colorizing the Media and Sleeve conditions in the Marketplace with the following colors:</p>
+      <p>Makes it easier to see what condition items are in by colorizing the Media and Sleeve conditions in the Marketplace with the following colors:</p>
 
       <ul class="marketplace-highlights">
         <li class="mint">Mint</li>
@@ -298,7 +292,7 @@
       <!-- Marketplace Release Ratings -->
       <h2 id="releaseRatings">Marketplace Ratings</h2>
 
-      <p>This will allow you to see the number of votes the release has received within the Marketplace results. If you've ever found yourself browsing another seller's inventory for other items you might want that aren't on your Wantlist, you can use this feature to see a release's rating stat without having to open another page.</p>
+      <p>Allows you to see the number of votes the release has received within the Marketplace results. If you've ever found yourself browsing another seller's inventory for other items you might want that aren't on your Wantlist, you can use this feature to see a release's rating stat without having to open another page.</p>
 
       <img src="../img/about/release-rating-link.png" class="price-example" />
 
@@ -311,7 +305,7 @@
       <!-- Notes Counter -->
       <h2 id="notesCounter">Notes Counter</h2>
 
-      <p>This will count the characters for any "notes" field in your collection/wantlist so you will know when you are getting close to the maximum character limit (255). It can be useful if you like to keep a lot of notes about your collection and you find you frequently run out of space mid-sentence.</p>
+      <p>Counts the characters in any "notes" field in your collection/wantlist so you will know when you're getting close to the maximum character limit (255). It can be useful if you like to keep a lot of notes about your collection and you find you frequently run out of space mid-sentence.</p>
 
       <img src="../img/about/notes-count.png" class="max-width" />
     </div>
@@ -320,7 +314,7 @@
       <!-- Random Item -->
       <h2 id="randomItem">Random Item Button</h2>
 
-      <p>This will add a &#x267a; button to the nav bar that will show you a random item from your collection when clicked.</p>
+      <p>This will add a "&#x267a;"-shaped button to the nav bar that will show you a random item from your collection when clicked.</p>
 
       <p>The functionality is identical to the "Random Item" feature in the Collection page but allows you to access it from the nav bar rather than going back to the Collection page and clicking "Random Item" again.</p>
 
@@ -348,7 +342,7 @@
       <!-- Suggested Prices -->
       <h2 id="suggested-prices">Suggested Prices</h2>
 
-      <p>This will show the prices that Discogs suggests and compare them to the seller's price. It's useful for seeing if an item is priced fairly. <em>In order for this to work you must be registered as a seller.</em></p>
+      <p>Shows the prices that Discogs suggests and compares them to the seller's price. It's useful for seeing if an item is priced fairly. <b class="very-good">In order for this to work you must be registered as a seller.</b></p>
 
       <p>
         <b>How to use the Suggested Prices feature:</b>
@@ -364,7 +358,7 @@
 
       <p>For release pages, the comparisons are displayed automatically.</p>
 
-      <p>For pages like <i>Wantlists,</i> <i>Seller pages</i> or <i>Master Releases</i>, a link is inserted into the page:</p>
+      <p>For pages like <b>Wantlists,</b> <b>Seller pages</b> or <b>Master Releases</b>, a link is inserted into the page:</p>
 
       <img src="../img/about/price-link.png" class="max-width" />
 
@@ -372,16 +366,18 @@
 
       <img src="../img/about/price-example.png" class="price-example" />
 
-      <p>Results are displayed in the currency that is set in your seller settings.<i> <em>Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</em></i> Exchange rate data is calculated every two hours (except on weekends when Markets are closed). Discogs uses a different exchange service so their exchange rates might differ slightly from Discogs Enhancers' rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.</p>
+      <p>Results are displayed in the currency that is set in your Seller settings on Discogs.</p>
 
-      <p>If you are located outside the US and have any issues, please let me know!</p>
+      <p><b class="very-good">Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</b></p>
+
+      <p>Exchange rate data is calculated every two hours (except on weekends when Markets are closed). Discogs uses a different exchange service so their exchange rates might differ slightly from Discogs Enhancers' rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.</p>
     </div>
 
     <div class="feature-block">
       <!-- Tag Seller Reputation -->
       <h2 id="reputation">Tag Seller Reputation</h2>
 
-      <p>This will mark any Seller who's reputation is below the percentage specified in the option's submenu. Simply click Tag Seller Reputation, enter a percentage in the box and turn the feature on.</p>
+      <p>Mark any Seller who's reputation is below the percentage specified in the option's submenu. Simply click <b>Tag Seller Reputation</b>, enter a percentage in the box and turn the feature on.</p>
 
       <img src="../img/about/seller-rep.png" class="max-width" />
 
@@ -396,16 +392,16 @@
       <!-- Text Format Shortcuts -->
       <h2 id="text-format-shortcuts">Text Format Shortcuts</h2>
 
-      <p>This adds several buttons to reviews, comments and forum/group reply boxes that allow you to quickly insert <a href="https://www.discogs.com/help/doc/text-formatting" target="_blank" rel="noopener noreferrer">text formatting shortcuts.</a> See a quick demo <a href="http://i.imgur.com/DCAQfeB.gif" target="_blank" rel="noopener noreferrer">here.</a></p>
+      <p>Adds several buttons to reviews, comments and forum/group reply boxes that allow you to quickly insert <a href="https://www.discogs.com/help/doc/text-formatting" target="_blank" rel="noopener noreferrer">text formatting shortcuts.</a> See a quick demo <a href="http://i.imgur.com/DCAQfeB.gif" target="_blank" rel="noopener noreferrer">here.</a></p>
 
       <div class="short-link short"></div>
       <p class="bold short-title">Links</p>
 
       <p>Quickly add links when writing reviews, notes or forum posts. Simply click on the arrow icon and paste your link into the prompt. It will automatically detect whether the link is a master release, an individual release, a forum post, an artist, a user profile or external website. The link will be formatted and inserted into the text box at your cursor's current position.</p>
 
-      <p>Links must contain either "http://" or "https://" (e.g.: http://www.google.com) in order to be valid.</p>
+      <p>Links must contain either "http://" or "https://" <i>(e.g.: https://www.google.com)</i> for it to be recognized as a link.</p>
 
-      <p class="short-desc"><em>Pro tip:</em> You can also quickly link to a specific <a href="https://www.discogs.com/help/doc/submission-guidelines-release" target="_blank" rel="noopener noreferrer">submission guideline</a> by simply typing the guideline number into the prompt (e.g.: 12.2.5).</p>
+      <p class="short-desc"><em>Pro tip:</em> You can also quickly link to a specific <a href="https://www.discogs.com/help/doc/submission-guidelines-release" target="_blank" rel="noopener noreferrer">submission guideline</a> by simply typing the guideline number into the prompt <i>(e.g.: 12.2.5)</i>.</p>
 
       <div class="short-bold short"></div>
       <p class="bold short-title">Bold</p>
@@ -434,7 +430,7 @@
       <!-- Tracklist Readability -->
       <h2 id="readability">Tracklist Readability</h2>
 
-      <p>This will insert visual dividers between each side, disc, and/or format of a release in order to make it easier to read. <a href="http://i.imgur.com/PQtRpkO.gif" target="_blank" rel="noopener noreferrer">Here's a short gif to see it in action.</a></p>
+      <p>This will *attempt* to insert visual dividers between each side, disc, and/or format of a release in order to make it easier to read. <a href="http://i.imgur.com/PQtRpkO.gif" target="_blank" rel="noopener noreferrer">Here's a short gif to see it in action.</a></p>
 
       <p>You can show and hide readability dividers by clicking "Show/Hide Dividers" at the top of the track list. Your show/hide preference will be saved each time you change it. </p>
 
@@ -443,7 +439,7 @@
       <p>Please see the <a href="../html/readability.html">Settings page</a> to customize it and for detailed information on how it works.</p>
 
       <p>
-        <b>Note:</b> There is no single standard when it comes to listing releases with multiple formats and CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release. It also depends on data being correctly represented.
+        <b>Note:</b> There is no single standard when it comes to listing releases with multiple formats and CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release. Incorrect data may cause problems for this feature. <a class="secret" href="http://i0.kym-cdn.com/photos/images/original/000/022/036/Screen_shot_2009-10-09_at_4.42.45_PM.png">Safety Not Guaranteed</a>.
       </p>
 
       <p>Don't forget to turn the option on!</p>

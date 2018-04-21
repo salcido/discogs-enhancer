@@ -27,6 +27,11 @@ a {
   text-decoration: none;
 }
 
+a.secret {
+  color: #fafafa;
+  text-decoration: none;
+}
+
 b {
   font-weight: 700;
   letter-spacing: 0.03rem;
@@ -198,8 +203,9 @@ position wasn't fixed. */
 }
 
 span.m {
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   display: block;
+  letter-spacing: 0.05rem;
 }
 
 .donate {
@@ -272,6 +278,7 @@ h2.highlight {
   list-style-type: none;
   margin-bottom: 10px;
   padding-left: 25px;
+  text-align: center;
 }
 
 .marketplace-highlights li {
@@ -316,6 +323,9 @@ h2.highlight {
 .content p b {
   font-weight: bold;
   color: #fafafa;
+}
+.content em {
+  margin-right: 0.5rem;
 }
 
 .content ul li.no-bullet {
@@ -433,4 +443,9 @@ h2.highlight {
   padding: 1.5rem 4rem;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+}
+
+.text-center {
+  text-align: center;
+  display: inherit;
 }
