@@ -112,14 +112,28 @@ position wasn't fixed. */
   right: 8px;
 }
 
+.clear-search:hover svg {
+  stroke: #fafafa;
+}
+
 .clear-search svg {
   stroke:#999;
   height: 20px;
+  transition: stroke 0.15s ease-in;
+}
+
+.search-status {
+  position: absolute;
+  color: #999;
+  font-style: italic;
+  font-size: 14px;
+  top: 50px;
+  right: 40px;
 }
 
 .sidebar .info-box {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
 
 .sidebar .info-box .nav {
@@ -181,11 +195,6 @@ position wasn't fixed. */
 
 .info-wrap span.update {
   color: #56CCF2;
-}
-
-.info-wrap span.warn::before {
-  content: "⚠️ ";
-  font-size: 10px;
 }
 
 span.m {

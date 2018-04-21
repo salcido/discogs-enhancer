@@ -73,6 +73,28 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Lists the number of results returned from
+   * the search
+   *
+   * @returns {assignment}
+   */
+  function listResults() {
+
+    let features = [...document.querySelectorAll('.feature-block')],
+        quantity,
+        searchStatus = document.querySelector('.search-status'),
+        searchResults = features.filter(elem => !elem.classList.contains('hide'));
+
+    quantity = searchResults.length === 1 ? 'result' : 'results';
+
+    if (!search.value) {
+      return searchStatus.textContent = '';
+    }
+
+    return searchStatus.textContent = `${searchResults.length} ${quantity}`;
+  }
+
+  /**
    * Shows the `no-results` element if all features
    * are hidden
    *
@@ -153,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     noResultsCheck(features);
     toggleClearButton();
+    listResults();
   }
 
   /**
