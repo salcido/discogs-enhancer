@@ -42,6 +42,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Clears the search query from the input element
+   *
+   * @returns {undefined}
+   */
+  function clearSearchField() {
+    search.value = '';
+    search.focus();
+    searchFeatures('');
+  }
+
+  /**
    * Appends the version and year to the DOM
    *
    * @method   getVersionAndYear
@@ -274,9 +285,17 @@ document.addEventListener('DOMContentLoaded', function () {
   clearSearch.addEventListener('click', event => {
 
     event.preventDefault();
-    search.value = '';
-    search.focus();
-    searchFeatures('');
+    clearSearchField();
+  });
+
+  // Escape key listener
+  document.addEventListener('keydown', event => {
+
+    if ( event.which === 27 ) {
+
+      event.preventDefault();
+      clearSearchField();
+    }
   });
 
   // Tab functionality
