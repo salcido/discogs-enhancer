@@ -1,25 +1,28 @@
 body {
   align-items: center;
+  align-items: start;
   background: #313335;
   color: #f2f2f2;
+  display: flex;
+  flex-direction: row;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 300;
   margin: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: start;
 }
 
 h1 {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
   color: #f2f2f2;
   font-family: 'Raleway', sans-serif;
   font-size: 40px;
   font-weight: 700;
   margin-bottom: 3rem;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h3 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -36,17 +39,17 @@ b {
   font-weight: 700;
   letter-spacing: 0.03rem;
   letter-spacing: 0.04rem;
-  text-shadow: 1px 2px #242424;
 }
 
 .sidebar {
   background: #242424;
-  position:fixed;
+  border-right: 1px solid #424242;
   height: 100%;
   min-width: 450px;
+  overflow: scroll;
   padding-left: 1rem;
   padding-right: 1rem;
-  overflow: scroll;
+  position:fixed;
 }
 /* I need a fixed position nav but I want to
 scroll the content so this will take up the same
@@ -56,9 +59,9 @@ position wasn't fixed. */
   display: inline-block;
   height: 100%;
   min-width: 450px;
+  overflow: scroll;
   padding-left: 1rem;
   padding-right: 1rem;
-  overflow: scroll;
 }
 
 .sidebar h1 {
@@ -68,7 +71,7 @@ position wasn't fixed. */
 }
 
 .sidebar .version {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.05rem;
   margin-bottom: 3rem;
@@ -203,9 +206,11 @@ position wasn't fixed. */
 }
 
 span.m {
-  margin-bottom: 16px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   display: block;
   letter-spacing: 0.05rem;
+  margin-bottom: 16px;
 }
 
 .donate {
@@ -245,11 +250,12 @@ span.m {
 }
 
 .content h2 {
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.2rem;
   margin-bottom: 1rem;
-  transition: all 0.3s ease-in;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+  transition: all 0.3s ease-in;
 }
 
 h2.highlight {
@@ -322,8 +328,11 @@ h2.highlight {
 .content em,
 .content p b {
   font-weight: bold;
-  color: #fafafa;
+  color: #ffe4a1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
+
 .content em {
   margin-right: 0.5rem;
 }
@@ -429,11 +438,13 @@ h2.highlight {
 }
 
 .content p.short-title {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   display: inline-block;
-  margin-top: -26px;
-  margin-left: 35px;
-  padding-top: 0;
   font-size: 15px;
+  margin-left: 35px;
+  margin-top: -26px;
+  padding-top: 0;
   vertical-align: middle;
 }
 
@@ -448,4 +459,8 @@ h2.highlight {
 .text-center {
   text-align: center;
   display: inherit;
+}
+
+.no-highlight {
+  color: #fafafa !important;
 }
