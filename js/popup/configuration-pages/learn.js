@@ -257,6 +257,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Troubleshooting link in sidebar
+  document.querySelector('.t-shoot').addEventListener('click', () => {
+    setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+  });
+
   // Searches the features for a string match
   search.addEventListener('keydown', event => {
 
