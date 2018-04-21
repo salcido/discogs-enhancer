@@ -94,14 +94,27 @@ position wasn't fixed. */
   outline: none;
   border-radius: 5px;
   border: none;
+  background-color: #333333;
+  color: #fafafa;
 }
 
 .feather-search {
   position: absolute;
   top: 50px;
   left: -7px;
-  color: #434343;
+  color: #999;
   width: 50px;
+}
+
+.clear-search {
+  position: absolute;
+  top: 48px;
+  right: 8px;
+}
+
+.clear-search svg {
+  stroke:#999;
+  height: 20px;
 }
 
 .sidebar .info-box {
@@ -180,7 +193,7 @@ span.m {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 /* Content */
@@ -202,8 +215,20 @@ span.m {
 
 .content h2 {
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.1rem;
   margin-bottom: 1rem;
+  transition: all 0.3s ease-in;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h2.highlight {
+  animation-name: signal;
+  animation-duration: 2s;
+}
+
+@keyframes signal {
+  from {color: #F6BF48; }
+  to {color: #fafafa; }
 }
 
 .feature-block {
@@ -246,8 +271,7 @@ span.m {
   color: #85AB11 !important;
 }
 
-.good-plus,
-.highlight {
+.good-plus {
   color: #F6BF48 !important;
 }
 
@@ -376,4 +400,12 @@ span.m {
   padding-top: 0;
   font-size: 15px;
   vertical-align: middle;
+}
+
+.no-results {
+  text-align: center;
+  /* background: #242424;
+  padding: 1.5rem 4rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
 }

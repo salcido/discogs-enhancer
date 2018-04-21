@@ -18,10 +18,13 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  const select = document.getElementById('nav-select');
+  const clearSearch = document.querySelector('.clear-search'),
+        select = document.getElementById('nav-select'),
+        search = document.getElementById('search');
+
 
   // ======================================================
-  // Functions
+  // Functions (Alphabetical)
   // ======================================================
 
   /**
@@ -55,6 +58,36 @@ document.addEventListener('DOMContentLoaded', function () {
     version.textContent = 'version ' + manifest.version;
 
     yearSpan.textContent = year;
+  }
+
+  /**
+   * Checks for the `hide` class on an element
+   *
+   * @param {object} elem The element to examine
+   * @returns {boolean}
+   */
+
+  function isHidden(elem) {
+    return elem.classList.contains('hide');
+  }
+
+  /**
+   * Shows the `no-results` element if all features
+   * are hidden
+   *
+   * @param {Array} features An array of every feature
+   * @returns {method}
+   */
+
+  function noResultsCheck(features) {
+
+    let noResults = document.querySelector('.no-results');
+
+    if ( features.every(isHidden) ) {
+
+      return noResults.classList.remove('hide');
+    }
+    return noResults.classList.add('hide');
   }
 
   /**
@@ -94,6 +127,45 @@ document.addEventListener('DOMContentLoaded', function () {
     h2s.forEach(h => h.classList.remove('highlight'));
   }
 
+  /**
+   * Searches the features for a matching text
+   *
+   * @param {string} query The string to search the DOM with
+   * @returns {method} Adds or removes the `.hide` class
+   */
+
+  function searchFeatures(query) {
+
+    let features = [...document.querySelectorAll('.feature-block')];
+
+    features.forEach(feat => {
+
+      query = query.toLowerCase();
+
+      if ( !feat.textContent.toLowerCase().includes(query) ) {
+
+        return feat.classList.add('hide');
+      }
+
+      return feat.classList.remove('hide');
+    });
+
+    noResultsCheck(features);
+    toggleClearButton();
+  }
+
+  /**
+   * Shows/hides the `.clear-search` button
+   *
+   * @returns {method}
+   */
+  function toggleClearButton() {
+
+    if ( search.value !== '' ) {
+      return clearSearch.classList.remove('hide');
+    }
+    return clearSearch.classList.add('hide');
+  }
 
   // ======================================================
   // UI Functionality
@@ -113,11 +185,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Searches the features for a string match
+  search.addEventListener('keydown', event => {
+
+    setTimeout(() => {
+      searchFeatures(event.target.value);
+    }, 0);
+  });
+
+  // Clear the search input
+  clearSearch.addEventListener('click', event => {
+
+    event.preventDefault();
+    search.value = '';
+    search.focus();
+    searchFeatures('');
+  });
 
   // ======================================================
   // Init / DOM Setup
   // ======================================================
 
+  setTimeout(() => { search.focus(); }, 200);
   getVersionAndYear();
   populateNavigation();
 });
