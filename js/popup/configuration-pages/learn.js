@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const clearSearch = document.querySelector('.clear-search'),
         select = document.getElementById('nav-select'),
-        search = document.getElementById('search');
+        search = document.getElementById('search'),
+        tabs = document.querySelectorAll('.tabs');
 
 
   // ======================================================
@@ -155,13 +156,61 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Sets the `.selected` class on a tab
+   *
+   * @param {object} target The `.tabs` object that was clicked
+   * @returns {method}
+   */
+
+  function setTabFocus(target) {
+
+    tabs.forEach(tab => tab.classList.remove('selected'));
+
+    return target.classList.add('selected');
+  }
+
+  /**
+   * Shows the selected tab's content
+   *
+   * @param {object} target The tab element that was clicked
+   * @returns {undefined}
+   */
+
+  function showTabContent(target) {
+
+    let contents = document.querySelectorAll('.tab-content'),
+        donate = document.querySelector('.info-wrap .donate'),
+        help = document.querySelector('.info-wrap .help'),
+        updates = document.querySelector('.info-wrap .updates');
+
+    contents.forEach(tab => tab.classList.add('hide'));
+
+    switch (true) {
+
+      case target.classList.contains('updates'):
+        updates.classList.remove('hide');
+        break;
+
+      case target.classList.contains('help'):
+        help.classList.remove('hide');
+        break;
+
+      case target.classList.contains('donate'):
+        donate.classList.remove('hide');
+        break;
+    }
+  }
+
+  /**
    * Shows/hides the `.clear-search` button
    *
    * @returns {method}
    */
+
   function toggleClearButton() {
 
     if ( search.value !== '' ) {
+
       return clearSearch.classList.remove('hide');
     }
     return clearSearch.classList.add('hide');
@@ -200,6 +249,16 @@ document.addEventListener('DOMContentLoaded', function () {
     search.value = '';
     search.focus();
     searchFeatures('');
+  });
+
+  // Tab functionality
+  tabs.forEach(tab => {
+    tab.addEventListener('click', event => {
+
+      event.preventDefault();
+      setTabFocus(event.target);
+      showTabContent(event.target);
+    });
   });
 
   // ======================================================

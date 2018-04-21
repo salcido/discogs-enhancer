@@ -16,7 +16,7 @@
     <div class="navigation">
       <select id="nav-select">
         <option value="top">
-          Select A Feature
+          Select a feature
         </option>
       </select>
 
@@ -31,15 +31,19 @@
     <a href="" class="clear-search hide">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle" color="#384047" data-reactid="1326"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
     </a>
-    </div> <!-- .navigation -->
+    </div> <!-- /.navigation -->
+
+    <!-- tabs -->
     <div class="info-box">
       <div class="nav">
         <a href="" class="tabs updates selected">Updates</a>
         <a href="" class="tabs help">Help</a>
         <a href="" class="tabs donate">Donate</a>
       </div>
+
       <div class="info-wrap">
-        <div class="news">
+        <!-- updates -->
+        <div class="updates tab-content">
           <div class="news-item">
             <p><span class="update">Update:</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error ea soluta porro officiis, libero optio fuga nulla voluptas consequuntur deserunt nesciunt impedit exercitationem minima esse nostrum velit. Deleniti, numquam corrupti.</p>
           </div>
@@ -50,11 +54,33 @@
             <p><span class="warn">Extension Issue:</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error ea soluta porro officiis, libero optio fuga nulla voluptas consequuntur deserunt nesciunt impedit exercitationem minima esse nostrum velit. Deleniti, numquam corrupti.</p>
           </div>
         </div>
-        <div class="help hide">
+        <!-- help -->
+        <div class="help hide tab-content">
           <p><span class="m">Having issues with this extension?</span> Try the Trouble shooting section or Email me: <b>discogs.enhancer@gmail.com</b>. You can also join the <a href="https://www.discogs.com/group/9136">Discogs Enhancer group</a> on Discogs.com</p>
         </div>
-        <div class="donate hide">
-          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer's exchanges rates are supported by a custom API. Hosting for the API is $5 a month. Even the smallest contribution helps pay for the server time!</p>
+        <!-- donate -->
+        <div class="donate hide tab-content">
+          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer's exchanges rates are supported by a custom API. Hosting for the API is $5 a month. Even the smallest contribution helps pay for the server!</p>
+          <div class="donation-wrap">
+            <div class="donate">
+              <h3>Ethereum (or any ERC20 token):</h3>
+              0x136EA4cbc6e2e98924b9cAc02738b7112673Cd47
+            </div>
+            <div class="donate">
+              <h3>Litecoin:</h3>
+              LMBVY8dZqfUVrSXjFUBg9n7kvsxQL6i2rk
+            </div>
+            <div class="donate">
+              <h3>PayPal:</h3>
+            </div>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal">
+              <input type="hidden" name="cmd" value="_s-xclick">
+              <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+              ">
+              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+              <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+          </div>
         </div>
       </div>
     </div>

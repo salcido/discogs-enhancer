@@ -141,12 +141,12 @@ position wasn't fixed. */
 
 .sidebar .info-box .nav a:hover {
   padding-bottom: 2px;
-  border-bottom: 2px solid #fafafa;
+  border-bottom: 3px solid #b0b0b0;
 }
 
 .sidebar .info-box .nav a.selected {
   padding-bottom: 2px;
-  border-bottom: 3px solid #59C231;
+  border-bottom: 3px solid #fafafa;
 }
 
 .sidebar .info-box .info-wrap {
@@ -187,9 +187,25 @@ position wasn't fixed. */
   content: "⚠️ ";
   font-size: 10px;
 }
+
 span.m {
   margin-bottom: 8px;
   display: block;
+}
+
+.donate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.donate h3 {
+  margin-bottom: 0.1rem;
+}
+
+.donation-wrap {
+  margin-top: 1.5rem;
+  text-align: center;
 }
 
 .hide {
