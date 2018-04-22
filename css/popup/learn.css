@@ -213,12 +213,6 @@ span.m {
   margin-bottom: 16px;
 }
 
-.donate {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .donate h3 {
   margin-bottom: 0.1rem;
 }
