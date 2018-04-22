@@ -187,7 +187,14 @@ position wasn't fixed. */
   margin-bottom: 2rem;
 }
 
-.info-wrap span {
+.info-wrap .news-item li {
+  margin-bottom: 1rem;
+}
+
+.info-wrap span,
+.news-item .feature-title {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
