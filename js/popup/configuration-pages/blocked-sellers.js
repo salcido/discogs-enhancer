@@ -7,8 +7,7 @@
  * @github: https://github.com/salcido
  *
  */
-// TODO: Show notice when no sellers are on the list
-// TODO: update restore list after removing a seller's name
+
 document.addEventListener('DOMContentLoaded', () => {
 
   let blockList = JSON.parse(localStorage.getItem('blockList')) || setNewBlocklist();
@@ -29,10 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Adds the seller to the list, duh!
-   *
-   * @method addSellerToList
-   * @return {method}
+   * Adds the seller to the list
+   * @returns {method}
    */
   function addSellerToList() {
 
@@ -55,9 +52,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Checks for an empty seller list and displays
+   * a message letting the user know their list is empty.
+   * @returns {undefined}
+   */
+  function checkForEmptySellersList() {
+
+    let sellers = document.querySelectorAll('.blocked-sellers .seller').length,
+        noSellers = '<p><em>Your block list is empty.</em></p>';
+
+    if ( !sellers ) {
+      document.querySelector('.blocked-sellers').insertAdjacentHTML('beforeend', noSellers);
+    }
+  }
+
+  /**
    * Iterates over the blockList object and injects
    * each name as markup into the DOM
-   *
    * @returns {undefined}
    */
   function insertSellersIntoDOM() {
@@ -81,10 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Checks if index is a string
-   *
-   * @method isString
-   * @param  {string|number|object|boolean|null|undefined}  index
-   * @return {Boolean}
+   * @param {any primitive} index
+   * @returns {Boolean}
    */
   function isString(index) {
     return typeof index === 'string';
@@ -92,9 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Remove the sellers name from the list/localStorage
-   *
    * @param {object} event The event object
-   * @return {function}
+   * @returns {function}
    */
   function removeSellerName(event) {
 
@@ -112,25 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         localStorage.setItem('blockList', blockList);
 
-        return setTimeout(() => {
-          // get the updated blocklist
-          blockList = JSON.parse(localStorage.getItem('blockList'));
-          // remove all the sellers from the DOM
-          [...document.getElementsByClassName('seller')].forEach(s => s.remove());
-          // Add them back in with the newly updated blocklist data
-          insertSellersIntoDOM();
-          // reattach event listerns to sellers
-          addSellerEventListeners();
-        }, 400);
+        return setTimeout(() => updatePageData(), 400);
       }
     });
   }
 
   /**
    * Instantiates a new blocklist object
-   *
-   * @method setNewBlocklist
-   * @return {object}
+   * @returns {object}
    */
   function setNewBlocklist() {
 
@@ -141,8 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Show error if seller is already on the list
-   * @method showError
-   * @return {undefined}
+   * @returns {undefined}
    */
   function showError() {
 
@@ -152,13 +148,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Updates the blocked sellers and the restore array data
+   * on the page without refreshing.
+   * @returns {undefined}
+   */
+  function updatePageData() {
+
+    blockList = JSON.parse(localStorage.getItem('blockList'));
+    // remove all the sellers from the DOM
+    [...document.getElementsByClassName('seller')].forEach(s => s.remove());
+    // Add them back in with the newly updated blocklist data
+    insertSellersIntoDOM();
+    // reattach event listerns to sellers
+    addSellerEventListeners();
+    // check for empty list
+    checkForEmptySellersList();
+    // update backup/restore output
+    document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
+  }
+
+  /**
    * Validates the input value from the restore section by
    * checking that it is first parseable and second an Array
    * with strings in each index.
-   *
-   * @method validateBlocklist
-   * @param  {string} list
-   * @return {boolean}
+   * @param  {string} list The block list passed in from localStorage
+   * @returns {boolean}
    */
   function validateBlocklist(list) {
 
@@ -215,9 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return location.reload();
   });
 
-  // Populate backup form with current blocklist
-  document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
-
   // Restore functionality
   document.querySelector('.restore .btn-success').addEventListener('click', () => {
 
@@ -268,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // DOM setup
   // ========================================================
 
-  // Select the radio button
+  // Select the radio button on page load
   switch ( blockList.hide ) {
 
     case 'tag' :
@@ -284,11 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
       break;
   }
 
-  // set focus on input
+  // Focus on input
   document.getElementById('seller-input').focus();
-
-  // Iterate over blocklist and insert html into DOM
-  insertSellersIntoDOM();
-  // Remove seller name from block list
-  addSellerEventListeners();
+  updatePageData();
 });
