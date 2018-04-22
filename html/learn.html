@@ -3,6 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
   <link rel="stylesheet" href="../css/popup/learn.css" type="text/css" media="screen">
   <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
   <title>Learn About Discogs Enhancer</title>
@@ -47,28 +48,28 @@
         <div class="updates tab-content">
           <div class="news-item">
             <p><span class="feature">New Feature:</span> <b class="feature-title">Random Item Button</b><br>
-              Adds a button to the nav bar that lets you see a random item from you collection when clicked.</p>
+            Adds a button to the nav bar that lets you see a random item from you collection when clicked.</p>
           </div>
           <div class="news-item">
             <p><span class="feature">New Feature:</span> <b class="feature-title">Large YouTube Playlists</b><br>
-              Doubles the maximum height of a playlist allowing you to see up to 6 videos instead of 3.</p>
+            Doubles the maximum height of a playlist allowing you to see up to 6 videos instead of 3.</p>
           </div>
           <div class="news-item">
-              <p><span class="update">Update:</span> Lots of updates with the 2.0 release of Discogs Enhancer!</p>
+              <p><span class="update">Update:</span> Welcome to the 2.0 release of Discogs Enhancer!</p>
               <ul>
-                <li>Currency conversions are no longer based on <a href="https://fixer.io" target="_blank">fixer.io</a>. Now they are done via Discogs Enhancer's own foreign exchange rates API. This new custom API will update exchange rates every two hours instead of once a day as was the case previosly.</li>
+                <li>Discogs Enhancer has been completely rewritten and is now 100% vanilla JavaScript. This means the extension will run much faster and requires no additional development libraries.</li>
+                <li>Currency conversions are no longer based on <a href="https://fixer.io" target="_blank">fixer.io</a>. Now they are done via Discogs Enhancer's own foreign exchange rates API. This new custom API will update exchange rates every two hours instead of once a day as was the case previously.</li>
                 <li>Filter by Country no longer requires a page refresh to hide or show the filtered listings. You can simply toggle the effects from the extension.</li>
-                <li>Larget BAOI fields no longer require a page refresh to see the effects. You can simply toggle the effects from the extension.</li>
+                <li>Larger BAOI fields no longer requires a page refresh to see the effects. You can simply toggle the effects from the extension.</li>
                 <li>Filter By Condition has been rewritten so the UI follows the established pattern in the rest of the extension. You will need to select the filter value and enable the feature again.</li>
                 <li>Helpful tool tips are now available from the extensions menu!</li>
-                <li>Discogs Enhancer has been completely rewritten and is now 100% vanilla JavaScript. This means the extension will run much faster and requires no additional development libraries.</li>
                 <li>As you can see the Learn More page has been redesigned and is now searchable!</li>
               </ul>
             </div>
         </div>
         <!-- help -->
         <div class="help hide tab-content">
-          <p><span class="m">Having issues with this extension?</span> Try the <a href="#troubleshooting" class="t-shoot">Trouble shooting</a> section or Email me: <b>discogs.enhancer@gmail.com</b>. You can also join the <a href="https://www.discogs.com/group/9136">Discogs Enhancer group</a> on Discogs.com</p>
+          <p><span class="m">Having issues with this extension?</span> Try the <a href="#troubleshooting" class="t-shoot">Trouble shooting</a> section or Email me: <b class="white">discogs.enhancer@gmail.com</b>. You can also join the <a href="https://www.discogs.com/group/9136">Discogs Enhancer group</a> on Discogs.com</p>
         </div>
         <!-- donate -->
         <div class="donate hide tab-content">
@@ -123,19 +124,19 @@
         Currency Converter.
       </p>
 
-      <p><em>Step 1:</em> Click the '¥ € $' button in the lower-right corner of the screen.</p>
+      <p><em class="white">Step 1:</em> Click the '¥ € $' button in the lower-right corner of the screen.</p>
 
       <img src="../img/about/converter-step-1.png" />
 
-      <p><em>Step 2:</em> Choose the seller's currency with the select box labeled <i>'Convert'</i>.</p>
+      <p><em class="white">Step 2:</em> Choose the seller's currency with the select box labeled <i>'Convert'</i>.</p>
 
       <img src="../img/about/converter-step-2.png" />
 
-      <p><em>Step 3:</em> Then select your currency by choosing an option from the select box labeled <i>'To'</i>.</p>
+      <p><em class="white">Step 3:</em> Then select your currency by choosing an option from the select box labeled <i>'To'</i>.</p>
 
       <img src="../img/about/converter-step-3.png" />
 
-      <p><em>Step 4:</em> Now simply type the value into the box and see your results instantly!</p>
+      <p><em class="white">Step 4:</em> Now simply type the value into the box and see your results instantly!</p>
 
       <img src="../img/about/converter-step-4.png" />
 
@@ -212,7 +213,7 @@
         <b class="no-highlight">How to use the Filter By Country feature:</b>
       </p>
 
-      <p>First, select the currency you want to use. <b class="mint">It must match the Currency Filter in the Marketplace</b> as this is how Discogs Enhancer knows when to activate this feature.</p>
+      <p>First, select the currency you want to use. <b>It must match the Currency Filter in the Marketplace</b> as this is how Discogs Enhancer knows when to activate this feature.</p>
 
       <img class="max-width" src="../img/about/filter-by-country-1.png" />
 
@@ -347,7 +348,7 @@
       <!-- Suggested Prices -->
       <h2 id="suggested-prices">Suggested Prices</h2>
 
-      <p>Shows the prices that Discogs suggests and compares them to the seller's price. It's useful for seeing if an item is priced fairly. <b class="mint">In order for this to work you must be registered as a seller.</b></p>
+      <p>Shows the prices that Discogs suggests and compares them to the seller's price. It's useful for seeing if an item is priced fairly. <b>In order for this to work you must be registered as a seller.</b></p>
 
       <p>
         <b class="no-highlight">How to use the Suggested Prices feature:</b>
@@ -373,7 +374,7 @@
 
       <p>Results are displayed in the currency that is set in your Seller settings on Discogs.</p>
 
-      <p><b class="mint">Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</b></p>
+      <p><b>Because currencies shift due to global market fluctuations and release prices shift due to market demand, the recommended price may differ from the listed price.</b></p>
 
       <p>Exchange rate data is calculated every two hours (except on weekends when Markets are closed). Discogs uses a different exchange service so their exchange rates might differ slightly from Discogs Enhancers' rates. Use and interpret at your own risk. Please don't use it as an excuse to be a jerk to sellers.</p>
     </div>

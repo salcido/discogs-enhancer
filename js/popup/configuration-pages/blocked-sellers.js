@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
 
   // Add name to block list
-  document.querySelector('.btn-success').addEventListener('click', () => {
+  document.querySelector('.btn-green').addEventListener('click', () => {
 
     let input = document.getElementById('seller-input').value;
 
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Restore functionality
-  document.querySelector('.restore .btn-success').addEventListener('click', () => {
+  document.querySelector('.restore .btn-green').addEventListener('click', () => {
 
     let list = document.querySelector('.restore-input').value;
 

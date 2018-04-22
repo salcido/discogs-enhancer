@@ -1,14 +1,8 @@
 body {
   align-items: center;
   align-items: start;
-  background: #313335;
-  color: #f2f2f2;
   display: flex;
   flex-direction: row;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  margin: 0;
 }
 
 h1 {
@@ -27,7 +21,7 @@ h3 {
 
 a {
   color: #82AAD2;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 a.secret {
@@ -89,21 +83,8 @@ position wasn't fixed. */
   margin-bottom: 1rem;
 }
 
-.sidebar .navigation select {
-  height: 25px;
-  font-family: 'Roboto', sans-serif;
-}
-
 .sidebar .navigation input {
-  font-size: 16px;
-  height: 35px;
   padding-left: 2.1rem;
-  font-family: 'Roboto', sans-serif;
-  outline: none;
-  border-radius: 5px;
-  border: none;
-  background-color: #333333;
-  color: #fafafa;
 }
 
 .feather-search {
@@ -159,6 +140,7 @@ position wasn't fixed. */
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 0.15rem;
+  text-decoration: none;
 }
 
 .sidebar .info-box .nav a:hover {
@@ -198,6 +180,10 @@ position wasn't fixed. */
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
+}
+
+.feature-title {
+  color: #fafafa;
 }
 
 .info-wrap span.warn {

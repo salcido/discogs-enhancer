@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com">
     <title>Block Sellers</title>
+    <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/popup/popup-block-sellers.css" type="text/css" media="screen">
     <script src="../js/popup/configuration-pages/blocked-sellers.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
@@ -26,7 +27,7 @@
 
         <div class="seller-input">
           <input type="text" id="seller-input" placeholder="Add seller name">
-          <a class="btn btn-success">Block Seller</a>
+          <a class="btn btn-green">Block Seller</a>
           <p class="errors"></p>
 
           <form id="block-prefs">
@@ -71,7 +72,7 @@
               <div class="restore">
                 <p>Paste the text from your backed-up blocked sellers list here and click "Restore".</p> <p><em>Note:</em> after restoring, you will need to choose whether you want to tag or hide the blocked sellers again.</p>
                 <input type="textarea" class="restore-input" placeholder="Paste list here">
-                <a class="btn btn-success">Restore</a>
+                <a class="btn btn-green">Restore</a>
 
                 <div class="restore-errors hide">
                   <p>Invalid input. Please try again. It should look something like the following:</p>

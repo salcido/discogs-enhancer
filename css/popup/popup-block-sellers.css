@@ -38,6 +38,11 @@ input:checked + label {
   padding-bottom: 3px;
 }
 
+input:checked + label::after {
+  content: " ENABLED";
+  color: #59C231;
+}
+
 
 label {
   -webkit-font-smoothing: antialiased;
@@ -140,31 +145,9 @@ label {
   border: 1px solid #7ad656;
 }
 
-/* actual input element */
-#seller-input,
-.restore-input {
-  font-size: 16px;
-  height: 35px;
-  padding-left: 1rem;
-  font-family: 'Roboto', sans-serif;
-  outline: none;
-  border-radius: 5px;
-  border: none;
-  background-color: #333333;
-  color: #fafafa;
-  width: 300px;
-}
-
-.seller-input .btn,
-.restore .btn {
-  margin-top: -7px;
-  margin-left: 10px;
-}
-
 .seller-input input,
 .restore-input {
   margin-top: 5px;
-  font-size: 20px;
 }
 
 .restore-input {
