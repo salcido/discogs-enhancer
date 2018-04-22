@@ -7,14 +7,78 @@
  * @github: https://github.com/salcido
  *
  */
-
-document.addEventListener('DOMContentLoaded', function () {
+// TODO: Show notice when no sellers are on the list
+document.addEventListener('DOMContentLoaded', () => {
 
   let blockList = JSON.parse(localStorage.getItem('blockList')) || setNewBlocklist();
 
   // ========================================================
-  // Functions
+  // Functions (Alphabetical)
   // ========================================================
+
+  /**
+   * Adds the seller to the list, duh!
+   *
+   * @method addSellerToList
+   * @return {method}
+   */
+  function addSellerToList() {
+
+    let input = document.getElementById('seller-input').value;
+
+    input = input.replace(/\s/g,'').trim();
+
+    if ( input ) {
+
+      blockList.list.push(input);
+
+      blockList = JSON.stringify(blockList);
+
+      localStorage.setItem('blockList', blockList);
+
+      document.querySelector('.errors').textContent = '';
+
+      return location.reload();
+    }
+  }
+
+  /**
+   * Checks if index is a string
+   *
+   * @method isString
+   * @param  {string|number|object|boolean|null|undefined}  index
+   * @return {Boolean}
+   */
+  function isString(index) {
+    return typeof index === 'string';
+  }
+
+  /**
+   * Remove the sellers name from the list/localStorage
+   *
+   * @param    {object}  the event object.
+   * @return   {function}
+   */
+  function removeSellerName(event) {
+
+    let target = event.target.innerHTML.trim();
+
+    event.target.parentNode.classList.add('fadeOut');
+
+    blockList.list.forEach((seller, i) => {
+
+      if ( target === seller ) {
+
+        blockList.list.splice(i, 1);
+
+        blockList = JSON.stringify(blockList);
+
+        localStorage.setItem('blockList', blockList);
+
+        return setTimeout(() => { location.reload(); }, 400);
+      }
+    });
+  }
 
   /**
    * Instantiates a new blocklist object
@@ -30,59 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
-   * Adds the seller to the list, duh!
-   *
-   * @method addSellerToList
-   * @return {method}
-   */
-  function addSellerToList() {
-
-    let input = document.getElementById('seller-input').value;
-
-    input = input.replace(/\s/g,'').trim();
-
-    if (input) {
-
-      blockList.list.push(input);
-
-      blockList = JSON.stringify(blockList);
-
-      localStorage.setItem('blockList', blockList);
-
-      document.querySelectorAll('.errors')[0].textContent = '';
-
-      return location.reload();
-    }
-  }
-
-  /**
-   * Remove the sellers name from the list/localStorage
-   *
-   * @param    {object}  the event object.
-   * @return   {function}
-   */
-  function removeSellerName(event) {
-
-    let target = event.target.innerHTML;
-
-    event.target.parentNode.classList.add('fadeOut');
-
-    blockList.list.forEach(function(seller, i) {
-
-      if (target === seller) {
-
-        blockList.list.splice(i, 1);
-
-        blockList = JSON.stringify(blockList);
-
-        localStorage.setItem('blockList', blockList);
-
-        return setTimeout(function() { location.reload(); }, 400);
-      }
-    });
-  }
-
-  /**
    * Show error if seller is already on the list
    * @method showError
    * @return {undefined}
@@ -91,19 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let input = document.getElementById('seller-input').value;
 
-    document.querySelectorAll('.errors')[0].textContent = `${input} is already on the block list.`;
-  }
-
-  /**
-   * Checks if index is a string
-   *
-   * @method isString
-   * @param  {string|number|object|boolean|null|undefined}  index
-   * @return {Boolean}
-   */
-  function isString(index) {
-
-    return typeof index === 'string';
+    document.querySelector('.errors').textContent = `${input} is already on your block list.`;
   }
 
   /**
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // make sure every index is a string
-    if (list && Array.isArray(list)) {
+    if ( list && Array.isArray(list) ) {
 
       return list.every(isString);
     }
@@ -140,20 +139,17 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================================
 
   // Select the radio button
-  switch (true) {
+  switch ( blockList.hide ) {
 
-    case blockList.hide === 'tag' :
-
+    case 'tag' :
       document.getElementById('tagSellers').checked = true;
       break;
 
-    case blockList.hide === 'global' :
-
+    case 'global' :
       document.getElementById('hideSellers').checked = true;
       break;
 
-    case blockList.hide === 'marketplace' :
-
+    case 'marketplace' :
       document.getElementById('showOnRelease').checked = true;
       break;
   }
@@ -162,45 +158,20 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('seller-input').focus();
 
   // Iterate over blocklist and insert html into DOM
-  blockList.list.forEach(function(seller) {
+  blockList.list.forEach(seller => {
 
-    let
-        node = document.createElement('div'),
+    let node = document.createElement('div'),
         sellers = document.getElementById('blocked-sellers');
 
     node.className = 'seller';
 
-    node.innerHTML = '<div class="seller-name">' +
-                        '<span class="name">' +
-                          seller +
-                        '</span>' +
-                      '</div>';
+    node.innerHTML = `<div class="seller-name">
+                        <span class="name">
+                          ${seller}
+                        </span>
+                      </div>`;
 
     sellers.appendChild(node);
-  });
-
-  // keyup event for Enter key
-  document.addEventListener('keyup', function(e) {
-
-    let input = document.getElementById('seller-input').value;
-
-    // Enter key is pressed
-    if ( e.which === 13 && input && !blockList.list.includes(input) ) {
-
-      addSellerToList();
-
-      return location.reload();
-
-    // name is already on the list
-  } else if ( blockList.list.includes( document.getElementById('seller-input').value ) ) {
-
-      return showError();
-
-    } else {
-
-      // clear any previous errors
-      document.querySelector('.errors').textContent = '';
-    }
   });
 
   // ========================================================
@@ -208,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================================
 
   // Add name to block list
-  document.querySelector('.btn-success').addEventListener('click', function() {
+  document.querySelector('.btn-success').addEventListener('click', () => {
 
     let input = document.getElementById('seller-input').value;
 
@@ -224,14 +195,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Remove seller name from block list
-  [...document.querySelectorAll('.seller-name')].forEach(function(name) {
-    name.addEventListener('click', removeSellerName);
-  });
-
-
   // Radiobutton listener
-  document.getElementById('block-prefs').addEventListener('change', function(event) {
+  document.getElementById('block-prefs').addEventListener('change', event => {
 
     blockList = JSON.parse(localStorage.getItem('blockList'));
 
@@ -248,27 +213,33 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
 
   // Show/Hide backup form
-  document.querySelector('.backup .header').addEventListener('click', function() {
+  // document.querySelector('.backup .header').addEventListener('click', function() {
 
-    let backup = document.querySelector('.backup-content');
+  //   let backup = document.querySelector('.backup-content');
 
-    if (backup.classList.contains('hide')) {
-      backup.classList.remove('hide');
-    } else {
-      backup.classList.add('hide');
-    }
+  //   if ( backup.classList.contains('hide') ) {
 
-    if (this.classList.contains('open')) {
-      this.classList.remove('open');
-      this.classList.add('closed');
-    } else {
-      this.classList.remove('closed');
-      this.classList.add('open');
-    }
-  });
+  //     backup.classList.remove('hide');
+
+  //   } else {
+
+  //     backup.classList.add('hide');
+  //   }
+
+  //   if ( this.classList.contains('open') ) {
+
+  //     this.classList.remove('open');
+  //     this.classList.add('closed');
+
+  //   } else {
+
+  //     this.classList.remove('closed');
+  //     this.classList.add('open');
+  //   }
+  // });
 
   // Restore functionality
-  document.querySelector('.restore .btn-success').addEventListener('click', function() {
+  document.querySelector('.restore .btn-success').addEventListener('click', () => {
 
     let list = document.querySelector('.restore-input').value;
 
@@ -287,5 +258,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
       document.querySelector('.restore-errors').classList.remove('hide');
     }
+  });
+
+  // keyup event for Enter key
+  document.addEventListener('keyup', e => {
+
+    let input = document.getElementById('seller-input').value;
+
+    // Enter key is pressed
+    if ( e.which === 13 && input && !blockList.list.includes(input) ) {
+
+      addSellerToList();
+
+      return location.reload();
+
+    // name is already on the list
+  } else if ( blockList.list.includes(input) ) {
+
+      return showError();
+
+    } else {
+
+      // clear any previous errors
+      document.querySelector('.errors').textContent = '';
+    }
+  });
+
+  // Remove seller name from block list
+  [...document.querySelectorAll('.seller-name')].forEach(name => {
+
+    name.addEventListener('click', removeSellerName);
   });
 });

@@ -1,38 +1,52 @@
 /* Block Seller Page Styles */
-
 body {
-  background-color: #313335;
+  font-family: 'Roboto', sans-serif;
+  background: #313335;
+  margin-left: 4rem;
+  margin-top: 4rem;
 }
 
-h1,
-h2,
-p.header {
-  display: block;
-  margin-right: 5px;
-  padding-left: 20px;
-  font-family: "Arial", sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
+h2 {
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1rem;
+  color: #fafafa;
+  font-size: 1.5rem;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
+  transition: all 0.3s ease-in;
 }
 
 p {
-  font-family: "Arial", sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: normal;
   color: #CCCCCC;
-  line-height: 19px;
+  line-height: 1.5;
   transition: all 0.3s ease;
 }
 
 em {
   font-weight: bold;
-  color: white;
+  color: #ffe4a1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
-.content p {
-  padding-left: 20px;
+input:checked + label {
+  color: #FAFAFA;
+  border-bottom: 2px solid #59C231;
+  padding-bottom: 3px;
+}
+
+
+label {
+  -webkit-font-smoothing: antialiased;
+  display: inline;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  color: #ccc;
 }
 
 .header-wrap {
@@ -56,7 +70,7 @@ em {
 }
 
 .blocked-sellers {
-  margin-top: 20px;
+  margin-top: 6rem;
 }
 
 .blocked-sellers .seller {
@@ -68,11 +82,12 @@ em {
   display: block;
   margin: 10px;
   padding: 10px;
-  background-color: gray;
+  background-color: #242424;
   border: 3px solid white;
-  border-radius: 5px;
   color: white;
-  transition: all 0.3s;
+  transition: all 0.1s;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
 }
 
 .blocked-sellers .seller span:hover {
@@ -80,6 +95,7 @@ em {
   background-color: red;
   cursor: pointer;
   transform: scale(1.2);
+  font-weight: bold;
 }
 
 .blocked-sellers .seller span a {
@@ -88,12 +104,53 @@ em {
   color: gray;
 }
 
-.seller-input {
+.seller-input,
+.backup-wrap {
   width: 50%;
-  margin-top: 20px;
   padding: 20px;
-  background: #2B2B2B;
+  background: #242424;
   border-radius: 10px;
+}
+
+.btn-success {
+  background: #59C231;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: #E9FCE1;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: 60px;
+  letter-spacing: 0.07rem;
+  margin-top: 3rem;
+  text-transform: uppercase;
+  width: 460px;
+  transition: all 0.1s ease-in;
+  padding: .5rem 1rem;
+  border: 1px solid #59C231;
+}
+
+.btn-success:hover {
+  box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+  border: 1px solid #7ad656;
+}
+
+/* actual input element */
+#seller-input,
+.restore-input {
+  font-size: 16px;
+  height: 35px;
+  padding-left: 1rem;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background-color: #333333;
+  color: #fafafa;
+  width: 300px;
 }
 
 .seller-input .btn,
@@ -108,6 +165,10 @@ em {
   font-size: 20px;
 }
 
+.restore-input {
+  width: 445px;
+}
+
 .seller-input p {
   padding-left: 0;
 }
@@ -118,10 +179,6 @@ em {
   color: red;
 }
 
-.hide {
-  display: none;
-}
-
 .do-not-hide-sellers,
 .hide-sellers,
 .show-sellers-release {
@@ -129,33 +186,18 @@ em {
   color: white;
 }
 
-#block-prefs,
-.backup,
-.restore {
-  max-width: 500px;
-}
-
 .backup {
-  margin: 40px 0 150px;
-}
-
-.backup .header {
-  color: #809BBE;
-  cursor: pointer;
+  margin: 6rem 0 150px;
 }
 
 .restore .header {
-  color: white;
-}
-
-.backup .header.closed::before {
-  content: "\25BC \0020";
-  /*color: #5CB85C;*/
-}
-
-.backup .header.open::before {
-  content: "\25b2 \0020";
-  /*color: #5CB85C;*/
+  color: #FAFAFA;
+  -webkit-font-smoothing: antialiased;
+  display: inline;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .backup-output {
@@ -165,7 +207,7 @@ em {
 .backup-output,
 .restore-error-output {
   padding: 20px;
-  background-color: #272727;
+  background-color: #333333;
   border-radius: 10px;
   font-family: monospace;
   word-wrap: break-word;
@@ -173,18 +215,11 @@ em {
 
 .restore {
   margin-top: 30px;
-  margin-bottom: 150px;
 }
 
 .restore-errors {
   display: block;
   margin-top: 10px;
-}
-
-.restore-input {
-  width: 350px;
-  padding: 5px;
-  font-size: 13px;
 }
 
 .restore-errors p {
@@ -196,13 +231,14 @@ em {
 }
 
 .restore input {
-  margin-left: 20px;
+  font-size: 16px;
+  padding-left: 1rem;
 }
 
 .restore-errors-output {
   margin-top: 10px;
   padding: 20px;
-  background-color: #272727;
+  background-color: #333;
   border-radius: 10px;
   font-family: monospace;
   word-wrap: break-word;
