@@ -71,6 +71,7 @@ label {
 
 .blocked-sellers {
   margin-top: 6rem;
+  width: 50%;
 }
 
 .blocked-sellers .seller {
@@ -106,7 +107,7 @@ label {
 
 .seller-input,
 .backup-wrap {
-  width: 50%;
+  max-width: 600px;
   padding: 20px;
   background: #242424;
   border-radius: 10px;
