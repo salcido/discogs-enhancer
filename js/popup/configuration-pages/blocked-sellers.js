@@ -8,6 +8,7 @@
  *
  */
 // TODO: Show notice when no sellers are on the list
+// TODO: update restore list after removing a seller's name
 document.addEventListener('DOMContentLoaded', () => {
 
   let blockList = JSON.parse(localStorage.getItem('blockList')) || setNewBlocklist();
@@ -15,6 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
   // Functions (Alphabetical)
   // ========================================================
+
+  /**
+   * Adds click event listeners to each seller name
+   * @returns {undefined}
+   */
+  function addSellerEventListeners() {
+    [...document.getElementsByClassName('seller-name')].forEach(name => {
+
+      name.addEventListener('click', removeSellerName);
+    });
+  }
 
   /**
    * Adds the seller to the list, duh!
@@ -43,6 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Iterates over the blockList object and injects
+   * each name as markup into the DOM
+   *
+   * @returns {undefined}
+   */
+  function insertSellersIntoDOM() {
+
+    blockList.list.forEach(seller => {
+
+      let node = document.createElement('div'),
+          sellers = document.getElementById('blocked-sellers');
+
+      node.className = 'seller';
+
+      node.innerHTML = `<div class="seller-name">
+                          <span class="name">
+                            ${seller}
+                          </span>
+                        </div>`;
+
+      sellers.appendChild(node);
+    });
+  }
+
+  /**
    * Checks if index is a string
    *
    * @method isString
@@ -56,18 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Remove the sellers name from the list/localStorage
    *
-   * @param    {object}  the event object.
-   * @return   {function}
+   * @param {object} event The event object
+   * @return {function}
    */
   function removeSellerName(event) {
 
-    let target = event.target.innerHTML.trim();
+    let targetName = event.target.innerHTML.trim();
 
     event.target.parentNode.classList.add('fadeOut');
 
     blockList.list.forEach((seller, i) => {
 
-      if ( target === seller ) {
+      if ( targetName === seller ) {
 
         blockList.list.splice(i, 1);
 
@@ -75,7 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         localStorage.setItem('blockList', blockList);
 
-        return setTimeout(() => { location.reload(); }, 400);
+        return setTimeout(() => {
+          // get the updated blocklist
+          blockList = JSON.parse(localStorage.getItem('blockList'));
+          // remove all the sellers from the DOM
+          [...document.getElementsByClassName('seller')].forEach(s => s.remove());
+          // Add them back in with the newly updated blocklist data
+          insertSellersIntoDOM();
+          // reattach event listerns to sellers
+          addSellerEventListeners();
+        }, 400);
       }
     });
   }
@@ -135,46 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========================================================
-  // DOM setup
-  // ========================================================
-
-  // Select the radio button
-  switch ( blockList.hide ) {
-
-    case 'tag' :
-      document.getElementById('tagSellers').checked = true;
-      break;
-
-    case 'global' :
-      document.getElementById('hideSellers').checked = true;
-      break;
-
-    case 'marketplace' :
-      document.getElementById('showOnRelease').checked = true;
-      break;
-  }
-
-  // set focus on input
-  document.getElementById('seller-input').focus();
-
-  // Iterate over blocklist and insert html into DOM
-  blockList.list.forEach(seller => {
-
-    let node = document.createElement('div'),
-        sellers = document.getElementById('blocked-sellers');
-
-    node.className = 'seller';
-
-    node.innerHTML = `<div class="seller-name">
-                        <span class="name">
-                          ${seller}
-                        </span>
-                      </div>`;
-
-    sellers.appendChild(node);
-  });
-
-  // ========================================================
   // UI Functionality
   // ========================================================
 
@@ -211,32 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Populate backup form with current blocklist
   document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
-
-  // Show/Hide backup form
-  // document.querySelector('.backup .header').addEventListener('click', function() {
-
-  //   let backup = document.querySelector('.backup-content');
-
-  //   if ( backup.classList.contains('hide') ) {
-
-  //     backup.classList.remove('hide');
-
-  //   } else {
-
-  //     backup.classList.add('hide');
-  //   }
-
-  //   if ( this.classList.contains('open') ) {
-
-  //     this.classList.remove('open');
-  //     this.classList.add('closed');
-
-  //   } else {
-
-  //     this.classList.remove('closed');
-  //     this.classList.add('open');
-  //   }
-  // });
 
   // Restore functionality
   document.querySelector('.restore .btn-success').addEventListener('click', () => {
@@ -284,9 +264,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Remove seller name from block list
-  [...document.querySelectorAll('.seller-name')].forEach(name => {
+  // ========================================================
+  // DOM setup
+  // ========================================================
 
-    name.addEventListener('click', removeSellerName);
-  });
+  // Select the radio button
+  switch ( blockList.hide ) {
+
+    case 'tag' :
+      document.getElementById('tagSellers').checked = true;
+      break;
+
+    case 'global' :
+      document.getElementById('hideSellers').checked = true;
+      break;
+
+    case 'marketplace' :
+      document.getElementById('showOnRelease').checked = true;
+      break;
+  }
+
+  // set focus on input
+  document.getElementById('seller-input').focus();
+
+  // Iterate over blocklist and insert html into DOM
+  insertSellersIntoDOM();
+  // Remove seller name from block list
+  addSellerEventListeners();
 });
