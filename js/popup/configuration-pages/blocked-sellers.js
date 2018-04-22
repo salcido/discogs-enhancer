@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if ( !sellers ) {
       document.querySelector('.blocked-sellers').insertAdjacentHTML('beforeend', noSellers);
+      document.querySelector('.backup-output').textContent = '';
+      document.querySelector('.backup-instructions').textContent = 'You can backup your block list once you add at least one seller to your list using the form above.';
     }
   }
 
@@ -161,10 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
     insertSellersIntoDOM();
     // reattach event listerns to sellers
     addSellerEventListeners();
-    // check for empty list
-    checkForEmptySellersList();
     // update backup/restore output
     document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
+    // check for empty list
+    checkForEmptySellersList();
   }
 
   /**
