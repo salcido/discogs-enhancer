@@ -13,6 +13,8 @@ html {
   --help-icon: #606060;
   --help-text: #CCCCCC;
   --disabled-element: #808080;
+  --disabled-text: #ffffff;
+  --learn-more: #51B32C;
 }
 
 html.light {
@@ -27,6 +29,21 @@ html.light {
   --help-icon: #CCCCCC;
   --help-text: #FFFFFF;
   --disabled-element: lightgray;
+  --disabled-text: gray;
+  --learn-more: lawngreen;
+}
+
+.light .status {
+  font-weight: bold;
+}
+
+.light select:disabled,
+.light input:disabled {
+  color: var(--text-color) !important;
+}
+
+.light input::-webkit-input-placeholder {
+  color: var(--logo);
 }
 
 /* hide scrollbar in popup */
@@ -395,11 +412,25 @@ input[type="checkbox"]:focus {
   border-radius: 5px;
   display: inline-block;
   margin-right: 3px;
+  position: relative;
 
   /* Hightlight */
-  &:hover,
-  &.selected {
-    box-shadow:inset 0px 0px 0px 2px var(--white);
+  &:hover::after {
+    content: "\026AC";
+    color: #fff;
+    position: absolute;
+    font-size: 13px;
+    top: 2px;
+    left: 11px;
+  }
+
+  &.selected::after {
+    content: "\0033D";
+    color: #fff;
+    position: absolute;
+    font-size: 26px;
+    top: 2px;
+    left: 12px;
   }
 
   /* Swatch colors */
@@ -485,7 +516,7 @@ input[type="checkbox"]:focus {
 }
 
 .disabled {
-  color: var(--white);
+  color: var(--disabled-text);
 }
 
 .mint {
@@ -612,7 +643,7 @@ span.clear-search {
 }
 
 .help-bubble .help-text span.learn-more::before {
-  color: var(--green);
+  color: var(--learn-more);
   content: 'Click the \"Learn\" button for additional important details.';
   display: block;
   margin-top: 10px;
