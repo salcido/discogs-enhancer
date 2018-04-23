@@ -1,61 +1,32 @@
 /* Readability Page Styles */
-
 body {
-  background-color: #313335;
+  margin-left: 4rem;
+  margin-top: 4rem;
 }
 
-h1,
-h2,
-p.header {
-  display: inline-block;
-  margin-right: 5px;
-  font-family: "Arial", sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  text-transform: uppercase;
-}
-
-p, li {
-  font-family: "Arial", sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  color: #CCCCCC;
-  line-height: 19px;
-  transition: all 0.3s ease;
+h2 {
+  margin-top: 4rem;
 }
 
 li {
-  margin-bottom: 15px;
-}
-
-li b {
-  color: white;
-}
-
-em {
-  font-weight: bold;
-  color: white;
-}
-
-select {
-  color: black;
-}
-
-a {
-  color: #809BBE;
-}
-
-a:visited {
-  color: #A590D0;
-}
-
-a:hover {
-  color: #CAE0FA;
+  margin-bottom: 2rem;
 }
 
 form {
   margin-bottom: 150px;
+}
+
+label,
+.switch-label {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+select {
+  font-size: 16px;
 }
 
 .header-wrap {
@@ -83,7 +54,7 @@ form {
 }
 
 .content {
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .switch-wrap,
@@ -104,7 +75,7 @@ form {
 
 .feature {
   margin-bottom: 10px;
-  padding: 15px;
+  padding: 20px;
   background-color: #272727;
   border-radius: 10px;
 }
@@ -112,10 +83,6 @@ form {
 /* Switch overrides */
 .onoffswitch-label {
   border-radius: 100px;
-}
-
-.onoffswitch-switch {
-  width: 18px;
 }
 
 #otherMediaThreshold {
