@@ -579,15 +579,13 @@ span.clear-search {
   width: 15px;
   position: absolute;
   z-index: 10;
-  top: 9px;
+  top: 8px;
   right: 25px;
-  background-image: url("../../img/clear-search.png");
-  background-repeat: none;
-  background-size: contain;
   cursor: pointer;
-
+  color: var(--gray);
+  transition: all 0.1s ease-in;
   &:hover {
-    background-image: url("../../img/clear-search-hover.png");
+    color: var(--white);
   }
 }
 
