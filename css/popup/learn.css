@@ -156,7 +156,6 @@ position wasn't fixed. */
 .sidebar .info-box .info-wrap {
   max-width: 400px;
   margin-top: 2rem;
-  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -201,8 +200,10 @@ position wasn't fixed. */
 span.m {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  color: #fafafa;
   display: block;
   letter-spacing: 0.05rem;
+  line-height: 1.3rem;
   margin-bottom: 16px;
 }
 
@@ -261,10 +262,6 @@ h2.highlight {
   display: flex;
   flex-direction: column;
   margin-bottom: 10rem;
-}
-
-.feature-block p {
-  line-height: 1.4;
 }
 
 .marketplace-highlights {
@@ -427,6 +424,7 @@ h2.highlight {
 .content p.short-title {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  color: #fafafa;
   display: inline-block;
   font-size: 15px;
   margin-left: 35px;
