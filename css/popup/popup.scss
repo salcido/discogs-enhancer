@@ -425,12 +425,13 @@ input[type="checkbox"]:focus {
   }
 
   &.selected::after {
-    content: "\0033D";
+    // content: "\0033D";
+    content: "\02022";
     color: #fff;
     position: absolute;
-    font-size: 26px;
-    top: 2px;
-    left: 12px;
+    font-size: 15px;
+    top: 0px;
+    left: 11px;
   }
 
   /* Swatch colors */
