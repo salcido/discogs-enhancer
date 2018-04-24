@@ -83,13 +83,35 @@ position wasn't fixed. */
   margin-bottom: 1rem;
 }
 
+#nav-select {
+  background: #333;
+  border-radius: 5px;
+  border: 1px solid #424242;
+  color: #fafafa;
+  padding: 0.5rem 0;
+}
+
+.sidebar select.expanded {
+  height: auto;
+  background:#242424;
+  border: 1px solid #424242;
+  outline: none;
+}
+
+select option {
+  vertical-align: baseline;
+  margin-bottom: .3rem;
+  padding: 0.3rem 1rem;
+  color: #fafafa;
+}
+
 .sidebar .navigation input {
   padding-left: 2.1rem;
 }
 
 .feather-search {
   position: absolute;
-  top: 50px;
+  top: 8px;
   left: -7px;
   color: #999;
   width: 50px;
@@ -97,7 +119,7 @@ position wasn't fixed. */
 
 .clear-search {
   position: absolute;
-  top: 48px;
+  top: 8px;
   right: 8px;
 }
 
@@ -116,7 +138,7 @@ position wasn't fixed. */
   color: #999;
   font-style: italic;
   font-size: 14px;
-  top: 50px;
+  top: 10px;
   right: 40px;
 }
 
