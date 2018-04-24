@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function clearSearchField() {
     search.value = '';
     search.focus();
+    select.innerHTML = '<option>Select a feature</option>';
     searchFeatures('');
   }
 
@@ -98,11 +99,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     quantity = searchResults.length === 1 ? 'result' : 'results';
 
-    if (!search.value) {
+    if ( !search.value ) {
       return searchStatus.textContent = '';
     }
 
     return searchStatus.textContent = `${searchResults.length} ${quantity}`;
+  }
+
+  /**
+   * Updates the select element to display a ToC of sorts
+   * when searching.
+   *
+   * @param {Array} features Array of all the features
+   * @returns {method}
+   */
+
+  function modifyNavSelect(features) {
+
+    let visibleFeatures = features.filter(f => !f.classList.contains('hide')),
+        length = visibleFeatures.length,
+        size = length >= 3 ? length + 3 : length;
+
+    select.innerHTML = '';
+
+    populateNavigation(visibleFeatures);
+
+    if ( length !== features.length
+          && length !== 1
+          && length !== 0
+          && length < 20 ) {
+
+      select.size = size;
+      return select.classList.add('expanded');
+    }
+
+    select.size = 1;
+    return select.classList.remove('expanded');
   }
 
   /**
@@ -132,19 +164,29 @@ document.addEventListener('DOMContentLoaded', function () {
    * @return   {undefined}
    */
 
-  function populateNavigation() {
+  function populateNavigation(features) {
 
-    let features = [...document.querySelectorAll('.feature-block')];
+    let noResults = document.createElement('option'),
+        selectFeature = document.createElement('option');
 
-    features.forEach(feature => {
+    noResults.textContent = 'No results';
+    selectFeature.textContent = 'Select a feature';
 
-      let option = document.createElement('option');
+    if ( features.length !== 0 ) {
 
-      option.textContent = feature.querySelector('h2').textContent;
-      option.value = feature.querySelector('h2').id;
+      if ( search.value.length === 0 ) select.add(selectFeature);
 
-      select.add(option);
-    });
+      return features.forEach(feature => {
+
+              let option = document.createElement('option');
+
+              option.textContent = feature.querySelector('h2').textContent;
+              option.value = feature.querySelector('h2').id;
+
+              select.add(option);
+            });
+    }
+    return select.add(noResults);
   }
 
   /**
@@ -187,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     noResultsCheck(features);
     toggleClearButton();
     listResults();
+    modifyNavSelect(features);
   }
 
   /**
@@ -314,5 +357,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
   setTimeout(() => { search.focus(); }, 200);
   getVersionAndYear();
-  populateNavigation();
+  populateNavigation([...document.querySelectorAll('.feature-block')]);
 });
