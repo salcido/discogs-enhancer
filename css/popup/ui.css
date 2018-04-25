@@ -98,7 +98,7 @@ input[type="textarea"] {
 }
 
 select {
-  height: 25px;
+  height: 35px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -132,4 +132,8 @@ select {
 
 .white {
   color: #fafafa !important;
+}
+
+.no-underline {
+  text-decoration: none;
 }
