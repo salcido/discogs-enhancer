@@ -3,3 +3,4 @@ dist
 js/chart
 .vscode
 .DS_Store
+discogs-enhancer.code-workspace

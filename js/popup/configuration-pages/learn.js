@@ -34,10 +34,53 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Injects the `.news-item` markup when an update is returned
+   * @param {object} updateData The data returned from the updates endpoint
+   * @returns {undefined}
+   */
+
+  function appendNewsItem(updateData) {
+
+    let d = document.createElement('div'),
+        p = document.createElement('p'),
+        title = document.createElement('span'),
+        content = document.createElement('span');
+
+    d.className = 'news-item';
+
+    title.className = 'issue';
+    title.textContent = 'Extension issue: ';
+
+    content.className = 'text';
+    content.textContent = updateData.content;
+
+    p.append(title);
+    p.append(content);
+    d.append(p);
+
+    document.querySelector('.info-wrap .updates').insertAdjacentElement('afterbegin', d);
+  }
+
+  /**
+   * Queries the `updates` endpoint for any urgent
+   * updates.
+   * @returns {object}
+   */
+  async function checkForIssues() {
+
+    let url = 'http://localhost:3000/updates',
+        request = await fetch(url),
+        data = await request.json();
+
+    return data;
+  }
+
+  /**
    * Clears the search query from the input element
    *
    * @returns {undefined}
    */
+
   function clearSearchField() {
 
     search.value = '';
@@ -82,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
    *
    * @returns {assignment}
    */
+
   function listResults() {
 
     let features = [...document.querySelectorAll('.feature-block')],
@@ -357,5 +401,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getVersionAndYear();
   populateNavigation([...document.querySelectorAll('.feature-block')]);
+  checkForIssues().then(res => appendNewsItem(res));
   setTimeout(() => { search.focus(); }, 200);
 });

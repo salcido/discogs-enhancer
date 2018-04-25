@@ -204,8 +204,16 @@ select {
   color: #fafafa;
 }
 
-.info-wrap span.warn {
+.info-wrap span.issue {
   color: #F2994A;
+}
+
+.info-wrap span.text {
+  color: #ccc;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: normal;
+  -webkit-font-smoothing: inherit;
 }
 
 .info-wrap span.feature {
