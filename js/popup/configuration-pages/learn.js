@@ -55,8 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getVersionAndYear() {
 
-    let
-        manifest = chrome.runtime.getManifest(),
+    let manifest = chrome.runtime.getManifest(),
         version = document.querySelector('.version'),
         year = new Date().getFullYear(),
         yearSpan = document.getElementById('year');
@@ -100,37 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Updates the select element to display a ToC of sorts
-   * when searching.
-   *
-   * @param {Array} features Array of all the features
-   * @returns {method}
-   */
-
-  function modifyNavSelect(features) {
-
-    let visibleFeatures = features.filter(f => !f.classList.contains('hide')),
-        length = visibleFeatures.length;
-
-    select.innerHTML = '';
-
-    populateNavigation(visibleFeatures);
-
-    if ( length !== features.length
-          && length !== 1
-          && length !== 0
-          && length < 20 ) {
-
-      select.size = length;
-      // wrapped in setTimeout so select element will animate
-      return setTimeout(() => { select.style.height = length * 32.8; }, 0);
-    }
-
-    select.size = 1;
-    return setTimeout(() => { select.style.height = '35px'; }, 0);
-  }
-
-  /**
    * Shows the `no-results` element if all features
    * are hidden
    *
@@ -171,13 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return features.forEach(feature => {
 
-              let option = document.createElement('option');
+        let option = document.createElement('option');
 
-              option.textContent = feature.querySelector('h2').textContent;
-              option.value = feature.querySelector('h2').id;
+        option.textContent = feature.querySelector('h2').textContent;
+        option.value = feature.querySelector('h2').id;
 
-              select.add(option);
-            });
+        select.add(option);
+      });
     }
     return select.add(noResults);
   }
@@ -222,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     noResultsCheck(features);
     toggleClearButton();
     listResults();
-    modifyNavSelect(features);
+    updateNavigation(features);
   }
 
   /**
@@ -286,11 +254,42 @@ document.addEventListener('DOMContentLoaded', () => {
     return clearSearch.classList.add('hide');
   }
 
+  /**
+   * Updates the select element to display a ToC of sorts
+   * when searching.
+   *
+   * @param {Array} features Array of all the features
+   * @returns {method}
+   */
+
+  function updateNavigation(features) {
+
+    let visibleFeatures = features.filter(f => !f.classList.contains('hide')),
+        length = visibleFeatures.length;
+
+    select.innerHTML = '';
+
+    populateNavigation(visibleFeatures);
+
+    if ( length !== features.length
+          && length !== 1
+          && length !== 0 ) {
+
+      select.size = length;
+      // wrapped in setTimeout so select element will animate
+      return setTimeout(() => { select.style.height = length * 33; }, 0);
+    }
+
+    select.size = 1;
+    return setTimeout(() => { select.style.height = '35px'; }, 0);
+  }
+
   // ======================================================
   // UI Functionality
   // ======================================================
 
-  // Scroll the page to the selected element
+  //  Scroll the page to the selected element
+  // ------------------------------------------------------
   select.addEventListener('change', () => {
 
     removeHighlight();
@@ -299,17 +298,20 @@ document.addEventListener('DOMContentLoaded', () => {
     location.hash = '#' + select.value;
 
     if ( location.hash.length !== 0 ) {
-      // (-80px to adjust for the navbar up top)
+      // (-80px to adjust for space up top)
       setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
     }
   });
 
+
   // Troubleshooting link in sidebar
+  // ------------------------------------------------------
   document.querySelector('.t-shoot').addEventListener('click', () => {
     setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
   });
 
   // Searches the features for a string match
+  // ------------------------------------------------------
   search.addEventListener('keydown', event => {
 
     clearTimeout(debounce);
@@ -320,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Clear the search input
+  // ------------------------------------------------------
   clearSearch.addEventListener('click', event => {
 
     event.preventDefault();
@@ -327,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Escape key listener
+  // ------------------------------------------------------
   document.addEventListener('keydown', event => {
 
     if ( event.which === 27 ) {
@@ -337,6 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Tab functionality
+  // ------------------------------------------------------
   tabs.forEach(tab => {
     tab.addEventListener('click', event => {
 
