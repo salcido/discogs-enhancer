@@ -6,23 +6,15 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
- * Overview
- * ---------------------------------------------------------------------------
- *
- * This will inject the Version and Date strings into the DOM and populate the
- * quick naviation select box with all `.feature` elements. The script begins
- * execution at the bottom below the `Init / DOM Setup` comment block.
- *
  */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
 
-  const clearSearch = document.querySelector('.clear-search'),
-        select = document.getElementById('nav-select'),
-        search = document.getElementById('search'),
-        tabs = document.querySelectorAll('.tabs');
-
+  let clearSearch = document.querySelector('.clear-search'),
+      debounce = null,
+      select = document.getElementById('nav-select'),
+      search = document.getElementById('search'),
+      tabs = document.querySelectorAll('.tabs');
 
   // ======================================================
   // Functions (Alphabetical)
@@ -47,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
    * @returns {undefined}
    */
   function clearSearchField() {
+
     search.value = '';
     search.focus();
     select.innerHTML = '<option>Select a feature</option>';
@@ -117,8 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function modifyNavSelect(features) {
 
     let visibleFeatures = features.filter(f => !f.classList.contains('hide')),
-        length = visibleFeatures.length,
-        size = length >= 3 ? length + 3 : length;
+        length = visibleFeatures.length;
 
     select.innerHTML = '';
 
@@ -129,12 +121,13 @@ document.addEventListener('DOMContentLoaded', function () {
           && length !== 0
           && length < 20 ) {
 
-      select.size = size;
-      return select.classList.add('expanded');
+      select.size = length;
+      // wrapped in setTimeout so select element will animate
+      return setTimeout(() => { select.style.height = length * 32.8; }, 0);
     }
 
     select.size = 1;
-    return select.classList.remove('expanded');
+    return setTimeout(() => { select.style.height = '35px'; }, 0);
   }
 
   /**
@@ -319,9 +312,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Searches the features for a string match
   search.addEventListener('keydown', event => {
 
-    setTimeout(() => {
+    clearTimeout(debounce);
+
+    debounce = setTimeout(() => {
       searchFeatures(event.target.value);
-    }, 0);
+    }, 300);
   });
 
   // Clear the search input
@@ -355,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Init / DOM Setup
   // ======================================================
 
-  setTimeout(() => { search.focus(); }, 200);
   getVersionAndYear();
   populateNavigation([...document.querySelectorAll('.feature-block')]);
+  setTimeout(() => { search.focus(); }, 200);
 });
