@@ -25,7 +25,7 @@ a {
 }
 
 a.secret {
-  color: #fafafa;
+  color: #ccc;
   text-decoration: none;
 }
 
@@ -83,26 +83,37 @@ position wasn't fixed. */
   margin-bottom: 1rem;
 }
 
+select {
+  transition: all 0.2s ease-in-out;
+}
+
 #nav-select {
   background: #333;
   border-radius: 5px;
   border: 1px solid #424242;
   color: #fafafa;
-  padding: 0.5rem 0;
+  font-size: 14px;
+  outline: none;
 }
 
+
 .sidebar select.expanded {
-  height: auto;
   background:#242424;
   border: 1px solid #424242;
   outline: none;
 }
 
 select option {
-  vertical-align: baseline;
-  margin-bottom: .3rem;
-  padding: 0.3rem 1rem;
   color: #fafafa;
+  font-size: 14px;
+  outline: none;
+  padding: 0.5rem;
+  vertical-align: baseline;
+  transition: background 0.15s ease-in;
+}
+
+select option:hover {
+  background: #242424;
 }
 
 .sidebar .navigation input {
