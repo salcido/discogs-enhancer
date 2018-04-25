@@ -96,24 +96,10 @@ select {
   outline: none;
 }
 
-
 .sidebar select.expanded {
   background:#242424;
   border: 1px solid #424242;
   outline: none;
-}
-
-select option {
-  color: #fafafa;
-  font-size: 14px;
-  outline: none;
-  padding: 0.5rem;
-  vertical-align: baseline;
-  transition: background 0.15s ease-in;
-}
-
-select option:hover {
-  background: #242424;
 }
 
 .sidebar .navigation input {

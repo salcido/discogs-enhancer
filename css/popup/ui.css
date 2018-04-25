@@ -98,8 +98,27 @@ input[type="textarea"] {
 }
 
 select {
-  height: 35px;
+  background: #333;
+  border-radius: 5px;
+  border: 1px solid #424242;
+  color: #fafafa;
   font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  height: 35px;
+  outline: none;
+}
+
+select option {
+  color: #fafafa;
+  font-size: 14px;
+  outline: none;
+  padding: 0.5rem;
+  vertical-align: baseline;
+  transition: background 0.15s ease-in;
+}
+
+select option:hover {
+  background: #242424;
 }
 
 .btn-green {
