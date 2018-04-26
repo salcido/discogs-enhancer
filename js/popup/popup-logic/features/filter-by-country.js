@@ -60,7 +60,7 @@ export function setCountryEnabledStatus() {
       // Disable the selects when the feature is enabled
       document.getElementById('filterCountryCurrency').disabled = true;
       document.getElementById('filterCountry').disabled = true;
-      document.querySelector('.country-value').textContent = ` \u2011 ${filterByCountryPrefs.currency}`;
+      document.querySelector('.country-value').innerHTML = ` &#8209; ${filterByCountryPrefs.currency}`;
 
     } else {
 

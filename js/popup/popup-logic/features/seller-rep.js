@@ -46,7 +46,7 @@ export function saveSellerRep() {
     input.value = localStorage.getItem('sellerRep');
 
     // Displays percentage value like: - 80%
-    repValue.textContent = `\u2011 ${input.value}%`;
+    repValue.innerHTML = `&#8209; ${input.value}%`;
 
     setEnabledStatus( self, 'Enabled' );
     applySave('refresh', event);
@@ -103,7 +103,7 @@ export function setSellerRep() {
 
       input.disabled = true;
       // Displays percentage value like: - 80%
-      repValue.textContent = `\u2011 ${input.value}%`;
+      repValue.innerHTML = `&#8209; ${input.value}%`;
       setEnabledStatus( self, 'Enabled' );
     }
 
