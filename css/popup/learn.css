@@ -160,6 +160,9 @@ select {
   text-align: center;
   letter-spacing: 0.15rem;
   text-decoration: none;
+  font-weight: bold;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 .sidebar .info-box .nav a:hover {
@@ -191,37 +194,45 @@ select {
   margin-bottom: 1rem;
 }
 
-.info-wrap span,
-.news-item .feature-title {
+.news-item span.item-title {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
-}
-
-.feature-title {
   color: #fafafa;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
 }
 
 .info-wrap span.issue {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   color: #F2994A;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .info-wrap span.text {
   color: #ccc;
-  text-transform: none;
+  display: block;
   font-size: 16px;
   font-weight: normal;
-  -webkit-font-smoothing: inherit;
+  text-transform: none;
 }
 
 .info-wrap span.feature {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   color: #59C231;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .info-wrap span.update {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   color: #56CCF2;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 span.m {
