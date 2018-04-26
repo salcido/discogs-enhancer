@@ -15,6 +15,8 @@ html {
   --disabled-element: #808080;
   --disabled-text: #ffffff;
   --learn-more: #51B32C;
+  --select-bg: #333;
+  --select-border: #424242;
 }
 
 html.light {
@@ -31,6 +33,8 @@ html.light {
   --disabled-element: lightgray;
   --disabled-text: gray;
   --learn-more: lawngreen;
+  --select-bg: #fafafa;
+  --select-border: #ccc;
 }
 
 .light .status {
@@ -121,6 +125,14 @@ a.button {
       color: var(--green-hover) !important;
     }
   }
+}
+
+select {
+  font-size: 14px;
+}
+
+select option {
+  font-size: 14px;
 }
 
 #learn {
@@ -380,8 +392,9 @@ input[type="checkbox"]:focus {
     margin-right: 3px;
     margin-left: 0;
     font-size: inherit;
-    border-radius: 3px;
-    border: 2px solid var(--white);
+    border-radius: 5px;
+    border: 1px solid var(--select-border);
+    padding: 0.25rem;
   }
 
   label {
@@ -411,7 +424,7 @@ input[type="checkbox"]:focus {
   height: 20px;
   border-radius: 5px;
   display: inline-block;
-  margin-right: 3px;
+  margin-right: 2px;
   position: relative;
 
   /* Hightlight */
@@ -481,8 +494,9 @@ input[type="checkbox"]:focus {
 #filterCountry:disabled,
 #currency:disabled {
   background-color: var(--disabled-element);
-  border: 2px solid var(--disabled-element);
+  border: 1px solid var(--disabled-element);
   color: var(--bg-accent);
+  cursor: not-allowed;
 }
 
 /* hide arrows in number input */
