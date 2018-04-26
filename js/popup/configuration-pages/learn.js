@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {object} value The value from the selected feature
    * @returns {method}
    */
+
   function addHighlight(value) {
 
     let target = document.querySelector(`#${value}`);
@@ -43,22 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let d = document.createElement('div'),
         p = document.createElement('p'),
+        type = document.createElement('span'),
         title = document.createElement('span'),
-        content = document.createElement('span');
+        content = document.createElement('span'),
+        selector = document.querySelector('.info-wrap .updates');
 
-    d.className = 'news-item';
+    if ( updateData.content ) {
 
-    title.className = 'issue';
-    title.textContent = 'Extension issue: ';
+      d.className = 'news-item';
 
-    content.className = 'text';
-    content.textContent = updateData.content;
+      type.className = 'issue';
+      type.textContent = 'Extension issue: ';
 
-    p.append(title);
-    p.append(content);
-    d.append(p);
+      title.className = 'item-title';
+      title.textContent = updateData.title || null;
 
-    document.querySelector('.info-wrap .updates').insertAdjacentElement('afterbegin', d);
+      content.className = 'text';
+      content.textContent = updateData.content;
+
+      p.append(type);
+      p.append(title);
+      p.append(content);
+      d.append(p);
+
+      return selector.insertAdjacentElement('afterbegin', d);
+    }
+    return;
   }
 
   /**
@@ -66,9 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
    * updates.
    * @returns {object}
    */
+
   async function checkForIssues() {
 
-    let url = 'http://localhost:3000/updates',
+    let url = 'https://discogs-enhancer.com/updates',
         request = await fetch(url),
         data = await request.json();
 
@@ -401,6 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getVersionAndYear();
   populateNavigation([...document.querySelectorAll('.feature-block')]);
-  checkForIssues().then(res => appendNewsItem(res));
   setTimeout(() => { search.focus(); }, 200);
+  // Check for extension issues
+  checkForIssues().then(res => appendNewsItem(res)).catch(err => console.warn('error getting updates', err));
 });
