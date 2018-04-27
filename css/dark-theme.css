@@ -277,6 +277,7 @@ aside li > a,
 .cw_block.cw_block_collection {
   background-color: #1c3814 !important;
   border: 1px solid #60C43F !important;
+  border-radius: 5px;
 }
 
 .cw_block.cw_block_collection div {
@@ -290,6 +291,7 @@ aside li > a,
 .cw_block.cw_block_wantlist {
   background-color: #561D1D !important;
   border: 1px solid #E7413F !important;
+  border-radius: 5px;
 }
 
 .cw_block.cw_block_wantlist h2 {
@@ -507,6 +509,7 @@ hr {
 /* plain buttons (preview, add comment) */
 #previewBtn,
 #postBtn,
+#cancelDelete,
 input.preview_button {
   background-color: #F2F2F2!important;
   border-color: #DBDBDB!important;
