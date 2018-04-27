@@ -40,14 +40,6 @@ function searchClone(event) {
   chrome.tabs.create({ url: 'https://clone.nl/search/?instock=1&query=' + encodeStr });
 }
 
-function searchDecks(event) {
-
-  let str = event.selectionText,
-      encodeStr = encodeURIComponent(str);
-
-  chrome.tabs.create({url: 'http://www.decks.de/decks-sess/workfloor/search.php?such=' + encodeStr + '&wassuch=atl&suchzwei=&wassuchzwei=all&wosuch=all&imageField.x=43&imageField.y=5'});
-}
-
 function searchDeeJay(event) {
 
   let str = event.selectionText,
@@ -117,7 +109,7 @@ function searchOye(event) {
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
-  chrome.tabs.create({url: 'https://oye-records.com/list.php?skey=' + encodeStr});
+  chrome.tabs.create({url: 'https://oye-records.com/search?q=' + encodeStr});
 }
 
 function searchPbvinyl(event) {
@@ -134,6 +126,14 @@ function searchPhonica(event) {
       encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'http://www.phonicarecords.com/search/' + encodeStr});
+}
+
+function searchRushhour(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({ url: 'http://www.rushhour.nl/store_master.php?search=' + encodeStr});
 }
 
 function searchSotu(event) {

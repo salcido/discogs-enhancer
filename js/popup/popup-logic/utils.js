@@ -59,7 +59,6 @@ export function applySave(message, event) {
         useBandcamp: document.getElementById('bandcamp').checked,
         useBoomkat: document.getElementById('boomkat').checked,
         useClone: document.getElementById('clone').checked,
-        useDecks: document.getElementById('decks').checked,
         useDeejay: document.getElementById('deejay').checked,
         useDiscogs: document.getElementById('discogs').checked,
         useGramaphone: document.getElementById('gramaphone').checked,
@@ -71,6 +70,7 @@ export function applySave(message, event) {
         useOye: document.getElementById('oye').checked,
         usePbvinyl: document.getElementById('pbvinyl').checked,
         usePhonica: document.getElementById('phonica').checked,
+        useRushhour: document.getElementById('rushhour').checked,
         useSotu: document.getElementById('sotu').checked,
         useYoutube: document.getElementById('youtube').checked
       };

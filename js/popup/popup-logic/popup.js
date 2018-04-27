@@ -78,7 +78,6 @@ window.addEventListener('load', () => {
       toggleBandcamp,
       toggleBoomkat,
       toggleClone,
-      toggleDecks,
       toggleDeeJay,
       toggleDiscogs,
       toggleGramaphone,
@@ -90,6 +89,7 @@ window.addEventListener('load', () => {
       toggleOye,
       togglePbvinyl,
       togglePhonica,
+      toggleRushhour,
       toggleSotu,
       toggleYoutube;
 
@@ -213,7 +213,6 @@ window.addEventListener('load', () => {
     toggleBandcamp = document.getElementById('bandcamp');
     toggleBoomkat = document.getElementById('boomkat');
     toggleClone = document.getElementById('clone');
-    toggleDecks = document.getElementById('decks');
     toggleDeeJay = document.getElementById('deejay');
     toggleDiscogs = document.getElementById('discogs');
     toggleGramaphone = document.getElementById('gramaphone');
@@ -225,6 +224,7 @@ window.addEventListener('load', () => {
     toggleOye = document.getElementById('oye');
     togglePbvinyl = document.getElementById('pbvinyl');
     togglePhonica = document.getElementById('phonica');
+    toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
     toggleYoutube = document.getElementById('youtube');
 
@@ -259,7 +259,6 @@ window.addEventListener('load', () => {
       toggleBandcamp.checked = result.prefs.useBandcamp;
       toggleBoomkat.checked = result.prefs.useBoomkat;
       toggleClone.checked = result.prefs.useClone;
-      toggleDecks.checked = result.prefs.useDecks;
       toggleDeeJay.checked = result.prefs.useDeejay;
       toggleDiscogs.checked = result.prefs.useDiscogs;
       toggleGramaphone.checked = result.prefs.useGramaphone;
@@ -271,6 +270,7 @@ window.addEventListener('load', () => {
       toggleOye.checked = result.prefs.useOye;
       togglePbvinyl.checked = result.prefs.usePbvinyl;
       togglePhonica.checked = result.prefs.usePhonica;
+      toggleRushhour.checked = result.prefs.useRushhour;
       toggleSotu.checked = result.prefs.useSotu;
       toggleYoutube.checked = result.prefs.useYoutube;
     });

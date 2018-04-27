@@ -81,7 +81,6 @@ chrome.storage.sync.get('prefs', function(result) {
       useBandcamp: false,
       useBoomkat: false,
       useClone: false,
-      useDecks: false,
       useDeejay: false,
       useDiscogs: true,
       useGramaphone: false,
@@ -93,6 +92,7 @@ chrome.storage.sync.get('prefs', function(result) {
       useOye: false,
       usePbvinyl: false,
       usePhonica: false,
+      useRushhour: false,
       useSotu: false,
       useYoutube: false
     };
@@ -674,17 +674,6 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
-  if (result.prefs.useDecks) {
-
-    chrome.runtime.sendMessage({
-      fn: 'searchDecks',
-      id: 'decks',
-      method: 'create',
-      name: 'Decks.de',
-      request: 'updateContextMenu'
-    });
-  }
-
   if (result.prefs.useDeejay) {
 
     chrome.runtime.sendMessage({
@@ -802,6 +791,17 @@ chrome.storage.sync.get('prefs', function(result) {
       id: 'phonica',
       method: 'create',
       name: 'Phonica',
+      request: 'updateContextMenu'
+    });
+  }
+
+  if (result.prefs.useRushhour) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchRushhour',
+      id: 'rushhour',
+      method: 'create',
+      name: 'Rush Hour',
       request: 'updateContextMenu'
     });
   }

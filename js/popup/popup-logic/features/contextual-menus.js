@@ -39,11 +39,6 @@ export function createContextualMenuElements() {
             id: 'clone'
           },
           {
-            name: 'Decks.de',
-            fn: 'searchDecks',
-            id: 'decks'
-          },
-          {
             name: 'DeeJay',
             fn: 'searchDeeJay',
             id: 'deejay'
@@ -97,6 +92,11 @@ export function createContextualMenuElements() {
             name: 'Phonica',
             fn: 'searchPhonica',
             id: 'phonica'
+          },
+          {
+            name: 'Rush Hour',
+            fn: 'searchRushhour',
+            id: 'rushhour'
           },
           {
             name: 'SOTU',
