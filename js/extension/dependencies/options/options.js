@@ -42,7 +42,7 @@ resourceLibrary.ready(() => {
                       <input id="threshold" name="threshold" type="number" value="" max="10" min="0"/>
                     </li>
                   </ul>
-                  <a href="#" class="options-save button button_green" id="saveOptions">Save options &amp; refresh</a>
+                  <a href="#" class="options-save button button-green" id="saveOptions">Save options &amp; refresh</a>
                 </div>
               </div>`;
 
