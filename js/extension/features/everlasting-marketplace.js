@@ -61,12 +61,16 @@ resourceLibrary.ready(() => {
      */
     function appendMarketplaceResults(markup) {
 
-      let lastChild = '#pjax_container tbody:last-child',
+      let condition = document.querySelector('.pagination_total').textContent,
+          lastChild = '#pjax_container tbody:last-child',
           opt = document.createElement('option'),
           selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = `<tr class="shortcut_navigable">
                           <td class="item_description">
                             <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
+                          </td>
+                          <td class="item_description de-filter-stamp">
+                            ${window.hideItems ? condition : ''}
                           </td>
                        </tr>`;
 

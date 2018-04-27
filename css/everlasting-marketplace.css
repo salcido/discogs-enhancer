@@ -60,6 +60,8 @@
 
 .de-current-page {
   margin-top: 10px;
+  margin-right: 10px;
+  display: inline-block;
 }
 
 .de-current-page,
@@ -86,6 +88,11 @@
     animation-duration: 0.5s;
     animation-name: slideOut;
     animation-fill-mode: forwards;
+}
+
+.de-filter-stamp {
+  vertical-align: middle;
+  font-weight: bold;
 }
 
 @keyframes slidein {

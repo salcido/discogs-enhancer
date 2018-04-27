@@ -39,7 +39,7 @@ resourceLibrary.ready(() => {
    * @method hideItems
    * @return {undefined}
    */
-
+  // TODO: rename this to something like filterByCondition
   window.hideItems = function hideItems() {
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
