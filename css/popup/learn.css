@@ -191,6 +191,19 @@ select {
   margin-bottom: 1rem;
 }
 
+/* .info-wrap .news-item ul li {
+  list-style: none;
+}
+
+.info-wrap .news-item ul li::before {
+  content: "\002022";
+  color: #56CCF2;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  font-size: 22px;
+} */
+
 .news-item span.item-title {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
