@@ -442,6 +442,10 @@ h2.highlight {
   margin: 45px auto 10px;
 }
 
+.copyright-wrap {
+  margin-bottom: 4rem;
+}
+
 .copyright,
 .copyright a {
   font-size: 11px;
