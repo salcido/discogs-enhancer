@@ -277,7 +277,8 @@ aside li > a,
 .cw_block.cw_block_collection {
   background-color: #1c3814 !important;
   border: 1px solid #60C43F !important;
-  border-radius: 5px;
+  border-radius: 3px;
+  margin-top: 10px;
 }
 
 .cw_block.cw_block_collection div {
@@ -291,7 +292,8 @@ aside li > a,
 .cw_block.cw_block_wantlist {
   background-color: #561D1D !important;
   border: 1px solid #E7413F !important;
-  border-radius: 5px;
+  border-radius: 3px;
+  margin-top: 10px;
 }
 
 .cw_block.cw_block_wantlist h2 {
@@ -540,48 +542,6 @@ a.button.inv_add_button,
   color: #454545 !important;
 }
 
-.button.button-green[disabled],
-.button.button-green[disabled] i,
-.button.button-green[disabled]:hover,
-.button.button-green[disabled]:active,
-.button.button-green[disabled]:visited,
-.button.button-green[disabled]:focus,
-.button.button-blue[disabled],
-.button.button-blue[disabled]:hover,
-.button.button-blue[disabled]:active,
-.button.button-blue[disabled]:visited,
-.button.button-blue[disabled]:focus,
-.button.button-red[disabled],
-.button.button-red[disabled]:hover,
-.button.button-red[disabled]:active,
-.button.button-red[disabled]:visited,
-.button.button-red[disabled]:focus,
-.button.button_dark[disabled],
-.button.button_dark[disabled]:hover,
-.button.button_dark[disabled]:active,
-.button.button_dark[disabled]:visited,
-.button.button_dark[disabled]:focus,
-.button.button-white[disabled],
-.button.button-white[disabled]:hover,
-.button.button-white[disabled]:active,
-.button.button-white[disabled]:visited,
-.button.button-white[disabled]:focus,
-.button[disabled],
-.button[disabled] i,
-.button[disabled] span,
-.button[disabled]:hover,
-.button[disabled]:active,
-.button[disabled]:visited,
-.button[disabled]:focus {
-  background-color: #F2F2F2 !important;
-  background-image: linear-gradient(#F2F2F2, #EAEAEA) !important;
-  border-color: #DBDBDB !important;
-  border-top-color: #E0E0E0 !important;
-  border-bottom-color: #D3D3D3 !important;
-  color: #999999 !important;
-  cursor: pointer !important;
-}
-
 /* force color overrides on sell release/history links: ^= starts with, $= ends with, *= contains */
 
 div.section_content.release_info_buttons a[href^="/sell/history/"],
@@ -633,6 +593,48 @@ a.inset_button[disabled] {
   border-top-color: #52AB34 !important;
   border-bottom-color: #49972E !important;
   color: white !important;
+}
+
+.button.button-green[disabled],
+.button.button-green[disabled] i,
+.button.button-green[disabled]:hover,
+.button.button-green[disabled]:active,
+.button.button-green[disabled]:visited,
+.button.button-green[disabled]:focus,
+.button.button-blue[disabled],
+.button.button-blue[disabled]:hover,
+.button.button-blue[disabled]:active,
+.button.button-blue[disabled]:visited,
+.button.button-blue[disabled]:focus,
+.button.button-red[disabled],
+.button.button-red[disabled]:hover,
+.button.button-red[disabled]:active,
+.button.button-red[disabled]:visited,
+.button.button-red[disabled]:focus,
+.button.button_dark[disabled],
+.button.button_dark[disabled]:hover,
+.button.button_dark[disabled]:active,
+.button.button_dark[disabled]:visited,
+.button.button_dark[disabled]:focus,
+.button.button-white[disabled],
+.button.button-white[disabled]:hover,
+.button.button-white[disabled]:active,
+.button.button-white[disabled]:visited,
+.button.button-white[disabled]:focus,
+.button[disabled],
+.button[disabled] i,
+.button[disabled] span,
+.button[disabled]:hover,
+.button[disabled]:active,
+.button[disabled]:visited,
+.button[disabled]:focus {
+  background-color: #F2F2F2 !important;
+  background-image: linear-gradient(#F2F2F2, #EAEAEA) !important;
+  border-color: #DBDBDB !important;
+  border-top-color: #E0E0E0 !important;
+  border-bottom-color: #D3D3D3 !important;
+  color: #999999 !important;
+  cursor: pointer !important;
 }
 
 .cart_page .order_success {
