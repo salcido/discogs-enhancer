@@ -1,11 +1,63 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 // var webpack = require('webpack');
+const config = './js/popup/configuration-pages/';
+const deps = './js/extension/dependencies/';
+const features = './js/extension/features/';
 
 module.exports = {
-  entry: './js/popup/popup-logic/popup.js',
+  entry: {
+  // popup.js
+  './js/popup/popup-logic/popup': './js/popup/popup-logic/popup.js',
+  // background.js
+  './js/extension/background': './js/extension/background.js',
+  // dependencies
+  [deps + 'analytics/analytics']: `${deps}analytics/analytics.js`,
+  [deps + 'exchange-rates/update-exchange-rates']: `${deps}exchange-rates/update-exchange-rates.js`,
+  [deps + 'options/options']: `${deps}options/options.js`,
+  [deps + 'resource-library/resource-library']: `${deps}resource-library/resource-library.js`,
+  [deps + 'runtime-messages/runtime-messages']: `${deps}runtime-messages/runtime-messages.js`,
+  [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
+  // features files
+  [features + 'apply-highlights']: `${features}apply-highlights.js`,
+  [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
+  [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
+  /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
+  [features + 'currency-converter']: `${features}currency-converter.js`,
+  [features + 'everlasting-marketplace-release-page']: `${features}everlasting-marketplace-release-page.js`,
+  [features + 'everlasting-marketplace']: `${features}everlasting-marketplace.js`,
+  [features + 'feedback-notifier']: `${features}feedback-notifier.js`,
+  [features + 'filter-by-condition']: `${features}filter-by-condition.js`,
+  [features + 'filter-by-country']: `${features}filter-by-country.js`,
+  [features + 'friend-counter']: `${features}friend-counter.js`,
+  [features + 'hide-blocked-sellers']: `${features}hide-blocked-sellers.js`,
+  [features + 'highlight-comments']: `${features}highlight-comments.js`,
+  [features + 'notes-counter']: `${features}notes-counter.js`,
+  [features + 'random-item']: `${features}random-item.js`,
+  [features + 'release-durations']: `${features}release-durations.js`,
+  [features + 'release-history-legend']: `${features}release-history-legend.js`,
+  [features + 'release-ratings']: `${features}release-ratings.js`,
+  [features + 'seller-rep']: `${features}seller-rep.js`,
+  [features + 'sort-explore-lists']: `${features}sort-explore-lists.js`,
+  [features + 'sort-marketplace-lists']: `${features}sort-marketplace-lists.js`,
+  [features + 'sort-personal-lists']: `${features}sort-personal-lists.js`,
+  [features + 'suggested-prices-release-page']: `${features}suggested-prices-release-page.js`,
+  [features + 'suggested-prices-single']: `${features}suggested-prices-single.js`,
+  [features + 'text-format-shortcuts']: `${features}text-format-shortcuts.js`,
+  [features + 'toggle-baoi-fields']: `${features}toggle-baoi-fields.js`,
+  [features + 'toggle-dark-theme']: `${features}toggle-dark-theme.js`,
+  [features + 'toggle-filter-by-country-css']: `${features}toggle-filter-by-country-css.js`,
+  [features + 'toggle-highlights']: `${features}toggle-highlights.js`,
+  [features + 'toggle-min-max-columns']: `${features}toggle-min-max-columns.js`,
+  [features + 'toggle-youtube-playlists']: `${features}toggle-youtube-playlists.js`,
+  [features + 'tracklist-readability']: `${features}tracklist-readability.js`,
+  // popup configs
+  [config + 'blocked-sellers']: `${config}blocked-sellers.js`,
+  [config + 'learn']: `${config}learn.js`,
+  [config + 'readability']: `${config}readability.js`,
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'none',
@@ -16,8 +68,9 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015']
-        }
+          plugins: ['transform-async-to-generator'],
+          presets: ['es2016']
+        },
       },
       {
        test: /\.(png|jpg|gif|svg)$/,
@@ -47,10 +100,8 @@ module.exports = {
     // CSS assets
     { from: 'css', to: 'css' },
     { from: 'img', to: 'img' },
-    // DOM-side extension functionality
-    { from: 'js/extension', to: 'js/extension' },
-    // Configuration settings JS assets
-    { from: 'js/popup/configuration-pages', to: 'js/popup/configuration-pages' }
-  ])
+    // contextual menu searching
+    { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js'}
+  ]),
  ]
 };
