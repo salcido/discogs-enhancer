@@ -101,7 +101,7 @@ module.exports = {
     { from: 'css', to: 'css' },
     { from: 'img', to: 'img' },
     // contextual menu searching
-    { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js'}
+    { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js' }
   ]),
  ]
 };
