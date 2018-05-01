@@ -49,7 +49,7 @@ Compare the prices that Discogs suggests to the seller's listed price.
 
 ### Contextual Menu Searching
 
-Search Discogs and other online shops instantly with any highlighted text! Current selection includes: All Day Records, Bandcamp, Boomkat, Clone, Decks.de, DeeJay, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye, Pacific Beach Vinyl, Phonica, Sounds of The Universe and YouTube.
+Search Discogs and other online shops instantly with any highlighted text! Current selection includes: All Day Records, Bandcamp, Boomkat, Clone, DeeJay, Gramaphone, Halcyon, Hardwax, InSound, Juno, Oye, Pacific Beach Vinyl, Phonica, Rush Hour, Sounds of The Universe and YouTube.
 
 ### Quick Currency Converter
 
