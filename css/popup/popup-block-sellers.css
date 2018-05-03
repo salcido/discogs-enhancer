@@ -198,10 +198,6 @@ label {
   word-wrap: break-word;
 }
 
-.restore {
-  margin-top: 30px;
-}
-
 .restore-errors {
   display: block;
   margin-top: 10px;
