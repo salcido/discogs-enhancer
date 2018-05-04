@@ -1,7 +1,7 @@
 {
   "name": "discogs-enhancer",
-  "version": "1.22.0",
-  "description": "A Chrome extension that adds useful functionality to Discogs.com! http://www.msalcido.com/discogs-enhancer",
+  "version": "2.0.0",
+  "description": "A Chrome extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salcido/Discogs-Enhancer.git"
+    "url": "git+https://github.com/salcido/discogs-enhancer.git"
   },
   "keywords": [],
   "author": "Matthew Salcido",
-  "license": "ISC",
+  "license": "GPL 3.0",
   "bugs": {
-    "url": "https://github.com/salcido/Discogs-Enhancer/issues"
+    "url": "https://github.com/salcido/discogs-enhancer/issues"
   },
-  "homepage": "https://github.com/salcido/Discogs-Enhancer#readme",
+  "homepage": "https://github.com/salcido/discogs-enhancer#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
