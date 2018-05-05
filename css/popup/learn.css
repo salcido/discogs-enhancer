@@ -141,7 +141,7 @@ select {
 
 .sidebar .info-box {
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
 }
 
 .sidebar .info-box .nav {
@@ -174,7 +174,7 @@ select {
 
 .sidebar .info-box .info-wrap {
   max-width: 400px;
-  margin-top: 2rem;
+  margin-top: 3rem;
   line-height: 1.4;
 }
 
