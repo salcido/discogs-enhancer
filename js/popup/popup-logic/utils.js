@@ -27,9 +27,7 @@ export function acknowledgeUpdate() {
  */
 export function applySave(message, event) {
 
-  let chromeVer = (/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[undefined,0])[1],
-      manifest = chrome.runtime.getManifest(),
-      prefs = {
+  let prefs = {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,

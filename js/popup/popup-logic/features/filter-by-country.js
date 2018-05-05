@@ -116,7 +116,6 @@ export function toggleHideCountries(event) {
   let country = document.getElementById('filterCountry'),
       currency = document.getElementById('filterCountryCurrency'),
       path,
-      tag,
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry');
 
   // If everything checks out, enable filtering

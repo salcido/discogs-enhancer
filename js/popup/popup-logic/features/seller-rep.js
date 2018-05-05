@@ -28,7 +28,6 @@ export function saveSellerRep() {
       input = document.getElementById('percent'),
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
-      tag,
       toggle = document.getElementById('toggleSellerRep');
 
   // enabled -and- has value entered
