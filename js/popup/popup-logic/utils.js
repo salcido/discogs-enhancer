@@ -91,17 +91,13 @@ export function applySave(message, event) {
   });
 
   // Google Analyitcs
-  if ( _gaq ) {
+  if ( ga ) {
 
     let checked = event.target.checked;
 
     if ( checked !== undefined ) {
 
-      _gaq.push([
-        '_trackEvent',
-        `${event.target.id} : ${checked}`,
-        ` version: ${manifest.version} Chrome: ${chromeVer}`
-      ]);
+      ga('send', 'event', event.target.id, checked);
     }
   }
 }

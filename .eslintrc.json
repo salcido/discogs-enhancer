@@ -7,7 +7,7 @@
     "globals": {
         "resourceLibrary": false,
         "chrome": false,
-        "_gaq": false
+        "ga": false
     },
     "extends": "eslint:recommended",
     "rules": {

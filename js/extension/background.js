@@ -902,7 +902,7 @@ checkForAnalytics = setInterval(function() {
     });
   }
 
-  if (analytics) {
+  if ( analytics ) {
 
     analytics.addEventListener('change', toggleAnalytics);
 

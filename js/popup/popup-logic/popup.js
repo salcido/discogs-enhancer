@@ -119,7 +119,7 @@ window.addEventListener('load', () => {
     chrome.tabs.create({url: '../html/learn.html'});
     acknowledgeUpdate();
 
-    if ( _gaq ) { _gaq.push(['_trackEvent', 'learn', 'learn clicked']); }
+    if ( ga ) { ga('send', 'event', 'learn', 'learn clicked') }
   });
 
   // Open Block Sellers Configuration page

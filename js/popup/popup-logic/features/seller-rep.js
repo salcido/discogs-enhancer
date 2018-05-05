@@ -51,13 +51,6 @@ export function saveSellerRep() {
     setEnabledStatus( self, 'Enabled' );
     applySave('refresh', event);
 
-    if ( _gaq ) {
-
-      tag = ` Seller Rep Percentage: ${input.value}`;
-
-      _gaq.push(['_trackEvent', tag, 'Seller Reputation']);
-    }
-
   } else if ( input.value && !toggle.checked ) {
 
     input.disabled = false;

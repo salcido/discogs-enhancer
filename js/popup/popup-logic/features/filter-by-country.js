@@ -136,13 +136,6 @@ export function toggleHideCountries(event) {
 
     // Delay updating the UI so that Chrome has a chance to write the new preference
     setTimeout(setCountryEnabledStatus, 50);
-
-    if ( _gaq ) {
-
-      tag = ` Country: ${country.value}, Cur: ${currency.value}`;
-
-      _gaq.push(['_trackEvent', tag, 'Filter By Country']);
-    }
   }
   // If everything checks out, disable filtering
   else if ( validateFilterByCountry() === 'valid'

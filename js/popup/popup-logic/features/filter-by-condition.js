@@ -108,9 +108,4 @@ export function toggleHideConditions(event) {
   }
 
   applySave('refresh', event);
-
-  if ( _gaq ) {
-
-    _gaq.push(['_trackEvent', `Marketplace Filter: ${conditions[setting]}`, 'Marketplace Filter']);
-  }
 }
