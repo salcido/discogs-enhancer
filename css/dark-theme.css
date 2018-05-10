@@ -1946,3 +1946,10 @@ textarea[disabled],
 .is_not_mobile #collection .pagination.top {
   margin-left: auto !important;
 }
+
+/* Staff label in forums */
+.text_label_staff,
+.text_label_staff:visited {
+  background-color: #326FB2 !important;
+  color: #CCC !important;
+}
