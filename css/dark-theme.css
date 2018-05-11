@@ -510,6 +510,10 @@ hr {
   border-right: 1px solid #454545 !important;
 }
 
+.profile_sections.user_profile li {
+  margin-left: -4px;
+}
+
 /* plain buttons (preview, add comment) */
 #previewBtn,
 #postBtn,
