@@ -1623,6 +1623,12 @@ span#layout_buttons a.inset_button i:visited {
   background: #322B36 !important;
 }
 
+/* Release history edit tag bg color */
+.history .hili {
+  background: #ccc !important;
+  color: #322B36 !important;
+}
+
 .history table tr.datarow.highlight {
   background: #4A3F50 !important;
 }
