@@ -38,6 +38,10 @@ let rating,
     votes,
     users;
 
+// ========================================================
+// Functions (Alphabetical)
+// ========================================================
+
 /**
  * Updates the manifest and package json files
  * with a new version string
@@ -65,7 +69,7 @@ function updateJSONfiles(files, version) {
  * new badge stats
  * @returns {undefined}
  */
-async function updateReadme() {
+function updateReadme() {
 
   let readme = fs.readFileSync('readme.md', 'utf8'),
       ratingRegex = /\d*\.*\d/,
@@ -104,6 +108,10 @@ function validateVersion(version) {
 
   return true;
 }
+
+// ========================================================
+// Init
+// ========================================================
 
 // Kick things off...
 if ( validateVersion(newVersion) ) {
