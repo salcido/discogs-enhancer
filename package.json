@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "bump": "node version-bump.js",
     "watch": "webpack --watch"
   },
   "repository": {

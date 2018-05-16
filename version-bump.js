@@ -15,7 +15,7 @@
  * and `package.json` files as well as update the badges
  * within the `readme.md` file.
  *
- * Run it in your terminal like `node version-bump.js <version number> true`
+ * Run it in your terminal like `npm run bump <version number> true`
  * where `<version number>` is a semver string like `x.x.x`.
  *
  * If `true` is omitted the readme file will not be updated.
