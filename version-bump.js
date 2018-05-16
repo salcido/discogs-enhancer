@@ -83,13 +83,13 @@ function updateReadme() {
   users = users.replace(/,/g, '.');
   users = parseFloat(users).toFixed(1);
 
-  readme = readme.replace(strUsers, `${users}k`);
-  readme = readme.replace(strRating, `${rating}%2F5`);
-  readme = readme.replace(strVotes, `${votes}%20`);
+  readme = readme.replace(strUsers, `${users}k`)
+            .replace(strRating, `${rating}%2F5`)
+            .replace(strVotes, `${votes}%20`);
 
   fs.writeFileSync('readme.md', readme);
 
-  console.log('✅  Updated badges with new data');
+  console.log(`✅  Updated badges with new data: Users: ${users}, Rating: ${rating}, Votes: ${votes}`);
 }
 
 /**
