@@ -15,22 +15,19 @@
  * and `package.json` files as well as update the badges
  * within the `readme.md` file.
  *
- * Run it in your terminal like `npm run bump <version number> true`
- * where `<version number>` is a semver string like `x.x.x`.
- *
- * If `true` is omitted the readme file will not be updated.
+ * Run it in the terminal like `npm run bump <version number> <updateBadges>`
+ * where `<version number>` is a semver string like `x.x.x` and `<updateBadges>`
+ * is either `true` (which will gather new badge data) or omitted completely.
  *
  */
 
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
-// List of json files to update {array.<string>}
-const files = ['manifest.json', 'package.json'];
 // new version number {string}
 const newVersion = process.argv[2];
-// Whether to update the readme.md file {boolean}
-const readMe = process.argv[3] && process.argv[3] === 'true' ? true : null;
+// Whether to update the badge data in the readme.md file {boolean}
+const updateBadges = process.argv[3] && process.argv[3] === 'true' ? true : null;
 // URL to get new badge data from
 const url = 'https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn';
 
@@ -45,11 +42,12 @@ let rating,
 /**
  * Updates the manifest and package json files
  * with a new version string
- * @param {array.<string>} files An array of file names
  * @param {string} version A version number (x.x.x)
  * @returns {undefined}
  */
-function updateJSONfiles(files, version) {
+function updateJSONfiles(version) {
+
+  let files = ['manifest.json', 'package.json'];
 
   files.forEach(file => {
 
@@ -66,10 +64,10 @@ function updateJSONfiles(files, version) {
 
 /**
  * Updates the readme markdown file with
- * new badge stats
+ * new badge stats.
  * @returns {undefined}
  */
-function updateReadme() {
+function updateBadgeData() {
 
   let readme = fs.readFileSync('readme.md', 'utf8'),
       ratingRegex = /\d*\.*\d/,
@@ -116,10 +114,10 @@ function validateVersion(version) {
 // Kick things off...
 if ( validateVersion(newVersion) ) {
 
-  updateJSONfiles(files, newVersion);
+  updateJSONfiles(newVersion);
 
   // If true was passed update the badges
-  if ( readMe ) {
+  if ( updateBadges ) {
 
     console.log('🕐  Getting new badge data...');
 
@@ -135,7 +133,7 @@ if ( validateVersion(newVersion) ) {
       users = await page.evaluate(() => document.querySelector('.e-f-ih').textContent);
 
       browser.close();
-      updateReadme();
+      updateBadgeData();
     });
   }
 }
