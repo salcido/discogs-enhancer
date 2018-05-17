@@ -51,7 +51,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Feedback Notifications
 * Large BAOI Fields
 * Tag Sellers Based on Reputation
-* Filter Marketplace Items By Condition
+* Filter Marketplace Items By Media Condition
 * Filter Marketplace Items by Country
 * Hide Min, Median, Max Columns
 * Marketplace Highlights
@@ -59,7 +59,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Notes Counter
 * Random Item From Collection
 * See Release Durations
-* Sort Dialongs and Filters Alphabetically
+* Sort Dialogs and Filters Alphabetically
 * Text Formatting Shortcuts
 * Improve Tracklist Readability
 
