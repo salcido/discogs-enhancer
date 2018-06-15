@@ -28,7 +28,9 @@
 #### Building
 * Export the extension to `dist` directory:
   * `npm run build`
-  * Load exported `dist` folder into Chrome and you're done!
+  * Go to `chrome://extensions` in Chrome
+  * Click "Developer Mode" in the upper-right corner.
+  * Click "Load Unpacked" and choose the exported `dist` folder into Chrome and you're done!
 
 ## Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
@@ -40,7 +42,7 @@
 
 Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose the features you want to use.
 
-### Features
+## Features
 
 * Block Sellers
 * Compare Suggested Prices
@@ -63,3 +65,10 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Text Formatting Shortcuts
 * Improve Tracklist Readability
 
+### Author
+
+* **Matthew Salcido** - [salcido](https://github.com/salcido)
+
+### License
+
+This project is licensed under the GPL License - see the [LICENSE](LICENSE) file for details
