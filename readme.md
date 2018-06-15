@@ -28,9 +28,9 @@
 #### Building
 * Export the extension to `dist` directory:
   * `npm run build`
-  * Go to `chrome://extensions` in Chrome
-  * Click "Developer Mode" in the upper-right corner.
-  * Click "Load Unpacked" and choose the exported `dist` folder into Chrome and you're done!
+  * Go to `chrome://extensions` in a new Chrome tab
+  * Click "Developer Mode" in the upper-right corner
+  * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
 
 ## Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
