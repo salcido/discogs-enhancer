@@ -66,10 +66,10 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 
 ***
 
-### Author
+## Author
 
 * **Matthew Salcido** - [salcido](https://github.com/salcido)
 
-### License
+## License
 
 This project is licensed under the GPL License - see the [LICENSE](LICENSE) file for details
