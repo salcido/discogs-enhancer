@@ -37,11 +37,11 @@
 
 ***
 
-### A Web Extension for Chrome
+## A Web Extension for Chrome
 
 Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose the features you want to use.
 
-## Features
+### Features
 
 * Block Sellers
 * Compare Suggested Prices
