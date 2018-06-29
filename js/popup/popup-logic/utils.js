@@ -87,17 +87,6 @@ export function applySave(message, event) {
       setTimeout(() => { fadeOut(notifications); }, 1500);
     }
   });
-
-  // Google Analyitcs
-  if ( ga ) {
-
-    let checked = event.target.checked;
-
-    if ( checked !== undefined ) {
-
-      ga('send', 'event', event.target.id, checked);
-    }
-  }
 }
 
 // ========================================================
