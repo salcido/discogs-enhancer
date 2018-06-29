@@ -1963,3 +1963,8 @@ textarea[disabled],
   background-color: #326FB2 !important;
   color: #CCC !important;
 }
+
+/* Background color of the default icon SVGs */
+.default-image-as-icon {
+  background-color: #292929 !important;
+}
