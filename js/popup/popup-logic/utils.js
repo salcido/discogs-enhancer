@@ -27,7 +27,8 @@ export function acknowledgeUpdate() {
  */
 export function applySave(message, event) {
 
-  let prefs = {
+  let { analytics } = JSON.parse(localStorage.getItem('options')),
+      prefs = {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
@@ -87,6 +88,16 @@ export function applySave(message, event) {
       setTimeout(() => { fadeOut(notifications); }, 1500);
     }
   });
+  // Google Analyitcs
+  if ( analytics ) {
+
+    let checked = event.target.checked;
+
+    if ( checked !== undefined ) {
+
+      ga('send', 'event', event.target.id, checked);
+    }
+  }
 }
 
 // ========================================================
