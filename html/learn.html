@@ -33,16 +33,18 @@
     <!-- tabs -->
     <div class="info-box">
       <div class="nav">
+        <!-- Note: when adding tabs make sure the tab's name class (ie: "updates" or "donate") matches the coresponding .tab-content class in order to make sure the content is properly shown/hidden when clicking tab elements. -->
         <a href="" class="tabs updates selected">Updates</a>
         <a href="" class="tabs help">Help</a>
         <a href="" class="tabs donate">Donate</a>
+        <a href="" class="tabs source-code">Source</a>
       </div>
 
       <div class="info-wrap">
         <!-- updates -->
         <div class="updates tab-content">
           <div class="news-item">
-            <p><span class="update">Updates:</span></p>
+            <p><span class="update">Updates in this version:</span></p>
             <ul>
               <li>Multiple small fixes for the Dark Theme</li>
               <li>Filter By Condition is now called "Filter Media Condition"</li>
@@ -60,7 +62,7 @@
         </div>
         <!-- donate -->
         <div class="donate hide tab-content">
-          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API is $5 a month ($60/year) via <a href="https://www.digitalocean.com/pricing/">Digital Ocean</a>. Even the smallest contribution helps pay for the server!</p>
+          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API is $5 a month via <a href="https://www.digitalocean.com/pricing/">Digital Ocean</a>. Even the smallest contribution helps pay for the server!</p>
           <div class="donation-wrap">
             <!-- <div class="donate">
               <h3>Ethereum (or any ERC20 token):</h3>
@@ -80,6 +82,11 @@
           <p>
             <span class="m">You can also help simply by sharing <a href="https://www.discogs-enhancer.com" target="_blank" rel="noopener noreferrer">Discogs Enhancer</a> on social media!</span>
           </p>
+        </div>
+        <!-- Source Code -->
+        <div class="source-code hide tab-content">
+          <p><span class="m">Source Code</span> Discogs Enhancer is an open source project. You can find the source code here on GitHub: <a href="https://github.com/salcido/discogs-enhancer">https://github.com/salcido/discogs-enhancer</a></p>
+          <p><b>Please note:</b> the source code is nearly always ahead of what has been released in the Chrome Web Store and may have features that are not quite ready for release or issues that have not yet been resolved.</p>
         </div>
       </div>
     </div>
@@ -448,10 +455,6 @@
       <h2 id="about">About</h2>
       <p>Thanks for checking out my extension! If you have any suggestions, issues, or complaints you can email me at: <b>discogs.enhancer@gmail.com</b> or find me here on <a href="https://twitter.com/matzubo" target="_blank" rel="noopener noreferrer">Twitter</a> or here on <a href="https://www.discogs.com/user/mattsalcido" target="_blank" rel="noopener noreferrer">Discogs</a>.</p>
       <p>This extension is dedicated to my Dad who passed away on June 15th, 2018. I was lucky enough to have a father who loved music and passed that love on to me. Thanks for everything Pops.</p>
-
-      <h2>Source Code</h2>
-      <p>You can find the <a href="https://github.com/salcido/Discogs-Enhancer" target="_blank" rel="noopener noreferrer">source code here on GitHub</a> &mdash; it is nearly always in a state of development and ahead of what has been released through the Chrome Store. Also, it may not work and will likely be unpleasant to read if you are a Javascript enthusiast.
-      </p>
     </div>
 
     <div class="feature-block">

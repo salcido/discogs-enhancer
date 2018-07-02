@@ -272,27 +272,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showTabContent(target) {
 
-    let contents = document.querySelectorAll('.tab-content'),
-        donate = document.querySelector('.info-wrap .donate'),
-        help = document.querySelector('.info-wrap .help'),
-        updates = document.querySelector('.info-wrap .updates');
-
-    contents.forEach(tab => tab.classList.add('hide'));
-
-    switch (true) {
-
-      case target.classList.contains('updates'):
-        updates.classList.remove('hide');
-        break;
-
-      case target.classList.contains('help'):
-        help.classList.remove('hide');
-        break;
-
-      case target.classList.contains('donate'):
-        donate.classList.remove('hide');
-        break;
-    }
+    let tabContents = document.querySelectorAll('.tab-content');
+    // Hide everything first
+    tabContents.forEach(content => content.classList.add('hide'));
+    // Show selected tab-content
+    tabContents.forEach(content => {
+      target.classList.forEach(targetClass => {
+        if ( content.classList.contains(targetClass) ) {
+          content.classList.remove('hide');
+        }
+      });
+    });
   }
 
   /**
