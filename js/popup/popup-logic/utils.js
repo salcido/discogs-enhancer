@@ -27,8 +27,7 @@ export function acknowledgeUpdate() {
  */
 export function applySave(message, event) {
 
-  let { analytics } = JSON.parse(localStorage.getItem('options')),
-      prefs = {
+  let prefs = {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
@@ -89,7 +88,7 @@ export function applySave(message, event) {
     }
   });
   // Google Analyitcs
-  if ( analytics ) {
+  if ( ga ) {
 
     let checked = event.target.checked;
 
