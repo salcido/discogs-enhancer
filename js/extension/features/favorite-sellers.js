@@ -70,7 +70,8 @@ resourceLibrary.ready(() => {
 
       sellerNames.forEach(name => {
 
-        if ( name.textContent.includes(seller) ) {
+        if ( name.textContent.includes(seller)
+             && !name.querySelector('.de-favorite-seller') ) {
 
           let icon = document.createElement('span');
 
