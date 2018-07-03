@@ -209,7 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let input = document.getElementById('seller-input').value;
 
-    if ( input && !favoriteList.list.includes(input) && !blockList.list.includes(input) ) {
+    if ( input
+         && !favoriteList.list.includes(input)
+         && !blockList.list.includes(input) ) {
 
       addSellerToList();
 
@@ -253,7 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let input = document.getElementById('seller-input').value;
 
     // Enter key is pressed
-    if ( e.which === 13 && input && !favoriteList.list.includes(input) ) {
+    if ( e.which === 13
+         && input
+         && !favoriteList.list.includes(input)
+         && !blockList.list.includes(input) ) {
 
       addSellerToList();
 
