@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com">
+  <title>Favorite Sellers</title>
+  <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="../css/popup/popup-block-sellers.css" type="text/css" media="screen">
+  <script src="../js/popup/configuration-pages/favorite-sellers.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div class="about">
+
+      <div class="title center">
+        <h2 class="header">Favorite Seller Settings</h2>
+      </div>
+
+      <p>1. Enter the seller's username exactly as it appears on Discogs.</p>
+      <p>2. Click "Favorite Seller" to add the seller to your favorites list.</p>
+      <p>
+        <em>Please note:</em> &nbsp; you must refresh your Discogs page for changes to take effect.
+      </p>
+
+      <div class="seller-input">
+        <input type="text" id="seller-input" placeholder="Add seller name">
+        <a class="btn btn-green">Favorite Seller</a>
+        <p class="errors"></p>
+      </div>
+
+      <div id="blocked-sellers" class="blocked-sellers">
+        <h2>Favorite Sellers List</h2>
+        <p>Click on a seller's name to remove the seller from the favorites list.</p>
+        <!-- favorite sellers go here -->
+      </div>
+
+      <div class="backup">
+        <h2>Back up Your Favorite Sellers List</h2>
+        <div class="backup-wrap">
+          <div class="backup-content">
+            <p class="backup-instructions">Copy the text in the box below and save it some place safe. If you ever need to restore your list of favorite
+              sellers, just paste it into the restore box and hit "Restore".</p>
+            <p class="backup-output"></p>
+          </div>
+          <!-- end .backup-content -->
+        </div>
+        <!-- end .backup-wrap -->
+
+        <h2>Restore Your Favorite Sellers List</h2>
+        <div class="backup-wrap">
+          <div class="backup-content">
+            <div class="restore">
+              <p>Paste the text from your backed-up favorite sellers list here and click "Restore".</p>
+              <input type="textarea" class="restore-input" placeholder="Paste list here">
+              <a class="btn btn-green">Restore</a>
+
+              <div class="restore-errors hide">
+                <p>Invalid input. Please try again. It should look something like the following:</p>
+                <p class="restore-errors-output">["favorite", "sellers", "usernames", "go", "here"]</p>
+              </div>
+            </div>
+            <!-- end .restore -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end .about -->
+  </div>
+  <!-- end .container -->
+</body>
+
+</html>

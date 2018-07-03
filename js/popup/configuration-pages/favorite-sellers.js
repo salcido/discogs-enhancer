@@ -10,10 +10,10 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  let blockList = JSON.parse(localStorage.getItem('blockList')) || setNewBlocklist(),
-      favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null,
-      favoriteListError = 'is on your favorites list. You must remove them from your favorites list before adding them to the block list.',
-      blockListError = 'is already on your block list.';
+  let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || setNewfavoriteList(),
+      blockList = JSON.parse(localStorage.getItem('blockList')) || null,
+      blocklistError = 'is on your block list. You must remove them from your block list before adding them as a favorite.',
+      favoriteListError = 'is already on your favorites list.';
 
   // ========================================================
   // Functions (Alphabetical)
@@ -38,15 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let input = document.getElementById('seller-input').value;
 
-    input = input.replace(/\s/g,'').trim();
+    input = input.replace(/\s/g, '').trim();
 
     if ( input ) {
 
-      blockList.list.push(input);
+      favoriteList.list.push(input);
 
-      blockList = JSON.stringify(blockList);
+      favoriteList = JSON.stringify(favoriteList);
 
-      localStorage.setItem('blockList', blockList);
+      localStorage.setItem('favoriteList', favoriteList);
 
       document.querySelector('.errors').textContent = '';
 
@@ -62,23 +62,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkForEmptySellersList() {
 
     let sellers = document.querySelectorAll('.blocked-sellers .seller').length,
-        noSellers = '<p><em>Your block list is empty.</em></p>';
+        noSellers = '<p><em>Your favorite list is empty.</em></p>';
 
     if ( !sellers ) {
       document.querySelector('.blocked-sellers').insertAdjacentHTML('beforeend', noSellers);
       document.querySelector('.backup-output').textContent = '';
-      document.querySelector('.backup-instructions').textContent = 'You can backup your block list once you add at least one seller to your list using the form above.';
+      document.querySelector('.backup-instructions').textContent = 'You can backup your favorites list once you add at least one seller to your list using the form above.';
     }
   }
 
   /**
-   * Iterates over the blockList object and injects
+   * Iterates over the favoriteList object and injects
    * each name as markup into the DOM
    * @returns {undefined}
    */
   function insertSellersIntoDOM() {
 
-    blockList.list.forEach(seller => {
+    favoriteList.list.forEach(seller => {
 
       let node = document.createElement('div'),
           sellers = document.getElementById('blocked-sellers');
@@ -115,15 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    blockList.list.forEach((seller, i) => {
+    favoriteList.list.forEach((seller, i) => {
 
       if ( targetName === seller ) {
 
-        blockList.list.splice(i, 1);
+        favoriteList.list.splice(i, 1);
 
-        blockList = JSON.stringify(blockList);
+        favoriteList = JSON.stringify(favoriteList);
 
-        localStorage.setItem('blockList', blockList);
+        localStorage.setItem('favoriteList', favoriteList);
 
         return setTimeout(() => updatePageData(), 400);
       }
@@ -131,18 +131,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Instantiates a new blocklist object
+   * Instantiates a new favoriteList object
    * @returns {object}
    */
-  function setNewBlocklist() {
+  function setNewfavoriteList() {
 
-    localStorage.setItem('blockList', '{"list":[], "hide": "tag"}');
+    localStorage.setItem('favoriteList', '{"list":[]}');
 
-    return JSON.parse(localStorage.getItem('blockList'));
+    return JSON.parse(localStorage.getItem('favoriteList'));
   }
 
   /**
    * Show error if seller is already on the list
+   * @param {string} message The message to show in the error
    * @returns {undefined}
    */
   function showError(message) {
@@ -153,33 +154,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Updates the blocked sellers and the restore array data
+   * Updates the favorite sellers and the restore array data
    * on the page without refreshing.
    * @returns {undefined}
    */
   function updatePageData() {
 
-    blockList = JSON.parse(localStorage.getItem('blockList'));
+    favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
     // remove all the sellers from the DOM
     [...document.getElementsByClassName('seller')].forEach(s => s.remove());
-    // Add them back in with the newly updated blocklist data
+    // Add them back in with the newly updated favoriteList data
     insertSellersIntoDOM();
     // reattach event listerns to sellers
     addSellerEventListeners();
     // update backup/restore output
-    document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
+    document.querySelector('.backup-output').textContent = JSON.stringify(favoriteList.list);
     // check for empty list
     checkForEmptySellersList();
   }
 
   /**
    * Validates the input value from the restore section by
-   * checking that it is first parseable and second an Array
+   * checking that it is (first) parseable and (second) an Array
    * with strings in each index.
-   * @param  {string} list The block list passed in from localStorage
+   * @param  {string} list The favorite list passed in from localStorage
    * @returns {boolean}
    */
-  function validateBlocklist(list) {
+  function validatefavoriteList(list) {
 
     let isValid = false;
 
@@ -203,39 +204,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // UI Functionality
   // ========================================================
 
-  // Add name to block list
+  // Add name to favorite list
   document.querySelector('.btn-green').addEventListener('click', () => {
 
     let input = document.getElementById('seller-input').value;
 
-    if ( input && !blockList.list.includes(input) ) {
+    if ( input && !favoriteList.list.includes(input) && !blockList.list.includes(input) ) {
 
       addSellerToList();
 
       return location.reload();
 
-    } else if ( blockList.list.includes(input) ) {
-
-      return showError(blockListError);
-
     } else if ( favoriteList.list.includes(input) ) {
 
       return showError(favoriteListError);
+
+    } else if ( blockList.list.includes(input) ) {
+
+      return showError(blocklistError);
     }
-  });
-
-  // Radiobutton listener
-  document.getElementById('block-prefs').addEventListener('change', event => {
-
-    blockList = JSON.parse(localStorage.getItem('blockList'));
-
-    blockList.hide = event.target.value;
-
-    blockList = JSON.stringify(blockList);
-
-    localStorage.setItem('blockList', blockList);
-
-    return location.reload();
   });
 
   // Restore functionality
@@ -243,14 +230,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let list = document.querySelector('.restore-input').value;
 
-    if ( validateBlocklist(list) ) {
+    if ( validatefavoriteList(list) ) {
 
       let restore = {
-                      list: JSON.parse(list),
-                      hide: 'tag'
-                    };
+        list: JSON.parse(list),
+        hide: 'tag'
+      };
 
-      localStorage.setItem('blockList', JSON.stringify(restore));
+      localStorage.setItem('favoriteList', JSON.stringify(restore));
 
       return location.reload();
 
@@ -266,20 +253,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let input = document.getElementById('seller-input').value;
 
     // Enter key is pressed
-    if ( e.which === 13 && input && !blockList.list.includes(input) ) {
+    if ( e.which === 13 && input && !favoriteList.list.includes(input) ) {
 
       addSellerToList();
 
       return location.reload();
 
-    // name is already on the list
-    } else if ( blockList.list.includes(input) ) {
-
-      return showError(blockListError);
-
+      // name is already on the list
     } else if ( favoriteList.list.includes(input) ) {
 
       return showError(favoriteListError);
+
+    } else if (blockList.list.includes(input)) {
+
+        return showError(blocklistError);
 
     } else {
 
@@ -291,22 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
   // DOM setup
   // ========================================================
-
-  // Select the radio button on page load
-  switch ( blockList.hide ) {
-
-    case 'tag' :
-      document.getElementById('tagSellers').checked = true;
-      break;
-
-    case 'global' :
-      document.getElementById('hideSellers').checked = true;
-      break;
-
-    case 'marketplace' :
-      document.getElementById('showOnRelease').checked = true;
-      break;
-  }
 
   // Focus on input
   document.getElementById('seller-input').focus();

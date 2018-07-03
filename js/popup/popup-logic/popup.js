@@ -56,6 +56,7 @@ window.addEventListener('load', () => {
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
+      toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterByCondition = document.getElementById('toggleFilterByCondition'),
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
@@ -128,6 +129,12 @@ window.addEventListener('load', () => {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
+  // Open Favorite Sellers Configuration page
+  // ========================================================
+  document.getElementById('editFavList').addEventListener('click', function() {
+    chrome.tabs.create({url: '../html/favorite-sellers.html'});
+  });
+
   // Open Readability Configuration page
   // ========================================================
   document.getElementById('editReadability').addEventListener('click', function() {
@@ -176,6 +183,7 @@ window.addEventListener('load', () => {
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
+  toggleFavoriteSellers.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCondition.addEventListener('change', filterByCondition.toggleHideConditions);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
@@ -238,6 +246,7 @@ window.addEventListener('load', () => {
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
+      toggleFavoriteSellers.checked = result.prefs.favoriteSellers;
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterByCondition.checked = result.prefs.filterByCondition;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;

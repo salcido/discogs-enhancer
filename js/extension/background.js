@@ -59,6 +59,7 @@ chrome.storage.sync.get('prefs', function(result) {
       converter: true,
       darkTheme: false,
       everlastingMarket: true,
+      favoriteSellers: true,
       feedback: false,
       filterByCondition: false,
       filterByConditionValue: null,
@@ -343,6 +344,27 @@ chrome.storage.sync.get('prefs', function(result) {
     everlastingMarketCss.href = chrome.extension.getURL('css/everlasting-marketplace.css');
 
     elems.push(everlastingMarketCss);
+  }
+
+  if (result.prefs.favoriteSellers) {
+
+    // favorite-sellers.js
+    let favoriteSellers = document.createElement('script');
+
+    favoriteSellers.type = 'text/javascript';
+    favoriteSellers.src = chrome.extension.getURL('js/extension/features/favorite-sellers.js');
+    favoriteSellers.className = 'de-init';
+
+    elems.push(favoriteSellers);
+
+    // favorite-sellers.css
+    let favoriteSellers_css = document.createElement('link');
+
+    favoriteSellers_css.rel = 'stylesheet';
+    favoriteSellers_css.type = 'text/css';
+    favoriteSellers_css.href = chrome.extension.getURL('css/favorite-sellers.css');
+
+    elems.push(favoriteSellers_css);
   }
 
   if (result.prefs.feedback) {
@@ -943,6 +965,16 @@ try {
     blockList = JSON.stringify(blockList);
 
     localStorage.setItem('blockList', blockList);
+  });
+
+  // Favorite Sellers
+  chrome.runtime.sendMessage({request: 'getFavoriteSellers'}, function(response) {
+
+    let favoriteList = response.favoriteList;
+
+    favoriteList = JSON.stringify(favoriteList);
+
+    localStorage.setItem('favoriteList', favoriteList);
   });
 
   // Filter by Country

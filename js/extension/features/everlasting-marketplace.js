@@ -98,7 +98,8 @@ resourceLibrary.ready(() => {
      */
     function callOtherMarketplaceFeatures() {
 
-      let blockList = JSON.parse(localStorage.getItem('blockList')) || null;
+      let blockList = JSON.parse(localStorage.getItem('blockList')) || null,
+          favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null;
 
       // apply Marketplace Highlights
       if ( window.applyStyles ) { window.applyStyles(); }
@@ -115,6 +116,11 @@ resourceLibrary.ready(() => {
 
       if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
         window.modifySellers('tag');
+      }
+
+      // Favorite sellers
+      if ( favoriteList && window.favoriteSellers ) {
+        window.favoriteSellers();
       }
 
       // filter marketplace item by condition

@@ -26,6 +26,7 @@ module.exports = {
   [features + 'currency-converter']: `${features}currency-converter.js`,
   [features + 'everlasting-marketplace-release-page']: `${features}everlasting-marketplace-release-page.js`,
   [features + 'everlasting-marketplace']: `${features}everlasting-marketplace.js`,
+  [features + 'favorite-sellers']: `${features}favorite-sellers.js`,
   [features + 'feedback-notifier']: `${features}feedback-notifier.js`,
   [features + 'filter-by-condition']: `${features}filter-by-condition.js`,
   [features + 'filter-by-country']: `${features}filter-by-country.js`,
@@ -53,6 +54,7 @@ module.exports = {
   [features + 'tracklist-readability']: `${features}tracklist-readability.js`,
   // popup configs
   [config + 'blocked-sellers']: `${config}blocked-sellers.js`,
+  [config + 'favorite-sellers']: `${config}favorite-sellers.js`,
   [config + 'learn']: `${config}learn.js`,
   [config + 'readability']: `${config}readability.js`,
   },

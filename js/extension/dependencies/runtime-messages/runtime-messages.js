@@ -56,6 +56,15 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
     }
 
+    // favorite sellers
+    case 'getFavoriteSellers': {
+
+      let favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+
+      sendResponse({favoriteList: favoriteList});
+      break;
+    }
+
     // filter by country
     case 'filterByCountry': {
 
