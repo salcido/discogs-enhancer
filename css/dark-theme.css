@@ -92,7 +92,10 @@ a i,
 a.sortable-link span,
 a.sortable-link:visited i.icon,
 a span.rating_count,
-span.marketplace_for_sale_count a strong {
+span.marketplace_for_sale_count a strong,
+a .tracklist_track_title,
+.FacetGroup a span,
+#track-release a span {
   color: #809BBE !important;
 }
 
@@ -112,7 +115,10 @@ a:visited:not(.button) i,
 a:visited span.rating_count,
 .pagination_page_links a:visited,
 .row_actions a:hover *
-span.marketplace_for_sale_count a:visited strong {
+span.marketplace_for_sale_count a:visited strong,
+a:visited .tracklist_track_title,
+.FacetGroup a:visited span,
+#track-release a:visited span {
   color: #A590D0 !important; /* OG: #7d65ae*/
 }
 
@@ -125,7 +131,10 @@ a:hover span.rating_count,
 .pagination_page_links a:hover i,
 #site_footer_list li a:hover i,
 .row_actions a:hover *,
-span.marketplace_for_sale_count a:hover strong {
+span.marketplace_for_sale_count a:hover strong,
+a:hover .tracklist_track_title,
+.FacetGroup a:hover span,
+#track-release a:hover span {
   color: #CAE0FA !important;
 }
 
@@ -1878,7 +1887,9 @@ i.icon-google-plus {
   color: #ccc !important;
 }
 
-.tracks-beta-banner .open-survey-modal i {
+.tracks-beta-banner .open-survey-modal i,
+.FacetGroup .facet_count,
+.FacetGroup a:hover .facet_count {
   color: #ccc !important;
 }
 
