@@ -51,11 +51,21 @@ resourceLibrary.ready(() => {
       // Tag any sellers below threshold
       ratings.forEach((rating, i) => {
 
+        let seller_info = document.getElementsByClassName('seller_info');
+
         // if you want to tag new sellers as well change this to:
         // if ( rating < threshold ) {
-        if ( rating && rating < threshold ) {
+        if ( rating
+             && rating < threshold
+             && !seller_info[i].querySelector('.de-seller-rep-icon') ) {
 
-          document.getElementsByClassName('seller_info')[i].classList.add('de-seller-rep');
+          let icon = document.createElement('span');
+
+          icon.className = 'de-seller-rep-icon';
+
+          seller_info[i].classList.add('de-seller-rep');
+          seller_info[i].querySelector('li:first-child')
+                        .insertAdjacentElement('beforeend', icon);
         }
       });
     };

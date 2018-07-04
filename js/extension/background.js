@@ -533,13 +533,21 @@ chrome.storage.sync.get('prefs', function(result) {
       sellerRepCss.rel = 'stylesheet';
       sellerRepCss.type = 'text/css';
       sellerRepCss.textContent = `.de-seller-rep ul li i,
-                                  .de-seller-rep ul li strong,
-                                  .de-seller-rep ul li:not(:last-child) strong a {
+                                  .de-seller-rep ul li strong {
                                     color: ${color} !important;
                                   }`;
 
       appendFragment( [sellerRepCss] );
     });
+
+    let seller_rep_css = document.createElement('link');
+
+    seller_rep_css.rel = 'stylesheet';
+    seller_rep_css.type = 'text/css';
+    seller_rep_css.href = chrome.extension.getURL('css/seller-rep.css');
+    seller_rep_css.id = 'seller_rep_css';
+
+    elems.push(seller_rep_css);
 
     // seller-rep.js
     let sellerRep = document.createElement('script');
