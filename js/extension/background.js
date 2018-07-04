@@ -237,7 +237,7 @@ chrome.storage.sync.get('prefs', function(result) {
     let blockSellers = document.createElement('script');
 
     blockSellers.type = 'text/javascript';
-    blockSellers.src = chrome.extension.getURL('js/extension/features/hide-blocked-sellers.js');
+    blockSellers.src = chrome.extension.getURL('js/extension/features/block-sellers.js');
     blockSellers.className = 'de-init';
 
     elems.push(blockSellers);

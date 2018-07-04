@@ -21,6 +21,7 @@ module.exports = {
   // features files
   [features + 'apply-highlights']: `${features}apply-highlights.js`,
   [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
+  [features + 'block-sellers']: `${features}block-sellers.js`,
   [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
   /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
   [features + 'currency-converter']: `${features}currency-converter.js`,
@@ -31,7 +32,6 @@ module.exports = {
   [features + 'filter-by-condition']: `${features}filter-by-condition.js`,
   [features + 'filter-by-country']: `${features}filter-by-country.js`,
   [features + 'friend-counter']: `${features}friend-counter.js`,
-  [features + 'hide-blocked-sellers']: `${features}hide-blocked-sellers.js`,
   [features + 'highlight-comments']: `${features}highlight-comments.js`,
   [features + 'notes-counter']: `${features}notes-counter.js`,
   [features + 'random-item']: `${features}random-item.js`,

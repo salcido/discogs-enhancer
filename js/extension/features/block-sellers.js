@@ -50,7 +50,7 @@ resourceLibrary.ready(() => {
 
       elem.addEventListener('click', () => {
 
-        resourceLibrary.xhrSuccess(window.modifySellers(type));
+        resourceLibrary.xhrSuccess(window.blockSellers(type));
       });
     });
   }
@@ -58,12 +58,12 @@ resourceLibrary.ready(() => {
   /**
    * Find all instances of sellers in list and hide them
    *
-   * @method modifySellers
+   * @method blockSellers
    * @param {String} type Either 'hide' or 'tag'
    * @return {function}
    */
 
-  window.modifySellers = function modifySellers(type) {
+  window.blockSellers = function blockSellers(type) {
 
     let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
 
@@ -103,7 +103,7 @@ resourceLibrary.ready(() => {
 
         if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
-          window.modifySellers('hide');
+          window.blockSellers('hide');
         }
         return;
 
@@ -113,11 +113,11 @@ resourceLibrary.ready(() => {
 
         if ( wantsPage ) {
 
-          window.modifySellers('hide');
+          window.blockSellers('hide');
 
         } else if ( sellRelease || sellPage || sellerPage ) {
 
-          window.modifySellers('tag');
+          window.blockSellers('tag');
         }
         return;
 
@@ -127,7 +127,7 @@ resourceLibrary.ready(() => {
 
         if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
-          window.modifySellers('tag');
+          window.blockSellers('tag');
         }
         return;
     }
