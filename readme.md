@@ -44,6 +44,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 ### Features
 
 * Block Sellers
+* Favorite Sellers
 * Compare Suggested Prices
 * Contextual Menu Searching
 * Quick Currency Converter
