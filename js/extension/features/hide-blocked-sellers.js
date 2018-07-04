@@ -73,9 +73,14 @@ resourceLibrary.ready(() => {
 
       sellerNames.forEach(name => {
 
-        if ( name.textContent.includes(seller) ) {
+        if ( name.textContent.includes(seller)
+             && !name.querySelector('.de-blocked-seller-icon') ) {
+
+          let icon = document.createElement('span');
+          icon.className = 'de-blocked-seller-icon';
 
           name.parentElement.parentElement.parentElement.classList.add(_class);
+          name.insertAdjacentElement('beforeend', icon);
         }
       });
     });
