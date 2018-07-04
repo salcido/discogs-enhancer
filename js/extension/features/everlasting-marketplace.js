@@ -108,14 +108,14 @@ resourceLibrary.ready(() => {
       if ( window.injectPriceLinks ) { window.injectPriceLinks(); }
 
       // Hide/tag sellers in marketplace
-      if ( blockList && blockList.hide === 'global' && window.modifySellers ||
-           blockList && blockList.hide === 'marketplace' && window.modifySellers ) {
+      if ( blockList && blockList.hide === 'global' && window.blockSellers ||
+           blockList && blockList.hide === 'marketplace' && window.blockSellers ) {
 
-        window.modifySellers('hide');
+        window.blockSellers('hide');
       }
 
-      if ( blockList && blockList.hide === 'tag' && window.modifySellers ) {
-        window.modifySellers('tag');
+      if ( blockList && blockList.hide === 'tag' && window.blockSellers ) {
+        window.blockSellers('tag');
       }
 
       // Favorite sellers
