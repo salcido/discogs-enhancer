@@ -11,7 +11,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   let blockList = JSON.parse(localStorage.getItem('blockList')) || setNewBlocklist(),
-      favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null,
+      favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || { list:[] },
       favoriteListError = 'is on your favorites list. You must remove them from your favorites list before adding them to the block list.',
       blockListError = 'is already on your block list.';
 
