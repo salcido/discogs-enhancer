@@ -64,6 +64,7 @@ resourceLibrary.ready(() => {
           let icon = document.createElement('span');
 
           icon.className = 'de-seller-rep-icon';
+          icon.title = 'Seller Reputation Warning';
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')

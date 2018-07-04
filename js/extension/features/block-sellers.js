@@ -78,6 +78,7 @@ resourceLibrary.ready(() => {
 
           let icon = document.createElement('span');
           icon.className = 'de-blocked-seller-icon';
+          icon.title = 'Blocked Seller';
 
           name.parentElement.parentElement.parentElement.classList.add(_class);
           name.insertAdjacentElement('beforeend', icon);

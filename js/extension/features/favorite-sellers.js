@@ -76,6 +76,7 @@ resourceLibrary.ready(() => {
           let icon = document.createElement('span');
 
           icon.className = 'de-favorite-seller';
+          icon.title = 'Favorite Seller';
           name.insertAdjacentElement('beforeend', icon);
         }
       });
