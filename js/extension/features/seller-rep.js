@@ -37,8 +37,8 @@ resourceLibrary.ready(() => {
 
     /**
      * Finds all the seller's reputation scores in the DOM and
-     * adds a `de-seller-rep` class to them if necessary
-     * TODO: delete old CSS file
+     * adds a `de-seller-rep` class to them if necessary. Also
+     * injects the seller-rep icon into the DOM.
      * @method sellersRep
      * @return {undefined}
      */
