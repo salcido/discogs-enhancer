@@ -57,6 +57,7 @@ resourceLibrary.ready(() => {
         // if ( rating < threshold ) {
         if ( rating
              && rating < threshold
+             && !seller_info[i].querySelector('.de-blocked-seller-icon')
              && !seller_info[i].querySelector('.de-seller-rep-icon') ) {
 
           let icon = document.createElement('span');
