@@ -1980,3 +1980,8 @@ textarea[disabled],
 .default-image-as-icon {
   background-color: #292929 !important;
 }
+
+/* Sound preview buttons */
+a.sound_preview strong {
+  color: #454545 !important;
+}
