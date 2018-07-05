@@ -1366,6 +1366,11 @@ pre code {
   line-height: 20px !important;
 }
 
+.alert-message-announcement.alert-message .icon.icon-times {
+  background: none !important;
+  color: #ccc !important;
+}
+
 /* buttons with icons in added to collection banner */
 .alert-message.alert-message-info .button.button-small.needs_delegated_tooltip i.icon,
 .alert-message.alert-message-info .button.button-green i.icon {
