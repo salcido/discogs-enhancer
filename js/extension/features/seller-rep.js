@@ -66,7 +66,7 @@ resourceLibrary.ready(() => {
               repValue = localStorage.getItem('sellerRep');
 
           icon.className = 'de-seller-rep-icon';
-          icon.title = `${name}'s seller reputation is below ${repValue}.`;
+          icon.title = `${name}'s seller reputation is below ${repValue}%`;
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
