@@ -61,10 +61,12 @@ resourceLibrary.ready(() => {
              && !seller_info[i].querySelector('.de-favorite-seller')
              && !seller_info[i].querySelector('.de-seller-rep-icon') ) {
 
-          let icon = document.createElement('span');
+          let icon = document.createElement('span'),
+              name = seller_info[i].querySelector('ul li:first-child a').textContent,
+              repValue = localStorage.getItem('sellerRep');
 
           icon.className = 'de-seller-rep-icon';
-          icon.title = 'Seller Reputation Warning';
+          icon.title = `${name}'s seller reputation is below ${repValue}.`;
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
