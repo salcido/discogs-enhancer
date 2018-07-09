@@ -16,7 +16,6 @@ resourceLibrary.ready(() => {
 
     let blackBar,
         hasLoaded = false,
-
         pagination,
         pTotal,
         page = 2,
@@ -24,7 +23,7 @@ resourceLibrary.ready(() => {
         username = document.querySelector('img.user_image').alt;
 
     // ========================================================
-    // Functions
+    // Functions (Alphabetical)
     // ========================================================
 
     /**
@@ -52,44 +51,6 @@ resourceLibrary.ready(() => {
 
         return getNextPage();
       });
-    }
-
-    /**
-     * Gets the next page of the collection
-     * @returns {method}
-     */
-    async function getNextPage() {
-
-      try {
-
-        let url = `https://www.discogs.com/user/${username}/collection?page=${page}${resourceLibrary.removePageParam(href)}`,
-            data = await fetch(`${url}`, { credentials: 'include' }),
-            response = await data.text(),
-            tr = '#collection tbody tr',
-            div = document.createElement('div'),
-            loader = document.querySelector('#de-next'),
-            markup,
-            noItems = '<h1 class="de-no-results">No more items for sale found</h1>';
-
-        div.innerHTML = response;
-        markup = div.querySelectorAll(tr);
-
-        if ( markup.length ) {
-
-          appendCollectionData(markup);
-
-        } else {
-
-          loader.remove();
-          document.querySelector('#collection tbody:last-child').insertAdjacentHTML('beforeend', noItems);
-        }
-
-        page++;
-        hasLoaded = false;
-
-      } catch (err) {
-        return console.log('Error getting next page of collection', err);
-      }
     }
 
     /**
@@ -168,6 +129,44 @@ resourceLibrary.ready(() => {
       }
     }
 
+    /**
+     * Gets the next page of the collection
+     * @returns {method}
+     */
+    async function getNextPage() {
+
+      try {
+
+        let url = `https://www.discogs.com/user/${username}/collection?page=${page}${resourceLibrary.removePageParam(href)}`,
+            data = await fetch(`${url}`, { credentials: 'include' }),
+            response = await data.text(),
+            tr = '#collection tbody tr',
+            div = document.createElement('div'),
+            loader = document.querySelector('#de-next'),
+            markup,
+            noItems = '<h1 class="de-no-results">No more items for sale found</h1>';
+
+        div.innerHTML = response;
+        markup = div.querySelectorAll(tr);
+
+        if ( markup.length ) {
+
+          appendCollectionData(markup);
+
+        } else {
+
+          loader.remove();
+          document.querySelector('#collection tbody:last-child').insertAdjacentHTML('beforeend', noItems);
+        }
+
+        page++;
+        hasLoaded = false;
+
+      } catch (err) {
+        return console.log('Error getting next page of collection', err);
+      }
+    }
+
     // ========================================================
     // DOM Setup / Init
     // ========================================================
@@ -184,7 +183,7 @@ resourceLibrary.ready(() => {
                     <span class="de-page de-page-num">Page: 1</span>
                     <span> ${pTotal} results</span>
                   </span>
-                  <a href="#" id="de-update-filters">Add or remove filters</a>
+                  <a href="#" id="de-update-filters">Back to top</a>
                   <div class="de-select-wrap">
                     <span>Scroll to: &nbsp;</span>
                     <select class="de-scroll-to-page">
