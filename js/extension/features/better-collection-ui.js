@@ -19,7 +19,8 @@ resourceLibrary.ready(() => {
 
     let int = setInterval(() => {
 
-      if ( document.getElementById('move_folder_id_bottom').length ) {
+      if ( document.getElementById('move_folder_id_bottom')
+           && document.getElementById('move_folder_id_bottom').length ) {
 
         clearInterval(int);
 
