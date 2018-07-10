@@ -10,9 +10,10 @@
 resourceLibrary.ready(() => {
 
   let href = window.location.href,
+      reactApp = document.querySelector('#CollectionApp'),
       layout = resourceLibrary.getCookie('rl_layout');
 
-  if ( href.includes('/collection') ) {
+  if ( href.includes('/collection') && layout !== 'big' &&  !reactApp ) {
 
     let blackBar,
         hasLoaded = false,
