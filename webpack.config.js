@@ -25,6 +25,7 @@ module.exports = {
   [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
   /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
   [features + 'currency-converter']: `${features}currency-converter.js`,
+  [features + 'everlasting-collection-sm-med']: `${features}everlasting-collection-sm-med.js`,
   [features + 'everlasting-marketplace-release-page']: `${features}everlasting-marketplace-release-page.js`,
   [features + 'everlasting-marketplace']: `${features}everlasting-marketplace.js`,
   [features + 'favorite-sellers']: `${features}favorite-sellers.js`,

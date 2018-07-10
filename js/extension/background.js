@@ -58,6 +58,7 @@ chrome.storage.sync.get('prefs', function(result) {
       collectionUi: true,
       converter: true,
       darkTheme: false,
+      everlastingCollection: false,
       everlastingMarket: true,
       favoriteSellers: true,
       feedback: false,
@@ -318,6 +319,29 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(options);
   }
 
+  // everlasting collection
+  if ( result.prefs.everlastingCollection ) {
+
+    // everlasting-collection-sm-med.js
+    let everlastingCollection = document.createElement('script');
+
+    everlastingCollection.type = 'text/javascript';
+    everlastingCollection.src = chrome.extension.getURL('js/extension/features/everlasting-collection-sm-med.js');
+    everlastingCollection.className = 'de-init';
+
+    elems.push(everlastingCollection);
+
+    // everlasting-collection.css
+    let everlastingCollectionCss = document.createElement('link');
+
+    everlastingCollectionCss.rel = 'stylesheet';
+    everlastingCollectionCss.type = 'text/css';
+    everlastingCollectionCss.href = chrome.extension.getURL('css/everlasting-collection.css');
+
+    elems.push(everlastingCollectionCss);
+  }
+
+  // everlasting marketplace
   if (result.prefs.everlastingMarket) {
 
     // everlasting-marketplace.js && everlasting-marketplace-release-page.js
