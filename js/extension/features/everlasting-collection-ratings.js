@@ -42,14 +42,10 @@ window.addRatingListeners = function addRatingListeners() {
 
 	// 'x' icon on rated items
 	window.removeRatings = removeRatings.forEach(x => {
-		x.addEventListener('click', event => {
-
-			let nums = /\d+/g,
-					releaseId = event.target.closest('.rating').dataset.postUrl.match(nums)[0],
-					rating = event.target.dataset.value;
-
-			window.postRating(releaseId, rating, event);
-		});
+		// Remove any previous event listeners first so that
+		// multiple reqeusts are not made
+		x.removeEventListener('click', window.saveRating);
+		x.addEventListener('click', window.saveRating);
 	});
 };
 
@@ -64,22 +60,18 @@ window.addStarListeners = function addStarListeners() {
 	let stars = [...document.querySelectorAll('.de-rating-icons .rating_range .star')];
 
 	stars.forEach(star => {
+		// Remove any previous event listeners first so that
+		// multiple reqeusts are not made
+		star.removeEventListener('click', window.saveRating);
 		star.addEventListener('mouseover', event => {
-
+			console.log('hi');
 			let rating = window.getRatingClass(event.target);
 
 			window.removeStarClass(event.target.closest('.rating_range'));
 			star.closest('.rating_range').classList.add(`fill${rating}`);
 		});
 
-		star.addEventListener('click', event => {
-
-			let nums = /\d+/g,
-					releaseId = event.target.closest('.rating').dataset.postUrl.match(nums)[0],
-					rating = event.target.dataset.value;
-
-			window.postRating(releaseId, rating, event);
-		});
+		star.addEventListener('click', window.saveRating);
 	});
 };
 
@@ -165,6 +157,20 @@ window.removeStarClass = function removeStarClass(elem) {
 	for (let i = 0; i <= 5; i++) {
 		elem.classList.remove(`fill${i}`);
 	}
+};
+
+/**
+ * Initiates the POST to discogs with the new rating data
+ * @param {object} event The event object
+ * @returns {undefined}
+ */
+window.saveRating = function saveRating(event) {
+
+	let nums = /\d+/g,
+			releaseId = event.target.closest('.rating').dataset.postUrl.match(nums)[0],
+			rating = event.target.dataset.value;
+
+	window.postRating(releaseId, rating, event);
 };
 
 /**
