@@ -140,4 +140,4 @@ resourceLibrary.ready(() => {
 // ========================================================
 // DOM Setup / Init
 // ========================================================
-window.addNotesCounter();
+setTimeout(() => { window.addNotesCounter(); }, 100);
