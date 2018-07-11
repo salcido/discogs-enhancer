@@ -7,8 +7,6 @@
  * @github: https://github.com/salcido
  */
 
-// TODO: fix notes counter
-
 // ========================================================
 // All of these functions are used with the Everlasting
 // Collection feature. When appending new sets of pages
@@ -117,8 +115,15 @@ window.postNotes = async function postNotes(notesData, event) {
         target = event.target.closest('.notes_field');
 
     target.classList.remove('notes_editing');
-    target.classList.remove('notes_not_edited');
-    target.classList.add('notes_edited');
+
+    // Add the appropriate classes depending on what was edited
+    if ( !res.html ) {
+      target.classList.add('notes_not_edited');
+      target.classList.remove('notes_edited');
+    } else {
+      target.classList.remove('notes_not_edited');
+      target.classList.add('notes_edited');
+    }
 
     target.querySelector('.notes_text').dataset.content = res.content;
     target.querySelector('.notes_text').innerHTML = res.html;
@@ -144,7 +149,7 @@ window.saveNotes = function saveNotes(event) {
 
   let colId = event.target.closest('.notes_field').dataset.collId,
       fieldId = event.target.closest('.notes_field').dataset.field,
-      folderId = null, // TODO: what is this value for?
+      folderId, // TODO: what is this value for?
       val = event.target.closest('.notes_field').querySelector('.notes_textarea').value,
       notes = event.target.closest('.notes_field').querySelector('.notes_textarea').value,
       notesObj = {
