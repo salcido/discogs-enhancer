@@ -17,6 +17,8 @@ resourceLibrary.ready(() => {
 
     let blackBar,
         hasLoaded = false,
+        max = document.querySelector('.pagination.bottom li a.pagination_next')
+                      .parentElement.previousElementSibling.textContent.trim(),
         pagination,
         pTotal,
         page = 2,
@@ -151,7 +153,7 @@ resourceLibrary.ready(() => {
             div = document.createElement('div'),
             loader = document.querySelector('#de-next'),
             markup,
-            noItems = '<h1 class="de-no-results">No more items for sale found</h1>',
+            noItems = '<h1 class="de-no-results">End of collection</h1>',
             notes;
 
         div.innerHTML = response;
@@ -160,15 +162,20 @@ resourceLibrary.ready(() => {
         notes.forEach(note => note.classList.add('de-notes-show'));
         // Select subset of markup to pass into DOM
         markup = div.querySelectorAll(tr);
-
-        if ( markup.length ) {
+        /*
+          If the requested page number exceeds the total number of requestable
+          pages, Discogs will return the first page of the collection. So check
+          the page request number against the total number of pages and append
+          a notice if we've reached the end.
+        */
+        if ( page <= Number(max) ) {
 
           appendCollectionData(markup);
 
         } else {
 
           loader.remove();
-          document.querySelector('#collection tbody:last-child').insertAdjacentHTML('beforeend', noItems);
+          document.querySelector('#collection table').insertAdjacentHTML('afterend', noItems);
         }
 
         page++;
