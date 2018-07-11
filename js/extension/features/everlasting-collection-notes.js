@@ -8,6 +8,7 @@
  */
 
 // TODO: fix notes counter
+// TODO: Alphabetize functions
 
 /**
  * Adds click event listeners to each `.de-notes-show`
@@ -15,6 +16,7 @@
  * @returns {undefined}
  */
 window.addNoteListeners = function addNoteListeners() {
+
   let notes = [...document.querySelectorAll('.de-notes-show')];
 
   notes.forEach(note => {
@@ -48,11 +50,12 @@ window.openNoteField = function openNoteField(event) {
  * @returns {undefined}
  */
 window.addCancelListeners = function addCancelListeners(event) {
+
   let target = event.target.closest('.notes_field').querySelector('#notes_edit_cancel');
   // Remove any previous event listeners first so that
   // multiple reqeusts are not made
-  target.removeEventListener('click', window.cancel);
-  target.addEventListener('click', window.cancel);
+  target.removeEventListener('click', window.cancelNotes);
+  target.addEventListener('click', window.cancelNotes);
 };
 
 /**
@@ -61,7 +64,7 @@ window.addCancelListeners = function addCancelListeners(event) {
  * @param {object} event The event object
  * @returns {undefined}
  */
-window.cancel = function cancel(event) {
+window.cancelNotes = function cancelNotes(event) {
   event.target.closest('.notes_field').classList.remove('notes_editing');
 };
 
@@ -74,8 +77,8 @@ window.addSaveListeners = function addSaveListeners(event) {
   let target = event.target.closest('.notes_field').querySelector('#notes_edit_save');
   // Remove any previous event listeners first so that
   // multiple reqeusts are not made
-  target.removeEventListener('click', window.save);
-  target.addEventListener('click', window.save);
+  target.removeEventListener('click', window.saveNotes);
+  target.addEventListener('click', window.saveNotes);
 };
 
 /**
@@ -83,7 +86,7 @@ window.addSaveListeners = function addSaveListeners(event) {
  * @param {object} event The event object
  * @returns {method}
  */
-window.save = function save(event) {
+window.saveNotes = function saveNotes(event) {
 
   let colId = event.target.closest('.notes_field').dataset.collId,
       fieldId = event.target.closest('.notes_field').dataset.field,
@@ -114,7 +117,7 @@ window.queryString = function queryString(obj) {
 
 /**
  * Sends the new notes data to Discogs
- * @returns {assignment}
+ * @returns {undefined}
  */
 window.postNotes = async function postNotes(notesData, event) {
 
@@ -131,10 +134,15 @@ window.postNotes = async function postNotes(notesData, event) {
 			response = await fetch(url, initObj);
 
 	if ( response.ok ) {
-    let res = await response.json();
-    console.log('SAVED', res);
-    event.target.closest('.notes_field').classList.remove('notes_editing');
-    event.target.closest('.notes_field').querySelector('.notes_text').dataset.content = res.content;
-    return event.target.closest('.notes_field').querySelector('.notes_text').innerHTML = res.html;
+
+    let res = await response.json(),
+        target = event.target.closest('.notes_field');
+
+    target.classList.remove('notes_editing');
+    target.classList.remove('notes_not_edited');
+    target.classList.add('notes_edited');
+
+    target.querySelector('.notes_text').dataset.content = res.content;
+    target.querySelector('.notes_text').innerHTML = res.html;
 	}
 };
