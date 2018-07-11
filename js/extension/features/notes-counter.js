@@ -22,56 +22,74 @@
 
 resourceLibrary.ready(() => {
 
-  let notes = [...document.querySelectorAll('.notes_show, .notes_text')];
+  // ========================================================
+  // Functions
+  // ========================================================
 
-  notes.forEach(elem => {
+  /**
+   * Adds and removes the notes counter listeners
+   * @returns {undefined}
+   */
+  window.addNotesCounter = function addNotesCounter() {
 
-    elem.addEventListener('click', () => {
+    let notes = [...document.querySelectorAll('.notes_show, .notes_text')];
 
-      let count;
-
-      // Wait for text field to be rendered in the DOM before
-      // looking for its length value
-      setTimeout(() => {
-
-        let focus = document.querySelector(':focus');
-
-        if ( focus ) {
-
-          let noteValue = focus.value,
-              s = document.createElement('span'),
-              siblings = [...focus.parentNode.childNodes];
-
-          // Look for existing count spans and remove them if necessary
-          siblings.forEach(el => {
-
-            if ( el
-                 && el.classList
-                 && el.classList.contains('de-notes-count') ) {
-
-              el.remove();
-            }
-          });
-
-          // This is necessary to prevent logging an error if
-          // a focused element does not have a value
-          // e.g.: Folder or Media/Sleeve Condition (select elements)
-          count = noteValue ? noteValue.length : '0';
-
-          // append the current character count from field
-          s.className = 'de-notes-count';
-          s.style = 'display:inline-block; padding:3px;';
-          s.textContent = `${count} / 255`;
-
-          focus.parentElement.appendChild(s);
-
-        } else {
-
-          return;
-        }
-      }, 100);
+    notes.forEach(elem => {
+      // Remove existing listeners to as not to duplicate them
+      elem.removeEventListener('click', window.activateNotesCounter);
+      elem.addEventListener('click', window.activateNotesCounter);
     });
-  });
+  };
+
+  /**
+   * Activates the notes counter when a note field is clicked
+   * @returns {undefined}
+   */
+  window.activateNotesCounter = function activateNotesCounter() {
+
+    let count;
+    // Wait for text field to be rendered in the DOM before
+    // looking for its length value
+    setTimeout(() => {
+
+      let focus = document.querySelector(':focus');
+
+      if ( focus ) {
+
+        let noteValue = focus.value,
+            s = document.createElement('span'),
+            siblings = [...focus.parentNode.childNodes];
+
+        // Look for existing count spans and remove them if necessary
+        siblings.forEach(el => {
+
+          if ( el
+               && el.classList
+               && el.classList.contains('de-notes-count') ) {
+
+            el.remove();
+          }
+        });
+
+        // This is necessary to prevent logging an error if
+        // a focused element does not have a value
+        // e.g.: Folder or Media/Sleeve Condition (select elements)
+        count = noteValue ? noteValue.length : '0';
+
+        // append the current character count from field
+        s.className = 'de-notes-count';
+        s.style = 'display:inline-block; padding:3px;';
+        s.textContent = `${count} / 255`;
+
+        focus.parentElement.appendChild(s);
+
+      } else {
+
+        return;
+      }
+    }, 100);
+  };
+
 
   // ========================================================
   // UI Funcitonality
@@ -118,3 +136,8 @@ resourceLibrary.ready(() => {
     }
   });
 });
+
+// ========================================================
+// DOM Setup / Init
+// ========================================================
+window.addNotesCounter();
