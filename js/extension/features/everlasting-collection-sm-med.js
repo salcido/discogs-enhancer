@@ -82,10 +82,11 @@ resourceLibrary.ready(() => {
       selectBox.insertAdjacentElement('beforeend', opt);
 
       setTimeout(() => window.addNoteListeners(), 100);
-      setTimeout(() => window.addNotesCounter(), 100);
       setTimeout(() => window.injectStars(), 100);
       setTimeout(() => window.addStarListeners(), 200);
       setTimeout(() => window.addRatingListeners(), 300);
+      // Optional notes-counter feature functionality
+      if ( window.addNotesCounter ) setTimeout(() => window.addNotesCounter(), 100);
     }
 
     /**
