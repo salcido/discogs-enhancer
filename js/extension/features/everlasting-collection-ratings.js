@@ -8,6 +8,15 @@
  */
 
 // ========================================================
+// All of these functions are used with the Everlasting
+// Collection feature. When appending new sets of pages
+// to the DOM, the event listeners are not updated
+// so the new elements will not function. These functions
+// recreate the missing functionality on the new DOM
+// elements.
+// ========================================================
+
+// ========================================================
 // Functions (Alphabetical)
 // ========================================================
 
