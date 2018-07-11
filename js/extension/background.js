@@ -322,6 +322,15 @@ chrome.storage.sync.get('prefs', function(result) {
   // everlasting collection
   if ( result.prefs.everlastingCollection ) {
 
+    // everlasting-collection-notes.js
+    let everlastingCollectionNotes = document.createElement('script');
+
+    everlastingCollectionNotes.type = 'text/javascript';
+    everlastingCollectionNotes.src = chrome.extension.getURL('js/extension/features/everlasting-collection-notes.js');
+    everlastingCollectionNotes.className = 'de-init';
+
+    elems.push(everlastingCollectionNotes);
+
     // everlasting-collection-ratings.js
     let everlastingCollectionRatings = document.createElement('script');
 

@@ -79,6 +79,7 @@ resourceLibrary.ready(() => {
 
       selectBox.insertAdjacentElement('beforeend', opt);
 
+      setTimeout(() => window.addNoteListeners(), 100);
       setTimeout(() => window.injectStars(), 100);
       setTimeout(() => window.addStarListeners(), 200);
       setTimeout(() => window.addRatingListeners(), 300);
@@ -149,9 +150,14 @@ resourceLibrary.ready(() => {
             div = document.createElement('div'),
             loader = document.querySelector('#de-next'),
             markup,
-            noItems = '<h1 class="de-no-results">No more items for sale found</h1>';
+            noItems = '<h1 class="de-no-results">No more items for sale found</h1>',
+            notes;
 
         div.innerHTML = response;
+        // Modify .notes-show elements with custom class to hook on to
+        notes = [...div.querySelectorAll('.notes_show')];
+        notes.forEach(note => note.classList.add('de-notes-show'));
+        // Select subset of markup to pass into DOM
         markup = div.querySelectorAll(tr);
 
         if ( markup.length ) {
