@@ -32,27 +32,14 @@ window.addRatingListeners = function addRatingListeners() {
 
 	// Star icons
 	ratings.forEach(rating => {
-		rating.addEventListener('mouseleave', event => {
-
-			let notRated = event.target.closest('.rating').classList.contains('not_rated'),
-					target = event.target.closest('.rating .rating_range'),
-					value = event.target.closest('.rating').dataset.value;
-
-			if ( notRated ) {
-				window.removeStarClass(target);
-				target.classList.add('fill0');
-
-			} else {
-				window.removeStarClass(target);
-				target.classList.add(`fill${value}`);
-			}
-		});
+		// Remove any previous event listeners first so that
+		// multiple reqeusts are not made
+		rating.removeEventListener('mouseleave', window.restoreRating);
+		rating.addEventListener('mouseleave', window.restoreRating);
 	});
 
 	// 'x' icon on rated items
 	window.removeRatings = removeRatings.forEach(x => {
-		// Remove any previous event listeners first so that
-		// multiple reqeusts are not made
 		x.removeEventListener('click', window.saveRating);
 		x.addEventListener('click', window.saveRating);
 	});
@@ -72,14 +59,9 @@ window.addStarListeners = function addStarListeners() {
 		// Remove any previous event listeners first so that
 		// multiple reqeusts are not made
 		star.removeEventListener('click', window.saveRating);
-		star.addEventListener('mouseover', event => {
-			console.log('hi');
-			let rating = window.getRatingClass(event.target);
-
-			window.removeStarClass(event.target.closest('.rating_range'));
-			star.closest('.rating_range').classList.add(`fill${rating}`);
-		});
-
+		star.removeEventListener('click', window.previewRating);
+		// Add new listeners
+		star.addEventListener('mouseover', window.previewRating);
 		star.addEventListener('click', window.saveRating);
 	});
 };
@@ -159,12 +141,46 @@ window.postRating = async function postRating(releaseId, rating, event) {
 };
 
 /**
+ * Previews the star rating when hovering over the star icons
+ * @param {object} event The Event object
+ * @returns {undefined}
+ */
+window.previewRating = function previewRating(event) {
+
+	let rating = window.getRatingClass(event.target);
+
+	window.removeStarClass(event.target.closest('.rating_range'));
+	event.target.closest('.rating_range').classList.add(`fill${rating}`);
+};
+
+/**
  * Removes all of the `.fillN` classes from the passed element.
  * @param {object} elem The object to remove the classes from
  */
 window.removeStarClass = function removeStarClass(elem) {
 	for (let i = 0; i <= 5; i++) {
 		elem.classList.remove(`fill${i}`);
+	}
+};
+
+/**
+ * Restores the initial rating of the release after the mouse leaves
+ * @param {object} event The event object
+ * @returns {undefined}
+ */
+window.restoreRating = function restoreRating(event) {
+
+	let notRated = event.target.closest('.rating').classList.contains('not_rated'),
+			target = event.target.closest('.rating .rating_range'),
+			value = event.target.closest('.rating').dataset.value;
+
+	if ( notRated ) {
+		window.removeStarClass(target);
+		target.classList.add('fill0');
+
+	} else {
+		window.removeStarClass(target);
+		target.classList.add(`fill${value}`);
 	}
 };
 
