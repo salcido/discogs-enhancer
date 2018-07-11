@@ -191,6 +191,19 @@ chrome.storage.sync.get('prefs', function(result) {
   elems.push(ytPlaylists_css);
 
   // ========================================================
+  // Everlasting CSS contains styles that both the Marketplace
+  // and Collection features use. It will always be appended
+  // regardless of whether a user has enabled either feature
+  // ========================================================
+  let everlastingCss = document.createElement('link');
+
+  everlastingCss.rel = 'stylesheet';
+  everlastingCss.type = 'text/css';
+  everlastingCss.href = chrome.extension.getURL('css/everlasting.css');
+
+  elems.push(everlastingCss);
+
+  // ========================================================
   // Friend-counter (always enabled)
   //
   // See comments in friend-counter.js for more details
@@ -348,15 +361,6 @@ chrome.storage.sync.get('prefs', function(result) {
     everlastingCollection.className = 'de-init';
 
     elems.push(everlastingCollection);
-
-    // everlasting-collection.css
-    let everlastingCollectionCss = document.createElement('link');
-
-    everlastingCollectionCss.rel = 'stylesheet';
-    everlastingCollectionCss.type = 'text/css';
-    everlastingCollectionCss.href = chrome.extension.getURL('css/everlasting-collection.css');
-
-    elems.push(everlastingCollectionCss);
   }
 
   // everlasting marketplace
@@ -377,15 +381,6 @@ chrome.storage.sync.get('prefs', function(result) {
     everlastingMarketReleases.className = 'de-init';
 
     elems.push(everlastingMarketReleases);
-
-    // everlasting-marketplace.css
-    let everlastingMarketCss = document.createElement('link');
-
-    everlastingMarketCss.rel = 'stylesheet';
-    everlastingMarketCss.type = 'text/css';
-    everlastingMarketCss.href = chrome.extension.getURL('css/everlasting-marketplace.css');
-
-    elems.push(everlastingMarketCss);
   }
 
   if (result.prefs.favoriteSellers) {
