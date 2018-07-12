@@ -42,6 +42,32 @@ if ( !Element.prototype.addClasses ) {
   };
 }
 
+/**
+ * Helper method that lets me know I'm working with the
+ * `development` or `staging` version of the extension
+ * @returns {undefined}
+ */
+function isDev() {
+
+  let blocklist = JSON.parse(localStorage.getItem('blockList')) || null;
+
+  if ( blocklist
+       && blocklist.list
+       && blocklist.list.includes('github')
+       && blocklist.list.includes('development') ) {
+    document.querySelector('.title h1').style.color = 'gold';
+    document.querySelector('.title h1').textContent = 'Developer Edition';
+  }
+
+  if ( blocklist
+       && blocklist.list
+       && blocklist.list.includes('github')
+       && blocklist.list.includes('dropbox') ) {
+    document.querySelector('.title h1').style.color = 'hotpink';
+    document.querySelector('.title h1').textContent = 'Staging Edition';
+  }
+}
+
 // ========================================================
 // Document ready
 // ========================================================
@@ -313,6 +339,8 @@ window.addEventListener('load', () => {
         clearInterval(a);
       }
     }, 13);
+
+    isDev();
 
     // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
