@@ -26,9 +26,9 @@
  * @param {object} event The event object
  * @returns {undefined}
  */
-window.cancelNotes = function cancelNotes(event) {
+function cancelNotes(event) {
   event.target.closest('.notes_field').classList.remove('notes_editing');
-};
+}
 
 /**
  * Opens the note field for editing and adds
@@ -36,7 +36,7 @@ window.cancelNotes = function cancelNotes(event) {
  * @param {object} event The event object
  * @returns {undefined}
  */
-window.openNoteField = function openNoteField(event) {
+function openNoteField(event) {
 
   let content = event.target.dataset.content || '',
       target = event.target.closest('.notes_field');
@@ -44,15 +44,15 @@ window.openNoteField = function openNoteField(event) {
   target.classList.add('notes_editing');
   target.querySelector('.notes_textarea').value = content;
   target.querySelector('.notes_textarea').focus();
-};
+}
 
 /**
  * Sends the new notes data to Discogs
  * @returns {undefined}
  */
-window.postNotes = async function postNotes(notesData, event) {
+async function postNotes(notesData, event) {
 
-  let query = window.queryString(notesData),
+  let query = queryString(notesData),
 			value = query,
 			headers = { 'content-type': 'application/x-www-form-urlencoded' },
 			url = 'https://www.discogs.com/list/coll_update',
@@ -83,7 +83,7 @@ window.postNotes = async function postNotes(notesData, event) {
     target.querySelector('.notes_text').dataset.content = res.content;
     target.querySelector('.notes_text').innerHTML = res.html;
 	}
-};
+}
 
 /**
  * Converts an object to a query string for
@@ -91,16 +91,16 @@ window.postNotes = async function postNotes(notesData, event) {
  * @param {object} obj The object to strigify
  * @returns {string}
  */
-window.queryString = function queryString(obj) {
+function queryString(obj) {
   return Object.keys(obj).map(key => key + '=' + obj[key]).join('&');
-};
+}
 
 /**
  * Gathers the new note data to send to Discogs
  * @param {object} event The event object
  * @returns {method}
  */
-window.saveNotes = function saveNotes(event) {
+function saveNotes(event) {
 
   let colId = event.target.closest('.notes_field').dataset.collId,
       fieldId = event.target.closest('.notes_field').dataset.field,
@@ -115,8 +115,8 @@ window.saveNotes = function saveNotes(event) {
         notes: notes
       };
 
-  return window.postNotes(notesObj, event);
-};
+  return postNotes(notesObj, event);
+}
 
 // ========================================================
 // Event listeners
@@ -128,16 +128,16 @@ document.querySelector('body').addEventListener('click', event => {
 
   // cancel button
   if ( target.id === 'notes_edit_cancel' ) {
-    return window.cancelNotes(event);
+    return cancelNotes(event);
   }
   // edit/add notes
   if ( target.closest('.de-notes-show') ) {
-    return window.openNoteField(event);
+    return openNoteField(event);
   }
   // save notes
   if ( target.parentElement.previousElementSibling
        && target.parentElement.previousElementSibling.closest('.de-notes-show')
        && target.id == 'notes_edit_save') {
-    return window.saveNotes(event);
+    return saveNotes(event);
   }
 });
