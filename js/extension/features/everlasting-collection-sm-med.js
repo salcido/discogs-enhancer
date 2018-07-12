@@ -78,9 +78,8 @@ resourceLibrary.ready(() => {
       // Update the select box in the blackBar component
       opt.value = page;
       opt.textContent = `Page: ${page}`;
-
       selectBox.insertAdjacentElement('beforeend', opt);
-
+      // Add the Note/Rating functionality to the new items in the collection
       setTimeout(() => window.addNoteListeners(), 100);
       setTimeout(() => window.injectStars(), 100);
       setTimeout(() => window.addStarListeners(), 200);
@@ -303,8 +302,7 @@ resourceLibrary.ready(() => {
 
     window.addEventListener('scroll', () => {
 
-      let
-          currentPage = document.querySelector('.de-page'),
+      let currentPage = document.querySelector('.de-page'),
           everlasting = document.querySelector('.de-page-bar'),
           kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
           pageIndicator = document.getElementsByClassName('de-current-page'),
@@ -338,8 +336,6 @@ resourceLibrary.ready(() => {
 
       // This gnarly bit of code will display the currently viewed page
       // of results in the Everlasting Collection top bar.
-      // I feel bad for writing this and even worse now that
-      // you're looking at it.
       if ( pageIndicator && pageIndicator.length > 0 ) {
 
         for ( let i = 0; i < page; i++ ) {
