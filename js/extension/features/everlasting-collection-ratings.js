@@ -21,52 +21,6 @@
 // ========================================================
 
 /**
- * Iterates over each custom `.rating_range` element and adds
- * event listeners to trigger rating posts.
- * @returns {undefined}
- */
-window.addRatingListeners = function addRatingListeners() {
-
-	let ratings = [...document.querySelectorAll('.de-rating-icons .rating_range')],
-			removeRatings = [...document.querySelectorAll('.de-rating-icons .reset')];
-
-	// Star icons
-	ratings.forEach(rating => {
-		// Remove any previous event listeners first so that
-		// multiple reqeusts are not made
-		rating.removeEventListener('mouseleave', window.restoreRating);
-		rating.addEventListener('mouseleave', window.restoreRating);
-	});
-
-	// 'x' icon on rated items
-	window.removeRatings = removeRatings.forEach(x => {
-		x.removeEventListener('click', window.saveRating);
-		x.addEventListener('click', window.saveRating);
-	});
-};
-
-/**
- * Adds mouseover listeners on each custom star element which
- * mimics the original rating previewing hover functionality and
- * adds click listeners to post the rating to Discogs if clicked.
- * @returns {undefined}
- */
-window.addStarListeners = function addStarListeners() {
-
-	let stars = [...document.querySelectorAll('.de-rating-icons .rating_range .star')];
-
-	stars.forEach(star => {
-		// Remove any previous event listeners first so that
-		// multiple reqeusts are not made
-		star.removeEventListener('click', window.saveRating);
-		star.removeEventListener('click', window.previewRating);
-		// Add new listeners
-		star.addEventListener('mouseover', window.previewRating);
-		star.addEventListener('click', window.saveRating);
-	});
-};
-
-/**
  * Returns the star value from the element
  * @param {object} elem The element to get the rating class from
  * @returns {string}
@@ -207,3 +161,34 @@ window.starTemplate = function starTemplate(value) {
 	let template = `<span class="rating_icons de-rating-icons"><span class="rating_range fill${value}"><a class="star star1 icon icon-star-o" tabindex="0" aria-label="Rate this release 1 star." data-value="1"></a><a class="star star1 icon icon-star" tabindex="0" aria-label="Rate this release 1 star." data-value="1"></a><a class="star star2 icon icon-star-o" tabindex="0" aria-label="Rate this release 2 stars." data-value="2"></a><a class="star star2 icon icon-star" tabindex="0" aria-label="Rate this release 2 stars." data-value="2"></a><a class="star star3 icon icon-star-o" tabindex="0" aria-label="Rate this release 3 stars." data-value="3"></a><a class="star star3 icon icon-star" tabindex="0" aria-label="Rate this release 3 stars." data-value="3"></a><a class="star star4 icon icon-star-o" tabindex="0" aria-label="Rate this release 4 stars." data-value="4"></a><a class="star star4 icon icon-star" tabindex="0" aria-label="Rate this release 4 stars." data-value="4"></a><a class="star star5 icon icon-star-o" tabindex="0" aria-label="Rate this release 5 stars." data-value="5"></a><a class="star star5 icon icon-star" tabindex="0" aria-label="Rate this release 5 stars." data-value="5"></a></span><i class="reset icon icon-times" tabindex="0" aria-label="Remove rating" data-value="0"></i></span>`;
 	return template;
 };
+
+// ========================================================
+// Event listeners
+// ========================================================
+
+document.querySelector('body').addEventListener('click', event => {
+
+  let target = event.target;
+  // save/reset star rating
+  if ( target.closest('.de-rating-icons') ) {
+    return window.saveRating(event);
+  }
+});
+
+document.querySelector('body').addEventListener('mouseover', event => {
+
+	let target = event.target;
+	// hover over rating
+	if ( target.closest('.de-rating-icons .rating_range') ) {
+		return window.previewRating(event);
+	}
+});
+
+document.querySelector('body').addEventListener('mouseout', event => {
+
+	let target = event.target;
+	// mouseout from rating
+	if ( target.closest('.de-rating-icons .rating_range') ) {
+		return window.restoreRating(event);
+	}
+});

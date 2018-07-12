@@ -21,48 +21,6 @@
 // ========================================================
 
 /**
- * Adds a click event listener to the cancel button
- * @param {object} event The event object
- * @returns {undefined}
- */
-window.addCancelListeners = function addCancelListeners(event) {
-
-  let target = event.target.closest('.notes_field').querySelector('#notes_edit_cancel');
-  // Remove any previous event listeners first so that
-  // multiple reqeusts are not made
-  target.removeEventListener('click', window.cancelNotes);
-  target.addEventListener('click', window.cancelNotes);
-};
-
-/**
- * Adds click event listeners to each `.de-notes-show`
- * classed element
- * @returns {undefined}
- */
-window.addNoteListeners = function addNoteListeners() {
-
-  let notes = [...document.querySelectorAll('.de-notes-show')];
-
-  notes.forEach(note => {
-    note.removeEventListener('click', window.openNoteField);
-    note.addEventListener('click', window.openNoteField);
-  });
-};
-
-/**
- * Adds a click event listener to the save button
- * @param {object} event The event object
- * @returns {undefined}
- */
-window.addSaveListeners = function addSaveListeners(event) {
-  let target = event.target.closest('.notes_field').querySelector('#notes_edit_save');
-  // Remove any previous event listeners first so that
-  // multiple reqeusts are not made
-  target.removeEventListener('click', window.saveNotes);
-  target.addEventListener('click', window.saveNotes);
-};
-
-/**
  * Removes the `.notes_editing` class from the
  * element which closes the notes textarea.
  * @param {object} event The event object
@@ -86,9 +44,6 @@ window.openNoteField = function openNoteField(event) {
   target.classList.add('notes_editing');
   target.querySelector('.notes_textarea').value = content;
   target.querySelector('.notes_textarea').focus();
-
-  window.addCancelListeners(event);
-  window.addSaveListeners(event);
 };
 
 /**
@@ -162,3 +117,27 @@ window.saveNotes = function saveNotes(event) {
 
   return window.postNotes(notesObj, event);
 };
+
+// ========================================================
+// Event listeners
+// ========================================================
+
+document.querySelector('body').addEventListener('click', event => {
+
+  let target = event.target;
+
+  // cancel button
+  if ( target.id === 'notes_edit_cancel' ) {
+    return window.cancelNotes(event);
+  }
+  // edit/add notes
+  if ( target.closest('.de-notes-show') ) {
+    return window.openNoteField(event);
+  }
+  // save notes
+  if ( target.parentElement.previousElementSibling
+       && target.parentElement.previousElementSibling.closest('.de-notes-show')
+       && target.id == 'notes_edit_save') {
+    return window.saveNotes(event);
+  }
+});

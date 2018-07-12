@@ -79,11 +79,7 @@ resourceLibrary.ready(() => {
       opt.value = page;
       opt.textContent = `Page: ${page}`;
       selectBox.insertAdjacentElement('beforeend', opt);
-      // Add the Note/Rating functionality to the new items in the collection
-      setTimeout(() => window.addNoteListeners(), 100);
       setTimeout(() => window.injectStars(), 100);
-      setTimeout(() => window.addStarListeners(), 200);
-      setTimeout(() => window.addRatingListeners(), 300);
       // Optional notes-counter feature functionality
       if ( window.addNotesCounter ) setTimeout(() => window.addNotesCounter(), 100);
     }
