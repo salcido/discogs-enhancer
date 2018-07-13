@@ -66,8 +66,7 @@ window.injectStars = function injectStars() {
  */
 async function postRating(releaseId, rating, event) {
 
-	let
-			value = `value=${rating}`,
+	let value = `value=${rating}`,
 			headers = { 'content-type': 'application/x-www-form-urlencoded' },
 			url = `https://www.discogs.com/release/rate?release_id=${releaseId}`,
 			initObj = {
