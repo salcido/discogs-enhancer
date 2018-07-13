@@ -14,29 +14,6 @@
 #### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
 
-#### Installation
-
-* `git clone https://github.com/salcido/discogs-enhancer.git` (this repository)
-* change into the new directory
-* `npm install`
-
-#### Running / Development
-
-* Watch for changes:
-  * `npm run watch`
-
-#### Building
-* Export the extension to `dist` directory:
-  * `npm run build`
-  * Go to `chrome://extensions` in a new Chrome tab
-  * Click "Developer Mode" in the upper-right corner
-  * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
-
-## Overview
-![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
-
-***
-
 ## A Web Extension for Chrome
 
 Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose the features you want to use.
@@ -65,6 +42,30 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Sort Dialogs and Filters Alphabetically
 * Text Formatting Shortcuts
 * Improve Tracklist Readability
+
+***
+
+#### Installation
+
+* `git clone https://github.com/salcido/discogs-enhancer.git` (this repository)
+* change into the new directory
+* `npm install`
+
+#### Running / Development
+
+* Watch for changes:
+  * `npm run watch`
+
+#### Building
+* Export the extension to `dist` directory:
+  * `npm run build`
+  * Go to `chrome://extensions` in a new Chrome tab
+  * Click "Developer Mode" in the upper-right corner
+  * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
+
+## Overview
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
+
 
 ***
 
