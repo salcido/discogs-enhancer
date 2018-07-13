@@ -43,6 +43,9 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Text Formatting Shortcuts
 * Improve Tracklist Readability
 
+## Overview
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
+
 ***
 
 #### Installation
@@ -62,10 +65,6 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
   * Go to `chrome://extensions` in a new Chrome tab
   * Click "Developer Mode" in the upper-right corner
   * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
-
-## Overview
-![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
-
 
 ***
 
