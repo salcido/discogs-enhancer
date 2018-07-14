@@ -1990,3 +1990,8 @@ textarea[disabled],
 a.sound_preview strong {
   color: #454545 !important;
 }
+
+/* Index track background color */
+.section.tracklist table tr.tracklist_track.index_track {
+  background: #292929 !important;
+}
