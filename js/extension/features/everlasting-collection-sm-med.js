@@ -11,9 +11,12 @@ resourceLibrary.ready(() => {
 
   let href = window.location.href,
       reactApp = document.querySelector('#CollectionApp'),
-      layout = resourceLibrary.getCookie('rl_layout');
+      layout = resourceLibrary.getCookie('rl_layout'),
+      username = document.querySelector('img.user_image').alt;
 
-  if ( href.includes('/collection') && layout !== 'big' &&  !reactApp ) {
+  if ( href.includes(`/${username}/collection`)
+       && layout !== 'big'
+       &&  !reactApp ) {
 
     let blackBar,
         hasLoaded = false,
@@ -22,8 +25,7 @@ resourceLibrary.ready(() => {
         pagination,
         pTotal,
         page = 2,
-        paused = false,
-        username = document.querySelector('img.user_image').alt;
+        paused = false;
 
     // ========================================================
     // Functions (Alphabetical)
