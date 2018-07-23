@@ -2020,3 +2020,8 @@ a.sound_preview strong {
 .forum-landing-topic-list.section-boxes .forum-landing-topic-meta li {
   border: none !important;
 }
+
+/* border between star rating and share link on release page */
+.section.social .rating_wrapper {
+  border-right: 1px solid #454545 !important;
+}
