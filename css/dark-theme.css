@@ -1995,3 +1995,28 @@ a.sound_preview strong {
 .section.tracklist table tr.tracklist_track.index_track {
   background: #292929 !important;
 }
+
+/* API Gear icon in forums */
+.forum-landing-topic-list.section-boxes .icon.icon-cogs {
+  color: #CCC !important;
+}
+
+/* forum sections */
+.forum-landing-topic-list.section-boxes li:hover {
+  background: #2f2f2f !important;
+}
+
+.forum-landing-topic-list.section-boxes li {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid #454545 !important;
+}
+
+.forum-landing-topic-list.section-boxes li:last-child {
+  border-bottom: none !important;
+}
+
+.forum-landing-topic-list.section-boxes .forum-landing-topic-meta li {
+  border: none !important;
+}
