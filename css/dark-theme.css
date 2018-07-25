@@ -1366,6 +1366,10 @@ pre code {
   line-height: 20px !important;
 }
 
+.alert-message.alert-message-warning .icon.icon-times {
+  background: #F7EAC5 !important;
+}
+
 .alert-message.alert-message-info a:hover {
   color: #A590D0 !important;
 }
