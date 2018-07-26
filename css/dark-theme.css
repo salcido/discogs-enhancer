@@ -524,6 +524,7 @@ hr {
 }
 
 /* plain buttons (preview, add comment) */
+.preview_comment_button_wrap #previewBtn,
 #postBtn,
 #cancelDelete,
 input.preview_button {
@@ -533,6 +534,7 @@ input.preview_button {
   border-bottom-color: #D3D3D3!important;
 }
 
+.preview_comment_button_wrap #previewBtn:hover,
 #postBtn:hover {
   background-image: -webkit-linear-gradient(#FFFFFF, #FAFAFA)!important;
   background-image: linear-gradient(#FFFFFF, #FAFAFA)!important;
@@ -1362,10 +1364,6 @@ pre code {
   background: #C5DEF7 !important;
   color: #454545 !important;
   line-height: 20px !important;
-}
-
-.alert-message.alert-message-warning .icon.icon-times {
-  background: #F7EAC5 !important;
 }
 
 .alert-message.alert-message-info a:hover {
