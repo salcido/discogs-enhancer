@@ -524,7 +524,6 @@ hr {
 }
 
 /* plain buttons (preview, add comment) */
-#previewBtn,
 #postBtn,
 #cancelDelete,
 input.preview_button {
@@ -534,10 +533,9 @@ input.preview_button {
   border-bottom-color: #D3D3D3!important;
 }
 
-#previewBtn:hover,
 #postBtn:hover {
   background-image: -webkit-linear-gradient(#FFFFFF, #FAFAFA)!important;
-  background-image:         linear-gradient(#FFFFFF, #FAFAFA)!important;
+  background-image: linear-gradient(#FFFFFF, #FAFAFA)!important;
   border-color: #D9D9D9!important;
   border-top-color: #D3D3D3!important;
   border-bottom-color: #CCCCCC!important;
