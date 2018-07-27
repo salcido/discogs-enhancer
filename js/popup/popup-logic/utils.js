@@ -48,6 +48,7 @@ export function applySave(message, event) {
         readability: document.getElementById('toggleReadability').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
         releaseRatings: document.getElementById('toggleReleaseRatings').checked,
+        removeFromWantlist: document.getElementById('toggleRemoveFromWantlist').checked,
         sellerRep: document.getElementById('toggleSellerRep').checked,
         sortButtons: document.getElementById('toggleSortBtns').checked,
         suggestedPrices: document.getElementById('togglePrices').checked,

@@ -73,6 +73,7 @@ chrome.storage.sync.get('prefs', function(result) {
       readability: false,
       releaseDurations: true,
       releaseRatings: false,
+      removeFromWantlist: false,
       sellerRep: false,
       sortButtons: true,
       suggestedPrices: false,
@@ -553,6 +554,18 @@ chrome.storage.sync.get('prefs', function(result) {
     releaseRatings.className = 'de-init';
 
     elems.push(releaseRatings);
+  }
+
+  // remove-from-wantlist.js
+  if ( result.prefs.removeFromWantlist ) {
+
+    let removeFromWantlist = document.createElement('script');
+
+    removeFromWantlist.type = 'text/javascript';
+    removeFromWantlist.src = chrome.extension.getURL('js/extension/features/remove-from-wantlist.js');
+    removeFromWantlist.className = 'de-init';
+
+    elems.push(removeFromWantlist);
   }
 
   // seller-rep css

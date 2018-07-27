@@ -131,6 +131,8 @@ resourceLibrary.ready(() => {
       if ( window.sellersRep ) { window.sellersRep(); }
       // Release ratings
       if ( window.insertRatingsLink ) { window.insertRatingsLink(); }
+      // Remove from wantlist
+      if ( window.insertRemoveLinks ) { window.insertRemoveLinks(); }
     }
 
     /**
