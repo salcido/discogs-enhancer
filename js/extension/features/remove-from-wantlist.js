@@ -69,11 +69,12 @@ resourceLibrary.ready(() => {
    * @param  {object} parent [the parent of the event.target element]
    * @return {object}
    */
-  async function removeFromWantlist(id, parent) {
+  async function removeFromWantlist(id, parent, target) {
 
     try {
 
       let releaseId = id.split('/release/')[1],
+          releases = [...document.querySelectorAll('.item_description .item_release_link')],
           headers = { 'content-type': 'application/x-www-form-urlencoded' },
           url = `https://www.discogs.com/_rest/wantlist/${releaseId}`,
           initObj = {
@@ -84,7 +85,17 @@ resourceLibrary.ready(() => {
           response = await fetch(url, initObj);
 
       if ( response.ok ) {
-        parent.closest('.shortcut_navigable').style.display = 'none';
+        // Go over all the releases to check for duplicates
+        releases.forEach(release => {
+          let tr = release.closest('.shortcut_navigable');
+          if ( release.href === id ) {
+            tr.classList.add('hide');
+            setTimeout(() => { tr.style.display = 'none'; }, 300);
+          }
+        });
+
+      } else if (response.status === 404) {
+        target.parentElement.innerHTML = '<div>This Item has already been removed from your Wantlist.</div>';
       }
     } catch (err) {
 
@@ -163,7 +174,7 @@ resourceLibrary.ready(() => {
       }
       // Yes, remove this
       if ( target.classList.contains('de-remove-yes') ) {
-        removeFromWantlist(event.target.dataset.id, parent);
+        removeFromWantlist(event.target.dataset.id, parent, event.target);
       }
       // No, don't remove anything
       if ( target.classList.contains('de-remove-no') ) {

@@ -556,9 +556,20 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(releaseRatings);
   }
 
-  // remove-from-wantlist.js
+  // remove-from-wantlist.js/css
   if ( result.prefs.removeFromWantlist ) {
 
+    // remove-from-wantlist.css
+    let removeFromWantlist_css = document.createElement('link');
+
+    removeFromWantlist_css.rel = 'stylesheet';
+    removeFromWantlist_css.type = 'text/css';
+    removeFromWantlist_css.href = chrome.extension.getURL('css/remove-from-wantlist.css');
+    removeFromWantlist_css.id = 'removeFromWantlist_css';
+
+    elems.push(removeFromWantlist_css);
+
+    // remove-from-wantlist.js
     let removeFromWantlist = document.createElement('script');
 
     removeFromWantlist.type = 'text/javascript';

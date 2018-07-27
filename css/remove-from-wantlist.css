@@ -1,0 +1,8 @@
+.shortcut_navigable {
+  transition: opacity 0.3s;
+  transition-timing-function: ease;
+}
+
+.shortcut_navigable.hide {
+  opacity: 0;
+}
