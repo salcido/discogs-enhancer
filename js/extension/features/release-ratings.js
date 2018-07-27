@@ -26,7 +26,7 @@
 resourceLibrary.ready(() => {
 
   let marketplace = window.location.href.includes('/sell/') &&
-                      !window.location.href.includes('/sell/release/'),
+                    !window.location.href.includes('/sell/release/'),
       seller = window.location.href.includes('/seller/');
 
   // ========================================================
