@@ -88,7 +88,7 @@ resourceLibrary.ready(() => {
       }
     } catch (err) {
 
-      return console.log('Discogs Enhancer: Cannot get release ratings.', err);
+      return console.log('Discogs Enhancer: Could not remove from wantlist.', err);
     }
   }
 
@@ -120,7 +120,6 @@ resourceLibrary.ready(() => {
 
       // don't insert links if they already exist
       if (!parent.getElementsByClassName('de-remove-wantlist-wrap').length) {
-
         release.insertAdjacentElement('beforebegin', div);
       }
     });
@@ -142,11 +141,8 @@ resourceLibrary.ready(() => {
     pagination.forEach(elem => {
 
       elem.addEventListener('click', () => {
-
         resourceLibrary.xhrSuccess(() => {
-
           if ( !document.getElementsByClassName('de-remove-wantlist').length ) {
-
             window.insertRemoveLinks();
           }
         });
@@ -159,6 +155,12 @@ resourceLibrary.ready(() => {
       let target = event.target,
           parent = event.target.parentElement;
 
+      // Remove From Wantlist intial click
+      if ( target.classList.contains('de-remove-wantlist') ) {
+        event.preventDefault();
+        event.target.style.display = 'none';
+        parent.append(createConfirmBox());
+      }
       // Yes, remove this
       if ( target.classList.contains('de-remove-yes') ) {
         removeFromWantlist(event.target.dataset.id, parent);
@@ -167,12 +169,6 @@ resourceLibrary.ready(() => {
       if ( target.classList.contains('de-remove-no') ) {
         target.parentElement.previousElementSibling.style.display = 'block';
         target.parentElement.remove();
-      }
-
-      if ( target.classList.contains('de-remove-wantlist') ) {
-        event.preventDefault();
-        event.target.style.display = 'none';
-        parent.append(createConfirmBox());
       }
     });
   }
