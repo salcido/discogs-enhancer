@@ -38,6 +38,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Marketplace Release Ratings
 * Notes Counter
 * Random Item From Collection
+* Remove From Wantlist Shortcuts
 * See Release Durations
 * Sort Dialogs and Filters Alphabetically
 * Text Formatting Shortcuts
