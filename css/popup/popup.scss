@@ -310,9 +310,10 @@ input[type="checkbox"]:focus {
   transition: all 0.3s ease;
 }
 
-#rate {
+#rate,
+#twitter {
   width: 60%;
-  margin: 25px auto;
+  margin: 15px auto;
   display: block;
   padding: 0 20px;
 }
