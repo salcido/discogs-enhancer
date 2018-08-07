@@ -193,7 +193,7 @@ resourceLibrary.ready(() => {
                     <span class="de-page de-page-num">Page: 1</span>
                     <span> ${pTotal} results</span>
                   </span>
-                  <a href="#" id="de-update-filters">Add or remove filters</a>
+                  <a href="#site_header" id="de-update-filters">Add or remove filters</a>
                   <div class="de-select-wrap">
                     <span>Scroll to: &nbsp;</span>
                     <select class="de-scroll-to-page">
@@ -228,13 +228,6 @@ resourceLibrary.ready(() => {
     // ========================================================
     // UI Functionalty
     // ========================================================
-
-    // Scroll the browser up to the top so the user can change Marketplace filters
-    document.querySelector('#de-update-filters').addEventListener('click', event => {
-
-      event.preventDefault();
-      window.scroll({ top: 0, left: 0 });
-    });
 
     // Pause/resume Everlasting Marketplace
     document.querySelector('.de-pause').addEventListener('click', event => {
