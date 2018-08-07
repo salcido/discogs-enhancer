@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let
       config = JSON.parse(localStorage.getItem('readability')) || setDefaultConfig(),
-      indexTracks = document.getElementById('toggleIndexTracks'),
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
@@ -104,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Set values based on config
   vc.checked = config.vcReadability;
   otherMedia.checked = config.otherMediaReadability;
-  indexTracks.checked = config.indexTracks;
   size.value = config.size;
 
   addOptions(vcThreshold, 30);
@@ -133,14 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('toggleOtherMedia').addEventListener('click', function() {
 
     config.otherMediaReadability = event.target.checked;
-
-    localStorage.setItem('readability', JSON.stringify(config));
-  });
-
-  // Classical releases
-  document.getElementById('toggleIndexTracks').addEventListener('click', function() {
-
-    config.indexTracks = event.target.checked;
 
     localStorage.setItem('readability', JSON.stringify(config));
   });
