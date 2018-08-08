@@ -234,13 +234,18 @@ blockquote,
   box-shadow: none !important;
 }
 
+<<<<<<< HEAD
 .index_track .tracklist_track_title blockquote .tracklist_extra_artist_span {
+=======
+.tracklist_track_title blockquote,
+.tracklist_track_title blockquote .tracklist_extra_artist_span {
+>>>>>>> 3f536c75c1f8d6f43b809e3c1d5eaa9f8ba8664d
   background-color: transparent !important;
 }
 
-blockquote .tracklist_extra_artist_span {
+/* blockquote .tracklist_extra_artist_span {
   background-color: #323334 !important;
-}
+} */
 
 mark {
   margin-left: 3px !important;
