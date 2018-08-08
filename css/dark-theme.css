@@ -234,13 +234,14 @@ blockquote,
   box-shadow: none !important;
 }
 
+.tracklist_track_title blockquote,
 .tracklist_track_title blockquote .tracklist_extra_artist_span {
-  background-color: #292929 !important;
+  background-color: transparent !important;
 }
 
-blockquote .tracklist_extra_artist_span {
+/* blockquote .tracklist_extra_artist_span {
   background-color: #323334 !important;
-}
+} */
 
 mark {
   margin-left: 3px !important;
