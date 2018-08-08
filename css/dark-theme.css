@@ -234,8 +234,8 @@ blockquote,
   box-shadow: none !important;
 }
 
-.tracklist_track_title blockquote .tracklist_extra_artist_span {
-  background-color: #292929 !important;
+.index_track .tracklist_track_title blockquote .tracklist_extra_artist_span {
+  background-color: transparent !important;
 }
 
 blockquote .tracklist_extra_artist_span {
