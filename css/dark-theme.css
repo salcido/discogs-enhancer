@@ -1891,15 +1891,18 @@ i.icon-google-plus {
 
 /* Beta Tracks UI */
 
-.tracks-beta-banner {
+.tracks-beta-banner,
+.collection-beta-banner {
   background: #2b5c87 !important;
 }
 
+.collection-beta-banner .open-survey-modal,
 .tracks-beta-banner .open-survey-modal {
   background: #3b7eb9 !important;
   color: #ccc !important;
 }
 
+.collection-beta-banner .open-survey-modal i,
 .tracks-beta-banner .open-survey-modal i,
 .FacetGroup .facet_count,
 .FacetGroup a:hover .facet_count {
@@ -2032,4 +2035,46 @@ a.sound_preview strong {
 /* border between star rating and share link on release page */
 .section.social .rating_wrapper {
   border-right: 1px solid #454545 !important;
+}
+
+/* Collection page */
+.FacetGroup.active .selected span,
+.FacetGroup.active .selected i {
+  color: #FFF !important;
+}
+
+table.release-table thead tr {
+  border: 1px solid #454545 !important;
+}
+
+table.release-table thead tr th a span {
+  color: #809BBE !important;
+}
+
+.release-cards tr.release-table-card {
+  border-bottom: 2px solid #454545 !important;
+}
+
+.collection-header .tab_menu {
+  border: none !important;
+}
+
+.collection-header .tab_menu li.current {
+  background: transparent !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.collection-header .tab_menu .current {
+  border-bottom: 2px solid #ccc !important;
+}
+
+.collection-header .tab_menu .current.menu-item span,
+.collection-header .tab_menu .current .icon {
+  color: #fff !important;
+}
+
+.collection-header .tab_menu .menu-item span {
+  color: #809BBE !important;
 }
