@@ -2089,3 +2089,15 @@ table.release-table thead tr th a span {
 #CollectionApp .release-table-card.selected {
   background: #354250 !important;
 }
+
+#CollectionApp .bulk-actions {
+  background: #323334 !important;
+}
+
+#CollectionApp .bulk-actions h5 {
+  background: #292929 !important;
+}
+
+#CollectionApp .bulk-actions > div {
+  border-right: 1px solid #454545 !important;
+}
