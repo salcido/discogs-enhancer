@@ -2082,9 +2082,10 @@ table.release-table thead tr th a span {
   color: #809BBE !important;
 }
 
-<<<<<<< HEAD
-=======
 #CollectionApp .bulk-actions {
   border: 1px solid #454545 !important;
 }
->>>>>>> ba4d7d22de0c93b6aa3d3b3a7dbaa7b4ac16a27d
+
+#CollectionApp .release-table-card.selected {
+  background: #354250 !important;
+}
