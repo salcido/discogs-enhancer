@@ -2078,3 +2078,7 @@ table.release-table thead tr th a span {
 .collection-header .tab_menu .menu-item span {
   color: #809BBE !important;
 }
+
+#CollectionApp .bulk-actions {
+  border: 1px solid #454545 !important;
+}
