@@ -112,28 +112,31 @@ resourceLibrary.ready(() => {
   // attached to window object so it can be called by Everlasting Marketplace
   window.insertRemoveLinks = function insertRemoveLinks() {
 
-    let releases = [...document.getElementsByClassName('item_release_link')];
+    if ( marketplace ) {
 
-    releases.forEach(release => {
+      let releases = [...document.getElementsByClassName('item_release_link')];
 
-      let a = document.createElement('a'),
-          div = document.createElement('div'),
-          parent = release.parentElement;
+      releases.forEach(release => {
 
-      div.className = 'de-remove-wantlist-wrap';
+        let a = document.createElement('a'),
+            div = document.createElement('div'),
+            parent = release.parentElement;
 
-      a.className = 'de-remove-wantlist';
-      a.dataset.id = release.href;
-      a.style = 'display:block;';
-      a.textContent = 'Remove From Wantlist';
+        div.className = 'de-remove-wantlist-wrap';
 
-      div.append(a);
+        a.className = 'de-remove-wantlist';
+        a.dataset.id = release.href;
+        a.style = 'display:block;';
+        a.textContent = 'Remove From Wantlist';
 
-      // don't insert links if they already exist
-      if (!parent.getElementsByClassName('de-remove-wantlist-wrap').length) {
-        release.insertAdjacentElement('beforebegin', div);
-      }
-    });
+        div.append(a);
+
+        // don't insert links if they already exist
+        if (!parent.getElementsByClassName('de-remove-wantlist-wrap').length) {
+          release.insertAdjacentElement('beforebegin', div);
+        }
+      });
+    }
   };
 
   // ========================================================
