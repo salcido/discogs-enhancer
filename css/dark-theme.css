@@ -328,6 +328,10 @@ aside li > a,
 }
 
 a.readmore_toggler {
+  background: #222222 !important;
+}
+
+.profile a.readmore_toggler {
   background: #323334 !important;
 }
 
