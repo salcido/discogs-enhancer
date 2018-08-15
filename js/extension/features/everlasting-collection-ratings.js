@@ -165,29 +165,31 @@ function starTemplate(value) {
 // Event listeners
 // ========================================================
 
-document.querySelector('body').addEventListener('click', event => {
+resourceLibrary.ready(() => {
+	document.querySelector('body').addEventListener('click', event => {
 
-  let target = event.target;
-  // save/reset star rating
-  if ( target.closest('.de-rating-icons') ) {
-    return saveRating(event);
-  }
-});
+		let target = event.target;
+		// save/reset star rating
+		if ( target.closest('.de-rating-icons') ) {
+			return saveRating(event);
+		}
+	});
 
-document.querySelector('body').addEventListener('mouseover', event => {
+	document.querySelector('body').addEventListener('mouseover', event => {
 
-	let target = event.target;
-	// hover over rating
-	if ( target.closest('.de-rating-icons .rating_range') ) {
-		return previewRating(event);
-	}
-});
+		let target = event.target;
+		// hover over rating
+		if ( target.closest('.de-rating-icons .rating_range') ) {
+			return previewRating(event);
+		}
+	});
 
-document.querySelector('body').addEventListener('mouseout', event => {
+	document.querySelector('body').addEventListener('mouseout', event => {
 
-	let target = event.target;
-	// mouseout from rating
-	if ( target.closest('.de-rating-icons .rating_range') ) {
-		return restoreRating(event);
-	}
+		let target = event.target;
+		// mouseout from rating
+		if ( target.closest('.de-rating-icons .rating_range') ) {
+			return restoreRating(event);
+		}
+	});
 });
