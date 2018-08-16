@@ -2105,3 +2105,8 @@ table.release-table thead tr th a span {
 #CollectionApp .bulk-actions > div {
   border-right: 1px solid #454545 !important;
 }
+
+/* Credit Card Checkout Page */
+.aside_left.aside_wide .box-card {
+  background-color: #454545 !important;
+}
