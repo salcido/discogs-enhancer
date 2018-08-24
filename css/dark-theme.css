@@ -1377,7 +1377,7 @@ pre code {
   line-height: 20px !important;
 }
 
-.alert-message.alert-message-info a:hover {
+.alert-message.alert-message-info a:not(.button):hover {
   color: #A590D0 !important;
 }
 
@@ -1432,6 +1432,7 @@ span.alert-message-content ul li a small {
 
 
 span.alert-message-text,
+span.alert-message-text .text,
 span.alert-message-text small,
 span.alert-message-text strong,
 span.alert-message-text strong a,
