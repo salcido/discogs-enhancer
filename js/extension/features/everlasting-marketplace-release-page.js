@@ -60,6 +60,11 @@ resourceLibrary.ready(() => {
       });
     }
 
+    /**
+     * Appends the release markup to the page.
+     * @param {object} markup - The markup to be appended to the page
+     * @returns {undefined}
+     */
     function appendMarketplaceResults(markup) {
 
       let condition = document.querySelector('.pagination_total').textContent,
@@ -67,15 +72,15 @@ resourceLibrary.ready(() => {
           opt = document.createElement('option'),
           selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = `<tr class="shortcut_navigable">
-                                <td class="item_picture as_float"></td>
-                                <td class="item_description de-filter-stamp">
-                                  <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
-                                  <span>${window.hideItems ? condition : ''}</span>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>`;
+                          <td class="item_picture as_float"></td>
+                          <td class="item_description de-filter-stamp">
+                            <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
+                            <span>${window.hideItems ? condition : ''}</span>
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>`;
 
       // Append page number to the DOM
       document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp);
@@ -197,22 +202,22 @@ resourceLibrary.ready(() => {
     pTotal = resourceLibrary.paginationTotal(pagination);
     // Markup for the black bar that appears at the top of the Marketplace
     blackBar = `<div class="de-page-bar">
-                          <span class="de-page-info">
-                            <span class="de-page de-page-num">Page: 1</span>
-                            <span> ${pTotal} results</span>
-                          </span>
-                          <a href="#" id="de-update-filters">Add or remove filters</a>
-                          <div class="de-select-wrap">
-                            <span>Scroll to: &nbsp;</span>
-                            <select class="de-scroll-to-page">
-                              <option value="" selected>Select</option>
-                              <option value="1">Page: 1</option>
-                            </select>
-                            <span class="de-pause">
-                              <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
-                            </span>
-                          </div>
-                       </div>`;
+                  <span class="de-page-info">
+                    <span class="de-page de-page-num">Page: 1</span>
+                    <span> ${pTotal} results</span>
+                  </span>
+                  <a href="#" id="de-update-filters">Add or remove filters</a>
+                  <div class="de-select-wrap">
+                    <span>Scroll to: &nbsp;</span>
+                    <select class="de-scroll-to-page">
+                      <option value="" selected>Select</option>
+                      <option value="1">Page: 1</option>
+                    </select>
+                    <span class="de-pause">
+                      <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
+                    </span>
+                  </div>
+                </div>`;
 
     // Everlasting Marketplace add/remove filters bar
     document.body.insertAdjacentHTML('beforeend', blackBar);
