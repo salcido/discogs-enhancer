@@ -1,6 +1,6 @@
 # Discogs Enhancer
 
-[![Chrome Web Store](https://img.shields.io/badge/users-2.2k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/badge/users-2.3k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating-4.8%2F5-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating%20count-52%20total-orange.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
