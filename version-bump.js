@@ -38,7 +38,35 @@ let rating,
 // ========================================================
 // Functions (Alphabetical)
 // ========================================================
+/**
+ * Converts a number to an abbreviation (e.g.: 1,000 -> 1k)
+ * @param {Number} number The number of users to convert
+ * @param {Number} decPlaces The number of decimal places
+ * @returns {Number} - The converted number
+ */
+function abbrNum(number, decPlaces) {
 
+  let abbrev = [ 'k', 'm', 'b', 't' ];
+
+  decPlaces = Math.pow(10,decPlaces);
+
+  for (let i=abbrev.length - 1; i>=0; i--) {
+
+    let size = Math.pow(10, (i + 1) * 3);
+
+    if (size <= number) {
+      number = Math.round(number * decPlaces / size) / decPlaces;
+
+      if ( (number === 1000) && (i < abbrev.length - 1) ) {
+        number = 1;
+        i++;
+      }
+      number += abbrev[i];
+      break;
+    }
+  }
+  return number;
+}
 /**
  * Updates the manifest and package json files
  * with a new version string
@@ -78,8 +106,7 @@ function updateBadgeData() {
 
   rating = parseFloat(rating.match(ratingRegex));
   votes = parseInt(votes.match(nums));
-  users = users.replace(/,/g, '.');
-  users = parseFloat(users).toFixed(1);
+  users = abbrNum(users, 1);
 
   readme = readme.replace(strUsers, `${users}k`)
             .replace(strRating, `${rating}%2F5`)
@@ -123,15 +150,17 @@ if ( validateVersion(newVersion) ) {
 
     puppeteer.launch().then(async browser => {
 
-      let page = await browser.newPage();
+      let page = await browser.newPage(),
+          regex = /\d+/g,
+          userData;
 
       await page.goto(url);
-      await page.waitFor('.rsw-stars');
+      await page.waitFor('.KnRoYd-N-nd');
 
-      rating = await page.evaluate(() => document.querySelector('.rsw-stars').title);
-      votes = await page.evaluate(() => document.querySelector('.rsw-stars .q-N-nd').textContent);
-      users = await page.evaluate(() => document.querySelector('.e-f-ih').textContent);
-
+      rating = await page.evaluate(() => document.querySelector('.e-f-Sa-L .KnRoYd-N-k').title);
+      votes = await page.evaluate(() => document.querySelector('.KnRoYd-N-nd').textContent);
+      userData = await page.evaluate(() => document.querySelector('.e-f-ih').textContent);
+      users = userData.match(regex).reduce((a, n) => a + n);
       browser.close();
       updateBadgeData();
     });
