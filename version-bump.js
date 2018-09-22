@@ -108,7 +108,7 @@ function updateBadgeData() {
   votes = parseInt(votes.match(nums));
   users = abbrNum(users, 1);
 
-  readme = readme.replace(strUsers, `${users}k`)
+  readme = readme.replace(strUsers, `${users}`)
             .replace(strRating, `${rating}%2F5`)
             .replace(strVotes, `${votes}%20`);
 
