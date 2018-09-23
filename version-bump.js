@@ -109,8 +109,8 @@ function updateBadgeData() {
   users = abbrNum(users, 1);
 
   readme = readme.replace(strUsers, `${users}`)
-            .replace(strRating, `${rating}%2F5`)
-            .replace(strVotes, `${votes}%20`);
+                 .replace(strRating, `${rating}%2F5`)
+                 .replace(strVotes, `${votes}%20`);
 
   fs.writeFileSync('readme.md', readme);
 
