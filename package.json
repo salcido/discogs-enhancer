@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "Matthew Salcido",
-  "license": "GPL 3.0",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/salcido/discogs-enhancer/issues"
   },
