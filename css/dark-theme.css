@@ -2118,3 +2118,8 @@ table.release-table thead tr th a span {
 #review_compose.form-block div.review_preview {
   border: 1px solid #454545 !important;
 }
+
+/* extra line height in reviews */
+.review_comment_column .review_comment {
+	line-height: 1.4rem;
+}
