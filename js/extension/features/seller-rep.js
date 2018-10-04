@@ -81,7 +81,7 @@ resourceLibrary.ready(() => {
     // UI Functionality
     // ========================================================
 
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 

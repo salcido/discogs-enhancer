@@ -29,8 +29,8 @@ resourceLibrary.ready(() => {
 
     let next = document.querySelector('.image_gallery_nav.image_gallery_next'),
         prev = document.querySelector('.image_gallery_nav.image_gallery_prev'),
-        slide = [...document.querySelectorAll('.image_gallery_slide img')],
-        thumb = [...document.querySelectorAll('.image_gallery_thumb')];
+        slide = document.querySelectorAll('.image_gallery_slide img'),
+        thumb = document.querySelectorAll('.image_gallery_thumb');
 
     // Next button
     next.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
@@ -59,7 +59,7 @@ resourceLibrary.ready(() => {
 
     if ( isZoomed ) {
 
-      let img = [...document.querySelectorAll('.image_gallery_slide img.loaded')];
+      let img = document.querySelectorAll('.image_gallery_slide img.loaded');
 
       img.forEach(i => i.style.transform = 'translate(0, 0)');
 
@@ -74,7 +74,7 @@ resourceLibrary.ready(() => {
    */
   function unblur() {
 
-    let img = [...document.querySelectorAll('.image_gallery_slide img.loaded')],
+    let img = document.querySelectorAll('.image_gallery_slide img.loaded'),
         calc = 'calc(-50% + 0.5px)';
 
     img.forEach(i => {
