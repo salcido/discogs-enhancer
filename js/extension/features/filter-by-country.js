@@ -48,7 +48,7 @@ resourceLibrary.ready(() => {
   // add to window object so it can be called by Everlasting Marketplace
   window.filterByCountry = function filterByCountry() {
 
-    let countries = [...document.querySelectorAll('.seller_info ul li:nth-child(3)')];
+    let countries = document.querySelectorAll('.seller_info ul li:nth-child(3)');
 
     if ( enabled ) {
 
@@ -95,7 +95,7 @@ resourceLibrary.ready(() => {
     // UI Functionality
     // ========================================================
 
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 

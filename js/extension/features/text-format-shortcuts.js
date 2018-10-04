@@ -29,7 +29,7 @@ resourceLibrary.ready(() => {
    */
   function attachBISUlisteners() {
 
-    let buttons = [...document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline')];
+    let buttons = document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline');
 
     buttons.forEach(b => b.addEventListener('click', event => {
 
@@ -100,7 +100,7 @@ resourceLibrary.ready(() => {
     let textareaElement,
         buttons = document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline');
 
-    [...buttons].forEach(b => {
+    buttons.forEach(b => {
 
       b.addEventListener('mousedown', event => {
 

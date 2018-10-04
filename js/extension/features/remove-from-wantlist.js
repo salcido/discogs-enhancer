@@ -74,7 +74,7 @@ resourceLibrary.ready(() => {
     try {
 
       let releaseId = id.split('/release/')[1],
-          releases = [...document.querySelectorAll('.item_description .item_release_link')],
+          releases = document.querySelectorAll('.item_description .item_release_link'),
           headers = { 'content-type': 'application/x-www-form-urlencoded' },
           url = `https://www.discogs.com/_rest/wantlist/${releaseId}`,
           initObj = {
@@ -114,7 +114,7 @@ resourceLibrary.ready(() => {
 
     if ( marketplace ) {
 
-      let releases = [...document.getElementsByClassName('item_release_link')];
+      let releases = document.querySelectorAll('.item_release_link');
 
       releases.forEach(release => {
 
@@ -150,7 +150,7 @@ resourceLibrary.ready(() => {
     // UI Functionality
     // ---------------------------------------------------------------------------
 
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 

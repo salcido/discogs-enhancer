@@ -282,7 +282,7 @@ resourceLibrary.ready(() => {
     });
 
     // Fire `injectPriceLinks` on prev/next page transitions
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 
@@ -303,10 +303,10 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     // Remove mobile clutter
-    [...document.querySelectorAll('.hide_desktop')].forEach(elem => elem.remove());
+    document.querySelectorAll('.hide_desktop').forEach(elem => elem.remove());
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
-    [...document.querySelectorAll('.condition-label-mobile')].forEach(elem => elem.remove());
+    document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
 
     symbol = resourceLibrary.getSymbols(userCurrency, symbol);
 

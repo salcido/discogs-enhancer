@@ -44,7 +44,7 @@ resourceLibrary.ready(() => {
     window.appendPrices = function appendPrices() {
 
       // Insert price comparisons into each item on the page...
-      [...document.querySelectorAll('td.item_price')].forEach((listing, i) => {
+      document.querySelectorAll('td.item_price').forEach((listing, i) => {
 
         // Since adding everlasting marketplace scrolling to individual release
         // pages, make sure the empty pagination <td> elements are not
@@ -64,7 +64,7 @@ resourceLibrary.ready(() => {
               spanOuter = document.createElement('span'),
               threshold = resourceLibrary.options.threshold() || 0;
 
-          [...document.querySelectorAll('.de-price-preloader')].forEach(e => e.remove());
+          document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
 
           // Debugging
           logOutput(percentage, difference, suggested);
@@ -108,9 +108,9 @@ resourceLibrary.ready(() => {
       if ( result.innerHTML.includes(resourceLibrary.unregistered)
            && !priceKey['post:suggestedPrices'] ) {
 
-        [...document.querySelectorAll('.de-price-preloader')].forEach(e => e.remove());
+        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
 
-        [...document.querySelectorAll('td.item_price')].forEach(listing => {
+        document.querySelectorAll('td.item_price').forEach(listing => {
 
           listing.insertAdjacentHTML('beforeend', resourceLibrary.css.pleaseRegister);
         });
@@ -150,7 +150,7 @@ resourceLibrary.ready(() => {
           selectorA = '.shortcut_navigable .item_description .media-condition-tooltip',
           selectorB = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
 
-      [...document.querySelectorAll('.de-price')].forEach(e => e.remove());
+      document.querySelectorAll('.de-price').forEach(e => e.remove());
 
       if ( document.querySelectorAll('.media-condition-tooltip').length ) {
 
@@ -235,7 +235,7 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     // Fire init() on prev/next page transitions
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 
@@ -256,10 +256,10 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     // Remove mobile clutter
-    [...document.querySelectorAll('.hide_desktop')].forEach(e => e.remove());
+    document.querySelectorAll('.hide_desktop').forEach(e => e.remove());
 
     // Insert preloader animation
-    [...document.querySelectorAll('td.item_price')].forEach(price => {
+    document.querySelectorAll('td.item_price').forEach(price => {
 
       price.insertAdjacentHTML('beforeend', resourceLibrary.css.pricePreloader);
     });
