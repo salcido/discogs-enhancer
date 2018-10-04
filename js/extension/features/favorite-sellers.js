@@ -43,7 +43,7 @@ resourceLibrary.ready(() => {
 
   function addUiListeners() {
 
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 
@@ -66,7 +66,7 @@ resourceLibrary.ready(() => {
 
     favoriteList.list.forEach(seller => {
 
-      let sellerNames = [...document.querySelectorAll('td.seller_info ul li:first-child')];
+      let sellerNames = document.querySelectorAll('td.seller_info ul li:first-child');
 
       sellerNames.forEach(name => {
 

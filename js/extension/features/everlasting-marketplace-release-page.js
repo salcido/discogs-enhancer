@@ -236,7 +236,7 @@ resourceLibrary.ready(() => {
     }
 
     // Hide standard means of page navigation
-    [...document.querySelectorAll('.pagination_page_links')].forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.pagination_page_links').forEach(el => el.style.display = 'none');
 
     // ========================================================
     // UI Functionalty

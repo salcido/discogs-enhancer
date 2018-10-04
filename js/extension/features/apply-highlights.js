@@ -64,11 +64,11 @@ resourceLibrary.ready(() => {
   window.applyStyles = function applyStyles() {
 
     // Remove mobile clutter
-    [...document.querySelectorAll('.condition-label-mobile')].forEach(d => d.remove());
+    document.querySelectorAll('.condition-label-mobile').forEach(d => d.remove());
 
     // Media/sleeve conditions
-    const media = [...document.querySelectorAll('p.item_condition .condition-label-desktop:first-child + span')],
-          sleeves = [...document.querySelectorAll('span.item_sleeve_condition')];
+    const media = document.querySelectorAll('p.item_condition .condition-label-desktop:first-child + span'),
+          sleeves = document.querySelectorAll('span.item_sleeve_condition');
 
     addHighlights(media);
     addHighlights(sleeves);
@@ -98,7 +98,7 @@ resourceLibrary.ready(() => {
 
     window.applyStyles();
 
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 
