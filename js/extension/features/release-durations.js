@@ -76,7 +76,7 @@ resourceLibrary.ready(() => {
 
     function gatherTrackTimes(target) {
 
-      [...target].forEach(time => {
+      target.forEach(time => {
 
         let trackTime = time.textContent;
 
@@ -91,10 +91,10 @@ resourceLibrary.ready(() => {
 
     // Grab all track times from any Index Tracks in the tracklisting
     // and add them to the array.
-    [...document.querySelectorAll('tr.index_track td.tracklist_track_duration span')].forEach(time => {
+    document.querySelectorAll('tr.index_track td.tracklist_track_duration span').forEach(time => {
 
       let trackTime = time.textContent,
-          subtracks = [...document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span')].textContent;
+          subtracks = document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span').textContent;
 
       // If there are Index Tracks present but they are empty AND
       // they have subtracks WITH data, set `emptyIndexTracks` to true

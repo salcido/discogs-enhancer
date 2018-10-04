@@ -42,7 +42,7 @@ resourceLibrary.ready(() => {
 
   function addUiListeners() {
 
-    [...document.getElementsByClassName('de-rating-link')].forEach(elem => {
+    document.querySelectorAll('.de-rating-link').forEach(elem => {
 
         elem.addEventListener('click', event => {
 
@@ -106,7 +106,7 @@ resourceLibrary.ready(() => {
   // attached to window object so it can be called by Everlasting Marketplace
   window.insertRatingsLink = function insertRatingsLink() {
 
-    let releases = [...document.getElementsByClassName('item_release_link')];
+    let releases = document.querySelectorAll('.item_release_link');
 
     releases.forEach(release => {
 
@@ -145,7 +145,7 @@ resourceLibrary.ready(() => {
     // UI Functionality
     // ---------------------------------------------------------------------------
 
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 

@@ -32,7 +32,7 @@ resourceLibrary.ready(() => {
    */
   window.addNotesCounter = function addNotesCounter() {
 
-    let notes = [...document.querySelectorAll('.notes_show, .notes_text')];
+    let notes = document.querySelectorAll('.notes_show, .notes_text');
 
     notes.forEach(elem => {
       // Remove existing listeners to as not to duplicate them

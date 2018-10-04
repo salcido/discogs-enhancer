@@ -43,7 +43,7 @@ resourceLibrary.ready(() => {
   window.hideItems = function hideItems() {
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
-    [...document.getElementsByClassName('condition-label-mobile')].forEach(elem => elem.remove());
+    document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
 
     if ( itemCondition ) {
 
@@ -63,7 +63,7 @@ resourceLibrary.ready(() => {
       conditions.forEach(condition => {
 
         // Create array of media conditions
-        let elems = [...document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:first-child + span')];
+        let elems = document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:first-child + span');
 
         elems.forEach(el => {
 
@@ -86,7 +86,7 @@ resourceLibrary.ready(() => {
                      'Mint (M)'];
 
           // Update page with filter notice
-          [...document.querySelectorAll('.pagination_total')].forEach(e => {
+          document.querySelectorAll('.pagination_total').forEach(e => {
             e.textContent = `Filtering items below: ${key[conditions.length]}`;
           });
         }
@@ -104,7 +104,7 @@ resourceLibrary.ready(() => {
 
         document.querySelector('#pjax_container tbody').innerHTML = html;
 
-        [...document.querySelectorAll('.pagination_total')].forEach(e => {
+        document.querySelectorAll('.pagination_total').forEach(e => {
           e.textContent = 'All results have been removed.';
         });
       }
@@ -124,7 +124,7 @@ resourceLibrary.ready(() => {
     window.hideItems();
 
     // Call hideItems on prev/next clicks
-    let pagination = [...document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]')];
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 
