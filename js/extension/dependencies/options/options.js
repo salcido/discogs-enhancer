@@ -38,6 +38,10 @@ resourceLibrary.ready(() => {
                       <label for="unittests">Unit Tests</label>
                     </li>
                     <li>
+                      <input id="releaseScanner" name="releaseScanner" type="checkbox" value="releaseScanner" />
+                      <label for="releaseScanner">Release Scanner</label>
+                    </li>
+                    <li>
                       <label for="threshold" id="thresholdLabel">Threshold:</label>
                       <input id="threshold" name="threshold" type="number" value="" max="10" min="0"/>
                     </li>
