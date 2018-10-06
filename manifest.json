@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.discogs.com/*"
+        "*://www.discogs.com/*"
       ],
       "js": [
         "js/extension/background.js"
@@ -87,6 +87,7 @@
     "js/extension/features/release-durations.js",
     "js/extension/features/release-history-legend.js",
     "js/extension/features/release-ratings.js",
+    "js/extension/features/release-scanner.js",
     "js/extension/features/remove-from-wantlist.js",
     "js/extension/features/seller-rep.js",
     "js/extension/features/show-min-max-columns.js",

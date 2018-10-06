@@ -41,6 +41,7 @@ module.exports = {
     [features + 'release-durations']: `${features}release-durations.js`,
     [features + 'release-history-legend']: `${features}release-history-legend.js`,
     [features + 'release-ratings']: `${features}release-ratings.js`,
+    [features + 'release-scanner']: `${features}release-scanner.js`,
     [features + 'remove-from-wantlist']: `${features}remove-from-wantlist.js`,
     [features + 'seller-rep']: `${features}seller-rep.js`,
     [features + 'sort-explore-lists']: `${features}sort-explore-lists.js`,

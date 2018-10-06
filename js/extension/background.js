@@ -717,6 +717,15 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(comments);
 
+  // release-scanner.js
+  let scanner = document.createElement('script');
+
+  scanner.type = 'text/javascript';
+  scanner.src = chrome.extension.getURL('js/extension/features/release-scanner.js');
+  scanner.className = 'de-init';
+
+  elems.push(scanner);
+
   // ========================================================
   // Contextual Menu Options
   // ========================================================
