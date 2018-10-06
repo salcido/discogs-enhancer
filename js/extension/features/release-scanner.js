@@ -7,13 +7,11 @@
  * @github: https://github.com/salcido
  */
 
- // @TODO: maybe double haves and compare it to wants to see if there is a large difference
- // between haves/wants?
 resourceLibrary.ready(() => {
 
   let releaseScanner = resourceLibrary.options.releaseScanner(),
       href = window.location.href,
-      interval = 300,
+      interval = 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
       skittles = [...document.querySelectorAll('.skittles .skittles')],
       button = '<button class="buy_release_button button button-green de-scan-releases">Scan Releases</button>';
@@ -37,15 +35,23 @@ resourceLibrary.ready(() => {
 
       div.innerHTML = data;
       reviewCount = div.querySelectorAll('.review').length || 0;
-      haves = Number(div.querySelector('.coll_num').textContent);
-      wants = Number(div.querySelector('.want_num').textContent);
-      moreWants = wants > haves;
 
-    return { reviewCount, moreWants };
+      // Check for blocked releases
+      if ( div.querySelector('.coll_num') ) {
+        haves = Number(div.querySelector('.coll_num').textContent);
+        wants = Number(div.querySelector('.want_num').textContent);
+      } else {
+        haves = 0;
+        wants = 0;
+      }
+
+      moreWants = wants > (haves * 2);
+
+      return { reviewCount, moreWants };
 
     } catch (err) {
 
-      console.log('Could not fetch release count for: ', url);
+      console.log('Could not fetch release count for: ', url, err);
     }
   }
 
@@ -76,7 +82,7 @@ resourceLibrary.ready(() => {
     if ( reviewCount > 0 ) {
       count = reviewCount;
     } else if ( reviewCount <= 0 && moreWants ) {
-      count = '0';
+      count = '&nbsp;&nbsp;';
     } else if ( reviewCount <= 0 && !moreWants ) {
       count = null;
     }
@@ -102,7 +108,7 @@ resourceLibrary.ready(() => {
    * @param {Number} delay - The time in milliseconds to delay each request
    * @returns {Array} - An array of comment counts for each URL
    */
-  async function requestAllWithDelay(urls, delay) {
+  async function scanReleases(urls, delay) {
 
     let button = document.querySelector('.de-scan-releases'),
         responses = [],
@@ -112,7 +118,7 @@ resourceLibrary.ready(() => {
     button.disabled = true;
     button.textContent = 'Scanning...';
 
-    for (let url of urls) {
+    for ( let url of urls ) {
 
       try {
 
@@ -136,7 +142,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  if (releaseScanner && (href.includes('/artist/') || href.includes('/label/'))) {
+
+  if ( releaseScanner
+       && (href.includes('/artist/') || href.includes('/label/')) ) {
 
     let selector = '.section_content.marketplace_box_buttons_count_1',
         pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
@@ -146,7 +154,7 @@ resourceLibrary.ready(() => {
     // Event Listeners
     // ------------------------------------------------------
     document.querySelector('.de-scan-releases').addEventListener('click', () => {
-      requestAllWithDelay(releases, interval)
+      scanReleases(releases, interval)
         .then(res => console.log(res))
         .catch(err => console.error(err));
     });

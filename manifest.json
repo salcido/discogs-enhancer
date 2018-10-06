@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://www.discogs.com/*"
+        "*://*.discogs.com/*"
       ],
       "js": [
         "js/extension/background.js"
