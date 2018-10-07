@@ -22,6 +22,9 @@
 
 resourceLibrary.ready(() => {
 
+  let notesElem = document.querySelector('.notes_show'),
+      cwBlock = document.querySelector('.cw_block');
+
   // ========================================================
   // Functions
   // ========================================================
@@ -135,9 +138,10 @@ resourceLibrary.ready(() => {
         return;
     }
   });
+  // ========================================================
+  // DOM Setup / Init
+  // ========================================================
+  if ( notesElem || cwBlock ) {
+    setTimeout(() => { window.addNotesCounter(); }, 100);
+  }
 });
-
-// ========================================================
-// DOM Setup / Init
-// ========================================================
-setTimeout(() => { window.addNotesCounter(); }, 100);

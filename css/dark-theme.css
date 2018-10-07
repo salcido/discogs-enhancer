@@ -1372,11 +1372,16 @@ pre code {
 }
 
 .alert-message.alert-message-info,
-.alert-message.alert-message-info i,
-.alert-message .icon.icon-times {
+.alert-message.alert-message-info i{
   background: #C5DEF7 !important;
   color: #454545 !important;
   line-height: 20px !important;
+}
+
+.alert-message .icon.icon-times,
+.alert-message.alert-message-warning i {
+  background: transparent !important;
+  color: #454545 !important;
 }
 
 .alert-message.alert-message-info a:not(.button):hover {
@@ -1420,7 +1425,6 @@ pre code {
 }
 
 .alert-message.alert-message-warning,
-.alert-message.alert-message-warning i,
 .alert-message.alert-message-warning,
 span.alert-message-text p,
 span.alert-message-text ul li label,
