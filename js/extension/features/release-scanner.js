@@ -11,15 +11,15 @@ resourceLibrary.ready(() => {
 
   let releaseScanner = resourceLibrary.options.releaseScanner(),
       href = window.location.href,
-      interval = 1000,
+      interval = Number(localStorage.getItem('scanInt')) || 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
       skittles = [...document.querySelectorAll('.skittles .skittles')],
       button = '<button class="buy_release_button button button-green de-scan-releases">Scan Releases</button>';
 
   /**
    * Fetches a page and extracts the comment count from it
-   * @param {string} url - The URL to fetch data from
-   * @returns {number} - The number of comments on the page
+   * @param {String} url - The URL to fetch data from
+   * @returns {Number} - The number of comments on the page
    */
   async function fetchRelease(url) {
 
@@ -93,6 +93,18 @@ resourceLibrary.ready(() => {
   }
 
   /**
+   * Modifies the links on the page to open them in new tabs
+   * @returns {Undefined}
+   */
+  function openInNewTabs() {
+    let anchors = document.querySelectorAll('.card td.image a, .card .title a, .card .artist a');
+    anchors.forEach(a => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    });
+  }
+
+  /**
    * Delays a promise for a specified amount of time
    * @param {Number} ms - The request delay time in milliseconds
    * @returns {Promise}
@@ -115,13 +127,13 @@ resourceLibrary.ready(() => {
         index = 0;
 
     appendSpinners();
+    openInNewTabs();
     button.disabled = true;
     button.textContent = 'Scanning...';
 
     for ( let url of urls ) {
 
       try {
-
         let data = await fetchRelease(url);
 
         document.querySelector('.de-loader').remove();
