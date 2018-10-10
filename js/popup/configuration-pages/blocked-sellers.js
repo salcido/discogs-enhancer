@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add name to block list
   document.querySelector('.btn-green').addEventListener('click', () => {
 
-    let input = document.getElementById('seller-input').value;
+    let input = document.getElementById('seller-input').value.trim();
 
     if ( input
          && !blockList.list.includes(input)
