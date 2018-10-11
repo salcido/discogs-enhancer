@@ -43,7 +43,6 @@
           colorize: false,
           comments: false,
           debug: false,
-          releaseScanner: false,
           threshold: 2,
           unitTests: false
         };
@@ -614,9 +613,8 @@
             //
             analytics = options.analytics,
             colorize = options.colorize,
-            debug = options.debug,
             comments = options.comments,
-            releaseScanner = options.releaseScanner,
+            debug = options.debug,
             threshold = options.threshold,
             unitTests = options.unitTests;
 
@@ -624,26 +622,13 @@
 
         if (colorize) { doc.getElementById('colorize').checked = true; }
 
-        if (debug) { doc.getElementById('debug').checked = true; }
-
         if (comments) { doc.getElementById('comments').checked = true; }
 
-        if (releaseScanner) { doc.getElementById('releaseScanner').checked = true; }
+        if (debug) { doc.getElementById('debug').checked = true; }
 
         if (threshold) { doc.getElementById('threshold').value = threshold; }
 
         if (unitTests) { doc.getElementById('unittests').checked = true; }
-      },
-
-      /**
-       * Whether or not to use the Release Scanner
-       *
-       * @return {Boolean}
-       */
-
-      releaseScanner: function() {
-
-        return JSON.parse(localStorage.getItem('options')).releaseScanner;
       },
 
       /**
@@ -661,7 +646,6 @@
             debug = doc.getElementById('debug').checked,
             comments = doc.getElementById('comments').checked,
             options,
-            releaseScanner = doc.getElementById('releaseScanner').checked,
             threshold = doc.getElementById('threshold').value,
             unitTests = doc.getElementById('unittests').checked;
 
@@ -675,7 +659,6 @@
         options.colorize = colorize;
         options.debug = debug;
         options.comments = comments;
-        options.releaseScanner = releaseScanner;
         options.threshold = threshold;
         options.unitTests = unitTests;
 
