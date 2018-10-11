@@ -80,7 +80,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 - Add a conditional check for the new `prefs` property under the `User Preferences` comment block. This should check the preference and create a DOM element that contains the necessary script files for the new feature.
 
-#### Example:
+##### Example:
 
 ```javascript
   if ( result.prefs.featureName ) {
@@ -99,7 +99,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 - Update `popup.html` with the new preference menu option. Make sure to update the markup with a unique `id`, help-bubble text, and meta keywords.
 
-#### Example:
+##### Example:
 
 ```html
     <!-- title of the new feature -->
@@ -131,7 +131,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 - Update `manifest.json` and `webpack.config.js` with the paths to the new feature files.
 
-#### Example:
+##### Example:
 
 `manifest.json`
 
@@ -149,7 +149,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 - Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup.
 
-#### Example:
+##### Example:
 
 ```javscript
   releaseRatings: document.getElementById('toggleReleaseRatings').checked,
@@ -166,7 +166,7 @@ Make the following changes to `popup.js`:
 
 Add the feature description to `learn.html`. Make sure to insert the new markup block in the correct alphabetical order.
 
-#### Example:
+##### Example:
 
 ```HTML
     <div class="feature-block">
