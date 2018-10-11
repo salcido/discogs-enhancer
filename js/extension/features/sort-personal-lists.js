@@ -150,17 +150,19 @@ resourceLibrary.ready(() => {
   // ========================================================
   try {
 
-    document.querySelector('.add_to_list').addEventListener('click', () => {
+    document.querySelectorAll('.add_to_list').forEach(link => {
 
-      let waitForListModal = setInterval(() => {
-        desc = false;
-        // Make sure the select exists
-        if ( document.querySelector('#list_oldpick option') ) {
-          clearInterval(waitForListModal);
-          // Insert our sort button
-          injectSortButton();
-        }
-      }, 100);
+      link.addEventListener('click', () => {
+        let waitForListModal = setInterval(() => {
+          desc = false;
+          // Make sure the select exists
+          if ( document.querySelector('#list_oldpick option') ) {
+            clearInterval(waitForListModal);
+            // Insert our sort button
+            injectSortButton();
+          }
+        }, 100);
+      });
     });
   } catch (err) {
     // just catch the error
