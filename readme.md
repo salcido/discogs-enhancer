@@ -26,6 +26,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Contextual Menu Searching
 * Quick Currency Converter
 * Dark Theme
+* Release Scanner
 * Everlasting Collection
 * Everlasting Marketplace
 * Feedback Notifications
@@ -71,9 +72,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 
 # Adding a feature
 
-This is intended to give a basic overview of how to add a new feature to Discogs Enhancer.
-
-In order to add a simple, togglable feature to the extension, you'll need to update the files listed below. This guide assumes you've added a new `<feature>.js` file to `js/extension/features/` that does not require additional CSS files, configuration pages, or submenus. Features that require their own configuration pages or submenus are more complex and are out of scope for this guide. I plan on adding a more in-depth guide in the future.
+In order to add a simple, togglable feature to the extension, you'll need to update the files listed below. This guide assumes you've added a new `<feature>.js` file to `js/extension/features/` and that it does not require additional CSS files, configuration pages, or submenus. Features that require their own configuration pages or submenus are more complex and are out of scope for this guide. I plan on adding a more in-depth guide in the future.
 
 ## background.js
 
@@ -182,7 +181,7 @@ Add the feature description to `learn.html`. Make sure to insert the new markup 
 
 ## Build The Extension
 
-Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build`. This will create a fresh version of the extension with the new feature assets. Once the build is finished, load the extension in Chrome by going to `chrome://extensions`. Make sure `Developer Mode` is checked, then click 'Load unpacked' and choose the newly exported `dist` folder. You should now be able to enable the feature from the popup menu.
+Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build`. Once the build is finished, load the extension in Chrome by going to `chrome://extensions`. Make sure `Developer Mode` is checked, then click 'Load unpacked' and choose the newly exported `dist` folder. You should now be able to enable the feature from the popup menu.
 
 ***
 
