@@ -83,15 +83,15 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 #### Example:
 
 ```javascript
-  if ( result.prefs.releaseRatings ) {
+  if ( result.prefs.featureName ) {
 
-    let releaseRatings = document.createElement('script');
+    let featureName = document.createElement('script');
 
-    releaseRatings.type = 'text/javascript';
-    releaseRatings.src = chrome.extension.getURL('js/extension/features/release-ratings.js');
-    releaseRatings.className = 'de-init';
+    featureName.type = 'text/javascript';
+    featureName.src = chrome.extension.getURL('js/extension/features/feature-name.js');
+    featureName.className = 'de-init';
 
-    elems.push(releaseRatings);
+    elems.push(featureName);
   }
 ```
 
@@ -136,13 +136,13 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 `manifest.json`
 
 ```JSON
-  "js/extension/features/release-ratings.js",
+  "js/extension/features/feature-name.js",
 ```
 
 `webpack.config.js`
 
 ```javascript
-  [features + 'release-ratings']: `${features}release-ratings.js`,
+  [features + 'feature-name']: `${features}feature-name.js`,
 ```
 
 ## utils.js
