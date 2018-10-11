@@ -95,6 +95,7 @@ window.addEventListener('load', () => {
       toggleReadability = document.getElementById('toggleReadability'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),
+      toggleReleaseScanner = document.getElementById('toggleReleaseScanner'),
       toggleRemoveFromWantlist = document.getElementById('toggleRemoveFromWantlist'),
       toggleSellerRep = document.getElementById('toggleSellerRep'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
@@ -224,6 +225,7 @@ window.addEventListener('load', () => {
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleReleaseRatings.addEventListener('change', triggerSave);
+  toggleReleaseScanner.addEventListener('change', triggerSave);
   toggleRemoveFromWantlist.addEventListener('change', triggerSave);
   toggleSellerRep.addEventListener('change', sellerRep.saveSellerRep);
   toggleShortcuts.addEventListener('change', triggerSave);
@@ -289,6 +291,7 @@ window.addEventListener('load', () => {
       toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleReleaseRatings.checked = result.prefs.releaseRatings;
+      toggleReleaseScanner.checked = result.prefs.releaseScanner;
       toggleRemoveFromWantlist.checked = result.prefs.removeFromWantlist;
       toggleSellerRep.checked = result.prefs.sellerRep;
       toggleShortcuts.checked = result.prefs.formatShortcuts;

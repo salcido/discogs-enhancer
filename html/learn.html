@@ -43,14 +43,16 @@
       <div class="info-wrap">
         <!-- updates -->
         <div class="updates tab-content">
-          <!-- <div class="news-item">
-            <p><span class="feature">New Feature: </span><br><span class="item-title" style="display:block;">Remove From Wantlist Shortcuts</span><br>
-            <span class="text">This will insert "Remove From Wantlist" links into each item in the Marketplace when viewing "Items I want". It allows you to remove the item from your wantlist without having to view the release page and remove it from there.</span></p>
-          </div> -->
+          <div class="news-item">
+            <p><span class="feature">New Feature: </span> <span class="item-title">Release Scanner</span><br>
+            <span class="text">This will "scan" a single page of releases and count the number of comments on each release on any Artist or Label page. Think of it as a quick way to get an idea of which releases are being talked about. Many thanks to Mark for the suggestion!</span></p>
+          </div>
           <div class="news-item">
             <p><span class="update">Updates in this version:</span></p>
             <ul>
-              <li>Dark theme fixes for the new Collection layout</li>
+              <li>Lots of small Dark Theme fixes</li>
+              <li>Fixed an error thrown by the notes counter</li>
+              <li>Fixed an issue with sorting personal lists</li>
             </ul>
           </div>
         </div>
@@ -60,7 +62,7 @@
         </div>
         <!-- donate -->
         <div class="donate hide tab-content">
-          <p><span class="m">If you enjoy this extension please consider donating.</span>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API is $5 a month via <a href="https://www.digitalocean.com/pricing/">Digital Ocean</a>. Even the smallest contribution helps pay for the server!</p>
+          <p><span class="m">If you enjoy this extension please consider donating or simply sharing <a href="https://www.discogs-enhancer.com" target="_blank" rel="noopener noreferrer">Discogs Enhancer</a> on social media!</span>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API is $5 a month via <a href="https://www.digitalocean.com/pricing/">Digital Ocean</a>. Even the smallest contribution helps pay for the server!</p>
           <div class="donation-wrap">
             <!-- <div class="donate">
               <h3>Ethereum (or any ERC20 token):</h3>
@@ -77,9 +79,6 @@
               <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
             </form>
           </div>
-          <p>
-            <span class="m">You can also help simply by sharing <a href="https://www.discogs-enhancer.com" target="_blank" rel="noopener noreferrer">Discogs Enhancer</a> on social media!</span>
-          </p>
         </div>
         <!-- Source Code -->
         <div class="source-code hide tab-content">
@@ -281,7 +280,7 @@
     <div class="feature-block">
       <!-- Improved Collection UI -->
       <h2 id="improved-ui">Improved Collection UI</h2>
-      <p>This makes the Collection page a little more organized by moving some links around and colorizing the Move Selected and Remove Selected buttons.</p>
+      <p>This makes the Collection page a little more organized by moving some links around and colorizing the Move Selected and Remove Selected buttons. Discogs has since changed the default collection page for most users so this will only work if you have more than 2500 items in your collection.</p>
     </div>
 
     <div class="feature-block">
@@ -362,6 +361,25 @@
       <h2 id="releaseDurations">Release Durations</h2>
 
       <p>Shows the total playing time of a release (if track times are provided) at the bottom of the track list.</p>
+    </div>
+
+    <div class="feature-block">
+      <!-- Release Scanner -->
+      <h2 id="releaseScanner">Release Scanner</h2>
+
+      <p>This will "scan" a single page of releases and count the number of comments on each release on any Artist or Label page. Think of it as a quick way to get an idea of which releases are being talked about. Once a page has been scanned, release links will open in a new tab/window.</p>
+
+      <p>If there are comments on a release a small gray badge with the number of comments will be appended to the release. If there are no comments, nothing is appended.</p>
+
+      <img src="../img/learn/scan-badge.jpg" class="max-width" />
+
+      <p>To scan a page of releases click the "Scan Releases" button near the top portion of the page:</p>
+
+      <img src="../img/learn/scan-button.jpg" class="max-width" />
+
+      <p><b>Pro Tip:</b> You can hover over the badge to see the rating and number of votes each releases has received. Clicking the badge will open the release in a new tab.</p>
+
+      <p><b>Note:</b> Scanning is rate-limited to 1 scan per second in accordance with <a href="https://www.discogs.com/developers/#page:home,header:home-rate-limiting" target="_blank" rel="noopener noreferrer">Discogs' rate-limiting rules.</a></p>
     </div>
 
     <div class="feature-block">
@@ -525,6 +543,7 @@
         <li>Hristo. H. <span class="near-mint">&#9733;</span> <span class="near-mint">&#9733;</span></li>
         <li>Jacob V. <span class="near-mint">&#9733;</span></li>
         <li>Lucas F.</li>
+        <li>Mark A.</li>
         <li>Matt T. <span class="near-mint">&#9733;</span></li>
         <li>Matti K. <span class="near-mint">&#9733;</span></li>
         <li>Mike B. <span class="near-mint">&#9733;</span></li>

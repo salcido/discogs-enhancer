@@ -71,6 +71,7 @@ chrome.storage.sync.get('prefs', function(result) {
       notesCount: true,
       randomItem: false,
       readability: false,
+      releaseScanner: false,
       releaseDurations: true,
       releaseRatings: false,
       removeFromWantlist: false,
@@ -556,6 +557,18 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(releaseRatings);
   }
 
+  // release-scanner
+  if ( result.prefs.releaseScanner ) {
+
+    let releaseScanner = document.createElement('script');
+
+    releaseScanner.type = 'text/javascript';
+    releaseScanner.src = chrome.extension.getURL('js/extension/features/release-scanner.js');
+    releaseScanner.className = 'de-init';
+
+    elems.push(releaseScanner);
+  }
+
   // remove-from-wantlist.js/css
   if ( result.prefs.removeFromWantlist ) {
 
@@ -716,15 +729,6 @@ chrome.storage.sync.get('prefs', function(result) {
   comments.className = 'de-init';
 
   elems.push(comments);
-
-  // release-scanner.js
-  let scanner = document.createElement('script');
-
-  scanner.type = 'text/javascript';
-  scanner.src = chrome.extension.getURL('js/extension/features/release-scanner.js');
-  scanner.className = 'de-init';
-
-  elems.push(scanner);
 
   // ========================================================
   // Contextual Menu Options

@@ -900,6 +900,18 @@
       });
     },
 
+    setScanner: function() {
+
+      let obj = {
+        wants: true,
+        int: 300
+      };
+
+      obj = JSON.stringify(obj);
+
+      return localStorage.setItem('scan', obj);
+    },
+
     /**
      * Sets text for sort buttons
      *

@@ -47,6 +47,7 @@ export function applySave(message, event) {
         randomItem: document.getElementById('toggleRandomItem').checked,
         readability: document.getElementById('toggleReadability').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
+        releaseScanner: document.getElementById('toggleReleaseScanner').checked,
         releaseRatings: document.getElementById('toggleReleaseRatings').checked,
         removeFromWantlist: document.getElementById('toggleRemoveFromWantlist').checked,
         sellerRep: document.getElementById('toggleSellerRep').checked,
