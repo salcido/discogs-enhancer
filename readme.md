@@ -45,7 +45,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Text Formatting Shortcuts
 * Improve Tracklist Readability
 
-## Overview
+## 📋 Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
 
 ***
@@ -70,7 +70,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 
 ***
 
-## Adding a feature
+## 🏗 Adding a feature
 
 In order to add a simple, togglable feature to the extension, you'll need to update the files listed below. This guide assumes you've added a new `<feature>.js` file to `js/extension/features/` and that it does not require additional CSS files, configuration pages, or submenus. Features that require their own configuration pages or submenus are more complex and are out of scope for this guide. I plan on adding a more in-depth guide in the future.
 
@@ -179,7 +179,7 @@ Add the feature description to `learn.html`. Make sure to insert the new markup 
     </div>
 ```
 
-### Build The Extension
+### 🛠 Build The Extension
 
 Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build`. Once the build is finished, load the extension in Chrome by going to `chrome://extensions`. Make sure `Developer Mode` is checked, then click 'Load unpacked' and choose the newly exported `dist` folder. You should now be able to enable the feature from the popup menu.
 
