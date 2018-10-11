@@ -152,7 +152,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 ##### Example:
 
 ```javscript
-  releaseRatings: document.getElementById('toggleReleaseRatings').checked,
+  featureName: document.getElementById('toggleFeatureName').checked,
 ```
 
 ### popup.js
