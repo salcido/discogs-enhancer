@@ -70,11 +70,11 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 
 ***
 
-## 🏗 Adding a feature
+## 🏗 Adding a Feature
 
 In order to add a simple, togglable feature to the extension, you'll need to update the files listed below. This guide assumes you've added a new `<feature>.js` file to `js/extension/features/` and that it does not require additional CSS files, configuration pages, or submenus. Features that require their own configuration pages or submenus are more complex and are out of scope for this guide. I plan on adding a more in-depth guide in the future.
 
-### background.js
+### ✅ background.js
 
 - Add a new property to the `prefs` object of `background.js`. It should be a `boolean` and have a unique name that easily identifies the feature. Make sure to add the property in the corrrect alphabetical position.
 
@@ -95,7 +95,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
   }
 ```
 
-### popup.html
+### ✅ popup.html
 
 - Update `popup.html` with the new preference menu option. Make sure to update the markup with a unique `id`, help-bubble text, and meta keywords.
 
@@ -127,7 +127,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
     </div>
   ```
 
-### manifest.json and webpack.config.js
+### ✅ manifest.json and webpack.config.js
 
 - Update `manifest.json` and `webpack.config.js` with the paths to the new feature files.
 
@@ -145,7 +145,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
   [features + 'feature-name']: `${features}feature-name.js`,
 ```
 
-### utils.js
+### ✅ utils.js
 
 - Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup.
 
@@ -155,14 +155,14 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
   featureName: document.getElementById('toggleFeatureName').checked,
 ```
 
-### popup.js
+### ✅ popup.js
 
 Make the following changes to `popup.js`:
 - Update the `load` eventListener  with the new property.
 - Add a new `change` eventListener under the `Event listeners for toggles` comment block.
 - Update the `chrome.storage.sync.get` callback with the new property.
 
-### learn.html
+### ✅ learn.html
 
 Add the feature description to `learn.html`. Make sure to insert the new markup block in the correct alphabetical order.
 
@@ -179,7 +179,7 @@ Add the feature description to `learn.html`. Make sure to insert the new markup 
     </div>
 ```
 
-### 🛠 Build The Extension
+### 📦 Build The Extension
 
 Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build`. Once the build is finished, load the extension in Chrome by going to `chrome://extensions`. Make sure `Developer Mode` is checked, then click 'Load unpacked' and choose the newly exported `dist` folder. You should now be able to enable the feature from the popup menu.
 
