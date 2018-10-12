@@ -167,17 +167,17 @@ Make the following changes to `popup.js`:
 Add the feature description to `learn.html`. Make sure to insert the new markup block in the correct alphabetical order.
 
 > Example:
->
->```HTML
->    <div class="feature-block">
->      <!-- Feature Name -->
->      <h2 id="featureName">Feature Name</h2>
->
->      <p>Supporting text describing how the feature works.</p>
->      <!-- supporting image(s) if needed -->
->      <img src="../img/learn/feature-image.png" class="max-width" />
->    </div>
->```
+
+```HTML
+    <div class="feature-block">
+      <!-- Feature Name -->
+      <h2 id="featureName">Feature Name</h2>
+
+      <p>Supporting text describing how the feature works.</p>
+      <!-- supporting image(s) if needed -->
+      <img src="../img/learn/feature-image.png" class="max-width" />
+    </div>
+```
 
 ### 📦 Build The Extension
 
