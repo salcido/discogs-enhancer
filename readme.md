@@ -97,7 +97,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 ### 2️⃣ popup.html
 
-- Update `popup.html` with the new preference menu option. Make sure to update the markup with a unique `id`, help-bubble text, and meta keywords.
+- Modify `popup.html` with the new preference menu option. Update the markup with a unique `id`, help-bubble text, and meta keywords. Make sure to add the markup in the corrrect alphabetical position.
 
 > Example:
 
@@ -129,7 +129,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 ### 3️⃣ manifest.json and webpack.config.js
 
-- Update `manifest.json` and `webpack.config.js` with the paths to the new feature files.
+- Modify `manifest.json` and `webpack.config.js` with the paths to the new feature files.
 
 > Example:
 
@@ -147,12 +147,19 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
 
 ### 4️⃣ utils.js
 
-- Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup.
+- Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup and add the property in the corrrect alphabetical position.
 
 > Example:
 
 ```javscript
-  featureName: document.getElementById('toggleFeatureName').checked,
+export function applySave(message, event) {
+
+  let prefs = {
+    ...
+    featureName: document.getElementById('toggleFeatureName').checked,
+    ...
+  }
+}
 ```
 
 ### 5️⃣ popup.js
