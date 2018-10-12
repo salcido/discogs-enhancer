@@ -988,33 +988,31 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 // Analytics Option
 // ========================================================
 
-checkForAnalytics = setInterval(function() {
+function toggleAnalytics(analytics) {
+
+  let opts = JSON.parse(localStorage.getItem('options')),
+      request = { request: 'analytics', enabled: analytics.checked };
+
+  chrome.runtime.sendMessage(request, ({ enabled }) => {
+
+    opts.analytics = enabled;
+    opts = JSON.stringify(opts);
+
+    localStorage.setItem('options', opts);
+  });
+}
+
+// Fire toggleAnalytics once #analytics exists in the DOM
+checkForAnalytics = setInterval(() => {
 
   let analytics = document.getElementById('analytics');
-
-  function toggleAnalytics() {
-
-    let optionsObj = JSON.parse(localStorage.getItem('options'));
-
-    chrome.runtime.sendMessage({request: 'analytics', enabled: analytics.checked}, function(response) {
-
-      optionsObj.analytics = (response.enabled ? true : false);
-
-      optionsObj = JSON.stringify(optionsObj);
-
-      localStorage.setItem('options', optionsObj);
-    });
-  }
 
   if ( analytics ) {
 
     analytics.addEventListener('change', toggleAnalytics);
-
-    /* Fire toggleAnalytics once #analytics exists in the DOM */
-    toggleAnalytics();
-
-    clearInterval(checkForAnalytics);
+    toggleAnalytics(analytics);
   }
+  clearInterval(checkForAnalytics);
 }, 1000);
 
 
