@@ -2127,3 +2127,8 @@ table.release-table thead tr th a span {
 .review_comment {
   line-height: 1.4rem !important;
 }
+
+/* filter sidebar in collection page */
+#CollectionApp .release-list aside {
+  background-color: #323334 !important;
+}
