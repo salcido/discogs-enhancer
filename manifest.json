@@ -69,6 +69,7 @@
     "js/extension/features/better-collection-ui.js",
     "js/extension/features/block-sellers.js",
     "js/extension/features/blurry-image-fix.js",
+    "js/extension/features/collection-new-tabs.js",
     "js/extension/features/currency-converter.js",
     "js/extension/features/everlasting-collection-notes.js",
     "js/extension/features/everlasting-collection-ratings.js",

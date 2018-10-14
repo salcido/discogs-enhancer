@@ -78,6 +78,7 @@ window.addEventListener('load', () => {
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
+      toggleCollectionNewTabs = document.getElementById('toggleCollectionNewTabs'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
@@ -208,6 +209,7 @@ window.addEventListener('load', () => {
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
+  toggleCollectionNewTabs.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
@@ -274,6 +276,7 @@ window.addEventListener('load', () => {
       toggleBaoiFields.checked = result.prefs.baoiFields;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
+      toggleCollectionNewTabs.checked = result.prefs.collectionNewTabs;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;

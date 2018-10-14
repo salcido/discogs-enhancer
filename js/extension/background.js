@@ -55,6 +55,7 @@ chrome.storage.sync.get('prefs', function(result) {
       baoiFields: false,
       blockSellers: true,
       blurryImageFix: false,
+      collectionNewTabs: false,
       collectionUi: true,
       converter: true,
       darkTheme: false,
@@ -278,6 +279,18 @@ chrome.storage.sync.get('prefs', function(result) {
     blurryImageFix.src = chrome.extension.getURL('js/extension/features/blurry-image-fix.js');
 
     elems.push(blurryImageFix);
+  }
+
+  if (result.prefs.collectionNewTabs) {
+
+    // collection-new-tabs.js.js
+    let collectionNewTabs = document.createElement('script');
+
+    collectionNewTabs.type = 'text/javascript';
+    collectionNewTabs.src = chrome.extension.getURL('js/extension/features/collection-new-tabs.js');
+    collectionNewTabs.className = 'de-init';
+
+    elems.push(collectionNewTabs);
   }
 
   if (result.prefs.collectionUi) {

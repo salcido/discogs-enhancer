@@ -24,6 +24,7 @@ module.exports = {
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
     /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
+    [features + 'collection-new-tabs']: `${features}collection-new-tabs.js`,
     [features + 'currency-converter']: `${features}currency-converter.js`,
     [features + 'everlasting-collection-notes']: `${features}everlasting-collection-notes.js`,
     [features + 'everlasting-collection-ratings']: `${features}everlasting-collection-ratings.js`,

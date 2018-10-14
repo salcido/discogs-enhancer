@@ -31,6 +31,7 @@ export function applySave(message, event) {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
+        collectionNewTabs: document.getElementById('toggleCollectionNewTabs').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
