@@ -17,7 +17,13 @@ resourceLibrary.ready(() => {
    * @returns {Undefined}
    */
   function modifyReleaseLinks() {
-    let links = document.querySelectorAll('#collection tbody a');
+
+    let collection = '#collection tbody a',
+        coverView = '.release-covers a.release-image',
+        isCollectionView = document.querySelector('.collection-header .menu-item.first').classList.contains('current'),
+        selector = isCollectionView ? collection : coverView,
+        links = document.querySelectorAll(selector);
+
     links.forEach(l => {
       l.setAttribute('target', '_blank');
       l.setAttribute('rel', 'noopener');
@@ -30,11 +36,20 @@ resourceLibrary.ready(() => {
    * @returns {Undefined}
    */
   function modifyUILinks() {
+    // UI click events
     document.body.addEventListener('click', event => {
       if ( event.target.closest('.pagination_page_links') ||
            event.target.closest('.release-table thead') ||
-           event.target.closest('.FacetsNav') ) {
+           event.target.closest('.FacetsNav') ||
+           event.target.closest('.tab_menu') ||
+           event.target.closest('.clear') ) {
         setTimeout(() => modifyReleaseLinks(), 100);
+      }
+    });
+    // Searching with Enter keypress
+    document.body.addEventListener('keyup', event => {
+      if ( event.key === 'Enter' ) {
+        setTimeout(() => modifyReleaseLinks(), 200);
       }
     });
   }
