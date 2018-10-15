@@ -16,7 +16,7 @@ resourceLibrary.ready(() => {
    * Modifies all release links to open in a new window
    * @returns {Undefined}
    */
-  function modifyLinks() {
+  function modifyReleaseLinks() {
     let links = document.querySelectorAll('#collection tbody a');
     links.forEach(l => {
       l.setAttribute('target', '_blank');
@@ -29,12 +29,12 @@ resourceLibrary.ready(() => {
    * Waits for the DOM to update before setting new attributes
    * @returns {Undefined}
    */
-  function modifyPagination() {
+  function modifyUILinks() {
     document.body.addEventListener('click', event => {
       if ( event.target.closest('.pagination_page_links') ||
            event.target.closest('.release-table thead') ||
            event.target.closest('.FacetsNav') ) {
-        setTimeout(() => modifyLinks(), 100);
+        setTimeout(() => modifyReleaseLinks(), 100);
       }
     });
   }
@@ -63,8 +63,8 @@ resourceLibrary.ready(() => {
               hasRun = true;
               // wait for DOM to update
               setTimeout(() => {
-                modifyLinks();
-                modifyPagination();
+                modifyReleaseLinks();
+                modifyUILinks();
               }, 100);
 
               observer.disconnect();
