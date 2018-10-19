@@ -45,35 +45,36 @@ select[size] {
   outline: none !important;
 }
 
-::-webkit-scrollbar {
+::-webkit-:not(.mac) {
   width: 10px;
   background: #393939 !important;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb:not(.mac) {
   width: 3px;
   background: #666666;
   -webkit-border-radius: 0.5ex;
   border-radius: 0.5ex;
 }
 
-::-webkit-scrollbar-corner {
+::-webkit-scrollbar-corner:not(.mac) {
   background: rgb(25, 25, 25) !important;
 }
 
-#quicklister #searchPane .main_search form::-webkit-scrollbar-thumb,
-#quicklister #searchPane .my_upload_wrapper::-webkit-scrollbar-thumb,
-#quicklister #searchPane .my_upload_wrapper ul.searchFields::-webkit-scrollbar-thumb,
-#quicklister #resultsPane .inner_pane::-webkit-scrollbar-thumb,
-#quicklister #resultsPaneDefault .inner_pane::-webkit-scrollbar-thumb,
-#quicklister .releasePreview::-webkit-scrollbar-thumb, #quicklister #postPane::-webkit-scrollbar-thumb,
-#quicklister #postPaneDefault::-webkit-scrollbar-thumb {
+#quicklister #searchPane .main_search form::-webkit-scrollbar-thumb:not(.mac),
+#quicklister #searchPane .my_upload_wrapper::-webkit-scrollbar-thumb:not(.mac),
+#quicklister #searchPane .my_upload_wrapper ul.searchFields::-webkit-scrollbar-thumb:not(.mac),
+#quicklister #resultsPane .inner_pane::-webkit-scrollbar-thumb:not(.mac),
+#quicklister #resultsPaneDefault .inner_pane::-webkit-scrollbar-thumb:not(.mac),
+#quicklister .releasePreview::-webkit-scrollbar-thumb:not(.mac),
+#quicklister #postPane::-webkit-scrollbar-thumb:not(.mac),
+#quicklister #postPaneDefault::-webkit-scrollbar-thumb:not(.mac) {
   background-color: #454545 !important;
   border: 2px solid #454545 !important;
   border-radius: 8px !important;
 }
 
-body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb {
+body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb:not(.mac) {
   background-color: red !important;
   border: 2px solid red !important;
   border-radius: 8px !important;
@@ -928,6 +929,10 @@ table.subform_table td,
 .pagination.bottom,
 #cartform table tr td {
   border-top: 1px solid #454545 !important;
+}
+
+#releases .pagination.bottom {
+  border-top: none !important;
 }
 
 #cartform th,
