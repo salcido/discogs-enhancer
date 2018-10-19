@@ -429,6 +429,8 @@ table.cards tr.sub {
 
 .module_blocks .dashboard_addmodules,
 ul.module_blocks > li.module_placeholder,
+.shipping_policy_editor .add_range,
+.shipping_policy_editor .add_block,
 .uploader {
   border: 5px dashed #454545 !important;
 }
@@ -1958,10 +1960,15 @@ table.table_block tbody tr.odd.has-comments {
 }
 
 /* Pay billing page */
-
-.form-block legend.first {
+.form-block legend,
+.box-header-row.box-header-row-first {
   background: #2F2F2F !important;
   border-bottom: 1px solid #454545 !important;
+  border-top: 1px solid #454545 !important;
+}
+
+.form-block legend.first {
+  border-top: none !important;
 }
 
 /* Advanced Search */
@@ -2131,4 +2138,60 @@ table.release-table thead tr th a span {
 /* filter sidebar in collection page */
 #CollectionApp .release-list aside {
   background-color: #323334 !important;
+}
+
+/* Message header (Inbox) */
+
+.messageHeader {
+  border-bottom: 2px solid #454545 !important;
+}
+
+/* Buyer/Seller Settings */
+
+#seller-paypal-verification,
+#seller-address-form,
+#seller-payment-form,
+#seller-shipping-policy,
+#seller-buyers-form,
+#seller-buyers-form + form,
+#page_content .form-block,
+#page_content .outset-box,
+#page_content .inset-box.push_down {
+  border: 1px solid #454545 !important;
+}
+
+#page_content .reviews .form-block {
+  border: none !important;
+}
+
+/* Shipping policies */
+.policies .inset-box,
+.shipping_policy_editor .policy,
+.shipping_policy_editor .method {
+  border: 1px solid #454545 !important;
+}
+
+.shipping_policy_editor .policy_right{
+  border-left: 1px solid #454545 !important;
+}
+
+.shipping_policy_editor .policy_bottom {
+  border-top: 1px solid #454545 !important;
+}
+
+.shipping_policy_editor .policy.contracted:hover:not(.disabled) {
+  box-shadow: 0px 0px 0px 3px rgba(122,155,190,0.4);
+}
+
+.shipping_policy_editor .policy_header,
+.shipping_policy_editor .policy.expanded .policy_top,
+.shipping_policy_editor .policy.expanded .policy_tray,
+.shipping_policy_editor .method.expanded .method_metadata,
+.shipping_policy_editor .method_time,
+.shipping_policy_editor .method_constraint {
+  border-bottom: 1px solid #454545 !important;
+}
+
+.shipping_policy_editor .policy_header {
+  background: #292929 !important;
 }
