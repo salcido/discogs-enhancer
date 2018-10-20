@@ -1957,6 +1957,11 @@ i.icon-google-plus {
   color: #858585 !important;
 }
 
+.TracksApp>header .container,
+.viewing-tracks .TracksApp .Releases header .columns {
+  background:#323334 !important;
+}
+
 /* Dashboard friend comments */
 
 table.table_block tbody tr.even.has-comments,
