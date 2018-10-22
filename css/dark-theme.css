@@ -2200,3 +2200,8 @@ table.release-table thead tr th a span {
 .shipping_policy_editor .policy_header {
   background: #292929 !important;
 }
+
+/* review box when viewing all reviews page */
+#review_compose.form-block {
+  border: none !important;
+}
