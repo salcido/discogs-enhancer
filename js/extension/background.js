@@ -56,7 +56,7 @@ chrome.storage.sync.get('prefs', function(result) {
       blockSellers: true,
       blurryImageFix: false,
       collectionNewTabs: false,
-      collectionUi: true,
+      collectionUi: false,
       converter: true,
       darkTheme: false,
       everlastingCollection: false,
