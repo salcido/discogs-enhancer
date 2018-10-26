@@ -2229,7 +2229,6 @@ table.release-table thead tr th a span {
 
 /* selected payment method */
 .cart-payment-method {
-  /* background: rgba(50,111,178,0.14) !important; */
   border-color: #454545 !important;
 }
 .cart-payment-method.selected-method {
