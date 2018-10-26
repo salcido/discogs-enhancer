@@ -467,6 +467,13 @@ ol.as_table_block li.footer {
   background-color: #2F2F2F !important;
 }
 
+.cart_page .order_suggestions {
+  border-left: 1px solid #454545 !important;
+  border-right: 1px solid #454545 !important;
+  border-bottom: 1px solid #454545 !important;
+  border-top: none !important;
+}
+
 .thread .thread_message:first-child {
   border-top: none !important;
 }
@@ -2209,4 +2216,13 @@ table.release-table thead tr th a span {
 /* review box when viewing all reviews page */
 #review_compose.form-block {
   border: none !important;
+}
+
+/* recently changed item in cart */
+.cart_page .item-changed-hint,
+.cart_page .item-changed-hint i {
+  color: #323334 !important;
+  background: #f7d266 !important;
+  padding: 0px 3px;
+  border-radius: 3px;
 }
