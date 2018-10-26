@@ -139,13 +139,20 @@ chrome.storage.sync.get('prefs', function(result) {
   // ========================================================
 
   // Dark Theme
-  let darkTheme = document.createElement('link');
+  let darkTheme = document.createElement('link'),
+      href = window.location.href;
 
   darkTheme.rel = 'stylesheet';
   darkTheme.type = 'text/css';
   darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
   darkTheme.id = 'darkThemeCss';
-  darkTheme.disabled = !result.prefs.darkTheme;
+
+  // Temporary fix for exclusives.discogs.com
+  if ( href.includes('exclusives.discogs.com') ) {
+    darkTheme.disabled = true;
+  } else {
+    darkTheme.disabled = !result.prefs.darkTheme;
+  }
 
   elems.push(darkTheme);
 
