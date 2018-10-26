@@ -2231,6 +2231,7 @@ table.release-table thead tr th a span {
 .cart-payment-method {
   border-color: #454545 !important;
 }
+
 .cart-payment-method.selected-method {
   background: rgba(50,111,178,0.14) !important;
   border-color: #326FB2 !important;
