@@ -28,6 +28,7 @@ export function acknowledgeUpdate() {
 export function applySave(message, event) {
 
   let prefs = {
+        absoluteDate: document.getElementById('toggleAbsoluteDate').checked,
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,

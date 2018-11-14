@@ -43,6 +43,44 @@
       </span>
     </div>
 
+    <!-- Absolute Dates -->
+    <div class="toggle-group has-options absolute">
+      <p class="label" title="Click to display options">
+        <span class="arrow">&rsaquo;&nbsp;</span>
+          Absolute Dates On Releases
+        <span class="status"></span>
+      </p>
+      <div class="meta hide">show absolute dates collection wantlist releases added</div>
+
+      <div class="absolute-date hide" id="absolute">
+        <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleAbsoluteDate" checked>
+            <label class="onoffswitch-label" for="toggleAbsoluteDate">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+
+          <div class="help">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle" color="#384047"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12" y2="17"></line></svg>
+            <div class="help-bubble">
+              <div class="help-text">
+                Allows you to see the absolute date an item was added to your Collection or Wantlist instead of the relative date that is shown by default.
+                <span>You can click on the date to toggle between absolute and relative dates.</span>
+              </div>
+              <div class="arrow-right stroke"></div><div class="arrow-right"></div>
+            </div>
+          </div> <!-- /.help -->
+
+          <div class="us-date-format">
+
+            <input type="checkbox" id="usFormat">
+            <label for="usFormat">Use US date format</label>
+            <span class="date-example"></span>
+          </div>
+      </div>
+    </div>
+
     <!-- Block Sellers -->
     <div class="toggle-group">
       <p class="label">Block Sellers</p>
@@ -102,7 +140,7 @@
         Contextual Menu Options
       </p>
       <div class="meta hide">Contextual Menu Options Right Click Search</div>
-
+      <!-- commented this out with the hope that the submenu is self-evident and does not need a help bubble -->
       <!-- <div class="help contextual-help">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle" color="#384047"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12" y2="17"></line></svg>
         <div class="help-bubble">

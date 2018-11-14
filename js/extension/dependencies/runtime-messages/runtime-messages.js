@@ -106,5 +106,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({sellerRepColor: sellerRepColor});
       break;
     }
+    // Absolute Date
+    case 'getAbsoluteDate': {
+
+      let usDateFormat = localStorage.getItem('usDateFormat');
+
+      sendResponse({usDateFormat: usDateFormat});
+      break;
+    }
   }
 });

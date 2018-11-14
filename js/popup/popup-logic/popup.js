@@ -11,6 +11,7 @@
  *
  */
 require('../../../css/popup/popup.scss');
+import * as absoluteDate from './features/absolute-date.js';
 import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
@@ -75,6 +76,7 @@ window.addEventListener('load', () => {
 
   let
       searchbox = document.getElementById('searchbox'),
+      toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
@@ -177,6 +179,10 @@ window.addEventListener('load', () => {
     optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
+  // Absolute Date Feature
+  // ------------------------------------------------------
+  absoluteDate.init();
+
   // Filter by Condition Options
   // ========================================================
   filterByCondition.init();
@@ -206,6 +212,7 @@ window.addEventListener('load', () => {
   // ========================================================
   // Event listeners for toggles
   // ========================================================
+  toggleAbsoluteDate.addEventListener('change', triggerSave);
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
@@ -273,6 +280,7 @@ window.addEventListener('load', () => {
     // Get the user's saved preferences and set the toggles accordingly
     chrome.storage.sync.get('prefs', result => {
       // Feature preferences
+      toggleAbsoluteDate.checked = result.prefs.absoluteDate;
       toggleBaoiFields.checked = result.prefs.baoiFields;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
@@ -327,6 +335,7 @@ window.addEventListener('load', () => {
     suggestedPrices.getCurrency();
     sellerRep.setSellerRep();
     filterByCountry.setCountryFilterValues();
+    absoluteDate.setAbsoluteDateStatus();
 
     setTimeout(() => {
       filterByCondition.setupFilterByCondition(toggleFilterByCondition.checked);

@@ -52,6 +52,7 @@ chrome.storage.sync.get('prefs', function(result) {
   if (!result.prefs) {
 
     prefs = {
+      absoluteDate: false,
       baoiFields: false,
       blockSellers: true,
       blurryImageFix: false,
@@ -256,8 +257,20 @@ chrome.storage.sync.get('prefs', function(result) {
   // Set based on the `result.prefs` object
   // ========================================================
 
+  if ( result.prefs.absoluteDate ) {
+    // toggle-absolute-date.js
+    let absoluteDate = document.createElement('script');
+
+    absoluteDate.type = 'text/javascript';
+    absoluteDate.src = chrome.extension.getURL('js/extension/features/toggle-absolute-date.js');
+    absoluteDate.className = 'de-init';
+
+    elems.push(absoluteDate);
+  }
+
   if (result.prefs.blockSellers) {
 
+    // block-sellers.js
     let blockSellers = document.createElement('script');
 
     blockSellers.type = 'text/javascript';
@@ -1056,6 +1069,14 @@ window.onload = function() {
 // ========================================================
 
 try {
+
+  // Absolute Date on releases
+  chrome.runtime.sendMessage({request: 'getAbsoluteDate'}, function(response) {
+
+    let usDateFormat = response.usDateFormat;
+
+    localStorage.setItem('usDateFormat', usDateFormat);
+  });
 
   // Tag/Hide sellers
   chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {

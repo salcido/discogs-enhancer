@@ -364,6 +364,25 @@ input[type="checkbox"]:focus {
   }
 }
 
+.absolute {
+  .us-date-format {
+    display: block;
+    clear: both;
+    color: var(--text-color);
+    margin-left: 32px;
+    padding-top: 5px;
+
+    input {
+      margin-right: 5px;
+    }
+
+    .date-example {
+      display: block;
+      margin-left: 24px;
+    }
+  }
+}
+
 /* Seller Reputation */
 /*sub-menu*/
 .seller-rep {
@@ -511,7 +530,8 @@ input[type="checkbox"]:focus {
 .toggle-group.menus,
 .toggle-group.condition,
 .toggle-group.country,
-.toggle-group.seller-rep {
+.toggle-group.seller-rep,
+.toggle-group.absolute {
   cursor: pointer;
 }
 
