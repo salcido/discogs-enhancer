@@ -11,13 +11,11 @@
 // Option title: Show Absolute Dates, Absolute Date Toggle,
 // Note: August 20, 2009 12:00 AM earlist date
 // @TODO: Learn page docs
-// @TODO: fix when have multiple releases:
-// https://www.discogs.com/Attaboy-Busted-Wagon/release/1627
 resourceLibrary.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let absoluteDate = JSON.parse(localStorage.getItem('absoluteDate')) || false,
+    let absoluteDate = JSON.parse(localStorage.getItem('absoluteDate')) || true,
         usDateFormat = JSON.parse(localStorage.getItem('usDateFormat')) || false,
         copies = document.querySelectorAll('.cw_block_timestamp'),
         language = resourceLibrary.language(),
@@ -29,7 +27,7 @@ resourceLibrary.ready(() => {
 
     /**
      * Sets a data attribute on each span that contains the
-     * relative date the time was added to the collection/wantlist
+     * relative date the item was added to the collection/wantlist
      * @returns {Undefined}
      */
     function storeRelativeDates() {
