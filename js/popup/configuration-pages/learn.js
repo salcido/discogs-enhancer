@@ -88,6 +88,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Checks the URL for a hash and scrolls the document
+   * to the specified ID.
+   * @returns {Undefined}
+   */
+
+  function checkForURLHash() {
+
+    if ( location.hash ) {
+      document.querySelector(`${location.hash}`).scrollIntoView();
+      // (-80px to adjust for space up top)
+      setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+    }
+  }
+
+  /**
    * Clears the search query from the input element
    *
    * @returns {undefined}
@@ -343,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     location.hash = '#' + select.value;
 
-    if ( location.hash.length !== 0 ) {
+    if ( location.hash ) {
       // (-80px to adjust for space up top)
       setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
     }
@@ -403,7 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getVersionAndYear();
   populateNavigation([...document.querySelectorAll('.feature-block')]);
-  setTimeout(() => { search.focus(); }, 200);
+
+  setTimeout(() => {
+    search.focus();
+    checkForURLHash();
+  }, 200);
+
   // Check for extension issues
   checkForIssues().then(res => appendNewsItem(res)).catch(err => console.warn('error getting updates', err));
 });
