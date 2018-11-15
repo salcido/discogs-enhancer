@@ -8,9 +8,6 @@
  *
  */
 
-// Option title: Show Absolute Dates, Absolute Date Toggle,
-// Note: August 20, 2009 12:00 AM earlist date
-// @TODO: Learn page docs
 resourceLibrary.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
