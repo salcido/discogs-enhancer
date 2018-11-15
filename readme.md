@@ -39,6 +39,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Marketplace Highlights
 * Marketplace Release Ratings
 * Notes Counter
+* See actual dates an item was added to your Collection/Wantlist
 * Random Item From Collection
 * Remove From Wantlist Shortcuts
 * See Release Durations
