@@ -148,8 +148,10 @@ chrome.storage.sync.get('prefs', function(result) {
   darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
   darkTheme.id = 'darkThemeCss';
 
-  // Temporary fix for exclusives.discogs.com
-  if ( href.includes('exclusives.discogs.com') ) {
+  // Don't use the dark theme on subdomains
+  // Fixed here instead of manifest.json due to issues explained here:
+  // https://github.com/salcido/discogs-enhancer/issues/14
+  if ( !href.includes('www') ) {
     darkTheme.disabled = true;
   } else {
     darkTheme.disabled = !result.prefs.darkTheme;
