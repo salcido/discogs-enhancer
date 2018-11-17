@@ -644,6 +644,7 @@ span.clear-search {
   stroke: var(--help-icon);
   width: 15px;
   z-index: 100;
+  cursor: pointer;
 }
 
 .help:hover {

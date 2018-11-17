@@ -22,7 +22,12 @@ import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
 import * as suggestedPrices from './features/suggested-prices.js';
 import * as ytPlaylists from './features/youtube-playlists.js';
-import { acknowledgeUpdate, optionsToggle, searchFeatures, applySave, triggerSave, checkForUpdate } from './utils';
+import { acknowledgeUpdate,
+         optionsToggle,
+         searchFeatures,
+         applySave,
+         triggerSave,
+         checkForUpdate } from './utils';
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
@@ -153,6 +158,15 @@ window.addEventListener('load', () => {
     acknowledgeUpdate();
 
     if ( ga ) { ga('send', 'event', 'learn', 'learn clicked'); }
+  });
+
+  // Help Bubble Clicks
+  // ========================================================
+  document.querySelectorAll('.help').forEach(bubble => {
+    let id = bubble.classList[1];
+    bubble.addEventListener('click', () => {
+      chrome.tabs.create({url: `../html/learn.html#${id}`});
+    });
   });
 
   // Open Block Sellers Configuration page
