@@ -326,8 +326,14 @@ aside li > a,
   color: white !important;
 }
 
-.cw_block .notes_field_label, .notes_add, .notes_text {
+.cw_block .notes_field_label, .notes_text {
   color: white !important;
+}
+
+/* "Edit" in empty notes fields */
+.notes_add {
+  color: #cccccc !important;
+  opacity: 0.8;
 }
 
 a.readmore_toggler {
