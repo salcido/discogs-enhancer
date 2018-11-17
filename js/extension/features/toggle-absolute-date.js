@@ -33,6 +33,23 @@ resourceLibrary.ready(() => {
     }
 
     /**
+     * Converts time from 12 hour format to 24 hour format
+     * @param {String} time12h - The time in 12 hour format (1:15 PM)
+     * @returns {String}
+     */
+    function convertTo24(time12h) {
+
+      let [time, modifier] = time12h.split(' '),
+          [hours, minutes] = time.split(':');
+
+      if ( hours === '12' ) { hours = '00'; }
+
+      if ( modifier === 'PM' ) { hours = parseInt(hours, 10) + 12; }
+
+      return `${hours}:${minutes}`;
+    }
+
+    /**
     * Returns the localized month
     * @param {Number} monthIndex - The index of the month from the `monthList` array
     * @returns {String} - The localized month string
@@ -51,10 +68,12 @@ resourceLibrary.ready(() => {
 
       let timestamp = elem.querySelector('span').title,
           approx = elem.querySelector('span').dataset.approx,
-          data = timestamp.split('-'),
-          monthIndex = monthList.indexOf(data[1]),
-          international = `${data[0]} ${getMonth(monthIndex)} 20${data[2]}`,
-          american = `${getMonth(monthIndex)} ${data[0]}, 20${data[2]}`,
+          date = timestamp.split('-'),
+          timeRaw = date[2].split(' '),
+          time = [timeRaw[1], timeRaw[2]].join(' '),
+          monthIndex = monthList.indexOf(date[1]),
+          international = `${date[0]} ${getMonth(monthIndex)} 20${timeRaw[0]} ${convertTo24(time)}`,
+          american = `${getMonth(monthIndex)} ${date[0]}, 20${timeRaw[0]} - ${time}`,
           specific = usDateFormat ? american : international;
 
       return elem.querySelector('span').textContent = absoluteDate ? specific : approx;
