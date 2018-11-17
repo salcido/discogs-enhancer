@@ -12,7 +12,8 @@ resourceLibrary.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let absoluteDate = JSON.parse(localStorage.getItem('absoluteDate')) || true,
+    let lsad = localStorage.getItem('absoluteDate'),
+        absoluteDate = lsad ? JSON.parse(localStorage.getItem('absoluteDate')) : true,
         usDateFormat = JSON.parse(localStorage.getItem('usDateFormat')) || false,
         copies = document.querySelectorAll('.cw_block_timestamp'),
         language = resourceLibrary.language(),
@@ -73,7 +74,7 @@ resourceLibrary.ready(() => {
           time = [timeRaw[1], timeRaw[2]].join(' '),
           monthIndex = monthList.indexOf(date[1]),
           international = `${date[0]} ${getMonth(monthIndex)} 20${timeRaw[0]} ${convertTo24(time)}`,
-          american = `${getMonth(monthIndex)} ${date[0]}, 20${timeRaw[0]} - ${time}`,
+          american = `${getMonth(monthIndex)} ${date[0]}, 20${timeRaw[0]}, ${time}`,
           specific = usDateFormat ? american : international;
 
       return elem.querySelector('span').textContent = absoluteDate ? specific : approx;
