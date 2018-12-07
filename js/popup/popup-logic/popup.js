@@ -82,6 +82,7 @@ window.addEventListener('load', () => {
   let
       searchbox = document.getElementById('searchbox'),
       toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
+      toggleAveragePrice = document.getElementById('toggleAveragePrice'),
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
@@ -227,6 +228,7 @@ window.addEventListener('load', () => {
   // Event listeners for toggles
   // ========================================================
   toggleAbsoluteDate.addEventListener('change', triggerSave);
+  toggleAveragePrice.addEventListener('change', triggerSave);
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
@@ -295,6 +297,7 @@ window.addEventListener('load', () => {
     chrome.storage.sync.get('prefs', result => {
       // Feature preferences
       toggleAbsoluteDate.checked = result.prefs.absoluteDate;
+      toggleAveragePrice.checked = result.prefs.averagePrice;
       toggleBaoiFields.checked = result.prefs.baoiFields;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;

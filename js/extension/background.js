@@ -53,6 +53,7 @@ chrome.storage.sync.get('prefs', function(result) {
 
     prefs = {
       absoluteDate: false,
+      averagePrice: false,
       baoiFields: false,
       blockSellers: true,
       blurryImageFix: false,
@@ -268,6 +269,17 @@ chrome.storage.sync.get('prefs', function(result) {
     absoluteDate.className = 'de-init';
 
     elems.push(absoluteDate);
+  }
+
+  if ( result.prefs.averagePrice ) {
+    // average-price.js
+    let averagePrice = document.createElement('script');
+
+    averagePrice.type = 'text/javascript';
+    averagePrice.src = chrome.extension.getURL('js/extension/features/average-price.js');
+    averagePrice.className = 'de-init';
+
+    elems.push(averagePrice);
   }
 
   if (result.prefs.blockSellers) {

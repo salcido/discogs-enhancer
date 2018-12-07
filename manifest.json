@@ -66,6 +66,7 @@
     "js/extension/dependencies/resource-library/resource-library.js",
     "js/extension/dependencies/tests/unit-tests.js",
     "js/extension/features/apply-highlights.js",
+    "js/extension/features/average-price.js",
     "js/extension/features/better-collection-ui.js",
     "js/extension/features/block-sellers.js",
     "js/extension/features/blurry-image-fix.js",

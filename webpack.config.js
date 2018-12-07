@@ -20,6 +20,7 @@ module.exports = {
     [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
     // features files
     [features + 'apply-highlights']: `${features}apply-highlights.js`,
+    [features + 'average-price']: `${features}average-price.js`,
     [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
