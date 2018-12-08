@@ -39,9 +39,9 @@ resourceLibrary.ready(() => {
 
   if ( href.includes('/release/')
        && !href.includes('/edit/')
+       && !href.includes('/history')
        && !href.includes('/master/')
-       && !href.includes('/sell/')
-       && !href.includes('/history') ) {
+       && !href.includes('/sell/')) {
 
     let releaseId = href.split('/release/')[1],
         neverSold = document.querySelector('.statistics ul.last li:nth-child(2)').textContent.includes('--');
@@ -49,6 +49,7 @@ resourceLibrary.ready(() => {
     if ( neverSold ) {
       let li = document.createElement('li');
       li.innerHTML = '<h4>Average:</h4> --';
+
       return document.querySelector('.statistics .section_content ul.last').append(li);
     }
 
