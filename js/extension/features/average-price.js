@@ -16,21 +16,31 @@ resourceLibrary.ready(() => {
    * Fetches the average price from the history page and injects
    * it into the DOM.
    * @param {String} id - The release ID to look up
-   * @returns {Method}
+   * @returns {HTMLElement}
    */
   async function getAverage(id) {
 
-    let url = `https://www.discogs.com/sell/history/${id}`,
-        response = await fetch(url),
-        data = await response.text(),
-        div = document.createElement('div'),
-        li = document.createElement('li');
+    try {
 
-    div.innerHTML = data;
-    li.style.fontWeight = 'bold';
-    li.innerHTML = `<h4>Average:</h4> ${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}`;
+      let url = `https://www.discogs.com/sell/history/${id}`,
+          response = await fetch(url),
+          data = await response.text(),
+          div = document.createElement('div'),
+          li = document.createElement('li');
 
-    return document.querySelector('.statistics .section_content ul.last').append(li);
+      div.innerHTML = data;
+      li.style.fontWeight = 'bold';
+      li.innerHTML = `<h4>Average:</h4> ${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}`;
+
+      return document.querySelector('.statistics .section_content ul.last').append(li);
+
+    } catch (err) {
+
+      let li = document.createElement('li');
+
+      li.innerHTML = 'Error fetching price average';
+      return document.querySelector('.statistics .section_content ul.last').append(li);
+    }
   }
 
   // ========================================================
