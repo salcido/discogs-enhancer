@@ -367,8 +367,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Troubleshooting link in sidebar
   // ------------------------------------------------------
-  document.querySelector('.t-shoot').addEventListener('click', () => {
-    setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+  document.querySelectorAll('.scroll-anchor').forEach(f => {
+    f.addEventListener('click', () => {
+      setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+    });
   });
 
   // Searches the features for a string match
@@ -425,5 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 200);
 
   // Check for extension issues
-  checkForIssues().then(res => appendNewsItem(res)).catch(err => console.warn('error getting updates', err));
+  checkForIssues()
+    .then(res => appendNewsItem(res))
+    .catch(err => console.warn('error getting updates', err));
 });
