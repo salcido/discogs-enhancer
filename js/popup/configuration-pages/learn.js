@@ -365,9 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // Troubleshooting link in sidebar
+  // Scrolls to any .scroll-target element
   // ------------------------------------------------------
-  document.querySelectorAll('.scroll-anchor').forEach(f => {
+  document.querySelectorAll('.scroll-target').forEach(f => {
     f.addEventListener('click', () => {
       setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
     });
