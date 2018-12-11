@@ -40,6 +40,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Marketplace Release Ratings
 * Notes Counter
 * See actual dates an item was added to your Collection/Wantlist
+* See average sale price on the Release page
 * Random Item From Collection
 * Remove From Wantlist Shortcuts
 * See Release Durations
@@ -117,7 +118,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
         </label>
       </div>
 
-      <div class="help">
+      <div class="help feature-name">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle" color="#384047"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12" y2="17"></line></svg>
         <div class="help-bubble">
           <div class="help-text">
