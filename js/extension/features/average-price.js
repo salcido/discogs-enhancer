@@ -30,6 +30,7 @@ resourceLibrary.ready(() => {
 
       div.innerHTML = data;
       li.style.fontWeight = 'bold';
+      li.classList = 'de-average-price';
       li.innerHTML = `<h4>Average:</h4> ${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}`;
 
       return document.querySelector('.statistics .section_content ul.last').append(li);

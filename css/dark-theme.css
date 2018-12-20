@@ -2242,3 +2242,19 @@ table.release-table thead tr th a span {
   background: rgba(50,111,178,0.14) !important;
   border-color: #326FB2 !important;
 }
+
+/* Bold average prices */
+.de-average-price {
+  color: white !important;
+}
+
+/* Converted currency in cart page */
+.currency_converted {
+  opacity: 0.7;
+}
+.cart_page .order_total td {
+  border-top: 1px solid #454545 !important;
+}
+.order_container .box-header-row {
+  border-top: none !important;
+}
