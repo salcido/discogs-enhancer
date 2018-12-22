@@ -75,7 +75,7 @@ resourceLibrary.ready(() => {
                           <td class="item_picture as_float"></td>
                           <td class="item_description de-filter-stamp">
                             <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
-                            <span>${window.hideItems ? condition : ''}</span>
+                            <span>${window.filterMediaCondition ? condition : ''}</span>
                           </td>
                           <td></td>
                           <td></td>
@@ -130,13 +130,13 @@ resourceLibrary.ready(() => {
       }
 
       // filter marketplace item by condition
-      if ( window.hideItems ) {
+      if ( window.filterMediaCondition ) {
 
-        window.hideItems();
+        window.filterMediaCondition();
       }
 
       // filter marketplace item by condition
-      if ( window.hideItems ) { window.hideItems(); }
+      if ( window.filterMediaCondition ) { window.filterMediaCondition(); }
       // Filter marketplace by country
       if ( window.filterByCountry ) { window.filterByCountry(); }
       // Tag sellers by reputation

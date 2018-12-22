@@ -22,13 +22,13 @@
  */
 
 resourceLibrary.ready(() => {
-// TODO: viewing a profile for feedback will cause this script to throw an error
+
   let
       href = window.location.href,
       itemCondition = JSON.parse(localStorage.getItem('itemCondition')),
       hasRemovedItems = false,
       sellPage = href.match(/sell\/list/g),
-      sellerPage = href.match(/seller/g),
+      sellerPage = href.match(/seller\//g),
       sellRelease = href.match(/sell\/release/g),
       wantsPage = href.match(/sell\/mywants/g);
 
@@ -36,11 +36,10 @@ resourceLibrary.ready(() => {
   /**
    * Find all instances of selected items in list and hide them
    *
-   * @method hideItems
+   * @method filterMediaCondition
    * @return {undefined}
    */
-  // TODO: rename this to something like filterByCondition
-  window.hideItems = function hideItems() {
+  window.filterMediaCondition = function filterMediaCondition() {
 
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
     document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
@@ -98,7 +97,7 @@ resourceLibrary.ready(() => {
         let html = `<tr class="shortcut_navigable">
                       <th>
                         Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera.
-                        If you do not want this effect please adjust the "Filter By Condition" setting in Discogs Enhancer.
+                        If you do not want this effect please adjust the "Filter Media Condition" setting in Discogs Enhancer.
                       </th>
                     </tr>`;
 
@@ -121,17 +120,14 @@ resourceLibrary.ready(() => {
   if ( sellPage || sellRelease || sellerPage || wantsPage ) {
 
     // hide items when page first loads
-    window.hideItems();
+    window.filterMediaCondition();
 
-    // Call hideItems on prev/next clicks
+    // Call filterMediaCondition on prev/next clicks
     let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
 
     pagination.forEach(elem => {
 
-      elem.addEventListener('click', () => {
-
-        resourceLibrary.xhrSuccess(window.hideItems);
-      });
+      elem.addEventListener('click', () => resourceLibrary.xhrSuccess(window.filterMediaCondition));
     });
   }
 });

@@ -70,7 +70,7 @@ resourceLibrary.ready(() => {
                             <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
                           </td>
                           <td class="item_description de-filter-stamp">
-                            ${window.hideItems ? condition : ''}
+                            ${window.filterMediaCondition ? condition : ''}
                           </td>
                        </tr>`;
 
@@ -124,7 +124,7 @@ resourceLibrary.ready(() => {
       }
 
       // filter marketplace item by condition
-      if ( window.hideItems ) { window.hideItems(); }
+      if ( window.filterMediaCondition ) { window.filterMediaCondition(); }
       // Filter marketplace by country
       if ( window.filterByCountry ) { window.filterByCountry(); }
       // Tag sellers by reputation

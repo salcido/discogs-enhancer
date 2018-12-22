@@ -475,11 +475,11 @@ chrome.storage.sync.get('prefs', function(result) {
 
   if (result.prefs.filterByCondition) {
 
-    // filter-by-Condition.js
+    // filter-media-condition.js
     let filterByCondition = document.createElement('script');
 
     filterByCondition.type = 'text/javascript';
-    filterByCondition.src = chrome.extension.getURL('js/extension/features/filter-by-condition.js');
+    filterByCondition.src = chrome.extension.getURL('js/extension/features/filter-media-condition.js');
     filterByCondition.className = 'de-init';
 
     elems.push(filterByCondition);

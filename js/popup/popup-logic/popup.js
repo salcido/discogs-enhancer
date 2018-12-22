@@ -15,7 +15,7 @@ import * as absoluteDate from './features/absolute-date.js';
 import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
-import * as filterByCondition from './features/filter-by-condition.js';
+import * as filterByCondition from './features/filter-media-condition.js';
 import * as filterByCountry from './features/filter-by-country.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
