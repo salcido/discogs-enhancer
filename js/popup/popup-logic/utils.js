@@ -42,6 +42,7 @@ export function applySave(message, event) {
         favoriteSellers: document.getElementById('toggleFavoriteSellers').checked,
         feedback: document.getElementById('toggleFeedback').checked,
         filterByCondition: document.getElementById('toggleFilterByCondition').checked,
+        filterSleeveCondition: document.getElementById('toggleFilterSleeveCondition').checked,
         filterByCountry: document.getElementById('toggleFilterByCountry').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,

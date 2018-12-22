@@ -81,6 +81,7 @@
     "js/extension/features/feedback-notifier.js",
     "js/extension/features/filter-by-country.js",
     "js/extension/features/filter-media-condition.js",
+    "js/extension/features/filter-sleeve-condition.js",
     "js/extension/features/friend-counter.js",
     "js/extension/features/hide-min-max-columns.js",
     "js/extension/features/highlight-comments.js",

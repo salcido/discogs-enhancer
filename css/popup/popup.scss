@@ -320,7 +320,8 @@ input[type="checkbox"]:focus {
 
 /* Filter Marketplace Items by Condition */
 /*sub-menu*/
-.hide-condition {
+.hide-condition,
+.hide-sleeve-condition {
   position: relative;
 
   select {

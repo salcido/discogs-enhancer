@@ -68,6 +68,8 @@ chrome.storage.sync.get('prefs', function(result) {
       filterByCondition: false,
       filterByConditionValue: null,
       filterByCountry: false,
+      filterSleeveCondition: false,
+      filterSleeveConditionValue: null,
       formatShortcuts: true,
       hideMinMaxColumns: false,
       highlightMedia: true,
@@ -497,6 +499,18 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(filterByCountry);
   }
 
+  if (result.prefs.filterSleeveCondition) {
+
+    // filter-sleeve-condition.js
+    let filterSleeveCondition = document.createElement('script');
+
+    filterSleeveCondition.type = 'text/javascript';
+    filterSleeveCondition.src = chrome.extension.getURL('js/extension/features/filter-sleeve-condition.js');
+    filterSleeveCondition.className = 'de-init';
+
+    elems.push(filterSleeveCondition);
+  }
+
   // text format shortcuts
   if (result.prefs.formatShortcuts) {
 
@@ -519,10 +533,16 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(shortcuts_css);
   }
 
-  // Set value for filter-by-condition.js // todo
+  // Set value for filter-by-condition.js
   if (result.prefs.filterByConditionValue) {
 
     localStorage.setItem('itemCondition', result.prefs.filterByConditionValue);
+  }
+
+  // Set value for filter-sleeve-condition.js
+  if (result.prefs.filterSleeveConditionValue) {
+
+    localStorage.setItem('sleeveCondition', result.prefs.filterSleeveConditionValue);
   }
 
   if (result.prefs.notesCount) {
@@ -1081,7 +1101,7 @@ window.onload = function() {
 // --------------------------------------------------------
 // Get preferences from extension side and save to DOM side.
 // ========================================================
-
+// TODO: convert these to arrow functions
 try {
 
   // Absolute Date on releases
@@ -1122,7 +1142,7 @@ try {
     localStorage.setItem('filterByCountry', countryPrefs);
   });
 
-  // Filter by item condition
+  // Filter media condition
   chrome.runtime.sendMessage({request: 'getConditions'}, function(response) {
 
     let itemCondition = response.itemCondition;
@@ -1130,6 +1150,16 @@ try {
     itemCondition = JSON.stringify(itemCondition);
 
     localStorage.setItem('itemCondition', itemCondition);
+  });
+
+  // Filter sleeve condition
+  chrome.runtime.sendMessage({request: 'getSleeveConditions'}, function(response) {
+
+    let sleeveCondition = response.sleeveCondition;
+
+    sleeveCondition = JSON.stringify(sleeveCondition);
+
+    localStorage.setItem('sleeveCondition', sleeveCondition);
   });
 
   // Readability settings

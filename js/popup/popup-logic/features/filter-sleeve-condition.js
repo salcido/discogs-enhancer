@@ -1,5 +1,5 @@
 /**
- * Filter Media Condition feature
+ * Filter Sleeve Condition feature
  */
 
 import { applySave, optionsToggle } from '../utils';
@@ -29,19 +29,19 @@ export function clearClasses(classes, status) {
  */
 export function init() {
 
-  document.querySelector('.toggle-group.condition').addEventListener('click', function () {
-    optionsToggle('.hide-condition', this, '.condition', 100);
+  document.querySelector('.toggle-group.sleeve-condition').addEventListener('click', function () {
+    optionsToggle('.hide-sleeve-condition', this, '.sleeve-condition', 100);
   });
 
   // Save the Filter by Condition Select value to localStorage
-  document.getElementById('conditionValue').addEventListener('change', function () {
+  document.getElementById('sleeveConditionValue').addEventListener('change', function () {
 
-    let toggle = document.getElementById('toggleFilterByCondition'),
-      itemCondition = localStorage.getItem('itemCondition'),
-      status = document.querySelector('.toggle-group.condition .label .status');
+    let toggle = document.getElementById('toggleFilterSleeveCondition'),
+        sleeveCondition = localStorage.getItem('sleeveCondition'),
+        status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-    itemCondition = this.value;
-    localStorage.setItem('itemCondition', String(itemCondition));
+    sleeveCondition = this.value;
+    localStorage.setItem('sleeveCondition', String(sleeveCondition));
 
     if (!toggle.checked) {
 
@@ -58,16 +58,16 @@ export function init() {
 }
 
 /**
- * Sets the text value/color of the Filter by Condition
+ * Sets the text value/color of the Filter Sleeve Condition
  * setting in the popup menu when it is first rendered
  * @param {boolean} enabled Enabled or disabled state
  * @return {undefined}
  */
-export function setupFilterByCondition(enabled) {
+export function setupFilterSleeveCondition(enabled) {
 
-  let select = document.getElementById('conditionValue'),
-      setting = Number(localStorage.getItem('itemCondition')),
-      status = document.querySelector('.toggle-group.condition .label .status');
+  let select = document.getElementById('sleeveConditionValue'),
+      setting = Number(localStorage.getItem('sleeveCondition')),
+      status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( enabled ) {
 
@@ -91,10 +91,10 @@ export function setupFilterByCondition(enabled) {
  * enabled the feature
  * @returns {undefined}
  */
-export function toggleHideConditions(event) {
+export function toggleSleeveConditions(event) {
 
-  let setting = Number(localStorage.getItem('itemCondition')),
-      status = document.querySelector('.toggle-group.condition .label .status');
+  let setting = Number(localStorage.getItem('sleeveCondition')),
+      status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( !event.target.checked ) {
 

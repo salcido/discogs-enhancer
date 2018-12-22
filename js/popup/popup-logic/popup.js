@@ -16,6 +16,7 @@ import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterByCondition from './features/filter-media-condition.js';
+import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
 import * as filterByCountry from './features/filter-by-country.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
@@ -95,6 +96,7 @@ window.addEventListener('load', () => {
       toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterByCondition = document.getElementById('toggleFilterByCondition'),
+      toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
@@ -198,9 +200,13 @@ window.addEventListener('load', () => {
   // ------------------------------------------------------
   absoluteDate.init();
 
-  // Filter by Condition Options
+  // Filter Media Condition Options
   // ========================================================
   filterByCondition.init();
+
+  // Filter Sleeve Condition Options
+  // ========================================================
+  filterSleeveCondition.init();
 
   // Filter Items by Country Options
   // ========================================================
@@ -241,6 +247,7 @@ window.addEventListener('load', () => {
   toggleFavoriteSellers.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterByCondition.addEventListener('change', filterByCondition.toggleHideConditions);
+  toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
@@ -310,6 +317,7 @@ window.addEventListener('load', () => {
       toggleFavoriteSellers.checked = result.prefs.favoriteSellers;
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterByCondition.checked = result.prefs.filterByCondition;
+      toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterByCountry.checked = result.prefs.filterByCountry;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
@@ -356,6 +364,10 @@ window.addEventListener('load', () => {
 
     setTimeout(() => {
       filterByCondition.setupFilterByCondition(toggleFilterByCondition.checked);
+    }, 0);
+
+    setTimeout(() => {
+      filterSleeveCondition.setupFilterSleeveCondition(toggleFilterSleeveCondition.checked);
     }, 0);
 
     // .mac class will remove scrollbars from the popup menu

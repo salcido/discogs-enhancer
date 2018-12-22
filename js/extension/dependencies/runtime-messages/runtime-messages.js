@@ -74,7 +74,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
     }
 
-    // filter by conditions
+    // filter media conditions
     case 'getConditions': {
 
       let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
@@ -82,6 +82,16 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({itemCondition: itemCondition});
       break;
     }
+
+    // filter sleeve condition
+    case 'getSleeveConditions': {
+
+      let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition'));
+
+      sendResponse({sleeveCondition: sleeveCondition});
+      break;
+    }
+
     // Readability
     case 'getReadability': {
 
@@ -90,6 +100,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({readability: readability});
       break;
     }
+
     // Seller Rep Percentage
     case 'getSellerRep': {
 
@@ -98,6 +109,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({sellerRep: sellerRep});
       break;
     }
+
     // Seller Rep Color
     case 'getSellerRepColor': {
 
@@ -106,6 +118,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({sellerRepColor: sellerRepColor});
       break;
     }
+
     // Absolute Date
     case 'getAbsoluteDate': {
 

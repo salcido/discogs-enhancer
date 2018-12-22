@@ -36,6 +36,7 @@ module.exports = {
     [features + 'feedback-notifier']: `${features}feedback-notifier.js`,
     [features + 'filter-by-country']: `${features}filter-by-country.js`,
     [features + 'filter-media-condition']: `${features}filter-media-condition.js`,
+    [features + 'filter-sleeve-condition']: `${features}filter-sleeve-condition.js`,
     [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'notes-counter']: `${features}notes-counter.js`,

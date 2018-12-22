@@ -135,8 +135,10 @@ resourceLibrary.ready(() => {
         window.filterMediaCondition();
       }
 
-      // filter marketplace item by condition
+      // filter marketplace media condition
       if ( window.filterMediaCondition ) { window.filterMediaCondition(); }
+      // filter marketplace sleeve condition
+      if ( window.filterSleeveCondition ) { window.filterSleeveCondition(); }
       // Filter marketplace by country
       if ( window.filterByCountry ) { window.filterByCountry(); }
       // Tag sellers by reputation
