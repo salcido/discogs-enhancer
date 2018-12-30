@@ -1,6 +1,6 @@
 # Discogs Enhancer
 
-[![Chrome Web Store](https://img.shields.io/badge/users-2.5k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/badge/users-2.7k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating-4.9%2F5-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating%20count-55%20total-orange.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
@@ -33,6 +33,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Large BAOI Fields
 * Tag Sellers Based on Reputation
 * Filter Marketplace Items By Media Condition
+* Filter Marketplace Items By Sleeve Condition
 * Filter Marketplace Items by Country
 * Open release links on the Collection page in new tabs
 * Hide Min, Median, Max Columns on the Collection page
