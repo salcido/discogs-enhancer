@@ -1955,6 +1955,10 @@ i.icon-google-plus {
   background: #292929 !important;
 }
 
+.TracksApp .table-header .container {
+  background: #323334 !important;
+}
+
 .viewing-tracks .TracksApp .CompositionDetails .Releases {
   background: #323334 !important;
 }
