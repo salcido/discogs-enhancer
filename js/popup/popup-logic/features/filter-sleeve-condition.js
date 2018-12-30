@@ -37,7 +37,7 @@ export function init() {
   document.getElementById('sleeveConditionValue').addEventListener('change', function () {
 
     let toggle = document.getElementById('toggleFilterSleeveCondition'),
-        sleeveCondition = localStorage.getItem('sleeveCondition'),
+        sleeveCondition = localStorage.getItem('sleeveCondition') || 7,
         status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
     sleeveCondition = this.value;
@@ -66,7 +66,7 @@ export function init() {
 export function setupFilterSleeveCondition(enabled) {
 
   let select = document.getElementById('sleeveConditionValue'),
-      setting = Number(localStorage.getItem('sleeveCondition')),
+      setting = Number(localStorage.getItem('sleeveCondition')) || 7,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( enabled ) {
@@ -93,7 +93,7 @@ export function setupFilterSleeveCondition(enabled) {
  */
 export function toggleSleeveConditions(event) {
 
-  let setting = Number(localStorage.getItem('sleeveCondition')),
+  let setting = Number(localStorage.getItem('sleeveCondition')) || 7,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( !event.target.checked ) {
@@ -105,6 +105,7 @@ export function toggleSleeveConditions(event) {
 
     status.textContent = conditions[setting];
     status.classList.add(colors[setting]);
+    localStorage.setItem('sleeveCondition', String(setting));
   }
 
   applySave('refresh', event);
