@@ -36,12 +36,12 @@ export function init() {
   // Save the Filter by Condition Select value to localStorage
   document.getElementById('conditionValue').addEventListener('change', function () {
 
-    let toggle = document.getElementById('toggleFilterByCondition'),
-      itemCondition = localStorage.getItem('itemCondition'),
-      status = document.querySelector('.toggle-group.condition .label .status');
+    let toggle = document.getElementById('toggleFilterMediaCondition'),
+        mediaCondition = localStorage.getItem('mediaCondition'),
+        status = document.querySelector('.toggle-group.condition .label .status');
 
-    itemCondition = this.value;
-    localStorage.setItem('itemCondition', String(itemCondition));
+    mediaCondition = this.value;
+    localStorage.setItem('mediaCondition', String(mediaCondition));
 
     if (!toggle.checked) {
 
@@ -66,7 +66,7 @@ export function init() {
 export function setupFilterByCondition(enabled) {
 
   let select = document.getElementById('conditionValue'),
-      setting = Number(localStorage.getItem('itemCondition')),
+      setting = Number(localStorage.getItem('mediaCondition')),
       status = document.querySelector('.toggle-group.condition .label .status');
 
   if ( enabled ) {
@@ -93,7 +93,7 @@ export function setupFilterByCondition(enabled) {
  */
 export function toggleHideConditions(event) {
 
-  let setting = Number(localStorage.getItem('itemCondition')),
+  let setting = Number(localStorage.getItem('mediaCondition')),
       status = document.querySelector('.toggle-group.condition .label .status');
 
   if ( !event.target.checked ) {

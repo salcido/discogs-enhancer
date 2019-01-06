@@ -65,8 +65,8 @@ chrome.storage.sync.get('prefs', function(result) {
       everlastingMarket: true,
       favoriteSellers: true,
       feedback: false,
-      filterByCondition: false,
-      filterByConditionValue: null,
+      filterMediaCondition: false,
+      filterMediaConditionValue: null,
       filterByCountry: false,
       filterSleeveCondition: false,
       filterSleeveConditionValue: null,
@@ -475,16 +475,16 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(feedback_css);
   }
 
-  if (result.prefs.filterByCondition) {
+  if (result.prefs.filterMediaCondition) {
 
     // filter-media-condition.js
-    let filterByCondition = document.createElement('script');
+    let filterMediaCondition = document.createElement('script');
 
-    filterByCondition.type = 'text/javascript';
-    filterByCondition.src = chrome.extension.getURL('js/extension/features/filter-media-condition.js');
-    filterByCondition.className = 'de-init';
+    filterMediaCondition.type = 'text/javascript';
+    filterMediaCondition.src = chrome.extension.getURL('js/extension/features/filter-media-condition.js');
+    filterMediaCondition.className = 'de-init';
 
-    elems.push(filterByCondition);
+    elems.push(filterMediaCondition);
   }
 
   if (result.prefs.filterByCountry) {
@@ -533,10 +533,10 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(shortcuts_css);
   }
 
-  // Set value for filter-by-condition.js
-  if (result.prefs.filterByConditionValue) {
+  // Set value for filter-media-condition.js
+  if (result.prefs.filterMediaConditionValue) {
 
-    localStorage.setItem('itemCondition', result.prefs.filterByConditionValue);
+    localStorage.setItem('mediaCondition', result.prefs.filterMediaConditionValue);
   }
 
   // Set value for filter-sleeve-condition.js
@@ -1145,11 +1145,11 @@ try {
   // Filter media condition
   chrome.runtime.sendMessage({request: 'getConditions'}, function(response) {
 
-    let itemCondition = response.itemCondition;
+    let mediaCondition = response.mediaCondition;
 
-    itemCondition = JSON.stringify(itemCondition);
+    mediaCondition = JSON.stringify(mediaCondition);
 
-    localStorage.setItem('itemCondition', itemCondition);
+    localStorage.setItem('mediaCondition', mediaCondition);
   });
 
   // Filter sleeve condition

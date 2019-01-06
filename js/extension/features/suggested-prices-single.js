@@ -263,14 +263,14 @@ resourceLibrary.ready(() => {
                        .querySelector('.item_description a.item_release_link').href,
             slash = linkHref.lastIndexOf('/') + 1,
             len = linkHref.length,
-            itemCondition = link.closest('.shortcut_navigable')
+            mediaCondition = link.closest('.shortcut_navigable')
                             .querySelector('.item_description .item_condition .condition-label-desktop + span')
                             .textContent.trim(),
             releaseId = linkHref.substring(slash, len),
             price = link.closest('.shortcut_navigable').querySelector('.price').textContent;
 
         target = event.target.closest('.item_price');
-        priceContainer = [{ price: price, mediaCondition: itemCondition }];
+        priceContainer = [{ price: price, mediaCondition: mediaCondition }];
 
         // Run the comparison process...
         getPrice(releaseId).then(div => {

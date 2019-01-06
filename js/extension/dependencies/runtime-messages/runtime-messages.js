@@ -77,9 +77,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     // filter media conditions
     case 'getConditions': {
 
-      let itemCondition = JSON.parse(localStorage.getItem('itemCondition'));
+      let mediaCondition = JSON.parse(localStorage.getItem('mediaCondition'));
 
-      sendResponse({itemCondition: itemCondition});
+      sendResponse({mediaCondition: mediaCondition});
       break;
     }
 

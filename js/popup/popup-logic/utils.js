@@ -41,7 +41,7 @@ export function applySave(message, event) {
         everlastingMarket: document.getElementById('toggleEverlastingMarket').checked,
         favoriteSellers: document.getElementById('toggleFavoriteSellers').checked,
         feedback: document.getElementById('toggleFeedback').checked,
-        filterByCondition: document.getElementById('toggleFilterByCondition').checked,
+        filterMediaCondition: document.getElementById('toggleFilterMediaCondition').checked,
         filterSleeveCondition: document.getElementById('toggleFilterSleeveCondition').checked,
         filterByCountry: document.getElementById('toggleFilterByCountry').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,

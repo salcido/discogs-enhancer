@@ -20,6 +20,9 @@
  * 2.) The count is updated with `keyup` events.
  */
 
+ // TODO: If you add an item to your collection and then
+ // try to add notes (without refreshing) errors will
+ // be thrown in console.
 resourceLibrary.ready(() => {
 
   let notesElem = document.querySelector('.notes_show'),

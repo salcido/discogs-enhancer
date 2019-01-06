@@ -15,8 +15,8 @@
  * The script is initiated with the code that follows the `DOM manipulation` comment block.
  *
  * 1.) The URL is examined to see if the user is in the Marketplace.
- * 2.) localStorage is queried for an `itemCondition` item.
- * 3.) The value of `itemCondition` is used to truncate the length of the `conditions` array which
+ * 2.) localStorage is queried for a `mediaCondition` item.
+ * 3.) The value of `mediaCondition` is used to truncate the length of the `conditions` array which
  * is then iterated over and any remaining values in the array are used to remove items in
  * those conditions from the DOM.
  */
@@ -25,7 +25,7 @@ resourceLibrary.ready(() => {
 
   let
       href = window.location.href,
-      itemCondition = JSON.parse(localStorage.getItem('itemCondition')),
+      mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
       hasRemovedItems = false,
       sellPage = href.match(/sell\/list/g),
       sellerPage = href.match(/seller\//g),
@@ -44,7 +44,7 @@ resourceLibrary.ready(() => {
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
     document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
 
-    if ( itemCondition ) {
+    if ( mediaCondition ) {
 
       let conditions = ['Poor (P)',
                         'Fair (F)',
@@ -56,7 +56,7 @@ resourceLibrary.ready(() => {
                         'Mint (M)'];
 
       // Truncate conditions array based on localStorage value
-      conditions.length = Number(itemCondition);
+      conditions.length = Number(mediaCondition);
 
       // Remove offending items from the DOM based on whatever's left in the conditions array
       conditions.forEach(condition => {
