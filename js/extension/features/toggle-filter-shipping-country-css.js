@@ -10,7 +10,7 @@
 
 (function() {
 
-  let link = document.getElementById('filterByCountryCss');
+  let link = document.getElementById('filterShippingCountryCss');
 
   if ( link ) { link.disabled = !link.disabled; }
 }());

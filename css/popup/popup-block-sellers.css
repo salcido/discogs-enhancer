@@ -1,4 +1,6 @@
-/* Block Seller Page Styles */
+/* Block Seller Page Styles,
+   Favorite seller page styes,
+   Blocked shipping countries page styles */
 body {
   font-family: 'Roboto', sans-serif;
   background: #313335;
@@ -69,22 +71,26 @@ label {
   text-align: center;
 }
 
-.seller {
+.seller,
+.country {
   display: block;
   min-width: 10px;
 }
 
-.blocked-sellers {
+.blocked-sellers,
+.blocked-country {
   margin-top: 6rem;
   width: 50%;
 }
 
-.blocked-sellers .seller {
+.blocked-sellers .seller,
+.blocked-country .country {
   display: inline-block;
   position: relative;
 }
 
-.blocked-sellers .seller span {
+.blocked-sellers .seller span,
+.blocked-country .country span {
   display: block;
   margin: 10px;
   padding: 10px;
@@ -96,7 +102,8 @@ label {
   font-size: 14px;
 }
 
-.blocked-sellers .seller span:hover {
+.blocked-sellers .seller span:hover,
+.blocked-country .country span:hover {
   display: inline-block;
   background-color: red;
   cursor: pointer;
@@ -104,13 +111,15 @@ label {
   font-weight: bold;
 }
 
-.blocked-sellers .seller span a {
+.blocked-sellers .seller span a,
+.blocked-country .country span a {
   display: none;
   margin-left: 5px;
   color: gray;
 }
 
 .seller-input,
+.country-input,
 .backup-wrap {
   max-width: 600px;
   padding: 20px;
@@ -146,15 +155,27 @@ label {
 }
 
 .seller-input input,
+.country-input input,
 .restore-input {
   margin-top: 5px;
+}
+
+#currency-pref {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px dotted #ccc;
+}
+
+#currency-pref .currency {
+  margin-bottom: 1rem;
 }
 
 .restore-input {
   width: 445px;
 }
 
-.seller-input p {
+.seller-input p,
+.country-input p {
   padding-left: 0;
 }
 

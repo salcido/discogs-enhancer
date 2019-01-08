@@ -17,7 +17,7 @@ import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterMediaCondition from './features/filter-media-condition.js';
 import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
-import * as filterByCountry from './features/filter-by-country.js';
+import * as filterShippingCountry from './features/filter-shipping-country.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
@@ -97,7 +97,7 @@ window.addEventListener('load', () => {
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterMediaCondition = document.getElementById('toggleFilterMediaCondition'),
       toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
-      toggleFilterByCountry = document.getElementById('toggleFilterByCountry'),
+      toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
@@ -178,6 +178,12 @@ window.addEventListener('load', () => {
     chrome.tabs.create({url: '../html/block-sellers.html'});
   });
 
+  // Open Filter Shipping Countries Configuration page
+  // ========================================================
+  document.getElementById('editShippingList').addEventListener('click', function() {
+    chrome.tabs.create({url: '../html/filter-shipping-country.html'});
+  });
+
   // Open Favorite Sellers Configuration page
   // ========================================================
   document.getElementById('editFavList').addEventListener('click', function() {
@@ -207,10 +213,6 @@ window.addEventListener('load', () => {
   // Filter Sleeve Condition Options
   // ========================================================
   filterSleeveCondition.init();
-
-  // Filter Items by Country Options
-  // ========================================================
-  filterByCountry.init();
 
   // Search Functionality
   // ========================================================
@@ -248,7 +250,7 @@ window.addEventListener('load', () => {
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterMediaCondition.addEventListener('change', filterMediaCondition.toggleHideConditions);
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
-  toggleFilterByCountry.addEventListener('change', filterByCountry.toggleHideCountries);
+  toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
@@ -318,7 +320,7 @@ window.addEventListener('load', () => {
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterMediaCondition.checked = result.prefs.filterMediaCondition;
       toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
-      toggleFilterByCountry.checked = result.prefs.filterByCountry;
+      toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
@@ -359,7 +361,6 @@ window.addEventListener('load', () => {
     checkForUpdate();
     suggestedPrices.getCurrency();
     sellerRep.setSellerRep();
-    filterByCountry.setCountryFilterValues();
     absoluteDate.setAbsoluteDateStatus();
 
     setTimeout(() => {

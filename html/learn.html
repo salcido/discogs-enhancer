@@ -44,16 +44,16 @@
         <!-- updates -->
         <div class="updates tab-content">
           <div class="news-item">
-            <p><span class="feature">New Feature: <br> </span> <span class="item-title" style="margin-bottom: 10px; display: block;">Filter Sleeve Condition</span>
-            <span class="text">Filters out releases with sleeve conditions that fall below the specified condition within the Marketplace. <a href="#filterSleeveCondition" class="scroll-target">Click here to read more about it.</a></span></p>
+            <p><span class="feature">New Feature: <br> </span> <span class="item-title" style="margin-bottom: 10px; display: block;">Filter Countries</span>
+            <span class="text">Filter items in the Marketplace that ship from specified countries. Filter By Country has been completely rewritten and is now about 100x more awesome! <a href="#shippingCountries" class="scroll-target">Click here to read more about it.</a></span></p>
           </div>
-          <!-- <div class="news-item">
+          <div class="news-item">
             <p><span class="update">Updates in this version:</span></p>
             <ul>
-              <li>You can now click on the (?) icons in the popup menu and go directly to the feature's description here in the Learn page.</li>
+              <li>Filter By Country has been completely rewritten and is now called Filter Countries. Be sure to read about it!</li>
               <li>As usual even more Dark Theme fixes/enhancements</li>
             </ul>
-          </div> -->
+          </div>
         </div>
         <!-- help -->
         <div class="help hide tab-content">
@@ -231,36 +231,24 @@
     </div>
 
     <div class="feature-block">
-      <!-- filter items by country -->
-      <h2 id="filterByCountry">Filter By Country</h2>
+      <!-- filter countries -->
+      <h2 id="shippingCountries">Filter Countries</h2>
 
-      <p>This will hide all items in the Marketplace that are not from the country specified when using a specific Currency Filter.</p>
+      <p>Filters items in the Marketplace that ship from specified countries.</p>
 
-      <p>For example, I often search the Marketplace for items in my Wantlist that are listed in US Dollars. Since I live in the US I don't want to buy items in other currencies in order to save on shipping. Some users will list their items in US Dollars even if they are based in another country. By setting the options to "USD" and "United States" in the popup, only items in the United States will be shown as long as I have a Currency Filter set to USD in the Marketplace.</p>
+      <p>After <a href="/html/filter-shipping-country.html" target="_blank">adding the specified countries to your list</a> you can configure this option in three ways:</p>
 
-      <p>
-        <b class="no-highlight">How to use the Filter By Country feature:</b>
-      </p>
+      <p><b>1. Include:</b> Only show items in the Marketplace that ship from the countries on the list. Use this option when you only want to buy from one or more countries. For example, it's ideal if you are in the US and are only interested in items that ship from the United States. Enter "United States" on your list and choose the "INCLUDE ITEMS FROM COUNTRIES" radio button.</p>
 
-      <p>First, select the currency you want to use. <b>It must match the Currency Filter in the Marketplace</b> as this is how Discogs Enhancer knows when to activate this feature.</p>
+      <p><b>2. Exclude:</b> Do not show any items in the Marketplace that ship from the countries on the list. Use this option when you do not want to buy items from one or more countries. For example, if you live in Europe but do not want to purchase items that ship from  US, Canada & Australia, enter "United States", "Australia", and "Canada" on your list and choose the "EXCLUDE ITEMS FROM COUNTRIES" radio button.</p>
 
-      <img class="max-width" src="../img/learn/filter-by-country-1.png" />
+      <p><b>3. Currency Filter:</b> Only filter items in the Marketplace when using a Currency Filter. When you enable this option, filtering will only be applied when you use a Currency Filter in the Marketplace: <img src="../img/learn/currency-filter.jpg" class="max-width" style="max-width: 200px;"/></p>
 
-      <p>Next, select the country that matches the country of the results you want to see.</p>
-
-      <img class="max-width" src="../img/learn/filter-by-country-2.png" />
-
-      <p>Finally, turn the option on.</p>
-
-      <img class="max-width" src="../img/learn/filter-by-country-3.png" />
-
-      <p>As long as the option is enabled, results will be filtered whenever you set a Currency Filter in the Marketplace that matches the currency set in this option.</p>
-
-      <img class="max-height" src="../img/learn/filter-by-country-4.png" />
+      <p><em>Pro tip:</em>You can toggle the option on/off to show/hide items that have been hidden.</p>
     </div>
 
     <div class="feature-block">
-      <!-- filter items by condition -->
+      <!-- filter media condition -->
       <h2 id="filterMediaCondition">Filter Media Condition</h2>
 
       <p>Hide all items in the Marketplace that are below a specified media condition.</p>

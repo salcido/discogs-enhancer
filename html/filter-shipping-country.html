@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com">
+    <title>Filter Countries</title>
+    <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/popup/popup-block-sellers.css" type="text/css" media="screen">
+    <script src="../js/popup/configuration-pages/filter-shipping-country.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="about">
+
+        <div class="title center">
+          <h2 class="header">Filter Countries Settings</h2>
+        </div>
+
+        <p>1. Enter the country name exactly as it appears on Discogs. Please enter one country at a time.</p>
+        <p>2. Click "Add Country" to add the country to the list.</p>
+        <p>
+          <em>Please note:</em> &nbsp; you must refresh your Discogs page for changes to take effect.
+        </p>
+
+        <div class="country-input">
+          <input type="text" id="country-input" placeholder="Add shipping country">
+          <a class="btn btn-green">Add Country</a>
+          <p class="errors"></p>
+
+          <form id="country-prefs">
+            <div class="include-countries">
+              <input type="radio" name="includeCountries" id="include" value="true"/>
+              <label for="include">Include Items From Countries:</label>
+              <p>Only show items from countries on this list in the Marketplace.</p>
+            </div>
+
+            <div class="exclude-countries">
+              <input type="radio" name="excludeCountries" id="exclude" value="false"/>
+              <label for="exclude">Exclude Items From Countries:</label>
+              <p>Do not show items from countries on this list in the Marketplace.</p>
+            </div>
+          </form>
+
+          <form id="currency-pref">
+            <div class="currency">
+              <input type="checkbox" id="currency">
+              <label for="currency">Only Run when using currency filters:</label>
+              <p>When this box is checked, filtering will only occur when you select a Currency Filter within the Marketplace.</p>
+            </div>
+          </form>
+        </div>
+
+        <div id="blocked-country" class="blocked-country">
+          <h2>Filtered Countries List</h2>
+          <p>Click on a country name to remove it from the list.</p>
+          <!-- countries go here -->
+        </div>
+
+        <div class="backup">
+          <h2>Back up Your Filtered Countries List</h2>
+          <div class="backup-wrap">
+            <div class="backup-content">
+              <p class="backup-instructions">Copy the text in the box below and save it some place safe. If you ever need to restore your list of filtered countries, just paste it into the restore box and hit "Restore".</p>
+              <p class="backup-output"></p>
+            </div> <!-- end .backup-content -->
+          </div> <!-- end .backup-wrap -->
+
+          <h2>Restore Your Filtered Countries List</h2>
+          <div class="backup-wrap">
+            <div class="backup-content">
+              <div class="restore">
+                <p>Paste the text from your backed-up filtered countries list here and click "Restore".</p>
+                <input type="textarea" class="restore-input" placeholder="Paste list here">
+                <a class="btn btn-green">Restore</a>
+
+                <div class="restore-errors hide">
+                  <p>Invalid input. Please try again. It should look something like the following:</p>
+                  <p class="restore-errors-output">["filtered", "country", "names", "go", "here"]</p>
+                </div>
+              </div> <!-- end .restore -->
+            </div>
+          </div>
+        </div>
+      </div> <!-- end .about -->
+    </div> <!-- end .container -->
+  </body>
+</html>

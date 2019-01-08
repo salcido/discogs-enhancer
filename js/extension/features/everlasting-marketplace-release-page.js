@@ -139,8 +139,13 @@ resourceLibrary.ready(() => {
       if ( window.filterMediaCondition ) { window.filterMediaCondition(); }
       // filter marketplace sleeve condition
       if ( window.filterSleeveCondition ) { window.filterSleeveCondition(); }
-      // Filter marketplace by country
-      if ( window.filterByCountry ) { window.filterByCountry(); }
+      // Filter shipping country
+      if ( window.filterCountries ) {
+        let countryList = JSON.parse(localStorage.getItem('countryList')),
+            include = countryList.include,
+            useCurrency = countryList.currency;
+        window.filterCountries(include, useCurrency);
+      }
       // Tag sellers by reputation
       if ( window.sellersRep ) { window.sellersRep(); }
       // Release ratings

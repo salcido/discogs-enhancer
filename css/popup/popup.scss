@@ -141,6 +141,7 @@ select option {
 }
 
 #editList,
+#editShippingList,
 #editFavList,
 #editReadability,
 #sellerRepConfig {
@@ -332,38 +333,6 @@ input[type="checkbox"]:focus {
   }
 }
 
-/* Filter Marketplace Items by Country */
-/* sub-menu */
-.hide-country {
-  position: relative;
-
-  #filterCountryCurrency {
-    position: absolute;
-    top: 45px;
-    left: 50px;
-    outline: none;
-  }
-
-  #filterCountry {
-    max-width: 175px;
-    position: absolute;
-    top: 75px;
-    left: 50px;
-    outline: none;
-  }
-
-  #filter-by-country-always {
-    position: absolute;
-    top: 103px;
-    left: 50px;
-
-    span {
-      color: var(--white);
-      font-weight: 300;
-      font-size: 12px;
-    }
-  }
-}
 
 .absolute {
   .us-date-format {

@@ -67,7 +67,7 @@ chrome.storage.sync.get('prefs', function(result) {
       feedback: false,
       filterMediaCondition: false,
       filterMediaConditionValue: null,
-      filterByCountry: false,
+      filterShippingCountry: false,
       filterSleeveCondition: false,
       filterSleeveConditionValue: null,
       formatShortcuts: true,
@@ -162,16 +162,16 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(darkTheme);
 
-  // filter-by-country.css
-  let filterByCountry_css = document.createElement('link');
+  // filter-shipping-country.css
+  let filterShippingCountry_css = document.createElement('link');
 
-  filterByCountry_css.rel = 'stylesheet';
-  filterByCountry_css.type = 'text/css';
-  filterByCountry_css.href = chrome.extension.getURL('css/filter-by-country.css');
-  filterByCountry_css.id = 'filterByCountryCss';
-  filterByCountry_css.disabled = !result.prefs.filterByCountry;
+  filterShippingCountry_css.rel = 'stylesheet';
+  filterShippingCountry_css.type = 'text/css';
+  filterShippingCountry_css.href = chrome.extension.getURL('css/filter-shipping-country.css');
+  filterShippingCountry_css.id = 'filterShippingCountryCss';
+  filterShippingCountry_css.disabled = !result.prefs.filterShippingCountry;
 
-  elems.push(filterByCountry_css);
+  elems.push(filterShippingCountry_css);
 
   // min-max-columns.css
   let minMax_css = document.createElement('link');
@@ -487,16 +487,16 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(filterMediaCondition);
   }
 
-  if (result.prefs.filterByCountry) {
+  if (result.prefs.filterShippingCountry) {
 
-    // filter-by-country.js
-    let filterByCountry = document.createElement('script');
+    // filter-shipping-country.js
+    let filterShippingCountry = document.createElement('script');
 
-    filterByCountry.type = 'text/javascript';
-    filterByCountry.src = chrome.extension.getURL('js/extension/features/filter-by-country.js');
-    filterByCountry.className = 'de-init';
+    filterShippingCountry.type = 'text/javascript';
+    filterShippingCountry.src = chrome.extension.getURL('js/extension/features/filter-shipping-country.js');
+    filterShippingCountry.className = 'de-init';
 
-    elems.push(filterByCountry);
+    elems.push(filterShippingCountry);
   }
 
   if (result.prefs.filterSleeveCondition) {
@@ -1132,14 +1132,14 @@ try {
     localStorage.setItem('favoriteList', favoriteList);
   });
 
-  // Filter by Country
-  chrome.runtime.sendMessage({request: 'filterByCountry'}, function(response) {
+  // Filter Shipping Country
+  chrome.runtime.sendMessage({request: 'filterShippingCountry'}, response => {
 
-    let countryPrefs = response.filterByCountry;
+    let countryList = response.filterShippingCountry;
 
-    countryPrefs = JSON.stringify(countryPrefs);
+    countryList = JSON.stringify(countryList);
 
-    localStorage.setItem('filterByCountry', countryPrefs);
+    localStorage.setItem('countryList', countryList);
   });
 
   // Filter media condition

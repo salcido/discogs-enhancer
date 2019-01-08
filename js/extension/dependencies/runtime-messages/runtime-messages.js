@@ -65,12 +65,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       break;
     }
 
-    // filter by country
-    case 'filterByCountry': {
+    // filter shipping country
+    case 'filterShippingCountry': {
 
-      let filterByCountry = JSON.parse(localStorage.getItem('filterByCountry'));
+      let filterShippingCountry = JSON.parse(localStorage.getItem('countryList'));
 
-      sendResponse({filterByCountry: filterByCountry});
+      sendResponse({filterShippingCountry: filterShippingCountry});
       break;
     }
 

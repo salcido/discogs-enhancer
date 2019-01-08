@@ -43,7 +43,7 @@ export function applySave(message, event) {
         feedback: document.getElementById('toggleFeedback').checked,
         filterMediaCondition: document.getElementById('toggleFilterMediaCondition').checked,
         filterSleeveCondition: document.getElementById('toggleFilterSleeveCondition').checked,
-        filterByCountry: document.getElementById('toggleFilterByCountry').checked,
+        filterShippingCountry: document.getElementById('toggleFilterShippingCountry').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
