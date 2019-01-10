@@ -333,6 +333,17 @@ input[type="checkbox"]:focus {
   }
 }
 
+.hide-sleeve-condition {
+  .generic-no-cover {
+      position: absolute;
+      top: 85px;
+      left: 15px;
+      color: var(--text-color);
+      margin-left: 32px;
+      padding-top: 5px;
+  }
+}
+
 
 .absolute {
   .us-date-format {

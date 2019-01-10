@@ -29,22 +29,26 @@ export function clearClasses(classes, status) {
  */
 export function init() {
 
+  let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false };
+
+  if ( typeof sleeveCondition !== 'object' ) {
+    localStorage.removeItem('sleeveCondition');
+  }
+
   document.querySelector('.toggle-group.sleeve-condition').addEventListener('click', function () {
-    optionsToggle('.hide-sleeve-condition', this, '.sleeve-condition', 100);
+    optionsToggle('.hide-sleeve-condition', this, '.sleeve-condition', 125);
   });
 
   // Save the Filter by Condition Select value to localStorage
   document.getElementById('sleeveConditionValue').addEventListener('change', function () {
 
     let toggle = document.getElementById('toggleFilterSleeveCondition'),
-        sleeveCondition = localStorage.getItem('sleeveCondition') || 7,
         status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-    sleeveCondition = this.value;
-    localStorage.setItem('sleeveCondition', String(sleeveCondition));
+    sleeveCondition.value = this.value;
+    localStorage.setItem('sleeveCondition', JSON.stringify(sleeveCondition));
 
-    if (!toggle.checked) {
-
+    if ( !toggle.checked ) {
       toggle.checked = true;
     }
 
@@ -53,6 +57,13 @@ export function init() {
     status.textContent = conditions[this.value];
     status.classList.add(colors[this.value]);
 
+    applySave('refresh', event);
+  });
+
+  // Checkbox listener
+  document.getElementById('generic').addEventListener('change', function (event) {
+    sleeveCondition.generic = this.checked;
+    localStorage.setItem('sleeveCondition', JSON.stringify(sleeveCondition));
     applySave('refresh', event);
   });
 }
@@ -65,35 +76,37 @@ export function init() {
  */
 export function setupFilterSleeveCondition(enabled) {
 
-  let select = document.getElementById('sleeveConditionValue'),
-      setting = Number(localStorage.getItem('sleeveCondition')) || 7,
+  let checkbox = document.getElementById('generic'),
+      select = document.getElementById('sleeveConditionValue'),
+      setting = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-  if ( enabled ) {
+  if ( enabled && setting && setting.value ) {
 
-    status.textContent = conditions[setting];
-    status.classList.add(colors[setting]);
+    status.textContent = conditions[setting.value];
+    status.classList.add(colors[setting.value]);
+    select.value = setting.value;
 
+    if ( setting.generic ) {
+      checkbox.checked = true;
+    }
   } else {
 
+    document.getElementById('toggleFilterSleeveCondition').checked = false;
     status.textContent = 'Disabled';
     status.classList.add('disabled');
-  }
-
-  if ( setting ) {
-    select.value = setting;
   }
 }
 
 /**
  * Validates that the user has a condition selected from
  * the select element before letting the user
- * enabled the feature
+ * enable the feature
  * @returns {undefined}
  */
 export function toggleSleeveConditions(event) {
 
-  let setting = Number(localStorage.getItem('sleeveCondition')) || 7,
+  let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false },
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( !event.target.checked ) {
@@ -103,9 +116,9 @@ export function toggleSleeveConditions(event) {
 
   } else {
 
-    status.textContent = conditions[setting];
-    status.classList.add(colors[setting]);
-    localStorage.setItem('sleeveCondition', String(setting));
+    status.textContent = conditions[setting.value];
+    status.classList.add(colors[setting.value]);
+    localStorage.setItem('sleeveCondition', JSON.stringify(setting));
   }
 
   applySave('refresh', event);

@@ -53,7 +53,7 @@ resourceLibrary.ready(() => {
                           'Mint (M)'];
 
         // Truncate conditions array based on localStorage value
-        conditions.length = Number(sleeveCondition);
+        conditions.length = Number(sleeveCondition.value);
 
         // Remove offending items from the DOM based on whatever's left in the conditions array
         conditions.forEach(condition => {
@@ -64,6 +64,11 @@ resourceLibrary.ready(() => {
           elems.forEach(el => {
 
             if ( el.textContent.trim() === condition ) {
+              el.parentElement.parentElement.parentElement.remove();
+            }
+
+            if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ||
+                 sleeveCondition.generic && el.textContent.trim() === 'No Cover' ) {
 
               el.parentElement.parentElement.parentElement.remove();
             }
