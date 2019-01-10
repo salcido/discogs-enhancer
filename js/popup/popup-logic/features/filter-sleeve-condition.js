@@ -29,14 +29,14 @@ export function clearClasses(classes, status) {
  */
 export function init() {
 
-  let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false };
+  let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false, noCover: false };
 
   if ( typeof sleeveCondition !== 'object' ) {
     localStorage.removeItem('sleeveCondition');
   }
 
   document.querySelector('.toggle-group.sleeve-condition').addEventListener('click', function () {
-    optionsToggle('.hide-sleeve-condition', this, '.sleeve-condition', 125);
+    optionsToggle('.hide-sleeve-condition', this, '.sleeve-condition', 135);
   });
 
   // Save the Filter by Condition Select value to localStorage
@@ -56,13 +56,18 @@ export function init() {
 
     status.textContent = conditions[this.value];
     status.classList.add(colors[this.value]);
-
     applySave('refresh', event);
   });
 
-  // Checkbox listener
+  // Checkbox listeners
   document.getElementById('generic').addEventListener('change', function (event) {
     sleeveCondition.generic = this.checked;
+    localStorage.setItem('sleeveCondition', JSON.stringify(sleeveCondition));
+    applySave('refresh', event);
+  });
+
+  document.getElementById('no-cover').addEventListener('change', function (event) {
+    sleeveCondition.noCover = this.checked;
     localStorage.setItem('sleeveCondition', JSON.stringify(sleeveCondition));
     applySave('refresh', event);
   });
@@ -76,7 +81,8 @@ export function init() {
  */
 export function setupFilterSleeveCondition(enabled) {
 
-  let checkbox = document.getElementById('generic'),
+  let generic = document.getElementById('generic'),
+      noCover = document.getElementById('no-cover'),
       select = document.getElementById('sleeveConditionValue'),
       setting = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
@@ -88,7 +94,11 @@ export function setupFilterSleeveCondition(enabled) {
     select.value = setting.value;
 
     if ( setting.generic ) {
-      checkbox.checked = true;
+      generic.checked = true;
+    }
+
+    if ( setting.noCover ) {
+      noCover.checked = true;
     }
   } else {
 
@@ -106,7 +116,7 @@ export function setupFilterSleeveCondition(enabled) {
  */
 export function toggleSleeveConditions(event) {
 
-  let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false },
+  let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false, noCover: false },
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( !event.target.checked ) {

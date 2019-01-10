@@ -67,8 +67,12 @@ resourceLibrary.ready(() => {
               el.parentElement.parentElement.parentElement.remove();
             }
 
-            if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ||
-                 sleeveCondition.generic && el.textContent.trim() === 'No Cover' ) {
+            if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ) {
+
+              el.parentElement.parentElement.parentElement.remove();
+            }
+
+            if ( sleeveCondition.noCover && el.textContent.trim() === 'No Cover' ) {
 
               el.parentElement.parentElement.parentElement.remove();
             }
