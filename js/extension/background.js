@@ -1101,11 +1101,10 @@ window.onload = function() {
 // --------------------------------------------------------
 // Get preferences from extension side and save to DOM side.
 // ========================================================
-// TODO: convert these to arrow functions
 try {
 
   // Absolute Date on releases
-  chrome.runtime.sendMessage({request: 'getAbsoluteDate'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getAbsoluteDate'}, response => {
 
     let usDateFormat = response.usDateFormat;
 
@@ -1113,7 +1112,7 @@ try {
   });
 
   // Tag/Hide sellers
-  chrome.runtime.sendMessage({request: 'getBlockedSellers'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getBlockedSellers'}, response => {
 
     let blockList = response.blockList;
 
@@ -1123,7 +1122,7 @@ try {
   });
 
   // Favorite Sellers
-  chrome.runtime.sendMessage({request: 'getFavoriteSellers'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getFavoriteSellers'}, response => {
 
     let favoriteList = response.favoriteList;
 
@@ -1143,7 +1142,7 @@ try {
   });
 
   // Filter media condition
-  chrome.runtime.sendMessage({request: 'getConditions'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getConditions'}, response => {
 
     let mediaCondition = response.mediaCondition;
 
@@ -1153,7 +1152,7 @@ try {
   });
 
   // Filter sleeve condition
-  chrome.runtime.sendMessage({request: 'getSleeveConditions'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getSleeveConditions'}, response => {
 
     let sleeveCondition = response.sleeveCondition;
 
@@ -1163,7 +1162,7 @@ try {
   });
 
   // Readability settings
-  chrome.runtime.sendMessage({request: 'getReadability'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getReadability'}, response => {
 
     let readability = response.readability;
 
@@ -1173,7 +1172,7 @@ try {
   });
 
   // Seller Reputation Percentage
-  chrome.runtime.sendMessage({request: 'getSellerRep'}, function(response) {
+  chrome.runtime.sendMessage({request: 'getSellerRep'}, response => {
 
     let sellerRep = response.sellerRep;
 
