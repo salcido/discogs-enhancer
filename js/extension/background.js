@@ -16,6 +16,7 @@
 let
     checkForAnalytics,
     elems = [],
+    filterMonitor,
     initElems = [],
     prefs = {},
     resourceLibrary;
@@ -244,6 +245,17 @@ chrome.storage.sync.get('prefs', function(result) {
   highlightScript.className = 'de-init';
 
   elems.push(highlightScript);
+
+  // ========================================================
+  // Filter Monitor (always appened)
+  // ========================================================
+  // filter-monitor.js
+  filterMonitor = document.createElement('script');
+  filterMonitor.type = 'text/javascript';
+  filterMonitor.className = 'de-init';
+  filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
+
+  elems.push(filterMonitor);
 
   // marketplace-highlights.css
   let highlightCss = document.createElement('link');
@@ -1004,6 +1016,28 @@ chrome.storage.sync.get('prefs', function(result) {
     localStorage.setItem('userCurrency', result.prefs.userCurrency);
   }
 
+  // ========================================================
+  // Current Filter State
+  //
+  // This tracks the filter preferences so that the current
+  // filtering status can be appended to the DOM whilst
+  // using Everlasting Marketplace.
+  // ========================================================
+  let { filterMediaCondition,
+        filterShippingCountry,
+        filterSleeveCondition } = result.prefs;
+
+  let currentFilterState = {
+        filterMediaCondition,
+        filterShippingCountry,
+        filterSleeveCondition,
+      };
+
+  localStorage.setItem('currentFilterState', JSON.stringify(currentFilterState));
+
+  // ========================================================
+  // Append Scripts to DOM
+  // ========================================================
   appendFragment(elems);
 });
 
@@ -1111,7 +1145,7 @@ try {
     localStorage.setItem('usDateFormat', usDateFormat);
   });
 
-  // Tag/Hide sellers
+  // Block sellers
   chrome.runtime.sendMessage({request: 'getBlockedSellers'}, response => {
 
     let blockList = response.blockList;
@@ -1180,7 +1214,6 @@ try {
 
     localStorage.setItem('sellerRep', sellerRep);
   });
-
 } catch (err) {
 
   // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...

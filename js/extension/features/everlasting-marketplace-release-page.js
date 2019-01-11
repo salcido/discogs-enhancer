@@ -67,7 +67,7 @@ resourceLibrary.ready(() => {
      */
     function appendMarketplaceResults(markup) {
 
-      let condition = document.querySelector('.pagination_total').textContent,
+      let condition = document.querySelector('.pagination_total').innerHTML,
           lastChild = '#pjax_container tbody:last-child',
           opt = document.createElement('option'),
           selectBox = document.querySelector('.de-scroll-to-page'),
@@ -75,7 +75,7 @@ resourceLibrary.ready(() => {
                           <td class="item_picture as_float"></td>
                           <td class="item_description de-filter-stamp">
                             <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
-                            <span>${window.filterMediaCondition ? condition : ''}</span>
+                            <div class="de-filters">${(window.filterMediaCondition || window.filterSleeveCondition) ? condition : ''}</div>
                           </td>
                           <td></td>
                           <td></td>

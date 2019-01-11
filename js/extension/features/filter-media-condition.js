@@ -25,13 +25,14 @@ resourceLibrary.ready(() => {
 
   let
       href = window.location.href,
+      currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
       mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
+      sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
       hasRemovedItems = false,
       sellPage = href.match(/sell\/list/g),
       sellerPage = href.match(/seller\//g),
       sellRelease = href.match(/sell\/release/g),
       wantsPage = href.match(/sell\/mywants/g);
-
 
   /**
    * Find all instances of selected items in list and hide them
@@ -75,18 +76,12 @@ resourceLibrary.ready(() => {
 
         if ( hasRemovedItems ) {
 
-          let key = ['Poor (P)',
-                     'Fair (F)',
-                     'Good (G)',
-                     'Good Plus (G+)',
-                     'Very Good (VG)',
-                     'Very Good Plus (VG+)',
-                     'Near Mint (NM or M-)',
-                     'Mint (M)'];
-
           // Update page with filter notice
           document.querySelectorAll('.pagination_total').forEach(e => {
-            e.textContent = `Filtering Media Conditions below: ${key[conditions.length]}`;
+            if (currentFilterState.filterMediaCondition) {
+              e.classList.add('de-filters');
+              e.innerHTML = window.setFilterStateText(Number(mediaCondition), Number(sleeveCondition.value));
+            }
           });
         }
       });
@@ -97,7 +92,7 @@ resourceLibrary.ready(() => {
         let html = `<tr class="shortcut_navigable">
                       <th>
                         Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera.
-                        If you do not want this effect please adjust the "Filter Media Condition" setting in Discogs Enhancer.
+                        If this is unwanted please adjust the "Filter Media Condition" setting in Discogs Enhancer.
                       </th>
                     </tr>`;
 
@@ -123,7 +118,7 @@ resourceLibrary.ready(() => {
     window.filterMediaCondition();
 
     // Call filterMediaCondition on prev/next clicks
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
 
     pagination.forEach(elem => {
 

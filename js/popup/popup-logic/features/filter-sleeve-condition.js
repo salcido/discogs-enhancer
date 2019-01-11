@@ -11,6 +11,7 @@ import { applySave, optionsToggle } from '../utils';
  */
 const conditions = ['Poor','Fair','Good','Good Plus','Very Good','Very Good Plus','Near Mint','Mint'];
 const colors = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'];
+const defaultObj = { value: 7, generic: false, noCover: false };
 
 /**
  * Removes the condition classes from the select element
@@ -29,7 +30,7 @@ export function clearClasses(classes, status) {
  */
 export function init() {
 
-  let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false, noCover: false };
+  let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj;
 
   if ( typeof sleeveCondition !== 'object' ) {
     localStorage.removeItem('sleeveCondition');
@@ -84,28 +85,24 @@ export function setupFilterSleeveCondition(enabled) {
   let generic = document.getElementById('generic'),
       noCover = document.getElementById('no-cover'),
       select = document.getElementById('sleeveConditionValue'),
-      setting = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
+      setting = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-  if ( enabled && setting && setting.value ) {
+  if (enabled) {
 
     status.textContent = conditions[setting.value];
     status.classList.add(colors[setting.value]);
-    select.value = setting.value;
 
-    if ( setting.generic ) {
-      generic.checked = true;
-    }
-
-    if ( setting.noCover ) {
-      noCover.checked = true;
-    }
   } else {
 
     document.getElementById('toggleFilterSleeveCondition').checked = false;
     status.textContent = 'Disabled';
     status.classList.add('disabled');
   }
+
+  select.value = setting.value;
+  generic.checked = setting.generic;
+  noCover.checked = setting.noCover;
 }
 
 /**
@@ -116,7 +113,7 @@ export function setupFilterSleeveCondition(enabled) {
  */
 export function toggleSleeveConditions(event) {
 
-  let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || { value: 7, generic: false, noCover: false },
+  let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( !event.target.checked ) {

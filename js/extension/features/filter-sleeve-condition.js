@@ -25,7 +25,9 @@ resourceLibrary.ready(() => {
 
     let
         href = window.location.href,
-        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')),
+        currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
+        mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
+        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
         sellPage = href.match(/sell\/list/g),
         sellerPage = href.match(/seller\//g),
         sellRelease = href.match(/sell\/release/g),
@@ -76,6 +78,15 @@ resourceLibrary.ready(() => {
 
               el.parentElement.parentElement.parentElement.remove();
             }
+
+            // Update page with filter notice
+            document.querySelectorAll('.pagination_total').forEach(e => {
+              if ( !currentFilterState.filterMediaCondition
+                  && currentFilterState.filterSleeveCondition ) {
+                e.classList.add('de-filters');
+                e.innerHTML = window.setFilterStateText(Number(mediaCondition), Number(sleeveCondition.value));
+              }
+            });
           });
         });
 
