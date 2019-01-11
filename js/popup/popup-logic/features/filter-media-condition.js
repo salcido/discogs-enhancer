@@ -37,7 +37,7 @@ export function init() {
   document.getElementById('conditionValue').addEventListener('change', function () {
 
     let toggle = document.getElementById('toggleFilterMediaCondition'),
-        mediaCondition = localStorage.getItem('mediaCondition'),
+        mediaCondition = localStorage.getItem('mediaCondition') || 7,
         status = document.querySelector('.toggle-group.condition .label .status');
 
     mediaCondition = this.value;
@@ -66,7 +66,7 @@ export function init() {
 export function setupFilterByCondition(enabled) {
 
   let select = document.getElementById('conditionValue'),
-      setting = Number(localStorage.getItem('mediaCondition')),
+      setting = Number(localStorage.getItem('mediaCondition')) || 7,
       status = document.querySelector('.toggle-group.condition .label .status');
 
   if ( enabled ) {
@@ -93,7 +93,7 @@ export function setupFilterByCondition(enabled) {
  */
 export function toggleHideConditions(event) {
 
-  let setting = Number(localStorage.getItem('mediaCondition')),
+  let setting = Number(localStorage.getItem('mediaCondition')) || 7,
       status = document.querySelector('.toggle-group.condition .label .status');
 
   if ( !event.target.checked ) {
