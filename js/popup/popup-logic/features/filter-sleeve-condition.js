@@ -34,6 +34,7 @@ export function init() {
 
   if ( typeof sleeveCondition !== 'object' ) {
     localStorage.removeItem('sleeveCondition');
+    sleeveCondition = defaultObj;
   }
 
   document.querySelector('.toggle-group.sleeve-condition').addEventListener('click', function () {
@@ -88,6 +89,11 @@ export function setupFilterSleeveCondition(enabled) {
       setting = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
+  if ( typeof setting !== 'object' ) {
+    localStorage.removeItem('sleeveCondition');
+    setting = defaultObj;
+  }
+
   if (enabled) {
 
     status.textContent = conditions[setting.value];
@@ -115,6 +121,11 @@ export function toggleSleeveConditions(event) {
 
   let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
+
+  if ( typeof setting !== 'object' ) {
+    localStorage.removeItem('sleeveCondition');
+    setting = defaultObj;
+  }
 
   if ( !event.target.checked ) {
 
