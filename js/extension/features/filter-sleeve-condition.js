@@ -85,7 +85,7 @@ resourceLibrary.ready(() => {
           let html = `<tr class="shortcut_navigable">
                         <th>
                           Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera.
-                          If you do not want this effect please adjust the "Filter Sleeve Condition" setting in Discogs Enhancer.
+                          If this is unwanted please adjust the "Filter Sleeve Condition" setting in Discogs Enhancer.
                         </th>
                       </tr>`;
 
@@ -111,7 +111,7 @@ resourceLibrary.ready(() => {
       window.filterSleeveCondition();
 
       // Call filterSleeveCondition on prev/next clicks
-      let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
+      let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
 
       pagination.forEach(elem => {
 

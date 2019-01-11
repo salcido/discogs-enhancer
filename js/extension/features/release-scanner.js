@@ -233,7 +233,7 @@ resourceLibrary.ready(() => {
   if ( href.includes('/artist/') || href.includes('/label/') ) {
 
     let selector = '.section_content.marketplace_box_buttons_count_1',
-        pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
+        pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
 
     document.querySelector(selector).insertAdjacentHTML('beforeend', button);
 

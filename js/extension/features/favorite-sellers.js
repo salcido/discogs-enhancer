@@ -43,7 +43,7 @@ resourceLibrary.ready(() => {
 
   function addUiListeners() {
 
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"]');
+    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
 
     pagination.forEach(elem => {
 
