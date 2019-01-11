@@ -33,8 +33,8 @@ export function init() {
   let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj;
 
   if ( typeof sleeveCondition !== 'object' ) {
-    localStorage.removeItem('sleeveCondition');
     sleeveCondition = defaultObj;
+    localStorage.setItem('sleeveCondition', JSON.stringify(defaultObj));
   }
 
   document.querySelector('.toggle-group.sleeve-condition').addEventListener('click', function () {
@@ -90,8 +90,8 @@ export function setupFilterSleeveCondition(enabled) {
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( typeof setting !== 'object' ) {
-    localStorage.removeItem('sleeveCondition');
     setting = defaultObj;
+    localStorage.setItem('sleeveCondition', JSON.stringify(defaultObj));
   }
 
   if (enabled) {
@@ -123,8 +123,8 @@ export function toggleSleeveConditions(event) {
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
   if ( typeof setting !== 'object' ) {
-    localStorage.removeItem('sleeveCondition');
     setting = defaultObj;
+    localStorage.setItem('sleeveCondition', JSON.stringify(defaultObj));
   }
 
   if ( !event.target.checked ) {
