@@ -26,10 +26,10 @@ resourceLibrary.ready(() => {
     let _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'];
     let mediaEnabled = currentFilterState.filterMediaCondition;
     let sleeveEnabled = currentFilterState.filterSleeveCondition;
-    let media = mediaEnabled
+    let media = mediaEnabled && mediaLength
               ? `Media: <span class="${_class[mediaLength]}">${key[mediaLength]}</span>`
               : '';
-    let sleeve = sleeveEnabled
+    let sleeve = sleeveEnabled && sleeveLength
                ? `Sleeve: <span class="${_class[sleeveLength]}">${key[sleeveLength]}</span>`
                : '';
     let generic = sleeveEnabled && sleeveCondition && sleeveCondition.generic

@@ -82,9 +82,13 @@ resourceLibrary.ready(() => {
             // Update page with filter notice
             document.querySelectorAll('.pagination_total').forEach(e => {
               if ( !currentFilterState.filterMediaCondition
-                  && currentFilterState.filterSleeveCondition ) {
+                   && currentFilterState.filterSleeveCondition ) {
+
+                let mc = mediaCondition ? Number(mediaCondition) : null,
+                    sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
                 e.classList.add('de-filters');
-                e.innerHTML = window.setFilterStateText(Number(mediaCondition), Number(sleeveCondition.value));
+                e.innerHTML = window.setFilterStateText(mc, sc);
               }
             });
           });
