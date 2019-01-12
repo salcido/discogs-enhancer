@@ -20,7 +20,6 @@ resourceLibrary.ready(() => {
       href = window.location.href,
       currencyInURL = href.includes('currency='),
       sellPage = href.includes('/sell/list'), // master releases && all items in marketplace
-      sellerPage = href.includes('/seller/'),
       sellRelease = href.includes('/sell/release/'),
       wantsPage = href.includes('/sell/mywants');
 
@@ -76,7 +75,7 @@ resourceLibrary.ready(() => {
   // ========================================================
 
   if ( countryList ) {
-    if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+    if ( sellPage || sellRelease || wantsPage ) {
       window.filterCountries(countryList.include, countryList.currency);
     }
   }
