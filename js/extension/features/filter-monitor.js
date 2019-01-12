@@ -16,12 +16,12 @@ resourceLibrary.ready(() => {
   let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
       sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
       countryList = JSON.parse(localStorage.getItem('countryList')) || null,
-      key = ['P','F','G','G+','VG','VG+','NM or M-','M'],
       _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'],
       countryEnabled = currentFilterState.filterShippingCountry,
-      include = countryList.include ? 'Including' : 'Excluding',
       currency = countryList.currency,
+      include = countryList.include ? 'Including' : 'Excluding',
       info = `<i class="icon icon-info-circle muted" title="${countryList.list.join(', ')}"></i>`,
+      key = ['P','F','G','G+','VG','VG+','NM or M-','M'],
       mediaEnabled = currentFilterState.filterMediaCondition,
       sleeveEnabled = currentFilterState.filterSleeveCondition;
 
