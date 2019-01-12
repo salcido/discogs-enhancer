@@ -9,11 +9,62 @@
  * This feature relays the filter media/sleeve/countries feature settings
  * so that their current status can be shown whilst browsing the Marketplace
  */
+
+ // @TODO: make a proper popover for country list
 resourceLibrary.ready(() => {
 
   let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
-      sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
+      sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
+      countryList = JSON.parse(localStorage.getItem('countryList')) || null,
+      key = ['P','F','G','G+','VG','VG+','NM or M-','M'],
+      _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'],
+      countryEnabled = currentFilterState.filterShippingCountry,
+      include = countryList.include ? 'Including' : 'Excluding',
+      currency = countryList.currency,
+      info = `<i class="icon icon-info-circle muted" title="${countryList.list.join(', ')}"></i>`,
+      mediaEnabled = currentFilterState.filterMediaCondition,
+      sleeveEnabled = currentFilterState.filterSleeveCondition;
 
+  function mediaFilter(mediaLength) {
+    if ( mediaEnabled && mediaLength ) {
+      return `Media: <span class="${_class[mediaLength]}">${key[mediaLength]}</span>`;
+    }
+    return '';
+  }
+
+  function sleeveFilter(sleeveLength) {
+    if ( sleeveEnabled && sleeveLength ) {
+      return `Sleeve: <span class="${_class[sleeveLength]}">${key[sleeveLength]}</span>`;
+    }
+    return '';
+  }
+
+  function genericFilter() {
+    if ( sleeveEnabled && sleeveCondition && sleeveCondition.generic ) {
+      return 'Generic';
+    }
+    return '';
+  }
+
+  function noCoverFilter() {
+    if ( sleeveEnabled && sleeveCondition && sleeveCondition.noCover ) {
+      return 'No Cover';
+    }
+    return '';
+  }
+
+  function countriesFilter(enabled, list, currency) {
+
+    let href = window.location.href,
+        currencyInURL = href.includes('currency=');
+
+    if ( enabled && list && currency && currencyInURL
+        || enabled && list && !currency ) {
+
+      return `${include} countries: ${info}`;
+    }
+    return '';
+  }
   /**
    * Creates HTML that represents the Media and Sleeve filter settings to
    * display to the user in the Marketplace.
@@ -22,42 +73,15 @@ resourceLibrary.ready(() => {
    * @returns {HTMLElement}
    */
   window.setFilterStateText = function setFilterStateText(mediaLength, sleeveLength) {
-    let key = ['P','F','G','G+','VG','VG+','NM or M-','M'];
-    let _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'];
-    let mediaEnabled = currentFilterState.filterMediaCondition;
-    let sleeveEnabled = currentFilterState.filterSleeveCondition;
-    let media = mediaEnabled && mediaLength
-              ? `Media: <span class="${_class[mediaLength]}">${key[mediaLength]}</span>`
-              : '';
-    let sleeve = sleeveEnabled && sleeveLength
-               ? `Sleeve: <span class="${_class[sleeveLength]}">${key[sleeveLength]}</span>`
-               : '';
-    let generic = sleeveEnabled && sleeveCondition && sleeveCondition.generic
-                ? 'Generic'
-                : '';
-    let noCover = sleeveEnabled && sleeveCondition && sleeveCondition.noCover
-                ? 'No Cover'
-                : '';
 
-    let filters = [`${media}`, `${sleeve}`, `${generic}`, `${noCover}`];
+    let media = mediaFilter(mediaLength),
+        sleeve = sleeveFilter(sleeveLength),
+        generic = genericFilter(),
+        noCover = noCoverFilter(),
+        filters = [`${media}`, `${sleeve}`, `${generic}`, `${noCover}`, countriesFilter(countryEnabled, countryList, currency)];
+
     return 'Filtering item conditions below: ' + filters.filter(f => f !== '').join(', ');
   };
-
-  // ========================================================
-  // CSS styles for filter status
-  // ========================================================
-  // Only append if using both condition filters
-  // if ( currentFilterState.filterMediaCondition
-  //      && currentFilterState.filterSleeveCondition ) {
-  //   let script = document.createElement('style');
-  //   script.type = 'text/css';
-  //   script.textContent = `.de-filters {
-  //                           line-height: 1.2;
-  //                           font-size: 12px;
-  //                           margin-top: 0.5rem;
-  //                         }`;
-  //   document.body.append(script);
-  // }
 });
 
 
