@@ -18,9 +18,9 @@ resourceLibrary.ready(() => {
       countryList = JSON.parse(localStorage.getItem('countryList')) || null,
       _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'],
       countryEnabled = currentFilterState.filterShippingCountry,
-      currency = countryList.currency,
-      include = countryList.include ? 'Including' : 'Excluding',
-      info = `<i class="icon icon-info-circle muted" title="${countryList.list.join(', ')}"></i>`,
+      currency = countryList && countryList.currency ? countryList.currency : null,
+      include = countryList && countryList.include ? 'Including' : 'Excluding',
+      info = countryList && countryList.list ? `<i class="icon icon-info-circle muted" title="${countryList.list.join(', ')}"></i>` : null,
       key = ['P','F','G','G+','VG','VG+','NM or M-','M'],
       mediaEnabled = currentFilterState.filterMediaCondition,
       sleeveEnabled = currentFilterState.filterSleeveCondition;
