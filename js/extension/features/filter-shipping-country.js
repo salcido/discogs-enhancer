@@ -19,6 +19,7 @@ resourceLibrary.ready(() => {
       countryList = JSON.parse(localStorage.getItem('countryList')),
       href = window.location.href,
       currencyInURL = href.includes('currency='),
+      currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
       sellPage = href.includes('/sell/list'), // master releases && all items in marketplace
       sellRelease = href.includes('/sell/release/'),
       wantsPage = href.includes('/sell/mywants');
@@ -66,6 +67,15 @@ resourceLibrary.ready(() => {
         }
       });
     }
+    // Update page with filter notice
+    document.querySelectorAll('.pagination_total').forEach(e => {
+      if ( !currentFilterState.filterMediaCondition
+        && !currentFilterState.filterSleeveCondition ) {
+
+        e.classList.add('de-filters');
+        e.innerHTML = window.setFilterStateText();
+      }
+    });
     return addUiListeners();
   };
 
