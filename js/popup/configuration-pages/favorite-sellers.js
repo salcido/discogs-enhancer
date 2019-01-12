@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function insertSellersIntoDOM() {
 
+    favoriteList.list.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
     favoriteList.list.forEach(seller => {
 
       let node = document.createElement('div'),

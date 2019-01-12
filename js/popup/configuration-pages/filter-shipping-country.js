@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function insertCountriesIntoDOM() {
 
+    countryList.list.sort();
     countryList.list.forEach(country => {
 
       let node = document.createElement('div'),
@@ -158,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     countryList = JSON.parse(localStorage.getItem('countryList'));
     // remove all the countries from the DOM
     [...document.getElementsByClassName('country')].forEach(c => c.remove());
+
     // Add them back in with the newly updated countrylist data
     insertCountriesIntoDOM();
     // reattach event listerns to countries
