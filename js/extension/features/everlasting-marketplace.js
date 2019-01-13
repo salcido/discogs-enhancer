@@ -66,12 +66,15 @@ resourceLibrary.ready(() => {
           opt = document.createElement('option'),
           selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = `<tr class="shortcut_navigable">
-                          <td class="item_description">
-                            <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
+                          <td class="item_description de-page-stamp">
+                            <h2 class="de-current-page">Page: ${pageNum}</h2>
                           </td>
-                          <td class="item_description de-filter-stamp">
+                          <td class="item_description de-filter-stamp de-page-stamp">
                             ${(window.filterMediaCondition || window.filterSleeveCondition) ? condition : ''}
                           </td>
+                          <td class="de-page-stamp"></td>
+                          <td class="de-page-stamp"></td>
+                          <td class="de-page-stamp"></td>
                        </tr>`;
 
       // Append page results number to the DOM
@@ -82,6 +85,7 @@ resourceLibrary.ready(() => {
          updated when the `markup` gets appened...
       */
       document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp);
+      document.querySelector(lastChild).id = `de-page-${pageNum}`;
       // Append new items to the DOM
       document.querySelector(lastChild).insertAdjacentHTML('afterEnd', markup);
       // Inject options into scroll-to-page select box
@@ -197,7 +201,6 @@ resourceLibrary.ready(() => {
     // Markup for the black bar that appears at the top of the Marketplace
     blackBar = `<div class="de-page-bar">
                   <span class="de-page-info">
-                    <span class="de-page de-page-num">Page: 1</span>
                     <span> ${pTotal} results</span>
                   </span>
                   <a href="#site_header" id="de-update-filters">Add or remove filters</a>
@@ -300,7 +303,6 @@ resourceLibrary.ready(() => {
           currentPage = document.querySelector('.de-page'),
           everlasting = document.querySelector('.de-page-bar'),
           kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
-          pageIndicator = document.getElementsByClassName('de-current-page'),
           siteHeader = document.querySelector('#site_header');
 
       if ( resourceLibrary.isOnScreen(kurtLoder)
@@ -326,26 +328,6 @@ resourceLibrary.ready(() => {
 
           everlasting.classList.remove('hide');
           everlasting.classList.add('show');
-        }
-      }
-
-      // This gnarly bit of code will display the currently viewed page
-      // of results in the Everlasting Marketplace top bar.
-      // I feel bad for writing this and even worse now that
-      // you're looking at it.
-      if ( pageIndicator && pageIndicator.length > 0 ) {
-
-        for ( let i = 0; i < pageNum; i++ ) {
-
-          try {
-
-            if ( resourceLibrary.isOnScreen(pageIndicator[i]) ) {
-
-              currentPage.textContent = pageIndicator[i].textContent;
-            }
-          } catch (e) {
-            // I'm just here so I don't throw errors
-          }
         }
       }
     });
