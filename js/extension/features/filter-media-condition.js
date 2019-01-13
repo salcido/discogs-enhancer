@@ -69,7 +69,7 @@ resourceLibrary.ready(() => {
 
           if ( el.textContent.trim() === condition ) {
 
-            el.parentElement.parentElement.parentElement.remove();
+            el.parentElement.parentElement.parentElement.classList.add('de-hide-media');
             hasRemovedItems = true;
           }
         });
@@ -117,6 +117,17 @@ resourceLibrary.ready(() => {
   // ========================================================
 
   if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+
+    let style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.rel = 'stylesheet';
+    style.textContent = `
+    .de-hide-media {
+      display: none;
+    }`;
+
+    document.head.append(style);
 
     // hide items when page first loads
     window.filterMediaCondition();

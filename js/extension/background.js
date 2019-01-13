@@ -163,17 +163,6 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(darkTheme);
 
-  // filter-shipping-country.css
-  let filterShippingCountry_css = document.createElement('link');
-
-  filterShippingCountry_css.rel = 'stylesheet';
-  filterShippingCountry_css.type = 'text/css';
-  filterShippingCountry_css.href = chrome.extension.getURL('css/filter-shipping-country.css');
-  filterShippingCountry_css.id = 'filterShippingCountryCss';
-  filterShippingCountry_css.disabled = !result.prefs.filterShippingCountry;
-
-  elems.push(filterShippingCountry_css);
-
   // min-max-columns.css
   let minMax_css = document.createElement('link');
 

@@ -66,17 +66,17 @@ resourceLibrary.ready(() => {
           elems.forEach(el => {
 
             if ( el.textContent.trim() === condition ) {
-              el.parentElement.parentElement.parentElement.remove();
+              el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
             }
 
             if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ) {
 
-              el.parentElement.parentElement.parentElement.remove();
+              el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
             }
 
             if ( sleeveCondition.noCover && el.textContent.trim() === 'No Cover' ) {
 
-              el.parentElement.parentElement.parentElement.remove();
+              el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
             }
 
             // Update page with filter notice
@@ -121,6 +121,17 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+
+      let style = document.createElement('style');
+
+      style.type = 'text/css';
+      style.rel = 'stylesheet';
+      style.textContent = `
+      .de-hide-sleeve {
+        display: none;
+      }`;
+
+      document.head.append(style);
 
       // hide items when page first loads
       window.filterSleeveCondition();

@@ -86,6 +86,19 @@ resourceLibrary.ready(() => {
 
   if ( countryList ) {
     if ( sellPage || sellRelease || wantsPage ) {
+
+      let style = document.createElement('style');
+
+      style.type = 'text/css';
+      style.id = 'filterShippingCountryCss';
+      style.rel = 'stylesheet';
+      style.textContent = `
+      .de-hide-country {
+        display: none;
+      }`;
+
+      document.head.append(style);
+
       window.filterCountries(countryList.include, countryList.currency);
     }
   }
