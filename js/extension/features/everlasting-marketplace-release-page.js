@@ -6,6 +6,7 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
+ * Testing: https://www.discogs.com/sell/release/2897713?ev=rb
  */
 
 resourceLibrary.ready(() => {
@@ -73,13 +74,13 @@ resourceLibrary.ready(() => {
           selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = `<tr class="shortcut_navigable">
                           <td class="item_picture as_float"></td>
-                          <td class="item_description de-filter-stamp">
+                          <td class="item_description de-filter-stamp de-page-stamp">
                             <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
-                            <div class="de-filters">${(window.filterMediaCondition || window.filterSleeveCondition) ? condition : ''}</div>
+                            ${(window.filterMediaCondition || window.filterSleeveCondition || window.filterCountries) ? condition : ''}
                           </td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td class="de-page-stamp"></td>
+                          <td class="de-page-stamp"></td>
+                          <td class="de-page-stamp"></td>
                         </tr>`;
 
       // Append page number to the DOM
@@ -210,7 +211,6 @@ resourceLibrary.ready(() => {
     // Markup for the black bar that appears at the top of the Marketplace
     blackBar = `<div class="de-page-bar">
                   <span class="de-page-info">
-                    <span class="de-page de-page-num">Page: 1</span>
                     <span> ${pTotal} results</span>
                   </span>
                   <a href="#" id="de-update-filters">Add or remove filters</a>
@@ -319,7 +319,6 @@ resourceLibrary.ready(() => {
       let currentPage = document.querySelector('.de-page'),
           everlasting = document.querySelector('.de-page-bar'),
           kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
-          pageIndicator = document.getElementsByClassName('de-current-page'),
           siteHeader = document.querySelector('#site_header');
 
       if ( resourceLibrary.isOnScreen(kurtLoder)
@@ -345,26 +344,6 @@ resourceLibrary.ready(() => {
 
           everlasting.classList.remove('hide');
           everlasting.classList.add('show');
-        }
-      }
-
-      // This gnarly bit of code will display the currently viewed page
-      // of results in the Everlasting Marketplace top bar.
-      // I feel bad for writing this and even worse now that
-      // you're looking at it.
-      if ( pageIndicator && pageIndicator.length > 0 ) {
-
-        for ( let i = 0; i < pageNum; i++ ) {
-
-          try {
-
-            if ( resourceLibrary.isOnScreen(pageIndicator[i]) ) {
-
-              currentPage.textContent = pageIndicator[i].textContent;
-            }
-          } catch (e) {
-            // I'm just here so I don't throw errors
-          }
         }
       }
     });
