@@ -163,6 +163,17 @@ chrome.storage.sync.get('prefs', function(result) {
 
   elems.push(darkTheme);
 
+  // ========================================================
+  // Filter Monitor (always appened)
+  // ========================================================
+  // filter-monitor.js
+  filterMonitor = document.createElement('script');
+  filterMonitor.type = 'text/javascript';
+  filterMonitor.className = 'de-init';
+  filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
+
+  elems.push(filterMonitor);
+
   // min-max-columns.css
   let minMax_css = document.createElement('link');
 
@@ -234,17 +245,6 @@ chrome.storage.sync.get('prefs', function(result) {
   highlightScript.className = 'de-init';
 
   elems.push(highlightScript);
-
-  // ========================================================
-  // Filter Monitor (always appened)
-  // ========================================================
-  // filter-monitor.js
-  filterMonitor = document.createElement('script');
-  filterMonitor.type = 'text/javascript';
-  filterMonitor.className = 'de-init';
-  filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
-
-  elems.push(filterMonitor);
 
   // marketplace-highlights.css
   let highlightCss = document.createElement('link');
