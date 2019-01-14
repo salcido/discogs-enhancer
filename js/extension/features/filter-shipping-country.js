@@ -67,15 +67,32 @@ resourceLibrary.ready(() => {
         }
       });
     }
-    // Update page with filter notice
-    document.querySelectorAll('.pagination_total').forEach(e => {
-      if ( !currentFilterState.filterMediaCondition
-        && !currentFilterState.filterSleeveCondition ) {
 
+    // Update page with filter notice (everlasting)
+    if ( !currentFilterState.filterMediaCondition
+         && !currentFilterState.filterSleeveCondition
+         && document.querySelector('.de-page-bar') ) {
+
+      document.querySelectorAll('.pagination_total').forEach(e => {
         e.classList.add('de-filters');
         e.innerHTML = window.setFilterStateText();
-      }
-    });
+      });
+
+    // Update page with filter notice (normal)
+    } else if ( !currentFilterState.filterMediaCondition
+              && !currentFilterState.filterSleeveCondition
+              && !document.querySelector('.de-filter-stamp') ) {
+
+      document.querySelectorAll('.pagination').forEach(e => {
+
+        let div = document.createElement('div');
+
+        div.innerHTML = window.setFilterStateText();
+        div.className = 'de-filter-stamp';
+        div.style.margin = '8px 0';
+        e.insertAdjacentElement('afterend', div);
+      });
+    }
     return addUiListeners();
   };
 

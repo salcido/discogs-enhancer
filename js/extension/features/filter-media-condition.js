@@ -28,7 +28,6 @@ resourceLibrary.ready(() => {
       currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
       mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
       sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
-      hasRemovedItems = false,
       sellPage = href.match(/sell\/list/g),
       sellerPage = href.match(/seller\//g),
       sellRelease = href.match(/sell\/release/g),
@@ -70,25 +69,40 @@ resourceLibrary.ready(() => {
           if ( el.textContent.trim() === condition ) {
 
             el.parentElement.parentElement.parentElement.classList.add('de-hide-media');
-            hasRemovedItems = true;
           }
         });
-
-        if ( hasRemovedItems ) {
-
-          // Update page with filter notice
-          document.querySelectorAll('.pagination_total').forEach(e => {
-            if (currentFilterState.filterMediaCondition) {
-
-              let mc = mediaCondition ? Number(mediaCondition) : null,
-                  sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
-
-              e.classList.add('de-filters');
-              e.innerHTML = window.setFilterStateText(mc, sc);
-            }
-          });
-        }
       });
+
+      // Update page with filter notice (everlasting)
+      if ( document.querySelector('.de-page-bar')
+           && currentFilterState.filterMediaCondition ) {
+
+        document.querySelectorAll('.pagination_total').forEach(e => {
+
+          let mc = mediaCondition ? Number(mediaCondition) : null,
+              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
+          e.classList.add('de-filters');
+          e.innerHTML = window.setFilterStateText(mc, sc);
+        });
+
+      // Update page with filter notice (normal)
+      } else if ( !document.querySelector('.de-page-bar')
+                  && currentFilterState.filterMediaCondition
+                  && !document.querySelector('.de-filter-stamp') ) {
+
+        document.querySelectorAll('.pagination').forEach(e => {
+
+          let div = document.createElement('div'),
+              mc = mediaCondition ? Number(mediaCondition) : null,
+              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
+          div.innerHTML = window.setFilterStateText(mc, sc);
+          div.style.margin = '8px 0';
+          div.className = 'de-filter-stamp';
+          e.insertAdjacentElement('afterend', div);
+        });
+      }
 
       // Show message if all results have been removed
       if ( !document.getElementsByClassName('shortcut_navigable').length ) {

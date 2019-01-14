@@ -70,7 +70,7 @@ resourceLibrary.ready(() => {
                             <h2 class="de-current-page">Page: ${pageNum}</h2>
                           </td>
                           <td class="item_description de-filter-stamp de-page-stamp">
-                            ${(window.filterMediaCondition || window.filterSleeveCondition) ? condition : ''}
+                            ${(window.filterMediaCondition || window.filterSleeveCondition || window.filterCountries) ? condition : ''}
                           </td>
                           <td class="de-page-stamp"></td>
                           <td class="de-page-stamp"></td>
@@ -300,7 +300,6 @@ resourceLibrary.ready(() => {
     window.addEventListener('scroll', () => {
 
       let
-          currentPage = document.querySelector('.de-page'),
           everlasting = document.querySelector('.de-page-bar'),
           kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
           siteHeader = document.querySelector('#site_header');
@@ -319,7 +318,6 @@ resourceLibrary.ready(() => {
 
         everlasting.classList.remove('show');
         everlasting.classList.add('hide');
-        currentPage.textContent = 'Page: 1';
 
       } else {
 

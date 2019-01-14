@@ -78,21 +78,42 @@ resourceLibrary.ready(() => {
 
               el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
             }
-
-            // Update page with filter notice
-            document.querySelectorAll('.pagination_total').forEach(e => {
-              if ( !currentFilterState.filterMediaCondition
-                   && currentFilterState.filterSleeveCondition ) {
-
-                let mc = mediaCondition ? Number(mediaCondition) : null,
-                    sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
-
-                e.classList.add('de-filters');
-                e.innerHTML = window.setFilterStateText(mc, sc);
-              }
-            });
           });
         });
+
+        // Update page with filter notice (everlasting)
+        if ( !currentFilterState.filterMediaCondition
+             && currentFilterState.filterSleeveCondition
+             && document.querySelector('.de-page-bar') ) {
+
+          let mc = mediaCondition ? Number(mediaCondition) : null,
+              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
+            document.querySelectorAll('.pagination_total').forEach(e => {
+
+            e.classList.add('de-filters');
+            e.innerHTML = window.setFilterStateText(mc, sc);
+          });
+        }
+
+        // Update page with filter notice (normal)
+        if ( !currentFilterState.filterMediaCondition
+             && !document.querySelector('.de-page-bar')
+             && currentFilterState.filterSleeveCondition ) {
+
+          let mc = mediaCondition ? Number(mediaCondition) : null,
+              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
+          document.querySelectorAll('.pagination').forEach(e => {
+
+            let div = document.createElement('div');
+
+            div.innerHTML = window.setFilterStateText(mc, sc);
+            div.className = 'de-filter-stamp';
+            div.style.margin = '8px 0';
+            e.insertAdjacentElement('afterend', div);
+          });
+        }
 
         // Show message if all results have been removed
         if ( !document.getElementsByClassName('shortcut_navigable').length ) {
