@@ -10,7 +10,6 @@
  * so that their current status can be shown whilst browsing the Marketplace
  */
 
- // @TODO: make a proper popover for country list
 resourceLibrary.ready(() => {
 
   let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
@@ -24,10 +23,10 @@ resourceLibrary.ready(() => {
       mediaEnabled = currentFilterState.filterMediaCondition,
       sleeveEnabled = currentFilterState.filterSleeveCondition,
       info = countryList && countryList.list ? `
-      <span class="country-list-info">
-        <i class="icon icon-info-circle muted" title=""></i>
-        <span class="country-list">${countryList.list.join(', ')}</span>
-      </span>` : null;
+        <span class="country-list-info">
+          <i class="icon icon-info-circle muted" title=""></i>
+          <span class="country-list">${countryList.list.join(', ')}</span>
+        </span>` : null;
 
   function mediaFilter(mediaLength) {
     if ( mediaEnabled && mediaLength ) {
