@@ -65,6 +65,29 @@ resourceLibrary.ready(() => {
     }
     return '';
   }
+
+  /**
+   * Shows/hides filtered items in the Marketplace
+   * @returns {undefined}
+   * Commenting this out for now. Toggling filtered items sounds good
+   * on paper but it doesn't work that well in reality. Sometimes filtered
+   * items are "below the fold" so it looks as if nothing was toggled.
+   * Not great UX.
+
+  window.toggleItems = function toggleItems(event) {
+
+    event.preventDefault();
+
+    let target = event.target.parentElement.parentElement.parentElement.nextElementSibling;
+
+    let items = target.querySelectorAll('tr ~ .de-hide-media');
+
+    items.forEach(item => {
+      item.classList.toggle('de-show');
+    });
+  };
+  */
+
   /**
    * Creates HTML that represents the Media and Sleeve filter settings to
    * display to the user in the Marketplace.
@@ -78,10 +101,29 @@ resourceLibrary.ready(() => {
         sleeve = sleeveFilter(sleeveLength),
         generic = genericFilter(),
         noCover = noCoverFilter(),
+        // toggle = '<button onClick="window.toggleItems(event)" class="de-show-toggle">Toggle Filtered Items</button>',
         filters = [`${media}`, `${sleeve}`, `${generic}`, `${noCover}`, countriesFilter(countryEnabled, countryList, currency)];
 
-    return 'Filtering item conditions below: ' + filters.filter(f => f !== '').join(', ');
+    return `Filtering - ${filters.filter(f => f !== '').join(', ')}`;
   };
+
+  // ========================================================
+  // DOM setup
+  // ========================================================
+  let style = document.createElement('style');
+
+  style.type = 'text/css';
+  style.rel = 'stylesheet';
+  style.textContent = `
+  .de-show {
+    display: table-row;
+    border-left: 3px solid #c72020 !important;
+    background: #292929 !important;
+  }
+  `;
+
+  // Append to body for proper css overrides
+  document.body.append(style);
 });
 
 
