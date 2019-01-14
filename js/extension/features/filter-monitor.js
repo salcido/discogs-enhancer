@@ -20,10 +20,14 @@ resourceLibrary.ready(() => {
       countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
       include = countryList && countryList.include ? 'Including' : 'Excluding',
-      info = countryList && countryList.list ? `<i class="icon icon-info-circle muted" title="${countryList.list.join(', ')}"></i>` : null,
       key = ['P','F','G','G+','VG','VG+','NM or M-','M'],
       mediaEnabled = currentFilterState.filterMediaCondition,
-      sleeveEnabled = currentFilterState.filterSleeveCondition;
+      sleeveEnabled = currentFilterState.filterSleeveCondition,
+      info = countryList && countryList.list ? `
+      <span class="country-list-info">
+        <i class="icon icon-info-circle muted" title=""></i>
+        <span class="country-list">${countryList.list.join(', ')}</span>
+      </span>` : null;
 
   function mediaFilter(mediaLength) {
     if ( mediaEnabled && mediaLength ) {
@@ -119,6 +123,29 @@ resourceLibrary.ready(() => {
     display: table-row;
     border-left: 3px solid #c72020 !important;
     background: #292929 !important;
+  }
+
+  .country-list-info {
+    position: relative;
+    z-index: 1050;
+  }
+
+  .country-list-info .country-list {
+    background: #fff;
+    border-radius: 5px;
+    display: none;
+    filter: drop-shadow(0 2px 2px #888);
+    font-weight: normal;
+    line-height: 1.4;
+    padding: 8px;
+    position: absolute;
+    right: -60px;
+    top: 20px;
+    width: 125px;
+  }
+
+  .country-list-info:hover .country-list {
+    display: block;
   }
   `;
 

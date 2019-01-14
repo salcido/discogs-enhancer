@@ -2271,3 +2271,9 @@ table.release-table thead tr th a span {
   z-index: 1000;
   filter: drop-shadow(0px 1px #454545) !important;
 }
+
+/* filter countries info tooltip */
+.country-list-info .country-list {
+  background: #454545 !important;
+  filter: drop-shadow(0 2px 2px #202020) !important;
+}
