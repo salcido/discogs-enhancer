@@ -4,7 +4,7 @@
   width: 100%;
   padding-top: 5px;
   position: fixed;
-  z-index: 1000;
+  z-index: 999;
   top: -35px;
   left: 0;
   background: #000000 !important;
@@ -101,7 +101,7 @@
   padding: 0 !important;
   position: sticky;
   top: 25px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 @keyframes slidein {
