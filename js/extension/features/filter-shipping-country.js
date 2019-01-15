@@ -62,7 +62,7 @@ resourceLibrary.ready(() => {
 
         let countryName = location.textContent.split(':')[1];
 
-        if ( !countryList.list.includes(countryName) === include ) {
+        if ( !countryList.list.includes(countryName.toLowerCase()) === include ) {
           location.parentElement.parentElement.parentElement.classList.add('de-hide-country');
         }
       });
@@ -102,6 +102,10 @@ resourceLibrary.ready(() => {
   // ========================================================
 
   if ( countryList ) {
+
+    // Convert to lowercase for comparisons
+    countryList.list = countryList.list.map(i => i.toLowerCase());
+
     if ( sellPage || sellRelease || wantsPage ) {
 
       let style = document.createElement('style');
