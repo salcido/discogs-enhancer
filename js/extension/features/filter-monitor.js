@@ -126,7 +126,7 @@ resourceLibrary.ready(() => {
 
   .country-list-info {
     position: relative;
-    z-index: 1050;
+    z-index: 79;
   }
 
   .country-list-info .country-list {
