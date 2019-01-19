@@ -74,7 +74,7 @@ resourceLibrary.ready(() => {
       });
 
       // Update page with filter notice (everlasting)
-      if ( document.querySelector('.de-page-bar')
+      if ( currentFilterState.everlastingMarket
            && currentFilterState.filterMediaCondition ) {
 
         document.querySelectorAll('.pagination_total').forEach(e => {
@@ -87,7 +87,7 @@ resourceLibrary.ready(() => {
         });
 
       // Update page with filter notice (normal)
-      } else if ( !document.querySelector('.de-page-bar')
+      } else if ( !currentFilterState.everlastingMarket
                   && currentFilterState.filterMediaCondition
                   && !document.querySelector('.de-filter-stamp') ) {
 

@@ -71,7 +71,7 @@ resourceLibrary.ready(() => {
     // Update page with filter notice (everlasting)
     if ( !currentFilterState.filterMediaCondition
          && !currentFilterState.filterSleeveCondition
-         && document.querySelector('.de-page-bar') ) {
+         && currentFilterState.everlastingMarket ) {
 
       document.querySelectorAll('.pagination_total').forEach(e => {
         e.classList.add('de-filters');

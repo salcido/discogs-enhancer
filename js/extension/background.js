@@ -132,6 +132,17 @@ chrome.storage.sync.get('prefs', function(result) {
 
   initElems.push(resourceLibrary);
 
+  // ========================================================
+  // Filter Monitor (always appened)
+  // ========================================================
+  // filter-monitor.js
+  filterMonitor = document.createElement('script');
+  filterMonitor.type = 'text/javascript';
+  filterMonitor.className = 'de-init';
+  filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
+
+  initElems.push(filterMonitor);
+
   // Append initial dependencies
   appendFragment(initElems);
 
@@ -162,17 +173,6 @@ chrome.storage.sync.get('prefs', function(result) {
   }
 
   elems.push(darkTheme);
-
-  // ========================================================
-  // Filter Monitor (always appened)
-  // ========================================================
-  // filter-monitor.js
-  filterMonitor = document.createElement('script');
-  filterMonitor.type = 'text/javascript';
-  filterMonitor.className = 'de-init';
-  filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
-
-  elems.push(filterMonitor);
 
   // min-max-columns.css
   let minMax_css = document.createElement('link');
@@ -1012,11 +1012,13 @@ chrome.storage.sync.get('prefs', function(result) {
   // filtering status can be appended to the DOM whilst
   // using Everlasting Marketplace.
   // ========================================================
-  let { filterMediaCondition,
+  let { everlastingMarket,
+        filterMediaCondition,
         filterShippingCountry,
         filterSleeveCondition } = result.prefs;
 
   let currentFilterState = {
+        everlastingMarket,
         filterMediaCondition,
         filterShippingCountry,
         filterSleeveCondition,

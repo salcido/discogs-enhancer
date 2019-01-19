@@ -83,8 +83,8 @@ resourceLibrary.ready(() => {
 
         // Update page with filter notice (everlasting)
         if ( !currentFilterState.filterMediaCondition
-             && currentFilterState.filterSleeveCondition
-             && document.querySelector('.de-page-bar') ) {
+             && currentFilterState.everlastingMarket
+             && currentFilterState.filterSleeveCondition ) {
 
           let mc = mediaCondition ? Number(mediaCondition) : null,
               sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
@@ -98,7 +98,7 @@ resourceLibrary.ready(() => {
 
         // Update page with filter notice (normal)
         if ( !currentFilterState.filterMediaCondition
-             && !document.querySelector('.de-page-bar')
+             && !currentFilterState.everlastingMarket
              && currentFilterState.filterSleeveCondition ) {
 
           let mc = mediaCondition ? Number(mediaCondition) : null,

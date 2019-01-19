@@ -18,46 +18,48 @@ resourceLibrary.ready(() => {
   if ( href.includes('/sell/release') && hasPageLinks ) {
 
     let
-        blackBar,
         hasLoaded = false,
-        pTotal,
+        pageHist = [1],
         pageNum = 2,
         pagination,
         paused = false,
-        pjax = document.querySelector('#pjax_container');
+        pjax = document.querySelector('#pjax_container'),
+        pTotal;
 
     // ========================================================
     // Functions (Alphabetical)
     // ========================================================
 
     /**
-     * Adds the click event listner for `.de-resume`
-     * @method addResumeListener
-     * @returns {method}
+     * Adds/removes the event listeners for `.de-pause` elements
+     * @returns {undefined}
+     */
+    function addPauseListener() {
+      document.querySelectorAll('.de-pause').forEach(pause => {
+        pause.removeEventListener('click', handlePauseClick);
+        pause.addEventListener('click', handlePauseClick);
+      });
+    }
+
+    /**
+     * Adds/removes the event listeners for `.de-resume` elements
+     * @returns {undefined}
      */
     function addResumeListener() {
+      document.querySelectorAll('.de-resume').forEach(btn => {
+        btn.removeEventListener('click', handleResumeClick);
+        btn.addEventListener('click', handleResumeClick);
+      });
+    }
 
-      let loadingText = document.querySelector('.de-next-text'),
-          pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>',
-          controls = document.querySelector('.de-pause'),
-          resume = document.querySelector('.de-resume'),
-          spinner = document.querySelector('#de-next .icon-spinner');
-
-      resume.addEventListener('click', event => {
-
-        event.preventDefault();
-
-        controls.innerHTML = pauseIcon;
-
-        if (spinner){
-          spinner.style.display = 'block';
-        }
-
-        loadingText.textContent = 'Loading next page...';
-
-        paused = false;
-
-        return getNextPage();
+    /**
+     * Adds/removes the event listeners for `.de-scroll-to-page` elements
+     * @returns {undefined}
+     */
+    function addSelectListener() {
+      document.querySelectorAll('.de-scroll-to-page').forEach(select => {
+        select.removeEventListener('change', handleSelectChange);
+        select.addEventListener('change', handleSelectChange);
       });
     }
 
@@ -70,28 +72,48 @@ resourceLibrary.ready(() => {
 
       let condition = document.querySelector('.pagination_total').innerHTML,
           lastChild = '#pjax_container tbody:last-child',
-          opt = document.createElement('option'),
-          selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = `<tr class="shortcut_navigable">
                           <td class="item_picture as_float"></td>
                           <td class="item_description de-filter-stamp de-page-stamp">
-                            <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
-                            ${(window.filterMediaCondition || window.filterSleeveCondition || window.filterCountries) ? condition : ''}
+                            <h3 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h3>
+                            ${pTotal} results &mdash; ${(window.filterMediaCondition || window.filterSleeveCondition || window.filterCountries) ? condition : ''}
                           </td>
-                          <td class="de-page-stamp"></td>
-                          <td class="de-page-stamp"></td>
-                          <td class="de-page-stamp"></td>
+                          <td class="de-page-stamp de-marketplace-results z-1"><a href="#site_header" >Back to top</a></td>
+                          <td class="de-page-stamp de-marketplace-results">
+                            <div class="de-select-wrap">
+                              <span></span>
+                              <select class="de-scroll-to-page">
+                                <option value="" selected>Select Page</option>
+                                <option value="1">Page: 1</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td class="de-page-stamp de-marketplace-results">
+                            <a class="de-pause pause button button-gray">
+                              <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
+                              Pause
+                            </a>
+                          </td>
                         </tr>`;
 
       // Append page number to the DOM
       document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp);
+      document.querySelector(lastChild).id = `de-page-${pageNum}`;
+
       // Append new items to the DOM
       document.querySelector(lastChild).insertAdjacentHTML('afterEnd', markup);
+      pageHist.push(pageNum);
 
       // Inject options into scroll-to-page select box
-      opt.value = pageNum;
-      opt.textContent = `Page: ${pageNum}`;
-      selectBox.insertAdjacentElement('beforeend', opt);
+      document.querySelectorAll('.de-scroll-to-page').forEach(select => {
+        select.innerHTML = '<option value="" selected>Select Page</option>';
+        pageHist.forEach(page => {
+          let opt = document.createElement('option');
+          opt.value = page;
+          opt.textContent = `Page: ${page}`;
+          select.insertAdjacentElement('beforeend', opt);
+        });
+      });
     }
 
     /**
@@ -188,15 +210,103 @@ resourceLibrary.ready(() => {
 
           loader.remove();
           pjax.insertAdjacentHTML('beforeend', noItems);
+          document.querySelectorAll('.de-pause, .de-resume').forEach(b => b.remove());
         }
 
         pageNum++;
         hasLoaded = false;
-
+        addPauseListener();
+        addSelectListener();
         callOtherMarketplaceFeatures();
 
       } catch (err) {
         console.log('Everlastning Marketplace could not fetch data', err);
+      }
+    }
+
+    /**
+     * Handles click events for the .de-pause elements
+     * @param {object} event - the event object
+     * @returns {undefined}
+     */
+    function handlePauseClick(event) {
+
+      let
+          loader = document.querySelector('.de-next-text'),
+          pauseIcon = '<a class="de-pause button button-gray"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause</a>',
+          playIcon = '<a class="de-resume button button-gray"><i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume</a>',
+          resumeLink = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
+          spinner = document.querySelector('#de-next .icon-spinner');
+
+      // Paused
+      if ( event.target.classList.contains('de-pause') ) {
+
+        document.querySelectorAll('.de-pause').forEach(p => p.parentElement.innerHTML = playIcon);
+
+        spinner.style.display = 'none';
+        loader.innerHTML = resumeLink;
+
+        paused = true;
+
+        addResumeListener();
+
+      // Resume
+      } else {
+
+        event.target.outerHTML = pauseIcon;
+
+        spinner.style.display = 'block';
+        loader.textContent = 'Loading next page...';
+
+        paused = false;
+      }
+    }
+
+    /**
+     * Handles click events for the .de-resume elements
+     * @param {object} event - the event object
+     * @returns {undefined}
+     */
+    function handleResumeClick(event) {
+
+      let loadingText = document.querySelector('.de-next-text'),
+          pauseIcon = '<a class="de-pause pause button button-gray"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause </a>',
+          resumeBtns = document.querySelectorAll('.de-resume'),
+          spinner = document.querySelector('#de-next .icon-spinner');
+
+      event.preventDefault();
+
+      resumeBtns.forEach(btn => btn.parentElement.innerHTML = pauseIcon);
+      spinner.style.display = 'block';
+      loadingText.textContent = 'Loading next page...';
+
+      paused = false;
+
+      return getNextPage();
+    }
+
+    /**
+     * Handles click events for the .de-scroll-to-page elements
+     * @param {object} event - the event object
+     * @returns {undefined}
+     */
+    function handleSelectChange(event) {
+
+      let target = event.target,
+          targetId = '#de-page-' + target.value;
+
+      if ( target.value ) {
+
+        if ( target.value === '1' ) {
+
+          window.scroll({ top: 0, left: 0 });
+
+        } else {
+
+          document.querySelector(targetId).scrollIntoView();
+          window.scroll({top: window.scrollY, left: 0});
+          document.querySelectorAll('.de-scroll-to-page').forEach(s => s.value = target.value);
+        }
       }
     }
 
@@ -208,26 +318,6 @@ resourceLibrary.ready(() => {
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
     pTotal = resourceLibrary.paginationTotal(pagination);
-    // Markup for the black bar that appears at the top of the Marketplace
-    blackBar = `<div class="de-page-bar">
-                  <span class="de-page-info">
-                    <span> ${pTotal} results</span>
-                  </span>
-                  <a href="#" id="de-update-filters">Add or remove filters</a>
-                  <div class="de-select-wrap">
-                    <span>Scroll to: &nbsp;</span>
-                    <select class="de-scroll-to-page">
-                      <option value="" selected>Select</option>
-                      <option value="1">Page: 1</option>
-                    </select>
-                    <span class="de-pause">
-                      <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
-                    </span>
-                  </div>
-                </div>`;
-
-    // Everlasting Marketplace add/remove filters bar
-    document.body.insertAdjacentHTML('beforeend', blackBar);
 
     // append preloader to bottom
     if ( !document.getElementById('de-next') ) {
@@ -246,80 +336,12 @@ resourceLibrary.ready(() => {
     document.querySelectorAll('.pagination_page_links').forEach(el => el.style.display = 'none');
 
     // ========================================================
-    // UI Functionalty
-    // ========================================================
-
-    // Scroll the browser up to the top so the user can change Marketplace filters
-    document.querySelector('#de-update-filters').addEventListener('click', event => {
-
-      event.preventDefault();
-      window.scroll({ top: 0, left: 0 });
-    });
-
-    // Pause/resume Everlasting Marketplace
-    document.querySelector('.de-pause').addEventListener('click', event => {
-
-      let loader = document.querySelector('.de-next-text'),
-          pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>',
-          playIcon = '<i class="icon icon-play" title="Resume Everlasting Marketplace"></i>',
-          resumeLink = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
-          spinner = document.querySelector('#de-next .icon-spinner'),
-          target = event.target;
-
-      // Paused
-      if ( target.classList.contains('icon-pause') ) {
-
-        target.parentElement.innerHTML = playIcon;
-
-        if ( spinner ) { spinner.style.display = 'none'; }
-        loader.innerHTML = resumeLink;
-
-        paused = true;
-
-        addResumeListener();
-
-      // Resume
-      } else {
-
-        target.parentElement.innerHTML = pauseIcon;
-
-        if ( spinner ) { spinner.style.display = 'block'; }
-        loader.textContent = 'Loading next page...';
-
-        paused = false;
-      }
-    });
-
-    // scroll to page section select box functionality
-    document.querySelector('.de-scroll-to-page').addEventListener('change', event => {
-
-      let target = event.target,
-          targetId = '#de-page-' + target.value;
-
-      if ( target.value ) {
-
-        if ( target.value === '1' ) {
-
-          window.scroll({ top: 0, left: 0 });
-
-        } else {
-
-          document.querySelector(targetId).scrollIntoView();
-          window.scroll({top: window.scrollY - 30, left: 0});
-        }
-      }
-    });
-
-    // ========================================================
     // Scrolling Functionality
     // ========================================================
 
     window.addEventListener('scroll', () => {
 
-      let currentPage = document.querySelector('.de-page'),
-          everlasting = document.querySelector('.de-page-bar'),
-          kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
-          siteHeader = document.querySelector('#site_header');
+      let kurtLoder = document.querySelector('#de-next');
 
       if ( resourceLibrary.isOnScreen(kurtLoder)
             && !hasLoaded
@@ -328,23 +350,6 @@ resourceLibrary.ready(() => {
         hasLoaded = true;
 
         return getNextPage();
-      }
-
-      // Hide the page bar if at top of screen
-      if ( resourceLibrary.isOnScreen(siteHeader) ) {
-
-        everlasting.classList.remove('show');
-        everlasting.classList.add('hide');
-        currentPage.textContent = 'Page: 1';
-
-      } else {
-
-        if ( !resourceLibrary.isOnScreen(siteHeader)
-             && everlasting.getBoundingClientRect().top < -30 ) {
-
-          everlasting.classList.remove('hide');
-          everlasting.classList.add('show');
-        }
       }
     });
   }
