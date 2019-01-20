@@ -1,8 +1,8 @@
 # Discogs Enhancer
 
-[![Chrome Web Store](https://img.shields.io/badge/users-2.7k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/badge/users-2.8k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating-4.9%2F5-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
-[![Chrome Web Store](https://img.shields.io/badge/rating%20count-55%20total-orange.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/badge/rating%20count-56%20total-orange.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
 
 #### Project Overview
