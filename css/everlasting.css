@@ -77,7 +77,7 @@
 
 .de-filter-stamp {
   vertical-align: middle;
-  font-weight: bold;
+  /* font-weight: bold; */
   /* padding-right: 4rem !important; */
 }
 
