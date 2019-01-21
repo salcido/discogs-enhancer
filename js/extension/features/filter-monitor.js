@@ -32,28 +32,28 @@ resourceLibrary.ready(() => {
     if ( mediaEnabled && mediaLength ) {
       return `Media: <span class="${_class[mediaLength]}">${key[mediaLength]}</span>`;
     }
-    return '';
+    return null;
   }
 
   function sleeveFilter(sleeveLength) {
     if ( sleeveEnabled && sleeveLength ) {
       return `Sleeve: <span class="${_class[sleeveLength]}">${key[sleeveLength]}</span>`;
     }
-    return '';
+    return null;
   }
 
   function genericFilter() {
     if ( sleeveEnabled && sleeveCondition && sleeveCondition.generic ) {
       return 'Generic';
     }
-    return '';
+    return null;
   }
 
   function noCoverFilter() {
     if ( sleeveEnabled && sleeveCondition && sleeveCondition.noCover ) {
       return 'No Cover';
     }
-    return '';
+    return null;
   }
 
   function countriesFilter(enabled, list, currency) {
@@ -66,7 +66,7 @@ resourceLibrary.ready(() => {
 
       return `${include} countries: ${info}`;
     }
-    return '';
+    return null;
   }
 
   /**
@@ -105,9 +105,11 @@ resourceLibrary.ready(() => {
         generic = genericFilter(),
         noCover = noCoverFilter(),
         // toggle = '<button onClick="window.toggleItems(event)" class="de-show-toggle">Toggle Filtered Items</button>',
-        filters = [`${media}`, `${sleeve}`, `${generic}`, `${noCover}`, countriesFilter(countryEnabled, countryList, currency)];
+        filters = [media, sleeve, generic, noCover, countriesFilter(countryEnabled, countryList, currency)].filter(f => f !== null).join(', ');
 
-    return `Filtering - ${filters.filter(f => f !== '').join(', ')}`;
+    if ( filters.length ) return `Filtering - ${filters}`;
+
+    return 'Filtering - none';
   };
 
   // ========================================================
