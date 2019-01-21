@@ -81,21 +81,6 @@ resourceLibrary.ready(() => {
           });
         });
 
-        // Update page with filter notice (everlasting)
-        if ( !currentFilterState.filterMediaCondition
-             && currentFilterState.everlastingMarket
-             && currentFilterState.filterSleeveCondition ) {
-
-          let mc = mediaCondition ? Number(mediaCondition) : null,
-              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
-
-            document.querySelectorAll('.pagination_total').forEach(e => {
-
-            e.classList.add('de-filters');
-            e.innerHTML = window.setFilterStateText(mc, sc);
-          });
-        }
-
         // Update page with filter notice (normal)
         if ( !currentFilterState.filterMediaCondition
              && !currentFilterState.everlastingMarket

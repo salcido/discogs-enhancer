@@ -70,18 +70,8 @@ resourceLibrary.ready(() => {
 
     // Update page with filter notice (everlasting)
     if ( !currentFilterState.filterMediaCondition
-         && !currentFilterState.filterSleeveCondition
-         && currentFilterState.everlastingMarket ) {
-
-      document.querySelectorAll('.pagination_total').forEach(e => {
-        e.classList.add('de-filters');
-        e.innerHTML = window.setFilterStateText();
-      });
-
-    // Update page with filter notice (normal)
-    } else if ( !currentFilterState.filterMediaCondition
-              && !currentFilterState.filterSleeveCondition
-              && !document.querySelector('.de-filter-stamp') ) {
+          && !currentFilterState.filterSleeveCondition
+          && !document.querySelector('.de-filter-stamp') ) {
 
       document.querySelectorAll('.pagination').forEach(e => {
 

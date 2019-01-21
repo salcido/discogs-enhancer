@@ -73,23 +73,9 @@ resourceLibrary.ready(() => {
         });
       });
 
-      // Update page with filter notice (everlasting)
-      if ( currentFilterState.everlastingMarket
-           && currentFilterState.filterMediaCondition ) {
-
-        document.querySelectorAll('.pagination_total').forEach(e => {
-
-          let mc = mediaCondition ? Number(mediaCondition) : null,
-              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
-
-          e.classList.add('de-filters');
-          e.innerHTML = window.setFilterStateText(mc, sc);
-        });
-
-      // Update page with filter notice (normal)
-      } else if ( !currentFilterState.everlastingMarket
-                  && currentFilterState.filterMediaCondition
-                  && !document.querySelector('.de-filter-stamp') ) {
+      if ( !currentFilterState.everlastingMarket
+            && currentFilterState.filterMediaCondition
+            && !document.querySelector('.de-filter-stamp') ) {
 
         document.querySelectorAll('.pagination').forEach(e => {
 

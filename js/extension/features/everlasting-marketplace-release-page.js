@@ -24,7 +24,9 @@ resourceLibrary.ready(() => {
         pagination,
         paused = false,
         pjax = document.querySelector('#pjax_container'),
-        pTotal;
+        pTotal,
+        mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
+        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
 
     // ========================================================
     // Functions (Alphabetical)
@@ -70,34 +72,10 @@ resourceLibrary.ready(() => {
      */
     function appendMarketplaceResults(markup) {
 
-      let condition = document.querySelector('.pagination_total').innerHTML,
-          lastChild = '#pjax_container tbody:last-child',
-          pageStamp = `<tr class="shortcut_navigable">
-                          <td class="item_picture as_float"></td>
-                          <td class="item_description de-filter-stamp de-page-stamp">
-                            <h3 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h3>
-                            ${pTotal} results &mdash; ${(window.filterMediaCondition || window.filterSleeveCondition || window.filterCountries) ? condition : ''}
-                          </td>
-                          <td class="de-page-stamp de-marketplace-results z-1"><a href="#site_header" >Back to top</a></td>
-                          <td class="de-page-stamp de-marketplace-results">
-                            <div class="de-select-wrap">
-                              <span></span>
-                              <select class="de-scroll-to-page">
-                                <option value="" selected>Select Page</option>
-                                <option value="1">Page: 1</option>
-                              </select>
-                            </div>
-                          </td>
-                          <td class="de-page-stamp de-marketplace-results">
-                            <a class="de-pause pause button button-gray">
-                              <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
-                              Pause
-                            </a>
-                          </td>
-                        </tr>`;
+      let lastChild = '#pjax_container tbody:last-child';
 
       // Append page number to the DOM
-      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp);
+      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp());
       document.querySelector(lastChild).id = `de-page-${pageNum}`;
 
       // Append new items to the DOM
@@ -233,8 +211,8 @@ resourceLibrary.ready(() => {
 
       let
           loader = document.querySelector('.de-next-text'),
-          pauseIcon = '<a class="de-pause button button-gray"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause</a>',
-          playIcon = '<a class="de-resume button button-gray"><i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume</a>',
+          pauseIcon = '<a class="de-pause button button-blue"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause</a>',
+          playIcon = '<a class="de-resume button button-blue"><i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume</a>',
           resumeLink = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
           spinner = document.querySelector('#de-next .icon-spinner');
 
@@ -270,7 +248,7 @@ resourceLibrary.ready(() => {
     function handleResumeClick(event) {
 
       let loadingText = document.querySelector('.de-next-text'),
-          pauseIcon = '<a class="de-pause pause button button-gray"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause </a>',
+          pauseIcon = '<a class="de-pause pause button button-blue"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause </a>',
           resumeBtns = document.querySelectorAll('.de-resume'),
           spinner = document.querySelector('#de-next .icon-spinner');
 
@@ -310,6 +288,41 @@ resourceLibrary.ready(() => {
       }
     }
 
+    /**
+     * Inserts page headers at top of new page set
+     * @param {string} override - Page number to override automated pagination count
+     * @returns {HTMLElement}
+     */
+    function pageStamp(override) {
+
+      let mc = mediaCondition ? Number(mediaCondition) : null,
+          sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
+      return `<tr class="shortcut_navigable">
+                <td class="item_picture as_float de-page-stamp"><h4 class="de-current-page" id="de-page-${override || pageNum}">Page: ${override || pageNum} &nbsp;</h4></td>
+                <td class="item_description de-filter-stamp de-page-stamp">
+
+                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
+                </td>
+                <td class="de-page-stamp de-marketplace-results z-1"><a href="#site_header" >Back to top</a></td>
+                <td class="de-page-stamp de-marketplace-results">
+                  <div class="de-select-wrap">
+                    <span></span>
+                    <select class="de-scroll-to-page">
+                      <option value="" selected>Select Page</option>
+                      <option value="1">Page: 1</option>
+                    </select>
+                  </div>
+                </td>
+                <td class="de-page-stamp de-marketplace-results">
+                  <a class="de-pause pause button button-blue">
+                    <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
+                    Pause
+                  </a>
+                </td>
+              </tr>`;
+    }
+
     // ========================================================
     // DOM Setup
     // ========================================================
@@ -334,6 +347,10 @@ resourceLibrary.ready(() => {
 
     // Hide standard means of page navigation
     document.querySelectorAll('.pagination_page_links').forEach(el => el.style.display = 'none');
+    document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
+
+    addPauseListener();
+    addSelectListener();
 
     // ========================================================
     // Scrolling Functionality
