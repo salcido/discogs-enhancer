@@ -299,10 +299,9 @@ resourceLibrary.ready(() => {
           sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
 
       return `<tr class="shortcut_navigable">
-                <td class="item_picture as_float de-page-stamp"><h4 class="de-current-page" id="de-page-${override || pageNum}">Page: ${override || pageNum} &nbsp;</h4></td>
+                <td class="item_picture as_float de-page-stamp"><h4 class="de-current-page" id="de-page-${override || pageNum}" style="margin: 1rem 1rem; width: 60px;">Page: ${override || pageNum}&nbsp;</h4></td>
                 <td class="item_description de-filter-stamp de-page-stamp">
-
-                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
+                 ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
                 </td>
                 <td class="de-page-stamp de-marketplace-results z-1"><a href="#site_header" >Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
