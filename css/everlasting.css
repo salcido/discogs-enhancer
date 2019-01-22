@@ -49,6 +49,11 @@
   text-align: center;
 }
 
+h4.de-current-page {
+  margin: 1rem 1rem;
+  width: 60px;
+}
+
 .de-current-page,
 .de-no-results {
   font-weight: bold;
