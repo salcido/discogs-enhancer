@@ -60,7 +60,6 @@ h4.de-current-page {
 }
 
 .de-pause {
-  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -97,6 +96,11 @@ h4.de-current-page {
 
 .z-1{
   z-index: 1;
+}
+
+.back-to-top {
+  text-align: left;
+  padding-left: 5px !important;
 }
 
 @keyframes slidein {
