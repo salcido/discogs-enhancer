@@ -385,6 +385,12 @@ h2.highlight {
   text-align: center;
 }
 
+.w-200 {
+  width: 200px;
+  display: block;
+  margin: 15px auto;
+}
+
 .price-example {
   display: block;
   max-height: 200px;
