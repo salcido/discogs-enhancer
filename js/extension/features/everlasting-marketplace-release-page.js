@@ -106,7 +106,7 @@ resourceLibrary.ready(() => {
           favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null;
 
       // apply Marketplace Highlights
-      if ( window.applyStyles ) { window.applyStyles(); }
+      if ( window.applyStyles ) window.applyStyles();
 
       // apply price comparisons
       if ( window.appendPrices ) {
@@ -126,20 +126,14 @@ resourceLibrary.ready(() => {
       }
 
       // Favorite sellers
-      if ( favoriteList && window.favoriteSellers ) {
-        window.favoriteSellers();
-      }
-
+      if ( favoriteList && window.favoriteSellers ) window.favoriteSellers();
       // filter marketplace item by condition
-      if ( window.filterMediaCondition ) {
-
-        window.filterMediaCondition();
-      }
-
+      if ( window.filterMediaCondition ) window.filterMediaCondition();
       // filter marketplace media condition
-      if ( window.filterMediaCondition ) { window.filterMediaCondition(); }
+      if ( window.filterMediaCondition ) window.filterMediaCondition();
       // filter marketplace sleeve condition
-      if ( window.filterSleeveCondition ) { window.filterSleeveCondition(); }
+      if ( window.filterSleeveCondition ) window.filterSleeveCondition();
+
       // Filter shipping country
       if ( window.filterCountries ) {
         let countryList = JSON.parse(localStorage.getItem('countryList')),
@@ -147,12 +141,13 @@ resourceLibrary.ready(() => {
             useCurrency = countryList.currency;
         window.filterCountries(include, useCurrency);
       }
+
       // Tag sellers by reputation
-      if ( window.sellersRep ) { window.sellersRep(); }
+      if ( window.sellersRep ) window.sellersRep();
       // Release ratings
-      if ( window.insertRatingsLink ) { window.insertRatingsLink(); }
+      if ( window.insertRatingsLink ) window.insertRatingsLink();
       // Remove from wantlist
-      if ( window.insertRemoveLinks ) { window.insertRemoveLinks(); }
+      if ( window.insertRemoveLinks ) window.insertRemoveLinks();
     }
 
     /**
@@ -193,6 +188,7 @@ resourceLibrary.ready(() => {
 
         pageNum++;
         hasLoaded = false;
+
         addPauseListener();
         addSelectListener();
         callOtherMarketplaceFeatures();
@@ -209,12 +205,16 @@ resourceLibrary.ready(() => {
      */
     function handlePauseClick(event) {
 
-      let
-          loader = document.querySelector('.de-next-text'),
-          pauseIcon = '<a class="de-pause button button-blue"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause</a>',
-          playIcon = '<a class="de-resume button button-blue"><i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume</a>',
-          resumeLink = '<p>Everlasting Marketplace is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
-          spinner = document.querySelector('#de-next .icon-spinner');
+      let loader = document.querySelector('.de-next-text'),
+          spinner = document.querySelector('#de-next .icon-spinner'),
+          pauseIcon = `<a class="de-pause button button-blue">
+                        <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
+                      </a>`,
+          playIcon = `<a class="de-resume button button-blue">
+                        <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
+                      </a>`,
+          resumeLink = `<p>Everlasting Marketplace is paused.</p>
+                        <p><a href="#" class="de-resume">Click here to resume loading results</a></p>`;
 
       // Paused
       if ( event.target.classList.contains('de-pause') ) {
@@ -248,9 +248,11 @@ resourceLibrary.ready(() => {
     function handleResumeClick(event) {
 
       let loadingText = document.querySelector('.de-next-text'),
-          pauseIcon = '<a class="de-pause pause button button-blue"><i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause </a>',
           resumeBtns = document.querySelectorAll('.de-resume'),
-          spinner = document.querySelector('#de-next .icon-spinner');
+          spinner = document.querySelector('#de-next .icon-spinner'),
+          pauseIcon = `<a class="de-pause pause button button-blue">
+                        <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
+                      </a>`;
 
       event.preventDefault();
 
@@ -299,7 +301,9 @@ resourceLibrary.ready(() => {
           sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
 
       return `<tr class="shortcut_navigable">
-                <td class="item_picture as_float de-page-stamp"><h4 class="de-current-page" id="de-page-${override || pageNum}" style="margin: 1rem 1rem; width: 60px;">Page: ${override || pageNum}&nbsp;</h4></td>
+                <td class="item_picture as_float de-page-stamp">
+                  <h4 class="de-current-page">Page: ${override || pageNum}&nbsp;</h4>
+                </td>
                 <td class="item_description de-filter-stamp de-page-stamp">
                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
                 </td>
@@ -327,8 +331,6 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     pagination = document.getElementsByClassName('pagination_total')[0].textContent;
-    // This will grab the total number of results returned by discogs
-    // depending on the language that the user has set
     pTotal = resourceLibrary.paginationTotal(pagination);
 
     // append preloader to bottom

@@ -14,19 +14,25 @@ resourceLibrary.ready(() => {
 
   let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
       sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
-      countryList = JSON.parse(localStorage.getItem('countryList')) || null,
-      _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'],
-      countryEnabled = currentFilterState.filterShippingCountry,
+      countryList = JSON.parse(localStorage.getItem('countryList')) || null;
+
+  let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
       include = countryList && countryList.include ? 'Including' : 'Excluding',
-      key = ['P','F','G','G+','VG','VG+','NM or M-','M'],
       mediaEnabled = currentFilterState.filterMediaCondition,
       sleeveEnabled = currentFilterState.filterSleeveCondition,
       info = countryList && countryList.list ? `
-        <span class="country-list-info">
-          <i class="icon icon-info-circle muted" title=""></i>
-          <span class="country-list">${countryList.list.join(', ')}</span>
-        </span>` : null;
+              <span class="country-list-info">
+                <i class="icon icon-info-circle muted" title=""></i>
+                <span class="country-list">${countryList.list.sort().join(', ')}</span>
+              </span>` : null;
+
+  let _class = ['poor','fair','good','good-plus','very-good','very-good-plus','near-mint','mint'],
+      key = ['P','F','G','G+','VG','VG+','NM or M-','M'];
+
+  // ========================================================
+  // Functions (in no particular order)
+  // ========================================================
 
   function mediaFilter(mediaLength) {
     if ( mediaEnabled && mediaLength ) {
@@ -115,6 +121,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM setup
   // ========================================================
+
   let style = document.createElement('style');
 
   style.type = 'text/css';
