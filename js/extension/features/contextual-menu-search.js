@@ -133,7 +133,7 @@ function searchRushhour(event) {
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
-  chrome.tabs.create({ url: 'http://www.rushhour.nl/store_master.php?search=' + encodeStr});
+  chrome.tabs.create({ url: 'http://www.rushhour.nl/search?sort_by=&query=' + encodeStr});
 }
 
 function searchSotu(event) {
