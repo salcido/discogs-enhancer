@@ -76,6 +76,7 @@ chrome.storage.sync.get('prefs', function(result) {
       highlightMedia: true,
       notesCount: true,
       randomItem: false,
+      ratingPercent: false,
       readability: false,
       releaseScanner: false,
       releaseDurations: true,
@@ -578,6 +579,17 @@ chrome.storage.sync.get('prefs', function(result) {
     randomItemCss.id = 'randomItemCss';
 
     elems.push(randomItemCss);
+  }
+
+  if ( result.prefs.ratingPercent ) {
+
+    let ratingPercent = document.createElement('script');
+
+    ratingPercent.type = 'text/javascript';
+    ratingPercent.src = chrome.extension.getURL('js/extension/features/rating-percent.js');
+    ratingPercent.className = 'de-init';
+
+    elems.push(ratingPercent);
   }
 
   if (result.prefs.readability) {

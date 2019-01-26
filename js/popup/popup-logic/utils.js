@@ -49,6 +49,7 @@ export function applySave(message, event) {
         highlightMedia: document.getElementById('toggleHighlights').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         randomItem: document.getElementById('toggleRandomItem').checked,
+        ratingPercent: document.getElementById('toggleRatingPercent').checked,
         readability: document.getElementById('toggleReadability').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
         releaseScanner: document.getElementById('toggleReleaseScanner').checked,

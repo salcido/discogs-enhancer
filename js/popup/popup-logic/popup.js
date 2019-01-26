@@ -103,6 +103,7 @@ window.addEventListener('load', () => {
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
       toggleRandomItem = document.getElementById('toggleRandomItem'),
+      toggleRatingPercent = document.getElementById('toggleRatingPercent'),
       toggleReadability = document.getElementById('toggleReadability'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),
@@ -256,6 +257,7 @@ window.addEventListener('load', () => {
   toggleNotesCount.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.showPrices);
   toggleRandomItem.addEventListener('change', triggerSave);
+  toggleRatingPercent.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
   toggleReleaseDurations.addEventListener('change', triggerSave);
   toggleReleaseRatings.addEventListener('change', triggerSave);
@@ -326,6 +328,7 @@ window.addEventListener('load', () => {
       toggleNotesCount.checked = result.prefs.notesCount;
       togglePrices.checked = result.prefs.suggestedPrices;
       toggleRandomItem.checked = result.prefs.randomItem;
+      toggleRatingPercent.checked = result.prefs.ratingPercent;
       toggleReadability.checked = result.prefs.readability;
       toggleReleaseDurations.checked = result.prefs.releaseDurations;
       toggleReleaseRatings.checked = result.prefs.releaseRatings;
