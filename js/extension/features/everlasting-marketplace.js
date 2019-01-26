@@ -24,7 +24,7 @@ resourceLibrary.ready(() => {
         mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
         sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
 
-    let pauseBtn = `<a class="de-pause button button-blue">
+    let pauseBtn = `<a class="de-pause button">
                      <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
                     </a>`,
         playBtn = `<a class="de-resume button button-blue">
