@@ -122,6 +122,7 @@ window.addEventListener('load', () => {
       toggleClone,
       toggleDeeJay,
       toggleDiscogs,
+      toggleEarcave,
       toggleGramaphone,
       toggleHalcyon,
       toggleHardwax,
@@ -129,7 +130,6 @@ window.addEventListener('load', () => {
       toggleJuno,
       toggleKristina,
       toggleOye,
-      togglePbvinyl,
       togglePhonica,
       toggleRushhour,
       toggleSotu,
@@ -291,6 +291,7 @@ window.addEventListener('load', () => {
     toggleClone = document.getElementById('clone');
     toggleDeeJay = document.getElementById('deejay');
     toggleDiscogs = document.getElementById('discogs');
+    toggleEarcave = document.getElementById('earcave');
     toggleGramaphone = document.getElementById('gramaphone');
     toggleHalcyon = document.getElementById('halcyon');
     toggleHardwax = document.getElementById('hardwax');
@@ -298,7 +299,6 @@ window.addEventListener('load', () => {
     toggleJuno = document.getElementById('juno');
     toggleKristina = document.getElementById('kristina');
     toggleOye = document.getElementById('oye');
-    togglePbvinyl = document.getElementById('pbvinyl');
     togglePhonica = document.getElementById('phonica');
     toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
@@ -346,6 +346,7 @@ window.addEventListener('load', () => {
       toggleClone.checked = result.prefs.useClone;
       toggleDeeJay.checked = result.prefs.useDeejay;
       toggleDiscogs.checked = result.prefs.useDiscogs;
+      toggleEarcave.checked = result.prefs.useEarcave;
       toggleGramaphone.checked = result.prefs.useGramaphone;
       toggleHalcyon.checked = result.prefs.useHalcyon;
       toggleHardwax.checked = result.prefs.useHardwax;
@@ -353,7 +354,6 @@ window.addEventListener('load', () => {
       toggleJuno.checked = result.prefs.useJuno;
       toggleKristina.checked = result.prefs.useKristina;
       toggleOye.checked = result.prefs.useOye;
-      togglePbvinyl.checked = result.prefs.usePbvinyl;
       togglePhonica.checked = result.prefs.usePhonica;
       toggleRushhour.checked = result.prefs.useRushhour;
       toggleSotu.checked = result.prefs.useSotu;

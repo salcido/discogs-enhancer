@@ -49,6 +49,11 @@ export function createContextualMenuElements() {
             id: 'discogs'
           },
           {
+            name: 'Earcave',
+            fn: 'searchEarcave',
+            id: 'earcave'
+          },
+          {
             name: 'Gramaphone',
             fn: 'searchGramaphone',
             id: 'gramaphone'
@@ -82,11 +87,6 @@ export function createContextualMenuElements() {
             name: 'Oye',
             fn: 'searchOye',
             id: 'oye'
-          },
-          {
-            name: 'PBVinyl',
-            fn: 'searchPbvinyl',
-            id: 'pbvinyl'
           },
           {
             name: 'Phonica',

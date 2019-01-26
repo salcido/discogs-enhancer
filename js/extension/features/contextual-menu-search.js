@@ -56,6 +56,14 @@ function searchDiscogs(event) {
   chrome.tabs.create({url: 'http://www.discogs.com/search?q=' + encodeStr});
 }
 
+function searchEarcave(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({url: 'https://earcave.com/search?type=product&q=' + encodeStr});
+}
+
 function searchGramaphone(event) {
 
   let str = event.selectionText,
@@ -110,14 +118,6 @@ function searchOye(event) {
       encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://oye-records.com/search?q=' + encodeStr});
-}
-
-function searchPbvinyl(event) {
-
-  let str = event.selectionText,
-      encodeStr = encodeURIComponent(str);
-
-  chrome.tabs.create({url: 'https://www.pbvinyl.com/search?q=' + encodeStr});
 }
 
 function searchPhonica(event) {

@@ -94,6 +94,7 @@ chrome.storage.sync.get('prefs', function(result) {
       useClone: false,
       useDeejay: false,
       useDiscogs: true,
+      useEarcave: false,
       useGramaphone: false,
       useHalcyon: false,
       useHardwax: false,
@@ -101,7 +102,6 @@ chrome.storage.sync.get('prefs', function(result) {
       useJuno: false,
       useKristina: false,
       useOye: false,
-      usePbvinyl: false,
       usePhonica: false,
       useRushhour: false,
       useSotu: false,
@@ -880,6 +880,17 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
+  if (result.prefs.useEarcave) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchEarcave',
+      id: 'earcave',
+      method: 'create',
+      name: 'Earcave',
+      request: 'updateContextMenu'
+    });
+  }
+
   if (result.prefs.useGramaphone) {
 
     chrome.runtime.sendMessage({
@@ -953,17 +964,6 @@ chrome.storage.sync.get('prefs', function(result) {
       id: 'oye',
       method: 'create',
       name: 'Oye',
-      request: 'updateContextMenu'
-    });
-  }
-
-  if (result.prefs.usePbvinyl) {
-
-    chrome.runtime.sendMessage({
-      fn: 'searchPbvinyl',
-      id: 'pbvinyl',
-      method: 'create',
-      name: 'PBVinyl',
       request: 'updateContextMenu'
     });
   }
