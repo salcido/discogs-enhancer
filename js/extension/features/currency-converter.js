@@ -98,7 +98,7 @@ resourceLibrary.ready(() => {
   function clearErrors() {
 
     if ( baseCurrency !== '-' && userCurrency !== '-' ) {
-      return errors.textContent = '';
+      errors.textContent = '';
     }
   }
 
@@ -119,7 +119,7 @@ resourceLibrary.ready(() => {
       input.value = '';
       output.textContent = '';
 
-      return errors.textContent = 'Please select two currencies.';
+      errors.textContent = 'Please select two currencies.';
     }
 
     // Calculate the result
@@ -134,7 +134,7 @@ resourceLibrary.ready(() => {
 
       input.value = '';
       // ¯\_(ツ)_/¯
-      return output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF';
+      output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF';
     }
 
     if ( input.value === '' ) { output.textContent = ''; }
@@ -381,13 +381,14 @@ resourceLibrary.ready(() => {
     // Reset #userCurrency if #baseCurrency is the same
     if ( baseValue === userValue ) {
       userCurrency.options.selectedIndex = 0;
+      return;
     }
 
     clearErrors();
     // Disable the cooresponding option in `userCurrency` if
     // it is the same as `baseCurrency`
     [...userCurrency.options].forEach(opt => {
-      return opt.disabled = opt.value === baseValue ? true : false;
+      opt.disabled = opt.value === baseValue ? true : false;
     });
     // Update rates
     getConverterRates(baseValue);
@@ -412,9 +413,7 @@ resourceLibrary.ready(() => {
     // Clear out errors so hiding continues to work as expected
     errors.textContent = '';
     // Change the tab text
-    return target.textContent = target.textContent === '¥ € $'
-            ? '£ € $ $'
-            : '¥ € $';
+    target.textContent = target.textContent === '¥ € $' ? '£ € $ $' : '¥ € $';
   });
 
   // Save last known state of #userCurrency

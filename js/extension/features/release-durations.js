@@ -101,7 +101,8 @@ resourceLibrary.ready(() => {
       // and use the subtrack data to calculate the total playing time.
       if ( trackTime === '' && subtracks !== '' ) {
 
-        return emptyIndexTracks = true;
+        emptyIndexTracks = true;
+        return;
 
       // If there are Index Tracks and subtracks present but they are
       // both empty, don't count them in the total.

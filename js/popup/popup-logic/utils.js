@@ -312,6 +312,7 @@ export function searchFeatures() {
  * @method setEnabledStatus
  * @param  {object}         target [the DOM element]
  * @param  {string}         status [Enabled/Disabled]
+ * @returns {undefined}
  */
 export function setEnabledStatus(target, status) {
 
@@ -325,8 +326,8 @@ export function setEnabledStatus(target, status) {
     target.classList.add('disabled');
     target.classList.remove('enabled');
   }
-
-  return target.textContent = status;
+  target.textContent = status;
+  return;
 }
 
 // ========================================================

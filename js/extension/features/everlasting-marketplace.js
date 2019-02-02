@@ -215,7 +215,7 @@ resourceLibrary.ready(() => {
       // Paused
       if ( event.target.classList.contains('de-pause') ) {
 
-        document.querySelectorAll('.de-pause').forEach(p => p.parentElement.innerHTML = playBtn);
+        document.querySelectorAll('.de-pause').forEach(p => { p.parentElement.innerHTML = playBtn; });
 
         spinner.style.display = 'none';
         loader.innerHTML = resumeLink;
@@ -249,7 +249,7 @@ resourceLibrary.ready(() => {
 
       event.preventDefault();
 
-      resumeBtns.forEach(btn => btn.parentElement.innerHTML = pauseBtn);
+      resumeBtns.forEach(btn => { btn.parentElement.innerHTML = pauseBtn; });
       spinner.style.display = 'block';
       loadingText.textContent = 'Loading next page...';
 
@@ -278,7 +278,7 @@ resourceLibrary.ready(() => {
 
           document.querySelector(targetId).scrollIntoView();
           window.scroll({top: window.scrollY, left: 0});
-          document.querySelectorAll('.de-scroll-to-page').forEach(s => s.value = target.value);
+          document.querySelectorAll('.de-scroll-to-page').forEach(s => { s.value = target.value; });
         }
       }
     }
@@ -338,7 +338,7 @@ resourceLibrary.ready(() => {
     }
 
     // Hide standard means of page navigation
-    document.querySelectorAll('.pagination_page_links').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
     document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
 
     addPauseListener();

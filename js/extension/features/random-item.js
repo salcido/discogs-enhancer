@@ -77,6 +77,6 @@ resourceLibrary.ready(() => {
   });
 
   // Show/Hide the tooltip
-  button.addEventListener('mouseover', () => tooltip.style.display = 'block');
-  button.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+  button.addEventListener('mouseover', () => { tooltip.style.display = 'block'; });
+  button.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
 });

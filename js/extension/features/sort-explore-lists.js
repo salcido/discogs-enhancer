@@ -58,7 +58,7 @@ resourceLibrary.ready(() => {
 
     document.querySelector('#sortExplore').addEventListener('click', trackClicks);
     // reset `desc` when modal is closed with the 'X' button
-    document.querySelector('.react-modal-close-button-icon').addEventListener('click', () => desc = false);
+    document.querySelector('.react-modal-close-button-icon').addEventListener('click', () => { desc = false; });
   }
 
   /**
@@ -92,7 +92,7 @@ resourceLibrary.ready(() => {
   /**
    * Tracks the number of times the `Sort A-Z` button has been clicked
    * and calls `sortUnorderedList` accordingly.
-   * @returns {assignment}
+   * @returns {undefined}
    */
   function trackClicks() {
 
@@ -103,11 +103,13 @@ resourceLibrary.ready(() => {
 
       document.querySelector('.react-modal-content div').innerHTML = storage.innerHTML;
       document.querySelector('.react-modal.more_facets_dialog').classList.remove('contract');
-      return clicks = 0;
+      clicks = 0;
+      return;
     }
 
     sortUnorderedList(document.querySelector('.react-modal-content div'), desc);
-    return desc = !desc;
+    desc = !desc;
+    return;
   }
 
   // ========================================================
