@@ -39,6 +39,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Hide Min, Median, Max Columns on the Collection page
 * Marketplace Highlights
 * Marketplace Release Ratings
+* See release ratings expressed as a percentage
 * Notes Counter
 * See actual dates an item was added to your Collection/Wantlist
 * See average sale price on the Release page
