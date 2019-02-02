@@ -25,7 +25,8 @@
         ],
         "no-console": "off",
         "no-inner-declarations": "off",
-        "no-useless-escape": "off"
+        "no-useless-escape": "off",
+        "no-return-assign": "error"
     },
     "parserOptions": {
         "ecmaVersion": 2017,
