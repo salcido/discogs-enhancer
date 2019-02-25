@@ -99,7 +99,7 @@ resourceLibrary.ready(() => {
    * Kicks off the sorting process and tracks the
    * number of times the sort button has
    * been clicked.
-   * @returns {assignment}
+   * @returns {undefined}
    */
   function trackClicks() {
 
@@ -108,12 +108,14 @@ resourceLibrary.ready(() => {
 
     if ( clicks > 2 ) {
       clicks = 0;
-      return document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
+      document.querySelector(`${filterSelector}${filterTarget}`).innerHTML = storage.innerHTML;
+      return;
     }
 
     // The sorting process begins here...
     sortList(event.target, desc);
-    return desc = !desc;
+    desc = !desc;
+    return;
   }
 
   /**

@@ -76,6 +76,7 @@ chrome.storage.sync.get('prefs', function(result) {
       highlightMedia: true,
       notesCount: true,
       randomItem: false,
+      ratingPercent: false,
       readability: false,
       releaseScanner: false,
       releaseDurations: true,
@@ -93,6 +94,7 @@ chrome.storage.sync.get('prefs', function(result) {
       useClone: false,
       useDeejay: false,
       useDiscogs: true,
+      useEarcave: false,
       useGramaphone: false,
       useHalcyon: false,
       useHardwax: false,
@@ -100,7 +102,6 @@ chrome.storage.sync.get('prefs', function(result) {
       useJuno: false,
       useKristina: false,
       useOye: false,
-      usePbvinyl: false,
       usePhonica: false,
       useRushhour: false,
       useSotu: false,
@@ -580,6 +581,17 @@ chrome.storage.sync.get('prefs', function(result) {
     elems.push(randomItemCss);
   }
 
+  if ( result.prefs.ratingPercent ) {
+
+    let ratingPercent = document.createElement('script');
+
+    ratingPercent.type = 'text/javascript';
+    ratingPercent.src = chrome.extension.getURL('js/extension/features/rating-percent.js');
+    ratingPercent.className = 'de-init';
+
+    elems.push(ratingPercent);
+  }
+
   if (result.prefs.readability) {
 
     let tracklist_css = document.createElement('link');
@@ -868,6 +880,17 @@ chrome.storage.sync.get('prefs', function(result) {
     });
   }
 
+  if (result.prefs.useEarcave) {
+
+    chrome.runtime.sendMessage({
+      fn: 'searchEarcave',
+      id: 'earcave',
+      method: 'create',
+      name: 'Earcave',
+      request: 'updateContextMenu'
+    });
+  }
+
   if (result.prefs.useGramaphone) {
 
     chrome.runtime.sendMessage({
@@ -941,17 +964,6 @@ chrome.storage.sync.get('prefs', function(result) {
       id: 'oye',
       method: 'create',
       name: 'Oye',
-      request: 'updateContextMenu'
-    });
-  }
-
-  if (result.prefs.usePbvinyl) {
-
-    chrome.runtime.sendMessage({
-      fn: 'searchPbvinyl',
-      id: 'pbvinyl',
-      method: 'create',
-      name: 'PBVinyl',
       request: 'updateContextMenu'
     });
   }

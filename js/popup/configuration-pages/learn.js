@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * Lists the number of results returned from
    * the search
    *
-   * @returns {assignment}
+   * @returns {undefined}
    */
 
   function listResults() {
@@ -163,10 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
     quantity = searchResults.length === 1 ? 'result' : 'results';
 
     if ( !search.value ) {
-      return searchStatus.textContent = '';
+      searchStatus.textContent = '';
+      return;
     }
-
-    return searchStatus.textContent = `${searchResults.length} ${quantity}`;
+    searchStatus.textContent = `${searchResults.length} ${quantity}`;
+    return;
   }
 
   /**

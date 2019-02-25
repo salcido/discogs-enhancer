@@ -49,6 +49,7 @@ export function applySave(message, event) {
         highlightMedia: document.getElementById('toggleHighlights').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         randomItem: document.getElementById('toggleRandomItem').checked,
+        ratingPercent: document.getElementById('toggleRatingPercent').checked,
         readability: document.getElementById('toggleReadability').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
         releaseScanner: document.getElementById('toggleReleaseScanner').checked,
@@ -67,6 +68,7 @@ export function applySave(message, event) {
         useClone: document.getElementById('clone').checked,
         useDeejay: document.getElementById('deejay').checked,
         useDiscogs: document.getElementById('discogs').checked,
+        useEarcave: document.getElementById('earcave').checked,
         useGramaphone: document.getElementById('gramaphone').checked,
         useHalcyon: document.getElementById('halcyon').checked,
         useHardwax: document.getElementById('hardwax').checked,
@@ -74,7 +76,6 @@ export function applySave(message, event) {
         useJuno: document.getElementById('juno').checked,
         useKristina: document.getElementById('kristina').checked,
         useOye: document.getElementById('oye').checked,
-        usePbvinyl: document.getElementById('pbvinyl').checked,
         usePhonica: document.getElementById('phonica').checked,
         useRushhour: document.getElementById('rushhour').checked,
         useSotu: document.getElementById('sotu').checked,
@@ -311,6 +312,7 @@ export function searchFeatures() {
  * @method setEnabledStatus
  * @param  {object}         target [the DOM element]
  * @param  {string}         status [Enabled/Disabled]
+ * @returns {undefined}
  */
 export function setEnabledStatus(target, status) {
 
@@ -324,8 +326,8 @@ export function setEnabledStatus(target, status) {
     target.classList.add('disabled');
     target.classList.remove('enabled');
   }
-
-  return target.textContent = status;
+  target.textContent = status;
+  return;
 }
 
 // ========================================================

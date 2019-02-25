@@ -2267,7 +2267,8 @@ table.release-table thead tr th a span {
 .de-page-stamp {
   position: sticky;
   top: 25px;
-  background: #323334 !important;
+  /* background: #323334 !important; */
+  background: #2f2f2f !important;
   z-index: 1000;
   filter: drop-shadow(0px 1px #454545) !important;
 }

@@ -193,7 +193,7 @@ resourceLibrary.ready(() => {
     // depending on the language that the user has set
     pTotal = resourceLibrary.paginationTotal(pagination);
     // Hide pagination
-    document.querySelectorAll('.pagination.bottom').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.pagination.bottom').forEach(el => { el.style.display = 'none'; });
 
     blackBar = `<div class="de-page-bar">
                   <span class="de-page-info">

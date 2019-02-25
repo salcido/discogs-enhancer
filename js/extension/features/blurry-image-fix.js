@@ -61,7 +61,7 @@ resourceLibrary.ready(() => {
 
       let img = document.querySelectorAll('.image_gallery_slide img.loaded');
 
-      img.forEach(i => i.style.transform = 'translate(0, 0)');
+      img.forEach(i => { i.style.transform = 'translate(0, 0)'; });
 
     } else {
       unblur();

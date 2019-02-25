@@ -30,7 +30,7 @@ resourceLibrary.ready(() => {
      */
     function storeRelativeDates() {
       let dates = document.querySelectorAll('.cw_block_timestamp span');
-      dates.forEach(date => date.dataset.approx = date.textContent);
+      dates.forEach(date => { date.dataset.approx = date.textContent; });
     }
 
     /**
@@ -63,7 +63,7 @@ resourceLibrary.ready(() => {
 
     /**
     * Renders the date format into the DOM
-    * @returns {String}
+    * @returns {undefined}
     */
     function renderDate(elem) {
 
@@ -77,7 +77,7 @@ resourceLibrary.ready(() => {
           american = `${getMonth(monthIndex)} ${date[0]}, 20${timeRaw[0]}, ${time}`,
           specific = usDateFormat ? american : international;
 
-      return elem.querySelector('span').textContent = absoluteDate ? specific : approx;
+      elem.querySelector('span').textContent = absoluteDate ? specific : approx;
     }
 
     /**

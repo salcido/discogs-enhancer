@@ -52,7 +52,7 @@ resourceLibrary.ready(() => {
         votes = null;
       }
 
-      moreWants = wants > (haves * 2);
+      moreWants = wants > (haves * 1.9);
 
       return { reviewCount, moreWants, rating, votes };
 
@@ -83,12 +83,12 @@ resourceLibrary.ready(() => {
   function appendCount(data, position) {
 
     let badge,
-        { reviewCount:count } = data;
+        { reviewCount:count, moreWants } = data;
     // add position to `data` for grabbing href to append to badge for badge clicks
     data.position = position;
     badge = createBadge(data);
 
-    return count ? skittles[position].insertAdjacentHTML('beforeend', badge) : null;
+    return count || colorize && moreWants ? skittles[position].insertAdjacentHTML('beforeend', badge) : null;
   }
 
   /**
@@ -105,7 +105,7 @@ resourceLibrary.ready(() => {
 
     if ( reviewCount > 0 ) {
       count = reviewCount;
-    } else if ( reviewCount <= 0 && moreWants ) {
+    } else if ( reviewCount === 0 && moreWants ) {
       count = '&nbsp;&nbsp;';
     } else if ( reviewCount <= 0 && !moreWants ) {
       count = null;

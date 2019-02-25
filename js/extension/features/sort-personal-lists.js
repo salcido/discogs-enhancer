@@ -34,7 +34,7 @@ resourceLibrary.ready(() => {
     [...document.querySelectorAll('.ui-dialog-titlebar-close',
                                   '.lists_list_add_cancel',
                                   '.lists_list_add_save')].forEach(elem => {
-                                    elem.addEventListener('click', () => desc = false);
+                                    elem.addEventListener('click', () => { desc = false; });
                                   });
   }
 
@@ -116,7 +116,7 @@ resourceLibrary.ready(() => {
 
   /**
    * Tracks the `Sort A-Z` button clicks
-   * @returns {assignment}
+   * @returns {undefined}
    */
   function trackClicks() {
 
@@ -138,11 +138,13 @@ resourceLibrary.ready(() => {
         select.innerHTML = storage.innerHTML;
       }, delay);
 
-      return clicks = 0;
+      clicks = 0;
+      return;
     }
 
     sortOptions(desc);
-    return desc = !desc;
+    desc = !desc;
+    return;
   }
 
   // ========================================================

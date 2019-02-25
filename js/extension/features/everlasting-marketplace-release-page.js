@@ -14,11 +14,9 @@ resourceLibrary.ready(() => {
   let hasPageLinks = document.querySelectorAll('.pagination_page_links').length > 0,
       href = window.location.href;
 
-
   if ( href.includes('/sell/release') && hasPageLinks ) {
 
-    let
-        hasLoaded = false,
+    let hasLoaded = false,
         pageHist = [1],
         pageNum = 2,
         pagination,
@@ -27,6 +25,13 @@ resourceLibrary.ready(() => {
         pTotal,
         mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
         sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
+
+    let pauseBtn = `<a class="de-pause button button-blue">
+                      <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
+                    </a>`,
+        playBtn = `<a class="de-resume button button-blue">
+                     <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
+                   </a>`;
 
     // ========================================================
     // Functions (Alphabetical)
@@ -207,19 +212,13 @@ resourceLibrary.ready(() => {
 
       let loader = document.querySelector('.de-next-text'),
           spinner = document.querySelector('#de-next .icon-spinner'),
-          pauseIcon = `<a class="de-pause button button-blue">
-                        <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
-                      </a>`,
-          playIcon = `<a class="de-resume button button-blue">
-                        <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
-                      </a>`,
           resumeLink = `<p>Everlasting Marketplace is paused.</p>
                         <p><a href="#" class="de-resume">Click here to resume loading results</a></p>`;
 
       // Paused
       if ( event.target.classList.contains('de-pause') ) {
 
-        document.querySelectorAll('.de-pause').forEach(p => p.parentElement.innerHTML = playIcon);
+        document.querySelectorAll('.de-pause').forEach(p => { p.parentElement.innerHTML = playBtn; });
 
         spinner.style.display = 'none';
         loader.innerHTML = resumeLink;
@@ -231,7 +230,7 @@ resourceLibrary.ready(() => {
       // Resume
       } else {
 
-        event.target.outerHTML = pauseIcon;
+        event.target.outerHTML = pauseBtn;
 
         spinner.style.display = 'block';
         loader.textContent = 'Loading next page...';
@@ -249,14 +248,11 @@ resourceLibrary.ready(() => {
 
       let loadingText = document.querySelector('.de-next-text'),
           resumeBtns = document.querySelectorAll('.de-resume'),
-          spinner = document.querySelector('#de-next .icon-spinner'),
-          pauseIcon = `<a class="de-pause pause button button-blue">
-                        <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
-                      </a>`;
+          spinner = document.querySelector('#de-next .icon-spinner');
 
       event.preventDefault();
 
-      resumeBtns.forEach(btn => btn.parentElement.innerHTML = pauseIcon);
+      resumeBtns.forEach(btn => { btn.parentElement.innerHTML = pauseBtn; });
       spinner.style.display = 'block';
       loadingText.textContent = 'Loading next page...';
 
@@ -285,7 +281,7 @@ resourceLibrary.ready(() => {
 
           document.querySelector(targetId).scrollIntoView();
           window.scroll({top: window.scrollY, left: 0});
-          document.querySelectorAll('.de-scroll-to-page').forEach(s => s.value = target.value);
+          document.querySelectorAll('.de-scroll-to-page').forEach(s => { s.value = target.value; });
         }
       }
     }
@@ -318,10 +314,7 @@ resourceLibrary.ready(() => {
                   </div>
                 </td>
                 <td class="de-page-stamp de-marketplace-results">
-                  <a class="de-pause pause button button-blue">
-                    <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i>
-                    Pause
-                  </a>
+                  ${paused ? playBtn : pauseBtn}
                 </td>
               </tr>`;
     }
@@ -347,7 +340,7 @@ resourceLibrary.ready(() => {
     }
 
     // Hide standard means of page navigation
-    document.querySelectorAll('.pagination_page_links').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
     document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
 
     addPauseListener();

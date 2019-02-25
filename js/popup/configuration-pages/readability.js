@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
    *
    * @TODO delete this some time in the future
    * @method insertDividerSizeProperty
-   * @return {object}
+   * @return {undefined}
    */
   function insertDividerSizeProperty() {
 
@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       newConfig.size = 0.5;
       localStorage.setItem('readability', JSON.stringify(newConfig));
-
-      return config = JSON.parse(localStorage.getItem('readability'));
+      config = JSON.parse(localStorage.getItem('readability'));
+      return;
     }
   }
 

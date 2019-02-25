@@ -130,7 +130,7 @@ resourceLibrary.ready(() => {
 
         clearNotification(type, obj);
 
-        return target.parentElement.style.display = 'none';
+        target.parentElement.style.display = 'none';
       });
     });
     // --------------------------------------------------------
@@ -172,7 +172,7 @@ resourceLibrary.ready(() => {
           the object props before the transition. Don't try to pass them into the
           appendBadge markup. It won't work.
         */
-        return window.location.href = `https://www.discogs.com/${language}sell/${type}_feedback/${user}${queryParam}`;
+        window.location.href = `https://www.discogs.com/${language}sell/${type}_feedback/${user}${queryParam}`;
       });
     });
   }
