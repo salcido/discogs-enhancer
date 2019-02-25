@@ -35,7 +35,6 @@
     "*://*.discogs.com/*",
     "storage",
     "contextMenus",
-    "tabs",
     "notifications"
   ],
   "web_accessible_resources": [
