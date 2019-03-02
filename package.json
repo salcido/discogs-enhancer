@@ -30,12 +30,12 @@
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.14.0",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.11.0",
     "puppeteer": "^1.8.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.1.1",
     "webpack": "^4.17.2",
-    "webpack-cli": "^2.1.5"
+    "webpack-cli": "^3.2.3"
   }
 }
