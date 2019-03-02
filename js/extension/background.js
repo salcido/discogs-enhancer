@@ -131,7 +131,8 @@ chrome.storage.sync.get('prefs', function(result) {
   resourceLibrary.className = 'de-init';
   resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library/resource-library.js');
 
-  initElems.push(resourceLibrary);
+  appendFragment([resourceLibrary]);
+  if ( !window.resourceLibrary ) appendFragment([resourceLibrary]);
 
   // ========================================================
   // Filter Monitor (always appened)
