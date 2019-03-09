@@ -229,6 +229,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
+  if ( href.includes('/history') ) return;
 
   if ( href.includes('/artist/') || href.includes('/label/') ) {
 
