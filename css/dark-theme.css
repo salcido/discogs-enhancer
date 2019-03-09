@@ -99,7 +99,7 @@ a .tracklist_track_title,
 .FacetGroup a span,
 #track-release a span,
 .release-info a span {
-  color: #809BBE !important;
+  color: #829FC4 !important;
 }
 
 a {
@@ -1392,7 +1392,8 @@ pre code {
 }
 
 .alert-message.alert-message-info,
-.alert-message.alert-message-info i{
+.alert-message.alert-message-info i,
+.alert-message.alert-message-info .alert-message-content div {
   background: #C5DEF7 !important;
   color: #454545 !important;
   line-height: 20px !important;
