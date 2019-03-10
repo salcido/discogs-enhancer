@@ -110,7 +110,7 @@ In order to add a simple, togglable feature to the extension, you'll need to upd
     <!-- title of the new feature -->
     <div class="toggle-group">
       <p class="label">title of the new feature</p>
-      <div class="meta hide">Keywords that represent the feature go here. These are essentially used as metadata when searching.</div>
+      <div class="meta hide">Keywords that represent the feature go here. These are used as metadata when searching.</div>
 
       <div class="onoffswitch">
         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleNewFeatureName" checked>
