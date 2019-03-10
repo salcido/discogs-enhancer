@@ -17,7 +17,6 @@ let
     checkForAnalytics,
     elems = [],
     filterMonitor,
-    initElems = [],
     prefs = {},
     resourceLibrary;
 
@@ -128,11 +127,11 @@ chrome.storage.sync.get('prefs', function(result) {
 
   resourceLibrary = document.createElement('script');
   resourceLibrary.type = 'text/javascript';
-  resourceLibrary.className = 'de-init';
+  resourceLibrary.id = 'resource-library';
   resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library/resource-library.js');
 
   appendFragment([resourceLibrary]);
-  if ( !window.resourceLibrary ) appendFragment([resourceLibrary]);
+  if (!document.querySelector('#resource-library')) appendFragment([resourceLibrary]);
 
   // ========================================================
   // Filter Monitor (always appened)
@@ -143,10 +142,7 @@ chrome.storage.sync.get('prefs', function(result) {
   filterMonitor.className = 'de-init';
   filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
 
-  initElems.push(filterMonitor);
-
-  // Append initial dependencies
-  appendFragment(initElems);
+  elems.push(filterMonitor);
 
   // ========================================================
   // Toggleable CSS files
