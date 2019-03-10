@@ -88,6 +88,7 @@ resourceLibrary.ready(() => {
         s.textContent = `${count} / 255`;
 
         focus.parentElement.appendChild(s);
+        window.warnOnNoteLimit();
 
       } else {
 
@@ -96,13 +97,13 @@ resourceLibrary.ready(() => {
     }, 100);
   };
 
-
-  // ========================================================
-  // UI Funcitonality
-  // ========================================================
-
-  // Keyup listener for updating count values
-  document.addEventListener('keyup', () => {
+  /**
+   * Counts the characters in the notes fields and
+   * adds `.price` to the count element when the
+   * count approaches 250.
+   * @returns {undefined}
+   */
+  window.warnOnNoteLimit = function warnOnNoteLimit() {
 
     let count,
         focus = document.querySelector(':focus');
@@ -123,7 +124,13 @@ resourceLibrary.ready(() => {
               ? notesCount.classList.add('price')
               : notesCount.classList.remove('price');
     }
-  });
+  };
+
+  // ========================================================
+  // UI Funcitonality
+  // ========================================================
+
+  document.addEventListener('keyup', () => { window.warnOnNoteLimit(); });
 
   // Remove/reset stuff on save/cancel
   document.body.addEventListener('click', event => {
