@@ -131,7 +131,6 @@ chrome.storage.sync.get('prefs', function(result) {
   resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library/resource-library.js');
 
   appendFragment([resourceLibrary]);
-  if (!document.querySelector('#resource-library')) appendFragment([resourceLibrary]);
 
   // ========================================================
   // Filter Monitor (always appened)
@@ -1120,15 +1119,23 @@ checkForAnalytics = setInterval(() => {
 // ========================================================
 // DOM clean up
 // ========================================================
-
-window.onload = function() {
-
-  [...document.querySelectorAll('.de-init')].forEach(child => {
-
-    child.parentNode.removeChild(child);
-  });
+HTMLDocument.prototype.ready = () => {
+	return new Promise(resolve => {
+		if (document.readyState === 'complete') {
+			resolve(document);
+		} else {
+        document.addEventListener('DOMContentLoaded', () => {
+        resolve(document);
+      });
+    }
+	});
 };
 
+document.ready().then(() => {
+  document.querySelectorAll('.de-init').forEach(child => {
+    child.parentNode.removeChild(child);
+  });
+});
 
 // ========================================================
 // - Runtime messages -
