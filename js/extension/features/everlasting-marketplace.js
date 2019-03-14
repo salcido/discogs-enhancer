@@ -291,14 +291,15 @@ resourceLibrary.ready(() => {
     function pageStamp(override) {
 
       let mc = mediaCondition ? Number(mediaCondition) : null,
-          sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+          sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null,
+          filterState = window.setFilterStateText ? `&mdash; ${ window.setFilterStateText(mc, sc)}` : '';
 
       return `<tr class="shortcut_navigable">
                 <td class="item_description de-page-stamp de-page-number">
                   <h3 class="de-current-page">Page: ${override || pageNum}</h3>
                 </td>
                 <td class="item_description de-filter-stamp de-page-stamp">
-                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
+                  ${pTotal} results ${filterState}
                 </td>
                 <td class="de-page-stamp de-marketplace-results z-1 back-to-top"><a href="#site_header">Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
