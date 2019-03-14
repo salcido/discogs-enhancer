@@ -822,8 +822,7 @@
 
     ready: function(fn) {
 
-      if ( document.readyState === 'complete' ||
-           document.readyState !== 'loading' ) {
+      if ( document.readyState !== 'loading' ) {
 
         fn();
 
