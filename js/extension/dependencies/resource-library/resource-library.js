@@ -62,7 +62,7 @@
   */
 
   if ( !('splice' in String.prototype) ) {
-
+    // eslint-disable-next-line no-unused-vars
     String.prototype.splice = function(index, remove, insert) {
 
       let chars = this.split('');
