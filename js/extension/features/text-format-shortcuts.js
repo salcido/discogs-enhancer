@@ -305,31 +305,36 @@ resourceLibrary.ready(() => {
   // ========================================================
   try {
     // insert shortcuts when replying to reviews
-    document.querySelector('.review_action1.review_action1-reply').addEventListener('click', () => {
-
-      setTimeout(() => {
-        insertShortcuts();
-        // add eventlistener to cancel button once it
-        // exists in the DOM.
-        document.querySelector('.reviews-cancel-event').addEventListener('click', () => {
-          // if a user cancels out of a reply,
-          // insert shortcuts on the main review textarea
-          setTimeout(insertShortcuts, 500);
-        });
-      }, 500);
+    document.querySelectorAll('.review_action1.review_action1-reply').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTimeout(() => {
+          insertShortcuts();
+          // add eventlistener to cancel button once it
+          // exists in the DOM.
+          document.querySelector('.reviews-cancel-event').addEventListener('click', () => {
+            // if a user cancels out of a reply,
+            // insert shortcuts on the main review textarea
+            setTimeout(insertShortcuts, 300);
+          });
+        }, 500);
+      });
     });
 
     // insert shortcuts when editing list items
-    document.querySelector('.textedit_content').addEventListener('click', () => {
+    if ( document.querySelector('.textedit_content') ) {
+      document.querySelector('.textedit_content').addEventListener('click', () => {
 
-      setTimeout(() => {
+        setTimeout(() => {
 
-        if ( !document.getElementsByClassName('quick-menu').length ) {
-          insertShortcuts();
-        }
-      }, 500);
-    });
-  } catch(err) { /* Just catch the error */ }
+          if ( !document.getElementsByClassName('quick-menu').length ) {
+            insertShortcuts();
+          }
+        }, 500);
+      });
+    }
+  } catch(err) {
+    console.warn('Discogs Enhancer: Could not add quickmenu to textarea.\n', err);
+  }
 
   // ========================================================
   // Init / DOM Setup
