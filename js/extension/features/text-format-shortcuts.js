@@ -14,7 +14,8 @@
 
 resourceLibrary.ready(() => {
 
-  let hasTextarea = false,
+  let hasRun = false,
+      hasTextarea = false,
       selected = '';
 
   // ========================================================
@@ -23,7 +24,6 @@ resourceLibrary.ready(() => {
 
   /**
    * Attaches event listeners to the B, I, S, U quick-link buttons
-   *
    * @method attachBISUlisteners
    * @return {undefined}
    */
@@ -75,7 +75,6 @@ resourceLibrary.ready(() => {
 
   /**
    * Adds an event listener to the link `.quick-link` button
-   *
    * @method attachLinkListener
    * @return {method}
    */
@@ -98,7 +97,7 @@ resourceLibrary.ready(() => {
   function attachTextSelectionListeners() {
 
     let textareaElement,
-        buttons = document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline');
+        buttons = document.querySelectorAll('.quick-bold, .quick-italic, .quick-strikethrough, .quick-underline, .quick-link');
 
     buttons.forEach(b => {
 
@@ -136,7 +135,6 @@ resourceLibrary.ready(() => {
    * Injects the shortcut markup and calls click
    * event listener functions to each respective
    * shortcut button.
-   *
    * @method   insertShortcuts
    * @return   {undefined}
    */
@@ -165,11 +163,12 @@ resourceLibrary.ready(() => {
    * Iterate over all textarea elements and look for
    * specific ids/classes/names. If there is a match, call the
    * `insertShortcuts` function which will inject the shortcut markup
-   *
    * @method   inspectTextareas
    * @return   {object|boolean}
    */
   function inspectTextareas() {
+
+    if (document.querySelector('.quick-menu')) return;
 
     let t = [...document.getElementsByTagName('textarea')];
 
@@ -198,7 +197,6 @@ resourceLibrary.ready(() => {
 
   /**
    * Parses the text passed into the prompt
-   *
    * @method   parseLink
    * @param    {object} target The target textarea element
    * @return   {method}
@@ -247,9 +245,11 @@ resourceLibrary.ready(() => {
 
       } else if ( link.includes('http') ) {
         // urls
-        syntax = '[url=' + link + '][/url]';
+        syntax = selected
+                 ? `[url=${link}]${selected}[/url]`
+                 : `[url=${link}][/url]`;
         // insert appropriate tag syntax
-        textarea.value = text.substr(0, position) + syntax + text.substr(position);
+        textarea.value = text.substr(0, position) + syntax + text.substr(position + selected.length);
         // adjust cursor position to fit between URL tags
         selectRange(textarea, (position + (link.length + 6)) );
         // set the focus
@@ -259,7 +259,7 @@ resourceLibrary.ready(() => {
 
       } else {
 
-        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "About" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".';
+        let notRecognized = 'A valid link or guideline number was not recognized. \nPlease make sure links begin with http:// or https:// and guidelines are in an x.x.x format. \n\nYou can learn more about the requirements by clicking "Learn" from the Discogs Enhancer popup menu and reading the section called "Text Format Shortcuts".';
 
         // 'a link has no name...'
         return alert(notRecognized);
@@ -301,15 +301,6 @@ resourceLibrary.ready(() => {
   }
 
   // ========================================================
-  // Init / DOM Setup
-  // ========================================================
-
-  // Because the textareas on Discogs seem to load later than
-  // other elements, we wait for the 'load' event to fire
-  // before looking for textareas to attach our buttons to
-  window.addEventListener('load', () => setTimeout(() => { inspectTextareas(); }, 100));
-
-  // ========================================================
   // UI functionality
   // ========================================================
   try {
@@ -339,4 +330,43 @@ resourceLibrary.ready(() => {
       }, 500);
     });
   } catch(err) { /* Just catch the error */ }
+
+  // ========================================================
+  // Init / DOM Setup
+  // ========================================================
+
+  // Forums, history pages, etc ...
+  // --------------------------------------------------------
+  // There's no need to wait for the textarea element to
+  // appear in the DOM so just call `inspectTextareas` immediately
+  window.addEventListener('load', () => inspectTextareas());
+
+  // Release pages
+  // --------------------------------------------------------
+  // Textarea elements are not immediately available in the DOM
+  // so listen for them via mutation observer
+  let page = document.querySelector('#page'),
+      config = { attributes: true, childList: true, subtree: true },
+      observer,
+      action;
+
+  action = mutationsList => {
+    for ( let mutation of mutationsList ) {
+      if ( mutation.type === 'childList' ) {
+        mutation.addedNodes.forEach(n => {
+          if ( n.classList
+              && (n.classList.contains('review_compose') || n.id === 'comment')
+              && !hasRun ) {
+
+            hasRun = true;
+            inspectTextareas();
+            observer.disconnect();
+          }
+        });
+      }
+    }
+  };
+
+  observer = new MutationObserver(action);
+  observer.observe(page, config);
 });
