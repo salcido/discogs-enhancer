@@ -1952,6 +1952,10 @@ i.icon-google-plus {
   border-bottom: 1px solid #454545 !important;
 }
 
+.TracksTable header {
+  background: #343434 !important;
+}
+
 .viewing-tracks .TracksApp .CompositionDetails {
   background: #292929 !important;
 }
