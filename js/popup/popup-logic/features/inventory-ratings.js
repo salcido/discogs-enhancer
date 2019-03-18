@@ -18,17 +18,15 @@ export function init() {
   // Set "enabled/disabled" status
   document.getElementById('toggleInventoryRatings').addEventListener('change', function() {
 
-    let self = document.querySelector('.toggle-group.inventory .status');
+    let self = document.querySelector('.toggle-group.inventory .status'),
+        status = this.checked ? 'Enabled' : 'Disabled';
 
-    if ( this.checked ) {
-      setEnabledStatus( self, 'Enabled' );
-    } else {
-      setEnabledStatus( self, 'Disabled' );
-    }
+    setEnabledStatus( self, status );
   });
 
   setInventoryRatings();
 }
+
 /**
  * Saves the inventory rating
  * @method saveInventoryRatings
