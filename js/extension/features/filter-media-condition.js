@@ -68,7 +68,7 @@ resourceLibrary.ready(() => {
 
           if ( el.textContent.trim() === condition ) {
 
-            el.parentElement.parentElement.parentElement.classList.add('de-hide-media');
+            el.closest('.shortcut_navigable').classList.add('de-hide-media');
           }
         });
       });

@@ -80,7 +80,7 @@ resourceLibrary.ready(() => {
           icon.className = 'de-blocked-seller-icon';
           icon.title = `${seller} is on your Blocked Seller list.`;
 
-          name.parentElement.parentElement.parentElement.classList.add(_class);
+          name.closest('.shortcut_navigable').classList.add(_class);
           name.insertAdjacentElement('beforeend', icon);
         }
       });

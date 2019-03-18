@@ -66,17 +66,17 @@ resourceLibrary.ready(() => {
           elems.forEach(el => {
 
             if ( el.textContent.trim() === condition ) {
-              el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
+              el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
 
             if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ) {
 
-              el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
+              el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
 
             if ( sleeveCondition.noCover && el.textContent.trim() === 'No Cover' ) {
 
-              el.parentElement.parentElement.parentElement.classList.add('de-hide-sleeve');
+              el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
           });
         });
