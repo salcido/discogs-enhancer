@@ -43,17 +43,17 @@
       <div class="info-wrap">
         <!-- updates -->
         <div class="updates tab-content">
-          <!-- <div class="news-item">
-            <p><span class="feature">New Feature: <br> </span> <span class="item-title" style="margin-bottom: 10px; display: block;">Rating Percentage</span>
-            <span class="text">Shows the release ratings expressed as a percentage. <a href="#rating-percentage" class="scroll-target">Click here to read more about it.</a></span></p>
-          </div> -->
+          <div class="news-item">
+            <p><span class="feature">New Feature: <br> </span> <span class="item-title" style="margin-bottom: 10px; display: block;">Inventory Ratings</span>
+            <span class="text">Marks an item's rating in red if it is above the value set in the option when viewing a seller's inventory. <a href="#inventory-ratings" class="scroll-target">Click here to read more about it.</a></span></p>
+          </div>
           <div class="news-item">
             <p><span class="update">Updates in this version:</span></p>
             <ul>
-              <li>✅ <b>Text Format Shortcuts</b> will now allow you to wrap selected text with a URL.</li>
-              <li>🔧 Fixed a bug where <b>Everlasting Marketplace</b> might not load correctly.</li>
-              <li>🔧 Rewrote the way scripts are injected into the page - should be more reliable now.</li>
-              <li>🌙 Couple of small <b>Dark Theme</b> fixes.</li>
+              <li><b>Text Format Shortcuts</b> will now allow you to wrap selected text with a URL.</li>
+              <li>Fixed a bug where <b>Everlasting Marketplace</b> might not load correctly.</li>
+              <li>Rewrote the way scripts are injected into the page - should be more reliable now.</li>
+              <li>Couple of small <b>Dark Theme</b> fixes.</li>
             </ul>
           </div>
         </div>
@@ -87,6 +87,9 @@
         <!-- Source Code -->
         <div class="source-code hide tab-content">
           <p><span class="m">Open Source</span> Discogs Enhancer is an open source project. You can find the code here on GitHub: <a href="https://github.com/salcido/discogs-enhancer">https://github.com/salcido/discogs-enhancer</a></p>
+          <hr>
+          <p><span class="m">Release Details</span> Details for the latest release can be <a href="https://github.com/salcido/discogs-enhancer/releases">found here.</a></p>
+          <hr>
           <p><b>Please note:</b> the code is generally ahead of what has been released in the Chrome Web Store and may have features that are not quite ready for release or issues that have not yet been resolved.</p>
         </div>
       </div>
@@ -307,6 +310,16 @@
       <!-- Improved Collection UI -->
       <h2 id="improvedUi">Improved Collection UI</h2>
       <p>This makes the Collection page a little more organized by moving some links around and colorizing the Move Selected and Remove Selected buttons. Discogs has since changed the default collection page for most users so this will only work if you have more than 2500 items in your collection.</p>
+    </div>
+
+    <!-- Inventory Ratings -->
+    <div class="feature-block">
+      <h2 id="inventory-ratings">Inventory Ratings</h2>
+      <p>Marks an item's rating in red if it is above the value set in the option when viewing a seller's inventory.</p>
+      <p>Useful for when you are simply browsing a seller's inventory for items that are not on your Wantlist but might be worth checking out.</p>
+      <img src="../img/learn/inventory-ratings.jpg" class="max-width"/>
+
+      <p>To set a value, click on the feature name to open the submenu. Enter the minimum rating value a release should exceed in order to be tagged in red. Then turn the option on and refresh your page.</p>
     </div>
 
     <div class="feature-block">

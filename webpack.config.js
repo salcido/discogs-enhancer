@@ -40,6 +40,7 @@ module.exports = {
     [features + 'filter-sleeve-condition']: `${features}filter-sleeve-condition.js`,
     [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
+    [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
     [features + 'notes-counter']: `${features}notes-counter.js`,
     [features + 'random-item']: `${features}random-item.js`,
     [features + 'rating-percent']: `${features}rating-percent.js`,

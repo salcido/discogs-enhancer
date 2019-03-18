@@ -127,5 +127,14 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({usDateFormat: usDateFormat});
       break;
     }
+
+    // Inventory Ratings
+    case 'getInventoryRatings': {
+
+      let inventoryRatings = localStorage.getItem('inventoryRatings');
+
+      sendResponse({inventoryRatings: inventoryRatings});
+      break;
+    }
   }
 });

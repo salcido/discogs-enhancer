@@ -106,6 +106,7 @@ appendFragment([resourceLibrary]).then(() => {
         formatShortcuts: true,
         hideMinMaxColumns: false,
         highlightMedia: true,
+        inventoryRatings: false,
         notesCount: true,
         randomItem: false,
         ratingPercent: false,
@@ -568,6 +569,18 @@ appendFragment([resourceLibrary]).then(() => {
         notesCount.className = 'de-init';
 
         elems.push(notesCount);
+      }
+
+      if (result.prefs.inventoryRatings) {
+
+        // inventory-ratings.js
+        let inventoryRatings = document.createElement('script');
+
+        inventoryRatings.type = 'text/javascript';
+        inventoryRatings.src = chrome.extension.getURL('js/extension/features/inventory-ratings.js');
+        inventoryRatings.className = 'de-init';
+
+        elems.push(inventoryRatings);
       }
 
       if (result.prefs.randomItem) {
@@ -1204,6 +1217,16 @@ try {
     sleeveCondition = JSON.stringify(sleeveCondition);
 
     localStorage.setItem('sleeveCondition', sleeveCondition);
+  });
+
+  // Inventory Ratings value
+  chrome.runtime.sendMessage({request: 'getInventoryRatings'}, response => {
+
+    let inventoryRatings = response.inventoryRatings;
+
+    inventoryRatings = JSON.stringify(inventoryRatings);
+
+    localStorage.setItem('inventoryRatings', inventoryRatings);
   });
 
   // Readability settings

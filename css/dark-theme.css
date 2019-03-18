@@ -2287,3 +2287,10 @@ table.release-table thead tr th a span {
   background: #454545 !important;
   filter: drop-shadow(0 2px 2px #202020) !important;
 }
+
+/* inventory-ratings */
+.de-inventory-rating,
+.de-inventory-rating strong {
+  color: #E7413F !important;
+  font-weight: bold;
+}

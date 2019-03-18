@@ -18,6 +18,7 @@ import * as darkTheme from './features/dark-theme.js';
 import * as filterMediaCondition from './features/filter-media-condition.js';
 import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
 import * as filterShippingCountry from './features/filter-shipping-country.js';
+import * as inventoryRatings from './features/inventory-ratings.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
@@ -99,6 +100,7 @@ window.addEventListener('load', () => {
       toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
       toggleHighlights = document.getElementById('toggleHighlights'),
+      toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
@@ -215,6 +217,10 @@ window.addEventListener('load', () => {
   // ========================================================
   filterSleeveCondition.init();
 
+  // Inventory Ratings Options
+  // ========================================================
+  inventoryRatings.init();
+
   // Search Functionality
   // ========================================================
   searchbox.addEventListener('keydown', searchFeatures);
@@ -253,6 +259,7 @@ window.addEventListener('load', () => {
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
+  toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.showPrices);
@@ -324,6 +331,7 @@ window.addEventListener('load', () => {
       toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
       toggleHighlights.checked = result.prefs.highlightMedia;
+      toggleInventoryRatings.checked = result.prefs.inventoryRatings;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
       togglePrices.checked = result.prefs.suggestedPrices;
@@ -365,6 +373,7 @@ window.addEventListener('load', () => {
     suggestedPrices.getCurrency();
     sellerRep.setSellerRep();
     absoluteDate.setAbsoluteDateStatus();
+    inventoryRatings.setInventoryRatings();
 
     setTimeout(() => {
       filterMediaCondition.setupFilterByCondition(toggleFilterMediaCondition.checked);
