@@ -35,6 +35,10 @@ b {
   letter-spacing: 0.04rem;
 }
 
+hr {
+  border: 1px solid #313335;
+}
+
 .sidebar {
   background: #242424;
   border-right: 1px solid #424242;
