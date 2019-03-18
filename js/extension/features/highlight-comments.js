@@ -30,16 +30,13 @@ resourceLibrary.ready(() => {
       // Check if the friend module has been populated
       let friends = document.querySelectorAll('#dashboard_friendactivity tr').length;
 
-      if ( friends ) {
+      if (friends) {
 
         // iterate over each comment
         let icons = document.querySelectorAll('.broadcast_table .icon-comment');
 
         // add the class hook
-        icons.forEach(i => {
-
-          i.parentElement.parentElement.parentElement.classList.add('has-comments');
-        });
+        icons.forEach(i => i.closest('tr').classList.add('has-comments'));
 
         // clear the interval
         clearInterval(int);
@@ -48,9 +45,6 @@ resourceLibrary.ready(() => {
 
     // Clear the interval regardless so the `setInterval` doesn't run forever
     // in case there's no friend module on the dashboard
-    setTimeout(() => {
-
-      clearInterval(int);
-    }, 7000);
+    setTimeout(() => clearInterval(int), 10000);
   }
 });
