@@ -54,8 +54,12 @@ resourceLibrary.ready(() => {
        && !href.includes('/master/')
        && !href.includes('/sell/')) {
 
+    let stats = document.querySelector('.statistics ul.last li:nth-child(2)');
+
+    if (!stats) return;
+
     let releaseId = href.split('/release/')[1],
-        neverSold = document.querySelector('.statistics ul.last li:nth-child(2)').textContent.includes('--');
+        neverSold = stats.textContent.includes('--') || null;
 
     if ( neverSold ) {
       let li = document.createElement('li');
