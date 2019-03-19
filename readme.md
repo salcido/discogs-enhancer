@@ -200,6 +200,9 @@ Since changes have been made to `webpack`, the extension will need to be rebuilt
 ## Author
 
 * **Matthew Salcido** - [salcido](https://github.com/salcido)
+<a href="https://www.buymeacoffee.com/salcido" rel="nofollow">
+ <img src="https://github.com/salcido/Discogs-Enhancer/blob/master/img/learn/coffee-btn.png" alt="Buy Me A Coffee" style="max-width: 100%;">
+</a>
 
 ## License
 
