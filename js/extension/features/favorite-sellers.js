@@ -66,11 +66,11 @@ resourceLibrary.ready(() => {
 
     favoriteList.list.forEach(seller => {
 
-      let sellerNames = document.querySelectorAll('td.seller_info ul li:first-child');
+      let sellerNames = document.querySelectorAll('td.seller_info ul li:first-child a');
 
       sellerNames.forEach(name => {
 
-        if ( name.textContent.includes(seller)
+        if ( name.textContent.trim() === seller
              && !name.querySelector('.de-favorite-seller') ) {
 
           let icon = document.createElement('span');
