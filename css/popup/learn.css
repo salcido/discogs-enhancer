@@ -267,6 +267,49 @@ span.m {
   text-align: center;
 }
 
+.coffee {
+  -webkit-font-smoothing: antialiased;
+  background: #FF813F;
+  border-radius: 4px;
+  border: 1px solid #FF813F;
+  color: white;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.9px;
+  margin: 0.5rem;
+  padding: 5px 15px;
+  text-decoration: none;
+  transition: box-shadow .4s ease,background-color .4s ease,color .4s ease;
+}
+
+.coffee:hover {
+  background: #ff7924;
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,.45);
+  text-decoration: none;
+}
+
+.coffee img {
+  border-radius: 20px;
+  vertical-align: middle;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.eth {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+}
+
+.eth-address {
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  background: #202020;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
 .hide {
   display: none !important;
 }
