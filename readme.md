@@ -30,6 +30,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Everlasting Collection
 * Everlasting Marketplace
 * Feedback Notifications
+* Seller Inventory Ratings
 * Large BAOI Fields
 * Tag Sellers Based on Reputation
 * Filter Marketplace Items By Media Condition
