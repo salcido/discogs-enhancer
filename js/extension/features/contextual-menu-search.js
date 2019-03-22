@@ -43,7 +43,7 @@ function searchClone(event) {
 function searchDeeJay(event) {
 
   let str = event.selectionText,
-      encodeStr = encodeURIComponent(str);
+      encodeStr = str.split(' ').join('+');
 
   chrome.tabs.create({url: 'http://www.deejay.de/' + encodeStr});
 }
