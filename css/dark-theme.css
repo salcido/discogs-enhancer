@@ -2294,3 +2294,8 @@ table.release-table thead tr th a span {
   color: #E7413F !important;
   font-weight: bold;
 }
+
+/* ratings graphs */
+img[src*="chart.apis.google.com"].push_down {
+  filter: hue-rotate(180deg) invert(.8) saturate(8);
+}
