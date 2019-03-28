@@ -350,7 +350,7 @@ resourceLibrary.ready(() => {
   // --------------------------------------------------------
   // Textarea elements are not immediately available in the DOM
   // so listen for them via mutation observer
-  let page = document.querySelector('#page'),
+  let page = document.querySelector('#page') || null,
       config = { attributes: true, childList: true, subtree: true },
       observer,
       action;
@@ -372,6 +372,8 @@ resourceLibrary.ready(() => {
     }
   };
 
-  observer = new MutationObserver(action);
-  observer.observe(page, config);
+  if (page) {
+    observer = new MutationObserver(action);
+    observer.observe(page, config);
+  }
 });
