@@ -20,6 +20,7 @@ if ( analytics ) {
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-75073435-1', 'auto');
+  ga('set', 'anonymizeIp', true);
   ga('set', 'checkProtocolTask', function() { });
   ga('require', 'displayfeatures');
   ga('send', 'pageview', '/popup.html');
