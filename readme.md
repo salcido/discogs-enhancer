@@ -1,6 +1,6 @@
 # Discogs Enhancer
 
-[![Chrome Web Store](https://img.shields.io/badge/users-3.1k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/badge/users-3.3k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating-4.9%2F5-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating%20count-58%20total-orange.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
@@ -22,34 +22,34 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 
 * Block Sellers
 * Favorite Sellers
-* Compare Suggested Prices
-* Contextual Menu Searching
-* Quick Currency Converter
+* Compare suggested prices to listed prices
+* Contextual menu searching
+* Quick currency conversion
 * Dark Theme (WCAG 2.0 AA compliant)
-* Release Scanner
+* Scan Artist/Label releases for comments
 * Everlasting Collection
 * Everlasting Marketplace
-* Feedback Notifications
-* Seller Inventory Ratings
-* Large BAOI Fields
-* Tag Sellers Based on Reputation
-* Filter Marketplace Items By Media Condition
-* Filter Marketplace Items By Sleeve Condition
-* Filter Marketplace Items by Shipping Country
+* Buyer/Seller feedback notifications
+* Seller inventory ratings
+* Get larger BAOI fields when editing releases
+* Tag Sellers based on reputation
+* Filter Marketplace items by media condition
+* Filter Marketplace items by sleeve condition
+* Filter Marketplace items by shipping country
 * Open release links on the Collection page in new tabs
-* Hide Min, Median, Max Columns on the Collection page
-* Marketplace Highlights
-* Marketplace Release Ratings
-* See release ratings expressed as a percentage
-* Notes Counter
+* Hide Min, Median, Max columns on the Collection page
+* Marketplace Media/Sleeve condition highlights
+* See the number of ratings/votes a release received in the Marketplace
+* See release ratings/votes expressed as a percentage
+* Notes character counter
 * See actual dates an item was added to your Collection/Wantlist
-* See average sale price on the Release page
-* Random Item From Collection
-* Remove From Wantlist Shortcuts
-* See Release Durations
-* Sort Dialogs and Filters Alphabetically
-* Text Formatting Shortcuts
-* Improve Tracklist Readability
+* See the average sale price on the Release page
+* View a random item from your collection from any page
+* Remove an item from your Wantlist directly from the Marketplace
+* See the total playing time for any release when track times are provided
+* Sort dialog boxes and Marketplace filters alphabetically
+* Easily format comments/reviews using Text Formatting Shortcuts
+* Improve Tracklist readability
 
 ## 📋 Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
