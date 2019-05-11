@@ -838,6 +838,19 @@ appendFragment([resourceLibrary]).then(() => {
       // Contextual Menu Options
       // ========================================================
 
+      // Add Discogs first ...
+      if (result.prefs.useDiscogs) {
+
+        chrome.runtime.sendMessage({
+          fn: 'searchDiscogs',
+          id: 'discogs',
+          method: 'create',
+          name: 'Discogs',
+          request: 'updateContextMenu'
+        });
+      }
+
+      // Then the remaining stores in alphabetical order
       if (result.prefs.useAllDay) {
 
         chrome.runtime.sendMessage({
@@ -889,17 +902,6 @@ appendFragment([resourceLibrary]).then(() => {
           id: 'deejay',
           method: 'create',
           name: 'DeeJay',
-          request: 'updateContextMenu'
-        });
-      }
-
-      if (result.prefs.useDiscogs) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchDiscogs',
-          id: 'discogs',
-          method: 'create',
-          name: 'Discogs',
           request: 'updateContextMenu'
         });
       }
