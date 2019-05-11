@@ -50,6 +50,11 @@ hr {
   position:fixed;
   overflow-x: auto;
 }
+
+.sidebar::-webkit-scrollbar {
+  width: 0 !important
+}
+
 /* I need a fixed position nav but I want to
 scroll the content so this will take up the same
 amount of space that the sidebar would take if it's
