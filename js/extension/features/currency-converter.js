@@ -134,7 +134,7 @@ resourceLibrary.ready(() => {
 
       input.value = '';
       // ¯\_(ツ)_/¯
-      setTimeout(() => { output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF'; });
+      setTimeout(() => { output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF'; }, 0);
     }
 
     if ( input.value === '' ) { output.textContent = ''; }
