@@ -81,7 +81,7 @@ resourceLibrary.ready(() => {
     }
 
     /**
-    * Whether the user want's to see the absolute date
+    * Whether the user wants to see the absolute date
     * @param {Boolean} pref - User's absolute date preference
     * @returns {Method}
     */
