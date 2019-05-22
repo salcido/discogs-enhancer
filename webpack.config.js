@@ -49,6 +49,7 @@ module.exports = {
     [features + 'release-ratings']: `${features}release-ratings.js`,
     [features + 'release-scanner']: `${features}release-scanner.js`,
     [features + 'remove-from-wantlist']: `${features}remove-from-wantlist.js`,
+    [features + 'seller-items-in-cart']: `${features}seller-items-in-cart.js`,
     [features + 'seller-rep']: `${features}seller-rep.js`,
     [features + 'sort-explore-lists']: `${features}sort-explore-lists.js`,
     [features + 'sort-marketplace-lists']: `${features}sort-marketplace-lists.js`,

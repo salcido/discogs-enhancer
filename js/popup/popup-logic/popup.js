@@ -33,10 +33,7 @@ import { acknowledgeUpdate,
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
-// classes from a target element. I realize we've all
-// been told this is a bad thing to do but since this
-// extension is self-contained there will likely never be
-// any method-naming conflicts.
+// classes from a target element.
 // ========================================================
 if ( !Element.prototype.removeClasses ) {
   Element.prototype.removeClasses = function(...remove) {
@@ -111,6 +108,7 @@ window.addEventListener('load', () => {
       toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),
       toggleReleaseScanner = document.getElementById('toggleReleaseScanner'),
       toggleRemoveFromWantlist = document.getElementById('toggleRemoveFromWantlist'),
+      toggleSellerItemsInCart = document.getElementById('toggleSellerItemsInCart'),
       toggleSellerRep = document.getElementById('toggleSellerRep'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
@@ -270,6 +268,7 @@ window.addEventListener('load', () => {
   toggleReleaseRatings.addEventListener('change', triggerSave);
   toggleReleaseScanner.addEventListener('change', triggerSave);
   toggleRemoveFromWantlist.addEventListener('change', triggerSave);
+  toggleSellerItemsInCart.addEventListener('change', triggerSave);
   toggleSellerRep.addEventListener('change', sellerRep.saveSellerRep);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
@@ -342,6 +341,7 @@ window.addEventListener('load', () => {
       toggleReleaseRatings.checked = result.prefs.releaseRatings;
       toggleReleaseScanner.checked = result.prefs.releaseScanner;
       toggleRemoveFromWantlist.checked = result.prefs.removeFromWantlist;
+      toggleSellerItemsInCart.checked = result.prefs.sellerItemsInCart;
       toggleSellerRep.checked = result.prefs.sellerRep;
       toggleShortcuts.checked = result.prefs.formatShortcuts;
       toggleSortBtns.checked = result.prefs.sortButtons;

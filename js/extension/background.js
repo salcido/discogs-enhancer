@@ -30,9 +30,7 @@ HTMLDocument.prototype.ready = () => {
 
     if (document.readyState === 'complete') {
       resolve(document);
-
     } else {
-
         document.addEventListener('DOMContentLoaded', () => {
         resolve(document);
       });
@@ -115,6 +113,7 @@ appendFragment([resourceLibrary]).then(() => {
         releaseDurations: true,
         releaseRatings: false,
         removeFromWantlist: false,
+        sellerItemsInCart: false,
         sellerRep: false,
         sortButtons: true,
         suggestedPrices: false,
@@ -694,6 +693,17 @@ appendFragment([resourceLibrary]).then(() => {
         removeFromWantlist.className = 'de-init';
 
         elems.push(removeFromWantlist);
+      }
+
+      if ( result.prefs.sellerItemsInCart ) {
+
+        let sellerItemsInCart = document.createElement('script');
+
+        sellerItemsInCart.type = 'text/javascript';
+        sellerItemsInCart.src = chrome.extension.getURL('js/extension/features/seller-items-in-cart.js');
+        sellerItemsInCart.className = 'de-init';
+
+        elems.push(sellerItemsInCart);
       }
 
       // seller-rep css

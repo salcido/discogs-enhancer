@@ -1,0 +1,125 @@
+/**
+ *
+ * Discogs Enhancer
+ *
+ * @author: Matthew Salcido
+ * @website: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ *
+ */
+
+// @TODO: figure out how to remove names when purchases are made
+
+resourceLibrary.ready(() => {
+
+  // ========================================================
+  // Functions
+  // ========================================================
+  /**
+   * Adds event listners to the prev and next buttons
+   * @method addUiListeners
+   * @returns {undefined}
+   */
+  function addUiListeners() {
+
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
+
+    pagination.forEach(elem => {
+      elem.addEventListener('click', () => {
+        resourceLibrary.xhrSuccess(window.sellerItemsInCart());
+      });
+    });
+  }
+
+  /**
+   * Iterates over each seller in the cart and
+   * saves the names to localStorage.
+   * @returns {undefined}
+   */
+  function captureSellerNames() {
+
+    let namesInCart = document.querySelectorAll('.linked_username'),
+        sellerNames = [];
+
+    namesInCart.forEach(n => sellerNames.push( n.textContent.trim() ));
+
+    if (sellerNames.length) {
+      localStorage.setItem('sellerNames', JSON.stringify(sellerNames));
+    }
+  }
+
+  /**
+   * Find all instances of sellers in list and
+   * add the cart badge
+   * @method sellerItemsInCart
+   * @return {function}
+   */
+  window.sellerItemsInCart = function sellerItemsInCart(sellerNames) {
+
+    sellerNames.forEach(seller => {
+
+      let sellers = document.querySelectorAll('td.seller_info ul li:first-child a');
+
+      sellers.forEach(name => {
+
+        if ( name.textContent.trim() ===
+             seller && !name.querySelector('.de-items-in-cart') ) {
+
+          let icon = document.createElement('span');
+
+          icon.className = 'de-items-in-cart';
+          icon.title = `There is at least one item from ${seller} in your cart.`;
+          name.insertAdjacentElement('beforeend', icon);
+        }
+      });
+    });
+
+    return addUiListeners();
+  };
+
+  /**
+   * Injects the CSS necessary for highlighting items
+   * in the Marketplace
+   * @returns {undefined}
+   */
+  function injectCss() {
+
+    let style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.id = 'items-in-cart';
+    style.rel = 'stylesheet';
+    style.textContent = `
+    .de-items-in-cart {
+      display: inline-block;
+      height: 14px;
+      width: 14px;
+      margin-left: 3px;
+      margin-top: 3px;
+      vertical-align: top;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI3IiBjeT0iNyIgcj0iNyIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyKSIvPjxwYXRoIGQ9Ik0xMC4wNDkzIDEwLjM3NDRDMTAuMzI1NCAxMC4zNzQ0IDEwLjU0OTMgMTAuMTUwNiAxMC41NDkzIDkuODc0NDVDMTAuNTQ5MyA5LjU5ODMxIDEwLjMyNTQgOS4zNzQ0NSAxMC4wNDkzIDkuMzc0NDVWMTAuMzc0NFpNNC43NTYwNCA5Ljg3NDQ1TDQuMjg2MTQgOS43MDM1OEM0LjIzMDQgOS44NTY4NiA0LjI1MjkzIDEwLjAyNzcgNC4zNDY1IDEwLjE2MTNDNC40NDAwOCAxMC4yOTQ5IDQuNTkyOTMgMTAuMzc0NCA0Ljc1NjA0IDEwLjM3NDRWOS44NzQ0NVpNNS4wMzEwMSA5LjExODI3TDUuNTAwOTEgOS4yODkxNUM1LjUzMzk4IDkuMTk4MiA1LjUzOTk1IDkuMDk5NiA1LjUxODA4IDkuMDA1MzNMNS4wMzEwMSA5LjExODI3Wk0zLjkzMTEyIDQuMzc1TDQuNDE4MiA0LjI2MjA1QzQuMzY1NjUgNC4wMzU0NCA0LjE2Mzc1IDMuODc1IDMuOTMxMTIgMy44NzVWNC4zNzVaTTIuNjI1IDMuODc1QzIuMzQ4ODYgMy44NzUgMi4xMjUgNC4wOTg4NiAyLjEyNSA0LjM3NUMyLjEyNSA0LjY1MTE0IDIuMzQ4ODYgNC44NzUgMi42MjUgNC44NzVWMy44NzVaTTEwLjA0OTMgOS4zNzQ0NUg0Ljc1NjA0VjEwLjM3NDRIMTAuMDQ5M1Y5LjM3NDQ1Wk01LjIyNTkzIDEwLjA0NTNMNS41MDA5MSA5LjI4OTE1TDQuNTYxMTEgOC45NDc0TDQuMjg2MTQgOS43MDM1OEw1LjIyNTkzIDEwLjA0NTNaTTUuNTE4MDggOS4wMDUzM0w0LjQxODIgNC4yNjIwNUwzLjQ0NDA0IDQuNDg3OTVMNC41NDM5MyA5LjIzMTIyTDUuNTE4MDggOS4wMDUzM1pNMy45MzExMiAzLjg3NUgyLjYyNVY0Ljg3NUgzLjkzMTEyVjMuODc1WiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNC4xMzczMyA0LjgxMjQxQzQuMDYwOTEgNC44MTI0MSAzLjk4ODY5IDQuODQ3MzYgMy45NDEyOCA0LjkwNzI4QzMuODkzODYgNC45NjcyMSAzLjg3NjQ2IDUuMDQ1NTMgMy44OTQwMyA1LjExOTlMNC42NTAyIDguMzE5OTFDNC42Nzk4OCA4LjQ0NTQ4IDQuODAwMjUgOC41Mjc4NSA0LjkyODA1IDguNTEwMDFMMTAuODQgNy42ODUxQzEwLjk2MzUgNy42Njc4NiAxMS4wNTU0IDcuNTYyMjIgMTEuMDU1NCA3LjQzNzVWNS4wNjI0MUMxMS4wNTU0IDQuOTI0MzQgMTAuOTQzNSA0LjgxMjQxIDEwLjgwNTQgNC44MTI0MUg0LjEzNzMzWiIgZmlsbD0id2hpdGUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSI1LjAzMSIgY3k9IjEwLjk3NDQiIHI9IjAuNjg3NDMxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjkuNzA1NTYiIGN5PSIxMC45NzQ0IiByPSIwLjY4NzQzMSIgZmlsbD0id2hpdGUiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXIiIHgxPSI3IiB5MT0iMCIgeDI9IjciIHkyPSIxNCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM2NTAwQ0EiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0QTAwOTMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4=);
+    }`;
+
+    document.head.append(style);
+  }
+
+  // ========================================================
+  // DOM Setup
+  // ========================================================
+  let href = window.location.href;
+  // Grab seller names when on the cart page
+  if ( href.includes('/sell/cart/') ) return captureSellerNames();
+
+  // Marketplace wantlists, all items, release pages
+  if ( href.includes('/sell/mywants')
+       || href.includes('/sell/list')
+       || href.includes('/sell/release/') ) {
+
+    let sellerNames = localStorage.getItem('sellerNames') || null;
+    if (sellerNames) sellerNames = JSON.parse(sellerNames);
+    injectCss();
+    // Iterate over seller names
+    if ( sellerNames && sellerNames.length ) window.sellerItemsInCart(sellerNames);
+  }
+});

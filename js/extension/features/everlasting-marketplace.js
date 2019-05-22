@@ -111,7 +111,10 @@ resourceLibrary.ready(() => {
     function callOtherMarketplaceFeatures() {
 
       let blockList = JSON.parse(localStorage.getItem('blockList')) || null,
-          favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null;
+          favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null,
+          sellerNames = localStorage.getItem('sellerNames') || null;
+
+      if (sellerNames) sellerNames = JSON.parse(sellerNames);
 
       // apply Marketplace Highlights
       if ( window.applyStyles ) window.applyStyles();
@@ -150,6 +153,8 @@ resourceLibrary.ready(() => {
       if ( window.insertRatingsLink ) window.insertRatingsLink();
       // Remove from wantlist
       if ( window.insertRemoveLinks ) window.insertRemoveLinks();
+      // Seller Items in Cart
+      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
     }
 
     /**

@@ -56,6 +56,7 @@ export function applySave(message, event) {
         releaseScanner: document.getElementById('toggleReleaseScanner').checked,
         releaseRatings: document.getElementById('toggleReleaseRatings').checked,
         removeFromWantlist: document.getElementById('toggleRemoveFromWantlist').checked,
+        sellerItemsInCart: document.getElementById('toggleSellerItemsInCart').checked,
         sellerRep: document.getElementById('toggleSellerRep').checked,
         sortButtons: document.getElementById('toggleSortBtns').checked,
         suggestedPrices: document.getElementById('togglePrices').checked,
