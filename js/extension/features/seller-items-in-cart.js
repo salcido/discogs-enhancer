@@ -17,7 +17,6 @@ resourceLibrary.ready(() => {
   // ========================================================
   /**
    * Adds event listners to the prev and next buttons
-   * @method addUiListeners
    * @returns {undefined}
    */
   function addUiListeners() {
@@ -35,24 +34,38 @@ resourceLibrary.ready(() => {
   /**
    * Iterates over each seller in the cart and
    * saves the names to localStorage.
+   * @param {Object} elem - the element to iterate over
    * @returns {undefined}
    */
-  function captureSellerNames() {
+  function captureSellerNames(elem = document) {
 
-    let namesInCart = document.querySelectorAll('.linked_username'),
+    let namesInCart = elem.querySelectorAll('.linked_username') || null,
         sellerNames = [];
 
-    namesInCart.forEach(n => sellerNames.push( n.textContent.trim() ));
-
-    if (sellerNames.length) {
-      localStorage.setItem('sellerNames', JSON.stringify(sellerNames));
+    if (namesInCart.length) {
+      namesInCart.forEach(n => sellerNames.push( n.textContent.trim() ));
     }
+    localStorage.setItem('sellerNames', JSON.stringify(sellerNames));
+  }
+
+  /**
+   * Fetches the sellers from the cart page
+   * @returns {object}
+   */
+  async function fetchSellersFromCart() {
+
+    let url = 'https://www.discogs.com/sell/cart',
+        response = await fetch(url),
+        data = await response.text(),
+        div = document.createElement('div');
+
+    div.innerHTML = data;
+    return div;
   }
 
   /**
    * Find all instances of sellers in list and
    * add the cart badge
-   * @method sellerItemsInCart
    * @return {function}
    */
   window.sellerItemsInCart = function sellerItemsInCart(sellerNames) {
@@ -107,9 +120,15 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let href = window.location.href;
+  let href = window.location.href,
+      sellerNames = localStorage.getItem('sellerNames') || null;
+
   // Grab seller names when on the cart page
   if ( href.includes('/sell/cart/') ) return captureSellerNames();
+  // Or if `sellerNames` does not exist
+  if ( !href.includes('/sell/cart') && !sellerNames ) {
+    fetchSellersFromCart().then(data => captureSellerNames(data));
+  }
 
   // Marketplace wantlists, all items, release pages
   if ( href.includes('/sell/mywants')
