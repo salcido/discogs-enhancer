@@ -60,6 +60,7 @@ export function applySave(message, event) {
         sellerRep: document.getElementById('toggleSellerRep').checked,
         sortButtons: document.getElementById('toggleSortBtns').checked,
         suggestedPrices: document.getElementById('togglePrices').checked,
+        tweakDiscrims: document.getElementById('toggleTweakDiscrims').checked,
         ytPlaylists: document.getElementById('toggleYtPlaylists').checked,
         userCurrency: document.getElementById('currency').value,
 

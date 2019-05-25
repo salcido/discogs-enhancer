@@ -117,6 +117,7 @@ appendFragment([resourceLibrary]).then(() => {
         sellerRep: false,
         sortButtons: true,
         suggestedPrices: false,
+        tweakDiscrims: false,
         userCurrency: null,
         ytPlaylists: false,
         //
@@ -824,6 +825,18 @@ appendFragment([resourceLibrary]).then(() => {
         suggested.id = 'suggestedCss';
 
         elems.push(suggested);
+      }
+
+      // tweak-discriminators.js
+      if ( result.prefs.tweakDiscrims ) {
+
+        let tweakDiscrims = document.createElement('script');
+
+        tweakDiscrims.type = 'text/javascript';
+        tweakDiscrims.src = chrome.extension.getURL('js/extension/features/tweak-discriminators.js');
+        tweakDiscrims.className = 'de-init';
+
+        elems.push(tweakDiscrims);
       }
 
       // unit-tests.js

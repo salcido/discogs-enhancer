@@ -84,6 +84,7 @@ body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb:not(.mac) {
 /* Links */
 a,
 a i,
+a s,
 .right li a b,
 .tab_menu a:visited,
 .icon.icon-ellipsis-h,
@@ -98,6 +99,8 @@ span.marketplace_for_sale_count a strong,
 a .tracklist_track_title,
 .FacetGroup a span,
 #track-release a span,
+a > sup.de-discriminator,
+a > .trim-me,
 .release-info a span {
   color: #829FC4 !important;
 }
@@ -111,7 +114,7 @@ button:focus {
 }
 
 /* Visited Links */
-
+a:visited s,
 a:visited,
 .right li a:visited b,
 a:visited:not(.button) i,
@@ -122,12 +125,14 @@ span.marketplace_for_sale_count a:visited strong,
 a:visited .tracklist_track_title,
 .FacetGroup a:visited span,
 #track-release a:visited span,
+a:visited > sup.de-discriminator,
+a:visited > .trim-me,
 .release-info a:visited span {
   color: #A590D0 !important; /* OG: #7d65ae*/
 }
 
 /* Link Hovers */
-
+a:hover s,
 a:hover:not(.button),
 .footer a:hover i,
 .right li a:hover b,
@@ -140,6 +145,8 @@ span.marketplace_for_sale_count a:hover strong,
 a:hover .tracklist_track_title,
 .FacetGroup a:hover span,
 #track-release a:hover span,
+a:hover > sup.de-discriminator,
+a:hover > .trim-me,
 .release-info a:hover span {
   color: #CAE0FA !important;
 }
