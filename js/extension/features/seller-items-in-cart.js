@@ -8,8 +8,6 @@
  *
  */
 
-// @TODO: figure out how to remove names when purchases are made
-
 resourceLibrary.ready(() => {
 
   // ========================================================
@@ -54,7 +52,7 @@ resourceLibrary.ready(() => {
    */
   async function fetchSellersFromCart() {
 
-    let url = 'https://www.discogs.com/sell/cart',
+    let url = '/sell/cart',
         response = await fetch(url),
         data = await response.text(),
         div = document.createElement('div');
@@ -124,7 +122,16 @@ resourceLibrary.ready(() => {
       sellerNames = localStorage.getItem('sellerNames') || null;
 
   // Grab seller names when on the cart page
-  if ( href.includes('/sell/cart/') ) return captureSellerNames();
+  if ( href.includes('/sell/cart/') ) {
+    // Capture remaining sellers after clicking purchase button
+    document.querySelectorAll('.order_summary .order_button').forEach(b => {
+      b.addEventListener('click', () => {
+        setTimeout(() => captureSellerNames(), 300);
+      });
+    });
+    return captureSellerNames();
+  }
+
   // Or if `sellerNames` does not exist
   if ( !href.includes('/sell/cart') && !sellerNames ) {
     fetchSellersFromCart().then(data => captureSellerNames(data));
