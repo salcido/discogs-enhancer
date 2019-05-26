@@ -701,7 +701,7 @@ appendFragment([resourceLibrary]).then(() => {
         let sellerItemsInCart = document.createElement('script');
 
         sellerItemsInCart.type = 'text/javascript';
-        sellerItemsInCart.src = chrome.extension.getURL('js/extension/features/seller-items-in-cart.js');
+        sellerItemsInCart.src = chrome.extension.getURL('js/extension/features/show-sellers-in-cart.js');
         sellerItemsInCart.className = 'de-init';
 
         elems.push(sellerItemsInCart);

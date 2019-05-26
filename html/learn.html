@@ -45,15 +45,18 @@
         <!-- updates -->
         <div class="updates tab-content">
           <div class="news-item">
-            <p><span class="feature">New Feature: <br> </span> <span class="item-title" style="margin-bottom: 10px; display: block;">Show Seller Items In Cart</span>
-            <span class="text">Adds a shopping cart icon next to any seller's name in the Marketplace when you have items of theirs in your cart. <a href="#seller-items-in-cart" class="scroll-target">Click here to read more about it.</a></span></p>
+            <p><span class="feature">New Feature: <br> </span> <span class="item-title" style="margin-bottom: 10px; display: block;">Show Sellers In Cart</span>
+            <span class="text">Adds a shopping cart icon next to any seller's name in the Marketplace when you have items of theirs in your cart. <a href="#show-sellers-in-cart" class="scroll-target">Click here to read more about it.</a></span></p>
           </div>
-          <!-- <div class="news-item">
+          <div class="news-item">
             <p><span class="update">Updates in this version:</span></p>
             <ul>
-              <li>Fixed an issue when searching DeeJay with Contextual Menu Searching</li>
+              <li>"Discogs" will now be the first item on the list when using Contextual Menu Searching.</li>
+              <li>Fixed an issue with horizontal scrollbars on Windows.</li>
+              <li>Fixed an issue with the currency converter's no results display.</li>
+              <li>Thank you to JumpOutlet and Matthew S. for the donations!</li>
             </ul>
-          </div> -->
+          </div>
         </div>
         <!-- help -->
         <div class="help hide tab-content">
@@ -67,19 +70,8 @@
               <h3></h3>
               <a class="coffee" href="https://www.buymeacoffee.com/salcido"><img src="../img/learn/coffee.png"/>Buy me a coffee</a>
             </div>
-            <!-- <hr> -->
-            <!-- <div class="donate">
-              <h3>PayPal:</h3>
-            </div>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal">
-              <input type="hidden" name="cmd" value="_s-xclick">
-              <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYCbwuKAmoWCn9oo4MtTDv5Bpgjs8MCbyWtg/DnV0ldVF80Hq67/hLNSBRsmJg4hc5fOLmLiHrK4cSVbsuh9JgUZVYI59RewlWm2wc27KXD6cVI/jovh/1yiOaHc/BfOKla07ySfkiFvYlEqEIitcrq4G8f6VISv611pvFUyXAJFSDELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIXElJ7OjnSGeAgZBZOt1olmUE9PVyi/T3SxJu6Ccv54bv9Au8V9l7it1k5CXxP6S2+CaDAs+rwaEJFjUJGjLoo2QU7862b4nSGwTx0MsaMn3aVLABazFP5L3tkwEbCnm9jDabl37zlJIlMgRjRoAlFN4nvUYLffiwc6nBnz7xl0QvUkp+oLbcQzKNGfMqq6XZ0xuCBT/hLL/MF5OgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xNjA2MDQwMDQxMTZaMCMGCSqGSIb3DQEJBDEWBBRGf8qXWLnmDhmKeS5sywAvRiKPpjANBgkqhkiG9w0BAQEFAASBgJ7qQ8tzTpDvvY54njDikm1rDFSDRzEhvA5n0YlWNv/Ja+jv2a7dqQRfdRArmopXWZggBtaYOem7/I3/vIzwAxys85BdbsYdcP/bHWDAXeep9AYyWTZ+qlgOjqwlYMZ1mmGNw6Qie3f82QvFV8klnPBHrHZAa43YcS/gYwrwT+aq-----END PKCS7-----
-              ">
-              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-              <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-            </form>
-            <hr> -->
-            <!-- <div class="donate">
+            <!-- <hr>
+            <div class="donate">
               <h3>Ethereum</h3>
               <div class="eth">(or any ERC20 token)</div>
               <pre class="eth-address">0x136EA4cbc6e2e98924b9cAc02738b7112673Cd47</pre>
@@ -483,12 +475,14 @@
       <img src="../img/learn/average-price.jpg" class="max-width" />
     </div>
 
-    <!-- Show Seller Items In Cart -->
+    <!-- Show Sellers In Cart -->
     <div class="feature-block">
-      <div class="seller-items-in-cart">
-        <h2 id="seller-items-in-cart">Show Seller Items In Cart</h2>
+      <div class="show-sellers-in-cart">
+        <h2 id="show-sellers-in-cart">Show Sellers In Cart</h2>
 
         <p>Adds a shopping cart icon next to any seller's name in the Marketplace when you have items of theirs in your cart.</p>
+
+        <p>Why would you want to use this? Well, if you're like me, you put a lot of items in your cart as you browse and leave them there for days/weeks on end. If that's the case, when you use this feature you'll be able to immediately know if you already have an item from this seller in your cart which can help you save on shipping costs.</p>
 
         <img src="../img/learn/show-seller-items-in-cart.jpg" class="max-width" />
       </div>
@@ -627,7 +621,7 @@
       <p>You can also try <b>turning the feature off and on again</b>, then refreshing your page.</p>
 
       <p>If that does not fix your issue, make sure <a href="https://support.google.com/chrome/answer/95414">Chrome is up to date</a>.</p>
-      <p>You can also try uninstalling Discogs Enhancer and reinstalling it from the Chrome store again. If you tried all these things and it's still not working please email me at: discogs.enhancer@gmail.com and let me know. You have likely found a bug!</p>
+      <p>You can also try uninstalling Discogs Enhancer and reinstalling it from the Chrome store again. If you tried all these things and it's still not working please email me at: <b>discogs.enhancer@gmail.com</b> and let me know. You have likely found a bug!</p>
 
       <p><em>Note:</em> When submitting a bug please let me know which features you have disabled so I can better reproduce the issue. Thank you!</p>
     </div>
@@ -642,9 +636,11 @@
         <li>Hristo. H. <span class="near-mint">&#9733;</span> <span class="near-mint">&#9733;</span></li>
         <li>Jacob V. <span class="near-mint">&#9733;</span></li>
         <li>Jason B. <span class="near-mint">&#9733;</span></li>
+        <li>JumpOutlet <span class="near-mint">&#9733;</span></li>
         <li>Lucas F.</li>
         <li>Mark A.</li>
         <li>Matt T. <span class="near-mint">&#9733;</span></li>
+        <li>Matthew S. <span class="near-mint">&#9733;</span></li>
         <li>Matti K. <span class="near-mint">&#9733;</span></li>
         <li>Mica <span class="near-mint">&#9733;</span></li>
         <li>Mike B. <span class="near-mint">&#9733;</span></li>
