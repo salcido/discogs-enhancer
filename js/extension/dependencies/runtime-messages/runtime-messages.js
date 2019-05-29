@@ -136,5 +136,18 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       sendResponse({inventoryRatings: inventoryRatings});
       break;
     }
+
+    // Tweak Discriminators
+    case 'getDiscriminators': {
+
+      let discrims = localStorage.getItem('discriminators') || null;
+
+      if (discrims) {
+        discrims = JSON.parse(discrims);
+      }
+
+      sendResponse({discrims: discrims});
+      break;
+    }
   }
 });

@@ -23,6 +23,7 @@ import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
 import * as suggestedPrices from './features/suggested-prices.js';
+import * as tweakDiscrims from './features/tweak-discriminators.js';
 import * as ytPlaylists from './features/youtube-playlists.js';
 import { acknowledgeUpdate,
          optionsToggle,
@@ -237,6 +238,10 @@ window.addEventListener('load', () => {
   // Seller Reputation
   // ========================================================
   sellerRep.init();
+
+  // Tweak Discriminators
+  // ========================================================
+  tweakDiscrims.init();
 
   // ========================================================
   // Event listeners for toggles

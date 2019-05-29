@@ -87,17 +87,7 @@ export function applySave(message, event) {
 
   chrome.storage.sync.set({prefs: prefs}, function() {
 
-    if ( message ) {
-
-      let notifications = document.getElementsByClassName('notifications')[0];
-
-      message = ( message === 'refresh' ) ? 'Please refresh the page for changes to take effect.' : message;
-
-      document.getElementById('notify').textContent = message;
-
-      notifications.classList.add('show');
-      setTimeout(() => { fadeOut(notifications); }, 1500);
-    }
+    notify(message);
   });
   // Google Analyitcs
   if ( ga ) {
@@ -108,6 +98,28 @@ export function applySave(message, event) {
 
       ga('send', 'event', event.target.id, checked);
     }
+  }
+}
+
+// ========================================================
+// checkForUpdate
+// ========================================================
+/**
+ * Displays a message to the user
+ * @param {String} message - The message to display to the user
+ */
+export function notify(message) {
+
+  if ( message ) {
+
+    let notifications = document.getElementsByClassName('notifications')[0];
+
+    message = ( message === 'refresh' ) ? 'Please refresh the page for changes to take effect.' : message;
+
+    document.getElementById('notify').textContent = message;
+
+    notifications.classList.add('show');
+    setTimeout(() => { fadeOut(notifications); }, 1500);
   }
 }
 

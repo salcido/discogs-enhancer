@@ -1273,6 +1273,16 @@ try {
 
     localStorage.setItem('sellerRep', sellerRep);
   });
+
+  // Tweak Discriminators
+  chrome.runtime.sendMessage({request: 'getDiscriminators'}, response => {
+
+    let discrims = response.discrims;
+
+    discrims = JSON.stringify(discrims);
+
+    localStorage.setItem('discriminators', discrims);
+  });
 } catch (err) {
 
   // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...
