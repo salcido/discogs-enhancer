@@ -43,11 +43,7 @@ resourceLibrary.ready(() => {
         opacity: ${transparent};
         user-select: ${unselectable};
       }
-      /*
-      a:hover > .de-discriminator {
-        text-underline-position: under;
-      }
-      */
+
       .de-artist-discriminator {
         font-size: ${superscript};
         margin-left: ${margin};
@@ -74,7 +70,7 @@ resourceLibrary.ready(() => {
   if ( prefs ) {
     prefs = JSON.parse(prefs);
   } else {
-    prefs = {  hide: false, superscript: true, unselectable: true, transparent: true };
+    prefs = {  hide: false, superscript: true, unselectable: true, transparent: false };
   }
 
   hide = prefs.hide;
