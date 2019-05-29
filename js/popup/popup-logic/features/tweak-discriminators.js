@@ -17,7 +17,7 @@ const DEFAULTS = {
   hide: false,
   superscript: true,
   unselectable: true,
-  transparent: true
+  transparent: false,
 };
 
 /**
@@ -28,6 +28,7 @@ const DEFAULTS = {
 function getSettings(lsObject) {
   let obj = localStorage.getItem(lsObject) || null;
   if (obj) return JSON.parse(obj);
+  localStorage.setItem(LS_KEY, JSON.stringify(DEFAULTS));
   return DEFAULTS;
 }
 
