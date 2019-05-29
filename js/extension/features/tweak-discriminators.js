@@ -9,7 +9,7 @@
  */
 
 resourceLibrary.ready(() => {
-// TODO: fix discriminator display when not rendered as superscript
+
   // ========================================================
   // Functions
   // ========================================================

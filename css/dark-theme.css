@@ -100,6 +100,7 @@ a .tracklist_track_title,
 .FacetGroup a span,
 #track-release a span,
 a > sup.de-discriminator,
+a > span.de-discriminator,
 a > .trim-me,
 .release-info a span {
   color: #829FC4 !important;
@@ -126,6 +127,7 @@ a:visited .tracklist_track_title,
 .FacetGroup a:visited span,
 #track-release a:visited span,
 a:visited > sup.de-discriminator,
+a:visited > span.de-discriminator,
 a:visited > .trim-me,
 .release-info a:visited span {
   color: #A590D0 !important; /* OG: #7d65ae*/
@@ -146,6 +148,7 @@ a:hover .tracklist_track_title,
 .FacetGroup a:hover span,
 #track-release a:hover span,
 a:hover > sup.de-discriminator,
+a:hover > span.de-discriminator,
 a:hover > .trim-me,
 .release-info a:hover span {
   color: #CAE0FA !important;
