@@ -50,10 +50,8 @@ function setSettings(lsObject, key, value) {
  * @returns {undefined}
  */
 function setCheckboxValues() {
-
   let settings = getSettings(LS_KEY),
       status = document.querySelector('.toggle-group.discrims .status');
-
   // Submenu checkboxes
   for (let prop in settings) {
     document.getElementById(`${prop}-discrims`).checked = settings[prop];
@@ -88,12 +86,10 @@ function disableBoxes() {
  * @returns {undefined}
  */
 export function init() {
-
   // Expand and show the submenu
   document.querySelector('.toggle-group.discrims').addEventListener('click', function() {
     optionsToggle('#discrims', this, '.discrims', 140);
   });
-
   // Save the preferences
   for (let prop in getSettings(LS_KEY)) {
     document.getElementById(`${prop}-discrims`).addEventListener('change', function() {
@@ -101,7 +97,6 @@ export function init() {
       notify('refresh');
     });
   }
-
   // Set "enabled/disabled" status
   document.getElementById('toggleTweakDiscrims').addEventListener('change', function() {
     let self = document.querySelector('.toggle-group.discrims .status'),
@@ -109,10 +104,8 @@ export function init() {
         state = checked ? 'Enabled' : 'Disabled';
     setEnabledStatus(self, state);
   });
-
   // Disable checkboxes
   document.getElementById('hide-discrims').addEventListener('change', disableBoxes);
-
   // Set checkboxes by preference
   setCheckboxValues();
 }

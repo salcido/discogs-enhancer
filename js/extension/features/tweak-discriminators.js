@@ -70,7 +70,7 @@ resourceLibrary.ready(() => {
   if ( prefs ) {
     prefs = JSON.parse(prefs);
   } else {
-    prefs = {  hide: false, superscript: true, unselectable: true, transparent: false };
+    prefs = { hide: false, superscript: true, unselectable: true, transparent: false };
   }
 
   hide = prefs.hide;
