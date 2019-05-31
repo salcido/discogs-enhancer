@@ -2312,6 +2312,7 @@ img[src*="chart.apis.google.com"].push_down {
 }
 
 /* admin link in forums */
-a.text_label {
+h1 a:visited.text_label,
+a:visited.text_label {
   background-color: #98158B !important;
 }
