@@ -2310,3 +2310,8 @@ table.release-table thead tr th a span {
 img[src*="chart.apis.google.com"].push_down {
   filter: hue-rotate(180deg) invert(.8) saturate(8);
 }
+
+/* admin link in forums */
+a.text_label {
+  background-color: #98158B !important;
+}
