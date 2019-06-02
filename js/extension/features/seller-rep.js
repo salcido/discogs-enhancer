@@ -23,11 +23,11 @@ resourceLibrary.ready(() => {
 
   let threshold = localStorage.getItem('sellerRep');
 
-  // ========================================================
-  // DOM manipulation
-  // ========================================================
-
   if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
+
+    // ========================================================
+    // Functions
+    // ========================================================
 
     /**
      * Finds all the seller's reputation scores in the DOM and
@@ -36,7 +36,6 @@ resourceLibrary.ready(() => {
      * @method sellersRep
      * @return {undefined}
      */
-
     window.sellersRep = function sellersRep() {
 
       let ratingVals = [...document.getElementsByClassName('seller_info')],
@@ -67,12 +66,13 @@ resourceLibrary.ready(() => {
       });
     };
 
+    // ========================================================
+    // DOM manipulation
+    // ========================================================
     window.sellersRep();
 
-    // ========================================================
     // UI Functionality
-    // ========================================================
-
+    // ------------------------------------------------------
     let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
 
     pagination.forEach(elem => {
