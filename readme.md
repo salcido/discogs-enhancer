@@ -27,6 +27,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Quick currency conversion
 * Dark Theme (WCAG 2.0 AA compliant)
 * Scan Artist/Label releases for comments
+* Tweak Artist/Label Discriminators
 * Everlasting Collection
 * Everlasting Marketplace
 * Buyer/Seller feedback notifications
@@ -37,6 +38,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Filter Marketplace items by sleeve condition
 * Filter Marketplace items by shipping country
 * Open release links on the Collection page in new tabs
+* Open items in Lists in new tabs
 * Hide Min, Median, Max columns on the Collection page
 * Marketplace Media/Sleeve condition highlights
 * See the number of ratings/votes a release received in the Marketplace
