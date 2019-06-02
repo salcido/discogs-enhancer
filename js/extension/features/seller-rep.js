@@ -21,19 +21,13 @@
 
 resourceLibrary.ready(() => {
 
-  let
-      href = window.location.href,
-      threshold = localStorage.getItem('sellerRep'),
-      //
-      sellPage = href.includes('/sell/list') && threshold,
-      sellRelease = href.includes('/sell/release') && threshold,
-      wantsPage = href.includes('/sell/mywants') && threshold;
+  let threshold = localStorage.getItem('sellerRep');
 
   // ========================================================
   // DOM manipulation
   // ========================================================
 
-  if ( wantsPage || sellPage || sellRelease ) {
+  if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
     /**
      * Finds all the seller's reputation scores in the DOM and
