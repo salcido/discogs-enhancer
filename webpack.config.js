@@ -41,6 +41,7 @@ module.exports = {
     [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
+    [features + 'list-items-in-tabs']: `${features}list-items-in-tabs.js`,
     [features + 'notes-counter']: `${features}notes-counter.js`,
     [features + 'random-item']: `${features}random-item.js`,
     [features + 'rating-percent']: `${features}rating-percent.js`,

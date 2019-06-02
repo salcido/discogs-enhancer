@@ -99,6 +99,7 @@ window.addEventListener('load', () => {
       toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
+      toggleListsInTabs = document.getElementById('toggleListsInTabs'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
@@ -264,6 +265,7 @@ window.addEventListener('load', () => {
   toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
+  toggleListsInTabs.addEventListener('change', triggerSave);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.showPrices);
@@ -338,6 +340,7 @@ window.addEventListener('load', () => {
       toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleInventoryRatings.checked = result.prefs.inventoryRatings;
+      toggleListsInTabs.checked = result.prefs.listsInTabs;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
       togglePrices.checked = result.prefs.suggestedPrices;

@@ -48,6 +48,7 @@ export function applySave(message, event) {
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         inventoryRatings: document.getElementById('toggleInventoryRatings').checked,
+        listsInTabs: document.getElementById('toggleListsInTabs').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         randomItem: document.getElementById('toggleRandomItem').checked,
         ratingPercent: document.getElementById('toggleRatingPercent').checked,

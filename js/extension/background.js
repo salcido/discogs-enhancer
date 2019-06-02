@@ -105,6 +105,7 @@ appendFragment([resourceLibrary]).then(() => {
         hideMinMaxColumns: false,
         highlightMedia: true,
         inventoryRatings: false,
+        listsInTabs: false,
         notesCount: true,
         randomItem: false,
         ratingPercent: false,
@@ -581,6 +582,17 @@ appendFragment([resourceLibrary]).then(() => {
         inventoryRatings.className = 'de-init';
 
         elems.push(inventoryRatings);
+      }
+
+      if ( result.prefs.listsInTabs ) {
+        // list-items-in-tabs.js
+        let listsInTabs = document.createElement('script');
+
+        listsInTabs.type = 'text/javascript';
+        listsInTabs.src = chrome.extension.getURL('js/extension/features/list-items-in-tabs.js');
+        listsInTabs.className = 'de-init';
+
+        elems.push(listsInTabs);
       }
 
       if (result.prefs.randomItem) {
