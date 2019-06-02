@@ -721,6 +721,8 @@
 
     /**
      * Key/value pairs for quickly IDing pages in Discogs.
+     * Used in conjunction with `pageIs` and `pageIsNot`
+     * methods above.
      * #WIP
      */
     pageKeys: {
