@@ -47,12 +47,8 @@ resourceLibrary.ready(() => {
   // ========================================================
   // Init / DOM setup
   // ========================================================
-
-  if ( href.includes('/release/')
-       && !href.includes('/edit/')
-       && !href.includes('/history')
-       && !href.includes('/master/')
-       && !href.includes('/sell/')) {
+  if ( resourceLibrary.pageIs('release')
+       && resourceLibrary.pageIsNot('edit', 'history', 'master', 'sell') ) {
 
     let stats = document.querySelector('.statistics ul.last li:nth-child(2)');
 
