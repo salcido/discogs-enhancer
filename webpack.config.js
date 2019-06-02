@@ -42,6 +42,7 @@ module.exports = {
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
     [features + 'notes-counter']: `${features}notes-counter.js`,
+    [features + 'quick-search']: `${features}quick-search.js`,
     [features + 'random-item']: `${features}random-item.js`,
     [features + 'rating-percent']: `${features}rating-percent.js`,
     [features + 'release-durations']: `${features}release-durations.js`,

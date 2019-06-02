@@ -2316,3 +2316,8 @@ h1 a:visited.text_label,
 a:visited.text_label {
   background-color: #98158B !important;
 }
+
+/* quick search icon color */
+.de-external {
+  color: #829FC4 !important;
+}

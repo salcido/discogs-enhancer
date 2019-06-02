@@ -101,6 +101,7 @@ window.addEventListener('load', () => {
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
+      toggleQuickSearch = document.getElementById('toggleQuickSearch'),
       togglePrices = document.getElementById('togglePrices'),
       toggleRandomItem = document.getElementById('toggleRandomItem'),
       toggleRatingPercent = document.getElementById('toggleRatingPercent'),
@@ -266,6 +267,7 @@ window.addEventListener('load', () => {
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
+  toggleQuickSearch.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.showPrices);
   toggleRandomItem.addEventListener('change', triggerSave);
   toggleRatingPercent.addEventListener('change', triggerSave);
@@ -340,6 +342,7 @@ window.addEventListener('load', () => {
       toggleInventoryRatings.checked = result.prefs.inventoryRatings;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
+      toggleQuickSearch.checked = result.prefs.quickSearch;
       togglePrices.checked = result.prefs.suggestedPrices;
       toggleRandomItem.checked = result.prefs.randomItem;
       toggleRatingPercent.checked = result.prefs.ratingPercent;

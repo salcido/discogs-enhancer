@@ -106,6 +106,7 @@ appendFragment([resourceLibrary]).then(() => {
         highlightMedia: true,
         inventoryRatings: false,
         notesCount: true,
+        quickSearch: false,
         randomItem: false,
         ratingPercent: false,
         readability: false,
@@ -569,6 +570,18 @@ appendFragment([resourceLibrary]).then(() => {
         notesCount.className = 'de-init';
 
         elems.push(notesCount);
+      }
+
+      if ( result.prefs.quickSearch ) {
+
+        // quick-search.js
+        let quickSearch = document.createElement('script');
+
+        quickSearch.type = 'text/javascript';
+        quickSearch.src = chrome.extension.getURL('js/extension/features/quick-search.js');
+        quickSearch.className = 'de-init';
+
+        elems.push(quickSearch);
       }
 
       if (result.prefs.inventoryRatings) {

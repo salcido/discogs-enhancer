@@ -899,18 +899,6 @@
       });
     },
 
-    setScanner: function() {
-
-      let obj = {
-        wants: true,
-        int: 300
-      };
-
-      obj = JSON.stringify(obj);
-
-      return localStorage.setItem('scan', obj);
-    },
-
     /**
      * Sets text for sort buttons
      *
@@ -951,6 +939,22 @@
       value = JSON.stringify(value);
 
       return localStorage.setItem(name, value);
+    },
+
+    setQuickSearch: function(searchTerm) {
+      localStorage.setItem('quicksearch', searchTerm);
+    },
+
+    setScanner: function() {
+
+      let obj = {
+        wants: true,
+        int: 300
+      };
+
+      obj = JSON.stringify(obj);
+
+      return localStorage.setItem('scan', obj);
     },
 
     /**

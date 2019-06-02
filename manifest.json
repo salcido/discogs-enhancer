@@ -86,6 +86,7 @@
     "js/extension/features/highlight-comments.js",
     "js/extension/features/inventory-ratings.js",
     "js/extension/features/notes-counter.js",
+    "js/extension/features/quick-search.js",
     "js/extension/features/random-item.js",
     "js/extension/features/rating-percent.js",
     "js/extension/features/release-durations.js",
