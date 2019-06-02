@@ -58,8 +58,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let href = window.location.href,
-      prefs = localStorage.getItem('discriminators') || null,
+  let prefs = localStorage.getItem('discriminators') || null,
       re = /(.+\s)(\(\d+\))$/gm,
       hide,
       superscript,
@@ -81,10 +80,7 @@ resourceLibrary.ready(() => {
 
   // Releases
   // ------------------------------------------------------
-  if ( href.includes('/sell/item/')
-       || href.includes('/release/')
-       || href.includes('/buy/')
-       || href.includes('/master/') ) {
+  if ( resourceLibrary.pageIs('sellItem', 'release', 'master', 'buy') ) {
 
     injectCss(hide, superscript, unselectable, transparent);
 
@@ -102,7 +98,7 @@ resourceLibrary.ready(() => {
 
   // Artists / Labels
   // ------------------------------------------------------
-  if ( href.includes('/artist/') || href.includes('/label/') ) {
+  if ( resourceLibrary.pageIs('artist', 'label') ) {
 
     injectCss(hide, superscript, unselectable, transparent);
 
