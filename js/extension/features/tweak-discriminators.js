@@ -58,13 +58,13 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let prefs = localStorage.getItem('discriminators') || null,
-      re = /(.+\s)(\(\d+\))$/gm,
+  let elemType,
       hide,
+      prefs = localStorage.getItem('discriminators') || null,
+      re = /(.+\s)(\(\d+\))$/gm,
       superscript,
-      unselectable,
       transparent,
-      elemType;
+      unselectable;
 
   if ( prefs ) {
     prefs = JSON.parse(prefs);
