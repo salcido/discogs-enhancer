@@ -698,6 +698,48 @@
     },
 
     /**
+     * Checks the page URL and returns `true` if anything in `pages`
+     * IS found in the URL string
+     * @param  {String} pages - Thte type of page to check for
+     * @returns {Boolean}
+     */
+    pageIs: function(...pages) {
+      let href = window.location.href;
+      return pages.some(page => href.includes(this.pageKeys[page]));
+    },
+
+    /**
+     * Checks the page URL and returns `true` if anything in `pages`
+     * IS NOT found in the URL string
+     * @param  {String} pages - Thte type of page to check for
+     * @returns {Boolean}
+     */
+    pageIsNot: function(...pages) {
+      let href = window.location.href;
+      return pages.every(page => !href.includes(this.pageKeys[page]));
+    },
+
+    /**
+     * Key/value pairs for quickly IDing pages in Discogs.
+     * #WIP
+     */
+    pageKeys: {
+      'allItems': '/sell/list',
+      'collection': '/collection',
+      'edit': '/edit/',
+      'history': '/history',
+      'lists': '/lists/',
+      'master': '/master/',
+      'myWants': '/sell/mywants',
+      'orderPage': '/sell/order/',
+      'release': '/release/',
+      'sell': '/sell/',
+      'seller': '/seller',
+      'sellMaster': '/sell/list',
+      'sellRelease': '/sell/release',
+    },
+
+    /**
      * Returns the total number of results from the Marketplace
      *
      * @method paginationTotal
