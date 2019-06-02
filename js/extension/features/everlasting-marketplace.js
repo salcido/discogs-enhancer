@@ -178,7 +178,8 @@ resourceLibrary.ready(() => {
             tbody = '#pjax_container tbody';
 
         div.innerHTML = data;
-
+        // Open in new tabs
+        div.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
         markup = div.querySelector(tbody) ? div.querySelector(tbody).innerHTML : null;
 
         if ( markup ) {
@@ -346,6 +347,8 @@ resourceLibrary.ready(() => {
     // Hide standard means of page navigation
     document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
     document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
+    // Open in new tabs
+    document.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
 
     addPauseListener();
     addResumeListener();
