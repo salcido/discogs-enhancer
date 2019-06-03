@@ -23,16 +23,9 @@
 
 resourceLibrary.ready(() => {
 
-    let
-        href = window.location.href,
-        currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
+    let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
         mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
-        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
-        sellPage = href.match(/sell\/list/g),
-        sellerPage = href.match(/seller\//g),
-        sellRelease = href.match(/sell\/release/g),
-        wantsPage = href.match(/sell\/mywants/g);
-
+        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
 
     /**
      * Find all instances of selected items in list and hide them
@@ -126,7 +119,7 @@ resourceLibrary.ready(() => {
     // DOM manipulation
     // ========================================================
 
-    if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+    if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
       let style = document.createElement('style');
 
