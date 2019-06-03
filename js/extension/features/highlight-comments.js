@@ -18,11 +18,10 @@
 
 resourceLibrary.ready(() => {
 
-  let highlightComments = resourceLibrary.options.highlightComments(),
-      href = window.location.href;
+  let highlightComments = resourceLibrary.options.highlightComments();
 
   // Check if we are on the dashboard
-  if ( highlightComments && href.includes('/my') ) {
+  if ( highlightComments && resourceLibrary.pageIs('dashboard') ) {
 
     // wait for the modules to load
     let int = setInterval(() => {
