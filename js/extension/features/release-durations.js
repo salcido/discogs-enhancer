@@ -21,10 +21,9 @@
 
 resourceLibrary.ready(() => {
 
-  let hasPlaylist = document.querySelector('table.playlist'),
-      releaseHistoryPage = document.location.href.includes('/history');
+  let hasPlaylist = document.querySelector('table.playlist');
 
-  if ( hasPlaylist && !releaseHistoryPage ) {
+  if ( hasPlaylist && resourceLibrary.pageIsNot('history') ) {
 
     let
         arr = [],
