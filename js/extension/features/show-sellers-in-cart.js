@@ -118,11 +118,10 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let href = window.location.href,
-      sellerNames = localStorage.getItem('sellerNames') || null;
+  let sellerNames = localStorage.getItem('sellerNames') || null;
 
   // Grab seller names when on the cart page
-  if ( href.includes('/sell/cart/') ) {
+  if ( resourceLibrary.pageIs('cart') ) {
     // Capture remaining sellers after clicking purchase button
     document.querySelectorAll('.order_summary .order_button').forEach(b => {
       b.addEventListener('click', () => {
@@ -133,14 +132,12 @@ resourceLibrary.ready(() => {
   }
 
   // Or if `sellerNames` does not exist
-  if ( !href.includes('/sell/cart') && !sellerNames ) {
+  if ( !sellerNames && resourceLibrary.pageIsNot('cart') ) {
     fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 
   // Marketplace wantlists, all items, release pages
-  if ( href.includes('/sell/mywants')
-       || href.includes('/sell/list')
-       || href.includes('/sell/release/') ) {
+  if ( resourceLibrary.pageIs('myWants', 'allItems', 'sellRelease') ) {
 
     let sellerNames = localStorage.getItem('sellerNames') || null;
     if (sellerNames) sellerNames = JSON.parse(sellerNames);
