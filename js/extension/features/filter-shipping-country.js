@@ -19,10 +19,7 @@ resourceLibrary.ready(() => {
       countryList = JSON.parse(localStorage.getItem('countryList')),
       href = window.location.href,
       currencyInURL = href.includes('currency='),
-      currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
-      sellPage = href.includes('/sell/list'), // master releases && all items in marketplace
-      sellRelease = href.includes('/sell/release/'),
-      wantsPage = href.includes('/sell/mywants');
+      currentFilterState = JSON.parse(localStorage.getItem('currentFilterState'));
 
   // ========================================================
   // Functions
@@ -96,7 +93,7 @@ resourceLibrary.ready(() => {
     // Convert to lowercase for comparisons
     countryList.list = countryList.list.map(i => i.toLowerCase());
 
-    if ( sellPage || sellRelease || wantsPage ) {
+    if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
       let style = document.createElement('style');
 
