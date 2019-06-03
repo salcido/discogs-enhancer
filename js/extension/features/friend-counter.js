@@ -18,10 +18,9 @@
 
 resourceLibrary.ready(() => {
 
-  let count = document.querySelectorAll('.linked_username').length,
-      friendPage = window.location.href.includes('/users/friends');
+  let count = document.querySelectorAll('.linked_username').length;
 
-  if ( friendPage && count ) {
+  if ( resourceLibrary.pageIs('friends') && count ) {
 
     document.querySelector('#page_content h1').textContent += ` (${count})`;
   }
