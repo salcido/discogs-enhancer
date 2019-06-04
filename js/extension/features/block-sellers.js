@@ -22,18 +22,9 @@
 
 resourceLibrary.ready(() => {
 
-  let
-      blockList = JSON.parse(localStorage.getItem('blockList')),
-      href = window.location.href,
-      sellPage = href.includes('/sell/list'), // master releases && all items in marketplace
-      sellerPage = href.includes('/seller/'),
-      sellRelease = href.includes('/sell/release/'),
-      wantsPage = href.includes('/sell/mywants');
-
   // ========================================================
   // Functions
   // ========================================================
-
   /**
    * Adds event listners to the prev and next buttons
    *
@@ -89,10 +80,10 @@ resourceLibrary.ready(() => {
     return addUiListeners(type);
   };
 
-
   // ========================================================
   // DOM manipulation
   // ========================================================
+  let blockList = JSON.parse(localStorage.getItem('blockList'));
 
   if ( blockList ) {
 
@@ -102,7 +93,7 @@ resourceLibrary.ready(() => {
       // ---------------------------------------------------------------------------
       case 'global':
 
-        if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+        if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
           window.blockSellers('hide');
         }
@@ -112,11 +103,11 @@ resourceLibrary.ready(() => {
       // ---------------------------------------------------------------------------
       case 'marketplace':
 
-        if ( wantsPage ) {
+        if ( resourceLibrary.pageIs('myWants') ) {
 
           window.blockSellers('hide');
 
-        } else if ( sellRelease || sellPage || sellerPage ) {
+        } else if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease') ) {
 
           window.blockSellers('tag');
         }
@@ -126,7 +117,7 @@ resourceLibrary.ready(() => {
       // ---------------------------------------------------------------------------
       case 'tag':
 
-        if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+        if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
           window.blockSellers('tag');
         }
