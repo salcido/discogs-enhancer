@@ -118,7 +118,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let sellerNames = localStorage.getItem('sellerNames') || null;
+  let sellerNames = resourceLibrary.getItem('sellerNames');
 
   // Grab seller names when on the cart page
   if ( resourceLibrary.pageIs('cart') ) {
@@ -138,9 +138,7 @@ resourceLibrary.ready(() => {
 
   // Marketplace wantlists, all items, release pages
   if ( resourceLibrary.pageIs('myWants', 'allItems', 'sellRelease') ) {
-
-    let sellerNames = localStorage.getItem('sellerNames') || null;
-    if (sellerNames) sellerNames = JSON.parse(sellerNames);
+    let sellerNames = resourceLibrary.getItem('sellerNames');
     injectCss();
     // Iterate over seller names
     if ( sellerNames && sellerNames.length ) window.sellerItemsInCart(sellerNames);
