@@ -18,14 +18,7 @@
  */
 
 resourceLibrary.ready(() => {
-
-  let loc = window.location.href,
-      allItems = loc.includes('/sell/list'),
-      seller = loc.includes('/seller/'),
-      wantlist = loc.includes('/sell/mywants');
-
-
-  if ( wantlist || allItems || seller ) {
+  if ( resourceLibrary.pageIs('allItems', 'seller', 'myWants') ) {
 
     let
         colorizePrices = resourceLibrary.options.colorize(),
