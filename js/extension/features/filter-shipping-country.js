@@ -15,11 +15,10 @@
 
 resourceLibrary.ready(() => {
 
-  let
-      countryList = JSON.parse(localStorage.getItem('countryList')),
+  let countryList = resourceLibrary.getItem('countryList'),
       href = window.location.href,
       currencyInURL = href.includes('currency='),
-      currentFilterState = JSON.parse(localStorage.getItem('currentFilterState'));
+      currentFilterState = resourceLibrary.getItem('currentFilterState');
 
   // ========================================================
   // Functions
