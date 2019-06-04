@@ -12,9 +12,9 @@
 
 resourceLibrary.ready(() => {
 
-  let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
-      sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
-      countryList = JSON.parse(localStorage.getItem('countryList')) || null;
+  let currentFilterState = resourceLibrary.getItem('currentFilterState'),
+      sleeveCondition = resourceLibrary.getItem('sleeveCondition'),
+      countryList = resourceLibrary.getItem('countryList');
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
