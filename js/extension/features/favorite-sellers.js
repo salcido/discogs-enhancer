@@ -77,10 +77,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let favoriteList = localStorage.getItem('favoriteList') || null;
+  let favoriteList = resourceLibrary.getItem('favoriteList');
 
-  if ( favoriteList ) {
-    favoriteList = JSON.parse(favoriteList);
+  if ( favoriteList && favoriteList.list ) {
     if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
       window.favoriteSellers();
     }
