@@ -12,9 +12,8 @@ resourceLibrary.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let lsad = localStorage.getItem('absoluteDate'),
-        absoluteDate = lsad ? JSON.parse(localStorage.getItem('absoluteDate')) : true,
-        usDateFormat = JSON.parse(localStorage.getItem('usDateFormat')) || false,
+    let absoluteDate = resourceLibrary.getItem('absoluteDate') || true,
+        usDateFormat = resourceLibrary.getItem('usDateFormat') || false,
         copies = document.querySelectorAll('.cw_block_timestamp'),
         language = resourceLibrary.language(),
         monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
