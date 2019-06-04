@@ -58,19 +58,14 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let elemType,
+  let defaults = { hide: false, superscript: true, unselectable: true, transparent: false },
+      elemType,
       hide,
-      prefs = localStorage.getItem('discriminators') || null,
+      prefs = resourceLibrary.getItem('discriminators') || defaults,
       re = /(.+\s)(\(\d+\))$/gm,
       superscript,
       transparent,
       unselectable;
-
-  if ( prefs ) {
-    prefs = JSON.parse(prefs);
-  } else {
-    prefs = { hide: false, superscript: true, unselectable: true, transparent: false };
-  }
 
   hide = prefs.hide;
   superscript = prefs.superscript;
