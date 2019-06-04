@@ -63,8 +63,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let minimumRating = localStorage.getItem('inventoryRatings') || null;
-  if ( minimumRating ) minimumRating = JSON.parse(minimumRating);
+  let minimumRating = resourceLibrary.getItem('inventoryRatings');
 
   if ( resourceLibrary.pageIs('seller') ) {
     injectCss();
