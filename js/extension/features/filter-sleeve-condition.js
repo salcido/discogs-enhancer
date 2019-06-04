@@ -23,9 +23,9 @@
 
 resourceLibrary.ready(() => {
 
-    let currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
-        mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
-        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
+    let currentFilterState = resourceLibrary.getItem('currentFilterState'),
+        mediaCondition = resourceLibrary.getItem('mediaCondition'),
+        sleeveCondition = resourceLibrary.getItem('sleeveCondition');
 
     /**
      * Find all instances of selected items in list and hide them
