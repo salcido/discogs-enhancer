@@ -10,31 +10,10 @@
 
 resourceLibrary.ready(() => {
 
-  let href = window.location.href;
-
-  if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
-
-    let hasLoaded = false,
-        pTotal,
-        pageHist = [1],
-        pageNum = 2,
-        pagination,
-        paused = false,
-        pjax = document.querySelector('#pjax_container'),
-        mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
-        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
-
-    let pauseBtn = `<a class="de-pause button">
-                     <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
-                    </a>`,
-        playBtn = `<a class="de-resume button button-blue">
-                     <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
-                   </a>`;
-
+  if ( resourceLibrary.pageIs('myWants', 'allItems') ) {
     // ========================================================
     // Functions (Alphabetical)
     // ========================================================
-
     /**
      * Adds/removes the event listeners for `.de-pause` elements
      * @returns {undefined}
@@ -164,7 +143,8 @@ resourceLibrary.ready(() => {
      */
     async function getNextPage() {
 
-      let type = href.includes('/sell/mywants') ? 'mywants' : 'list',
+      let href = window.location.href,
+          type = resourceLibrary.pageIs('myWants') ? 'mywants' : 'list',
           url = `/sell/${type}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
 
       try {
@@ -326,6 +306,22 @@ resourceLibrary.ready(() => {
     // ========================================================
     // DOM Setup
     // ========================================================
+    let hasLoaded = false,
+        pTotal,
+        pageHist = [1],
+        pageNum = 2,
+        pagination,
+        paused = false,
+        pjax = document.querySelector('#pjax_container'),
+        mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
+        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
+
+    let pauseBtn = `<a class="de-pause button">
+                     <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
+                    </a>`,
+        playBtn = `<a class="de-resume button button-blue">
+                     <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
+                   </a>`;
 
     pagination = document.querySelector('.pagination_total').textContent;
     // This will grab the total number of results returned by discogs

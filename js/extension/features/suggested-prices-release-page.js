@@ -17,13 +17,9 @@
  *
  */
 resourceLibrary.ready(() => {
+  if ( resourceLibrary.pageIs('sellRelease') ) {
 
-  let href = window.location.href;
-
-  if ( href.includes('/sell/release/') ) {
-
-    let
-        extract,
+    let extract,
         items,
         nodeId,
         priceContainer = [],
@@ -235,16 +231,14 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     // Fire init() on prev/next page transitions
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
 
     pagination.forEach(elem => {
-
       elem.addEventListener('click', () => {
-
         resourceLibrary.xhrSuccess(() => {
           // Only append prices once
           if ( !document.getElementsByClassName('.de-price').length ) {
-
             window.releasePricesInit();
           }
         });
@@ -260,12 +254,11 @@ resourceLibrary.ready(() => {
 
     // Insert preloader animation
     document.querySelectorAll('td.item_price').forEach(price => {
-
       price.insertAdjacentHTML('beforeend', resourceLibrary.css.pricePreloader);
     });
 
     // Grab the releaseId from the URL
-    extract = href.match(/([\d]+)/g);
+    extract = window.location.href.match(/([\d]+)/g);
     releaseId = extract[0];
 
     window.releasePricesInit();

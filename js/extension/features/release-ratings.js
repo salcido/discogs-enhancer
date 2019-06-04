@@ -24,22 +24,15 @@
  */
 
 resourceLibrary.ready(() => {
-
-  let marketplace = window.location.href.includes('/sell/') &&
-                    !window.location.href.includes('/sell/release/'),
-      seller = window.location.href.includes('/seller/');
-
   // ========================================================
   // Functions
   // ========================================================
-
   /**
    * Attaches event listeners to all `.de-rating-link` elements
    *
    * @method addUiListeners
    * @return {undefined}
    */
-
   function addUiListeners() {
 
     document.querySelectorAll('.de-rating-link').forEach(elem => {
@@ -63,7 +56,6 @@ resourceLibrary.ready(() => {
     });
   }
 
-
   /**
    * Gets the release rating and votes from a specified release
    *
@@ -72,7 +64,6 @@ resourceLibrary.ready(() => {
    * @param  {object} parent [the parent of the event.target element]
    * @return {object}
    */
-
   async function getReleaseRating(id, parent) {
 
     try {
@@ -95,14 +86,12 @@ resourceLibrary.ready(() => {
     }
   }
 
-
   /**
    * Injects `Show release ratings` links into the DOM
    *
    * @method insertRatingsLink
    * @return {function}
    */
-
   // attached to window object so it can be called by Everlasting Marketplace
   window.insertRatingsLink = function insertRatingsLink() {
 
@@ -133,19 +122,21 @@ resourceLibrary.ready(() => {
     return addUiListeners();
   };
 
-
   // ========================================================
   // Init / DOM Setup
   // ========================================================
+  let marketplace = resourceLibrary.pageIs('sell') &&
+                    resourceLibrary.pageIsNot('sellRelease', 'seller'),
+      seller = resourceLibrary.pageIs('seller');
 
   if ( seller || marketplace ) {
 
     window.insertRatingsLink();
 
     // UI Functionality
-    // ---------------------------------------------------------------------------
-
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    // ------------------------------------------------------
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
 
     pagination.forEach(elem => {
 
