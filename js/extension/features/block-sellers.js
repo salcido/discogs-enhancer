@@ -83,7 +83,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let blockList = JSON.parse(localStorage.getItem('blockList'));
+  let blockList = resourceLibrary.getItem('blockList');
 
   if ( blockList ) {
 
