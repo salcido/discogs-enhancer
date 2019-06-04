@@ -412,9 +412,12 @@
 
     language: function() {
 
-      let id = document.getElementById('i18n_select');
+      let id = document.getElementById('i18n_select'),
+          language = id.options[id.selectedIndex].value;
 
-      return id.options[id.selectedIndex].value;
+      language = language === 'pt_BR' ? 'pt' : language;
+
+      return language;
     },
 
     /**
@@ -429,8 +432,7 @@
 
     localizeSuggestion: function(symbol, price, userCurrency, language) {
 
-      let
-          maxDigits,
+      let maxDigits,
           priceConfig;
 
       if ( !userCurrency || !language ) {
@@ -465,12 +467,14 @@
         case 'de':
         case 'fr':
         case 'es':
+        case 'it':
+        case 'ru':
 
           this.log('Localized Suggestion: ', price + ' ' + symbol);
 
           return price + ' ' + symbol;
 
-        case 'it':
+        case 'pt':
 
           this.log('Localized Suggestion: ', symbol + ' ' + price);
 
@@ -773,15 +777,21 @@
           total = pagination.split('di')[1];
           break;
 
-        // Spanish and French
+        // Spanish, French, Portuguese
         case 'es':
         case 'fr':
+        case 'pt':
           total = pagination.split('de')[1];
           break;
 
         // Japanese
         case 'ja':
           total = pagination.split('中')[0];
+          break;
+
+        // Russian
+        case 'ru':
+          total = pagination.split('из')[1];
           break;
 
         // English
@@ -859,9 +869,13 @@
 
       fr: ['€', '£UK', '¥JP', '¥JP', '$AU', '$CA', 'CHF', 'SEK', '$NZ', '₽', 'ZAR', 'MX$', 'R$', '$US'],
 
-      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'US$'],
+      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'USD'],
 
-      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$']
+      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$'],
+
+      pt: ['€', '£', 'JP¥', 'JP¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      ru: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$']
     },
 
     /**
@@ -1025,7 +1039,11 @@
 
       it: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*US\$/],
 
-      ja: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*RUB', '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/]
+      ja: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*RUB', '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/],
+
+      pt: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /(AU\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /(US\$)/],
+
+      ru: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/],
     },
 
     /**
