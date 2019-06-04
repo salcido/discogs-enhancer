@@ -46,15 +46,11 @@
 
 resourceLibrary.ready(() => {
 
-    let releaseHistoryPage = document.location.href.includes('/history'),
-        releasePage = document.location.href.includes('/release/'),
-        sellReleasePage = document.location.href.includes('/sell/release/');
-
-  if ( releasePage && !releaseHistoryPage && !sellReleasePage ) {
+  if ( resourceLibrary.pageIs('release') && resourceLibrary.pageIsNot('history', 'sellRelease') ) {
 
     let
-        config = JSON.parse( localStorage.getItem('readability') ) || useDefaults(),
-        show = JSON.parse( localStorage.getItem('readabilityDividers') ) || setReadabilityTrue(),
+        config = resourceLibrary.getItem('readability') || useDefaults(),
+        show = resourceLibrary.getItem('readabilityDividers') || setReadabilityTrue(),
 
         debug = resourceLibrary.options.debug(),
 
