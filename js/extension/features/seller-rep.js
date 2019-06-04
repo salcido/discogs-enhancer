@@ -21,7 +21,9 @@
 
 resourceLibrary.ready(() => {
 
-  let threshold = localStorage.getItem('sellerRep');
+  let threshold = resourceLibrary.getItem('sellerRep');
+
+  if ( !threshold ) return;
 
   if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
@@ -53,11 +55,10 @@ resourceLibrary.ready(() => {
              && !seller_info[i].querySelector('.de-seller-rep-icon')) {
 
           let icon = document.createElement('span'),
-              name = seller_info[i].querySelector('ul li:first-child a').textContent,
-              repValue = localStorage.getItem('sellerRep');
+              name = seller_info[i].querySelector('ul li:first-child a').textContent;
 
           icon.className = 'de-seller-rep-icon';
-          icon.title = `${name}'s seller reputation is below ${repValue}%`;
+          icon.title = `${name}'s seller reputation is below ${threshold}%`;
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
@@ -73,12 +74,11 @@ resourceLibrary.ready(() => {
 
     // UI Functionality
     // ------------------------------------------------------
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
 
     pagination.forEach(elem => {
-
       elem.addEventListener('click', () => {
-
         resourceLibrary.xhrSuccess(window.sellersRep);
       });
     });
