@@ -13,9 +13,7 @@
 
 resourceLibrary.ready(() => {
 
-  let loc = window.location.href;
-
-  if ( loc.includes('/collection') ) {
+  if ( resourceLibrary.pageIs('collection') ) {
 
     let int = setInterval(() => {
 
