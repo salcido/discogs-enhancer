@@ -12,8 +12,8 @@ resourceLibrary.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let absoluteDate = resourceLibrary.getItem('absoluteDate') || true,
-        usDateFormat = resourceLibrary.getItem('usDateFormat') || false,
+    let absoluteDate = resourceLibrary.getItem('absoluteDate'),
+        usDateFormat = resourceLibrary.getItem('usDateFormat'),
         copies = document.querySelectorAll('.cw_block_timestamp'),
         language = resourceLibrary.language(),
         monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
