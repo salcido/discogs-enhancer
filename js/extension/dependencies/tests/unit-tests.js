@@ -179,9 +179,9 @@ resourceLibrary.ready(() => {
     testLocalization('¥', '600000', 'JPY', 'ja', '¥600,000');
     testLocalization('¥', '100', 'JPY', 'ja', '¥100');
 
-    testLocalization('US$', '44.00', 'EUR', 'it', 'US$ 44,00');
+    testLocalization('US$', '44.00', 'EUR', 'it', '44,00 US$');
 
-    testLocalization('A$', '35.00', 'AUD', 'it', 'A$ 35,00');
+    testLocalization('A$', '35.00', 'AUD', 'it', '35,00 A$');
 
     /**
      * sanitizePrices tests
@@ -227,7 +227,7 @@ resourceLibrary.ready(() => {
 
       fr: ['€', '£UK', '¥JP', '¥JP', '$AU', '$CA', 'CHF', 'SEK', '$NZ', '₽', 'ZAR', 'MX$', 'R$', '$US'],
 
-      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'US$'],
+      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'USD'],
 
       ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$']
     };
