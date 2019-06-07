@@ -1,11 +1,14 @@
 .de-preloader,
-.de-price-preloader {
+.de-price-preloader,
+.de-dark-theme .de-preloader,
+.de-dark-theme .de-price-preloader {
   margin: 20px auto;
   position: relative;
   font-style: normal;
 }
 
-.de-price {
+.de-price,
+.de-dark-theme .de-price {
   margin-top: 10px !important;
   padding-top: 10px !important;
   border-top: 1px dotted gray !important;
@@ -21,12 +24,14 @@
   display: block;
 }
 
-.red {
+.red,
+.de-dark-theme .red {
   color: #BF3A38 !important;
   font-weight: bold;
 }
 
-.green {
+.green,
+.de-dark-theme .green {
   color: #60C43F !important;
   font-weight: bold;
   transition: color 0.3s ease-in-out;
