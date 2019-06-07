@@ -9,8 +9,5 @@
  */
 
 (function() {
-
-  let link = document.getElementById('darkThemeCss');
-
-  if ( link ) { link.disabled = !link.disabled; }
+  document.documentElement.classList.toggle('de-dark-theme');
 }());
