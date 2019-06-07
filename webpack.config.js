@@ -1,6 +1,7 @@
-const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// var webpack = require('webpack');
+const path = require('path');
+const sass = require('node-sass');
+
 const config = './js/popup/configuration-pages/';
 const deps = './js/extension/dependencies/';
 const features = './js/extension/features/';
@@ -116,6 +117,12 @@ module.exports = {
     { from: 'manifest.json', to: 'manifest.json' },
     { from: 'html', to: 'html' },
     // CSS assets
+    { from: 'css/dark-theme.scss', to: 'css/dark-theme.css',
+      transform(content, path) {
+        let result = sass.renderSync({ file: path });
+        return result.css.toString();
+      }
+    },
     { from: 'css', to: 'css' },
     { from: 'img', to: 'img' },
     // contextual menu searching
