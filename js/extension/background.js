@@ -146,6 +146,17 @@ appendFragment([resourceLibrary]).then(() => {
     }
 
     // ========================================================
+    // Dark Theme
+    // ========================================================
+    if ( result.prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
+    // Don't use the dark theme on subdomains
+    // Fixed here instead of manifest.json due to issues explained here:
+    // https://github.com/salcido/discogs-enhancer/issues/14
+    if ( !window.location.href.includes('www') ) {
+      document.documentElement.classList.remove('de-dark-theme');
+    }
+
+    // ========================================================
     // Inject scripts based on `prefs` object
     // ========================================================
     return new Promise(resolve => {
@@ -167,26 +178,6 @@ appendFragment([resourceLibrary]).then(() => {
       // JS so that the user can toggle them from the extension
       // menu and not have to refresh to see the effects.
       // ========================================================
-
-      // Dark Theme
-      let darkTheme = document.createElement('link'),
-          href = window.location.href;
-
-      darkTheme.rel = 'stylesheet';
-      darkTheme.type = 'text/css';
-      darkTheme.href = chrome.extension.getURL('css/dark-theme.css');
-      darkTheme.id = 'darkThemeCss';
-
-      // Don't use the dark theme on subdomains
-      // Fixed here instead of manifest.json due to issues explained here:
-      // https://github.com/salcido/discogs-enhancer/issues/14
-      if ( !href.includes('www') ) {
-        darkTheme.disabled = true;
-      } else {
-        darkTheme.disabled = !result.prefs.darkTheme;
-      }
-
-      elems.push(darkTheme);
 
       // min-max-columns.css
       let minMax_css = document.createElement('link');
@@ -733,7 +724,9 @@ appendFragment([resourceLibrary]).then(() => {
           sellerRepCss.id = 'sellerRepCss';
           sellerRepCss.rel = 'stylesheet';
           sellerRepCss.type = 'text/css';
-          sellerRepCss.textContent = `.de-seller-rep ul li i,
+          sellerRepCss.textContent = `.de-dark-theme .de-seller-rep ul li i,
+                                      .de-dark-theme .de-seller-rep ul li strong,
+                                      .de-seller-rep ul li i,
                                       .de-seller-rep ul li strong {
                                         color: ${color} !important;
                                       }`;
