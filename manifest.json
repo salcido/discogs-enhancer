@@ -19,6 +19,9 @@
       "js": [
         "js/extension/background.js"
       ],
+      "css": [
+        "css/dark-theme.css"
+      ],
       "run_at": "document_start"
     }
   ],
