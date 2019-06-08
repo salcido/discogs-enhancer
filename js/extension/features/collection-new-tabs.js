@@ -9,9 +9,9 @@
 
 resourceLibrary.ready(() => {
 
-  let href = window.location.href,
-      hasRun = false;
-
+  // ========================================================
+  // Functions
+  // ========================================================
   /**
    * Modifies all release links to open in a new window
    * @returns {Undefined}
@@ -57,8 +57,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
+  let hasRun = false;
 
-  if ( href.includes('/collection') ) {
+  if ( resourceLibrary.pageIs('collection') ) {
 
     let reactApp = document.querySelector('#CollectionApp'),
         config = { attributes: true, childList: true, subtree: true },

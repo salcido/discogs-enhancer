@@ -9,8 +9,7 @@
 
 resourceLibrary.ready(() => {
 
-  let href = window.location.href,
-      opts = JSON.parse(localStorage.getItem('scan')) || null,
+  let opts = resourceLibrary.getItem('scan'),
       colorize = opts && opts.wants ? opts.wants : null,
       interval = opts && opts.int ? Number(opts.int) : 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
@@ -229,9 +228,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  if ( href.includes('/history') ) return;
+  if ( resourceLibrary.pageIs('history') ) return;
 
-  if ( href.includes('/artist/') || href.includes('/label/') ) {
+  if ( resourceLibrary.pageIs('artist', 'label') ) {
 
     let selector = '.section_content.marketplace_box_buttons_count_1',
         pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');

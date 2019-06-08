@@ -14,38 +14,44 @@
   transition: all 0.3s ease-in-out;
 }
 
-.currency-converter .ui-wrap {
+.currency-converter .ui-wrap,
+.de-dark-theme .currency-converter .ui-wrap {
   margin-bottom: 10px;
 }
 
 .currency-converter .top,
-.currency-converter .bottom {
+.currency-converter .bottom,
+.de-dark-theme .currency-converter .top,
+.de-dark-theme .currency-converter .bottom {
   display: block;
   clear: both;
 }
 
-.currency-converter .currency {
-  display: inline-block;
+.currency-converter .currency,
+.de-dark-theme .currency-converter .currency {
   float: left;
   margin-right: 10px;
   font-weight: bold;
 }
 
-.currency-converter .currency-select {
+.currency-converter .currency-select,
+.de-dark-theme .currency-converter .currency-select {
   display: inline-block;
   margin-left: 5px;
 }
 
-.currency-converter #clearBtn {
-  display: inline-block;
+.currency-converter #clearBtn,
+.de-dark-theme .currency-converter #clearBtn {
   float: right;
 }
 
-.currency-converter input {
+.currency-converter input,
+.de-dark-theme .currency-converter input {
   margin-top: 10px;
 }
 
-.currency-converter input#ccInput {
+.currency-converter input#ccInput,
+.de-dark-theme .currency-converter input#ccInput {
   height: 60px;
   width: 350px;
   margin-top: 10px;
@@ -54,13 +60,16 @@
 }
 
 .currency-converter input#ccInput::-webkit-outer-spin-button,
-.currency-converter input#ccInput::-webkit-inner-spin-button {
+.currency-converter input#ccInput::-webkit-inner-spin-button,
+.de-dark-theme .currency-converter input#ccInput::-webkit-outer-spin-button,
+.de-dark-theme .currency-converter input#ccInput::-webkit-inner-spin-button {
   margin: 0;
 
   -webkit-appearance: none;
 }
 
-.currency-converter span#ccOutput {
+.currency-converter span#ccOutput,
+.de-dark-theme .currency-converter span#ccOutput {
   display: block;
   height: 60px;
   width: 350px;
@@ -68,7 +77,8 @@
   font-size: 40px;
 }
 
-.currency-converter #errors {
+.currency-converter #errors,
+.de-dark-theme .currency-converter #errors {
   position: absolute;
   top: 75px;
   left: 80px;
@@ -77,7 +87,8 @@
   text-transform: uppercase;
 }
 
-.currency-converter .toggle {
+.currency-converter .toggle,
+.de-dark-theme .currency-converter .toggle {
   padding: 3px 8px;
   position: absolute;
   z-index: 21;

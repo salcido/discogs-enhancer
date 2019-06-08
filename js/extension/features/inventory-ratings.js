@@ -8,16 +8,9 @@
  *
  */
 resourceLibrary.ready(() => {
-
-  let href = window.location.href,
-      minimumRating = localStorage.getItem('inventoryRatings') || null;
-
-  if (minimumRating) minimumRating = JSON.parse(minimumRating);
-
   // ========================================================
   // Functions
   // ========================================================
-
   /**
    * Injects the CSS necessary for highlighting items
    * in the Marketplace
@@ -49,7 +42,7 @@ resourceLibrary.ready(() => {
 
     let ratings = document.querySelectorAll('.community_rating');
 
-    if (!minimumRating) return;
+    if ( !minimumRating ) return;
 
     ratings.forEach(rating => {
 
@@ -67,10 +60,12 @@ resourceLibrary.ready(() => {
     });
   }
 
-  if ( href.includes('/seller/') ) {
-    // ========================================================
-    // DOM Setup
-    // ========================================================
+  // ========================================================
+  // DOM Setup
+  // ========================================================
+  let minimumRating = resourceLibrary.getItem('inventoryRatings');
+
+  if ( resourceLibrary.pageIs('seller') ) {
     injectCss();
     scanRatings();
   }

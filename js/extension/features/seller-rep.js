@@ -21,19 +21,15 @@
 
 resourceLibrary.ready(() => {
 
-  let
-      href = window.location.href,
-      threshold = localStorage.getItem('sellerRep'),
-      //
-      sellPage = href.includes('/sell/list') && threshold,
-      sellRelease = href.includes('/sell/release') && threshold,
-      wantsPage = href.includes('/sell/mywants') && threshold;
+  let threshold = resourceLibrary.getItem('sellerRep');
 
-  // ========================================================
-  // DOM manipulation
-  // ========================================================
+  if ( !threshold ) return;
 
-  if ( wantsPage || sellPage || sellRelease ) {
+  if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
+
+    // ========================================================
+    // Functions
+    // ========================================================
 
     /**
      * Finds all the seller's reputation scores in the DOM and
@@ -42,7 +38,6 @@ resourceLibrary.ready(() => {
      * @method sellersRep
      * @return {undefined}
      */
-
     window.sellersRep = function sellersRep() {
 
       let ratingVals = [...document.getElementsByClassName('seller_info')],
@@ -60,11 +55,10 @@ resourceLibrary.ready(() => {
              && !seller_info[i].querySelector('.de-seller-rep-icon')) {
 
           let icon = document.createElement('span'),
-              name = seller_info[i].querySelector('ul li:first-child a').textContent,
-              repValue = localStorage.getItem('sellerRep');
+              name = seller_info[i].querySelector('ul li:first-child a').textContent;
 
           icon.className = 'de-seller-rep-icon';
-          icon.title = `${name}'s seller reputation is below ${repValue}%`;
+          icon.title = `${name}'s seller reputation is below ${threshold}%`;
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
@@ -73,18 +67,18 @@ resourceLibrary.ready(() => {
       });
     };
 
+    // ========================================================
+    // DOM manipulation
+    // ========================================================
     window.sellersRep();
 
-    // ========================================================
     // UI Functionality
-    // ========================================================
-
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    // ------------------------------------------------------
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
 
     pagination.forEach(elem => {
-
       elem.addEventListener('click', () => {
-
         resourceLibrary.xhrSuccess(window.sellersRep);
       });
     });

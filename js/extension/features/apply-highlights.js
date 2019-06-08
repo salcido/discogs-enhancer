@@ -9,15 +9,6 @@
  */
 
 resourceLibrary.ready(() => {
-
-  let
-      href = window.location.href,
-      // ordersPage = href.includes('/sell/order/'),
-      sellPage = href.includes('/sell/list'),
-      sellRelease = href.includes('/sell/release'),
-      sellerPage = href.includes('/seller'),
-      wantsPage = href.includes('/sell/mywants');
-
    /**
    * Iterate over the target array and add classes as needed
    * @method addHighlights
@@ -94,7 +85,7 @@ resourceLibrary.ready(() => {
   };
 
   // Apply styles on ready/prev/next clicks
-  if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+  if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants', 'seller') ) {
 
     window.applyStyles();
 

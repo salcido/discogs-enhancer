@@ -19,7 +19,7 @@
 
 resourceLibrary.ready(() => {
 
-  let marketplace = window.location.href.includes('/mywants');
+  let marketplace = resourceLibrary.pageIs('myWants');
 
   // ========================================================
   // Functions

@@ -22,25 +22,15 @@
 
 resourceLibrary.ready(() => {
 
-  let
-      favoriteList = JSON.parse(localStorage.getItem('favoriteList')),
-      href = window.location.href,
-      sellPage = href.includes('/sell/list'), // master releases && all items in marketplace
-      sellerPage = href.includes('/seller/'),
-      sellRelease = href.includes('/sell/release/'),
-      wantsPage = href.includes('/sell/mywants');
-
   // ========================================================
   // Functions
   // ========================================================
-
   /**
    * Adds event listners to the prev and next buttons
    *
    * @method addUiListeners
    * @returns {undefined}
    */
-
   function addUiListeners() {
 
     let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
@@ -61,7 +51,6 @@ resourceLibrary.ready(() => {
    * @method favoriteSellers
    * @return {function}
    */
-
   window.favoriteSellers = function favoriteSellers() {
 
     favoriteList.list.forEach(seller => {
@@ -85,13 +74,13 @@ resourceLibrary.ready(() => {
     return addUiListeners();
   };
 
-
   // ========================================================
   // DOM manipulation
   // ========================================================
+  let favoriteList = resourceLibrary.getItem('favoriteList');
 
-  if ( favoriteList ) {
-    if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+  if ( favoriteList && favoriteList.list ) {
+    if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
       window.favoriteSellers();
     }
   }

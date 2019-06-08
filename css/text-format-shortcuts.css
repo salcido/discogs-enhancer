@@ -7,7 +7,8 @@
   outline: 0;
 }
 
-.quick-button {
+.quick-button,
+.de-dark-theme .quick-button {
   display: inline-block;
   height: 2em;
   margin-right: 5px;
@@ -36,7 +37,8 @@
   background-image: linear-gradient(#FFFFFF, #FAFAFA) !important;
 }
 
-.quick-button .icon {
+.quick-button .icon,
+.de-dark-theme .quick-button .icon {
   color: #454545 !important;
 }
 

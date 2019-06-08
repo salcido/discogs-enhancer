@@ -10,31 +10,10 @@
 
 resourceLibrary.ready(() => {
 
-  let href = window.location.href;
-
-  if ( href.includes('/sell/mywants') || href.includes('/sell/list') ) {
-
-    let hasLoaded = false,
-        pTotal,
-        pageHist = [1],
-        pageNum = 2,
-        pagination,
-        paused = false,
-        pjax = document.querySelector('#pjax_container'),
-        mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
-        sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null;
-
-    let pauseBtn = `<a class="de-pause button">
-                     <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
-                    </a>`,
-        playBtn = `<a class="de-resume button button-blue">
-                     <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
-                   </a>`;
-
+  if ( resourceLibrary.pageIs('myWants', 'allItems') ) {
     // ========================================================
     // Functions (Alphabetical)
     // ========================================================
-
     /**
      * Adds/removes the event listeners for `.de-pause` elements
      * @returns {undefined}
@@ -110,11 +89,9 @@ resourceLibrary.ready(() => {
      */
     function callOtherMarketplaceFeatures() {
 
-      let blockList = JSON.parse(localStorage.getItem('blockList')) || null,
-          favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || null,
-          sellerNames = localStorage.getItem('sellerNames') || null;
-
-      if (sellerNames) sellerNames = JSON.parse(sellerNames);
+      let blockList = resourceLibrary.getItem('blockList'),
+          favoriteList = resourceLibrary.getItem('favoriteList'),
+          sellerNames = resourceLibrary.getItem('sellerNames');
 
       // apply Marketplace Highlights
       if ( window.applyStyles ) window.applyStyles();
@@ -141,7 +118,7 @@ resourceLibrary.ready(() => {
 
       // Filter shipping country
       if ( window.filterCountries ) {
-        let countryList = JSON.parse(localStorage.getItem('countryList')),
+        let countryList = resourceLibrary.getItem('countryList'),
             include = countryList.include,
             useCurrency = countryList.currency;
         window.filterCountries(include, useCurrency);
@@ -164,7 +141,8 @@ resourceLibrary.ready(() => {
      */
     async function getNextPage() {
 
-      let type = href.includes('/sell/mywants') ? 'mywants' : 'list',
+      let href = window.location.href,
+          type = resourceLibrary.pageIs('myWants') ? 'mywants' : 'list',
           url = `/sell/${type}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
 
       try {
@@ -178,7 +156,8 @@ resourceLibrary.ready(() => {
             tbody = '#pjax_container tbody';
 
         div.innerHTML = data;
-
+        // Open in new tabs
+        div.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
         markup = div.querySelector(tbody) ? div.querySelector(tbody).innerHTML : null;
 
         if ( markup ) {
@@ -200,7 +179,7 @@ resourceLibrary.ready(() => {
         callOtherMarketplaceFeatures();
 
       } catch (err) {
-        console.error('Everlastning Marketplace could not fetch data', err);
+        console.error('Everlasting Marketplace could not fetch data', err);
       }
     }
 
@@ -325,6 +304,22 @@ resourceLibrary.ready(() => {
     // ========================================================
     // DOM Setup
     // ========================================================
+    let hasLoaded = false,
+        pTotal,
+        pageHist = [1],
+        pageNum = 2,
+        pagination,
+        paused = false,
+        pjax = document.querySelector('#pjax_container'),
+        mediaCondition = resourceLibrary.getItem('mediaCondition'),
+        sleeveCondition = resourceLibrary.getItem('sleeveCondition');
+
+    let pauseBtn = `<a class="de-pause button">
+                     <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
+                    </a>`,
+        playBtn = `<a class="de-resume button button-blue">
+                     <i class="icon icon-play" title="Resume Everlasting Marketplace"></i> Resume
+                   </a>`;
 
     pagination = document.querySelector('.pagination_total').textContent;
     // This will grab the total number of results returned by discogs
@@ -346,6 +341,8 @@ resourceLibrary.ready(() => {
     // Hide standard means of page navigation
     document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
     document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
+    // Open in new tabs
+    document.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
 
     addPauseListener();
     addResumeListener();

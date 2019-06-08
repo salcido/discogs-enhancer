@@ -12,7 +12,7 @@
 
 resourceLibrary.ready(() => {
 
-  if ( window.location.href.includes('/history') ) {
+  if ( resourceLibrary.pageIs('history') ) {
 
     setTimeout(() => {
 

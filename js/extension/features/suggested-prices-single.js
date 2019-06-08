@@ -18,14 +18,7 @@
  */
 
 resourceLibrary.ready(() => {
-
-  let loc = window.location.href,
-      allItems = loc.includes('/sell/list'),
-      seller = loc.includes('/seller/'),
-      wantlist = loc.includes('/sell/mywants');
-
-
-  if ( wantlist || allItems || seller ) {
+  if ( resourceLibrary.pageIs('allItems', 'seller', 'myWants') ) {
 
     let
         colorizePrices = resourceLibrary.options.colorize(),
@@ -173,7 +166,7 @@ resourceLibrary.ready(() => {
 
       try {
 
-        let url = `https://www.discogs.com/sell/post/${releaseId}`,
+        let url = `/sell/post/${releaseId}`,
             response = await fetch(url, { credentials: 'include' }),
             data = await response.text(),
             div = document.createElement('div');
@@ -282,16 +275,13 @@ resourceLibrary.ready(() => {
     });
 
     // Fire `injectPriceLinks` on prev/next page transitions
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
 
     pagination.forEach(elem => {
-
       elem.addEventListener('click', () => {
-
         resourceLibrary.xhrSuccess(() => {
-
           if ( document.querySelectorAll('.de-price-link').length < 1 ) {
-
             return window.injectPriceLinks();
           }
         });

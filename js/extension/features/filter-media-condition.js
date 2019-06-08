@@ -22,17 +22,9 @@
  */
 
 resourceLibrary.ready(() => {
-
-  let
-      href = window.location.href,
-      currentFilterState = JSON.parse(localStorage.getItem('currentFilterState')),
-      mediaCondition = JSON.parse(localStorage.getItem('mediaCondition')),
-      sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || null,
-      sellPage = href.match(/sell\/list/g),
-      sellerPage = href.match(/seller\//g),
-      sellRelease = href.match(/sell\/release/g),
-      wantsPage = href.match(/sell\/mywants/g);
-
+  // ========================================================
+  // Functions
+  // ========================================================
   /**
    * Find all instances of selected items in list and hide them
    *
@@ -107,7 +99,6 @@ resourceLibrary.ready(() => {
         });
       }
     } else {
-
       return;
     }
   };
@@ -115,8 +106,11 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
+  let currentFilterState = resourceLibrary.getItem('currentFilterState'),
+      mediaCondition = resourceLibrary.getItem('mediaCondition'),
+      sleeveCondition = resourceLibrary.getItem('sleeveCondition');
 
-  if ( sellPage || sellRelease || sellerPage || wantsPage ) {
+  if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
     let style = document.createElement('style');
 

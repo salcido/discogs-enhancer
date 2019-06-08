@@ -2,34 +2,42 @@
   font-weight: bold !important;
 }
 
-.mint {
+.mint,
+.de-dark-theme .mint {
     color: #00b4db !important;
 }
 
-.near-mint {
+.near-mint,
+.de-dark-theme .near-mint {
   color: #00dbb4 !important;
 }
 
-.very-good-plus {
-  color: #00db1f !important; 
+.very-good-plus,
+.de-dark-theme .very-good-plus {
+  color: #00db1f !important;
 }
 
-.very-good {
+.very-good,
+.de-dark-theme .very-good {
   color: #85ab11 !important;
 }
 
-.good-plus {
+.good-plus,
+.de-dark-theme .good-plus {
   color: #f6bf48 !important;
 }
 
-.good {
+.good,
+.de-dark-theme .good {
   color: #d87307 !important;
 }
 
-.fair {
+.fair,
+.de-dark-theme .fair {
   color: #e54803 !important;
 }
 
-.poor {
+.poor,
+.de-dark-theme .poor {
   color: #ff0000 !important;
 }

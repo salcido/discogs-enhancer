@@ -412,9 +412,12 @@
 
     language: function() {
 
-      let id = document.getElementById('i18n_select');
+      let id = document.getElementById('i18n_select'),
+          language = id.options[id.selectedIndex].value;
 
-      return id.options[id.selectedIndex].value;
+      language = language === 'pt_BR' ? 'pt' : language;
+
+      return language;
     },
 
     /**
@@ -429,8 +432,7 @@
 
     localizeSuggestion: function(symbol, price, userCurrency, language) {
 
-      let
-          maxDigits,
+      let maxDigits,
           priceConfig;
 
       if ( !userCurrency || !language ) {
@@ -465,12 +467,14 @@
         case 'de':
         case 'fr':
         case 'es':
+        case 'it':
+        case 'ru':
 
           this.log('Localized Suggestion: ', price + ' ' + symbol);
 
           return price + ' ' + symbol;
 
-        case 'it':
+        case 'pt':
 
           this.log('Localized Suggestion: ', symbol + ' ' + price);
 
@@ -698,6 +702,58 @@
     },
 
     /**
+     * Checks the page URL and returns `true` if anything in `pages`
+     * IS found in the URL string
+     * @param  {String} pages - Thte type of page to check for
+     * @returns {Boolean}
+     */
+    pageIs: function(...pages) {
+      let href = window.location.href;
+      return pages.some(page => href.includes(this.pageKeys[page]));
+    },
+
+    /**
+     * Checks the page URL and returns `true` if anything in `pages`
+     * IS NOT found in the URL string
+     * @param  {String} pages - Thte type of page to check for
+     * @returns {Boolean}
+     */
+    pageIsNot: function(...pages) {
+      let href = window.location.href;
+      return pages.every(page => !href.includes(this.pageKeys[page]));
+    },
+
+    /**
+     * Key/value pairs for quickly IDing pages in Discogs.
+     * Used in conjunction with `pageIs` and `pageIsNot`
+     * methods above.
+     * #WIP
+     */
+    pageKeys: {
+      'allItems': '/sell/list',
+      'artist': '/artist/',
+      'buy': '/buy/',
+      'cart': '/sell/cart/',
+      'collection': '/collection',
+      'dashboard': '/my',
+      'edit': '/edit/',
+      'friends': '/users/friends',
+      'history': '/history',
+      'label': '/label/',
+      'lists': '/lists/',
+      'master': '/master/',
+      'myWants': '/sell/mywants',
+      'order': '/sell/order/',
+      'purchases': '/sell/purchases',
+      'release': '/release/',
+      'sell': '/sell/',
+      'seller': '/seller',
+      'sellItem': '/sell/item/',
+      'sellMaster': '/sell/list',
+      'sellRelease': '/sell/release',
+    },
+
+    /**
      * Returns the total number of results from the Marketplace
      *
      * @method paginationTotal
@@ -721,15 +777,21 @@
           total = pagination.split('di')[1];
           break;
 
-        // Spanish and French
+        // Spanish, French, Portuguese
         case 'es':
         case 'fr':
+        case 'pt':
           total = pagination.split('de')[1];
           break;
 
         // Japanese
         case 'ja':
           total = pagination.split('中')[0];
+          break;
+
+        // Russian
+        case 'ru':
+          total = pagination.split('из')[1];
           break;
 
         // English
@@ -807,9 +869,13 @@
 
       fr: ['€', '£UK', '¥JP', '¥JP', '$AU', '$CA', 'CHF', 'SEK', '$NZ', '₽', 'ZAR', 'MX$', 'R$', '$US'],
 
-      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'US$'],
+      it: ['€', '£', 'JP¥', 'JP¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'USD'],
 
-      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$']
+      ja: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$'],
+
+      pt: ['€', '£', 'JP¥', 'JP¥', 'AU$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', 'US$'],
+
+      ru: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$']
     },
 
     /**
@@ -977,7 +1043,11 @@
 
       it: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*US\$/],
 
-      ja: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*RUB', '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/]
+      ja: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /^\s*A\$/, /^\s*CA\$/, '\s*CHF', '\s*SEK', /^\s*NZ\$/, '\s*RUB', '\s*ZAR', /^\s*MX\$/, /^\s*R\$/, /^\s*\$/],
+
+      pt: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /(AU\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /(US\$)/],
+
+      ru: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/],
     },
 
     /**

@@ -58,20 +58,14 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let href = window.location.href,
-      prefs = localStorage.getItem('discriminators') || null,
-      re = /(.+\s)(\(\d+\))$/gm,
+  let defaults = { hide: false, superscript: true, unselectable: true, transparent: false },
+      elemType,
       hide,
+      prefs = resourceLibrary.getItem('discriminators') || defaults,
+      re = /(.+\s)(\(\d+\))$/gm,
       superscript,
-      unselectable,
       transparent,
-      elemType;
-
-  if ( prefs ) {
-    prefs = JSON.parse(prefs);
-  } else {
-    prefs = { hide: false, superscript: true, unselectable: true, transparent: false };
-  }
+      unselectable;
 
   hide = prefs.hide;
   superscript = prefs.superscript;
@@ -81,10 +75,7 @@ resourceLibrary.ready(() => {
 
   // Releases
   // ------------------------------------------------------
-  if ( href.includes('/sell/item/')
-       || href.includes('/release/')
-       || href.includes('/buy/')
-       || href.includes('/master/') ) {
+  if ( resourceLibrary.pageIs('sellItem', 'release', 'master', 'buy') ) {
 
     injectCss(hide, superscript, unselectable, transparent);
 
@@ -102,7 +93,7 @@ resourceLibrary.ready(() => {
 
   // Artists / Labels
   // ------------------------------------------------------
-  if ( href.includes('/artist/') || href.includes('/label/') ) {
+  if ( resourceLibrary.pageIs('artist', 'label') ) {
 
     injectCss(hide, superscript, unselectable, transparent);
 
