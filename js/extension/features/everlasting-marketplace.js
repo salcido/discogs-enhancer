@@ -179,7 +179,7 @@ resourceLibrary.ready(() => {
         callOtherMarketplaceFeatures();
 
       } catch (err) {
-        console.error('Everlastning Marketplace could not fetch data', err);
+        console.error('Everlasting Marketplace could not fetch data', err);
       }
     }
 
