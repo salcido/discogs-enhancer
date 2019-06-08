@@ -713,6 +713,7 @@ appendFragment([resourceLibrary]).then(() => {
       // seller-rep css
       // `sendMessage` is async so handle everything in the callback
       // and call `appendFragment` directly
+      // TODO: Move this over to seller-rep feature
       if ( result.prefs.sellerRep ) {
 
         chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
@@ -1097,9 +1098,7 @@ appendFragment([resourceLibrary]).then(() => {
     .then(() => appendFragment(elems))
     .then(() => document.ready())
     .then(() => {
-      // ========================================================
       // DOM clean up
-      // ========================================================
       document.querySelectorAll('.de-init').forEach(child => {
         child.parentNode.removeChild(child);
       });
