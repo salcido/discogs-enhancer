@@ -2899,17 +2899,15 @@
   }
 
   #CollectionApp {
-    .bulk-actions {
-      border: 1px solid #454545 !important;
-    }
     .release-table-card.selected {
       background: #354250 !important;
     }
     .bulk-actions {
       background: #323334 !important;
-      h5 {
-        background: #292929 !important;
-      }
+      border: 1px solid #454545 !important;
+      // h5 {
+      //   background: #292929 !important;
+      // }
       > div {
         border-right: 1px solid #454545 !important;
       }
