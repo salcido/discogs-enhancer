@@ -31,6 +31,23 @@ resourceLibrary.ready(() => {
     // Functions
     // ========================================================
 
+    function attachCSS() {
+      let respColor = resourceLibrary.getItem('sellerRepColor') || 'darkorange',
+          sellerRepCss = document.createElement('style'),
+          color = respColor.match(/#*\w/g).join('');
+
+      sellerRepCss.id = 'sellerRepCss';
+      sellerRepCss.rel = 'stylesheet';
+      sellerRepCss.type = 'text/css';
+      sellerRepCss.textContent = `.de-dark-theme .de-seller-rep ul li i,
+                                  .de-dark-theme .de-seller-rep ul li strong,
+                                  .de-seller-rep ul li i,
+                                  .de-seller-rep ul li strong {
+                                    color: ${color} !important;
+                                  }`;
+
+      document.head.append(sellerRepCss);
+    }
     /**
      * Finds all the seller's reputation scores in the DOM and
      * adds a `de-seller-rep` class to them if necessary. Also
@@ -70,6 +87,7 @@ resourceLibrary.ready(() => {
     // ========================================================
     // DOM manipulation
     // ========================================================
+    attachCSS();
     window.sellersRep();
 
     // UI Functionality

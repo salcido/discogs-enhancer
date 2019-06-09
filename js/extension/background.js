@@ -723,39 +723,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(sellerItemsInCart);
       }
 
-      // seller-rep css
-      // `sendMessage` is async so handle everything in the callback
-      // and call `appendFragment` directly
-      // TODO: Move this over to seller-rep feature
       if ( result.prefs.sellerRep ) {
-
-        chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
-
-          let sellerRepCss = document.createElement('style'),
-              respColor = response.sellerRepColor || 'darkorange',
-              color = respColor.match(/#*\w/g).join('');
-
-          sellerRepCss.id = 'sellerRepCss';
-          sellerRepCss.rel = 'stylesheet';
-          sellerRepCss.type = 'text/css';
-          sellerRepCss.textContent = `.de-dark-theme .de-seller-rep ul li i,
-                                      .de-dark-theme .de-seller-rep ul li strong,
-                                      .de-seller-rep ul li i,
-                                      .de-seller-rep ul li strong {
-                                        color: ${color} !important;
-                                      }`;
-
-          appendFragment([sellerRepCss]);
-        });
-
-        let seller_rep_css = document.createElement('link');
-
-        seller_rep_css.rel = 'stylesheet';
-        seller_rep_css.type = 'text/css';
-        seller_rep_css.href = chrome.extension.getURL('css/seller-rep.css');
-        seller_rep_css.id = 'seller_rep_css';
-
-        elems.push(seller_rep_css);
 
         // seller-rep.js
         let sellerRep = document.createElement('script');
@@ -1289,6 +1257,14 @@ try {
     sellerRep = JSON.stringify(sellerRep);
 
     localStorage.setItem('sellerRep', sellerRep);
+  });
+
+  // Seller Reputation Color Value
+  chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
+
+    let repColor = response.sellerRepColor || 'darkorange';
+
+    localStorage.setItem('sellerRepColor', repColor);
   });
 
   // Tweak Discriminators
