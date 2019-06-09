@@ -2413,6 +2413,9 @@
     li label {
       margin-left: 10px;
     }
+    #quickSearchLabel {
+      margin-left: 0;
+    }
   }
 
   .options-modal {
@@ -3102,5 +3105,10 @@
   h1 a:visited.text_label,
   a:visited.text_label {
     background-color: #98158b !important;
+  }
+
+  /* Quick search external icon */
+  .de-external {
+    color: #829fc4 !important;
   }
 }
