@@ -42,11 +42,13 @@
   color: #454545 !important;
 }
 
-.quick-bold {
+.quick-bold,
+.de-dark-theme .quick-bold {
   font-weight: bold;
 }
 
-.quick-italic {
+.quick-italic,
+.de-dark-theme .quick-italic {
   font-family: serif;
   font-style: italic;
 }
