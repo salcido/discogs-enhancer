@@ -43,6 +43,7 @@
           colorize: false,
           comments: false,
           debug: false,
+          quicksearch: '',
           threshold: 2,
           unitTests: false
         };
@@ -611,28 +612,29 @@
 
       getOptions: function() {
 
-        let
-            doc = document,
-            options = resourceLibrary.getItem('options'),
+        let options = resourceLibrary.getItem('options'),
             //
             analytics = options.analytics,
             colorize = options.colorize,
             comments = options.comments,
             debug = options.debug,
+            quicksearch = options.quicksearch,
             threshold = options.threshold,
             unitTests = options.unitTests;
 
-        if (analytics) { doc.getElementById('analytics').checked = true; }
+        if (analytics) { document.getElementById('analytics').checked = true; }
 
-        if (colorize) { doc.getElementById('colorize').checked = true; }
+        if (colorize) { document.getElementById('colorize').checked = true; }
 
-        if (comments) { doc.getElementById('comments').checked = true; }
+        if (comments) { document.getElementById('comments').checked = true; }
 
-        if (debug) { doc.getElementById('debug').checked = true; }
+        if (debug) { document.getElementById('debug').checked = true; }
 
-        if (threshold) { doc.getElementById('threshold').value = threshold; }
+        if (quicksearch) { document.getElementById('quicksearch').value = quicksearch; }
 
-        if (unitTests) { doc.getElementById('unittests').checked = true; }
+        if (threshold) { document.getElementById('threshold').value = threshold; }
+
+        if (unitTests) { document.getElementById('unittests').checked = true; }
       },
 
       /**
@@ -644,16 +646,16 @@
       saveOptions: function() {
 
         let
-            doc = document,
-            analytics = doc.getElementById('analytics').checked,
-            colorize = doc.getElementById('colorize').checked,
-            debug = doc.getElementById('debug').checked,
-            comments = doc.getElementById('comments').checked,
+            analytics = document.getElementById('analytics').checked,
+            colorize = document.getElementById('colorize').checked,
+            debug = document.getElementById('debug').checked,
+            comments = document.getElementById('comments').checked,
             options,
-            threshold = doc.getElementById('threshold').value,
-            unitTests = doc.getElementById('unittests').checked;
+            quicksearch = document.getElementById('quicksearch').value,
+            threshold = document.getElementById('threshold').value,
+            unitTests = document.getElementById('unittests').checked;
 
-        doc.getElementById('saveOptions').disabled = true;
+        document.getElementById('saveOptions').disabled = true;
 
         /* get options object */
         options = JSON.parse(localStorage.getItem('options'));
@@ -661,8 +663,9 @@
         /* update values */
         options.analytics = analytics;
         options.colorize = colorize;
-        options.debug = debug;
         options.comments = comments;
+        options.debug = debug;
+        options.quicksearch = quicksearch;
         options.threshold = threshold;
         options.unitTests = unitTests;
 
@@ -674,6 +677,13 @@
         resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
 
         return location.reload();
+      },
+
+      quickSearch: function() {
+
+        let quicksearch = this.getItem('quicksearch');
+
+        return quicksearch;
       },
 
       /**
