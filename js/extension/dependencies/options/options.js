@@ -41,6 +41,10 @@ resourceLibrary.ready(() => {
                       <label for="threshold" id="thresholdLabel">Threshold:</label>
                       <input id="threshold" name="threshold" type="number" value="" max="10" min="0"/>
                     </li>
+                    <li>
+                      <label for="quicksearch" id="quickSearchLabel">Quick Search:</label>
+                      <input id="quicksearch" name="quicksearch" />
+                    </li>
                   </ul>
                   <a href="#" class="options-save button button-green" id="saveOptions">Save options &amp; refresh</a>
                 </div>
