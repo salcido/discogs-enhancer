@@ -14,30 +14,37 @@
 
 resourceLibrary.ready(() => {
 
-  let href = window.location.href,
+  let additionalText = resourceLibrary.getItem('options').quicksearch,
       shouldRun = false,
       title = document.title,
       re;
 
   // Master release pages
   // ------------------------------------------------------
-  if ( href.includes('/master/') ) {
+  if ( resourceLibrary.pageIs('master') ) {
+    // Match patterns:
+    // Lofthouse | Releases, Reviews, Credits | Discogs
     re = /(\|+.*)/g;
     shouldRun = true;
   }
 
   // Individual release pages
   // ------------------------------------------------------
-  if ( href.includes('/release/') ) {
+  if ( resourceLibrary.pageIs('release') ) {
+    // Match patterns:
+    // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) For Sale | Discogs
     re = /(?:.(?!\(.+\).+\| Discogs))+$/g;
     shouldRun = true;
   }
 
   // Details pages
   // ------------------------------------------------------
-  if ( href.includes('/sell/item/') ) {
+  if ( resourceLibrary.pageIs('sellItem') ) {
+    // Match patterns:
+    // Tissu - Unmanned Vehicle: 12" For Sale | Discogs
     re = /(?:.(?!\:.+\| Discogs))+$/g;
     shouldRun = true;
+    additionalText = ` ${additionalText}`;
   }
 
   if ( !shouldRun ) return;
@@ -48,7 +55,6 @@ resourceLibrary.ready(() => {
   let i = document.createElement('i'),
       releaseTitle = document.querySelector('#profile_title span'),
       style = document.createElement('style'),
-      additionalText = localStorage.getItem('quicksearch') || '',
       query = title.replace(re, '');
 
   // DOM manipulation
