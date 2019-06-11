@@ -38,12 +38,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       if (msg.enabled) {
 
         localStorage.setItem('analytics', 'true');
-        sendResponse({enabled: true});
+        sendResponse({ enabled: true });
 
       } else {
 
         localStorage.setItem('analytics', 'false');
-        sendResponse({enabled: false});
+        sendResponse({ enabled: false });
       }
       break;
 
@@ -52,7 +52,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let blockList = JSON.parse(localStorage.getItem('blockList'));
 
-      sendResponse({blockList: blockList});
+      sendResponse({ blockList });
       break;
     }
 
@@ -61,7 +61,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
 
-      sendResponse({favoriteList: favoriteList});
+      sendResponse({ favoriteList });
       break;
     }
 
@@ -70,7 +70,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let filterShippingCountry = JSON.parse(localStorage.getItem('countryList'));
 
-      sendResponse({filterShippingCountry: filterShippingCountry});
+      sendResponse({ filterShippingCountry });
       break;
     }
 
@@ -79,7 +79,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let mediaCondition = JSON.parse(localStorage.getItem('mediaCondition'));
 
-      sendResponse({mediaCondition: mediaCondition});
+      sendResponse({ mediaCondition });
       break;
     }
 
@@ -88,7 +88,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition'));
 
-      sendResponse({sleeveCondition: sleeveCondition});
+      sendResponse({ sleeveCondition });
       break;
     }
 
@@ -97,7 +97,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let readability = JSON.parse(localStorage.getItem('readability'));
 
-      sendResponse({readability: readability});
+      sendResponse({ readability });
       break;
     }
 
@@ -106,7 +106,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
 
-      sendResponse({sellerRep: sellerRep});
+      sendResponse({ sellerRep });
       break;
     }
 
@@ -115,7 +115,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let sellerRepColor = localStorage.getItem('sellerRepColor');
 
-      sendResponse({sellerRepColor: sellerRepColor});
+      sendResponse({ sellerRepColor });
       break;
     }
 
@@ -124,7 +124,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let usDateFormat = localStorage.getItem('usDateFormat');
 
-      sendResponse({usDateFormat: usDateFormat});
+      sendResponse({ usDateFormat });
       break;
     }
 
@@ -133,7 +133,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       let inventoryRatings = localStorage.getItem('inventoryRatings');
 
-      sendResponse({inventoryRatings: inventoryRatings});
+      sendResponse({ inventoryRatings });
       break;
     }
 
@@ -146,7 +146,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         discrims = JSON.parse(discrims);
       }
 
-      sendResponse({discrims: discrims});
+      sendResponse({ discrims });
       break;
     }
   }
