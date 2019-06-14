@@ -65,6 +65,23 @@ function appendFragment(elems) {
   });
 }
 
+/**
+ * This tracks the filter preferences so that the current
+ * filtering status can be appended to the DOM whilst
+ * using Everlasting Marketplace.
+ * @returns {Object}
+ */
+function getCurrentFilterState() {
+  let currentFilterState;
+  currentFilterState = {
+        everlastingMarket: prefs.everlastingMarket,
+        filterMediaCondition: prefs.filterMediaCondition,
+        filterShippingCountry: prefs.filterShippingCountry,
+        filterSleeveCondition: prefs.filterSleeveCondition,
+      };
+  return currentFilterState;
+}
+
 // Resource Library
 // A singleton of shared methods for the extension
 resourceLibrary = document.createElement('script');
@@ -1040,32 +1057,12 @@ appendFragment([resourceLibrary]).then(() => {
       return resolve(result);
     })
     .then(() => appendFragment(elemsPrimary))
-    .then(() => document.ready())
     .then(() => {
-
-      // - Current Filter State -
-      // --------------------------------------------------------
-      // This tracks the filter preferences so that the current
-      // filtering status can be appended to the DOM whilst
-      // using Everlasting Marketplace.
-      // --------------------------------------------------------
-      function getCurrentFilterState() {
-        let currentFilterState;
-        currentFilterState = {
-              everlastingMarket: prefs.everlastingMarket,
-              filterMediaCondition: prefs.filterMediaCondition,
-              filterShippingCountry: prefs.filterShippingCountry,
-              filterSleeveCondition: prefs.filterSleeveCondition,
-            };
-        return currentFilterState;
-      }
-
       // - Runtime messages -
       // --------------------------------------------------------
       // Get preferences from extension side and save to DOM side.
       // --------------------------------------------------------
-      try {
-
+      return new Promise(resolve => {
         chrome.runtime.sendMessage({ request: 'userPreferences' }, response => {
 
           let target = localStorage.getItem('userPreferences'),
@@ -1077,18 +1074,12 @@ appendFragment([resourceLibrary]).then(() => {
           target = target ? JSON.parse(target) : response.userPreferences;
           newPrefs = Object.assign(target, source, { currentFilterState }, { userCurrency });
           localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
+          return resolve();
         });
-
-      } catch (err) {
-
-        // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...
-        if (err.message !== 'Invalid arguments to connect.') {
-
-          console.warn('Discogs Enhancer: ', err);
-        }
-      }
+      });
     })
     .then(() => appendFragment(elemsSecondary))
+    .then(() => document.ready())
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
