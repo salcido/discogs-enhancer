@@ -271,7 +271,7 @@ appendFragment([resourceLibrary]).then(() => {
         averagePrice.src = chrome.extension.getURL('js/extension/features/average-price.js');
         averagePrice.className = 'de-init';
 
-        elemsSecondary.push(averagePrice);
+        elemsPrimary.push(averagePrice);
       }
 
       if (result.prefs.blockSellers) {
