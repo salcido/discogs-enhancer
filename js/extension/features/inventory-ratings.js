@@ -42,7 +42,7 @@ resourceLibrary.ready(() => {
 
     let ratings = document.querySelectorAll('.community_rating');
 
-    if ( !minimumRating ) return;
+    if ( !inventoryRatings ) return;
 
     ratings.forEach(rating => {
 
@@ -51,7 +51,7 @@ resourceLibrary.ready(() => {
           digits = text.match(rgx),
           value = Number(digits.join(''));
 
-      if ( value > minimumRating ) {
+      if ( value > inventoryRatings ) {
         let parent = rating.closest('.shortcut_navigable').querySelector('.item_release_link.hide_mobile');
         rating.classList.add('de-inventory-rating');
         parent.setAttribute('target', '_blank');
@@ -63,7 +63,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let minimumRating = resourceLibrary.getItem('inventoryRatings');
+  let inventoryRatings = resourceLibrary.getPreference('inventoryRatings');
 
   if ( resourceLibrary.pageIs('seller') ) {
     injectCss();

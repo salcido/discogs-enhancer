@@ -49,8 +49,8 @@ resourceLibrary.ready(() => {
   if ( resourceLibrary.pageIs('release') && resourceLibrary.pageIsNot('history', 'sellRelease') ) {
 
     let
-        config = resourceLibrary.getItem('readability') || useDefaults(),
-        show = resourceLibrary.getItem('readabilityDividers') || setReadabilityTrue(),
+        config = resourceLibrary.getPreference('readability') || useDefaults(),
+        show = resourceLibrary.getPreference('readabilityDividers') || setReadabilityTrue(),
 
         debug = resourceLibrary.options.debug(),
 
@@ -121,7 +121,7 @@ resourceLibrary.ready(() => {
         });
 
         show = !show;
-        localStorage.setItem('readabilityDividers', JSON.stringify(show));
+        resourceLibrary.setPreference('readabilityDividers', show);
       });
     }
 
@@ -354,12 +354,12 @@ resourceLibrary.ready(() => {
 
     function setReadabilityTrue() {
 
-      if ( !localStorage.getItem('readabilityDividers') ) {
+      if ( resourceLibrary.getPreference('readabilityDividers') === undefined ) {
 
-        localStorage.setItem('readabilityDividers', 'true');
+        resourceLibrary.setPreference('readabilityDividers', true);
       }
 
-      return JSON.parse(localStorage.getItem('readabilityDividers'));
+      return resourceLibrary.getPreference('readabilityDividers');
     }
 
     /**

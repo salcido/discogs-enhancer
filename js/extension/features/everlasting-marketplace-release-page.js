@@ -24,8 +24,8 @@ resourceLibrary.ready(() => {
         paused = false,
         pjax = document.querySelector('#pjax_container'),
         pTotal,
-        mediaCondition = resourceLibrary.getItem('mediaCondition'),
-        sleeveCondition = resourceLibrary.getItem('sleeveCondition');
+        mediaCondition = resourceLibrary.getPreference('mediaCondition'),
+        sleeveCondition = resourceLibrary.getPreference('sleeveCondition');
 
     let pauseBtn = `<a class="de-pause button button-blue">
                       <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
@@ -108,9 +108,9 @@ resourceLibrary.ready(() => {
      */
     function callOtherMarketplaceFeatures() {
 
-      let blockList = resourceLibrary.getItem('blockList'),
-          favoriteList = resourceLibrary.getItem('favoriteList'),
-          sellerNames = resourceLibrary.getItem('sellerNames');
+      let blockList = resourceLibrary.getPreference('blockList'),
+          favoriteList = resourceLibrary.getPreference('favoriteList'),
+          sellerNames = resourceLibrary.getPreference('sellerNames');
 
       // apply Marketplace Highlights
       if ( window.applyStyles ) window.applyStyles();
@@ -143,7 +143,7 @@ resourceLibrary.ready(() => {
 
       // Filter shipping country
       if ( window.filterCountries ) {
-        let countryList = resourceLibrary.getItem('countryList'),
+        let countryList = resourceLibrary.getPreference('countryList'),
             include = countryList.include,
             useCurrency = countryList.currency;
         window.filterCountries(include, useCurrency);

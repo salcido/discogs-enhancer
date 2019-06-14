@@ -9,7 +9,6 @@
  */
 
 resourceLibrary.ready(() => {
-
   // ========================================================
   // Functions
   // ========================================================
@@ -24,7 +23,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(window.sellerItemsInCart());
+        resourceLibrary.xhrSuccess(window.sellerItemsInCart(sellerNames));
       });
     });
   }
@@ -43,7 +42,7 @@ resourceLibrary.ready(() => {
     if (namesInCart.length) {
       namesInCart.forEach(n => sellerNames.push( n.textContent.trim() ));
     }
-    localStorage.setItem('sellerNames', JSON.stringify(sellerNames));
+    resourceLibrary.setPreference('sellerNames', sellerNames);
   }
 
   /**
@@ -118,7 +117,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let sellerNames = resourceLibrary.getItem('sellerNames');
+  let sellerNames = resourceLibrary.getPreference('sellerNames');
 
   // Grab seller names when on the cart page
   if ( resourceLibrary.pageIs('cart') ) {
@@ -138,7 +137,7 @@ resourceLibrary.ready(() => {
 
   // Marketplace wantlists, all items, release pages
   if ( resourceLibrary.pageIs('myWants', 'allItems', 'sellRelease') ) {
-    let sellerNames = resourceLibrary.getItem('sellerNames');
+    let sellerNames = resourceLibrary.getPreference('sellerNames');
     injectCss();
     // Iterate over seller names
     if ( sellerNames && sellerNames.length ) window.sellerItemsInCart(sellerNames);

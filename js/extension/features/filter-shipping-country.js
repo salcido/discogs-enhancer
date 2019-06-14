@@ -15,10 +15,10 @@
 
 resourceLibrary.ready(() => {
 
-  let countryList = resourceLibrary.getItem('countryList'),
+  let countryList = resourceLibrary.getPreference('countryList'),
       href = window.location.href,
       currencyInURL = href.includes('currency='),
-      currentFilterState = resourceLibrary.getItem('currentFilterState');
+      currentFilterState = resourceLibrary.getPreference('currentFilterState');
 
   // ========================================================
   // Functions

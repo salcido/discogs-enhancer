@@ -9,7 +9,7 @@
 
 resourceLibrary.ready(() => {
 
-  let opts = resourceLibrary.getItem('scan'),
+  let opts = resourceLibrary.getPreference('scan'),
       colorize = opts && opts.wants ? opts.wants : null,
       interval = opts && opts.int ? Number(opts.int) : 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),

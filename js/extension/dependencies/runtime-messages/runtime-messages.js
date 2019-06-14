@@ -47,106 +47,26 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       }
       break;
 
-    // block sellers
-    case 'getBlockedSellers': {
+    case 'userPreferences': {
+      let userPreferences = {
+        blockList: localStorage.getItem('blockList'),
+        countryList: localStorage.getItem('countryList'),
+        discriminators: localStorage.getItem('discriminators'),
+        favoriteList: localStorage.getItem('favoriteList'),
+        inventoryRatings: localStorage.getItem('inventoryRatings'),
+        mediaCondition: localStorage.getItem('mediaCondition'),
+        readability: localStorage.getItem('readability'),
+        sellerRep: localStorage.getItem('sellerRep'),
+        sellerRepColor: localStorage.getItem('sellerRepColor'),
+        sleeveCondition: localStorage.getItem('sleeveCondition'),
+        usDateFormat: localStorage.getItem('usDateFormat'),
+      };
 
-      let blockList = JSON.parse(localStorage.getItem('blockList'));
-
-      sendResponse({ blockList });
-      break;
-    }
-
-    // favorite sellers
-    case 'getFavoriteSellers': {
-
-      let favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
-
-      sendResponse({ favoriteList });
-      break;
-    }
-
-    // filter shipping country
-    case 'filterShippingCountry': {
-
-      let filterShippingCountry = JSON.parse(localStorage.getItem('countryList'));
-
-      sendResponse({ filterShippingCountry });
-      break;
-    }
-
-    // filter media conditions
-    case 'getConditions': {
-
-      let mediaCondition = JSON.parse(localStorage.getItem('mediaCondition'));
-
-      sendResponse({ mediaCondition });
-      break;
-    }
-
-    // filter sleeve condition
-    case 'getSleeveConditions': {
-
-      let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition'));
-
-      sendResponse({ sleeveCondition });
-      break;
-    }
-
-    // Readability
-    case 'getReadability': {
-
-      let readability = JSON.parse(localStorage.getItem('readability'));
-
-      sendResponse({ readability });
-      break;
-    }
-
-    // Seller Rep Percentage
-    case 'getSellerRep': {
-
-      let sellerRep = JSON.parse(localStorage.getItem('sellerRep'));
-
-      sendResponse({ sellerRep });
-      break;
-    }
-
-    // Seller Rep Color
-    case 'getSellerRepColor': {
-
-      let sellerRepColor = localStorage.getItem('sellerRepColor');
-
-      sendResponse({ sellerRepColor });
-      break;
-    }
-
-    // Absolute Date
-    case 'getAbsoluteDate': {
-
-      let usDateFormat = localStorage.getItem('usDateFormat');
-
-      sendResponse({ usDateFormat });
-      break;
-    }
-
-    // Inventory Ratings
-    case 'getInventoryRatings': {
-
-      let inventoryRatings = localStorage.getItem('inventoryRatings');
-
-      sendResponse({ inventoryRatings });
-      break;
-    }
-
-    // Tweak Discriminators
-    case 'getDiscriminators': {
-
-      let discrims = localStorage.getItem('discriminators') || null;
-
-      if (discrims) {
-        discrims = JSON.parse(discrims);
+      for ( let p in userPreferences ) {
+        userPreferences[p] = JSON.parse(userPreferences[p]);
       }
 
-      sendResponse({ discrims });
+      sendResponse({ userPreferences });
       break;
     }
   }

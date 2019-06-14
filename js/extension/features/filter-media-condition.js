@@ -106,9 +106,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let currentFilterState = resourceLibrary.getItem('currentFilterState'),
-      mediaCondition = resourceLibrary.getItem('mediaCondition'),
-      sleeveCondition = resourceLibrary.getItem('sleeveCondition');
+  let currentFilterState = resourceLibrary.getPreference('currentFilterState'),
+      mediaCondition = resourceLibrary.getPreference('mediaCondition'),
+      sleeveCondition = resourceLibrary.getPreference('sleeveCondition');
 
   if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 

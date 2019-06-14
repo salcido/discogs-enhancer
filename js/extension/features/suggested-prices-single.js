@@ -31,7 +31,7 @@ resourceLibrary.ready(() => {
         suggested,
         symbol,
         target,
-        userCurrency = resourceLibrary.getItem('userCurrency');
+        userCurrency = resourceLibrary.getPreference('userCurrency');
 
     // ========================================================
     // Functions (Alphabetical)

@@ -16,7 +16,7 @@ resourceLibrary.ready(() => {
       errors,
       input,
       language = resourceLibrary.language(),
-      lastUsedCurrency = resourceLibrary.getItem('lastUsedCurrency'),
+      lastUsedCurrency = resourceLibrary.getPreference('lastUsedCurrency'),
       now = Date.now(),
       output,
       rates,
@@ -198,8 +198,8 @@ resourceLibrary.ready(() => {
 
       data.lastChecked = now;
 
-      resourceLibrary.setItem('converterRates', data);
-      rates = resourceLibrary.getItem('converterRates');
+      resourceLibrary.setPreference('converterRates', data);
+      rates = resourceLibrary.getPreference('converterRates');
 
       setUIforUpdating(false, '');
       convertCurrency();
@@ -313,19 +313,21 @@ resourceLibrary.ready(() => {
   errors = document.querySelector('#errors');
 
   // Check for existing rates
-  if ( !resourceLibrary.getItem('converterRates') ) {
+  if ( !resourceLibrary.getPreference('converterRates') ) {
 
     rates = null;
 
   } else {
 
-    rates = resourceLibrary.getItem('converterRates');
+    rates = resourceLibrary.getPreference('converterRates');
     // Select the value for `baseCurrency` if available
     selectOption(baseCurrency, rates.base);
   }
   // Remember state for #userCurrency
   if ( lastUsedCurrency ) {
     selectOption(userCurrency, lastUsedCurrency);
+  } else {
+    selectOption(userCurrency, 'USD');
   }
   // Disable ability to select '-' option
   // so ajax call does not come back 422 (Unprocessable Entity)
@@ -345,7 +347,7 @@ resourceLibrary.ready(() => {
       console.log(' *** Auto-updating Currency Converter rates *** ');
     }
 
-    rates = resourceLibrary.getItem('converterRates');
+    rates = resourceLibrary.getPreference('converterRates');
     getConverterRates(rates.base);
   }
 
@@ -422,6 +424,6 @@ resourceLibrary.ready(() => {
     clearErrors();
     convertCurrency();
 
-    resourceLibrary.setItem('lastUsedCurrency', getOptionValue(userCurrency));
+    resourceLibrary.setPreference('lastUsedCurrency', getOptionValue(userCurrency));
   });
 });

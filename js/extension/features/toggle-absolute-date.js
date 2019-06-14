@@ -12,8 +12,7 @@ resourceLibrary.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let absoluteDate = resourceLibrary.getItem('absoluteDate'),
-        usDateFormat = resourceLibrary.getItem('usDateFormat'),
+    let { usDateFormat, absoluteDate } = resourceLibrary.getItem('userPreferences'),
         copies = document.querySelectorAll('.cw_block_timestamp'),
         language = resourceLibrary.language(),
         monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -82,10 +81,10 @@ resourceLibrary.ready(() => {
     /**
     * Whether the user wants to see the absolute date
     * @param {Boolean} pref - User's absolute date preference
-    * @returns {Method}
+    * @returns {undefined}
     */
     function savePreference(pref) {
-      return localStorage.setItem('absoluteDate', pref);
+      resourceLibrary.setPreference('absoluteDate', pref);
     }
 
     // ========================================================
@@ -119,6 +118,8 @@ resourceLibrary.ready(() => {
     // ========================================================
     // DOM setup
     // ========================================================
+    if (usDateFormat === undefined) usDateFormat = false;
+    if (absoluteDate === undefined) absoluteDate = true;
 
     attachCss();
     storeRelativeDates();

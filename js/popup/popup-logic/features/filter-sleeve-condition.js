@@ -30,10 +30,10 @@ export function clearClasses(classes, status) {
  */
 export function init() {
 
-  let sleeveCondition = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj;
+  let hasSettings = localStorage.getItem('sleeveCondition'),
+      sleeveCondition = hasSettings ? JSON.parse(hasSettings) : defaultObj;
 
-  if ( typeof sleeveCondition !== 'object' ) {
-    sleeveCondition = defaultObj;
+  if ( !hasSettings ) {
     localStorage.setItem('sleeveCondition', JSON.stringify(defaultObj));
   }
 
@@ -86,11 +86,11 @@ export function setupFilterSleeveCondition(enabled) {
   let generic = document.getElementById('generic'),
       noCover = document.getElementById('no-cover'),
       select = document.getElementById('sleeveConditionValue'),
-      setting = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj,
+      hasSettings = localStorage.getItem('sleeveCondition'),
+      setting = hasSettings ? JSON.parse(hasSettings) : defaultObj,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-  if ( typeof setting !== 'object' ) {
-    setting = defaultObj;
+  if ( !hasSettings ) {
     localStorage.setItem('sleeveCondition', JSON.stringify(defaultObj));
   }
 
@@ -119,11 +119,11 @@ export function setupFilterSleeveCondition(enabled) {
  */
 export function toggleSleeveConditions(event) {
 
-  let setting = JSON.parse(localStorage.getItem('sleeveCondition')) || defaultObj,
+  let hasSettings = localStorage.getItem('sleeveCondition'),
+      setting = hasSettings ? JSON.parse(hasSettings) : defaultObj,
       status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-  if ( typeof setting !== 'object' ) {
-    setting = defaultObj;
+  if ( !hasSettings ) {
     localStorage.setItem('sleeveCondition', JSON.stringify(defaultObj));
   }
 

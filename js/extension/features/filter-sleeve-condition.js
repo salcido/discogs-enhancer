@@ -23,9 +23,9 @@
 
 resourceLibrary.ready(() => {
 
-    let currentFilterState = resourceLibrary.getItem('currentFilterState'),
-        mediaCondition = resourceLibrary.getItem('mediaCondition'),
-        sleeveCondition = resourceLibrary.getItem('sleeveCondition');
+    let currentFilterState = resourceLibrary.getPreference('currentFilterState'),
+        mediaCondition = resourceLibrary.getPreference('mediaCondition'),
+        sleeveCondition = resourceLibrary.getPreference('sleeveCondition');
 
     /**
      * Find all instances of selected items in list and hide them
