@@ -260,7 +260,7 @@ appendFragment([resourceLibrary]).then(() => {
         absoluteDate.src = chrome.extension.getURL('js/extension/features/toggle-absolute-date.js');
         absoluteDate.className = 'de-init';
 
-        elemsPrimary.push(absoluteDate);
+        elemsSecondary.push(absoluteDate);
       }
 
       if ( result.prefs.averagePrice ) {
@@ -271,7 +271,7 @@ appendFragment([resourceLibrary]).then(() => {
         averagePrice.src = chrome.extension.getURL('js/extension/features/average-price.js');
         averagePrice.className = 'de-init';
 
-        elemsPrimary.push(averagePrice);
+        elemsSecondary.push(averagePrice);
       }
 
       if (result.prefs.blockSellers) {
@@ -283,7 +283,7 @@ appendFragment([resourceLibrary]).then(() => {
         blockSellers.src = chrome.extension.getURL('js/extension/features/block-sellers.js');
         blockSellers.className = 'de-init';
 
-        elemsPrimary.push(blockSellers);
+        elemsSecondary.push(blockSellers);
 
         // blocked-seller.css
         let blockSellers_css = document.createElement('link');
@@ -352,6 +352,7 @@ appendFragment([resourceLibrary]).then(() => {
         elemsPrimary.push(converter);
       }
 
+      // release-history-legend.js
       if (result.prefs.darkTheme) {
 
         let releaseHistoryScript = document.createElement('script');
@@ -434,7 +435,7 @@ appendFragment([resourceLibrary]).then(() => {
         favoriteSellers.src = chrome.extension.getURL('js/extension/features/favorite-sellers.js');
         favoriteSellers.className = 'de-init';
 
-        elemsPrimary.push(favoriteSellers);
+        elemsSecondary.push(favoriteSellers);
 
         // favorite-sellers.css
         let favoriteSellers_css = document.createElement('link');
@@ -572,7 +573,7 @@ appendFragment([resourceLibrary]).then(() => {
         inventoryRatings.src = chrome.extension.getURL('js/extension/features/inventory-ratings.js');
         inventoryRatings.className = 'de-init';
 
-        elemsPrimary.push(inventoryRatings);
+        elemsSecondary.push(inventoryRatings);
       }
 
       if ( result.prefs.listsInTabs ) {
@@ -616,7 +617,7 @@ appendFragment([resourceLibrary]).then(() => {
         ratingPercent.src = chrome.extension.getURL('js/extension/features/rating-percent.js');
         ratingPercent.className = 'de-init';
 
-        elemsPrimary.push(ratingPercent);
+        elemsSecondary.push(ratingPercent);
       }
 
       if (result.prefs.readability) {
@@ -707,7 +708,7 @@ appendFragment([resourceLibrary]).then(() => {
         sellerItemsInCart.src = chrome.extension.getURL('js/extension/features/show-sellers-in-cart.js');
         sellerItemsInCart.className = 'de-init';
 
-        elemsPrimary.push(sellerItemsInCart);
+        elemsSecondary.push(sellerItemsInCart);
       }
 
       if ( result.prefs.sellerRep ) {
@@ -719,7 +720,7 @@ appendFragment([resourceLibrary]).then(() => {
         sellerRep.src = chrome.extension.getURL('js/extension/features/seller-rep.js');
         sellerRep.className = 'de-init';
 
-        elemsPrimary.push(sellerRep);
+        elemsSecondary.push(sellerRep);
       }
 
       if ( result.prefs.sortButtons ) {
