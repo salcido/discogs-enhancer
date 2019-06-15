@@ -169,7 +169,6 @@ appendFragment([resourceLibrary]).then(() => {
       // ========================================================
 
       // Filter Monitor
-      // **Appended last via `elemsPrimary`
       filterMonitor = document.createElement('script');
       filterMonitor.type = 'text/javascript';
       filterMonitor.className = 'de-init';
@@ -415,7 +414,6 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // everlasting marketplace
-      // **Appended last via `elemsPrimary`
       if (result.prefs.everlastingMarket) {
 
         // everlasting-marketplace.js && everlasting-marketplace-release-page.js
@@ -479,7 +477,6 @@ appendFragment([resourceLibrary]).then(() => {
       if (result.prefs.filterMediaCondition) {
 
         // filter-media-condition.js
-        // **Appended last via `elemsPrimary`
         let filterMediaCondition = document.createElement('script');
 
         filterMediaCondition.type = 'text/javascript';
@@ -492,7 +489,6 @@ appendFragment([resourceLibrary]).then(() => {
       if (result.prefs.filterShippingCountry) {
 
         // filter-shipping-country.js
-        // **Appended last via `elemsPrimary`
         let filterShippingCountry = document.createElement('script');
 
         filterShippingCountry.type = 'text/javascript';
@@ -505,7 +501,6 @@ appendFragment([resourceLibrary]).then(() => {
       if (result.prefs.filterSleeveCondition) {
 
         // filter-sleeve-condition.js
-        // **Appended last via `elemsPrimary`
         let filterSleeveCondition = document.createElement('script');
 
         filterSleeveCondition.type = 'text/javascript';
@@ -774,7 +769,6 @@ appendFragment([resourceLibrary]).then(() => {
       if (result.prefs.suggestedPrices) {
 
         // update-exchange-rates.js
-        // **Appended last via `elemsPrimary`
         let updateExchangeRates = document.createElement('script');
 
         updateExchangeRates.type = 'text/javascript';
