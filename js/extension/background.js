@@ -11,18 +11,10 @@
  * It also serves as the intermediary between Discogs and the extension's
  * popover.
  *
- * Note: features that depend on data in localStorage are generally
- * appended in `elemsSecondary`.
- *
- * `elemsSecondary` is a separate set of scripts that are injected
- * into the DOM **after** the user preferences have been saved in
- * localStorage as they depend on those values being updated and
- * available first.
  */
 
 let checkForAnalytics,
-    elemsPrimary = [],
-    elemsSecondary = [],
+    elems = [],
     filterMonitor,
     prefs = {},
     resourceLibrary;
@@ -177,13 +169,13 @@ appendFragment([resourceLibrary]).then(() => {
       // ========================================================
 
       // Filter Monitor
-      // **Appended last via `elemsSecondary`
+      // **Appended last via `elemsPrimary`
       filterMonitor = document.createElement('script');
       filterMonitor.type = 'text/javascript';
       filterMonitor.className = 'de-init';
       filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
 
-      elemsSecondary.push(filterMonitor);
+      elems.push(filterMonitor);
 
       // - Toggleable CSS files -
       // --------------------------------------------------------
@@ -201,7 +193,7 @@ appendFragment([resourceLibrary]).then(() => {
       minMax_css.id = 'minMaxColumnsCss';
       minMax_css.disabled = !result.prefs.hideMinMaxColumns;
 
-      elemsPrimary.push(minMax_css);
+      elems.push(minMax_css);
 
       // baoi-fields.css
       let baoi_css = document.createElement('link');
@@ -212,7 +204,7 @@ appendFragment([resourceLibrary]).then(() => {
       baoi_css.id = 'baoiFieldsCss',
       baoi_css.disabled = !result.prefs.baoiFields;
 
-      elemsPrimary.push(baoi_css);
+      elems.push(baoi_css);
 
       // large-youtube-playlists.css
       let ytPlaylists_css = document.createElement('link');
@@ -223,7 +215,7 @@ appendFragment([resourceLibrary]).then(() => {
       ytPlaylists_css.id = 'ytPlaylistsCss',
       ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
 
-      elemsPrimary.push(ytPlaylists_css);
+      elems.push(ytPlaylists_css);
 
       // everlasting.css
       let everlastingCss = document.createElement('link');
@@ -232,7 +224,7 @@ appendFragment([resourceLibrary]).then(() => {
       everlastingCss.type = 'text/css';
       everlastingCss.href = chrome.extension.getURL('css/everlasting.css');
 
-      elemsPrimary.push(everlastingCss);
+      elems.push(everlastingCss);
 
       // Friend-counter (always enabled)
       // See comments in friend-counter.js for more details
@@ -242,7 +234,7 @@ appendFragment([resourceLibrary]).then(() => {
       friendCounter.className = 'de-init';
       friendCounter.src = chrome.extension.getURL('js/extension/features/friend-counter.js');
 
-      elemsPrimary.push(friendCounter);
+      elems.push(friendCounter);
 
       // Marketplace Highlights
       // apply-highlights.js
@@ -252,7 +244,7 @@ appendFragment([resourceLibrary]).then(() => {
       highlightScript.src = chrome.extension.getURL('js/extension/features/apply-highlights.js');
       highlightScript.className = 'de-init';
 
-      elemsPrimary.push(highlightScript);
+      elems.push(highlightScript);
 
       // marketplace-highlights.css
       let highlightCss = document.createElement('link');
@@ -263,7 +255,7 @@ appendFragment([resourceLibrary]).then(() => {
       highlightCss.id = 'mediaHighLightsCss';
       highlightCss.disabled = !result.prefs.highlightMedia;
 
-      elemsPrimary.push(highlightCss);
+      elems.push(highlightCss);
 
       // ========================================================
       // Preference-dependent scripts
@@ -277,7 +269,7 @@ appendFragment([resourceLibrary]).then(() => {
         absoluteDate.src = chrome.extension.getURL('js/extension/features/toggle-absolute-date.js');
         absoluteDate.className = 'de-init';
 
-        elemsSecondary.push(absoluteDate);
+        elems.push(absoluteDate);
       }
 
       if ( result.prefs.averagePrice ) {
@@ -288,7 +280,7 @@ appendFragment([resourceLibrary]).then(() => {
         averagePrice.src = chrome.extension.getURL('js/extension/features/average-price.js');
         averagePrice.className = 'de-init';
 
-        elemsPrimary.push(averagePrice);
+        elems.push(averagePrice);
       }
 
       if (result.prefs.blockSellers) {
@@ -300,7 +292,7 @@ appendFragment([resourceLibrary]).then(() => {
         blockSellers.src = chrome.extension.getURL('js/extension/features/block-sellers.js');
         blockSellers.className = 'de-init';
 
-        elemsSecondary.push(blockSellers);
+        elems.push(blockSellers);
 
         // blocked-seller.css
         let blockSellers_css = document.createElement('link');
@@ -309,7 +301,7 @@ appendFragment([resourceLibrary]).then(() => {
         blockSellers_css.type = 'text/css';
         blockSellers_css.href = chrome.extension.getURL('css/blocked-seller.css');
 
-        elemsPrimary.push(blockSellers_css);
+        elems.push(blockSellers_css);
       }
 
       if (result.prefs.blurryImageFix) {
@@ -321,7 +313,7 @@ appendFragment([resourceLibrary]).then(() => {
         blurryImageFix.className = 'de-init';
         blurryImageFix.src = chrome.extension.getURL('js/extension/features/blurry-image-fix.js');
 
-        elemsPrimary.push(blurryImageFix);
+        elems.push(blurryImageFix);
       }
 
       if (result.prefs.collectionNewTabs) {
@@ -333,7 +325,7 @@ appendFragment([resourceLibrary]).then(() => {
         collectionNewTabs.src = chrome.extension.getURL('js/extension/features/collection-new-tabs.js');
         collectionNewTabs.className = 'de-init';
 
-        elemsPrimary.push(collectionNewTabs);
+        elems.push(collectionNewTabs);
       }
 
       if (result.prefs.collectionUi) {
@@ -345,7 +337,7 @@ appendFragment([resourceLibrary]).then(() => {
         collectionUi.src = chrome.extension.getURL('js/extension/features/better-collection-ui.js');
         collectionUi.className = 'de-init';
 
-        elemsPrimary.push(collectionUi);
+        elems.push(collectionUi);
       }
 
       if (result.prefs.converter) {
@@ -357,7 +349,7 @@ appendFragment([resourceLibrary]).then(() => {
         converter_css.type = 'text/css';
         converter_css.href = chrome.extension.getURL('css/currency-converter.css');
 
-        elemsPrimary.push(converter_css);
+        elems.push(converter_css);
 
         // currency-converter.js
         let converter = document.createElement('script');
@@ -366,7 +358,7 @@ appendFragment([resourceLibrary]).then(() => {
         converter.className = 'de-init';
         converter.src = chrome.extension.getURL('js/extension/features/currency-converter.js');
 
-        elemsPrimary.push(converter);
+        elems.push(converter);
       }
 
       // release-history-legend.js
@@ -378,7 +370,7 @@ appendFragment([resourceLibrary]).then(() => {
         releaseHistoryScript.src = chrome.extension.getURL('js/extension/features/release-history-legend.js');
         releaseHistoryScript.className = 'de-init';
 
-        elemsPrimary.push(releaseHistoryScript);
+        elems.push(releaseHistoryScript);
 
         // options.js
         // The option menu is only available when the dark theme is in use
@@ -388,7 +380,7 @@ appendFragment([resourceLibrary]).then(() => {
         options.src = chrome.extension.getURL('js/extension/dependencies/options/options.js');
         options.className = 'de-init';
 
-        elemsPrimary.push(options);
+        elems.push(options);
       }
 
       // everlasting collection
@@ -401,7 +393,7 @@ appendFragment([resourceLibrary]).then(() => {
         everlastingCollectionNotes.src = chrome.extension.getURL('js/extension/features/everlasting-collection-notes.js');
         everlastingCollectionNotes.className = 'de-init';
 
-        elemsPrimary.push(everlastingCollectionNotes);
+        elems.push(everlastingCollectionNotes);
 
         // everlasting-collection-ratings.js
         let everlastingCollectionRatings = document.createElement('script');
@@ -410,7 +402,7 @@ appendFragment([resourceLibrary]).then(() => {
         everlastingCollectionRatings.src = chrome.extension.getURL('js/extension/features/everlasting-collection-ratings.js');
         everlastingCollectionRatings.className = 'de-init';
 
-        elemsPrimary.push(everlastingCollectionRatings);
+        elems.push(everlastingCollectionRatings);
 
         // everlasting-collection-sm-med.js
         let everlastingCollection = document.createElement('script');
@@ -419,11 +411,11 @@ appendFragment([resourceLibrary]).then(() => {
         everlastingCollection.src = chrome.extension.getURL('js/extension/features/everlasting-collection-sm-med.js');
         everlastingCollection.className = 'de-init';
 
-        elemsPrimary.push(everlastingCollection);
+        elems.push(everlastingCollection);
       }
 
       // everlasting marketplace
-      // **Appended last via `elemsSecondary`
+      // **Appended last via `elemsPrimary`
       if (result.prefs.everlastingMarket) {
 
         // everlasting-marketplace.js && everlasting-marketplace-release-page.js
@@ -434,13 +426,13 @@ appendFragment([resourceLibrary]).then(() => {
         everlastingMarket.src = chrome.extension.getURL('js/extension/features/everlasting-marketplace.js');
         everlastingMarket.className = 'de-init';
 
-        elemsSecondary.push(everlastingMarket);
+        elems.push(everlastingMarket);
 
         everlastingMarketReleases.type = 'text/javascript';
         everlastingMarketReleases.src = chrome.extension.getURL('js/extension/features/everlasting-marketplace-release-page.js');
         everlastingMarketReleases.className = 'de-init';
 
-        elemsSecondary.push(everlastingMarketReleases);
+        elems.push(everlastingMarketReleases);
       }
 
       if (result.prefs.favoriteSellers) {
@@ -452,7 +444,7 @@ appendFragment([resourceLibrary]).then(() => {
         favoriteSellers.src = chrome.extension.getURL('js/extension/features/favorite-sellers.js');
         favoriteSellers.className = 'de-init';
 
-        elemsSecondary.push(favoriteSellers);
+        elems.push(favoriteSellers);
 
         // favorite-sellers.css
         let favoriteSellers_css = document.createElement('link');
@@ -461,7 +453,7 @@ appendFragment([resourceLibrary]).then(() => {
         favoriteSellers_css.type = 'text/css';
         favoriteSellers_css.href = chrome.extension.getURL('css/favorite-sellers.css');
 
-        elemsPrimary.push(favoriteSellers_css);
+        elems.push(favoriteSellers_css);
       }
 
       if (result.prefs.feedback) {
@@ -472,7 +464,7 @@ appendFragment([resourceLibrary]).then(() => {
         feedback.src = chrome.extension.getURL('js/extension/features/feedback-notifier.js');
         feedback.className = 'de-init';
 
-        elemsPrimary.push(feedback);
+        elems.push(feedback);
 
         // feedback-notifier.css
         let feedback_css = document.createElement('link');
@@ -481,46 +473,46 @@ appendFragment([resourceLibrary]).then(() => {
         feedback_css.type = 'text/css';
         feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
 
-        elemsPrimary.push(feedback_css);
+        elems.push(feedback_css);
       }
 
       if (result.prefs.filterMediaCondition) {
 
         // filter-media-condition.js
-        // **Appended last via `elemsSecondary`
+        // **Appended last via `elemsPrimary`
         let filterMediaCondition = document.createElement('script');
 
         filterMediaCondition.type = 'text/javascript';
         filterMediaCondition.src = chrome.extension.getURL('js/extension/features/filter-media-condition.js');
         filterMediaCondition.className = 'de-init';
 
-        elemsSecondary.push(filterMediaCondition);
+        elems.push(filterMediaCondition);
       }
 
       if (result.prefs.filterShippingCountry) {
 
         // filter-shipping-country.js
-        // **Appended last via `elemsSecondary`
+        // **Appended last via `elemsPrimary`
         let filterShippingCountry = document.createElement('script');
 
         filterShippingCountry.type = 'text/javascript';
         filterShippingCountry.src = chrome.extension.getURL('js/extension/features/filter-shipping-country.js');
         filterShippingCountry.className = 'de-init';
 
-        elemsSecondary.push(filterShippingCountry);
+        elems.push(filterShippingCountry);
       }
 
       if (result.prefs.filterSleeveCondition) {
 
         // filter-sleeve-condition.js
-        // **Appended last via `elemsSecondary`
+        // **Appended last via `elemsPrimary`
         let filterSleeveCondition = document.createElement('script');
 
         filterSleeveCondition.type = 'text/javascript';
         filterSleeveCondition.src = chrome.extension.getURL('js/extension/features/filter-sleeve-condition.js');
         filterSleeveCondition.className = 'de-init';
 
-        elemsSecondary.push(filterSleeveCondition);
+        elems.push(filterSleeveCondition);
       }
 
       // text format shortcuts
@@ -533,7 +525,7 @@ appendFragment([resourceLibrary]).then(() => {
         shortcuts.src = chrome.extension.getURL('js/extension/features/text-format-shortcuts.js');
         shortcuts.className = 'de-init';
 
-        elemsPrimary.push(shortcuts);
+        elems.push(shortcuts);
 
         // text-format-shortcuts.css
         let shortcuts_css = document.createElement('link');
@@ -542,7 +534,7 @@ appendFragment([resourceLibrary]).then(() => {
         shortcuts_css.type = 'text/css';
         shortcuts_css.href = chrome.extension.getURL('css/text-format-shortcuts.css');
 
-        elemsPrimary.push(shortcuts_css);
+        elems.push(shortcuts_css);
       }
 
       // Set value for filter-media-condition.js
@@ -566,7 +558,7 @@ appendFragment([resourceLibrary]).then(() => {
         notesCount.src = chrome.extension.getURL('js/extension/features/notes-counter.js');
         notesCount.className = 'de-init';
 
-        elemsPrimary.push(notesCount);
+        elems.push(notesCount);
       }
 
       if ( result.prefs.quickSearch ) {
@@ -578,7 +570,7 @@ appendFragment([resourceLibrary]).then(() => {
         quickSearch.src = chrome.extension.getURL('js/extension/features/quick-search.js');
         quickSearch.className = 'de-init';
 
-        elemsPrimary.push(quickSearch);
+        elems.push(quickSearch);
       }
 
       if (result.prefs.inventoryRatings) {
@@ -590,7 +582,7 @@ appendFragment([resourceLibrary]).then(() => {
         inventoryRatings.src = chrome.extension.getURL('js/extension/features/inventory-ratings.js');
         inventoryRatings.className = 'de-init';
 
-        elemsSecondary.push(inventoryRatings);
+        elems.push(inventoryRatings);
       }
 
       if ( result.prefs.listsInTabs ) {
@@ -601,7 +593,7 @@ appendFragment([resourceLibrary]).then(() => {
         listsInTabs.src = chrome.extension.getURL('js/extension/features/list-items-in-tabs.js');
         listsInTabs.className = 'de-init';
 
-        elemsPrimary.push(listsInTabs);
+        elems.push(listsInTabs);
       }
 
       if (result.prefs.randomItem) {
@@ -613,7 +605,7 @@ appendFragment([resourceLibrary]).then(() => {
         randomItem.src = chrome.extension.getURL('js/extension/features/random-item.js');
         randomItem.className = 'de-init';
 
-        elemsPrimary.push(randomItem);
+        elems.push(randomItem);
 
         // random-item.css
         let randomItemCss = document.createElement('link');
@@ -623,7 +615,7 @@ appendFragment([resourceLibrary]).then(() => {
         randomItemCss.href = chrome.extension.getURL('css/random-item.css');
         randomItemCss.id = 'randomItemCss';
 
-        elemsPrimary.push(randomItemCss);
+        elems.push(randomItemCss);
       }
 
       if ( result.prefs.ratingPercent ) {
@@ -634,7 +626,7 @@ appendFragment([resourceLibrary]).then(() => {
         ratingPercent.src = chrome.extension.getURL('js/extension/features/rating-percent.js');
         ratingPercent.className = 'de-init';
 
-        elemsSecondary.push(ratingPercent);
+        elems.push(ratingPercent);
       }
 
       if (result.prefs.readability) {
@@ -646,7 +638,7 @@ appendFragment([resourceLibrary]).then(() => {
         tracklist_css.href = chrome.extension.getURL('css/tracklist-readability.css');
         tracklist_css.id = 'tracklist_css';
 
-        elemsPrimary.push(tracklist_css);
+        elems.push(tracklist_css);
 
         // tracklist-readability.js
         let readability = document.createElement('script');
@@ -655,7 +647,7 @@ appendFragment([resourceLibrary]).then(() => {
         readability.src = chrome.extension.getURL('js/extension/features/tracklist-readability.js');
         readability.className = 'de-init';
 
-        elemsPrimary.push(readability);
+        elems.push(readability);
       }
 
       // release-durations
@@ -667,7 +659,7 @@ appendFragment([resourceLibrary]).then(() => {
         releaseDurations.src = chrome.extension.getURL('js/extension/features/release-durations.js');
         releaseDurations.className = 'de-init';
 
-        elemsPrimary.push(releaseDurations);
+        elems.push(releaseDurations);
       }
 
       // release-ratings
@@ -679,7 +671,7 @@ appendFragment([resourceLibrary]).then(() => {
         releaseRatings.src = chrome.extension.getURL('js/extension/features/release-ratings.js');
         releaseRatings.className = 'de-init';
 
-        elemsPrimary.push(releaseRatings);
+        elems.push(releaseRatings);
       }
 
       // release-scanner
@@ -691,7 +683,7 @@ appendFragment([resourceLibrary]).then(() => {
         releaseScanner.src = chrome.extension.getURL('js/extension/features/release-scanner.js');
         releaseScanner.className = 'de-init';
 
-        elemsPrimary.push(releaseScanner);
+        elems.push(releaseScanner);
       }
 
       // remove-from-wantlist.js/css
@@ -705,7 +697,7 @@ appendFragment([resourceLibrary]).then(() => {
         removeFromWantlist_css.href = chrome.extension.getURL('css/remove-from-wantlist.css');
         removeFromWantlist_css.id = 'removeFromWantlist_css';
 
-        elemsPrimary.push(removeFromWantlist_css);
+        elems.push(removeFromWantlist_css);
 
         // remove-from-wantlist.js
         let removeFromWantlist = document.createElement('script');
@@ -714,7 +706,7 @@ appendFragment([resourceLibrary]).then(() => {
         removeFromWantlist.src = chrome.extension.getURL('js/extension/features/remove-from-wantlist.js');
         removeFromWantlist.className = 'de-init';
 
-        elemsPrimary.push(removeFromWantlist);
+        elems.push(removeFromWantlist);
       }
 
       if ( result.prefs.sellerItemsInCart ) {
@@ -725,7 +717,7 @@ appendFragment([resourceLibrary]).then(() => {
         sellerItemsInCart.src = chrome.extension.getURL('js/extension/features/show-sellers-in-cart.js');
         sellerItemsInCart.className = 'de-init';
 
-        elemsSecondary.push(sellerItemsInCart);
+        elems.push(sellerItemsInCart);
       }
 
       if ( result.prefs.sellerRep ) {
@@ -737,7 +729,7 @@ appendFragment([resourceLibrary]).then(() => {
         sellerRep.src = chrome.extension.getURL('js/extension/features/seller-rep.js');
         sellerRep.className = 'de-init';
 
-        elemsSecondary.push(sellerRep);
+        elems.push(sellerRep);
       }
 
       if ( result.prefs.sortButtons ) {
@@ -749,7 +741,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortButton_css.href = chrome.extension.getURL('css/sort-buttons.css');
         sortButton_css.id = 'sortButton_css';
 
-        elemsPrimary.push( sortButton_css );
+        elems.push( sortButton_css );
 
         // sort-explore-lists.js
         let sortExploreScript = document.createElement('script');
@@ -758,7 +750,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortExploreScript.src = chrome.extension.getURL('js/extension/features/sort-explore-lists.js');
         sortExploreScript.className = 'de-init';
 
-        elemsPrimary.push( sortExploreScript );
+        elems.push( sortExploreScript );
 
         // sort-marketplace-lists.js
         let sortMarketplaceScript = document.createElement('script');
@@ -767,7 +759,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortMarketplaceScript.src = chrome.extension.getURL('js/extension/features/sort-marketplace-lists.js');
         sortMarketplaceScript.className = 'de-init';
 
-        elemsPrimary.push( sortMarketplaceScript );
+        elems.push( sortMarketplaceScript );
 
         // sort-personal-lists.js
         let sortPersonalListsScript = document.createElement('script');
@@ -776,20 +768,20 @@ appendFragment([resourceLibrary]).then(() => {
         sortPersonalListsScript.src = chrome.extension.getURL('js/extension/features/sort-personal-lists.js');
         sortPersonalListsScript.className = 'de-init';
 
-        elemsPrimary.push( sortPersonalListsScript );
+        elems.push( sortPersonalListsScript );
       }
 
       if (result.prefs.suggestedPrices) {
 
         // update-exchange-rates.js
-        // **Appended last via `elemsSecondary`
+        // **Appended last via `elemsPrimary`
         let updateExchangeRates = document.createElement('script');
 
         updateExchangeRates.type = 'text/javascript';
         updateExchangeRates.src = chrome.extension.getURL('js/extension/dependencies/exchange-rates/update-exchange-rates.js');
         updateExchangeRates.className = 'de-init';
 
-        elemsSecondary.push(updateExchangeRates);
+        elems.push(updateExchangeRates);
 
         // suggested-prices-release-page.js
         let suggestedPricesRelease = document.createElement('script');
@@ -798,7 +790,7 @@ appendFragment([resourceLibrary]).then(() => {
         suggestedPricesRelease.src = chrome.extension.getURL('js/extension/features/suggested-prices-release-page.js');
         suggestedPricesRelease.className = 'de-init';
 
-        elemsPrimary.push(suggestedPricesRelease);
+        elems.push(suggestedPricesRelease);
 
         // suggested-prices-single.js
         let suggestedPricesSingle = document.createElement('script');
@@ -807,7 +799,7 @@ appendFragment([resourceLibrary]).then(() => {
         suggestedPricesSingle.src = chrome.extension.getURL('js/extension/features/suggested-prices-single.js');
         suggestedPricesSingle.className = 'de-init';
 
-        elemsPrimary.push(suggestedPricesSingle);
+        elems.push(suggestedPricesSingle);
 
         // Preloader css
         let suggested = document.createElement('link');
@@ -817,7 +809,7 @@ appendFragment([resourceLibrary]).then(() => {
         suggested.href = chrome.extension.getURL('css/suggested-prices.css');
         suggested.id = 'suggestedCss';
 
-        elemsPrimary.push(suggested);
+        elems.push(suggested);
       }
 
       // tweak-discriminators.js
@@ -829,7 +821,7 @@ appendFragment([resourceLibrary]).then(() => {
         tweakDiscrims.src = chrome.extension.getURL('js/extension/features/tweak-discriminators.js');
         tweakDiscrims.className = 'de-init';
 
-        elemsSecondary.push(tweakDiscrims);
+        elems.push(tweakDiscrims);
       }
 
       // unit-tests.js
@@ -839,7 +831,7 @@ appendFragment([resourceLibrary]).then(() => {
       unitTests.src = chrome.extension.getURL('js/extension/dependencies/tests/unit-tests.js');
       unitTests.className = 'de-init';
 
-      elemsPrimary.push(unitTests);
+      elems.push(unitTests);
 
       // highlight-comments.js
       let comments = document.createElement('script');
@@ -848,7 +840,7 @@ appendFragment([resourceLibrary]).then(() => {
       comments.src = chrome.extension.getURL('js/extension/features/highlight-comments.js');
       comments.className = 'de-init';
 
-      elemsPrimary.push(comments);
+      elems.push(comments);
 
       // ========================================================
       // Contextual Menu Options
@@ -1056,9 +1048,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       return resolve(result);
     })
-    .then(() => appendFragment(elemsPrimary))
     .then(() => {
-      // - Runtime messages -
       // --------------------------------------------------------
       // Get preferences from extension side and save to DOM side.
       // --------------------------------------------------------
@@ -1078,7 +1068,7 @@ appendFragment([resourceLibrary]).then(() => {
         });
       });
     })
-    .then(() => appendFragment(elemsSecondary))
+    .then(() => appendFragment(elems))
     .then(() => document.ready())
     .then(() => {
       // DOM clean up
