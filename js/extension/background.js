@@ -64,8 +64,7 @@ function appendFragment(elems) {
  * @returns {Object}
  */
 function getCurrentFilterState() {
-  let currentFilterState;
-  currentFilterState = {
+  let currentFilterState = {
         everlastingMarket: prefs.everlastingMarket,
         filterMediaCondition: prefs.filterMediaCondition,
         filterShippingCountry: prefs.filterShippingCountry,
