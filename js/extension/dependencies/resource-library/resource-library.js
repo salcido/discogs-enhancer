@@ -759,6 +759,7 @@
       'allItems': '/sell/list',
       'artist': '/artist/',
       'buy': '/buy/',
+      'buyerFeedback': '/buyer_feedback/',
       'cart': '/sell/cart/',
       'collection': '/collection',
       'dashboard': '/my',
@@ -774,6 +775,7 @@
       'release': '/release/',
       'sell': '/sell/',
       'seller': '/seller',
+      'sellerFeedback': '/seller_feedback/',
       'sellItem': '/sell/item/',
       'sellMaster': '/sell/list',
       'sellRelease': '/sell/release',
@@ -1083,6 +1085,23 @@
       pt: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /(AU\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /(US\$)/],
 
       ru: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/],
+    },
+
+    /**
+     * Helper method for testing user feedback feature
+     * @param {Object} obj - User feedback object
+     * @returns {undefined}
+     */
+    testFeedback: function(obj) {
+
+      let { buyer, seller } = obj;
+
+      buyer.gTotal -= 1;
+      seller.gTotal -= 1;
+      buyer.posCount -= 1;
+      seller.posCount -= 1;
+
+      this.setItem('feedbackObj', obj);
     },
 
     /**
