@@ -1061,8 +1061,8 @@ appendFragment([resourceLibrary]).then(() => {
         });
       });
     })
-    .then(() => appendFragment(elems))
     .then(() => document.ready())
+    .then(() => appendFragment(elems))
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
