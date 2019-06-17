@@ -1092,9 +1092,9 @@
      * @param {Object} obj - User feedback object
      * @returns {undefined}
      */
-    testFeedback: function(obj) {
-
-      let { buyer, seller } = obj;
+    testFeedback: function() {
+      let obj = this.getItem('feedbackObj'),
+      { buyer, seller } = obj;
 
       buyer.gTotal -= 1;
       seller.gTotal -= 1;
@@ -1102,20 +1102,18 @@
       seller.posCount -= 1;
 
       this.setItem('feedbackObj', obj);
+      return console.log('Test initiated. Check back in two minutes.');
     },
 
     /**
      * Used to determine if user has seller permissions
-     *
      * @type {string}
      */
-
     unregistered: 'Please complete your Seller Settings before listing items for sale.',
 
     /**
      * Hooks into `XMLHttpRequest` so that functions can be called
      * after a successful XHR.
-     *
      * @param {function} fn the callback function to execute
      * @returns {method}
      */
