@@ -773,6 +773,7 @@
       'order': '/sell/order/',
       'purchases': '/sell/purchases',
       'release': '/release/',
+      'reviews': '/reviews',
       'sell': '/sell/',
       'seller': '/seller',
       'sellerFeedback': '/seller_feedback/',
