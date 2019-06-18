@@ -136,7 +136,8 @@ resourceLibrary.ready(() => {
   }
 
   // Or if `sellerNames` does not exist
-  if ( !sellerNames.hasOwnProperty('lastChecked') || !sellerNames && resourceLibrary.pageIsNot('cart') ) {
+  if ( sellerNames && !sellerNames.hasOwnProperty('lastChecked')
+       || !sellerNames && resourceLibrary.pageIsNot('cart') ) {
     fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 
