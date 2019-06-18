@@ -1093,16 +1093,16 @@
      * @returns {undefined}
      */
     testFeedback: function() {
-      let obj = this.getItem('feedbackObj'),
-      { buyer, seller } = obj;
+      let obj = this.getPreference('feedback'),
+          { buyer, seller } = obj;
 
       buyer.gTotal -= 1;
       seller.gTotal -= 1;
       buyer.posCount -= 1;
       seller.posCount -= 1;
 
-      this.setItem('feedbackObj', obj);
-      return console.log('Test initiated. Check back in two minutes.');
+      this.setPreference('feedback', obj);
+      console.log('Test initiated. Check back in two minutes.');
     },
 
     /**
