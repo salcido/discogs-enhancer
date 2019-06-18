@@ -13,7 +13,7 @@
 resourceLibrary.ready(() => {
 
   let debug = resourceLibrary.options.debug(),
-      feedbackObj = resourceLibrary.getItem('feedbackObj') || null,
+      feedback = resourceLibrary.getPreference('feedback') || null,
       language = resourceLibrary.language(),
       timeStamp = new Date().getTime(),
       user = document.querySelector('#site_account_menu .user_image').alt,
@@ -31,7 +31,7 @@ resourceLibrary.ready(() => {
    */
   function appendBadge(type) {
 
-    let obj = resourceLibrary.getItem('feedbackObj')[type],
+    let obj = resourceLibrary.getPreference('feedback')[type],
         existing = !obj.hasViewed,
         badge,
         id,
@@ -126,7 +126,7 @@ resourceLibrary.ready(() => {
 
         type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
 
-        obj = resourceLibrary.getItem('feedbackObj')[type];
+        obj = resourceLibrary.getPreference('feedback')[type];
 
         clearNotification(type, obj);
 
@@ -148,7 +148,7 @@ resourceLibrary.ready(() => {
 
         type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
 
-        obj = resourceLibrary.getItem('feedbackObj')[type];
+        obj = resourceLibrary.getPreference('feedback')[type];
 
         switch (elem) {
 
@@ -186,7 +186,7 @@ resourceLibrary.ready(() => {
    */
   function clearNotification(type, obj) {
 
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
+    feedback = resourceLibrary.getPreference('feedback');
 
     /* update obj props. */
     obj.posDiff = 0;
@@ -196,9 +196,9 @@ resourceLibrary.ready(() => {
     // Note: obj.gTotal is set during 'poll for changes' cycle
 
     /* save updated obj */
-    feedbackObj[type] = obj;
+    feedback[type] = obj;
 
-    return resourceLibrary.setItem('feedbackObj', feedbackObj);
+    return resourceLibrary.setPreference('feedback', feedback);
   }
 
   /**
@@ -295,7 +295,7 @@ resourceLibrary.ready(() => {
     /* used to report time elapsed for debugging */
     let randomTime = Math.random();
 
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
+    feedback = resourceLibrary.getPreference('feedback');
 
     if ( debug ) {
 
@@ -305,7 +305,7 @@ resourceLibrary.ready(() => {
     }
 
     let data = await fetchFeedbackData(type),
-        obj = feedbackObj[type],
+        obj = feedback[type],
         pos = getTabCount(data, 0),
         neu = getTabCount(data, 1),
         neg = getTabCount(data, 2);
@@ -317,12 +317,12 @@ resourceLibrary.ready(() => {
     obj.hasViewed = true;
 
     /* Save obj updates */
-    feedbackObj[type] = obj;
+    feedback[type] = obj;
 
     /* Set timestamp when checked */
-    feedbackObj.lastChecked = timeStamp;
+    feedback.lastChecked = timeStamp;
 
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
+    resourceLibrary.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -373,9 +373,9 @@ resourceLibrary.ready(() => {
     let data,
         obj;
 
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
+    feedback = resourceLibrary.getPreference('feedback');
 
-    obj = feedbackObj[type];
+    obj = feedback[type];
 
     if ( debug ) {
 
@@ -435,18 +435,18 @@ resourceLibrary.ready(() => {
     obj.hasViewed = false;
     obj.gTotal = gTotal;
 
-    /* Update feedbackObj[type] with new stats */
+    /* Update feedback[type] with new stats */
     obj.posCount = pos;
     obj.neuCount = neu;
     obj.negCount = neg;
 
-    feedbackObj[type] = obj;
+    feedback[type] = obj;
 
     /* Set timestamp when checked */
-    feedbackObj.lastChecked = timeStamp;
+    feedback.lastChecked = timeStamp;
 
     /* Save our object with the new stats/notification totals */
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
+    resourceLibrary.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -455,7 +455,7 @@ resourceLibrary.ready(() => {
       console.log('pos: ', posAnswer, 'neu: ', neuAnswer, 'neg: ', negAnswer);
       console.log('Previous stats:');
       console.log('pos:', obj.posCount, 'neu:', obj.neuCount, 'neg:', obj.negCount);
-      console.log(type + ' obj: ', feedbackObj[type]);
+      console.log(type + ' obj: ', feedback[type]);
       console.log('Results from new stats', 'pos', posAnswer, 'neu', neuAnswer, 'neg', negAnswer);
       console.timeEnd('getUpdates');
     }
@@ -473,28 +473,28 @@ resourceLibrary.ready(() => {
         sellerTotal = getTotalCount(div, 'seller');
 
     /* Set timestamp when checked */
-    feedbackObj.lastChecked = timeStamp;
+    feedback.lastChecked = timeStamp;
 
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
+    resourceLibrary.setPreference('feedback', feedback);
 
     if ( debug ) {
 
       console.log(' ');
       console.log(' *** Polling for changes *** ');
       console.log('Buyer count: ', buyerTotal, 'Seller count: ', sellerTotal);
-      console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedbackObj.lastChecked + waitTime).toLocaleTimeString());
+      console.log('%cNext check-in time: ', 'color: limegreen', new Date(feedback.lastChecked + waitTime).toLocaleTimeString());
       console.timeEnd('poll-time');
     }
 
     // Check Seller stats
-    if ( sellerTotal > feedbackObj.seller.gTotal ) {
+    if ( sellerTotal > feedback.seller.gTotal ) {
 
       if ( debug ) {
 
         console.log(' ');
         console.log(' *** Changes in Seller stats detected *** ');
-        console.log('difference of: ', sellerTotal - feedbackObj.seller.gTotal);
-        console.log(feedbackObj.seller);
+        console.log('difference of: ', sellerTotal - feedback.seller.gTotal);
+        console.log(feedback.seller);
       }
 
       appendPreloader('seller_');
@@ -502,14 +502,14 @@ resourceLibrary.ready(() => {
     }
 
     // Check buyer stats
-    if ( buyerTotal > feedbackObj.buyer.gTotal ) {
+    if ( buyerTotal > feedback.buyer.gTotal ) {
 
       if ( debug ) {
 
         console.log(' ');
         console.log(' *** Changes in Buyer stats detected *** ');
-        console.log('difference of: ', buyerTotal - feedbackObj.buyer.gTotal);
-        console.log(feedbackObj.buyer);
+        console.log('difference of: ', buyerTotal - feedback.buyer.gTotal);
+        console.log(feedback.buyer);
       }
 
       appendPreloader('buyer_');
@@ -548,7 +548,7 @@ resourceLibrary.ready(() => {
         };
 
     /* Get current object state */
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
+    feedback = resourceLibrary.getPreference('feedback');
 
     if ( debug ) {
 
@@ -561,11 +561,11 @@ resourceLibrary.ready(() => {
       console.time('resetStats');
     }
 
-    feedbackObj.seller = sellerObj;
-    feedbackObj.buyer = buyerObj;
+    feedback.seller = sellerObj;
+    feedback.buyer = buyerObj;
 
     /* Save current state */
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
+    resourceLibrary.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -582,38 +582,38 @@ resourceLibrary.ready(() => {
   language = ( language === 'en' ? '' : language + '/' );
 
   /* Create our object if it does not exist */
-  if ( !resourceLibrary.getItem('feedbackObj') ) {
+  if ( !resourceLibrary.getPreference('feedback') ) {
 
-    feedbackObj = {
+    feedback = {
       buyer: null,
       seller: null,
       lastChecked: timeStamp
     };
 
     /* Save it... */
-    resourceLibrary.setItem('feedbackObj', feedbackObj);
+    resourceLibrary.setPreference('feedback', feedback);
     /* Get newly saved object */
-    feedbackObj = resourceLibrary.getItem('feedbackObj');
+    feedback = resourceLibrary.getPreference('feedback');
   }
 
   /* Create the `buyer` / `seller` objects; */
-  if ( !feedbackObj.buyer || !feedbackObj.seller ) {
+  if ( !feedback.buyer || !feedback.seller ) {
     return createBuyerSellerObjs();
   }
 
   /* Append notifictions if they are unread. */
-  if ( !feedbackObj.seller.hasViewed ) { appendBadge('seller'); }
+  if ( !feedback.seller.hasViewed ) { appendBadge('seller'); }
 
-  if ( !feedbackObj.buyer.hasViewed ) { appendBadge('buyer'); }
+  if ( !feedback.buyer.hasViewed ) { appendBadge('buyer'); }
 
   // ========================================================
   // Poll for changes
   // ========================================================
 
-  feedbackObj = resourceLibrary.getItem('feedbackObj');
+  feedback = resourceLibrary.getPreference('feedback');
 
   /* If it's been longer than the `waitTime` */
-  if ( timeStamp > feedbackObj.lastChecked + waitTime ) {
+  if ( timeStamp > feedback.lastChecked + waitTime ) {
 
     if ( debug ) { console.time('poll-time'); }
 
