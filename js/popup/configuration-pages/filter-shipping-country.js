@@ -10,7 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  let countryList = JSON.parse(localStorage.getItem('countryList')) || setNewlist(),
+  let hasList = localStorage.getItem('countryList'),
+      countryList = hasList ? JSON.parse(hasList) : setNewlist(),
       countryListError = 'is already on your list.';
 
   // ========================================================

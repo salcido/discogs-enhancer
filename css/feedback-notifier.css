@@ -50,6 +50,7 @@
 .de-seller-feedback:hover .skittle.skittle_collection span.count:after,
 .de-buyer-feedback:hover .skittle.skittle_collection span.count:after {
   content: "X";
+  color: #333333 !important;
 }
 
 
@@ -108,7 +109,7 @@ ul.feedback-chart h3 {
 }
 
 #de-buyer-feedback .skittle {
-  background: #E04526 !important;
+  background: #4e7ddc !important;
 }
 
 

@@ -13,8 +13,7 @@
  *
  */
 
-let
-    checkForAnalytics,
+let checkForAnalytics,
     elems = [],
     filterMonitor,
     prefs = {},
@@ -41,8 +40,6 @@ HTMLDocument.prototype.ready = () => {
 /**
  * Used to append the js/css nodes to the DOM when the
  * extension first runs.
- *
- * @method   appendFragment
  * @param    {Array} elems - An array of nodes to be appeneded
  * @return   {Promise}
  */
@@ -60,24 +57,32 @@ function appendFragment(elems) {
   });
 }
 
-// ========================================================
+/**
+ * This tracks the filter preferences so that the current
+ * filtering status can be appended to the DOM whilst
+ * using Everlasting Marketplace.
+ * @returns {Object}
+ */
+function getCurrentFilterState() {
+  let currentFilterState = {
+        everlastingMarket: prefs.everlastingMarket,
+        filterMediaCondition: prefs.filterMediaCondition,
+        filterShippingCountry: prefs.filterShippingCountry,
+        filterSleeveCondition: prefs.filterSleeveCondition,
+      };
+  return currentFilterState;
+}
+
 // Resource Library
 // A singleton of shared methods for the extension
-// ========================================================
 resourceLibrary = document.createElement('script');
 resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
 resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library/resource-library.js');
 
 appendFragment([resourceLibrary]).then(() => {
-  /**
-   * Get the users preferences or create them if they
-   * do not yet exist.
-   *
-   * @method   get
-   * @param    {Object} 'prefs' - The prefs object
-   * @return   {Promise}
-   */
+  // Get the users preferences or create them if they
+  // do not yet exist.
   chrome.storage.sync.get('prefs', result => {
 
     if (!result.prefs) {
@@ -144,27 +149,25 @@ appendFragment([resourceLibrary]).then(() => {
       };
 
       chrome.storage.sync.set({ prefs: prefs }, () => console.log('Preferences created.'));
+    } else {
+      prefs = result.prefs;
     }
 
-    // ========================================================
     // Dark Theme
-    // ========================================================
     if ( result.prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
     // Don't use the dark theme on subdomains
-    // Fixed here instead of manifest.json due to issues explained here:
+    // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
     if ( !window.location.href.includes('www') ) {
       document.documentElement.classList.remove('de-dark-theme');
     }
 
-    // ========================================================
-    // Inject scripts based on `prefs` object
-    // ========================================================
     return new Promise(resolve => {
+      // ========================================================
+      // Preference-agnostic scripts (always appended)
+      // ========================================================
 
-      // ========================================================
-      // Filter Monitor (always appened)
-      // ========================================================
+      // Filter Monitor
       filterMonitor = document.createElement('script');
       filterMonitor.type = 'text/javascript';
       filterMonitor.className = 'de-init';
@@ -172,13 +175,12 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(filterMonitor);
 
-      // ========================================================
-      // Toggleable CSS files
-      //
+      // - Toggleable CSS files -
+      // --------------------------------------------------------
       // These are always appended and enabled/disabled via
       // JS so that the user can toggle them from the extension
       // menu and not have to refresh to see the effects.
-      // ========================================================
+      // --------------------------------------------------------
 
       // min-max-columns.css
       let minMax_css = document.createElement('link');
@@ -213,11 +215,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(ytPlaylists_css);
 
-      // ========================================================
-      // Everlasting CSS contains styles that both the Marketplace
-      // and Collection features use. It will always be appended
-      // regardless of whether a user has enabled either feature
-      // ========================================================
+      // everlasting.css
       let everlastingCss = document.createElement('link');
 
       everlastingCss.rel = 'stylesheet';
@@ -226,12 +224,8 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(everlastingCss);
 
-      // ========================================================
       // Friend-counter (always enabled)
-      //
       // See comments in friend-counter.js for more details
-      // ========================================================
-
       let friendCounter = document.createElement('script');
 
       friendCounter.type = 'text/javascript';
@@ -240,9 +234,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(friendCounter);
 
-      // ========================================================
       // Marketplace Highlights
-      // ========================================================
       // apply-highlights.js
       let highlightScript = document.createElement('script');
 
@@ -264,9 +256,7 @@ appendFragment([resourceLibrary]).then(() => {
       elems.push(highlightCss);
 
       // ========================================================
-      // User Preferences
-      //
-      // Set based on the `result.prefs` object
+      // Preference-dependent scripts
       // ========================================================
 
       if ( result.prefs.absoluteDate ) {
@@ -369,6 +359,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(converter);
       }
 
+      // release-history-legend.js
       if (result.prefs.darkTheme) {
 
         let releaseHistoryScript = document.createElement('script');
@@ -1048,36 +1039,30 @@ appendFragment([resourceLibrary]).then(() => {
         });
       }
 
-      if (result.prefs.userCurrency) {
-
-        localStorage.setItem('userCurrency', result.prefs.userCurrency);
-      }
-
-      // ========================================================
-      // Current Filter State
-      //
-      // This tracks the filter preferences so that the current
-      // filtering status can be appended to the DOM whilst
-      // using Everlasting Marketplace.
-      // ========================================================
-      let { everlastingMarket,
-            filterMediaCondition,
-            filterShippingCountry,
-            filterSleeveCondition } = result.prefs;
-
-      let currentFilterState = {
-            everlastingMarket,
-            filterMediaCondition,
-            filterShippingCountry,
-            filterSleeveCondition,
-          };
-
-      localStorage.setItem('currentFilterState', JSON.stringify(currentFilterState));
-
       return resolve(result);
     })
-    .then(() => appendFragment(elems))
+    .then(() => {
+      // --------------------------------------------------------
+      // Get preferences from extension side and save to DOM side.
+      // --------------------------------------------------------
+      return new Promise(resolve => {
+        chrome.runtime.sendMessage({ request: 'userPreferences' }, response => {
+
+          let target = localStorage.getItem('userPreferences'),
+              source = response.userPreferences,
+              currentFilterState = getCurrentFilterState(),
+              userCurrency = prefs.userCurrency,
+              newPrefs;
+
+          target = target ? JSON.parse(target) : response.userPreferences;
+          newPrefs = Object.assign(target, source, { currentFilterState }, { userCurrency });
+          localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
+          return resolve();
+        });
+      });
+    })
     .then(() => document.ready())
+    .then(() => appendFragment(elems))
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
@@ -1107,14 +1092,13 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
     } else if (details.reason === 'update') {
 
-      /* Don't show an update notice on patches */
-
-      /**
-       * Versions look something like: "1.10.8".
-       * split('.') returns an array of stringed numbers like: ["1", "10", "8"]
-       * and compares Major and Minor versions to see if there
-       * should be an update notification.
-       */
+      // - Don't show an update notice on patches -
+      // --------------------------------------------------------
+      // Versions look something like: "1.10.8".
+      // split('.') returns an array of stringed numbers like: ["1", "10", "8"]
+      // and compares Major and Minor versions to see if there
+      // should be an update notification.
+      // --------------------------------------------------------
       previousVersion = details.previousVersion.split('.');
 
       thisVersion = chrome.runtime.getManifest().version.split('.');
@@ -1162,125 +1146,3 @@ checkForAnalytics = setInterval(() => {
   }
   clearInterval(checkForAnalytics);
 }, 1000);
-
-
-// ========================================================
-// - Runtime messages -
-// --------------------------------------------------------
-// Get preferences from extension side and save to DOM side.
-// ========================================================
-try {
-
-  // Absolute Date on releases
-  chrome.runtime.sendMessage({request: 'getAbsoluteDate'}, response => {
-
-    let usDateFormat = response.usDateFormat;
-
-    localStorage.setItem('usDateFormat', usDateFormat);
-  });
-
-  // Block sellers
-  chrome.runtime.sendMessage({request: 'getBlockedSellers'}, response => {
-
-    let blockList = response.blockList;
-
-    blockList = JSON.stringify(blockList);
-
-    localStorage.setItem('blockList', blockList);
-  });
-
-  // Favorite Sellers
-  chrome.runtime.sendMessage({request: 'getFavoriteSellers'}, response => {
-
-    let favoriteList = response.favoriteList;
-
-    favoriteList = JSON.stringify(favoriteList);
-
-    localStorage.setItem('favoriteList', favoriteList);
-  });
-
-  // Filter Shipping Country
-  chrome.runtime.sendMessage({request: 'filterShippingCountry'}, response => {
-
-    let countryList = response.filterShippingCountry;
-
-    countryList = JSON.stringify(countryList);
-
-    localStorage.setItem('countryList', countryList);
-  });
-
-  // Filter media condition
-  chrome.runtime.sendMessage({request: 'getConditions'}, response => {
-
-    let mediaCondition = response.mediaCondition;
-
-    mediaCondition = JSON.stringify(mediaCondition);
-
-    localStorage.setItem('mediaCondition', mediaCondition);
-  });
-
-  // Filter sleeve condition
-  chrome.runtime.sendMessage({request: 'getSleeveConditions'}, response => {
-
-    let sleeveCondition = response.sleeveCondition;
-
-    sleeveCondition = JSON.stringify(sleeveCondition);
-
-    localStorage.setItem('sleeveCondition', sleeveCondition);
-  });
-
-  // Inventory Ratings value
-  chrome.runtime.sendMessage({request: 'getInventoryRatings'}, response => {
-
-    let inventoryRatings = response.inventoryRatings;
-
-    inventoryRatings = JSON.stringify(inventoryRatings);
-
-    localStorage.setItem('inventoryRatings', inventoryRatings);
-  });
-
-  // Readability settings
-  chrome.runtime.sendMessage({request: 'getReadability'}, response => {
-
-    let readability = response.readability;
-
-    readability = JSON.stringify(readability);
-
-    localStorage.setItem('readability', readability);
-  });
-
-  // Seller Reputation Percentage
-  chrome.runtime.sendMessage({request: 'getSellerRep'}, response => {
-
-    let sellerRep = response.sellerRep;
-
-    sellerRep = JSON.stringify(sellerRep);
-
-    localStorage.setItem('sellerRep', sellerRep);
-  });
-
-  // Seller Reputation Color Value
-  chrome.runtime.sendMessage({request: 'getSellerRepColor'}, function(response) {
-
-    let repColor = response.sellerRepColor || 'darkorange';
-
-    localStorage.setItem('sellerRepColor', repColor);
-  });
-
-  // Tweak Discriminators
-  chrome.runtime.sendMessage({request: 'getDiscriminators'}, response => {
-
-    let discrims = response.discrims;
-
-    discrims = JSON.stringify(discrims);
-
-    localStorage.setItem('discriminators', discrims);
-  });
-} catch (err) {
-
-  // the chrome.runtime method above ^ seems to run twice so suppress error unless it's from something else...
-  if (err.message !== 'Invalid arguments to connect.') {
-
-    console.warn('Discogs Enhancer: ', err);
-  }
-}

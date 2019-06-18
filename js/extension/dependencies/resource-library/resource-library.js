@@ -188,8 +188,8 @@
     convertPrices: function(source, data) {
 
       if ( !data ) {
-        // Current rates from Fixer.io
-        data = this.getItem('updateRatesObj').data;
+        // Current rates from discogs-enhancer.com
+        data = this.getPreference('exchangeRates').data;
 
         if ( data === null ) {
 
@@ -362,6 +362,22 @@
     },
 
     /**
+     * Returns a preference from the userPreferences object
+     * @param {String} preference - the name of the preference to return
+     * @returns {String|Boolean|Array|Number|Object}
+     */
+    getPreference: function(preference) {
+
+      let userPreferences = this.getItem('userPreferences');
+
+      if (userPreferences && userPreferences[preference]) {
+        return userPreferences[preference];
+      }
+
+      return null;
+    },
+
+    /**
      * Assigns user's currency symbol to price estimates.
      *
      * @param    {string} userCurrency
@@ -438,7 +454,7 @@
 
       if ( !userCurrency || !language ) {
 
-        userCurrency = localStorage.getItem('userCurrency');
+        userCurrency = this.getPreference('userCurrency');
 
         language = this.language();
       }
@@ -743,6 +759,7 @@
       'allItems': '/sell/list',
       'artist': '/artist/',
       'buy': '/buy/',
+      'buyerFeedback': '/buyer_feedback/',
       'cart': '/sell/cart/',
       'collection': '/collection',
       'dashboard': '/my',
@@ -758,6 +775,7 @@
       'release': '/release/',
       'sell': '/sell/',
       'seller': '/seller',
+      'sellerFeedback': '/seller_feedback/',
       'sellItem': '/sell/item/',
       'sellMaster': '/sell/list',
       'sellRelease': '/sell/release',
@@ -1017,8 +1035,19 @@
       return localStorage.setItem(name, value);
     },
 
-    setQuickSearch: function(searchTerm) {
-      localStorage.setItem('quicksearch', searchTerm);
+    /**
+     * Sets feature data on the `userPreferences` object
+     * @param {String} name - The prop name to set
+     * @param {Object|Array|Number|String} value - The prop value to set
+     * @returns {undefined}
+     */
+    setPreference: function(name, value) {
+
+      let userPreferences = this.getItem('userPreferences');
+
+      userPreferences[name] = value;
+
+      this.setItem('userPreferences', userPreferences);
     },
 
     setScanner: function() {
@@ -1028,9 +1057,7 @@
         int: 300
       };
 
-      obj = JSON.stringify(obj);
-
-      return localStorage.setItem('scan', obj);
+      return this.setPreference('scan', obj);
     },
 
     /**
@@ -1061,17 +1088,32 @@
     },
 
     /**
+     * Helper method for testing user feedback feature
+     * @param {Object} obj - User feedback object
+     * @returns {undefined}
+     */
+    testFeedback: function() {
+      let obj = this.getItem('feedbackObj'),
+      { buyer, seller } = obj;
+
+      buyer.gTotal -= 1;
+      seller.gTotal -= 1;
+      buyer.posCount -= 1;
+      seller.posCount -= 1;
+
+      this.setItem('feedbackObj', obj);
+      return console.log('Test initiated. Check back in two minutes.');
+    },
+
+    /**
      * Used to determine if user has seller permissions
-     *
      * @type {string}
      */
-
     unregistered: 'Please complete your Seller Settings before listing items for sale.',
 
     /**
      * Hooks into `XMLHttpRequest` so that functions can be called
      * after a successful XHR.
-     *
      * @param {function} fn the callback function to execute
      * @returns {method}
      */

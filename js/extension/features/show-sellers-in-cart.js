@@ -9,7 +9,6 @@
  */
 
 resourceLibrary.ready(() => {
-
   // ========================================================
   // Functions
   // ========================================================
@@ -24,7 +23,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(window.sellerItemsInCart());
+        resourceLibrary.xhrSuccess(window.sellerItemsInCart(sellerNames));
       });
     });
   }
@@ -38,12 +37,15 @@ resourceLibrary.ready(() => {
   function captureSellerNames(elem = document) {
 
     let namesInCart = elem.querySelectorAll('.linked_username') || null,
-        sellerNames = [];
+        sellerNames = {
+          lastChecked: timeStamp,
+          names: []
+        };
 
     if (namesInCart.length) {
-      namesInCart.forEach(n => sellerNames.push( n.textContent.trim() ));
+      namesInCart.forEach(n => sellerNames.names.push( n.textContent.trim() ));
     }
-    localStorage.setItem('sellerNames', JSON.stringify(sellerNames));
+    resourceLibrary.setPreference('sellerNames', sellerNames);
   }
 
   /**
@@ -66,9 +68,9 @@ resourceLibrary.ready(() => {
    * add the cart badge
    * @return {function}
    */
-  window.sellerItemsInCart = function sellerItemsInCart(sellerNames) {
+  window.sellerItemsInCart = function sellerItemsInCart({ names }) {
 
-    sellerNames.forEach(seller => {
+    names.forEach(seller => {
 
       let sellers = document.querySelectorAll('td.seller_info ul li:first-child a');
 
@@ -118,7 +120,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let sellerNames = resourceLibrary.getItem('sellerNames');
+  let sellerNames = resourceLibrary.getPreference('sellerNames'),
+      timeStamp = new Date().getTime(),
+      waitTime = (1000 * 60) * 15; // 15 mins
 
   // Grab seller names when on the cart page
   if ( resourceLibrary.pageIs('cart') ) {
@@ -132,15 +136,24 @@ resourceLibrary.ready(() => {
   }
 
   // Or if `sellerNames` does not exist
-  if ( !sellerNames && resourceLibrary.pageIsNot('cart') ) {
+  if ( !sellerNames && resourceLibrary.pageIsNot('cart') || !sellerNames.hasOwnProperty('lastChecked') ) {
     fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 
   // Marketplace wantlists, all items, release pages
   if ( resourceLibrary.pageIs('myWants', 'allItems', 'sellRelease') ) {
-    let sellerNames = resourceLibrary.getItem('sellerNames');
+    let sellerNames = resourceLibrary.getPreference('sellerNames');
     injectCss();
-    // Iterate over seller names
-    if ( sellerNames && sellerNames.length ) window.sellerItemsInCart(sellerNames);
+
+    if ( sellerNames
+         && sellerNames.names
+         && sellerNames.names.length ) {
+      window.sellerItemsInCart(sellerNames);
+    }
+  }
+
+  // Poll for changes
+  if ( timeStamp > sellerNames.lastChecked + waitTime ) {
+    fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 });

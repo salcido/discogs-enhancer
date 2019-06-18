@@ -27,7 +27,7 @@ resourceLibrary.ready(() => {
         prices,
         releaseId,
         symbol,
-        userCurrency = resourceLibrary.getItem('userCurrency');
+        userCurrency = resourceLibrary.getPreference('userCurrency');
 
     // ========================================================
     // Functions (Alphabetical)

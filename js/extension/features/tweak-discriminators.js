@@ -59,18 +59,11 @@ resourceLibrary.ready(() => {
   // DOM Setup
   // ========================================================
   let defaults = { hide: false, superscript: true, unselectable: true, transparent: false },
+      discriminators = resourceLibrary.getPreference('discriminators') || defaults,
       elemType,
-      hide,
-      prefs = resourceLibrary.getItem('discriminators') || defaults,
-      re = /(.+\s)(\(\d+\))$/gm,
-      superscript,
-      transparent,
-      unselectable;
+      { hide, superscript, transparent, unselectable } = discriminators,
+      re = /(.+\s)(\(\d+\))$/gm;
 
-  hide = prefs.hide;
-  superscript = prefs.superscript;
-  unselectable = prefs.unselectable;
-  transparent = prefs.transparent;
   elemType = superscript ? 'sup' : 'span';
 
   // Releases

@@ -77,7 +77,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let favoriteList = resourceLibrary.getItem('favoriteList');
+  let favoriteList = resourceLibrary.getPreference('favoriteList');
 
   if ( favoriteList && favoriteList.list ) {
     if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {

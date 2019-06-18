@@ -87,6 +87,10 @@ export function setSellerRep() {
 
   if ( percent !== null ) { input.value = percent; }
 
+  if ( !localStorage.getItem('sellerRepColor') ) {
+    localStorage.setItem('sellerRepColor', JSON.stringify('darkorange'));
+  }
+
   swatch.className += ' selected';
 
   chrome.storage.sync.get('prefs', function(result) {

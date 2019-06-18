@@ -21,7 +21,7 @@
 
 resourceLibrary.ready(() => {
 
-  let threshold = resourceLibrary.getItem('sellerRep');
+  let threshold = resourceLibrary.getPreference('sellerRep');
 
   if ( !threshold ) return;
 
@@ -32,9 +32,9 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     function attachCSS() {
-      let respColor = resourceLibrary.getItem('sellerRepColor') || 'darkorange',
+      let sellerRepColor = resourceLibrary.getPreference('sellerRepColor') || 'darkorange',
           sellerRepCss = document.createElement('style'),
-          color = respColor.match(/#*\w/g).join('');
+          color = sellerRepColor.match(/#*\w/g).join('');
 
       sellerRepCss.id = 'sellerRepCss';
       sellerRepCss.rel = 'stylesheet';

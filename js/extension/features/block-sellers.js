@@ -84,7 +84,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let blockList = resourceLibrary.getItem('blockList');
+  let blockList = resourceLibrary.getPreference('blockList');
 
   if ( blockList ) {
 

@@ -12,9 +12,9 @@
 
 resourceLibrary.ready(() => {
 
-  let currentFilterState = resourceLibrary.getItem('currentFilterState'),
-      sleeveCondition = resourceLibrary.getItem('sleeveCondition'),
-      countryList = resourceLibrary.getItem('countryList');
+  let currentFilterState = resourceLibrary.getPreference('currentFilterState'),
+      sleeveCondition = resourceLibrary.getPreference('sleeveCondition'),
+      countryList = resourceLibrary.getPreference('countryList');
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
