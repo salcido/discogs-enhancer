@@ -611,14 +611,13 @@
       getOptions: function() {
 
         let options = resourceLibrary.getItem('options'),
-            //
-            analytics = options.analytics,
-            colorize = options.colorize,
-            comments = options.comments,
-            debug = options.debug,
-            quicksearch = options.quicksearch,
-            threshold = options.threshold,
-            unitTests = options.unitTests;
+            { analytics,
+              colorize,
+              comments,
+              debug,
+              quicksearch,
+              threshold,
+              unitTests } = options;
 
         if (analytics) { document.getElementById('analytics').checked = true; }
 
