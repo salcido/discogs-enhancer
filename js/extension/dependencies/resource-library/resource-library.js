@@ -255,24 +255,6 @@
     },
 
     /**
-     * Finds the `dsdata` node
-     * TODO: delete this method
-     * @param    {object} obj
-     * @return   {object}
-     */
-
-    findNode: function(obj) {
-
-      for ( let key in obj ) {
-
-        if ( obj[key].id === 'dsdata' ) {
-
-          return key;
-        }
-      }
-    },
-
-    /**
      * Determins the 'more' or 'less' word to use in the
      * price comparison string.
      * @param {number} percentage The +/- percent an item is priced at
