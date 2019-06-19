@@ -14,7 +14,8 @@
 
 resourceLibrary.ready(() => {
 
-  let additionalText = resourceLibrary.getItem('options').quicksearch || '',
+  let options = resourceLibrary.getItem('options'),
+      additionalText = options ? options.quicksearch : '',
       shouldRun = false,
       title = document.title,
       re;
