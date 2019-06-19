@@ -1041,9 +1041,7 @@ appendFragment([resourceLibrary]).then(() => {
       return resolve(result);
     })
     .then(() => {
-      // --------------------------------------------------------
       // Get preferences from extension side and save to DOM side.
-      // --------------------------------------------------------
       return new Promise(resolve => {
         chrome.runtime.sendMessage({ request: 'userPreferences' }, response => {
 
@@ -1055,9 +1053,30 @@ appendFragment([resourceLibrary]).then(() => {
 
           target = target ? JSON.parse(target) : response.userPreferences;
           newPrefs = Object.assign(target, source, { currentFilterState }, { userCurrency });
-          localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
-          return resolve();
+
+          return resolve(newPrefs);
         });
+      });
+    })
+    .then(newPrefs => {
+      // Instantiate default options
+      return new Promise(resolve => {
+        if ( !newPrefs.hasOwnProperty('options') ) {
+
+          let options = {
+                analytics: true,
+                colorize: false,
+                comments: false,
+                debug: false,
+                quicksearch: '',
+                threshold: 2,
+                unitTests: false
+              };
+
+          newPrefs.options = options;
+        }
+        localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
+        return resolve();
       });
     })
     .then(() => document.ready())
@@ -1087,7 +1106,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       console.log('Welcome to the pleasuredome!');
 
-      chrome.storage.sync.set({didUpdate: false}, function() {});
+      chrome.storage.sync.set({ didUpdate: false }, function() {});
 
     } else if (details.reason === 'update') {
 
@@ -1126,15 +1145,16 @@ let config = { attributes: true, childList: true, subtree: true },
  */
 function toggleAnalytics(elem) {
 
-  let opts = JSON.parse(localStorage.getItem('options')),
+  let prefs = JSON.parse(localStorage.getItem('userPreferences')),
+      opts = prefs.options,
       request = { request: 'analytics', enabled: elem.checked };
 
   chrome.runtime.sendMessage(request, ({ enabled }) => {
 
     opts.analytics = enabled;
-    opts = JSON.stringify(opts);
+    prefs = JSON.stringify(prefs);
 
-    localStorage.setItem('options', opts);
+    localStorage.setItem('userPreferences', prefs);
   });
 }
 // Analytics Init
@@ -1145,8 +1165,8 @@ action = mutationsList => {
       mutation.addedNodes.forEach(n => {
 
         if ( n.classList
-            && n.classList.value === 'options-modal'
-            && !hasRun ) {
+             && n.classList.value === 'options-modal'
+             && !hasRun ) {
 
           hasRun = true;
 
