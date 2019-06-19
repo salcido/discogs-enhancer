@@ -552,62 +552,54 @@
 
      /**
       * Config values for various features
-      *
       * @type {Object}
       */
-
     options: {
 
       /**
        * Whether or not to use analytics
-       *
        * @return {boolean}
        */
-
       analytics: function() {
-
-        return JSON.parse(localStorage.getItem('options')).analytics;
+        let hasOptions = resourceLibrary.getItem('options'),
+            analytics = hasOptions ? hasOptions.analytics : true;
+        return analytics;
       },
 
       /**
        * Whether or not to change price colors
-       *
        * @return {boolean}
        */
-
       colorize: function() {
-
-        return JSON.parse(localStorage.getItem('options')).colorize;
+        let hasOptions = resourceLibrary.getItem('options'),
+            colorize = hasOptions ? hasOptions.colorize : false;
+        return colorize;
       },
 
       /**
        * Whether or not to log values
-       *
        * @return {Boolean}
        */
-
       debug: function() {
-
-        return JSON.parse(localStorage.getItem('options')).debug;
+        let hasOptions = resourceLibrary.getItem('options'),
+            debug = hasOptions ? hasOptions.debug : false;
+        return debug;
       },
 
       /**
        * Whether or not to highlight comments on the dashboard
-       *
        * @return {Boolean}
        */
-
       highlightComments: function() {
-
-        return JSON.parse(localStorage.getItem('options')).comments;
+        let hasOptions = resourceLibrary.getItem('options'),
+            comments = hasOptions ? hasOptions.comments : false;
+        return comments;
       },
 
       /**
        * Gets current options state
-       *
        * @return {undefined}
        */
-
       getOptions: function() {
 
         let options = resourceLibrary.getItem('options'),
@@ -636,14 +628,11 @@
 
       /**
        * Saves selected options on options modal
-       *
        * @return {function}
        */
-
       saveOptions: function() {
 
-        let
-            analytics = document.getElementById('analytics').checked,
+        let analytics = document.getElementById('analytics').checked,
             colorize = document.getElementById('colorize').checked,
             debug = document.getElementById('debug').checked,
             comments = document.getElementById('comments').checked,
@@ -676,35 +665,30 @@
         return location.reload();
       },
 
-      quickSearch: function() {
-
-        let quicksearch = this.getItem('quicksearch');
-
+      quicksearch: function() {
+        let hasOptions = resourceLibrary.getItem('options'),
+            quicksearch = hasOptions ? hasOptions.quicksearch : '';
         return quicksearch;
       },
 
       /**
        * The maximum percentage that an item will be ballpark estimated with: ±
-       *
        * @return {number}
        */
-
       threshold: function() {
-
-        let threshold = JSON.parse(localStorage.getItem('options')).threshold;
-
+        let hasOptions = resourceLibrary.getItem('options'),
+            threshold = hasOptions ? hasOptions.threshold : 2;
         return Number(threshold);
       },
 
       /**
        * Whether or not to run unit tests
-       *
        * @return {Boolean}
        */
-
       unitTests: function() {
-
-        return JSON.parse(localStorage.getItem('options')).unitTests;
+        let hasOptions = resourceLibrary.getItem('options'),
+            unitTests = hasOptions ? hasOptions.unitTests : false;
+        return unitTests;
       }
     },
 
@@ -765,7 +749,6 @@
 
     /**
      * Returns the total number of results from the Marketplace
-     *
      * @method paginationTotal
      * @param {string} pagination The text from the .pagination_total element
      * @returns {string}
