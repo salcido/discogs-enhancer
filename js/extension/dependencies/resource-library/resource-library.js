@@ -30,29 +30,6 @@
  */
 
 (function() {
-
-  // ========================================================
-  // Init / Setup
-  // ========================================================
-
-  // Instantiate default option values if not present
-  if ( !localStorage.getItem('options') ) {
-
-    let options = {
-          analytics: true,
-          colorize: false,
-          comments: false,
-          debug: false,
-          quicksearch: '',
-          threshold: 2,
-          unitTests: false
-        };
-
-    options = JSON.stringify(options);
-
-    localStorage.setItem('options', options);
-  }
-
  /**
   * Array.splice method applied to Strings.
   * @param    {number} index Where to begin in the string
@@ -523,7 +500,7 @@
        * @return {boolean}
        */
       analytics: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             analytics = hasOptions ? hasOptions.analytics : true;
         return analytics;
       },
@@ -533,7 +510,7 @@
        * @return {boolean}
        */
       colorize: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             colorize = hasOptions ? hasOptions.colorize : false;
         return colorize;
       },
@@ -543,7 +520,7 @@
        * @return {Boolean}
        */
       debug: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             debug = hasOptions ? hasOptions.debug : false;
         return debug;
       },
@@ -553,7 +530,7 @@
        * @return {Boolean}
        */
       highlightComments: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             comments = hasOptions ? hasOptions.comments : false;
         return comments;
       },
@@ -564,7 +541,7 @@
        */
       getOptions: function() {
 
-        let options = resourceLibrary.getItem('options'),
+        let options = resourceLibrary.getPreference('options'),
             { analytics,
               colorize,
               comments,
@@ -594,11 +571,11 @@
        */
       saveOptions: function() {
 
-        let analytics = document.getElementById('analytics').checked,
+        let options,
+            analytics = document.getElementById('analytics').checked,
             colorize = document.getElementById('colorize').checked,
-            debug = document.getElementById('debug').checked,
             comments = document.getElementById('comments').checked,
-            options,
+            debug = document.getElementById('debug').checked,
             quicksearch = document.getElementById('quicksearch').value,
             threshold = document.getElementById('threshold').value,
             unitTests = document.getElementById('unittests').checked;
@@ -606,7 +583,7 @@
         document.getElementById('saveOptions').disabled = true;
 
         /* get options object */
-        options = JSON.parse(localStorage.getItem('options'));
+        options = resourceLibrary.getPreference('options');
 
         /* update values */
         options.analytics = analytics;
@@ -617,18 +594,15 @@
         options.threshold = threshold;
         options.unitTests = unitTests;
 
-        options = JSON.stringify(options);
-
         /* save that ish */
-        localStorage.setItem('options', options);
-
+        resourceLibrary.setPreference('options', options);
         resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
 
         return location.reload();
       },
 
       quicksearch: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             quicksearch = hasOptions ? hasOptions.quicksearch : '';
         return quicksearch;
       },
@@ -638,7 +612,7 @@
        * @return {number}
        */
       threshold: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             threshold = hasOptions ? hasOptions.threshold : 2;
         return Number(threshold);
       },
@@ -648,7 +622,7 @@
        * @return {Boolean}
        */
       unitTests: function() {
-        let hasOptions = resourceLibrary.getItem('options'),
+        let hasOptions = resourceLibrary.getPreference('options'),
             unitTests = hasOptions ? hasOptions.unitTests : false;
         return unitTests;
       }
@@ -1012,7 +986,8 @@
       seller.posCount -= 1;
 
       this.setPreference('feedback', obj);
-      console.log('Test initiated. Check back in two minutes.');
+      console.log('Test initiated. This window will reload in 2 minutes.');
+      setTimeout(() => { location.reload(); }, 120000);
     },
 
     /**
