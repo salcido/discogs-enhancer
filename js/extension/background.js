@@ -1092,12 +1092,6 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
     } else if (details.reason === 'update') {
 
       // - Don't show an update notice on patches -
-      // --------------------------------------------------------
-      // Versions look something like: "1.10.8".
-      // split('.') returns an array of stringed numbers like: ["1", "10", "8"]
-      // and compares Major and Minor versions to see if there
-      // should be an update notification.
-      // --------------------------------------------------------
       previousVersion = details.previousVersion.split('.');
 
       thisVersion = chrome.runtime.getManifest().version.split('.');
@@ -1118,6 +1112,7 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 // ========================================================
 // Analytics
 // ========================================================
+
 let config = { attributes: true, childList: true, subtree: true },
     observer,
     hasRun = false,
