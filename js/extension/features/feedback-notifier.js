@@ -548,7 +548,7 @@ resourceLibrary.ready(() => {
         };
 
     /* Get current object state */
-    feedback = resourceLibrary.getPreference('feedback');
+    feedback = resourceLibrary.getPreference('feedback') || {};
 
     if ( debug ) {
 
@@ -592,8 +592,6 @@ resourceLibrary.ready(() => {
 
     /* Save it... */
     resourceLibrary.setPreference('feedback', feedback);
-    /* Get newly saved object */
-    feedback = resourceLibrary.getPreference('feedback');
   }
 
   /* Create the `buyer` / `seller` objects; */
