@@ -2,7 +2,7 @@
 
 [![Chrome Web Store](https://img.shields.io/badge/users-3.4k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/badge/rating-4.9%2F5-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
-[![Chrome Web Store](https://img.shields.io/badge/rating%20count-60%20total-orange.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
+[![Chrome Web Store](https://img.shields.io/badge/rating%20count-62%20blue.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
 
 #### Project Overview
@@ -37,8 +37,9 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Filter Marketplace items by media condition
 * Filter Marketplace items by sleeve condition
 * Filter Marketplace items by shipping country
-* Open release links on the Collection page in new tabs
+* Open release links from your Collection in new tabs
 * Open items in Lists in new tabs
+* Search Google for releases by clicking on the release title
 * Hide Min, Median, Max columns on the Collection page
 * Marketplace Media/Sleeve condition highlights
 * See the number of ratings/votes a release received in the Marketplace
