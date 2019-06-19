@@ -1117,13 +1117,23 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 }
 
 // ========================================================
-// Analytics Option
+// Analytics
 // ========================================================
+let config = { attributes: true, childList: true, subtree: true },
+    observer,
+    hasRun = false,
+    action;
 
-function toggleAnalytics(analytics) {
+/**
+ * Saves the analytics preference on both the Extension side
+ * and the DOM side.
+ * @param {Object} elem - The analytics checbox element
+ * @returns {undefined}
+ */
+function toggleAnalytics(elem) {
 
   let opts = JSON.parse(localStorage.getItem('options')),
-      request = { request: 'analytics', enabled: analytics.checked };
+      request = { request: 'analytics', enabled: elem.checked };
 
   chrome.runtime.sendMessage(request, ({ enabled }) => {
 
@@ -1134,15 +1144,32 @@ function toggleAnalytics(analytics) {
   });
 }
 
-// Fire toggleAnalytics once #analytics exists in the DOM
-checkForAnalytics = setInterval(() => {
+action = mutationsList => {
+  for ( let mutation of mutationsList ) {
 
-  let analytics = document.getElementById('analytics');
+    if ( mutation.type === 'childList' ) {
+      mutation.addedNodes.forEach(n => {
 
-  if ( analytics ) {
+        if ( n.classList
+            && n.classList.value === 'options-modal'
+            && !hasRun ) {
 
-    analytics.addEventListener('change', toggleAnalytics);
-    toggleAnalytics(analytics);
+          hasRun = true;
+
+          let analyticsElem = document.querySelector('.options #analytics');
+
+          if ( analyticsElem ) {
+
+            analyticsElem.addEventListener('change', toggleAnalytics);
+            toggleAnalytics(analyticsElem);
+          }
+
+          observer.disconnect();
+        }
+      });
+    }
   }
-  clearInterval(checkForAnalytics);
-}, 1000);
+};
+
+observer = new MutationObserver(action);
+observer.observe(document.documentElement, config);
