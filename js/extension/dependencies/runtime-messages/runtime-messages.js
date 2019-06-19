@@ -47,6 +47,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       }
       break;
 
+    // user preferences
     case 'userPreferences': {
       let userPreferences = {
         blockList: localStorage.getItem('blockList'),
