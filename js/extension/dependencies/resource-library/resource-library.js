@@ -55,13 +55,11 @@
 
  /**
   * Array.splice method applied to Strings.
-  *
   * @param    {number} index Where to begin in the string
   * @param    {number} remove The number of chracters to remove from the string
   * @param    {string} insert The string to insert
   * @return   {string}
   */
-
   if ( !('splice' in String.prototype) ) {
     // eslint-disable-next-line no-unused-vars
     String.prototype.splice = function(index, remove, insert) {
@@ -82,11 +80,9 @@
 
     /**
      * Appends notification to top of Discogs header
-     *
      * @param    {string} message
      * @return   {undefined}
      */
-
     appendNotice: function(message, color) {
 
       let notice = document.createElement('div');
@@ -115,55 +111,43 @@
 
     /**
      * Common HTML/CSS values
-     *
      * @type {Object}
      */
-
     css: {
 
       /**
        * The border that separates prices from suggestion comparisons
-       *
        * @type {string}
        */
-
       border: 'style="margin-top: 10px !important;' +
               'padding-top: 10px !important;' +
               'border-top: 1px dotted gray !important;"',
 
       /**
        * Displayed when Discogs has no price suggestion data on an item
-       *
        * @type {string}
        */
-
       noData: 'Discogs<br>does not have<br>price data on<br>this item.',
 
       /**
        * Preloader markup for anything not suggested-price related
        * Has `de-preloader` class
-       *
        * @type {string}
        */
-
       preloader: '<i class="icon icon-spinner icon-spin converted_price de-preloader" style="font-style: normal;"></i>',
 
       /**
        * Preloader markup for suggested prices
        * Has `de-price-preloader` class
-       *
        * @type {string}
        */
-
       pricePreloader: '<i class="icon icon-spinner icon-spin converted_price de-price-preloader" style="font-style: normal;"></i>',
 
       /**
        * Displayed when a user has price comparisons enabled but does
        * not have seller privileges
-       *
        * @type {string}
        */
-
       pleaseRegister: '<span class="converted_price" ' +
                       'style="margin-top: 10px !important; ' +
                       'border-top: 1px dotted gray !important; '+
@@ -179,12 +163,10 @@
 
     /**
      * Converts prices to user's currency
-     *
      * @param    {array<object>} source an array of releaes objects
      * @param    {object} data the exchange rates data
      * @return   {array}
      */
-
     convertPrices: function(source, data) {
 
       if ( !data ) {
@@ -227,10 +209,8 @@
 
     /**
      * A list of currency exchange acronyms
-     *
      * @type {Array}
      */
-
     exchangeList: ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD'],
 
     /**
@@ -239,7 +219,6 @@
      * @param {object} elem The target element to fade in
      * @returns {method}
      */
-
     fade: function(elem) {
 
       return setTimeout(() => {
@@ -261,7 +240,6 @@
      * @param {number} threshold The number the item has to exceed to be listed in red
      * @returns {string}
      */
-
     getAmountString: function(percentage, threshold) {
 
       let amount;
@@ -290,7 +268,6 @@
      * @param cname {string} The name of the cookie to get
      * @returns {string}
      */
-
     getCookie: function(cname) {
 
     let name = cname + '=',
@@ -317,11 +294,9 @@
     /**
      * Convenience method so I don't forget to parse
      * my localStorage objects.
-     *
      * @param    {string} item: name of the item to be returned
      * @return   {object | string}
      */
-
     getItem: function(item) {
 
       try {
@@ -361,12 +336,10 @@
 
     /**
      * Assigns user's currency symbol to price estimates.
-     *
      * @param    {string} userCurrency
      * @param    {string} symbol
      * @return   {string} symbol
      */
-
     getSymbols: function(userCurrency, symbol) {
 
       let language = this.language();
@@ -386,11 +359,9 @@
 
     /**
      * Detects whether an element is visible on the page
-     *
      * @param    {Object}   elem [the element to detect]
      * @return   {Boolean}
      */
-
     isOnScreen(elem) {
 
       if ( elem && elem.getBoundingClientRect() ) {
@@ -405,10 +376,8 @@
 
     /**
      * Returns the currently selected language
-     *
      * @return   {string}
      */
-
     language: function() {
 
       let id = document.getElementById('i18n_select'),
@@ -421,14 +390,12 @@
 
     /**
      * Returns price suggestions in user's localized format
-     *
      * @param    {string} symbol The currency symbol
      * @param    {string} price The suggested price of the release
      * @param    {string} userCurrency The user's currency exchange name
      * @param    {string} language The user's language setting
      * @return   {string}
      */
-
     localizeSuggestion: function(symbol, price, userCurrency, language) {
 
       let maxDigits,
@@ -450,7 +417,6 @@
         minimumFractionDigits: maxDigits
       };
 
-      // Pretty awesome that the Number object has this `toLocaleString` method
       price = Number(price).toLocaleString(language, priceConfig);
 
       // Return price suggestions in user's locale
@@ -483,11 +449,9 @@
 
     /**
      * Console.logs stuff
-     *
      * @method
      * @return {function}
      */
-
     log: function() {
 
       if ( this.options.debug() ) {
@@ -499,11 +463,9 @@
     /**
      * Maps price symbol to `exchangeList` array, determines if the release
      * is listed in `JPY` and sets the exchange name.
-     *
      * @param    {array<object>} source An array of objects representing release data
      * @return   {object}
      */
-
     matchSymbols: function(source, language) {
 
       if ( !language ) {
@@ -550,10 +512,10 @@
       });
     },
 
-     /**
-      * Config values for various features
-      * @type {Object}
-      */
+    /**
+     * Config values for various features
+     * @type {Object}
+     */
     options: {
 
       /**
@@ -718,6 +680,7 @@
      * Key/value pairs for quickly IDing pages in Discogs.
      * Used in conjunction with `pageIs` and `pageIsNot`
      * methods above.
+     * @type {Object}
      * #WIP
      */
     pageKeys: {
@@ -800,11 +763,9 @@
      * Parses the URL passed into it and
      * returns the release/master/artist/forum
      * number.
-     *
      * @param    {string} url [the URL passed into the function]
      * @return   {string} num [the parsed id number]
      */
-
     parseURL: function(url) {
 
       if (url) {
@@ -828,11 +789,9 @@
 
     /**
      * Parses element into object
-     *
      * @param    {string} element
      * @return   {object}
      */
-
     prepareObj: function(element) {
 
       element = element.substring(element.indexOf('return')).substring(7);
@@ -846,12 +805,10 @@
 
     /**
      * Symbols that will be used in price estimates injected into the DOM.
-     *
      * Symbol indexes correspond to currencies in this order:
      * ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD']
      * @type {object}
      */
-
     printSymbol: {
 
       de: ['€', '£', '¥', '¥', 'A$', 'CA$', 'CHF', 'SEK', 'NZ$', '₽', 'ZAR', 'MX$', 'R$', '$'],
@@ -874,11 +831,9 @@
     /**
      * Checks the `readyState` of the document before executing
      * the callback.
-     *
      * @param    {function} fn [the code to be run when the DOM is ready]
      * @return   {undefined}
      */
-
     ready: function(fn) {
 
       if ( document.readyState !== 'loading' ) {
@@ -894,11 +849,9 @@
     /**
      * Parses the page url in order to remove any `&page=`
      * query params.
-     *
      * @param    {string} url [current page URL]
      * @return   {string}
      */
-
     removePageParam: function(url) {
 
       let params;
@@ -928,11 +881,9 @@
     /**
      * Strips currency symbol, spaces and other characters
      * from release prices
-     *
      * @param    {array<object>} source An array of release objects
      * @return   {object}
      */
-
     sanitizePrices: function(source) {
 
       source.forEach(obj => {
@@ -960,11 +911,9 @@
 
     /**
      * Sets text for sort buttons
-     *
      * @param    {object} elem The button to set the text on
      * @return   {object} elem
      */
-
     setButtonText: function(elem) {
 
       switch(elem.textContent.trim()) {
@@ -986,13 +935,10 @@
     /**
      * Convenience method so I don't forget to stringify
      * my values before setting them.
-     *
-     *
      * @param    {string} name The name to set
      * @param    {string|object} value The value to set
      * @return   {function}
      */
-
     setItem: function(name, value) {
 
       value = JSON.stringify(value);
@@ -1027,12 +973,10 @@
 
     /**
      * Regular expressions for determining what currency a price is listed in.
-     *
      * RegEx indexes correspond to currencies in this order:
      * ['EUR', 'GBP', 'JPY', 'JPY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RUB', 'ZAR', 'MXN', 'BRL', 'USD']
      * @type {object}
      */
-
     symbolRegex: {
 
       de: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/],
