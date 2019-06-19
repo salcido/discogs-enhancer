@@ -13,8 +13,7 @@
  *
  */
 
-let checkForAnalytics,
-    elems = [],
+let elems = [],
     filterMonitor,
     prefs = {},
     resourceLibrary;
@@ -1127,7 +1126,7 @@ let config = { attributes: true, childList: true, subtree: true },
 /**
  * Saves the analytics preference on both the Extension side
  * and the DOM side.
- * @param {Object} elem - The analytics checbox element
+ * @param {Object} elem - The analytics checkbox element
  * @returns {undefined}
  */
 function toggleAnalytics(elem) {
@@ -1143,7 +1142,7 @@ function toggleAnalytics(elem) {
     localStorage.setItem('options', opts);
   });
 }
-
+// Analytics Init
 action = mutationsList => {
   for ( let mutation of mutationsList ) {
 
@@ -1159,7 +1158,6 @@ action = mutationsList => {
           let analyticsElem = document.querySelector('.options #analytics');
 
           if ( analyticsElem ) {
-
             analyticsElem.addEventListener('change', toggleAnalytics);
             toggleAnalytics(analyticsElem);
           }
