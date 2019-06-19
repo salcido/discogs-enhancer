@@ -154,7 +154,9 @@ resourceLibrary.ready(() => {
   }
 
   // Poll for changes
-  if ( timeStamp > sellerNames.lastChecked + waitTime ) {
+  if ( sellerNames
+       && sellerNames.lastChecked
+       && timeStamp > sellerNames.lastChecked + waitTime ) {
     fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 });
