@@ -20,7 +20,6 @@ module.exports = {
     [deps + 'runtime-messages']: `${deps}runtime-messages.js`,
     [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
     // features files
-    [features + 'apply-highlights']: `${features}apply-highlights.js`,
     [features + 'average-price']: `${features}average-price.js`,
     [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
     [features + 'block-sellers']: `${features}block-sellers.js`,
@@ -43,6 +42,7 @@ module.exports = {
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
     [features + 'list-items-in-tabs']: `${features}list-items-in-tabs.js`,
+    [features + 'marketplace-highlights']: `${features}marketplace-highlights.js`,
     [features + 'notes-counter']: `${features}notes-counter.js`,
     [features + 'quick-search']: `${features}quick-search.js`,
     [features + 'random-item']: `${features}random-item.js`,

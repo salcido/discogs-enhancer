@@ -232,12 +232,11 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(friendCounter);
 
-      // Marketplace Highlights
-      // apply-highlights.js
+      // marketplace-highlights.js
       let highlightScript = document.createElement('script');
 
       highlightScript.type = 'text/javascript';
-      highlightScript.src = chrome.extension.getURL('js/extension/features/apply-highlights.js');
+      highlightScript.src = chrome.extension.getURL('js/extension/features/marketplace-highlights.js');
       highlightScript.className = 'de-init';
 
       elems.push(highlightScript);
