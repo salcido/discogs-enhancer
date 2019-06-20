@@ -80,8 +80,7 @@ resourceLibrary.id = 'resource-library';
 resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library.js');
 
 appendFragment([resourceLibrary]).then(() => {
-  // Get the users preferences or create them if they
-  // do not yet exist.
+  // Get the users preferences or create them
   chrome.storage.sync.get('prefs', result => {
 
     if (!result.prefs) {
