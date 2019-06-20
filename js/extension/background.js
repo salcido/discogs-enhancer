@@ -77,7 +77,7 @@ function getCurrentFilterState() {
 resourceLibrary = document.createElement('script');
 resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
-resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library/resource-library.js');
+resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library.js');
 
 appendFragment([resourceLibrary]).then(() => {
   // Get the users preferences or create them if they
@@ -374,7 +374,7 @@ appendFragment([resourceLibrary]).then(() => {
         let options = document.createElement('script');
 
         options.type = 'text/javascript';
-        options.src = chrome.extension.getURL('js/extension/dependencies/options/options.js');
+        options.src = chrome.extension.getURL('js/extension/dependencies/options.js');
         options.className = 'de-init';
 
         elems.push(options);
@@ -770,7 +770,7 @@ appendFragment([resourceLibrary]).then(() => {
         let updateExchangeRates = document.createElement('script');
 
         updateExchangeRates.type = 'text/javascript';
-        updateExchangeRates.src = chrome.extension.getURL('js/extension/dependencies/exchange-rates/update-exchange-rates.js');
+        updateExchangeRates.src = chrome.extension.getURL('js/extension/dependencies/update-exchange-rates.js');
         updateExchangeRates.className = 'de-init';
 
         elems.push(updateExchangeRates);

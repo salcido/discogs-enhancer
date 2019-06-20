@@ -28,7 +28,7 @@
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "background": {
     "scripts": [
-      "js/extension/dependencies/runtime-messages/runtime-messages.js",
+      "js/extension/dependencies/runtime-messages.js",
       "js/extension/features/contextual-menu-search.js",
       "js/extension/background.js"
     ]
@@ -62,9 +62,9 @@
     "html/favorite-sellers.html",
     "html/learn.html",
     "html/readability.html",
-    "js/extension/dependencies/exchange-rates/update-exchange-rates.js",
-    "js/extension/dependencies/options/options.js",
-    "js/extension/dependencies/resource-library/resource-library.js",
+    "js/extension/dependencies/update-exchange-rates.js",
+    "js/extension/dependencies/options.js",
+    "js/extension/dependencies/resource-library.js",
     "js/extension/dependencies/tests/unit-tests.js",
     "js/extension/features/apply-highlights.js",
     "js/extension/features/average-price.js",

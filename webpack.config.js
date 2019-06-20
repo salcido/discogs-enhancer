@@ -13,11 +13,11 @@ module.exports = {
     // background.js
     './js/extension/background': './js/extension/background.js',
     // dependencies
-    [deps + 'analytics/analytics']: `${deps}analytics/analytics.js`,
-    [deps + 'exchange-rates/update-exchange-rates']: `${deps}exchange-rates/update-exchange-rates.js`,
-    [deps + 'options/options']: `${deps}options/options.js`,
-    [deps + 'resource-library/resource-library']: `${deps}resource-library/resource-library.js`,
-    [deps + 'runtime-messages/runtime-messages']: `${deps}runtime-messages/runtime-messages.js`,
+    [deps + 'analytics']: `${deps}analytics.js`,
+    [deps + 'update-exchange-rates']: `${deps}update-exchange-rates.js`,
+    [deps + 'options']: `${deps}options.js`,
+    [deps + 'resource-library']: `${deps}resource-library.js`,
+    [deps + 'runtime-messages']: `${deps}runtime-messages.js`,
     [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
     // features files
     [features + 'apply-highlights']: `${features}apply-highlights.js`,
