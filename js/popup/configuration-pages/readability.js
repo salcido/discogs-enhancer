@@ -10,8 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  let
-      config = JSON.parse(localStorage.getItem('readability')) || setDefaultConfig(),
+  let hasConfig = localStorage.getItem('readability'),
+      config = hasConfig ? JSON.parse(hasConfig) : setDefaultConfig(),
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
@@ -48,28 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
-   * Updates the config object to include a `size` property
-   * for existing users who do not yet have this prop in their
-   * config object.
-   *
-   * @TODO delete this some time in the future
-   * @method insertDividerSizeProperty
-   * @return {undefined}
-   */
-  function insertDividerSizeProperty() {
-
-    if ( !config.size ) {
-
-      let newConfig = JSON.parse(localStorage.getItem('readability'));
-
-      newConfig.size = 0.5;
-      localStorage.setItem('readability', JSON.stringify(newConfig));
-      config = JSON.parse(localStorage.getItem('readability'));
-      return;
-    }
-  }
-
-  /**
    * Sets default values in the config object
    *
    * @method setDefaultConfig
@@ -91,10 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     return JSON.parse(localStorage.getItem('readability'));
   }
-
-  // Add new size property if necessary
-  // TODO: delete this at some point in the future
-  insertDividerSizeProperty();
 
   // ========================================================
   // DOM setup

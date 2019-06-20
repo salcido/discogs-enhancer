@@ -55,7 +55,8 @@ if ( !Element.prototype.addClasses ) {
  */
 function isDev() {
 
-  let blocklist = JSON.parse(localStorage.getItem('blockList')) || null;
+  let hasBlocklist = localStorage.getItem('blockList'),
+      blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
 
   if ( blocklist
        && blocklist.list
