@@ -63,7 +63,7 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/assets/performance-audit.png "Discogs Enhancer Lighthouse Audit: 96/100")
 
 ## Overview
-![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-flow-overview.jpg "Discogs Enhancer flow overview")
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-flow-overview.gif "Discogs Enhancer flow overview")
 
 ***
 
