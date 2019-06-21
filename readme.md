@@ -56,6 +56,16 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Easily format comments/reviews using Text Formatting Shortcuts
 * Improve Tracklist readability
 
+***
+
+## Performance
+
+Discogs Enhancer gets a near perfect score with Lighthouse when it comes to impact on user experience. Audit was performed using [Exhouse](https://github.com/treosh/exthouse) in June of 2019.
+
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/performance-audit.png "Discogs Enhancer Lighthouse Audit: 96/100")
+
+***
+
 ## 📋 Overview
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/de-flow-overview.jpg "Discogs Enhancer flow overview")
 
@@ -200,14 +210,6 @@ Add the feature description to `learn.html`. Make sure to insert the new markup 
 ### 📦 Build The Extension
 
 Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build`. Once the build is finished, load the extension in Chrome by going to `chrome://extensions`. Make sure `Developer Mode` is checked, then click 'Load unpacked' and choose the newly exported `dist` folder. You should now be able to enable the feature from the popup menu.
-
-***
-
-## Performant
-
-Discogs Enhancer gets a near perfect score with Lighthouse when it comes to impact on user experience. Audit was performed using [Exhouse](https://github.com/treosh/exthouse) in June of 2019.
-
-![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/performance-audit.png "Discogs Enhancer Lighthouse Audit: 96/100")
 
 ***
 
