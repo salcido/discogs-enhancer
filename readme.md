@@ -58,7 +58,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 
 ## Performance
 
-Discogs Enhancer gets a near perfect score with Lighthouse when it comes to impact on user experience. Audit was performed using [Exhouse](https://github.com/treosh/exthouse) in June of 2019.
+Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://developers.google.com/web/tools/lighthouse/) when it comes to impact on user experience. Audit was performed using [Exhouse](https://github.com/treosh/exthouse) in June of 2019.
 
 ![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/assets/performance-audit.png "Discogs Enhancer Lighthouse Audit: 96/100")
 
