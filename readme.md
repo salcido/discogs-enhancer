@@ -203,6 +203,14 @@ Since changes have been made to `webpack`, the extension will need to be rebuilt
 
 ***
 
+## Performant
+
+Discogs Enhancer gets a near perfect score with Lighthouse when it comes to impact on user experience. Audit was performed using [Exhouse](https://github.com/treosh/exthouse) in June of 2019.
+
+![Discogs Enhancer flow overview](https://github.com/salcido/Discogs-Enhancer/blob/master/img/performance-audit.png "Discogs Enhancer Lighthouse Audit: 96/100")
+
+***
+
 ## Author
 
 * **Matthew Salcido** - [salcido](https://github.com/salcido)
