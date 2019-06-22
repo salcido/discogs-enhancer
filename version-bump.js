@@ -31,9 +31,7 @@ const updateBadges = process.argv[3] && process.argv[3] === 'true' ? true : null
 // URL to get new badge data from
 const url = 'https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn';
 
-let rating,
-    votes,
-    users;
+let users;
 
 // ========================================================
 // Functions (Alphabetical)
@@ -98,23 +96,15 @@ function updateJSONfiles(version) {
 function updateBadgeData() {
 
   let readme = fs.readFileSync('readme.md', 'utf8'),
-      ratingRegex = /\d*\.*\d/,
-      strUsers = /\d\.*\dk/g,
-      strRating = /\d\.\d*%2F5/g,
-      strVotes = /\d+%20/g,
-      nums = /\w+/g;
+      strUsers = /\d\.*\dk/g;
 
-  rating = parseFloat(rating.match(ratingRegex));
-  votes = parseInt(votes.match(nums));
   users = abbrNum(users, 1);
 
-  readme = readme.replace(strUsers, `${users}`)
-                 .replace(strRating, `${rating}%2F5`)
-                 .replace(strVotes, `${votes}%20`);
+  readme = readme.replace(strUsers, `${users}`);
 
   fs.writeFileSync('readme.md', readme);
 
-  console.log(`✅  Updated badges with new data: Users: ${users}, Rating: ${rating}, Votes: ${votes}`);
+  console.log(`✅  Updated badges with new data: Users: ${users}`);
 }
 
 /**
@@ -157,8 +147,6 @@ if ( validateVersion(newVersion) ) {
       await page.goto(url);
       await page.waitFor('.KnRoYd-N-nd');
 
-      rating = await page.evaluate(() => document.querySelector('.e-f-Sa-L .KnRoYd-N-k').title);
-      votes = await page.evaluate(() => document.querySelector('.KnRoYd-N-nd').textContent);
       userData = await page.evaluate(() => document.querySelector('.e-f-ih').textContent);
       users = userData.match(regex).reduce((a, n) => a + n);
       browser.close();
