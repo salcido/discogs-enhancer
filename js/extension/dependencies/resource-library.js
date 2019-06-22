@@ -358,9 +358,10 @@
     language: function() {
 
       let id = document.getElementById('i18n_select'),
-          language = id.options[id.selectedIndex].value;
+          hasValue = (id.options[id.selectedIndex] && id.options[id.selectedIndex].value),
+          language = hasValue ? id.options[id.selectedIndex].value : 'en';
 
-      language = language === 'pt_BR' ? 'pt' : language;
+      language = (language === 'pt_BR') ? 'pt' : language;
 
       return language;
     },
