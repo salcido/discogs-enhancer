@@ -18,21 +18,23 @@ let elems = [],
     prefs = {},
     resourceLibrary;
 
+// ========================================================
+// Functions
+// ========================================================
+
 /**
  * Augment `HMTLDocument` prototype for ready state checks
  * @returns {Promise}
  */
 HTMLDocument.prototype.ready = () => {
-
   return new Promise(resolve => {
 
     if (document.readyState === 'complete') {
-      resolve(document);
-    } else {
-        document.addEventListener('DOMContentLoaded', () => {
-        resolve(document);
-      });
+      return resolve(document);
     }
+    document.addEventListener('DOMContentLoaded', () => {
+      return resolve(document);
+    });
   });
 };
 
@@ -43,15 +45,11 @@ HTMLDocument.prototype.ready = () => {
  * @return   {Promise}
  */
 function appendFragment(elems) {
-
   let fragment = document.createDocumentFragment();
 
   return new Promise(resolve => {
-
     elems.forEach(elm => fragment.appendChild(elm));
-
     (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
-
     return resolve();
   });
 }
@@ -71,6 +69,109 @@ function getCurrentFilterState() {
       };
   return currentFilterState;
 }
+
+/**
+ * TODO:
+ * @returns {undefined}
+ */
+function initAnalyitcs() {
+
+  let action,
+      config = { attributes: true, childList: true, subtree: true },
+      hasRun = false,
+      observer;
+
+  action = mutationsList => {
+    for ( let mutation of mutationsList ) {
+
+      if ( mutation.type === 'childList' ) {
+        mutation.addedNodes.forEach(n => {
+
+          if ( n.classList
+               && n.classList.value === 'options-modal'
+               && !hasRun ) {
+
+            hasRun = true;
+
+            let analyticsElem = document.querySelector('.options #analytics');
+
+            if ( analyticsElem ) {
+              analyticsElem.addEventListener('change', toggleAnalytics);
+              toggleAnalytics(analyticsElem);
+            }
+
+            observer.disconnect();
+          }
+        });
+      }
+    }
+  };
+
+  observer = new MutationObserver(action);
+  observer.observe(document.documentElement, config);
+}
+
+/**
+ * Saves the analytics preference on both the Extension side
+ * and the DOM side.
+ * @param {Object} elem - The analytics checkbox element
+ * @returns {undefined}
+ */
+function toggleAnalytics(elem) {
+
+  let prefs = JSON.parse(localStorage.getItem('userPreferences')),
+      opts = prefs.options,
+      request = { request: 'analytics', enabled: elem.checked };
+
+  chrome.runtime.sendMessage(request, ({ enabled }) => {
+
+    opts.analytics = enabled;
+    prefs = JSON.stringify(prefs);
+
+    localStorage.setItem('userPreferences', prefs);
+  });
+}
+
+// ========================================================
+// Install/Update Notifications
+// ========================================================
+
+if (typeof chrome.runtime.onInstalled !== 'undefined') {
+
+  chrome.runtime.onInstalled.addListener(function(details) {
+
+    let previousVersion,
+        thisVersion;
+
+    if (details.reason === 'install') {
+
+      console.log('Welcome to the pleasuredome!');
+
+      chrome.storage.sync.set({ didUpdate: false }, function() {});
+
+    } else if (details.reason === 'update') {
+
+      // - Don't show an update notice on patches -
+      previousVersion = details.previousVersion.split('.');
+
+      thisVersion = chrome.runtime.getManifest().version.split('.');
+
+      if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
+           Number(thisVersion[1]) > Number(previousVersion[1]) ) {
+
+        chrome.browserAction.setBadgeText({text: ' '});
+
+        chrome.browserAction.setBadgeBackgroundColor({color: '#4cb749'});
+
+        chrome.storage.sync.set({didUpdate: true}, function() {});
+      }
+    }
+  });
+}
+
+// ========================================================
+//  Side A; track 1
+// ========================================================
 
 // Resource Library
 // A singleton of shared methods for the extension
@@ -1084,103 +1185,8 @@ appendFragment([resourceLibrary]).then(() => {
       document.querySelectorAll('.de-init').forEach(child => {
         child.parentNode.removeChild(child);
       });
+      initAnalyitcs();
     })
     .catch(err => console.error('Error injecting scripts', err));
   });
 });
-
-// ========================================================
-// Install/Update Notifications
-// ========================================================
-
-if (typeof chrome.runtime.onInstalled !== 'undefined') {
-
-  chrome.runtime.onInstalled.addListener(function(details) {
-
-    let previousVersion,
-        thisVersion;
-
-    if (details.reason === 'install') {
-
-      console.log('Welcome to the pleasuredome!');
-
-      chrome.storage.sync.set({ didUpdate: false }, function() {});
-
-    } else if (details.reason === 'update') {
-
-      // - Don't show an update notice on patches -
-      previousVersion = details.previousVersion.split('.');
-
-      thisVersion = chrome.runtime.getManifest().version.split('.');
-
-      if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
-           Number(thisVersion[1]) > Number(previousVersion[1]) ) {
-
-        chrome.browserAction.setBadgeText({text: ' '});
-
-        chrome.browserAction.setBadgeBackgroundColor({color: '#4cb749'});
-
-        chrome.storage.sync.set({didUpdate: true}, function() {});
-      }
-    }
-  });
-}
-
-// ========================================================
-// Analytics
-// ========================================================
-
-let config = { attributes: true, childList: true, subtree: true },
-    observer,
-    hasRun = false,
-    action;
-
-/**
- * Saves the analytics preference on both the Extension side
- * and the DOM side.
- * @param {Object} elem - The analytics checkbox element
- * @returns {undefined}
- */
-function toggleAnalytics(elem) {
-
-  let prefs = JSON.parse(localStorage.getItem('userPreferences')),
-      opts = prefs.options,
-      request = { request: 'analytics', enabled: elem.checked };
-
-  chrome.runtime.sendMessage(request, ({ enabled }) => {
-
-    opts.analytics = enabled;
-    prefs = JSON.stringify(prefs);
-
-    localStorage.setItem('userPreferences', prefs);
-  });
-}
-// Analytics Init
-action = mutationsList => {
-  for ( let mutation of mutationsList ) {
-
-    if ( mutation.type === 'childList' ) {
-      mutation.addedNodes.forEach(n => {
-
-        if ( n.classList
-             && n.classList.value === 'options-modal'
-             && !hasRun ) {
-
-          hasRun = true;
-
-          let analyticsElem = document.querySelector('.options #analytics');
-
-          if ( analyticsElem ) {
-            analyticsElem.addEventListener('change', toggleAnalytics);
-            toggleAnalytics(analyticsElem);
-          }
-
-          observer.disconnect();
-        }
-      });
-    }
-  }
-};
-
-observer = new MutationObserver(action);
-observer.observe(document.documentElement, config);
