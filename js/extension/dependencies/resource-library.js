@@ -687,6 +687,7 @@
       'sellItem': '/sell/item/',
       'sellMaster': '/sell/list',
       'sellRelease': '/sell/release',
+      'stats': '/stats/',
       'videos': '/videos/',
     },
 
