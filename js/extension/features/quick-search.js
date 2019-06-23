@@ -15,9 +15,9 @@
 resourceLibrary.ready(() => {
 
   let additionalText = resourceLibrary.options.quicksearch(),
+      re,
       shouldRun = false,
-      title = document.title,
-      re;
+      title = document.title;
 
   // Master release pages
   // ------------------------------------------------------
@@ -43,9 +43,9 @@ resourceLibrary.ready(() => {
   if ( resourceLibrary.pageIs('sellItem') ) {
     // Match patterns:
     // Tissu - Unmanned Vehicle: 12" For Sale | Discogs
+    additionalText = ` ${additionalText}`;
     re = /(?:.(?!\:.+\| Discogs))+$/g;
     shouldRun = true;
-    additionalText = ` ${additionalText}`;
   }
 
   if ( !shouldRun ) return;
@@ -54,9 +54,9 @@ resourceLibrary.ready(() => {
   // DOM Setup
   // ========================================================
   let i = document.createElement('i'),
+      query = title.replace(re, ''),
       releaseTitle = document.querySelector('#profile_title span'),
-      style = document.createElement('style'),
-      query = title.replace(re, '');
+      style = document.createElement('style');
 
   // DOM manipulation
   i.classList = 'icon icon-external-link de-external';
