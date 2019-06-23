@@ -35,7 +35,7 @@
   * @param    {number} index Where to begin in the string
   * @param    {number} remove The number of chracters to remove from the string
   * @param    {string} insert The string to insert
-  * @return   {string}
+  * @returns   {string}
   */
   if ( !('splice' in String.prototype) ) {
     // eslint-disable-next-line no-unused-vars
@@ -58,7 +58,7 @@
     /**
      * Appends notification to top of Discogs header
      * @param    {string} message
-     * @return   {undefined}
+     * @returns   {undefined}
      */
     appendNotice: function(message, color) {
 
@@ -142,7 +142,7 @@
      * Converts prices to user's currency
      * @param    {array<object>} source an array of releaes objects
      * @param    {object} data the exchange rates data
-     * @return   {array}
+     * @returns   {array}
      */
     convertPrices: function(source, data) {
 
@@ -272,7 +272,7 @@
      * Convenience method so I don't forget to parse
      * my localStorage objects.
      * @param    {string} item: name of the item to be returned
-     * @return   {object | string}
+     * @returns   {object | string}
      */
     getItem: function(item) {
 
@@ -315,7 +315,7 @@
      * Assigns user's currency symbol to price estimates.
      * @param    {string} userCurrency
      * @param    {string} symbol
-     * @return   {string} symbol
+     * @returns   {string} symbol
      */
     getSymbols: function(userCurrency, symbol) {
 
@@ -337,7 +337,7 @@
     /**
      * Detects whether an element is visible on the page
      * @param    {Object}   elem [the element to detect]
-     * @return   {Boolean}
+     * @returns   {Boolean}
      */
     isOnScreen(elem) {
 
@@ -353,7 +353,7 @@
 
     /**
      * Returns the currently selected language
-     * @return   {string}
+     * @returns   {string}
      */
     language: function() {
 
@@ -372,7 +372,7 @@
      * @param    {string} price The suggested price of the release
      * @param    {string} userCurrency The user's currency exchange name
      * @param    {string} language The user's language setting
-     * @return   {string}
+     * @returns   {string}
      */
     localizeSuggestion: function(symbol, price, userCurrency, language) {
 
@@ -428,7 +428,7 @@
     /**
      * Console.logs stuff
      * @method
-     * @return {function}
+     * @returns {function}
      */
     log: function() {
 
@@ -442,7 +442,7 @@
      * Maps price symbol to `exchangeList` array, determines if the release
      * is listed in `JPY` and sets the exchange name.
      * @param    {array<object>} source An array of objects representing release data
-     * @return   {object}
+     * @returns   {object}
      */
     matchSymbols: function(source, language) {
 
@@ -497,8 +497,8 @@
     options: {
 
       /**
-       * Whether or not to use analytics
-       * @return {boolean}
+       * Whether to use analytics
+       * @returns {boolean}
        */
       analytics: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
@@ -507,8 +507,8 @@
       },
 
       /**
-       * Whether or not to change price colors
-       * @return {boolean}
+       * Whether to change price colors
+       * @returns {boolean}
        */
       colorize: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
@@ -517,8 +517,8 @@
       },
 
       /**
-       * Whether or not to log values
-       * @return {Boolean}
+       * Whether to log values
+       * @returns {Boolean}
        */
       debug: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
@@ -527,8 +527,8 @@
       },
 
       /**
-       * Whether or not to highlight comments on the dashboard
-       * @return {Boolean}
+       * Whether to highlight comments on the dashboard
+       * @returns {Boolean}
        */
       highlightComments: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
@@ -538,7 +538,7 @@
 
       /**
        * Gets current options state
-       * @return {undefined}
+       * @returns {undefined}
        */
       getOptions: function() {
 
@@ -568,7 +568,7 @@
 
       /**
        * Saves selected options on options modal
-       * @return {function}
+       * @returns {function}
        */
       saveOptions: function() {
 
@@ -602,6 +602,10 @@
         return location.reload();
       },
 
+      /**
+       * An additional string appended to the quick-search google query
+       * @returns {String}
+       */
       quicksearch: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
             quicksearch = hasOptions ? hasOptions.quicksearch : '';
@@ -610,7 +614,7 @@
 
       /**
        * The maximum percentage that an item will be ballpark estimated with: ±
-       * @return {number}
+       * @returns {number}
        */
       threshold: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
@@ -619,8 +623,8 @@
       },
 
       /**
-       * Whether or not to run unit tests
-       * @return {Boolean}
+       * Whether to run unit tests
+       * @returns {Boolean}
        */
       unitTests: function() {
         let hasOptions = resourceLibrary.getPreference('options'),
@@ -740,7 +744,7 @@
      * returns the release/master/artist/forum
      * number.
      * @param    {string} url [the URL passed into the function]
-     * @return   {string} num [the parsed id number]
+     * @returns   {string} num [the parsed id number]
      */
     parseURL: function(url) {
 
@@ -766,7 +770,7 @@
     /**
      * Parses element into object
      * @param    {string} element
-     * @return   {object}
+     * @returns   {object}
      */
     prepareObj: function(element) {
 
@@ -808,7 +812,7 @@
      * Checks the `readyState` of the document before executing
      * the callback.
      * @param    {function} fn [the code to be run when the DOM is ready]
-     * @return   {undefined}
+     * @returns   {undefined}
      */
     ready: function(fn) {
 
@@ -826,7 +830,7 @@
      * Parses the page url in order to remove any `&page=`
      * query params.
      * @param    {string} url [current page URL]
-     * @return   {string}
+     * @returns   {string}
      */
     removePageParam: function(url) {
 
@@ -858,7 +862,7 @@
      * Strips currency symbol, spaces and other characters
      * from release prices
      * @param    {array<object>} source An array of release objects
-     * @return   {object}
+     * @returns   {object}
      */
     sanitizePrices: function(source) {
 
@@ -888,7 +892,7 @@
     /**
      * Sets text for sort buttons
      * @param    {object} elem The button to set the text on
-     * @return   {object} elem
+     * @returns   {object} elem
      */
     setButtonText: function(elem) {
 
@@ -913,7 +917,7 @@
      * my values before setting them.
      * @param    {string} name The name to set
      * @param    {string|object} value The value to set
-     * @return   {function}
+     * @returns   {function}
      */
     setItem: function(name, value) {
 
