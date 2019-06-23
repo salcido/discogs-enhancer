@@ -1181,11 +1181,11 @@ appendFragment([resourceLibrary]).then(() => {
     .then(() => document.ready())
     .then(() => appendFragment(elems))
     .then(() => {
+      initAnalyitcs();
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
         child.parentNode.removeChild(child);
       });
-      initAnalyitcs();
     })
     .catch(err => console.error('Error injecting scripts', err));
   });
