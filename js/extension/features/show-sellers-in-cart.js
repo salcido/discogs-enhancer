@@ -32,20 +32,24 @@ resourceLibrary.ready(() => {
    * Iterates over each seller in the cart and
    * saves the names to localStorage.
    * @param {Object} elem - the element to iterate over
-   * @returns {undefined}
+   * @returns {Promise}
    */
   function captureSellerNames(elem = document) {
 
-    let namesInCart = elem.querySelectorAll('.linked_username') || null,
-        sellerNames = {
-          lastChecked: timeStamp,
-          names: []
-        };
+    return new Promise(resolve => {
+      let namesInCart = elem.querySelectorAll('.linked_username'),
+          sellerNames = {
+            lastChecked: timeStamp,
+            names: []
+          };
 
-    if (namesInCart.length) {
-      namesInCart.forEach(n => sellerNames.names.push( n.textContent.trim() ));
-    }
-    resourceLibrary.setPreference('sellerNames', sellerNames);
+      if ( namesInCart.length ) {
+        namesInCart.forEach(n => sellerNames.names.push( n.textContent.trim() ));
+      }
+
+      resourceLibrary.setPreference('sellerNames', sellerNames);
+      return resolve(sellerNames);
+    });
   }
 
   /**
@@ -143,17 +147,20 @@ resourceLibrary.ready(() => {
 
   // Marketplace wantlists, all items, release pages
   if ( resourceLibrary.pageIs('myWants', 'allItems', 'sellRelease') ) {
-    let sellerNames = resourceLibrary.getPreference('sellerNames');
-    injectCss();
-
-    if ( sellerNames
-         && sellerNames.names
-         && sellerNames.names.length ) {
-      window.sellerItemsInCart(sellerNames);
-    }
+    fetchSellersFromCart()
+      .then(data => captureSellerNames(data))
+      .then(sellers => {
+        injectCss();
+        if ( sellers
+             && sellers.names
+             && sellers.names.length ) {
+          window.sellerItemsInCart(sellers);
+        }
+    });
   }
 
   // Poll for changes
+  // TODO: Not sure this is necessary anymore
   if ( sellerNames
        && sellerNames.lastChecked
        && timeStamp > sellerNames.lastChecked + waitTime ) {
