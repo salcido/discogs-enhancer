@@ -190,7 +190,7 @@ resourceLibrary.ready(() => {
         if ( markup.match(/\S/) ) {
 
           appendMarketplaceResults(markup);
-
+          resourceLibrary.updatePageParam(pageNum);
         } else {
 
           loader.remove();
