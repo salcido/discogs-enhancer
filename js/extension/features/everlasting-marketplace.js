@@ -63,7 +63,7 @@ resourceLibrary.ready(() => {
          the content has changed and if it's declared in a var, it never gets
          updated when the `markup` gets appened...
       */
-      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp());
+      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp(pageNum));
       document.querySelector(lastChild).id = `de-page-${pageNum}`;
 
       // Append new items to the DOM
@@ -141,6 +141,8 @@ resourceLibrary.ready(() => {
      */
     async function getNextPage() {
 
+      pageNum++;
+
       let href = window.location.href,
           type = resourceLibrary.pageIs('myWants') ? 'mywants' : 'list',
           url = `/sell/${type}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
@@ -171,7 +173,6 @@ resourceLibrary.ready(() => {
           document.querySelectorAll('.de-pause, .de-resume').forEach(b => b.remove());
         }
 
-        pageNum++;
         hasLoaded = false;
 
         addPauseListener();
@@ -194,7 +195,6 @@ resourceLibrary.ready(() => {
           spinner = document.querySelector('#de-next .icon-spinner'),
           resumeLink = `<p>Everlasting Marketplace is paused.</p>
                         <p><a href="#" class="de-resume">Click here to resume loading results</a></p>`;
-
 
       // Paused
       if ( event.target.classList.contains('de-pause') ) {
@@ -254,16 +254,15 @@ resourceLibrary.ready(() => {
 
       if ( target.value ) {
 
-        if ( target.value === '1' ) {
+        if ( target.value == pageHist[0] ) {
 
           window.scroll({ top: 0, left: 0 });
-
         } else {
 
           document.querySelector(targetId).scrollIntoView();
           window.scroll({top: window.scrollY, left: 0});
-          document.querySelectorAll('.de-scroll-to-page').forEach(s => { s.value = target.value; });
         }
+        document.querySelectorAll('.de-scroll-to-page').forEach(s => { s.value = ''; });
       }
     }
 
@@ -280,7 +279,7 @@ resourceLibrary.ready(() => {
 
       return `<tr class="shortcut_navigable">
                 <td class="item_description de-page-stamp de-page-number">
-                  <h3 class="de-current-page">Page: ${override || pageNum}</h3>
+                  <h3 class="de-current-page">Page: ${override}</h3>
                 </td>
                 <td class="item_description de-filter-stamp de-page-stamp">
                   ${pTotal} results ${filterState}
@@ -291,7 +290,7 @@ resourceLibrary.ready(() => {
                     <span></span>
                     <select class="de-scroll-to-page">
                       <option value="" selected>Select Page</option>
-                      <option value="1">Page: 1</option>
+                      <option value="${pageHist[0]}">Page: ${pageHist[0]}</option>
                     </select>
                   </div>
                 </td>
@@ -306,8 +305,9 @@ resourceLibrary.ready(() => {
     // ========================================================
     let hasLoaded = false,
         pTotal,
-        pageHist = [1],
-        pageNum = 2,
+        initialPage = (new URL(document.location)).searchParams.get('page') || 1,
+        pageHist = [initialPage],
+        pageNum = initialPage,
         pagination,
         paused = false,
         pjax = document.querySelector('#pjax_container'),
@@ -340,7 +340,7 @@ resourceLibrary.ready(() => {
 
     // Hide standard means of page navigation
     document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
-    document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
+    document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp(pageHist[0]));
     // Open in new tabs
     document.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
 
@@ -361,7 +361,6 @@ resourceLibrary.ready(() => {
             && !paused ) {
 
         hasLoaded = true;
-
         return getNextPage();
       }
     });
