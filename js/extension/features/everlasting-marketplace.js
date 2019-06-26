@@ -268,10 +268,9 @@ resourceLibrary.ready(() => {
 
     /**
      * Inserts page headers at top of new page set
-     * @param {string} override - Page number to override automated pagination count
      * @returns {HTMLElement}
      */
-    function pageStamp(override) {
+    function pageStamp() {
 
       let mc = mediaCondition ? Number(mediaCondition) : null,
           sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null,
@@ -279,7 +278,7 @@ resourceLibrary.ready(() => {
 
       return `<tr class="shortcut_navigable">
                 <td class="item_description de-page-stamp de-page-number">
-                  <h3 class="de-current-page">Page: ${override}</h3>
+                  <h3 class="de-current-page">Page: ${pageNum}</h3>
                 </td>
                 <td class="item_description de-filter-stamp de-page-stamp">
                   ${pTotal} results ${filterState}
