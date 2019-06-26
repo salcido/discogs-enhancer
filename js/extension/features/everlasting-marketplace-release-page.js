@@ -18,8 +18,9 @@ resourceLibrary.ready(() => {
   if ( href.includes('/sell/release') && hasPageLinks ) {
 
     let hasLoaded = false,
-        pageHist = [1],
-        pageNum = 2,
+        initialPage = (new URL(document.location)).searchParams.get('page') || 1,
+        pageHist = [initialPage],
+        pageNum = initialPage,
         pagination,
         paused = false,
         pjax = document.querySelector('#pjax_container'),
@@ -81,7 +82,7 @@ resourceLibrary.ready(() => {
       let lastChild = '#pjax_container tbody:last-child';
 
       // Append page number to the DOM
-      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp());
+      document.querySelector(lastChild).insertAdjacentHTML('afterEnd', pageStamp(pageNum));
       document.querySelector(lastChild).id = `de-page-${pageNum}`;
 
       // Append new items to the DOM
@@ -166,6 +167,8 @@ resourceLibrary.ready(() => {
      */
     async function getNextPage() {
 
+      pageNum++;
+
       let releaseMatch = href.match(/(release\/)\d{1,}/),
           releaseId = releaseMatch[0].split('release/')[1],
           url = `/sell/release/${releaseId}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
@@ -195,7 +198,6 @@ resourceLibrary.ready(() => {
           document.querySelectorAll('.de-pause, .de-resume').forEach(b => b.remove());
         }
 
-        pageNum++;
         hasLoaded = false;
 
         addPauseListener();
@@ -277,7 +279,7 @@ resourceLibrary.ready(() => {
 
       if ( target.value ) {
 
-        if ( target.value === '1' ) {
+        if ( target.value === pageHist[0] ) {
 
           window.scroll({ top: 0, left: 0 });
 
@@ -285,24 +287,23 @@ resourceLibrary.ready(() => {
 
           document.querySelector(targetId).scrollIntoView();
           window.scroll({top: window.scrollY, left: 0});
-          document.querySelectorAll('.de-scroll-to-page').forEach(s => { s.value = target.value; });
         }
+        document.querySelectorAll('.de-scroll-to-page').forEach(s => { s.value = ''; });
       }
     }
 
     /**
      * Inserts page headers at top of new page set
-     * @param {string} override - Page number to override automated pagination count
      * @returns {HTMLElement}
      */
-    function pageStamp(override) {
+    function pageStamp() {
 
       let mc = mediaCondition ? Number(mediaCondition) : null,
           sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
 
       return `<tr class="shortcut_navigable">
                 <td class="item_picture as_float de-page-stamp">
-                  <h4 class="de-current-page">Page: ${override || pageNum}&nbsp;</h4>
+                  <h4 class="de-current-page">Page: ${pageNum}&nbsp;</h4>
                 </td>
                 <td class="item_description de-filter-stamp de-page-stamp">
                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
@@ -313,7 +314,7 @@ resourceLibrary.ready(() => {
                     <span></span>
                     <select class="de-scroll-to-page">
                       <option value="" selected>Select Page</option>
-                      <option value="1">Page: 1</option>
+                      <option value="${pageHist[0]}">Page: ${pageHist[0]}</option>
                     </select>
                   </div>
                 </td>
@@ -345,7 +346,7 @@ resourceLibrary.ready(() => {
 
     // Hide standard means of page navigation
     document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
-    document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp('1'));
+    document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp(pageNum));
 
     addPauseListener();
     addSelectListener();
