@@ -10,7 +10,7 @@
  * Overview
  * ---------------------------------------------------------------------------
  *
- * The resourceLibrary holds methods and properties that are shared between
+ * The resourceLibrary (aka `lib`) holds methods and properties that are shared between
  * features. The `Init / Setup` block is the place to put code that needs to run
  * before anything else in the extension.
  *
@@ -1044,4 +1044,5 @@
       };
     }
   };
+  window.lib = resourceLibrary;
 }());
