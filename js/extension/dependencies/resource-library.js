@@ -1003,6 +1003,20 @@
     unregistered: 'Please complete your Seller Settings before listing items for sale.',
 
     /**
+     * Updates the `page` query param in the URL
+     * @param {Number} pageNum - The page number
+     * @returns {undefined}
+     */
+    updatePageParam: function(pageNum) {
+      if ('URLSearchParams' in window) {
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('page', pageNum);
+        let path = `${window.location.pathname}?${searchParams.toString()}`;
+        history.pushState(null, '', path);
+      }
+    },
+
+    /**
      * Hooks into `XMLHttpRequest` so that functions can be called
      * after a successful XHR.
      * @param {function} fn the callback function to execute

@@ -165,7 +165,7 @@ resourceLibrary.ready(() => {
         if ( markup ) {
 
           appendMarketplaceResults(markup);
-
+          resourceLibrary.updatePageParam(pageNum);
         } else {
 
           loader.remove();
