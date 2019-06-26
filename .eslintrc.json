@@ -6,6 +6,7 @@
     },
     "globals": {
         "resourceLibrary": false,
+        "lib": false,
         "chrome": false,
         "ga": false
     },
