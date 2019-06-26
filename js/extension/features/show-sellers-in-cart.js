@@ -85,8 +85,10 @@ resourceLibrary.ready(() => {
 
           let icon = document.createElement('span');
 
-          icon.className = 'de-items-in-cart';
-          icon.title = `There is at least one item from ${seller} in your cart.`;
+          icon.className = 'de-items-in-cart needs_delegated_tooltip';
+          icon.dataset.placement = 'bottom';
+          icon.rel = 'tooltip';
+          icon.title = 'Item(s) from this seller are in your cart';
           name.insertAdjacentElement('beforeend', icon);
         }
       });

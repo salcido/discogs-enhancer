@@ -80,11 +80,12 @@ resourceLibrary.ready(() => {
              && rating < threshold
              && !seller_info[i].querySelector('.de-seller-rep-icon')) {
 
-          let icon = document.createElement('span'),
-              name = seller_info[i].querySelector('ul li:first-child a').textContent;
+          let icon = document.createElement('span');
 
-          icon.className = 'de-seller-rep-icon';
-          icon.title = `${name}'s seller reputation is below ${threshold}%`;
+          icon.className = 'de-seller-rep-icon needs_delegated_tooltip';
+          icon.dataset.placement = 'bottom';
+          icon.rel = 'tooltip';
+          icon.title = `Seller's reputation is below ${threshold}%`;
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')

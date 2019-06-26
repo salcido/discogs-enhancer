@@ -69,8 +69,10 @@ resourceLibrary.ready(() => {
              && !name.querySelector('.de-blocked-seller-icon') ) {
 
           let icon = document.createElement('span');
-          icon.className = 'de-blocked-seller-icon';
-          icon.title = `${seller} is on your Blocked Seller list.`;
+          icon.className = 'de-blocked-seller-icon needs_delegated_tooltip';
+          icon.dataset.placement = 'bottom';
+          icon.rel = 'tooltip';
+          icon.title = 'Seller is on your block list';
 
           name.closest('.shortcut_navigable').classList.add(_class);
           name.insertAdjacentElement('beforeend', icon);

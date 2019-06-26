@@ -33,12 +33,11 @@ resourceLibrary.ready(() => {
    */
   function addUiListeners() {
 
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
+        pagination = document.querySelectorAll(selector);
 
     pagination.forEach(elem => {
-
       elem.addEventListener('click', () => {
-
         resourceLibrary.xhrSuccess(window.favoriteSellers());
       });
     });
@@ -64,8 +63,10 @@ resourceLibrary.ready(() => {
 
           let icon = document.createElement('span');
 
-          icon.className = 'de-favorite-seller';
-          icon.title = `${seller} is on your Favorite Seller list.`;
+          icon.className = 'de-favorite-seller needs_delegated_tooltip';
+          icon.title = 'Favorite Seller';
+          icon.dataset.placement = 'bottom';
+          icon.rel = 'tooltip';
           name.insertAdjacentElement('beforeend', icon);
         }
       });
