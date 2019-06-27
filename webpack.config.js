@@ -22,6 +22,7 @@ module.exports = {
     // features files
     [features + 'average-price']: `${features}average-price.js`,
     [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
+    [features + 'block-buyers']: `${features}block-buyers.js`,
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
     /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */

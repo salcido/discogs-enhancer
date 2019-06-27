@@ -68,6 +68,7 @@
     "js/extension/dependencies/update-exchange-rates.js",
     "js/extension/features/average-price.js",
     "js/extension/features/better-collection-ui.js",
+    "js/extension/features/block-buyers.js",
     "js/extension/features/block-sellers.js",
     "js/extension/features/blurry-image-fix.js",
     "js/extension/features/collection-new-tabs.js",

@@ -31,6 +31,7 @@ export function applySave(message, event) {
         absoluteDate: document.getElementById('toggleAbsoluteDate').checked,
         averagePrice: document.getElementById('toggleAveragePrice').checked,
         baoiFields: document.getElementById('toggleBaoiFields').checked,
+        blockBuyers: document.getElementById('toggleBlockBuyers').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
         collectionNewTabs: document.getElementById('toggleCollectionNewTabs').checked,

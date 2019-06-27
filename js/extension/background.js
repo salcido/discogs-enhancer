@@ -190,6 +190,7 @@ appendFragment([resourceLibrary]).then(() => {
         absoluteDate: false,
         averagePrice: false,
         baoiFields: false,
+        blockBuyers: false,
         blockSellers: true,
         blurryImageFix: false,
         collectionNewTabs: false,
@@ -377,6 +378,17 @@ appendFragment([resourceLibrary]).then(() => {
         averagePrice.className = 'de-init';
 
         elems.push(averagePrice);
+      }
+
+      if ( result.prefs.blockBuyers ) {
+        // block-buyers.js
+        let blockBuyers = document.createElement('script');
+
+        blockBuyers.type = 'text/javascript';
+        blockBuyers.src = chrome.extension.getURL('js/extension/features/block-buyers.js');
+        blockBuyers.className = 'de-init';
+
+        elems.push(blockBuyers);
       }
 
       if (result.prefs.blockSellers) {

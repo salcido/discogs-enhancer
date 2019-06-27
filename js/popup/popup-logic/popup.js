@@ -85,6 +85,7 @@ window.addEventListener('load', () => {
       toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
       toggleAveragePrice = document.getElementById('toggleAveragePrice'),
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
+      toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
       toggleCollectionNewTabs = document.getElementById('toggleCollectionNewTabs'),
@@ -252,6 +253,7 @@ window.addEventListener('load', () => {
   toggleAbsoluteDate.addEventListener('change', triggerSave);
   toggleAveragePrice.addEventListener('change', triggerSave);
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
+  toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
   toggleCollectionNewTabs.addEventListener('change', triggerSave);
@@ -328,6 +330,7 @@ window.addEventListener('load', () => {
       toggleAbsoluteDate.checked = result.prefs.absoluteDate;
       toggleAveragePrice.checked = result.prefs.averagePrice;
       toggleBaoiFields.checked = result.prefs.baoiFields;
+      toggleBlockBuyers.checked = result.prefs.blockBuyers;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
       toggleCollectionNewTabs.checked = result.prefs.collectionNewTabs;
