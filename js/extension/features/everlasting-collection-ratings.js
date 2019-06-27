@@ -165,7 +165,7 @@ function starTemplate(value) {
 // Event listeners
 // ========================================================
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 	document.querySelector('body').addEventListener('click', event => {
 
 		let target = event.target;

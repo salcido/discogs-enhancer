@@ -6,7 +6,7 @@
     },
     "globals": {
         "resourceLibrary": false,
-        "lib": false,
+        "rl": false,
         "chrome": false,
         "ga": false
     },

@@ -8,7 +8,7 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
@@ -23,7 +23,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(window.sellerItemsInCart(sellerNames));
+        rl.xhrSuccess(window.sellerItemsInCart(sellerNames));
       });
     });
   }
@@ -47,7 +47,7 @@ resourceLibrary.ready(() => {
         namesInCart.forEach(n => sellerNames.names.push( n.textContent.trim() ));
       }
 
-      resourceLibrary.setPreference('sellerNames', sellerNames);
+      rl.setPreference('sellerNames', sellerNames);
       return resolve(sellerNames);
     });
   }
@@ -126,12 +126,12 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let sellerNames = resourceLibrary.getPreference('sellerNames'),
+  let sellerNames = rl.getPreference('sellerNames'),
       timeStamp = new Date().getTime(),
       waitTime = (1000 * 60) * 15; // 15 mins
 
   // Grab seller names when on the cart page
-  if ( resourceLibrary.pageIs('cart') ) {
+  if ( rl.pageIs('cart') ) {
     // Capture remaining sellers after clicking purchase button
     document.querySelectorAll('.order_summary .order_button').forEach(b => {
       b.addEventListener('click', () => {
@@ -143,12 +143,12 @@ resourceLibrary.ready(() => {
 
   // Or if `sellerNames` does not exist
   if ( sellerNames && !sellerNames.hasOwnProperty('lastChecked')
-       || !sellerNames && resourceLibrary.pageIsNot('cart') ) {
+       || !sellerNames && rl.pageIsNot('cart') ) {
     fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 
   // Marketplace wantlists, all items, release pages
-  if ( resourceLibrary.pageIs('myWants', 'allItems', 'sellRelease') ) {
+  if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
     fetchSellersFromCart()
       .then(data => captureSellerNames(data))
       .then(sellers => {

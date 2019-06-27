@@ -23,7 +23,7 @@
  // TODO: If you add an item to your collection and then
  // try to add notes (without refreshing) errors will
  // be thrown in console.
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let notesElem = document.querySelector('.notes_show'),
       cwBlock = document.querySelector('.cw_block');

@@ -21,11 +21,11 @@
  * those conditions from the DOM.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-    let currentFilterState = resourceLibrary.getPreference('currentFilterState'),
-        mediaCondition = resourceLibrary.getPreference('mediaCondition'),
-        sleeveCondition = resourceLibrary.getPreference('sleeveCondition');
+    let currentFilterState = rl.getPreference('currentFilterState'),
+        mediaCondition = rl.getPreference('mediaCondition'),
+        sleeveCondition = rl.getPreference('sleeveCondition');
 
     /**
      * Find all instances of selected items in list and hide them
@@ -119,7 +119,7 @@ resourceLibrary.ready(() => {
     // DOM manipulation
     // ========================================================
 
-    if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
+    if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
       let style = document.createElement('style');
 
@@ -140,7 +140,7 @@ resourceLibrary.ready(() => {
 
       pagination.forEach(elem => {
 
-        elem.addEventListener('click', () => resourceLibrary.xhrSuccess(window.filterSleeveCondition));
+        elem.addEventListener('click', () => rl.xhrSuccess(window.filterSleeveCondition));
       });
     }
   });

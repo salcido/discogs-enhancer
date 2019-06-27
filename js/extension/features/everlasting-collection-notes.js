@@ -122,7 +122,7 @@ function saveNotes(event) {
 // Event listeners
 // ========================================================
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   document.querySelector('body').addEventListener('click', event => {
 

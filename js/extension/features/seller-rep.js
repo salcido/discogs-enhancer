@@ -19,20 +19,20 @@
  * class is added to the seller's rating element in the DOM.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let threshold = resourceLibrary.getPreference('sellerRep');
+  let threshold = rl.getPreference('sellerRep');
 
   if ( !threshold ) return;
 
-  if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
+  if ( rl.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
     // ========================================================
     // Functions
     // ========================================================
 
     function attachCSS() {
-      let sellerRepColor = resourceLibrary.getPreference('sellerRepColor') || 'darkorange',
+      let sellerRepColor = rl.getPreference('sellerRepColor') || 'darkorange',
           sellerRepCss = document.createElement('style'),
           color = sellerRepColor.match(/#*\w/g).join('');
 
@@ -107,7 +107,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(window.sellersRep);
+        rl.xhrSuccess(window.sellersRep);
       });
     });
   }

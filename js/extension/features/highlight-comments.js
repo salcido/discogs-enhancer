@@ -16,12 +16,12 @@
  * `dependencies/options/options.js` for more info :)
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let highlightComments = resourceLibrary.options.highlightComments();
+  let highlightComments = rl.options.highlightComments();
 
   // Check if we are on the dashboard
-  if ( highlightComments && resourceLibrary.pageIs('dashboard') ) {
+  if ( highlightComments && rl.pageIs('dashboard') ) {
 
     // wait for the modules to load
     let int = setInterval(() => {

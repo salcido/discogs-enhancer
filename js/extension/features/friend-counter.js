@@ -16,11 +16,11 @@
  * for anyone else so it's a secret to everybody!
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let count = document.querySelectorAll('.linked_username').length;
 
-  if ( resourceLibrary.pageIs('friends') && count ) {
+  if ( rl.pageIs('friends') && count ) {
 
     document.querySelector('#page_content h1').textContent += ` (${count})`;
   }

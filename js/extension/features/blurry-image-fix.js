@@ -10,7 +10,7 @@
  * See this thread for more info:
  * https://www.discogs.com/forum/thread/759801?page=1#7536285
  */
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let gallery = document.querySelector('.image_gallery.image_gallery_large'),
       hasListeners = false,

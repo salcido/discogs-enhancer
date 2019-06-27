@@ -14,7 +14,7 @@
  * method is fired.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let
       clicks = 0,
@@ -104,7 +104,7 @@ resourceLibrary.ready(() => {
   function trackClicks() {
 
     clicks++;
-    resourceLibrary.setButtonText(document.querySelector('#sortMpLists'));
+    rl.setButtonText(document.querySelector('#sortMpLists'));
 
     if ( clicks > 2 ) {
       clicks = 0;

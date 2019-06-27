@@ -8,7 +8,7 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let href = window.location.href;
 
@@ -47,8 +47,8 @@ resourceLibrary.ready(() => {
   // ========================================================
   // Init / DOM setup
   // ========================================================
-  if ( resourceLibrary.pageIs('release')
-       && resourceLibrary.pageIsNot('edit', 'history', 'master', 'sell') ) {
+  if ( rl.pageIs('release')
+       && rl.pageIsNot('edit', 'history', 'master', 'sell') ) {
 
     let stats = document.querySelector('.statistics ul.last li:nth-child(2)');
 

@@ -10,9 +10,9 @@
  * This will colorize the legend on the release history page.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  if ( resourceLibrary.pageIs('history') ) {
+  if ( rl.pageIs('history') ) {
 
     setTimeout(() => {
 

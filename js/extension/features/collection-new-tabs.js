@@ -7,7 +7,7 @@
  * @github: https://github.com/salcido
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   // ========================================================
   // Functions
@@ -59,7 +59,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   let hasRun = false;
 
-  if ( resourceLibrary.pageIs('collection') ) {
+  if ( rl.pageIs('collection') ) {
 
     let reactApp = document.querySelector('#CollectionApp'),
         config = { attributes: true, childList: true, subtree: true },

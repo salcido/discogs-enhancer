@@ -12,16 +12,16 @@
  * --------------------------------------------------------
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let additionalText = resourceLibrary.options.quicksearch(),
+  let additionalText = rl.options.quicksearch(),
       re,
       shouldRun = false,
       title = document.title;
 
   // Master release pages
   // ------------------------------------------------------
-  if ( resourceLibrary.pageIs('master') ) {
+  if ( rl.pageIs('master') ) {
     // Match patterns:
     // Lofthouse | Releases, Reviews, Credits | Discogs
     re = /(\|+.*)/g;
@@ -30,8 +30,8 @@ resourceLibrary.ready(() => {
 
   // Individual release pages
   // ------------------------------------------------------
-  if ( resourceLibrary.pageIs('release')
-       && resourceLibrary.pageIsNot('reviews', 'videos', 'edit', 'stats') ) {
+  if ( rl.pageIs('release')
+       && rl.pageIsNot('reviews', 'videos', 'edit', 'stats') ) {
     // Match patterns:
     // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) For Sale | Discogs
     re = /(?:.(?!\(.+\).+\| Discogs))+$/g;
@@ -40,7 +40,7 @@ resourceLibrary.ready(() => {
 
   // Details pages
   // ------------------------------------------------------
-  if ( resourceLibrary.pageIs('sellItem') ) {
+  if ( rl.pageIs('sellItem') ) {
     // Match patterns:
     // Tissu - Unmanned Vehicle: 12" For Sale | Discogs
     additionalText = ` ${additionalText}`;

@@ -23,7 +23,7 @@
  * the marketplace listing.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
@@ -125,9 +125,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // Init / DOM Setup
   // ========================================================
-  let marketplace = resourceLibrary.pageIs('sell') &&
-                    resourceLibrary.pageIsNot('sellRelease', 'seller'),
-      seller = resourceLibrary.pageIs('seller');
+  let marketplace = rl.pageIs('sell') &&
+                    rl.pageIsNot('sellRelease', 'seller'),
+      seller = rl.pageIs('seller');
 
   if ( seller || marketplace ) {
 
@@ -142,7 +142,7 @@ resourceLibrary.ready(() => {
 
       elem.addEventListener('click', () => {
 
-        resourceLibrary.xhrSuccess(() => {
+        rl.xhrSuccess(() => {
 
           if ( !document.getElementsByClassName('de-rating-link').length ) {
 

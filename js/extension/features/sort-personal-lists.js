@@ -10,7 +10,7 @@
  * user's personal lists.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let clicks = 0,
       delay = 125,
@@ -124,7 +124,7 @@ resourceLibrary.ready(() => {
         opt = document.createElement('option');
 
     clicks++;
-    resourceLibrary.setButtonText(document.querySelector('#sortPLists'));
+    rl.setButtonText(document.querySelector('#sortPLists'));
 
     if ( clicks > 2 ) {
 

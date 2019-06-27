@@ -20,7 +20,7 @@
  * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   // ========================================================
   // Functions
@@ -42,7 +42,7 @@ resourceLibrary.ready(() => {
 
       elem.addEventListener('click', () => {
 
-        resourceLibrary.xhrSuccess(window.blockSellers(type));
+        rl.xhrSuccess(window.blockSellers(type));
       });
     });
   }
@@ -86,7 +86,7 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let blockList = resourceLibrary.getPreference('blockList');
+  let blockList = rl.getPreference('blockList');
 
   if ( blockList ) {
 
@@ -96,7 +96,7 @@ resourceLibrary.ready(() => {
       // ---------------------------------------------------------------------------
       case 'global':
 
-        if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
+        if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
           window.blockSellers('hide');
         }
@@ -106,11 +106,11 @@ resourceLibrary.ready(() => {
       // ---------------------------------------------------------------------------
       case 'marketplace':
 
-        if ( resourceLibrary.pageIs('myWants') ) {
+        if ( rl.pageIs('myWants') ) {
 
           window.blockSellers('hide');
 
-        } else if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease') ) {
+        } else if ( rl.pageIs('allItems', 'seller', 'sellRelease') ) {
 
           window.blockSellers('tag');
         }
@@ -120,7 +120,7 @@ resourceLibrary.ready(() => {
       // ---------------------------------------------------------------------------
       case 'tag':
 
-        if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
+        if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
           window.blockSellers('tag');
         }

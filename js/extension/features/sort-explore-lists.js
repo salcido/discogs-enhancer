@@ -10,7 +10,7 @@
  * Explore modals (Genre, Style, Format, Country and Decade)
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let clicks = 0,
       desc = false,
@@ -97,7 +97,7 @@ resourceLibrary.ready(() => {
   function trackClicks() {
 
     clicks++;
-    resourceLibrary.setButtonText(document.querySelector('#sortExplore'));
+    rl.setButtonText(document.querySelector('#sortExplore'));
 
     if ( clicks > 2 ) {
 

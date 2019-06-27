@@ -7,11 +7,11 @@
  * @github: https://github.com/salcido
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let href = window.location.href,
       reactApp = document.querySelector('#CollectionApp'),
-      layout = resourceLibrary.getCookie('rl_layout'),
+      layout = rl.getCookie('rl_layout'),
       username = document.querySelector('img.user_image').alt;
 
   if ( href.includes(`/${username}/collection`)
@@ -144,7 +144,7 @@ resourceLibrary.ready(() => {
 
       try {
 
-        let url = `https://www.discogs.com/user/${username}/collection?page=${page}${resourceLibrary.removePageParam(href)}`,
+        let url = `https://www.discogs.com/user/${username}/collection?page=${page}${rl.removePageParam(href)}`,
             data = await fetch(`${url}`, { credentials: 'include' }),
             response = await data.text(),
             tr = '#collection tbody tr',
@@ -191,7 +191,7 @@ resourceLibrary.ready(() => {
     pagination = document.querySelector('.pagination_total').textContent;
     // This will grab the total number of results returned by discogs
     // depending on the language that the user has set
-    pTotal = resourceLibrary.paginationTotal(pagination);
+    pTotal = rl.paginationTotal(pagination);
     // Hide pagination
     document.querySelectorAll('.pagination.bottom').forEach(el => { el.style.display = 'none'; });
 
@@ -222,7 +222,7 @@ resourceLibrary.ready(() => {
                             <div class="de-next-text">
                               Loading next page...
                             </div>
-                            ${resourceLibrary.css.preloader}
+                            ${rl.css.preloader}
                           </div>`;
 
       document.querySelector('.release_list_table').insertAdjacentHTML('afterend', loaderMarkup);
@@ -306,7 +306,7 @@ resourceLibrary.ready(() => {
           pageIndicator = document.getElementsByClassName('de-current-page'),
           siteHeader = document.querySelector('#site_header');
 
-      if ( resourceLibrary.isOnScreen(kurtLoder)
+      if ( rl.isOnScreen(kurtLoder)
             && !hasLoaded
             && !paused ) {
 
@@ -316,7 +316,7 @@ resourceLibrary.ready(() => {
       }
 
       // Show/Hide the blackbar nav component
-      if ( resourceLibrary.isOnScreen(siteHeader) ) {
+      if ( rl.isOnScreen(siteHeader) ) {
 
         everlasting.classList.remove('show');
         everlasting.classList.add('hide');
@@ -324,7 +324,7 @@ resourceLibrary.ready(() => {
 
       } else {
 
-        if ( !resourceLibrary.isOnScreen(siteHeader)
+        if ( !rl.isOnScreen(siteHeader)
              && everlasting.getBoundingClientRect().top < -30 ) {
 
           everlasting.classList.remove('hide');
@@ -340,7 +340,7 @@ resourceLibrary.ready(() => {
 
           try {
 
-            if ( resourceLibrary.isOnScreen(pageIndicator[i]) ) {
+            if ( rl.isOnScreen(pageIndicator[i]) ) {
 
               currentPage.textContent = pageIndicator[i].textContent;
             }

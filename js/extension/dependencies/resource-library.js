@@ -10,7 +10,7 @@
  * Overview
  * ---------------------------------------------------------------------------
  *
- * The resourceLibrary (aka `lib`) holds methods and properties that are shared between
+ * The resourceLibrary (aka `rl`) holds methods and properties that are shared between
  * features. The `Init / Setup` block is the place to put code that needs to run
  * before anything else in the extension.
  *
@@ -30,6 +30,7 @@
  */
 
 (function() {
+  // TODO: remove this
  /**
   * Array.splice method applied to Strings.
   * @param    {number} index Where to begin in the string
@@ -53,7 +54,7 @@
   // Begin resourceLibrary
   // ========================================================
 
-  window.resourceLibrary = {
+  window.resourceLibrary = window.rl = {
 
     /**
      * Appends notification to top of Discogs header
@@ -1044,5 +1045,4 @@
       };
     }
   };
-  window.lib = resourceLibrary;
 }());

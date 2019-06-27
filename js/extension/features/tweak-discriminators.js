@@ -8,7 +8,7 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   // ========================================================
   // Functions
@@ -59,7 +59,7 @@ resourceLibrary.ready(() => {
   // DOM Setup
   // ========================================================
   let defaults = { hide: false, superscript: true, unselectable: true, transparent: false },
-      discriminators = resourceLibrary.getPreference('discriminators') || defaults,
+      discriminators = rl.getPreference('discriminators') || defaults,
       elemType,
       { hide, superscript, transparent, unselectable } = discriminators,
       re = /(.+\s)(\(\d+\))$/gm;
@@ -68,7 +68,7 @@ resourceLibrary.ready(() => {
 
   // Releases
   // ------------------------------------------------------
-  if ( resourceLibrary.pageIs('sellItem', 'release', 'master', 'buy') ) {
+  if ( rl.pageIs('sellItem', 'release', 'master', 'buy') ) {
 
     injectCss(hide, superscript, unselectable, transparent);
 
@@ -86,7 +86,7 @@ resourceLibrary.ready(() => {
 
   // Artists / Labels
   // ------------------------------------------------------
-  if ( resourceLibrary.pageIs('artist', 'label') ) {
+  if ( rl.pageIs('artist', 'label') ) {
 
     injectCss(hide, superscript, unselectable, transparent);
 

@@ -11,9 +11,9 @@
  * Move and Remove Selected buttons.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  if ( resourceLibrary.pageIs('collection') ) {
+  if ( rl.pageIs('collection') ) {
 
     let int = setInterval(() => {
 

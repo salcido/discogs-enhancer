@@ -16,8 +16,8 @@
  * The script is initiated with the code that follows the `Init / DOM setup` comment block.
  *
  */
-resourceLibrary.ready(() => {
-  if ( resourceLibrary.pageIs('sellRelease') ) {
+rl.ready(() => {
+  if ( rl.pageIs('sellRelease') ) {
 
     let extract,
         items,
@@ -27,7 +27,7 @@ resourceLibrary.ready(() => {
         prices,
         releaseId,
         symbol,
-        userCurrency = resourceLibrary.getPreference('userCurrency');
+        userCurrency = rl.getPreference('userCurrency');
 
     // ========================================================
     // Functions (Alphabetical)
@@ -49,16 +49,16 @@ resourceLibrary.ready(() => {
 
           let
               actual = priceContainer[i].convertedPrice,
-              colorizePrices = resourceLibrary.options.colorize(),
+              colorizePrices = rl.options.colorize(),
               suggested = priceKey['post:suggestedPrices'][priceContainer[i].mediaCondition],
               difference = suggested - actual,
               //
               amount = '',
               markup,
               percentage = ( (difference / suggested) * 100 ).toFixed(0),
-              printPrice = resourceLibrary.localizeSuggestion(symbol, suggested),
+              printPrice = rl.localizeSuggestion(symbol, suggested),
               spanOuter = document.createElement('span'),
-              threshold = resourceLibrary.options.threshold() || 0;
+              threshold = rl.options.threshold() || 0;
 
           document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
 
@@ -70,20 +70,20 @@ resourceLibrary.ready(() => {
           if ( !isFinite(percentage) ) {
 
             spanOuter.className = 'converted_price de-price';
-            spanOuter.innerHTML = resourceLibrary.css.noData;
+            spanOuter.innerHTML = rl.css.noData;
 
             listing.insertAdjacentHTML('beforeend', spanOuter);
-            return resourceLibrary.fade(listing);
+            return rl.fade(listing);
           }
 
-          amount = resourceLibrary.getAmountString(percentage, threshold);
+          amount = rl.getAmountString(percentage, threshold);
           markup = makePriceMarkup(percentage, printPrice, amount);
 
           if ( !listing.querySelector('.de-price') ) {
             listing.insertAdjacentElement('beforeend', markup);
           }
 
-          resourceLibrary.fade(listing);
+          rl.fade(listing);
 
           if ( amount !== 'more' && colorizePrices ) {
 
@@ -101,14 +101,14 @@ resourceLibrary.ready(() => {
     function checkForSellerPermissions(result) {
 
       // User does not have seller setup
-      if ( result.innerHTML.includes(resourceLibrary.unregistered)
+      if ( result.innerHTML.includes(rl.unregistered)
            && !priceKey['post:suggestedPrices'] ) {
 
         document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
 
         document.querySelectorAll('td.item_price').forEach(listing => {
 
-          listing.insertAdjacentHTML('beforeend', resourceLibrary.css.pleaseRegister);
+          listing.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
         });
 
         return;
@@ -125,11 +125,11 @@ resourceLibrary.ready(() => {
         priceContainer.push({price: price.textContent, mediaCondition: items[i]});
       });
 
-      resourceLibrary.matchSymbols(priceContainer);
-      resourceLibrary.sanitizePrices(priceContainer);
-      resourceLibrary.convertPrices(priceContainer);
+      rl.matchSymbols(priceContainer);
+      rl.sanitizePrices(priceContainer);
+      rl.convertPrices(priceContainer);
 
-      symbol = resourceLibrary.getSymbols(userCurrency, symbol);
+      symbol = rl.getSymbols(userCurrency, symbol);
     }
 
     /**
@@ -161,7 +161,7 @@ resourceLibrary.ready(() => {
       prices = document.querySelectorAll('td.item_price span.price');
       div.innerHTML = data;
       nodeId = div.querySelector('#dsdata');
-      priceKey = resourceLibrary.prepareObj(nodeId.outerHTML);
+      priceKey = rl.prepareObj(nodeId.outerHTML);
 
       checkForSellerPermissions(div);
       getPrices();
@@ -182,7 +182,7 @@ resourceLibrary.ready(() => {
           value = Math.abs(diff).toFixed(3),
           vAmt = diff > 0 ? ' less' : ' more';
 
-      if ( resourceLibrary.options.debug() ) {
+      if ( rl.options.debug() ) {
 
         console.log('Suggested: ', sugg);
         console.log('Difference: ', value + ' ' + userCurrency + vAmt);
@@ -236,7 +236,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(() => {
+        rl.xhrSuccess(() => {
           // Only append prices once
           if ( !document.getElementsByClassName('.de-price').length ) {
             window.releasePricesInit();
@@ -254,7 +254,7 @@ resourceLibrary.ready(() => {
 
     // Insert preloader animation
     document.querySelectorAll('td.item_price').forEach(price => {
-      price.insertAdjacentHTML('beforeend', resourceLibrary.css.pricePreloader);
+      price.insertAdjacentHTML('beforeend', rl.css.pricePreloader);
     });
 
     // Grab the releaseId from the URL

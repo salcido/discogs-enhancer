@@ -44,15 +44,15 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  if ( resourceLibrary.pageIs('release') && resourceLibrary.pageIsNot('history', 'sellRelease') ) {
+  if ( rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease') ) {
 
     let
-        config = resourceLibrary.getPreference('readability') || useDefaults(),
-        show = resourceLibrary.getPreference('readabilityDividers') || setReadabilityTrue(),
+        config = rl.getPreference('readability') || useDefaults(),
+        show = rl.getPreference('readabilityDividers') || setReadabilityTrue(),
 
-        debug = resourceLibrary.options.debug(),
+        debug = rl.options.debug(),
 
         // don't insert spacers if headings or index tracks already exist.
         // And don't confuse release durations with track headers
@@ -121,7 +121,7 @@ resourceLibrary.ready(() => {
         });
 
         show = !show;
-        resourceLibrary.setPreference('readabilityDividers', show);
+        rl.setPreference('readabilityDividers', show);
       });
     }
 
@@ -354,12 +354,12 @@ resourceLibrary.ready(() => {
 
     function setReadabilityTrue() {
 
-      if ( resourceLibrary.getPreference('readabilityDividers') === undefined ) {
+      if ( rl.getPreference('readabilityDividers') === undefined ) {
 
-        resourceLibrary.setPreference('readabilityDividers', true);
+        rl.setPreference('readabilityDividers', true);
       }
 
-      return resourceLibrary.getPreference('readabilityDividers');
+      return rl.getPreference('readabilityDividers');
     }
 
     /**

@@ -17,11 +17,11 @@
  * comment block.
  */
 
-resourceLibrary.ready(() => {
-  if ( resourceLibrary.pageIs('allItems', 'seller', 'myWants') ) {
+rl.ready(() => {
+  if ( rl.pageIs('allItems', 'seller', 'myWants') ) {
 
     let
-        colorizePrices = resourceLibrary.options.colorize(),
+        colorizePrices = rl.options.colorize(),
         difference,
         nodeId,
         percentage,
@@ -31,7 +31,7 @@ resourceLibrary.ready(() => {
         suggested,
         symbol,
         target,
-        userCurrency = resourceLibrary.getPreference('userCurrency');
+        userCurrency = rl.getPreference('userCurrency');
 
     // ========================================================
     // Functions (Alphabetical)
@@ -47,7 +47,7 @@ resourceLibrary.ready(() => {
       let amount = '',
           markup,
           spanOuter = document.createElement('span'),
-          threshold = resourceLibrary.options.threshold() || 0;
+          threshold = rl.options.threshold() || 0;
 
       target.querySelector('.de-price-preloader').remove();
 
@@ -58,17 +58,17 @@ resourceLibrary.ready(() => {
       if ( !isFinite(percentage) ) {
 
         spanOuter.className = 'converted_price de-price';
-        spanOuter.innerHTML = resourceLibrary.css.noData;
+        spanOuter.innerHTML = rl.css.noData;
 
         target.insertAdjacentElement('beforeend', spanOuter);
 
-        return resourceLibrary.fade(target);
+        return rl.fade(target);
       }
 
-      amount = resourceLibrary.getAmountString(percentage, threshold);
+      amount = rl.getAmountString(percentage, threshold);
       markup = createPriceMarkup(percentage, printPrice, amount);
       target.append(markup);
-      resourceLibrary.fade(target);
+      rl.fade(target);
 
       // Colorize the price if it's under the threshold
       if ( amount !== 'more' && colorizePrices ) {
@@ -83,11 +83,11 @@ resourceLibrary.ready(() => {
      */
     function checkForSellerPermissions(result) {
 
-      if ( result.innerHTML.includes(resourceLibrary.unregistered)
+      if ( result.innerHTML.includes(rl.unregistered)
            && !priceKey['post:suggestedPrices'] ) {
 
         document.querySelector('.de-price-preloader').remove();
-        target.insertAdjacentHTML('beforeend', resourceLibrary.css.pleaseRegister);
+        target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
       }
     }
 
@@ -136,9 +136,9 @@ resourceLibrary.ready(() => {
 
       let actual;
 
-      resourceLibrary.matchSymbols(priceContainer);
-      resourceLibrary.sanitizePrices(priceContainer);
-      resourceLibrary.convertPrices(priceContainer);
+      rl.matchSymbols(priceContainer);
+      rl.sanitizePrices(priceContainer);
+      rl.convertPrices(priceContainer);
 
       // Set up comparions values
       actual = priceContainer[0].convertedPrice;
@@ -149,7 +149,7 @@ resourceLibrary.ready(() => {
 
       percentage = ( (difference / suggested) * 100 ).toFixed(0);
 
-      printPrice = resourceLibrary.localizeSuggestion(symbol, suggested);
+      printPrice = rl.localizeSuggestion(symbol, suggested);
     }
 
     /**
@@ -162,7 +162,7 @@ resourceLibrary.ready(() => {
     async function getPrice(releaseId) {
 
       target.querySelector('.de-price-link').remove();
-      target.insertAdjacentHTML('beforeend', resourceLibrary.css.pricePreloader);
+      target.insertAdjacentHTML('beforeend', rl.css.pricePreloader);
 
       try {
 
@@ -173,7 +173,7 @@ resourceLibrary.ready(() => {
 
         div.innerHTML = data;
         nodeId = div.querySelector('#dsdata');
-        priceKey = resourceLibrary.prepareObj(nodeId.outerHTML);
+        priceKey = rl.prepareObj(nodeId.outerHTML);
 
       return div;
 
@@ -232,7 +232,7 @@ resourceLibrary.ready(() => {
           value = Math.abs(diff).toFixed(3),
           vAmt = diff > 0 ? ' less' : ' more';
 
-      if ( resourceLibrary.options.debug() ) {
+      if ( rl.options.debug() ) {
 
         console.log('Suggested: ', sugg);
         console.log('Difference: ', value + ' ' + userCurrency + vAmt);
@@ -280,7 +280,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(() => {
+        rl.xhrSuccess(() => {
           if ( document.querySelectorAll('.de-price-link').length < 1 ) {
             return window.injectPriceLinks();
           }
@@ -298,7 +298,7 @@ resourceLibrary.ready(() => {
     // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
     document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
 
-    symbol = resourceLibrary.getSymbols(userCurrency, symbol);
+    symbol = rl.getSymbols(userCurrency, symbol);
 
     window.injectPriceLinks();
   }

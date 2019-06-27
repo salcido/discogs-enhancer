@@ -21,7 +21,7 @@
  * those conditions from the DOM.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
@@ -106,12 +106,12 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let currentFilterState = resourceLibrary.getPreference('currentFilterState'),
-      mediaCondition = resourceLibrary.getPreference('mediaCondition'),
-      sleeveCondition = resourceLibrary.getPreference('sleeveCondition');
+  let currentFilterState = rl.getPreference('currentFilterState'),
+      mediaCondition = rl.getPreference('mediaCondition'),
+      sleeveCondition = rl.getPreference('sleeveCondition');
 
-  if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
-       && resourceLibrary.pageIsNot('sellerFeedback') ) {
+  if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
+       && rl.pageIsNot('sellerFeedback') ) {
 
     let style = document.createElement('style');
 
@@ -132,7 +132,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
 
-      elem.addEventListener('click', () => resourceLibrary.xhrSuccess(window.filterMediaCondition));
+      elem.addEventListener('click', () => rl.xhrSuccess(window.filterMediaCondition));
     });
   }
 });

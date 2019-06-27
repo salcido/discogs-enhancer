@@ -19,11 +19,11 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let hasPlaylist = document.querySelector('table.playlist');
 
-  if ( hasPlaylist && resourceLibrary.pageIsNot('history') ) {
+  if ( hasPlaylist && rl.pageIsNot('history') ) {
 
     let
         arr = [],

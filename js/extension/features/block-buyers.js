@@ -8,7 +8,7 @@
  *
  */
 
-lib.ready(() => {
+rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
@@ -156,9 +156,9 @@ lib.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  if ( lib.pageIs('order')
-       && document.querySelector('.order-page-header a[href^="/sell/invoice/"]') ) {
+  let invoice = '.order-page-header a[href^="/sell/invoice/"]';
 
+  if ( rl.pageIs('order') && document.querySelector(invoice) ) {
     setup();
     addBlockListener();
   }

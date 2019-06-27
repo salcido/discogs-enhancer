@@ -8,15 +8,15 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let
       baseCurrency,
-      debug = resourceLibrary.options.debug(),
+      debug = rl.options.debug(),
       errors,
       input,
-      language = resourceLibrary.language(),
-      lastUsedCurrency = resourceLibrary.getPreference('lastUsedCurrency'),
+      language = rl.language(),
+      lastUsedCurrency = rl.getPreference('lastUsedCurrency'),
       now = Date.now(),
       output,
       rates,
@@ -125,9 +125,9 @@ resourceLibrary.ready(() => {
     // Calculate the result
     result = ( input.value * rates.rates[userCurrency.value] ).toFixed(2);
     // Grab correct symbol from printSymbol array
-    symbol = resourceLibrary.printSymbol[language][symbolIndex];
+    symbol = rl.printSymbol[language][symbolIndex];
     // Voilà
-    output.textContent = resourceLibrary.localizeSuggestion(symbol, result, userCurrency.value, language);
+    output.textContent = rl.localizeSuggestion(symbol, result, userCurrency.value, language);
 
     // Let's be reasonable about our conversion values
     if ( input.value.length > 10 || input.value > 9999999 ) {
@@ -198,8 +198,8 @@ resourceLibrary.ready(() => {
 
       data.lastChecked = now;
 
-      resourceLibrary.setPreference('converterRates', data);
-      rates = resourceLibrary.getPreference('converterRates');
+      rl.setPreference('converterRates', data);
+      rates = rl.getPreference('converterRates');
 
       setUIforUpdating(false, '');
       convertCurrency();
@@ -233,7 +233,7 @@ resourceLibrary.ready(() => {
 
     let index;
 
-    resourceLibrary.exchangeList.forEach((exchangeName, i) => {
+    rl.exchangeList.forEach((exchangeName, i) => {
 
       if ( exchangeName === userCurrency.value ) {
         index = i;
@@ -313,13 +313,13 @@ resourceLibrary.ready(() => {
   errors = document.querySelector('#errors');
 
   // Check for existing rates
-  if ( !resourceLibrary.getPreference('converterRates') ) {
+  if ( !rl.getPreference('converterRates') ) {
 
     rates = null;
 
   } else {
 
-    rates = resourceLibrary.getPreference('converterRates');
+    rates = rl.getPreference('converterRates');
     // Select the value for `baseCurrency` if available
     selectOption(baseCurrency, rates.base);
   }
@@ -347,7 +347,7 @@ resourceLibrary.ready(() => {
       console.log(' *** Auto-updating Currency Converter rates *** ');
     }
 
-    rates = resourceLibrary.getPreference('converterRates');
+    rates = rl.getPreference('converterRates');
     getConverterRates(rates.base);
   }
 
@@ -424,6 +424,6 @@ resourceLibrary.ready(() => {
     clearErrors();
     convertCurrency();
 
-    resourceLibrary.setPreference('lastUsedCurrency', getOptionValue(userCurrency));
+    rl.setPreference('lastUsedCurrency', getOptionValue(userCurrency));
   });
 });

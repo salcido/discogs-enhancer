@@ -12,7 +12,7 @@
  * when leaving comments or notes.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let hasRun = false,
       hasTextarea = false,
@@ -208,7 +208,7 @@ resourceLibrary.ready(() => {
         discogs = 'https://www.discogs.com',
         guideline = /(\d+\.+\d*)/g,
         link = window.prompt('Paste your link or guideline number (ie: 1.2.3) here:'),
-        parsed = resourceLibrary.parseURL(link),
+        parsed = rl.parseURL(link),
         position = textarea.selectionStart || 0,
         syntax,
         text = textarea.value;

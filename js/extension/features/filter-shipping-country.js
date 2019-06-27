@@ -13,12 +13,12 @@
  * This feature will hide items that ship from specified countries in the Marketplace.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let countryList = resourceLibrary.getPreference('countryList'),
+  let countryList = rl.getPreference('countryList'),
       href = window.location.href,
       currencyInURL = href.includes('currency='),
-      currentFilterState = resourceLibrary.getPreference('currentFilterState');
+      currentFilterState = rl.getPreference('currentFilterState');
 
   // ========================================================
   // Functions
@@ -37,7 +37,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(window.filterCountries());
+        rl.xhrSuccess(window.filterCountries());
       });
     });
   }
@@ -92,7 +92,7 @@ resourceLibrary.ready(() => {
     // Convert to lowercase for comparisons
     countryList.list = countryList.list.map(i => i.toLowerCase());
 
-    if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants') ) {
+    if ( rl.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
       let style = document.createElement('style');
 

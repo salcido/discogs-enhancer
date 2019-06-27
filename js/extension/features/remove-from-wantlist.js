@@ -17,9 +17,9 @@
  * The script is initiated with the code that follows the `init / DOM Setup` comment block.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let marketplace = resourceLibrary.pageIs('myWants');
+  let marketplace = rl.pageIs('myWants');
 
   // ========================================================
   // Functions
@@ -155,7 +155,7 @@ resourceLibrary.ready(() => {
     pagination.forEach(elem => {
 
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(() => {
+        rl.xhrSuccess(() => {
           if ( !document.getElementsByClassName('de-remove-wantlist').length ) {
             window.insertRemoveLinks();
           }

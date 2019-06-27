@@ -10,7 +10,7 @@
  * -----------------------------------------------------------
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let hasPageLinks = document.querySelectorAll('.pagination_page_links').length > 0,
       href = window.location.href;
@@ -25,8 +25,8 @@ resourceLibrary.ready(() => {
         paused = false,
         pjax = document.querySelector('#pjax_container'),
         pTotal,
-        mediaCondition = resourceLibrary.getPreference('mediaCondition'),
-        sleeveCondition = resourceLibrary.getPreference('sleeveCondition');
+        mediaCondition = rl.getPreference('mediaCondition'),
+        sleeveCondition = rl.getPreference('sleeveCondition');
 
     let pauseBtn = `<a class="de-pause button button-blue">
                       <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
@@ -109,9 +109,9 @@ resourceLibrary.ready(() => {
      */
     function callOtherMarketplaceFeatures() {
 
-      let blockList = resourceLibrary.getPreference('blockList'),
-          favoriteList = resourceLibrary.getPreference('favoriteList'),
-          sellerNames = resourceLibrary.getPreference('sellerNames');
+      let blockList = rl.getPreference('blockList'),
+          favoriteList = rl.getPreference('favoriteList'),
+          sellerNames = rl.getPreference('sellerNames');
 
       // apply Marketplace Highlights
       if ( window.applyStyles ) window.applyStyles();
@@ -144,7 +144,7 @@ resourceLibrary.ready(() => {
 
       // Filter shipping country
       if ( window.filterCountries ) {
-        let countryList = resourceLibrary.getPreference('countryList'),
+        let countryList = rl.getPreference('countryList'),
             include = countryList.include,
             useCurrency = countryList.currency;
         window.filterCountries(include, useCurrency);
@@ -171,7 +171,7 @@ resourceLibrary.ready(() => {
 
       let releaseMatch = href.match(/(release\/)\d{1,}/),
           releaseId = releaseMatch[0].split('release/')[1],
-          url = `/sell/release/${releaseId}?page=${Number(pageNum)}${resourceLibrary.removePageParam(href)}`;
+          url = `/sell/release/${releaseId}?page=${Number(pageNum)}${rl.removePageParam(href)}`;
 
       try {
 
@@ -190,7 +190,7 @@ resourceLibrary.ready(() => {
         if ( markup.match(/\S/) ) {
 
           appendMarketplaceResults(markup);
-          resourceLibrary.updatePageParam(pageNum);
+          rl.updatePageParam(pageNum);
         } else {
 
           loader.remove();
@@ -329,7 +329,7 @@ resourceLibrary.ready(() => {
     // ========================================================
 
     pagination = document.getElementsByClassName('pagination_total')[0].textContent;
-    pTotal = resourceLibrary.paginationTotal(pagination);
+    pTotal = rl.paginationTotal(pagination);
 
     // append preloader to bottom
     if ( !document.getElementById('de-next') ) {
@@ -338,7 +338,7 @@ resourceLibrary.ready(() => {
                             <div class="de-next-text">
                               Loading next page...
                             </div>
-                              ${resourceLibrary.css.preloader}
+                              ${rl.css.preloader}
                           </div>`;
 
       pjax.insertAdjacentHTML('beforeend', loaderMarkup);
@@ -359,7 +359,7 @@ resourceLibrary.ready(() => {
 
       let kurtLoder = document.querySelector('#de-next');
 
-      if ( resourceLibrary.isOnScreen(kurtLoder)
+      if ( rl.isOnScreen(kurtLoder)
             && !hasLoaded
             && !paused ) {
 

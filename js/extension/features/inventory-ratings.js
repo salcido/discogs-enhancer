@@ -7,7 +7,7 @@
  * @github: https://github.com/salcido
  *
  */
-resourceLibrary.ready(() => {
+rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
@@ -63,9 +63,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let inventoryRatings = resourceLibrary.getPreference('inventoryRatings');
+  let inventoryRatings = rl.getPreference('inventoryRatings');
 
-  if ( resourceLibrary.pageIs('seller') ) {
+  if ( rl.pageIs('seller') ) {
     injectCss();
     scanRatings();
   }

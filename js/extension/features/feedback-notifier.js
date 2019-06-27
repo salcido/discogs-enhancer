@@ -10,11 +10,11 @@
  * and append badges to the navbar when any new feedback has been
  * detected.
  */
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let debug = resourceLibrary.options.debug(),
-      feedback = resourceLibrary.getPreference('feedback') || null,
-      language = resourceLibrary.language(),
+  let debug = rl.options.debug(),
+      feedback = rl.getPreference('feedback') || null,
+      language = rl.language(),
       timeStamp = new Date().getTime(),
       user = document.querySelector('#site_account_menu .user_image').alt,
       // user = 'recordsale-de', /* used for testing */
@@ -31,7 +31,7 @@ resourceLibrary.ready(() => {
    */
   function appendBadge(type) {
 
-    let obj = resourceLibrary.getPreference('feedback')[type],
+    let obj = rl.getPreference('feedback')[type],
         existing = !obj.hasViewed,
         badge,
         id,
@@ -126,7 +126,7 @@ resourceLibrary.ready(() => {
 
         type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
 
-        obj = resourceLibrary.getPreference('feedback')[type];
+        obj = rl.getPreference('feedback')[type];
 
         clearNotification(type, obj);
 
@@ -148,7 +148,7 @@ resourceLibrary.ready(() => {
 
         type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
 
-        obj = resourceLibrary.getPreference('feedback')[type];
+        obj = rl.getPreference('feedback')[type];
 
         switch (elem) {
 
@@ -186,7 +186,7 @@ resourceLibrary.ready(() => {
    */
   function clearNotification(type, obj) {
 
-    feedback = resourceLibrary.getPreference('feedback');
+    feedback = rl.getPreference('feedback');
 
     /* update obj props. */
     obj.posDiff = 0;
@@ -198,7 +198,7 @@ resourceLibrary.ready(() => {
     /* save updated obj */
     feedback[type] = obj;
 
-    return resourceLibrary.setPreference('feedback', feedback);
+    return rl.setPreference('feedback', feedback);
   }
 
   /**
@@ -295,7 +295,7 @@ resourceLibrary.ready(() => {
     /* used to report time elapsed for debugging */
     let randomTime = Math.random();
 
-    feedback = resourceLibrary.getPreference('feedback');
+    feedback = rl.getPreference('feedback');
 
     if ( debug ) {
 
@@ -322,7 +322,7 @@ resourceLibrary.ready(() => {
     /* Set timestamp when checked */
     feedback.lastChecked = timeStamp;
 
-    resourceLibrary.setPreference('feedback', feedback);
+    rl.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -373,7 +373,7 @@ resourceLibrary.ready(() => {
     let data,
         obj;
 
-    feedback = resourceLibrary.getPreference('feedback');
+    feedback = rl.getPreference('feedback');
 
     obj = feedback[type];
 
@@ -446,7 +446,7 @@ resourceLibrary.ready(() => {
     feedback.lastChecked = timeStamp;
 
     /* Save our object with the new stats/notification totals */
-    resourceLibrary.setPreference('feedback', feedback);
+    rl.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -475,7 +475,7 @@ resourceLibrary.ready(() => {
     /* Set timestamp when checked */
     feedback.lastChecked = timeStamp;
 
-    resourceLibrary.setPreference('feedback', feedback);
+    rl.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -548,7 +548,7 @@ resourceLibrary.ready(() => {
         };
 
     /* Get current object state */
-    feedback = resourceLibrary.getPreference('feedback') || {};
+    feedback = rl.getPreference('feedback') || {};
 
     if ( debug ) {
 
@@ -565,7 +565,7 @@ resourceLibrary.ready(() => {
     feedback.buyer = buyerObj;
 
     /* Save current state */
-    resourceLibrary.setPreference('feedback', feedback);
+    rl.setPreference('feedback', feedback);
 
     if ( debug ) {
 
@@ -582,7 +582,7 @@ resourceLibrary.ready(() => {
   language = ( language === 'en' ? '' : language + '/' );
 
   /* Create our object if it does not exist */
-  if ( !resourceLibrary.getPreference('feedback') ) {
+  if ( !rl.getPreference('feedback') ) {
 
     feedback = {
       buyer: null,
@@ -591,7 +591,7 @@ resourceLibrary.ready(() => {
     };
 
     /* Save it... */
-    resourceLibrary.setPreference('feedback', feedback);
+    rl.setPreference('feedback', feedback);
   }
 
   /* Create the `buyer` / `seller` objects; */
@@ -608,7 +608,7 @@ resourceLibrary.ready(() => {
   // Poll for changes
   // ========================================================
 
-  feedback = resourceLibrary.getPreference('feedback');
+  feedback = rl.getPreference('feedback');
 
   /* If it's been longer than the `waitTime` */
   if ( timeStamp > feedback.lastChecked + waitTime ) {

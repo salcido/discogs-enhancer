@@ -8,13 +8,13 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let { usDateFormat, absoluteDate } = resourceLibrary.getItem('userPreferences'),
+    let { usDateFormat, absoluteDate } = rl.getItem('userPreferences'),
         copies = document.querySelectorAll('.cw_block_timestamp'),
-        language = resourceLibrary.language(),
+        language = rl.language(),
         monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     // ========================================================
@@ -84,7 +84,7 @@ resourceLibrary.ready(() => {
     * @returns {undefined}
     */
     function savePreference(pref) {
-      resourceLibrary.setPreference('absoluteDate', pref);
+      rl.setPreference('absoluteDate', pref);
     }
 
     // ========================================================

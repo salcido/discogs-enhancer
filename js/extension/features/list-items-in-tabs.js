@@ -10,8 +10,8 @@
  * Opens list items in new tabs
  * --------------------------------------------------------
  */
-resourceLibrary.ready(() => {
-  if ( resourceLibrary.pageIs('lists') ) {
+rl.ready(() => {
+  if ( rl.pageIs('lists') ) {
     let items = document.querySelectorAll('#listitems .listitem_title.hide_mobile a');
     items.forEach(i => { i.target = '_blank'; });
   }

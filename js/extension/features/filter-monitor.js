@@ -10,11 +10,11 @@
  * so that their current status can be shown whilst browsing the Marketplace
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let currentFilterState = resourceLibrary.getPreference('currentFilterState'),
-      sleeveCondition = resourceLibrary.getPreference('sleeveCondition'),
-      countryList = resourceLibrary.getPreference('countryList');
+  let currentFilterState = rl.getPreference('currentFilterState'),
+      sleeveCondition = rl.getPreference('sleeveCondition'),
+      countryList = rl.getPreference('countryList');
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,

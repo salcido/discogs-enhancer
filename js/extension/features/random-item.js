@@ -13,7 +13,7 @@
  * makes it accessable from the nav bar.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   let button,
       tooltip,

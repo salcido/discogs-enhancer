@@ -8,7 +8,7 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 // TODO handle blocked releases (also in Average Rating function)
   let releasePageRating = document.querySelector('.rating_value'),
       releaseRating = releasePageRating ? releasePageRating.textContent : null,

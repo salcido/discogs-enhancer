@@ -20,7 +20,7 @@
  * specified seller(s) via CSS class.
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
   // ========================================================
   // Functions
@@ -38,7 +38,7 @@ resourceLibrary.ready(() => {
 
     pagination.forEach(elem => {
       elem.addEventListener('click', () => {
-        resourceLibrary.xhrSuccess(window.favoriteSellers());
+        rl.xhrSuccess(window.favoriteSellers());
       });
     });
   }
@@ -78,10 +78,10 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let favoriteList = resourceLibrary.getPreference('favoriteList');
+  let favoriteList = rl.getPreference('favoriteList');
 
   if ( favoriteList && favoriteList.list ) {
-    if ( resourceLibrary.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
+    if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
       window.favoriteSellers();
     }
   }

@@ -8,7 +8,7 @@
  *
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
    /**
    * Iterate over the target array and add classes as needed
    * @method addHighlights
@@ -85,7 +85,7 @@ resourceLibrary.ready(() => {
   };
 
   // Apply styles on ready/prev/next clicks
-  if ( resourceLibrary.pageIs('allItems', 'sellRelease', 'myWants', 'seller') ) {
+  if ( rl.pageIs('allItems', 'sellRelease', 'myWants', 'seller') ) {
 
     window.applyStyles();
 
@@ -95,7 +95,7 @@ resourceLibrary.ready(() => {
 
       elem.addEventListener('click', () => {
 
-        resourceLibrary.xhrSuccess(window.applyStyles);
+        rl.xhrSuccess(window.applyStyles);
       });
     });
   }

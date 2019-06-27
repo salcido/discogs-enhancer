@@ -7,9 +7,9 @@
  * @github: https://github.com/salcido
  */
 
-resourceLibrary.ready(() => {
+rl.ready(() => {
 
-  let opts = resourceLibrary.getPreference('scan'),
+  let opts = rl.getPreference('scan'),
       colorize = opts && opts.wants ? opts.wants : null,
       interval = opts && opts.int ? Number(opts.int) : 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
@@ -228,9 +228,9 @@ resourceLibrary.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  if ( resourceLibrary.pageIs('history') ) return;
+  if ( rl.pageIs('history') ) return;
 
-  if ( resourceLibrary.pageIs('artist', 'label') ) {
+  if ( rl.pageIs('artist', 'label') ) {
 
     let selector = '.section_content.marketplace_box_buttons_count_1',
         pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
@@ -250,7 +250,7 @@ resourceLibrary.ready(() => {
 
       elem.addEventListener('click', () => {
 
-        resourceLibrary.xhrSuccess(() => {
+        rl.xhrSuccess(() => {
           let button = document.querySelector('.de-scan-releases');
           button.enabled = true;
           button.textContent = 'Scan Releases';
