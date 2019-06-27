@@ -34,7 +34,7 @@
     "puppeteer": "^1.18.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "url-loader": "^2.0.0",
+    "url-loader": "^2.0.1",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.4"
   }
