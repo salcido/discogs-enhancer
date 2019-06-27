@@ -861,6 +861,21 @@
     },
 
     /**
+     * Deletes a preference from the `userPreferences` object
+     * @param {String} preference - The preference to be deleted
+     * @returns {null}
+     */
+    removePreference: function(preference) {
+
+      let userPreferences = this.getItem('userPreferences');
+
+      if (userPreferences && userPreferences[preference]) {
+          delete userPreferences[preference];
+          this.setItem('userPreferences', userPreferences);
+      }
+    },
+
+    /**
      * Strips currency symbol, spaces and other characters
      * from release prices
      * @param    {array<object>} source An array of release objects
