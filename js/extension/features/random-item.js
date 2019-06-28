@@ -14,26 +14,31 @@
  */
 
 rl.ready(() => {
-
-  let button,
-      user = document.querySelector('#site_account_menu .user_image').alt,
-      iconSize = '14px',
-      icon = `<li style="position: relative;">
-                <a class="nav_group_control de-random-item needs_delegated_tooltip"
-                   rel="tooltip"
-                   title="Random Item"
-                   data-placement="bottom"
-                   arial-label="Random Item"
-                   style="font-size: ${iconSize}; margin-top: 2px;">
-                  <span style="cursor: pointer;">
-                    <span style="color: white;">\u267A</span>
-                  </span>
-                </a>
-              </li>`;
-
   // ========================================================
   // Functions
   // ========================================================
+
+  function attachCss() {
+
+    let css = document.createElement('style'),
+        fragment = document.createDocumentFragment();
+
+    css.id = 'random-item';
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+    css.textContent = `
+    .rotate {
+      animation: rotation .77s ease-in;
+    }
+
+    @keyframes rotation {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(359deg); }
+    }`;
+
+    fragment.appendChild(css);
+    (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
+  }
 
   /**
    * Requests a random item from the user's collection
@@ -59,20 +64,29 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
+  let user = document.querySelector('#site_account_menu .user_image').alt,
+      iconSize = '14px',
+      icon = `<li style="position: relative;">
+                <a class="nav_group_control de-random-item needs_delegated_tooltip"
+                   rel="tooltip"
+                   title="Random Item"
+                   data-placement="bottom"
+                   arial-label="Random Item"
+                   style="font-size: ${iconSize}; margin-top: 2px;">
+                  <span style="cursor: pointer; pointer-events:none;">
+                    <span style="color: white; pointer-events:none;">\u267A</span>
+                  </span>
+                </a>
+              </li>`;
 
-  // Append the markup
   if ( user ) {
+    attachCss();
     document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
+    document.querySelector('.de-random-item').addEventListener('click', event => {
+      event.target.classList.add('rotate');
+      getRandomItem();
+    });
   }
-
-  button = document.querySelector('.de-random-item');
-
-  // Add click functionality to badge markup
-  button.addEventListener('click', () => {
-
-    button.classList.add('rotate');
-    getRandomItem();
-  });
 });
 /**
 // ========================================================

@@ -690,6 +690,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       if ( result.prefs.listsInTabs ) {
+
         // list-items-in-tabs.js
         let listsInTabs = document.createElement('script');
 
@@ -710,20 +711,11 @@ appendFragment([resourceLibrary]).then(() => {
         randomItem.className = 'de-init';
 
         elems.push(randomItem);
-
-        // random-item.css
-        let randomItemCss = document.createElement('link');
-
-        randomItemCss.rel = 'stylesheet';
-        randomItemCss.type = 'text/css';
-        randomItemCss.href = chrome.extension.getURL('css/random-item.css');
-        randomItemCss.id = 'randomItemCss';
-
-        elems.push(randomItemCss);
       }
 
       if ( result.prefs.ratingPercent ) {
 
+        // rating-percent.js
         let ratingPercent = document.createElement('script');
 
         ratingPercent.type = 'text/javascript';
