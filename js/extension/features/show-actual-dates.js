@@ -12,7 +12,7 @@ rl.ready(() => {
 
   if ( document.querySelector('.cw_block') ) {
 
-    let { usDateFormat, absoluteDate } = rl.getItem('userPreferences'),
+    let { usDateFormat } = rl.getItem('userPreferences'),
         copies = document.querySelectorAll('.cw_block_timestamp'),
         language = rl.language(),
         monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -20,7 +20,6 @@ rl.ready(() => {
     // ========================================================
     // Functions
     // ========================================================
-
     /**
      * Sets a data attribute on each span that contains the
      * relative date the item was added to the collection/wantlist
@@ -66,7 +65,6 @@ rl.ready(() => {
     function renderDate(elem) {
 
       let timestamp = elem.querySelector('span').title,
-          approx = elem.querySelector('span').dataset.approx,
           date = timestamp.split('-'),
           timeRaw = date[2].split(' '),
           time = [timeRaw[1], timeRaw[2]].join(' '),
@@ -75,16 +73,7 @@ rl.ready(() => {
           american = `${getMonth(monthIndex)} ${date[0]}, 20${timeRaw[0]}, ${time}`,
           specific = usDateFormat ? american : international;
 
-      elem.querySelector('span').textContent = absoluteDate ? specific : approx;
-    }
-
-    /**
-    * Whether the user wants to see the absolute date
-    * @param {Boolean} pref - User's absolute date preference
-    * @returns {undefined}
-    */
-    function savePreference(pref) {
-      rl.setPreference('absoluteDate', pref);
+      elem.querySelector('span').textContent = specific;
     }
 
     // ========================================================
@@ -106,9 +95,8 @@ rl.ready(() => {
       css.textContent = `
         .cw_block_timestamp span {
           cursor: pointer;
-        }
-        .cw_block_timestamp span:hover {
-          text-decoration: underline;
+          display: inline-block;
+          width: 50%;
         }`;
 
       fragment.appendChild(css);
@@ -119,7 +107,6 @@ rl.ready(() => {
     // DOM setup
     // ========================================================
     if (usDateFormat === undefined) usDateFormat = false;
-    if (absoluteDate === undefined) absoluteDate = true;
 
     attachCss();
     storeRelativeDates();
@@ -128,12 +115,29 @@ rl.ready(() => {
     // Event listeners
     // ------------------------------------------------------
     copies.forEach(copy => {
-      copy.addEventListener('click', () => {
-        absoluteDate = !absoluteDate;
-        copies.forEach(copy => renderDate(copy));
-        savePreference(absoluteDate);
+
+      let span = copy.querySelector('span'),
+          actual = span.textContent;
+
+      copy.addEventListener('mouseover', () => {
+        span.textContent = span.dataset.approx;
+      });
+
+      copy.addEventListener('mouseleave', () => {
+        span.textContent = actual;
       });
     });
+
+    // TODO: remove this later
+    rl.removePreference('absoluteDate');
   }
 });
-
+/*
+// ========================================================
+And maybe my issues are not your issues
+But everyone has to sleep and everybody carries weight.
+You can't escape regret, but you might regret escape
+If you closed your eyes and held it, would you recognize the shape?
+https://www.discogs.com/master/view/419728
+// ========================================================
+*/

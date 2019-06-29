@@ -61,7 +61,7 @@ module.exports = {
     [features + 'suggested-prices-release-page']: `${features}suggested-prices-release-page.js`,
     [features + 'suggested-prices-single']: `${features}suggested-prices-single.js`,
     [features + 'text-format-shortcuts']: `${features}text-format-shortcuts.js`,
-    [features + 'toggle-absolute-date']: `${features}toggle-absolute-date.js`,
+    [features + 'show-actual-dates']: `${features}show-actual-dates.js`,
     [features + 'toggle-baoi-fields']: `${features}toggle-baoi-fields.js`,
     [features + 'toggle-dark-theme']: `${features}toggle-dark-theme.js`,
     [features + 'toggle-filter-shipping-country-css']: `${features}toggle-filter-shipping-country-css.js`,

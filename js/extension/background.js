@@ -359,11 +359,11 @@ appendFragment([resourceLibrary]).then(() => {
       // ========================================================
 
       if ( result.prefs.absoluteDate ) {
-        // toggle-absolute-date.js
+        // show-actual-dates.js
         let absoluteDate = document.createElement('script');
 
         absoluteDate.type = 'text/javascript';
-        absoluteDate.src = chrome.extension.getURL('js/extension/features/toggle-absolute-date.js');
+        absoluteDate.src = chrome.extension.getURL('js/extension/features/show-actual-dates.js');
         absoluteDate.className = 'de-init';
 
         elems.push(absoluteDate);
