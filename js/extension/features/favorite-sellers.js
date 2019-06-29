@@ -49,7 +49,7 @@ rl.ready(() => {
           icon.title = 'Favorite Seller';
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
-          name.insertAdjacentElement('beforeend', icon);
+          name.closest('li').insertAdjacentElement('beforeend', icon);
         }
       });
     });

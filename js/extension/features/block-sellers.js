@@ -53,7 +53,7 @@ rl.ready(() => {
           icon.title = 'Seller is on your block list';
 
           name.closest('.shortcut_navigable').classList.add(_class);
-          name.insertAdjacentElement('beforeend', icon);
+          name.closest('li').insertAdjacentElement('beforeend', icon);
         }
       });
     });
