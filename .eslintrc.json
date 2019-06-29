@@ -5,10 +5,11 @@
         "node": true
     },
     "globals": {
-        "resourceLibrary": false,
-        "rl": false,
+        "$": false,
         "chrome": false,
-        "ga": false
+        "ga": false,
+        "resourceLibrary": false,
+        "rl": false
     },
     "extends": "eslint:recommended",
     "rules": {
