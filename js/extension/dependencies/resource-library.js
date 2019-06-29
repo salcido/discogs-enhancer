@@ -88,6 +88,25 @@
     },
 
     /**
+     * Creates a CSS element and attaches it to the DOM
+     * @param {String} id - The ID of the CSS element
+     * @param {String} rules - The CSS markup
+     * @returns {undefined}
+     */
+    attachCss: function(id, rules) {
+      let css = document.createElement('style'),
+          fragment = document.createDocumentFragment();
+
+      css.id = id;
+      css.rel = 'stylesheet';
+      css.type = 'text/css';
+      css.textContent = rules;
+
+      fragment.appendChild(css);
+      (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
+    },
+
+    /**
      * Common HTML/CSS values
      * @type {Object}
      */

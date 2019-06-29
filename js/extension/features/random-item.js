@@ -17,29 +17,6 @@ rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
-
-  function attachCss() {
-
-    let css = document.createElement('style'),
-        fragment = document.createDocumentFragment();
-
-    css.id = 'random-item';
-    css.rel = 'stylesheet';
-    css.type = 'text/css';
-    css.textContent = `
-    .rotate {
-      animation: rotation .77s ease-in;
-    }
-
-    @keyframes rotation {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(359deg); }
-    }`;
-
-    fragment.appendChild(css);
-    (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
-  }
-
   /**
    * Requests a random item from the user's collection
    * @returns {assignment}
@@ -62,6 +39,19 @@ rl.ready(() => {
   }
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .rotate {
+        animation: rotation .77s ease-in;
+      }
+
+      @keyframes rotation {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(359deg); }
+      }`;
+
+  // ========================================================
   // DOM Setup
   // ========================================================
   let user = document.querySelector('#site_account_menu .user_image').alt,
@@ -79,8 +69,9 @@ rl.ready(() => {
                 </a>
               </li>`;
 
+
   if ( user ) {
-    attachCss();
+    rl.attachCss('random-item', rules);
     document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
     document.querySelector('.de-random-item').addEventListener('click', event => {
       event.target.classList.add('rotate');

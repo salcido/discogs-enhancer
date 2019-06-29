@@ -552,15 +552,6 @@ appendFragment([resourceLibrary]).then(() => {
         favoriteSellers.className = 'de-init';
 
         elems.push(favoriteSellers);
-
-        // favorite-sellers.css
-        let favoriteSellers_css = document.createElement('link');
-
-        favoriteSellers_css.rel = 'stylesheet';
-        favoriteSellers_css.type = 'text/css';
-        favoriteSellers_css.href = chrome.extension.getURL('css/favorite-sellers.css');
-
-        elems.push(favoriteSellers_css);
       }
 
       if (result.prefs.feedback) {
@@ -782,18 +773,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(releaseScanner);
       }
 
-      // remove-from-wantlist.js/css
       if ( result.prefs.removeFromWantlist ) {
-
-        // remove-from-wantlist.css
-        let removeFromWantlist_css = document.createElement('link');
-
-        removeFromWantlist_css.rel = 'stylesheet';
-        removeFromWantlist_css.type = 'text/css';
-        removeFromWantlist_css.href = chrome.extension.getURL('css/remove-from-wantlist.css');
-        removeFromWantlist_css.id = 'removeFromWantlist_css';
-
-        elems.push(removeFromWantlist_css);
 
         // remove-from-wantlist.js
         let removeFromWantlist = document.createElement('script');

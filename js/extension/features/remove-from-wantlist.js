@@ -140,14 +140,28 @@ rl.ready(() => {
   };
 
   // ========================================================
-  // Init / DOM Setup
+  // CSS
+  // ========================================================
+  let rules = `
+      .shortcut_navigable {
+        transition: opacity 0.3s;
+        transition-timing-function: ease;
+      }
+
+      .shortcut_navigable.hide {
+        opacity: 0;
+      }
+      `;
+
+  // ========================================================
+  // DOM Setup
   // ========================================================
 
   if ( marketplace ) {
-
+    rl.attachCss('remove-from-wantlist', rules);
     window.insertRemoveLinks();
 
-    // UI Functionality
+    // Prev/Next clicks
     // ---------------------------------------------------------------------------
     rl.handlePaginationClicks(window.insertRemoveLinks);
 

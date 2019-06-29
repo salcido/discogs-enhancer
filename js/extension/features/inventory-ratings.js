@@ -12,28 +12,6 @@ rl.ready(() => {
   // Functions
   // ========================================================
   /**
-   * Injects the CSS necessary for highlighting items
-   * in the Marketplace
-   * @returns {undefined}
-   */
-  function injectCss() {
-
-    let style = document.createElement('style');
-
-    style.type = 'text/css';
-    style.id = 'seller-inventory-rating';
-    style.rel = 'stylesheet';
-    style.textContent = `
-    .de-inventory-rating,
-    .de-inventory-rating strong {
-      color: #bf3a38;
-      font-weight: bold;
-    }`;
-
-    document.head.append(style);
-  }
-
-  /**
    * Iterates over the seller's inventory and
    * adds the `de-inventory-rating` class to an item
    * @returns {undefined}
@@ -61,12 +39,22 @@ rl.ready(() => {
   }
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .de-inventory-rating,
+      .de-inventory-rating strong {
+        color: #bf3a38;
+        font-weight: bold;
+      }`;
+
+  // ========================================================
   // DOM Setup
   // ========================================================
   let inventoryRatings = rl.getPreference('inventoryRatings');
 
   if ( rl.pageIs('seller') ) {
-    injectCss();
+    rl.attachCss('seller-inventory-rating', rules);
     scanRatings();
     rl.handlePaginationClicks(scanRatings);
   }

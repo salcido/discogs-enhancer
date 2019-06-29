@@ -14,7 +14,7 @@ rl.ready(() => {
   // Functions
   // ========================================================
   /**
-   * Injects the CSS necessary for styling the
+   * Creates the CSS necessary for styling the
    * artist discriminators
    * @prop {Boolean} hide - Show or hide the discriminator
    * @prop {Boolean} superscript - <sup> or <span> element
@@ -22,20 +22,16 @@ rl.ready(() => {
    * @prop {Boolean} transparent - Whether transparent or not
    * @returns {undefined}
    */
-  function injectCss(hide, superscript, unselectable, transparent) {
+  function generateCss(hide, superscript, unselectable, transparent) {
 
-    let margin = superscript ? '0.1rem' : '0',
-        style = document.createElement('style');
+    let margin = superscript ? '0.1rem' : '0';
 
     hide = hide ? 'none' : 'inherit';
     unselectable = unselectable ? 'none' : 'auto';
     transparent = transparent ? '0.5' : '1';
     superscript = superscript ? '0.9rem' : '20px';
 
-    style.type = 'text/css';
-    style.id = 'discriminator';
-    style.rel = 'stylesheet';
-    style.textContent = `
+    let rules = `
       .de-discriminator {
         display: ${hide};
         font-size: ${superscript};
@@ -52,7 +48,7 @@ rl.ready(() => {
       }
     `;
 
-    document.head.append(style);
+    rl.attachCss('discriminator', rules);
   }
 
   // ========================================================
@@ -70,7 +66,7 @@ rl.ready(() => {
   // ------------------------------------------------------
   if ( rl.pageIs('sellItem', 'release', 'master', 'buy') ) {
 
-    injectCss(hide, superscript, unselectable, transparent);
+    generateCss(hide, superscript, unselectable, transparent);
 
     document.querySelectorAll('#profile_title span span a').forEach(s => {
 
@@ -88,7 +84,7 @@ rl.ready(() => {
   // ------------------------------------------------------
   if ( rl.pageIs('artist', 'label') ) {
 
-    injectCss(hide, superscript, unselectable, transparent);
+    generateCss(hide, superscript, unselectable, transparent);
 
     document.querySelectorAll('.profile h1.hide_mobile').forEach(s => {
 

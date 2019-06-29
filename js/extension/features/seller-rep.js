@@ -30,33 +30,6 @@ rl.ready(() => {
     // ========================================================
     // Functions
     // ========================================================
-
-    function attachCSS() {
-      let sellerRepColor = rl.getPreference('sellerRepColor') || 'darkorange',
-          sellerRepCss = document.createElement('style'),
-          color = sellerRepColor.match(/#*\w/g).join('');
-
-      sellerRepCss.id = 'sellerRepCss';
-      sellerRepCss.rel = 'stylesheet';
-      sellerRepCss.type = 'text/css';
-      sellerRepCss.textContent = `.de-dark-theme .de-seller-rep ul li i,
-                                  .de-dark-theme .de-seller-rep ul li strong,
-                                  .de-seller-rep ul li i,
-                                  .de-seller-rep ul li strong {
-                                    color: ${color} !important;
-                                  }
-                                  .de-seller-rep-icon {
-                                    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2LjIxOCAxMy44NjNMOS4xMjguNTc0QTEuMSAxLjEgMCAwIDAgOC4xNDYgMGMtLjQxIDAtLjc4LjI0Ni0uOTg4LjYxNUwuMTIxIDEzLjkwNGMtLjE2Ni4zMjgtLjE2OC43OC4wMzYgMS4xMDcuMjA0LjMyOS41MzIuNDkzLjk0My40OTNoMTQuMTI1Yy40MSAwIC43OC0uMjA1Ljk0Ni0uNTM0LjIwNy0uMzI4LjIwOS0uNzM4LjA0Ni0xLjEwNyIgdHJhbnNmb3JtPSJzY2FsZSguODU3MTQpIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIi8+PHBhdGggZD0iTTYuOTk5IDQuNDk1YS41MzQuNTM0IDAgMCAwLS41MzMuNTMydjMuMmEuNTMxLjUzMSAwIDAgMCAuOTA5LjM3NmMuMS0uMS4xNTYtLjIzNS4xNTctLjM3NnYtMy4yYS41My41MyAwIDAgMC0uNTMzLS41MzJ6bTAgNS4zM2EuNTMzLjUzMyAwIDEgMC0uMDAxIDEuMDY1LjUzMy41MzMgMCAwIDAgLjAwMS0xLjA2NnoiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iLjc1IiBzdHJva2U9IiM0MDMzMEQiIHN0cm9rZS13aWR0aD0iLjkwMiIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAgLTE2LjYxMSAxNi43MjMgMCAtOC45MDcgMTUuODM0KSI+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGQzUxNSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZGRDU1QiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==);
-                                    display: inline-block;
-                                    height: 14px;
-                                    width: 14px;
-                                    margin-top: 3px;
-                                    vertical-align: top;
-                                  }
-                                  `;
-
-      document.head.append(sellerRepCss);
-    }
     /**
      * Finds all the seller's reputation scores in the DOM and
      * adds a `de-seller-rep` class to them if necessary. Also
@@ -95,12 +68,33 @@ rl.ready(() => {
     };
 
     // ========================================================
+    // CSS
+    // ========================================================
+    let sellerRepColor = rl.getPreference('sellerRepColor') || 'darkorange',
+        color = sellerRepColor.match(/#*\w/g).join(''),
+        rules = `
+        .de-dark-theme .de-seller-rep ul li i,
+        .de-dark-theme .de-seller-rep ul li strong,
+        .de-seller-rep ul li i,
+        .de-seller-rep ul li strong {
+          color: ${color} !important;
+        }
+        .de-seller-rep-icon {
+          background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2LjIxOCAxMy44NjNMOS4xMjguNTc0QTEuMSAxLjEgMCAwIDAgOC4xNDYgMGMtLjQxIDAtLjc4LjI0Ni0uOTg4LjYxNUwuMTIxIDEzLjkwNGMtLjE2Ni4zMjgtLjE2OC43OC4wMzYgMS4xMDcuMjA0LjMyOS41MzIuNDkzLjk0My40OTNoMTQuMTI1Yy40MSAwIC43OC0uMjA1Ljk0Ni0uNTM0LjIwNy0uMzI4LjIwOS0uNzM4LjA0Ni0xLjEwNyIgdHJhbnNmb3JtPSJzY2FsZSguODU3MTQpIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIi8+PHBhdGggZD0iTTYuOTk5IDQuNDk1YS41MzQuNTM0IDAgMCAwLS41MzMuNTMydjMuMmEuNTMxLjUzMSAwIDAgMCAuOTA5LjM3NmMuMS0uMS4xNTYtLjIzNS4xNTctLjM3NnYtMy4yYS41My41MyAwIDAgMC0uNTMzLS41MzJ6bTAgNS4zM2EuNTMzLjUzMyAwIDEgMC0uMDAxIDEuMDY1LjUzMy41MzMgMCAwIDAgLjAwMS0xLjA2NnoiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iLjc1IiBzdHJva2U9IiM0MDMzMEQiIHN0cm9rZS13aWR0aD0iLjkwMiIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAgLTE2LjYxMSAxNi43MjMgMCAtOC45MDcgMTUuODM0KSI+PHN0b3Agc3RvcC1jb2xvcj0iI0ZGQzUxNSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZGRDU1QiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==);
+          display: inline-block;
+          height: 14px;
+          width: 14px;
+          margin-top: 3px;
+          vertical-align: top;
+        }
+        `;
+    // ========================================================
     // DOM manipulation
     // ========================================================
-    attachCSS();
+    rl.attachCss('sellerRepCss', rules);
     window.sellersRep();
 
-    // UI Functionality
+    // Prev/Next clicks
     // ------------------------------------------------------
     rl.handlePaginationClicks(window.sellersRep);
   }

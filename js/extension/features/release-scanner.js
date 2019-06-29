@@ -16,6 +16,9 @@ rl.ready(() => {
       skittles = document.querySelectorAll('.skittles .skittles'),
       button = '<button class="buy_release_button button button-green de-scan-releases">Scan Releases</button>';
 
+  // ========================================================
+  // Functions
+  // ========================================================
   /**
    * Fetches a page and extracts the comment count from it
    * @param {String} url - The URL to fetch data from
@@ -161,7 +164,7 @@ rl.ready(() => {
         responses = [],
         index = 0;
 
-    attachCss();
+    rl.attachCss('scan-badges', rules);
     appendSpinners();
     openInNewTabs();
     button.disabled = true;
@@ -190,40 +193,23 @@ rl.ready(() => {
   // ========================================================
   // CSS
   // ========================================================
+  let rules = `
+      .de-scan-badge {
+        position: relative;
+        cursor: pointer;
+      }
 
-  /**
-   * Appends a style element to the DOM
-   * @returns {Undefined}
-   */
-  function attachCss() {
+      .de-scan-badge .de-scan-tooltip {
+        position: absolute;
+        display: none;
+        top: -40px;
+        left: -42px;
+        font-weight: normal;
+      }
 
-    let css = document.createElement('style'),
-        fragment = document.createDocumentFragment();
-
-    css.id = 'scan-badges';
-    css.rel = 'stylesheet';
-    css.type = 'text/css';
-    css.textContent = `
-    .de-scan-badge {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .de-scan-badge .de-scan-tooltip {
-      position: absolute;
-      display: none;
-      top: -40px;
-      left: -42px;
-      font-weight: normal;
-    }
-
-    .de-scan-badge:hover .de-scan-tooltip {
-      display: block;
-    }`;
-
-    fragment.appendChild(css);
-    (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
-  }
+      .de-scan-badge:hover .de-scan-tooltip {
+        display: block;
+      }`;
 
   // ========================================================
   // DOM Setup

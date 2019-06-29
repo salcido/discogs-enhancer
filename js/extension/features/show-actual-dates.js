@@ -79,36 +79,19 @@ rl.ready(() => {
     // ========================================================
     // CSS
     // ========================================================
-
-    /**
-    * Appends a style element to the DOM
-    * @returns {Undefined}
-    */
-    function attachCss() {
-
-      let css = document.createElement('style'),
-          fragment = document.createDocumentFragment();
-
-      css.id = 'date-toggle';
-      css.rel = 'stylesheet';
-      css.type = 'text/css';
-      css.textContent = `
+    let rules = `
         .cw_block_timestamp span {
           cursor: pointer;
           display: inline-block;
-          width: 50%;
+          width: 45%;
         }`;
-
-      fragment.appendChild(css);
-      (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
-    }
 
     // ========================================================
     // DOM setup
     // ========================================================
     if (usDateFormat === undefined) usDateFormat = false;
 
-    attachCss();
+    rl.attachCss('date-toggle', rules);
     storeRelativeDates();
     copies.forEach(copy => renderDate(copy));
 

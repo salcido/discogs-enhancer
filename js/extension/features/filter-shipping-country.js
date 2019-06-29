@@ -64,6 +64,14 @@ rl.ready(() => {
   };
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .de-hide-country {
+        display: none;
+      }`;
+
+  // ========================================================
   // DOM manipulation
   // ========================================================
 
@@ -74,18 +82,7 @@ rl.ready(() => {
 
     if ( rl.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
-      let style = document.createElement('style');
-
-      style.type = 'text/css';
-      style.id = 'filterShippingCountryCss';
-      style.rel = 'stylesheet';
-      style.textContent = `
-      .de-hide-country {
-        display: none;
-      }`;
-
-      document.head.append(style);
-
+      rl.attachCss('filterShippingCountryCss', rules);
       window.filterCountries(countryList.include, countryList.currency);
     }
 
