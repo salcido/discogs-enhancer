@@ -26,24 +26,6 @@ rl.ready(() => {
   // Functions
   // ========================================================
   /**
-   * Adds event listners to the prev and next buttons
-   *
-   * @method addUiListeners
-   * @returns {undefined}
-   */
-  function addUiListeners() {
-
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-      elem.addEventListener('click', () => {
-        rl.xhrSuccess(window.favoriteSellers());
-      });
-    });
-  }
-
-  /**
    * Find all instances of sellers in list and
    * add the favorites badge
    *
@@ -71,8 +53,6 @@ rl.ready(() => {
         }
       });
     });
-
-    return addUiListeners();
   };
 
   // ========================================================
@@ -83,6 +63,7 @@ rl.ready(() => {
   if ( favoriteList && favoriteList.list ) {
     if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
       window.favoriteSellers();
+      rl.handlePaginationClicks(window.favoriteSellers);
     }
   }
 });

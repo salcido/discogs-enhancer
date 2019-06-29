@@ -13,22 +13,6 @@ rl.ready(() => {
   // Functions
   // ========================================================
   /**
-   * Adds event listners to the prev and next buttons
-   * @returns {undefined}
-   */
-  function addUiListeners() {
-
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-      elem.addEventListener('click', () => {
-        rl.xhrSuccess(window.sellerItemsInCart(sellerNames));
-      });
-    });
-  }
-
-  /**
    * Iterates over each seller in the cart and
    * saves the names to localStorage.
    * @param {Object} elem - the element to iterate over
@@ -93,8 +77,6 @@ rl.ready(() => {
         }
       });
     });
-
-    return addUiListeners();
   };
 
   /**
@@ -131,6 +113,7 @@ rl.ready(() => {
       waitTime = (1000 * 60) * 15; // 15 mins
 
   // Grab seller names when on the cart page
+  // TODO: Not sure this is necessary anymore
   if ( rl.pageIs('cart') ) {
     // Capture remaining sellers after clicking purchase button
     document.querySelectorAll('.order_summary .order_button').forEach(b => {
@@ -157,6 +140,7 @@ rl.ready(() => {
              && sellers.names
              && sellers.names.length ) {
           window.sellerItemsInCart(sellers);
+          rl.handlePaginationClicks(window.sellerItemsInCart, sellerNames);
         }
     });
   }

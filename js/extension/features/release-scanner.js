@@ -232,8 +232,7 @@ rl.ready(() => {
 
   if ( rl.pageIs('artist', 'label') ) {
 
-    let selector = '.section_content.marketplace_box_buttons_count_1',
-        pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
+    let selector = '.section_content.marketplace_box_buttons_count_1';
 
     document.querySelector(selector).insertAdjacentHTML('beforeend', button);
 
@@ -244,18 +243,14 @@ rl.ready(() => {
         .then(res => res)
         .catch(err => console.error(err));
     });
-
-    // Previous / Next page clicks
-    pagination.forEach(elem => {
-
-      elem.addEventListener('click', () => {
-
-        rl.xhrSuccess(() => {
-          let button = document.querySelector('.de-scan-releases');
-          button.enabled = true;
-          button.textContent = 'Scan Releases';
-        });
-      });
-    });
   }
 });
+/**
+// ========================================================
+Me and him, we're from different ancient tribes.
+And now, we're both almost extinct.
+Sometimes you gotta stick with the ancient ways,
+the Old school ways. I know you understand me.
+https://www.discogs.com/Burial-Burial/master/11767
+// ========================================================
+ */

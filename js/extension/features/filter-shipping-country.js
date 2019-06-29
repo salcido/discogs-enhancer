@@ -25,24 +25,6 @@ rl.ready(() => {
   // ========================================================
 
   /**
-   * Adds event listners to the prev and next buttons
-   *
-   * @method addUiListeners
-   * @returns {undefined}
-   */
-
-  function addUiListeners() {
-
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
-
-    pagination.forEach(elem => {
-      elem.addEventListener('click', () => {
-        rl.xhrSuccess(window.filterCountries());
-      });
-    });
-  }
-
-  /**
    * Filter items in the Marketplace
    *
    * @method filterCountries
@@ -79,9 +61,7 @@ rl.ready(() => {
         e.insertAdjacentElement('afterend', div);
       });
     }
-    return addUiListeners();
   };
-
 
   // ========================================================
   // DOM manipulation
@@ -108,5 +88,7 @@ rl.ready(() => {
 
       window.filterCountries(countryList.include, countryList.currency);
     }
+
+    rl.handlePaginationClicks(window.filterCountries, countryList.include, countryList.currency);
   }
 });

@@ -88,15 +88,7 @@ rl.ready(() => {
   if ( rl.pageIs('allItems', 'sellRelease', 'myWants', 'seller') ) {
 
     window.applyStyles();
-
-    let pagination = document.querySelectorAll('ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a');
-
-    pagination.forEach(elem => {
-
-      elem.addEventListener('click', () => {
-
-        rl.xhrSuccess(window.applyStyles);
-      });
-    });
+    // Prev/Next clicks
+    rl.handlePaginationClicks(window.applyStyles);
   }
 });

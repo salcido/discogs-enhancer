@@ -14,7 +14,7 @@
  * suggested by Discogs.
  *
  * The script is initiated with the code that follows the `Init / DOM setup` comment block.
- *
+ * @Testing: https://www.discogs.com/sell/release/2897713?ev=rb
  */
 rl.ready(() => {
   if ( rl.pageIs('sellRelease') ) {
@@ -229,21 +229,8 @@ rl.ready(() => {
     // ========================================================
     // UI Functionality
     // ========================================================
-
     // Fire init() on prev/next page transitions
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-      elem.addEventListener('click', () => {
-        rl.xhrSuccess(() => {
-          // Only append prices once
-          if ( !document.getElementsByClassName('.de-price').length ) {
-            window.releasePricesInit();
-          }
-        });
-      });
-    });
+    rl.handlePaginationClicks(window.releasePricesInit);
 
     // ========================================================
     // Init / DOM setup

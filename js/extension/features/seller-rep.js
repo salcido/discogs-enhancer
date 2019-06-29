@@ -102,13 +102,6 @@ rl.ready(() => {
 
     // UI Functionality
     // ------------------------------------------------------
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-      elem.addEventListener('click', () => {
-        rl.xhrSuccess(window.sellersRep);
-      });
-    });
+    rl.handlePaginationClicks(window.sellersRep);
   }
 });

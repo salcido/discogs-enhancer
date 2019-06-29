@@ -125,31 +125,11 @@ rl.ready(() => {
   // ========================================================
   // Init / DOM Setup
   // ========================================================
-  let marketplace = rl.pageIs('sell') &&
-                    rl.pageIsNot('sellRelease', 'seller'),
+  let marketplace = rl.pageIs('sell') && rl.pageIsNot('sellRelease', 'seller'),
       seller = rl.pageIs('seller');
 
   if ( seller || marketplace ) {
-
     window.insertRatingsLink();
-
-    // UI Functionality
-    // ------------------------------------------------------
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-
-      elem.addEventListener('click', () => {
-
-        rl.xhrSuccess(() => {
-
-          if ( !document.getElementsByClassName('de-rating-link').length ) {
-
-            window.insertRatingsLink();
-          }
-        });
-      });
-    });
+    rl.handlePaginationClicks(window.insertRatingsLink);
   }
 });

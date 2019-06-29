@@ -275,18 +275,7 @@ rl.ready(() => {
     });
 
     // Fire `injectPriceLinks` on prev/next page transitions
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-      elem.addEventListener('click', () => {
-        rl.xhrSuccess(() => {
-          if ( document.querySelectorAll('.de-price-link').length < 1 ) {
-            return window.injectPriceLinks();
-          }
-        });
-      });
-    });
+    rl.handlePaginationClicks(window.injectPriceLinks);
 
     // ========================================================
     // DOM Setup / Init

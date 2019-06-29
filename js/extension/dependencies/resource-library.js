@@ -336,6 +336,21 @@
     },
 
     /**
+     * Handles Prev/Next clicks in the Marketplace when
+     * Everlasting Marketplace is disabled
+     * @param {Object} fn - The function to call on `pjax:end`
+     * @returns {undefined}
+     */
+    handlePaginationClicks: function(fn, ...args) {
+      let checkjQ = setInterval(() => {
+        if (window.hasOwnProperty('$')) {
+          clearInterval(checkjQ);
+          window.$(document).on('pjax:end', () => fn(...args));
+        }
+      }, 13);
+    },
+
+    /**
      * Detects whether an element is visible on the page
      * @param    {Object}   elem [the element to detect]
      * @returns   {Boolean}
@@ -1030,34 +1045,6 @@
         let path = `${window.location.pathname}?${searchParams.toString()}`;
         history.pushState(null, '', path);
       }
-    },
-
-    /**
-     * Hooks into `XMLHttpRequest` so that functions can be called
-     * after a successful XHR.
-     * @param {function} fn the callback function to execute
-     * @returns {method}
-     */
-    xhrSuccess: function(fn) {
-
-      let proxied = window.XMLHttpRequest.prototype.send;
-
-      window.XMLHttpRequest.prototype.send = () => {
-
-        let pointer = this,
-            intervalId;
-
-        intervalId = window.setInterval(() => {
-
-          if (pointer.readyState !== 4) { return; }
-
-          fn();
-
-          clearInterval(intervalId);
-        }, 1);
-
-        return proxied.apply(this, [].slice.call(arguments));
-      };
     }
   };
 }());

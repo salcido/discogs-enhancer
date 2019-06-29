@@ -26,28 +26,6 @@ rl.ready(() => {
   // Functions
   // ========================================================
   /**
-   * Adds event listners to the prev and next buttons
-   *
-   * @method addUiListeners
-   * @param  {String} type  Either 'hide' or 'tag'
-   * @returns {undefined}
-   */
-
-  function addUiListeners(type) {
-
-    let selector = 'ul.pagination_page_links a[class^="pagination_"], ul.pagination_page_links li.hide_mobile a',
-        pagination = document.querySelectorAll(selector);
-
-    pagination.forEach(elem => {
-
-      elem.addEventListener('click', () => {
-
-        rl.xhrSuccess(window.blockSellers(type));
-      });
-    });
-  }
-
-  /**
    * Find all instances of sellers in list and hide them
    *
    * @method blockSellers
@@ -79,8 +57,6 @@ rl.ready(() => {
         }
       });
     });
-
-    return addUiListeners(type);
   };
 
   // ========================================================
@@ -100,7 +76,7 @@ rl.ready(() => {
 
           window.blockSellers('hide');
         }
-        return;
+        break;
 
       // Hide sellers in the Marketplace only (marked in red elsewhere)
       // ---------------------------------------------------------------------------
@@ -114,7 +90,7 @@ rl.ready(() => {
 
           window.blockSellers('tag');
         }
-        return;
+        break;
 
       // Mark sellers in red everywhere
       // ---------------------------------------------------------------------------
@@ -124,7 +100,8 @@ rl.ready(() => {
 
           window.blockSellers('tag');
         }
-        return;
+        break;
     }
+    rl.handlePaginationClicks(window.blockSellers);
   }
 });

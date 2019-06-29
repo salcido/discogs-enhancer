@@ -68,5 +68,6 @@ rl.ready(() => {
   if ( rl.pageIs('seller') ) {
     injectCss();
     scanRatings();
+    rl.handlePaginationClicks(scanRatings);
   }
 });
