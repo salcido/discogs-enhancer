@@ -51,12 +51,34 @@ rl.ready(() => {
   if ( !shouldRun ) return;
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .de-one-click {
+        cursor: pointer;
+      }
+      .de-one-click:hover {
+        text-decoration: underline;
+      }
+      .de-external {
+        color: #03b;
+        font-size: 1rem;
+        margin-left: 0.5rem;
+        opacity: 0;
+        position: absolute;
+      }
+      .de-one-click:hover + .de-external {
+        opacity: 1;
+        text-decoration: none;
+      }
+    `;
+
+  // ========================================================
   // DOM Setup
   // ========================================================
   let i = document.createElement('i'),
       query = title.replace(re, ''),
-      releaseTitle = document.querySelector('#profile_title span'),
-      style = document.createElement('style');
+      releaseTitle = document.querySelector('#profile_title span');
 
   // DOM manipulation
   i.classList = 'icon icon-external-link de-external';
@@ -69,29 +91,5 @@ rl.ready(() => {
     window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
   });
 
-  // CSS
-  style.type = 'text/css';
-  style.id = 'one-click';
-  style.rel = 'stylesheet';
-  style.textContent = `
-    .de-one-click {
-      cursor: pointer;
-    }
-    .de-one-click:hover {
-      text-decoration: underline;
-    }
-    .de-external {
-      color: #03b;
-      font-size: 1rem;
-      margin-left: 0.5rem;
-      opacity: 0;
-      position: absolute;
-    }
-    .de-one-click:hover + .de-external {
-      opacity: 1;
-      text-decoration: none;
-    }
-  `;
-
-  document.head.append(style);
+  rl.attachCss('quick-search', rules);
 });

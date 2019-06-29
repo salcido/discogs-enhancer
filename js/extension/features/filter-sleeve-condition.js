@@ -114,6 +114,13 @@ rl.ready(() => {
         return;
       }
     };
+    // ========================================================
+    // CSS
+    // ========================================================
+    let rules = `
+        .de-hide-sleeve {
+          display: none;
+        }`;
 
     // ========================================================
     // DOM manipulation
@@ -121,17 +128,7 @@ rl.ready(() => {
 
     if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
 
-      let style = document.createElement('style');
-
-      style.type = 'text/css';
-      style.rel = 'stylesheet';
-      style.textContent = `
-      .de-hide-sleeve {
-        display: none;
-      }`;
-
-      document.head.append(style);
-
+      rl.attachCss('filter-sleeve-condition', rules);
       // hide items when page first loads
       window.filterSleeveCondition();
       // Call filterSleeveCondition on prev/next clicks

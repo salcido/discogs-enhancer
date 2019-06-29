@@ -104,6 +104,14 @@ rl.ready(() => {
   };
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .de-hide-media {
+        display: none;
+      }`;
+
+  // ========================================================
   // DOM manipulation
   // ========================================================
   let currentFilterState = rl.getPreference('currentFilterState'),
@@ -113,17 +121,7 @@ rl.ready(() => {
   if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
        && rl.pageIsNot('sellerFeedback') ) {
 
-    let style = document.createElement('style');
-
-    style.type = 'text/css';
-    style.rel = 'stylesheet';
-    style.textContent = `
-    .de-hide-media {
-      display: none;
-    }`;
-
-    document.head.append(style);
-
+    rl.attachCss('filter-media-condition', rules);
     // hide items when page first loads
     window.filterMediaCondition();
     // Call filterMediaCondition on prev/next clicks
