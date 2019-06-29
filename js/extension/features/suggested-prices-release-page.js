@@ -14,7 +14,7 @@
  * suggested by Discogs.
  *
  * The script is initiated with the code that follows the `Init / DOM setup` comment block.
- * @Testing: https://www.discogs.com/sell/release/2897713?ev=rb
+ * @Testing: https://www.discogs.com/sell/release/2897713
  */
 rl.ready(() => {
   if ( rl.pageIs('sellRelease') ) {

@@ -6,7 +6,7 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  * -----------------------------------------------------------
- * @Testing: https://www.discogs.com/sell/release/2897713?ev=rb
+ * @Testing: https://www.discogs.com/sell/release/2897713
  * -----------------------------------------------------------
  */
 
