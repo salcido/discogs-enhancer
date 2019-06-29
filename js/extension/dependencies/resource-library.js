@@ -337,7 +337,10 @@
 
     /**
      * Handles Prev/Next clicks in the Marketplace when
-     * Everlasting Marketplace is disabled
+     * Everlasting Marketplace is disabled. Discogs uses
+     * the jQuery pjax library to load pages in the Marketplace.
+     * This method hooks on to the existing `pjax:end` event
+     * and executes the functions passed to it.
      * @param {Object} fn - The function to call on `pjax:end`
      * @returns {undefined}
      */
