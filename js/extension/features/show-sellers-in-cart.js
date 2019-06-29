@@ -23,7 +23,6 @@ rl.ready(() => {
     return new Promise(resolve => {
       let namesInCart = elem.querySelectorAll('.linked_username'),
           sellerNames = {
-            lastChecked: timeStamp,
             names: []
           };
 
@@ -65,7 +64,7 @@ rl.ready(() => {
       sellers.forEach(name => {
 
         if ( name.textContent.trim() ===
-             seller && !name.querySelector('.de-items-in-cart') ) {
+             seller && !name.closest('li').querySelector('.de-items-in-cart') ) {
 
           let icon = document.createElement('span');
 
@@ -73,7 +72,7 @@ rl.ready(() => {
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
           icon.title = 'Item(s) from this seller are in your cart';
-          name.insertAdjacentElement('beforeend', icon);
+          name.closest('li').insertAdjacentElement('beforeend', icon);
         }
       });
     });
@@ -96,48 +95,19 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let sellerNames = rl.getPreference('sellerNames'),
-      timeStamp = new Date().getTime(),
-      waitTime = (1000 * 60) * 15; // 15 mins
-
-  // Grab seller names when on the cart page
-  // TODO: Not sure this is necessary anymore
-  if ( rl.pageIs('cart') ) {
-    // Capture remaining sellers after clicking purchase button
-    document.querySelectorAll('.order_summary .order_button').forEach(b => {
-      b.addEventListener('click', () => {
-        setTimeout(() => captureSellerNames(), 300);
-      });
-    });
-    return captureSellerNames();
-  }
-
-  // Or if `sellerNames` does not exist
-  if ( sellerNames && !sellerNames.hasOwnProperty('lastChecked')
-       || !sellerNames && rl.pageIsNot('cart') ) {
-    fetchSellersFromCart().then(data => captureSellerNames(data));
-  }
 
   // Marketplace wantlists, all items, release pages
   if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
     fetchSellersFromCart()
       .then(data => captureSellerNames(data))
-      .then(sellers => {
+      .then(sellerNames => {
         rl.attachCss('items-in-cart', rules);
-        if ( sellers
-             && sellers.names
-             && sellers.names.length ) {
-          window.sellerItemsInCart(sellers);
+        if ( sellerNames
+             && sellerNames.names
+             && sellerNames.names.length ) {
+          window.sellerItemsInCart(sellerNames);
           rl.handlePaginationClicks(window.sellerItemsInCart, sellerNames);
         }
     });
-  }
-
-  // Poll for changes
-  // TODO: Not sure this is necessary anymore
-  if ( sellerNames
-       && sellerNames.lastChecked
-       && timeStamp > sellerNames.lastChecked + waitTime ) {
-    fetchSellersFromCart().then(data => captureSellerNames(data));
   }
 });
