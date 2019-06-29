@@ -41,7 +41,7 @@ rl.ready(() => {
       sellerNames.forEach(name => {
 
         if ( name.textContent.trim() === seller
-             && !name.querySelector('.de-favorite-seller') ) {
+             && !name.closest('li').querySelector('.de-favorite-seller') ) {
 
           let icon = document.createElement('span');
 

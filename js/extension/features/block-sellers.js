@@ -44,7 +44,7 @@ rl.ready(() => {
       sellerNames.forEach(name => {
 
         if ( name.textContent.trim() === seller
-             && !name.querySelector('.de-blocked-seller-icon') ) {
+             && !name.closest('li').querySelector('.de-blocked-seller-icon') ) {
 
           let icon = document.createElement('span');
           icon.className = 'de-blocked-seller-icon needs_delegated_tooltip';
