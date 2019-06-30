@@ -20,24 +20,14 @@ rl.ready(() => {
 
   let highlightComments = rl.options.highlightComments();
 
-  // Check if we are on the dashboard
   if ( highlightComments && rl.pageIs('dashboard') ) {
-
-    // wait for the modules to load
     let int = setInterval(() => {
 
-      // Check if the friend module has been populated
       let friends = document.querySelectorAll('#dashboard_friendactivity tr').length;
 
       if (friends) {
-
-        // iterate over each comment
         let icons = document.querySelectorAll('.broadcast_table .icon-comment');
-
-        // add the class hook
         icons.forEach(i => i.closest('tr').classList.add('has-comments'));
-
-        // clear the interval
         clearInterval(int);
       }
     }, 13);

@@ -95,7 +95,15 @@ rl.ready(() => {
     window.sellersRep();
 
     // Prev/Next clicks
-    // ------------------------------------------------------
     rl.handlePaginationClicks(window.sellersRep);
   }
 });
+/**
+// ========================================================
+She moved so easily all I could think of was sunlight
+I said, "Aren't you the woman who was recently given a Fulbright?"
+She said, "Don't I know you from the cinematographer's party?"
+I said, "Who am I to blow against the wind?"
+https://www.discogs.com/master/view/55658
+// ========================================================
+ */

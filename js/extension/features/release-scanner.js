@@ -236,7 +236,7 @@ rl.ready(() => {
 Me and him, we're from different ancient tribes.
 And now, we're both almost extinct.
 Sometimes you gotta stick with the ancient ways,
-the Old school ways. I know you understand me.
+the old school ways. I know you understand me.
 https://www.discogs.com/Burial-Burial/master/11767
 // ========================================================
  */
