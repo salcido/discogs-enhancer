@@ -80,25 +80,19 @@ rl.ready(() => {
       try {
 
         let url = `/sell/post/${releaseId}`,
-            response = await fetch(url, { credentials: 'include' }),
-            data = await response.text(),
+            response = await fetch(url, { credentials: 'include' });
+
+        let data = await response.text(),
             div = document.createElement('div');
 
         div.innerHTML = data;
         nodeId = div.querySelector('#dsdata');
         priceKey = rl.prepareObj(nodeId.outerHTML);
 
-      return div;
+        return div;
 
       } catch (err) {
-
-        let s = document.createElement('span');
-
-        s.className = 'd-block';
-        s.textContent = 'Error getting price data.';
-
-        document.querySelector('.de-price-preloader').remove();
-        target.insertAdjacentHTML('beforeend', s);
+        handleError();
       }
     }
 
@@ -109,7 +103,9 @@ rl.ready(() => {
      */
     function checkForSellerPermissions(result) {
 
-      if ( result.innerHTML.includes(rl.unregistered)
+      if ( result
+           && result.innerHTML
+           && result.innerHTML.includes(rl.unregistered)
            && !priceKey['post:suggestedPrices'] ) {
 
         document.querySelector('.de-price-preloader').remove();
@@ -241,6 +237,23 @@ rl.ready(() => {
       }
     }
 
+    /**
+     * Appends error element to page
+     * @returns {undefined}
+     */
+    function handleError() {
+
+      let s = document.createElement('span');
+
+      s.className = 'd-block';
+      s.textContent = 'Error getting price data.';
+
+      if (document.querySelector('.de-price-preloader')) {
+        document.querySelector('.de-price-preloader').remove();
+      }
+      target.insertAdjacentElement('beforeend', s);
+    }
+
     // ========================================================
     // UI Functionality
     // ========================================================
@@ -268,9 +281,13 @@ rl.ready(() => {
 
         // Run the comparison process...
         getPrice(releaseId).then(div => {
-          checkForSellerPermissions(div);
-          generateComparison();
-          appendPrice();
+          if (div && div.querySelector('#main_wrapper')) {
+            checkForSellerPermissions(div);
+            generateComparison();
+            appendPrice();
+          } else {
+            handleError();
+          }
         });
       }
     });

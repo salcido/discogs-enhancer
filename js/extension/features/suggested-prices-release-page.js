@@ -48,6 +48,13 @@ rl.ready(() => {
 
       document.querySelectorAll('.de-price').forEach(e => e.remove());
 
+      // handle errors
+      if ( response.status !== 200 ) {
+        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
+        handleErrors();
+        return;
+      }
+
       items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
 
       priceContainer = [];
@@ -215,6 +222,20 @@ rl.ready(() => {
         console.log('Difference: ', value + ' ' + userCurrency + vAmt);
         console.log('Percentage: ', pct + pAmt);
       }
+    }
+
+    /**
+     * Display an error to the user
+     * @returns {undefined}
+     */
+    function handleErrors() {
+      document.querySelectorAll('td.item_price').forEach(price => {
+        let span = document.createElement('span');
+        span.className = 'converted_price de-price';
+        span.textContent = 'Error getting price data.';
+        price.insertAdjacentElement('beforeEnd', span);
+        rl.fade(price);
+      });
     }
 
     // Prev/Next clicks
