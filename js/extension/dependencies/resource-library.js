@@ -30,30 +30,6 @@
  */
 
 (function() {
-  // TODO: remove this
- /**
-  * Array.splice method applied to Strings.
-  * @param    {number} index Where to begin in the string
-  * @param    {number} remove The number of chracters to remove from the string
-  * @param    {string} insert The string to insert
-  * @returns   {string}
-  */
-  if ( !('splice' in String.prototype) ) {
-    // eslint-disable-next-line no-unused-vars
-    String.prototype.splice = function(index, remove, insert) {
-
-      let chars = this.split('');
-
-      Array.prototype.splice.apply(chars, arguments);
-
-      return chars.join('');
-    };
-  }
-
-  // ========================================================
-  // Begin resourceLibrary
-  // ========================================================
-
   window.resourceLibrary = window.rl = {
 
     /**
@@ -179,10 +155,7 @@
       source.forEach(obj => {
 
         if ( !obj.isJPY ) {
-
-          let injectionPoint = obj.sanitizedPrice.length - 2;
-
-          obj.sanitizedPrice = obj.sanitizedPrice.splice(injectionPoint, 0, '.');
+          obj.sanitizedPrice = Number(obj.sanitizedPrice/100).toFixed(2);
         }
 
         for ( let h = 0; h < source.length; h++ ) {
@@ -246,12 +219,12 @@
 
         amount = 'less';
 
-        // More than suggested
+      // More than suggested
       } else if ( percentage < -threshold ) {
 
         amount = 'more';
 
-        // Within threshold
+      // Within threshold
       } else {
 
         amount = '';
