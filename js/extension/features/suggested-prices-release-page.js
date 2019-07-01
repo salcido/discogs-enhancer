@@ -66,7 +66,7 @@ rl.ready(() => {
           logOutput(percentage, difference, suggested);
 
           // No data from Discogs
-          // ---------------------------------------------------------------------------
+          // ------------------------------------------------------
           if ( !isFinite(percentage) ) {
 
             spanOuter.className = 'converted_price de-price';
@@ -143,19 +143,11 @@ rl.ready(() => {
           response = await fetch(url, { credentials: 'include' }),
           data = await response.text(),
           div = document.createElement('div'),
-          selectorA = '.shortcut_navigable .item_description .media-condition-tooltip',
-          selectorB = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
+          selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
 
       document.querySelectorAll('.de-price').forEach(e => e.remove());
 
-      if ( document.querySelectorAll('.media-condition-tooltip').length ) {
-
-        items = [...document.querySelectorAll(selectorA)].map(e => e.dataset.condition);
-
-      } else {
-        // If the tooltip is missing, find the Media Condition via span:nth-child(2)
-        items = [...document.querySelectorAll(selectorB)].map(e => e.textContent.trim());
-      }
+      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
 
       priceContainer = [];
       prices = document.querySelectorAll('td.item_price span.price');
