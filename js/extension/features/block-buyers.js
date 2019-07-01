@@ -110,7 +110,11 @@ rl.ready(() => {
    */
   function addBlockListener() {
     document.querySelector('.de-block-buyer').addEventListener('click', () => {
-      let name = document.querySelector('.order-user-details a').textContent;
+      let name = document.querySelector('.order-user-details a').textContent,
+          btn = document.querySelector('.de-block-buyer');
+
+      btn.innerHTML = '<i class="icon icon-spinner icon-spin" style="color: #999 !important"></i> Blocking...';
+      btn.disabled = true;
       blockBuyer(name);
     });
   }
@@ -123,7 +127,7 @@ rl.ready(() => {
     let banner,
         btn = document.querySelector('.de-block-buyer');
 
-    btn.textContent = 'Blocked!';
+    btn.innerHTML = 'Blocked!';
     btn.disabled = true;
     banner = `<div class="alert-message alert-message-js alert-message-accept alert-message-top">
                 <div class="alert-message-content" style="max-width: none;">
