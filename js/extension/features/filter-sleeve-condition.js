@@ -53,8 +53,9 @@ rl.ready(() => {
         // Remove offending items from the DOM based on whatever's left in the conditions array
         conditions.forEach(condition => {
 
-          // Create array of sleeve conditions
-          let elems = document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:nth-child(4) + span');
+          let selector = 'td.item_description p.item_condition .condition-label-desktop:nth-child(4) + span',
+              elems = document.querySelectorAll(selector),
+              noSleeveData = document.querySelectorAll('.item_condition .mplabel:first-child:nth-last-child(3)');
 
           elems.forEach(el => {
 
@@ -63,15 +64,18 @@ rl.ready(() => {
             }
 
             if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ) {
-
               el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
 
             if ( sleeveCondition.noCover && el.textContent.trim() === 'No Cover' ) {
-
               el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
           });
+
+          // Handle items where no sleeve condition is listed
+          if ( sleeveCondition.generic && sleeveCondition.noCover ) {
+            noSleeveData.forEach(s => s.closest('.shortcut_navigable').classList.add('de-hide-sleeve'));
+          }
         });
 
         // Update page with filter notice (normal)
