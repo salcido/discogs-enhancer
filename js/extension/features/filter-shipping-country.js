@@ -32,7 +32,7 @@ rl.ready(() => {
    */
   window.filterCountries = function filterCountries(include, useCurrency) {
 
-    let shipsFrom = document.querySelectorAll('td.seller_info ul li:nth-child(3)');
+    let shipsFrom = [...document.querySelectorAll('td.seller_info ul li:nth-child(3)')];
 
     if ( !useCurrency || useCurrency && currencyInURL ) {
 
@@ -44,6 +44,17 @@ rl.ready(() => {
           location.closest('.shortcut_navigable').classList.add('de-hide-country');
         }
       });
+
+      if ( shipsFrom.every(rl.isHidden) ) {
+
+        let html = `<tr class="shortcut_navigable">
+                      <th>
+                        All results have been filtered out.
+                      </th>
+                    </tr>`;
+
+        document.querySelector('#pjax_container tbody').innerHTML = html;
+      }
     }
 
     // Update page with filter notice (everlasting)

@@ -87,15 +87,14 @@ rl.ready(() => {
 
         let html = `<tr class="shortcut_navigable">
                       <th>
-                        Discogs Enhancer has removed all Marketplace results because they do not meet your filter critera.
-                        If this is unwanted please adjust the "Filter Media Condition" setting in Discogs Enhancer.
+                        All results have been filtered out.
                       </th>
                     </tr>`;
 
         document.querySelector('#pjax_container tbody').innerHTML = html;
 
         document.querySelectorAll('.pagination_total').forEach(e => {
-          e.textContent = 'All results have been removed.';
+          e.textContent = 'All results have been filtered out.';
         });
       }
     } else {

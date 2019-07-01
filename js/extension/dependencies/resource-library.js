@@ -373,6 +373,15 @@
     },
 
     /**
+     * Checks if an element is hidden from view.
+     * @param {HTMLElement} elem - The element to check visibility
+     * @returns {Boolean}
+     */
+    isHidden: function(elem) {
+      return (elem.offsetParent === null);
+    },
+
+    /**
      * Detects whether an element is visible on the page
      * @param    {Object}   elem [the element to detect]
      * @returns   {Boolean}
