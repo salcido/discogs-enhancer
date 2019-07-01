@@ -10,10 +10,10 @@
  * Overview
  * ---------------------------------------------------------------------------
  *
- * This feature will compare the listed price of a single release with the price
+ * This feature will compare the listed price of a single item with the price
  * suggested by Discogs.
  *
- * The script is initiated with the code that follows the `DOM setup / Init`
+ * The script is initiated with the code that follows the `DOM setup`
  * comment block.
  */
 
@@ -34,8 +34,113 @@ rl.ready(() => {
         userCurrency = rl.getPreference('userCurrency');
 
     // ========================================================
-    // Functions (Alphabetical)
+    // Functions (In general order of execution)
     // ========================================================
+
+    /**
+     * Insert preloader animation
+     * (attached to window object to allow use with Everlasting Marketplace option)
+     * @method injectPriceLinks
+     * @returns {undefined}
+     */
+    window.injectPriceLinks = function injectPriceLinks() {
+
+      let p = document.querySelectorAll('td.item_price');
+
+      for ( let i = 0; i < p.length; i++ ) {
+
+        let a = document.createElement('a');
+
+        a.className = 'de-price-link';
+        a.style = 'margin: 10px auto; display:block; font-weight: bold; white-space: pre;';
+        a.textContent = 'Show Price\r\nComparison';
+
+        // Only append price comparison links if they do not yet exist on each item
+        if ( p[i].getElementsByClassName('de-price-link').length < 1
+             && p[i].getElementsByClassName('de-price').length < 1
+             && p[i].getElementsByClassName('de-price-preloader').length < 1 ) {
+
+          p[i].appendChild(a);
+        }
+      }
+    };
+
+    /**
+     * Inject price comparisons
+     * @param  {string} releaseId The id of the release to look up
+     * @param  {array.<object>} container The price/condition
+     * @param  {object} targ The target element to gather info from
+     * @returns {undefined}
+     */
+    async function getPrice(releaseId) {
+
+      target.querySelector('.de-price-link').remove();
+      target.insertAdjacentHTML('beforeend', rl.css.pricePreloader);
+
+      try {
+
+        let url = `/sell/post/${releaseId}`,
+            response = await fetch(url, { credentials: 'include' }),
+            data = await response.text(),
+            div = document.createElement('div');
+
+        div.innerHTML = data;
+        nodeId = div.querySelector('#dsdata');
+        priceKey = rl.prepareObj(nodeId.outerHTML);
+
+      return div;
+
+      } catch (err) {
+
+        let s = document.createElement('span');
+
+        s.className = 'd-block';
+        s.textContent = 'Error getting price data.';
+
+        document.querySelector('.de-price-preloader').remove();
+        target.insertAdjacentHTML('beforeend', s);
+      }
+    }
+
+    /**
+     * Make sure the user has Seller permissions
+     * @method checkForSellerPermissions
+     * @returns {undefined}
+     */
+    function checkForSellerPermissions(result) {
+
+      if ( result.innerHTML.includes(rl.unregistered)
+           && !priceKey['post:suggestedPrices'] ) {
+
+        document.querySelector('.de-price-preloader').remove();
+        target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
+      }
+    }
+
+    /**
+     * Calculates the price comparison
+     * @method generateComparison
+     * @returns {undefined}
+     */
+    function generateComparison() {
+
+      let actual;
+
+      rl.matchSymbols(priceContainer);
+      rl.sanitizePrices(priceContainer);
+      rl.convertPrices(priceContainer);
+
+      // Set up comparions values
+      actual = priceContainer[0].convertedPrice;
+
+      suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
+
+      difference = suggested - actual;
+
+      percentage = ( (difference / suggested) * 100 ).toFixed(0);
+
+      printPrice = rl.localizeSuggestion(symbol, suggested);
+    }
 
     /**
      * Appends the price comparison to the DOM
@@ -77,21 +182,6 @@ rl.ready(() => {
     }
 
     /**
-     * Make sure the user has Seller permissions
-     * @method checkForSellerPermissions
-     * @returns {undefined}
-     */
-    function checkForSellerPermissions(result) {
-
-      if ( result.innerHTML.includes(rl.unregistered)
-           && !priceKey['post:suggestedPrices'] ) {
-
-        document.querySelector('.de-price-preloader').remove();
-        target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
-      }
-    }
-
-    /**
      * Generates suggested price markup
      * @method createPriceMarkup
      * @param  {number} perc The percentage of the price difference
@@ -127,95 +217,6 @@ rl.ready(() => {
       return spanOuter;
     }
 
-    /**
-     * Calculates the price comparison
-     * @method generateComparison
-     * @returns {undefined}
-     */
-    function generateComparison() {
-
-      let actual;
-
-      rl.matchSymbols(priceContainer);
-      rl.sanitizePrices(priceContainer);
-      rl.convertPrices(priceContainer);
-
-      // Set up comparions values
-      actual = priceContainer[0].convertedPrice;
-
-      suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
-
-      difference = suggested - actual;
-
-      percentage = ( (difference / suggested) * 100 ).toFixed(0);
-
-      printPrice = rl.localizeSuggestion(symbol, suggested);
-    }
-
-    /**
-     * Inject price comparisons
-     * @param  {string} releaseId The id of the release to look up
-     * @param  {array.<object>} container The price/condition
-     * @param  {object} targ The target element to gather info from
-     * @returns {undefined}
-     */
-    async function getPrice(releaseId) {
-
-      target.querySelector('.de-price-link').remove();
-      target.insertAdjacentHTML('beforeend', rl.css.pricePreloader);
-
-      try {
-
-        let url = `/sell/post/${releaseId}`,
-            response = await fetch(url, { credentials: 'include' }),
-            data = await response.text(),
-            div = document.createElement('div');
-
-        div.innerHTML = data;
-        nodeId = div.querySelector('#dsdata');
-        priceKey = rl.prepareObj(nodeId.outerHTML);
-
-      return div;
-
-      } catch (err) {
-
-        let s = document.createElement('span');
-
-        s.className = 'd-block';
-        s.textContent = 'Error getting price data.';
-
-        document.querySelector('.de-price-preloader').remove();
-        target.insertAdjacentHTML('beforeend', s);
-      }
-    }
-
-    /**
-     * Insert preloader animation
-     * (attached to window object to allow use with Everlasting Marketplace option)
-     * @method injectPriceLinks
-     * @returns {undefined}
-     */
-    window.injectPriceLinks = function injectPriceLinks() {
-
-      let p = document.querySelectorAll('td.item_price');
-
-      for ( let i = 0; i < p.length; i++ ) {
-
-        let a = document.createElement('a');
-
-        a.className = 'de-price-link';
-        a.style = 'margin: 10px auto; display:block; font-weight: bold; white-space: pre;';
-        a.textContent = 'Show Price\r\nComparison';
-
-        // Only append price comparison links if they do not yet exist on each item
-        if ( p[i].getElementsByClassName('de-price-link').length < 1
-             && p[i].getElementsByClassName('de-price').length < 1
-             && p[i].getElementsByClassName('de-price-preloader').length < 1 ) {
-
-          p[i].appendChild(a);
-        }
-      }
-    };
 
     /**
      * Logs the values used to create the price comparison
@@ -251,15 +252,15 @@ rl.ready(() => {
 
         let
             link = event.target,
-            linkHref = link
+            href = link
                        .closest('.shortcut_navigable')
                        .querySelector('.item_description a.item_release_link').href,
-            slash = linkHref.lastIndexOf('/') + 1,
-            len = linkHref.length,
+            slash = href.lastIndexOf('/') + 1,
+            len = href.length,
             mediaCondition = link.closest('.shortcut_navigable')
                             .querySelector('.item_description .item_condition .condition-label-desktop + span')
                             .textContent.trim(),
-            releaseId = linkHref.substring(slash, len),
+            releaseId = href.substring(slash, len),
             price = link.closest('.shortcut_navigable').querySelector('.price').textContent;
 
         target = event.target.closest('.item_price');
@@ -274,11 +275,11 @@ rl.ready(() => {
       }
     });
 
-    // Fire `injectPriceLinks` on prev/next page transitions
+    // Prev/Next clicks
     rl.handlePaginationClicks(window.injectPriceLinks);
 
     // ========================================================
-    // DOM Setup / Init
+    // DOM Setup
     // ========================================================
 
     // Remove mobile clutter
