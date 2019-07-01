@@ -13,8 +13,8 @@
  * This feature will compare the listed prices of a release with the prices
  * suggested by Discogs.
  *
- * The script is initiated with the code that follows the `Init / DOM setup` comment block.
- * @Testing: https://www.discogs.com/sell/release/2897713
+ * The script is initiated with the code that follows the `DOM setup` comment block.
+ * Testing: https://www.discogs.com/sell/release/2897713
  */
 rl.ready(() => {
   if ( rl.pageIs('sellRelease') ) {
@@ -30,8 +30,53 @@ rl.ready(() => {
         userCurrency = rl.getPreference('userCurrency');
 
     // ========================================================
-    // Functions (Alphabetical)
+    // Functions (In general order of execution)
     // ========================================================
+
+    /**
+     * Starts price comparison process
+     * @method init
+     * @returns {undefined}
+     */
+    window.releasePricesInit = async function init() {
+
+      let url = `https://www.discogs.com/sell/post/${releaseId}`,
+          response = await fetch(url, { credentials: 'include' }),
+          data = await response.text(),
+          div = document.createElement('div'),
+          selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
+
+      document.querySelectorAll('.de-price').forEach(e => e.remove());
+
+      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
+
+      priceContainer = [];
+      prices = document.querySelectorAll('td.item_price span.price');
+      div.innerHTML = data;
+      nodeId = div.querySelector('#dsdata');
+      priceKey = rl.prepareObj(nodeId.outerHTML);
+
+      checkForSellerPermissions(div);
+      getPrices();
+      window.appendPrices();
+    };
+
+    /**
+     * Collects the prices / conditions from the DOM
+     * @returns {function}
+     */
+    function getPrices() {
+      // Grab price / condition data from elements
+      prices.forEach((price, i) => {
+        priceContainer.push({price: price.textContent, mediaCondition: items[i]});
+      });
+
+      rl.matchSymbols(priceContainer);
+      rl.sanitizePrices(priceContainer);
+      rl.convertPrices(priceContainer);
+
+      symbol = rl.getSymbols(userCurrency, symbol);
+    }
 
     /**
      * Calculates all the prices and appends them to the DOM
@@ -86,101 +131,11 @@ rl.ready(() => {
           rl.fade(listing);
 
           if ( amount !== 'more' && colorizePrices ) {
-
             listing.querySelector('.price').classList.add('green');
           }
         }
       });
     };
-
-    /**
-     * Make sure the user has Seller permissions
-     * @param {object} result The returned markup from Discogs
-     * @returns {undefined}
-     */
-    function checkForSellerPermissions(result) {
-
-      // User does not have seller setup
-      if ( result.innerHTML.includes(rl.unregistered)
-           && !priceKey['post:suggestedPrices'] ) {
-
-        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
-
-        document.querySelectorAll('td.item_price').forEach(listing => {
-
-          listing.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
-        });
-
-        return;
-      }
-    }
-
-    /**
-     * Collects the prices / conditions from the DOM
-     * @returns {function}
-     */
-    function getPrices() {
-      // Grab price / condition data from elements
-      prices.forEach((price, i) => {
-        priceContainer.push({price: price.textContent, mediaCondition: items[i]});
-      });
-
-      rl.matchSymbols(priceContainer);
-      rl.sanitizePrices(priceContainer);
-      rl.convertPrices(priceContainer);
-
-      symbol = rl.getSymbols(userCurrency, symbol);
-    }
-
-    /**
-     * Starts price comparison process
-     * @method init
-     * @returns {undefined}
-     */
-    window.releasePricesInit = async function init() {
-
-      let url = `https://www.discogs.com/sell/post/${releaseId}`,
-          response = await fetch(url, { credentials: 'include' }),
-          data = await response.text(),
-          div = document.createElement('div'),
-          selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
-
-      document.querySelectorAll('.de-price').forEach(e => e.remove());
-
-      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
-
-      priceContainer = [];
-      prices = document.querySelectorAll('td.item_price span.price');
-      div.innerHTML = data;
-      nodeId = div.querySelector('#dsdata');
-      priceKey = rl.prepareObj(nodeId.outerHTML);
-
-      checkForSellerPermissions(div);
-      getPrices();
-      window.appendPrices();
-    };
-
-    /**
-     * Logs the values used to create the price comparison
-     * @param  {number} perc percentage
-     * @param  {number} diff difference
-     * @param  {number} sugg suggested
-     * @returns {undefined}
-     */
-    function logOutput(perc, diff, sugg) {
-
-      let pAmt = perc > 0 ? '% less' : '% more',
-          pct = Math.abs(perc),
-          value = Math.abs(diff).toFixed(3),
-          vAmt = diff > 0 ? ' less' : ' more';
-
-      if ( rl.options.debug() ) {
-
-        console.log('Suggested: ', sugg);
-        console.log('Difference: ', value + ' ' + userCurrency + vAmt);
-        console.log('Percentage: ', pct + pAmt);
-      }
-    }
 
     /**
      * Generates suggested price markup
@@ -218,14 +173,55 @@ rl.ready(() => {
       return spanOuter;
     }
 
-    // ========================================================
-    // UI Functionality
-    // ========================================================
-    // Fire init() on prev/next page transitions
+    /**
+     * Make sure the user has Seller permissions
+     * @param {object} result The returned markup from Discogs
+     * @returns {undefined}
+     */
+    function checkForSellerPermissions(result) {
+
+      // User does not have seller setup
+      if ( result.innerHTML.includes(rl.unregistered)
+           && !priceKey['post:suggestedPrices'] ) {
+
+        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
+
+        document.querySelectorAll('td.item_price').forEach(listing => {
+
+          listing.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
+        });
+
+        return;
+      }
+    }
+
+    /**
+     * Logs the values used to create the price comparison
+     * @param  {number} perc percentage
+     * @param  {number} diff difference
+     * @param  {number} sugg suggested
+     * @returns {undefined}
+     */
+    function logOutput(perc, diff, sugg) {
+
+      let pAmt = perc > 0 ? '% less' : '% more',
+          pct = Math.abs(perc),
+          value = Math.abs(diff).toFixed(3),
+          vAmt = diff > 0 ? ' less' : ' more';
+
+      if ( rl.options.debug() ) {
+
+        console.log('Suggested: ', sugg);
+        console.log('Difference: ', value + ' ' + userCurrency + vAmt);
+        console.log('Percentage: ', pct + pAmt);
+      }
+    }
+
+    // Prev/Next clicks
     rl.handlePaginationClicks(window.releasePricesInit);
 
     // ========================================================
-    // Init / DOM setup
+    // DOM setup
     // ========================================================
 
     // Remove mobile clutter
