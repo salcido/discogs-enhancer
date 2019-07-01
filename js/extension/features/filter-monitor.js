@@ -119,46 +119,43 @@ rl.ready(() => {
   };
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .de-show {
+        display: table-row;
+        border-left: 3px solid #c72020 !important;
+        background: #292929 !important;
+      }
+
+      .country-list-info {
+        position: relative;
+        z-index: 79;
+      }
+
+      .country-list-info .country-list {
+        background: #fff;
+        border-radius: 5px;
+        display: none;
+        filter: drop-shadow(0 2px 2px #888);
+        font-weight: normal;
+        line-height: 1.4;
+        padding: 8px;
+        position: absolute;
+        right: -60px;
+        top: 20px;
+        width: 125px;
+      }
+
+      .country-list-info:hover .country-list {
+        display: block;
+      }
+      `;
+
+  // ========================================================
   // DOM setup
   // ========================================================
-
-  let style = document.createElement('style');
-
-  style.type = 'text/css';
-  style.rel = 'stylesheet';
-  style.textContent = `
-  .de-show {
-    display: table-row;
-    border-left: 3px solid #c72020 !important;
-    background: #292929 !important;
-  }
-
-  .country-list-info {
-    position: relative;
-    z-index: 79;
-  }
-
-  .country-list-info .country-list {
-    background: #fff;
-    border-radius: 5px;
-    display: none;
-    filter: drop-shadow(0 2px 2px #888);
-    font-weight: normal;
-    line-height: 1.4;
-    padding: 8px;
-    position: absolute;
-    right: -60px;
-    top: 20px;
-    width: 125px;
-  }
-
-  .country-list-info:hover .country-list {
-    display: block;
-  }
-  `;
-
-  // Append to body for proper css overrides
-  document.body.append(style);
+  rl.attachCss('filter-monitor', rules);
 });
 
 
