@@ -160,9 +160,9 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let invoice = '.order-page-header a[href^="/sell/invoice/"]';
+  let orders = '.order-page-header a[href*="/sell/orders"]';
 
-  if ( rl.pageIs('order') && document.querySelector(invoice) ) {
+  if ( rl.pageIs('order') && document.querySelector(orders) ) {
     setup();
     addBlockListener();
   }
