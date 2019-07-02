@@ -53,12 +53,13 @@ rl.ready(() => {
              && rating < threshold
              && !seller_info[i].querySelector('.de-seller-rep-icon')) {
 
-          let icon = document.createElement('span');
+          let icon = document.createElement('span'),
+              name = seller_info[i].querySelector('ul li:first-child a').textContent;
 
           icon.className = 'de-seller-rep-icon needs_delegated_tooltip';
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
-          icon.title = `Seller's reputation is below ${threshold}%`;
+          icon.title = `${name}'s seller reputation is below ${threshold}%`;
 
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
@@ -85,7 +86,11 @@ rl.ready(() => {
           height: 14px;
           width: 14px;
           margin-top: 3px;
+          margin-left: 3px;
           vertical-align: top;
+        }
+        .de-seller-rep-icon + .tooltip {
+          white-space: normal;
         }
         `;
     // ========================================================

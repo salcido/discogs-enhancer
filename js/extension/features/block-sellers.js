@@ -50,7 +50,7 @@ rl.ready(() => {
           icon.className = 'de-blocked-seller-icon needs_delegated_tooltip';
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
-          icon.title = 'Seller is on your block list';
+          icon.title = `${seller} is on your Blocked Seller list.`;
 
           name.closest('.shortcut_navigable').classList.add(_class);
           name.closest('li').insertAdjacentElement('beforeend', icon);
