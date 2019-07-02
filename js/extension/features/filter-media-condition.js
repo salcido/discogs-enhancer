@@ -118,7 +118,7 @@ rl.ready(() => {
       sleeveCondition = rl.getPreference('sleeveCondition');
 
   if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
-       && rl.pageIsNot('sellerFeedback') ) {
+       && rl.pageIsNot('sellerFeedback', 'settings') ) {
 
     rl.attachCss('filter-media-condition', rules);
     // hide items when page first loads
