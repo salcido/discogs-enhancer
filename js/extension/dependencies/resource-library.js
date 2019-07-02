@@ -213,23 +213,16 @@
     getAmountString: function(percentage, threshold) {
 
       let amount;
-
       // Less than suggested
       if ( percentage > threshold ) {
-
         amount = 'less';
-
       // More than suggested
       } else if ( percentage < -threshold ) {
-
         amount = 'more';
-
       // Within threshold
       } else {
-
         amount = '';
       }
-
       return amount;
     },
 
@@ -338,7 +331,8 @@
      */
     handlePaginationClicks: function(fn, ...args) {
       let checkjQ = setInterval(() => {
-        if (window.hasOwnProperty('$')) {
+        if ( window.hasOwnProperty('$')
+             && typeof window.$ === 'function') {
           clearInterval(checkjQ);
           window.$(document).on('pjax:end', () => fn(...args));
         }
