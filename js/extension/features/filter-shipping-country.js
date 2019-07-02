@@ -32,18 +32,32 @@ rl.ready(() => {
    */
   window.filterCountries = function filterCountries(include, useCurrency) {
 
-    let shipsFrom = [...document.querySelectorAll('td.seller_info ul li:nth-child(3)')];
+    if ( rl.pageIs('allItems', 'sellRelease', 'myWants') ) {
 
-    if ( !useCurrency || useCurrency && currencyInURL ) {
+      let shipsFrom = [...document.querySelectorAll('td.seller_info ul li:nth-child(3)')];
 
-      shipsFrom.forEach(location => {
+      if ( !useCurrency || useCurrency && currencyInURL ) {
 
-        let countryName = location.textContent.split(':')[1];
+        shipsFrom.forEach(location => {
 
-        if ( !countryList.list.includes(countryName.toLowerCase()) === include ) {
-          location.closest('.shortcut_navigable').classList.add('de-hide-country');
-        }
-      });
+          let countryName = location.textContent.split(':')[1];
+
+          if ( !countryList.list.includes(countryName.toLowerCase()) === include ) {
+            location.closest('.shortcut_navigable').classList.add('de-hide-country');
+          }
+
+          if ( shipsFrom.every(rl.isHidden) ) {
+
+            let html = `<tr class="shortcut_navigable">
+                          <th>
+                            All results have been filtered out.
+                          </th>
+                        </tr>`;
+
+            document.querySelector('#pjax_container tbody').innerHTML = html;
+          }
+        });
+      }
     }
 
     // Update page with filter notice (everlasting)
