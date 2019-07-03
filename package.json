@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "bump": "node version-bump.js",
+    "test": "mocha",
     "watch": "webpack --watch"
   },
   "repository": {
@@ -37,5 +38,8 @@
     "url-loader": "^2.0.1",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "mocha": "^6.1.4"
   }
 }
