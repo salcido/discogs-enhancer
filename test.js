@@ -15,8 +15,7 @@ const config = {
   ]
 };
 
-let browser,
-    extensionPage;
+let browser, page;
 
 /**
  * Instantiates the extension in the browser.
@@ -26,8 +25,8 @@ async function boot() {
       extensionName = 'Discogs Enhancer';
 
   browser = await puppeteer.launch(config);
-  let page = await browser.newPage();
-  await page.waitFor(100);
+  let setupPage = await browser.newPage();
+  await setupPage.waitFor(100);
 
   let targets = await browser.targets();
   let extensionTarget = targets.find(({ _targetInfo }) => {
@@ -35,15 +34,22 @@ async function boot() {
   });
   let extensionUrl = extensionTarget._targetInfo.url || '';
   let [,, extensionID] = extensionUrl.split('/');
-  page.close();
-  extensionPage = await browser.newPage();
-  await extensionPage.goto(`chrome-extension://${extensionID}/${popup}`);
-  await extensionPage.setRequestInterception(true);
-  extensionPage.on('request', interceptedRequest => {
-    if (interceptedRequest.url().startsWith('https://www.google-analytics.com/'))
+  setupPage.close();
+  page = await browser.newPage();
+
+  await Promise.all([
+    await page.goto(`chrome-extension://${extensionID}/${popup}`),
+    await page.setRequestInterception(true),
+    await page.evaluate(() => { localStorage.setItem('analytics', false); })
+  ]);
+
+  page.on('request', interceptedRequest => {
+    if (interceptedRequest.url().startsWith('https://www.google-analytics.com/')) {
       interceptedRequest.abort();
-    else
-      interceptedRequest.continue();
+      console.log('\nBlocked Request:\n', interceptedRequest.url(), '\n');
+    } else {
+        interceptedRequest.continue();
+    }
   });
 }
 
@@ -54,18 +60,18 @@ describe('Functional Testing', function() {
   describe('Search Features', async function() {
     it('should refine the features list', async function() {
 
-      let searchElem = await extensionPage.$('#searchbox');
+      let searchElem = await page.$('#searchbox');
       assert.ok(searchElem, 'Search bar was not rendered');
 
-      await extensionPage.type('#searchbox', 'cart');
+      await page.type('#searchbox', 'cart');
 
-      let showSellersInCart = await extensionPage.$eval('.show-sellers-in-cart', elem => !elem.closest('.toggle-group').classList.contains('hide'));
+      let showSellersInCart = await page.$eval('.show-sellers-in-cart', elem => !elem.closest('.toggle-group').classList.contains('hide'));
 
-      let darkTheme = await extensionPage.$eval('.darkTheme', elem => elem.closest('.toggle-group').classList.contains('hide'));
+      let darkTheme = await page.$eval('.darkTheme', elem => elem.closest('.toggle-group').classList.contains('hide'));
 
       assert.equal(showSellersInCart, true, 'Error searching for Cart');
       assert.equal(darkTheme, true, 'Dark Theme option was not hidden');
-      let clear = await extensionPage.$('.clear-search');
+      let clear = await page.$('.clear-search');
       clear.click();
     });
   });
@@ -74,16 +80,16 @@ describe('Functional Testing', function() {
     it('should enable the Dark Theme when checked', async function() {
 
       Promise.all([
-        extensionPage.waitForSelector('#toggleDarkTheme', { timeout: 10000 }),
-        extensionPage.waitForSelector('#toggleDarkTheme + label .onoffswitch-switch'),
-        extensionPage.waitForSelector('#toggleDarkTheme')
+        page.waitForSelector('#toggleDarkTheme', { timeout: 10000 }),
+        page.waitForSelector('#toggleDarkTheme + label .onoffswitch-switch'),
+        page.waitForSelector('#toggleDarkTheme')
       ]);
 
-      let darkTheme = await extensionPage.$('.darkTheme');
+      let darkTheme = await page.$('.darkTheme');
       assert.ok(darkTheme, 'Dark Theme Feature was not rendered');
 
-      let toggle = await extensionPage.$('#toggleDarkTheme + label .onoffswitch-switch');
-      let checkbox = await extensionPage.$('#toggleDarkTheme');
+      let toggle = await page.$('#toggleDarkTheme + label .onoffswitch-switch');
+      let checkbox = await page.$('#toggleDarkTheme');
       let checked = await(await checkbox.getProperty('checked')).jsonValue();
 
       assert.equal(checked, false, 'Checkbox was already checked');
@@ -99,12 +105,12 @@ describe('Functional Testing', function() {
     it('should apply the Dark Theme to Discogs.com', async function() {
 
       await Promise.all([
-        extensionPage.goto('https://www.discogs.com/sell/list'),
-        extensionPage.waitFor('body')
+        page.goto('https://www.discogs.com/sell/list'),
+        page.waitFor('body')
       ]);
 
-      await extensionPage.waitForSelector('.de-dark-theme', { timeout: 10000 });
-      let hasDarkTheme = await extensionPage.$eval('.de-dark-theme', elem => elem.classList.contains('de-dark-theme'));
+      await page.waitForSelector('.de-dark-theme', { timeout: 10000 });
+      let hasDarkTheme = await page.$eval('.de-dark-theme', elem => elem.classList.contains('de-dark-theme'));
       assert.equal(hasDarkTheme, true, 'Dark Theme class was not found on documentElement');
     });
   });
@@ -112,8 +118,8 @@ describe('Functional Testing', function() {
   describe('Marketplace Highlights', async function() {
     it('should highlight media/sleeve conditions in the Marketplace', async function() {
 
-      await extensionPage.waitForSelector('.very-good-plus', { timeout: 10000 });
-      let hasHighlight = await extensionPage.$eval('.very-good-plus', elem => elem.classList.contains('very-good-plus'));
+      await page.waitForSelector('.very-good-plus', { timeout: 10000 });
+      let hasHighlight = await page.$eval('.very-good-plus', elem => elem.classList.contains('very-good-plus'));
 
       assert.equal(hasHighlight, true, 'Highlights were not found in the DOM');
     });
@@ -122,8 +128,8 @@ describe('Functional Testing', function() {
   describe('Currency Converter', async function() {
     it('should render the currency converter in the DOM', async function() {
 
-      await extensionPage.waitForSelector('.currency-converter', { timeout: 10000 });
-      let converter = await extensionPage.$eval('.currency-converter', elem => elem.classList.contains('currency-converter'));
+      await page.waitForSelector('.currency-converter', { timeout: 10000 });
+      let converter = await page.$eval('.currency-converter', elem => elem.classList.contains('currency-converter'));
 
       assert.equal(converter, true, 'Currency converter was not rendered');
     });
@@ -133,13 +139,13 @@ describe('Functional Testing', function() {
     it('show render sort buttons into the Marketplace filters', async function() {
 
       await Promise.all([
-        await extensionPage.waitForSelector('.filter_currency .show_more_filters'),
-        await extensionPage.$eval('.filter_currency .show_more_filters', elem => elem.click())
+        await page.waitForSelector('.filter_currency .show_more_filters'),
+        await page.$eval('.filter_currency .show_more_filters', elem => elem.click())
       ]);
 
-      await extensionPage.waitForSelector('.hide_more_filters');
+      await page.waitForSelector('.hide_more_filters');
 
-      let sortBtn = await extensionPage.$eval('#sortMpLists', elem => elem.classList.contains('button-blue'));
+      let sortBtn = await page.$eval('#sortMpLists', elem => elem.classList.contains('button-blue'));
 
       assert.equal(sortBtn, true, 'Sort buttons were not rendered');
     });
@@ -147,7 +153,7 @@ describe('Functional Testing', function() {
 
   describe('Everlasting Marketplace', async function() {
     it('renders EM headers in the DOM', async function() {
-        let pageStamp = await extensionPage.waitForSelector('.de-page-stamp');
+        let pageStamp = await page.waitForSelector('.de-page-stamp');
         assert.ok(pageStamp, 'Everlasting Marketplace headers were not rendered');
     });
   });
@@ -156,13 +162,13 @@ describe('Functional Testing', function() {
     it('displays the release durations', async function() {
 
       await Promise.all([
-        extensionPage.goto('https://www.discogs.com/Scorn-Evanescence/master/13043'),
-        extensionPage.waitFor('body')
+        page.goto('https://www.discogs.com/Scorn-Evanescence/master/13043'),
+        page.waitFor('body')
       ]);
 
-      await extensionPage.waitForSelector('.tracklist_track.track_heading');
+      await page.waitForSelector('.tracklist_track.track_heading');
 
-      let duration = await extensionPage.$eval('.tracklist_track.track_heading .tracklist_track_pos span', elem => elem.textContent === 'Total Time:');
+      let duration = await page.$eval('.tracklist_track.track_heading .tracklist_track_pos span', elem => elem.textContent === 'Total Time:');
 
       assert.equal(duration, true, 'Release durations were not rendered');
     });
