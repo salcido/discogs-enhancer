@@ -55,6 +55,7 @@ export function applySave(message, event) {
         randomItem: document.getElementById('toggleRandomItem').checked,
         ratingPercent: document.getElementById('toggleRatingPercent').checked,
         readability: document.getElementById('toggleReadability').checked,
+        relativeSoldDate: document.getElementById('toggleRelativeSoldDate').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
         releaseScanner: document.getElementById('toggleReleaseScanner').checked,
         releaseRatings: document.getElementById('toggleReleaseRatings').checked,

@@ -216,6 +216,7 @@ appendFragment([resourceLibrary]).then(() => {
         randomItem: false,
         ratingPercent: false,
         readability: false,
+        relativeSoldDate: false,
         releaseScanner: false,
         releaseDurations: true,
         releaseRatings: false,
@@ -735,6 +736,18 @@ appendFragment([resourceLibrary]).then(() => {
         readability.className = 'de-init';
 
         elems.push(readability);
+      }
+
+      if ( result.prefs.relativeSoldDate ) {
+
+        // relative-sold-date.js
+        let relativeSoldDate = document.createElement('script');
+
+        relativeSoldDate.type = 'text/javascript';
+        relativeSoldDate.src = chrome.extension.getURL('js/extension/features/relative-sold-date.js');
+        relativeSoldDate.className = 'de-init';
+
+        elems.push(relativeSoldDate);
       }
 
       // release-durations

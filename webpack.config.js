@@ -48,6 +48,7 @@ module.exports = {
     [features + 'quick-search']: `${features}quick-search.js`,
     [features + 'random-item']: `${features}random-item.js`,
     [features + 'rating-percent']: `${features}rating-percent.js`,
+    [features + 'relative-sold-date']: `${features}relative-sold-date.js`,
     [features + 'release-durations']: `${features}release-durations.js`,
     [features + 'release-history-legend']: `${features}release-history-legend.js`,
     [features + 'release-ratings']: `${features}release-ratings.js`,
