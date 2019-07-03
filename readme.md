@@ -48,6 +48,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * See release ratings/votes expressed as a percentage
 * Notes character counter
 * See actual dates an item was added to your Collection/Wantlist
+* See the relative date an item was last sold in the Marketplace
 * See the average sale price on the Release page
 * Tag seller's names with an icon in the Marketplace when you have an item of theirs in your cart
 * View a random item from your collection from any page
