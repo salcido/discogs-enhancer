@@ -44,7 +44,7 @@ rl.ready(() => {
     let fp_token = div.querySelector('#fp_token').value || null,
         min_buyer_rating = div.querySelector('#min_buyer_rating').value || '',
         blocked = div.querySelector('#blocked').value,
-        list = blocked.match(/(\w+)/g) || [],
+        list = blocked.match(/([-.\w]{3,50})/g) || [],
         newList = [];
 
     if (!fp_token) throw new Error('fp_token not found.');
