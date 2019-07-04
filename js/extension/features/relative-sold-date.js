@@ -120,6 +120,7 @@ rl.ready(() => {
 
     if (rawDate && relative) {
       lastSold.textContent = relative;
+      lastSold.classList.add('de-last-sold');
       addMouseListeners(rawDate, relative);
     }
   }
