@@ -62,7 +62,8 @@ rl.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let blockList = rl.getPreference('blockList');
+  let blockList = rl.getPreference('blockList'),
+      type;
 
   if ( blockList ) {
 
@@ -73,8 +74,8 @@ rl.ready(() => {
       case 'global':
 
         if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
-
-          window.blockSellers('hide');
+          type = 'hide';
+          window.blockSellers(type);
         }
         break;
 
@@ -83,12 +84,12 @@ rl.ready(() => {
       case 'marketplace':
 
         if ( rl.pageIs('myWants') ) {
-
-          window.blockSellers('hide');
+          type = 'hide';
+          window.blockSellers(type);
 
         } else if ( rl.pageIs('allItems', 'seller', 'sellRelease') ) {
-
-          window.blockSellers('tag');
+          type = 'tag';
+          window.blockSellers(type);
         }
         break;
 
@@ -97,12 +98,13 @@ rl.ready(() => {
       case 'tag':
 
         if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
-
-          window.blockSellers('tag');
+          type = 'tag';
+          window.blockSellers(type);
         }
         break;
     }
-    rl.handlePaginationClicks(window.blockSellers);
+
+    rl.handlePaginationClicks(window.blockSellers, type);
   }
 });
 /**
