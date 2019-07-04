@@ -106,7 +106,7 @@ async function openConfig(file) {
  * @param {String} helpBubble - The help bubble class
  * @returns {undefined}
  */
-async function enableFeature(featureID) {
+async function toggleFeature(featureID) {
   let popup = await openPopup();
 
   Promise.all([
@@ -117,14 +117,11 @@ async function enableFeature(featureID) {
 
   await popup.$(`${featureID} + label .onoffswitch-switch`);
   let checkbox = await popup.$(`${featureID}`);
-  let checked = await(await checkbox.getProperty('checked')).jsonValue();
-
-  assert.equal(checked, false, `${featureID} checkbox was already checked`);
 
   await popup.$eval(`${featureID} + label .onoffswitch-switch`, elem => elem.click());
   console.log(`Clicked ${featureID}`);
-  checked = await(await checkbox.getProperty('checked')).jsonValue();
-  assert.equal(checked, true, `Could not enable ${featureID}`);
+  let checked = await(await checkbox.getProperty('checked')).jsonValue();
+  console.log(`${featureID} is `, checked ? 'enabled' : 'disabled');
   popup.close();
 }
 
@@ -256,7 +253,7 @@ describe('Functional Testing', function() {
   describe('Large YouTube Playlists', async function() {
     it('should embiggen the YouTube Playlists', async function() {
 
-      await enableFeature('#toggleYtPlaylists');
+      await toggleFeature('#toggleYtPlaylists');
 
       await Promise.all([
         page.goto('https://www.discogs.com/Various-After-Hours-2/release/77602'),
@@ -272,7 +269,7 @@ describe('Functional Testing', function() {
   describe('Rating Percentage', async function() {
     it('should show the Rating Percent on a release', async function() {
 
-      await enableFeature('#toggleRatingPercent');
+      await toggleFeature('#toggleRatingPercent');
 
       await Promise.all([
         page.goto('https://www.discogs.com/Various-After-Hours-2/release/77602'),
@@ -288,7 +285,7 @@ describe('Functional Testing', function() {
   describe('Tracklist Readability', async function() {
     it('should render readability dividers in the tracklist', async function() {
 
-      await enableFeature('#toggleReadability');
+      await toggleFeature('#toggleReadability');
 
       await Promise.all([
         page.goto('https://www.discogs.com/Various-After-Hours-2/release/77602'),
@@ -304,7 +301,7 @@ describe('Functional Testing', function() {
   describe('Tweak Discriminators', async function() {
     it('should render spans around discriminators', async function() {
 
-      await enableFeature('#toggleTweakDiscrims');
+      await toggleFeature('#toggleTweakDiscrims');
 
       await Promise.all([
         page.goto('https://www.discogs.com/Digital-Assassins-DJEF-Skot-Vs-Mt-Vibes-Deep-Sound-Of-Underground-Los-Angeles/release/3931002'),
@@ -320,7 +317,7 @@ describe('Functional Testing', function() {
   describe('Show Relative Last Sold Dates', async function() {
     it('should render the date in relative terms', async function() {
 
-      await enableFeature('#toggleRelativeSoldDate');
+      await toggleFeature('#toggleRelativeSoldDate');
 
       await Promise.all([
         page.goto('https://www.discogs.com/Digital-Assassins-DJEF-Skot-Vs-Mt-Vibes-Deep-Sound-Of-Underground-Los-Angeles/release/3931002'),
@@ -336,7 +333,7 @@ describe('Functional Testing', function() {
   describe('Filter Shipping Countries', async function() {
     it('should filter items based on their country of origin', async function() {
 
-      await enableFeature('#toggleFilterShippingCountry');
+      await toggleFeature('#toggleFilterShippingCountry');
       let configPage = await openConfig('filter-shipping-country');
       await configPage.waitFor('.country-input');
       await configPage.type('.restore-input', '["United States", "United Kingdom", "Germany"]');
@@ -354,8 +351,58 @@ describe('Functional Testing', function() {
       assert.equal(countryInfo, true, 'Country info icon was not rendered');
 
       let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
-
       assert.equal(hiddenCountry, true, 'Country was not hidden');
+    });
+
+    it('should filter items based on their country of origin using native navigation', async function() {
+
+      await toggleFeature('#toggleEverlastingMarket');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/sell/list'),
+        page.waitFor('.de-hide-country'),
+        page.waitFor('a.pagination_next'),
+        page.waitFor('.country-list-info')
+      ]);
+
+      let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
+      assert.equal(hiddenCountry, true, 'Country was not hidden after toggling Everlasting Marketplace.');
+
+      await page.$eval('a.pagination_next', elem => elem.click());
+      hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
+      assert.equal(hiddenCountry, true, 'Country was not hidden on Next click.');
+
+      await toggleFeature('#toggleEverlastingMarket');
+    });
+  });
+
+  describe('Filter Media Condition', async function() {
+    it('should filter items based on media condition', async function() {
+      await toggleFeature('#toggleFilterMediaCondition');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/sell/list'),
+        page.waitFor('.mint.bold')
+      ]);
+
+      let conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
+      assert.equal(conditions, true, 'Items were not hidden based on condition');
+
+      await toggleFeature('#toggleEverlastingMarket');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/sell/list'),
+        page.waitFor('.mint.bold'),
+        page.waitFor('a.pagination_next')
+      ]);
+
+      conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
+      assert.equal(conditions, true, 'Items were not hidden based on condition');
+
+      await page.$eval('a.pagination_next', elem => elem.click());
+
+      conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
+      assert.equal(conditions, true, 'Items were not hidden based on condition after using native navigation');
     });
   });
 
