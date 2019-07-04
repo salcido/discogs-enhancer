@@ -15,7 +15,7 @@ const config = {
   ]
 };
 
-let browser, page;
+let browser, page, id;
 
 /**
  * Instantiates the extension in the browser.
@@ -34,6 +34,7 @@ async function boot() {
   });
   let extensionUrl = extensionTarget._targetInfo.url || '';
   let [,, extensionID] = extensionUrl.split('/');
+  id = extensionID;
   setupPage.close();
   page = await browser.newPage();
 
@@ -52,6 +53,61 @@ async function boot() {
     }
   });
 }
+
+/**
+ * Opens the extension's popup in a new page
+ * @returns {Object}
+ */
+async function openPopup() {
+  let popup = await browser.newPage();
+  await Promise.all([
+    await popup.goto(`chrome-extension://${id}/html/popup.html`),
+    await popup.setRequestInterception(true),
+    await popup.setViewport({ width: 1280, height: 768 }),
+    await popup.evaluate(() => { localStorage.setItem('analytics', false); })
+  ]);
+  popup.on('request', interceptedRequest => {
+    if (interceptedRequest.url().startsWith('https://www.google-analytics.com/')) {
+      interceptedRequest.abort();
+      console.log('\nBlocked Request:\n', interceptedRequest.url(), '\n');
+    } else {
+        interceptedRequest.continue();
+    }
+  });
+  return popup;
+}
+
+/**
+ * Enables a feature in the popup menu
+ * @param {String} featureID - The ID of the feature to enable
+ * @param {String} helpBubble - The help bubble class
+ * @returns {undefined}
+ */
+async function enableFeature(featureID) {
+  let popup = await openPopup();
+
+  Promise.all([
+    popup.waitForSelector(`${featureID}`, { timeout: 10000 }),
+    popup.waitForSelector(`${featureID} + label .onoffswitch-switch`),
+    popup.waitForSelector(`${featureID}`)
+  ]);
+
+  await popup.$(`${featureID} + label .onoffswitch-switch`);
+  let checkbox = await popup.$(`${featureID}`);
+  let checked = await(await checkbox.getProperty('checked')).jsonValue();
+
+  assert.equal(checked, false, `${featureID} checkbox was already checked`);
+
+  await popup.$eval(`${featureID} + label .onoffswitch-switch`, elem => elem.click());
+  console.log(`Clicked ${featureID}`);
+  checked = await(await checkbox.getProperty('checked')).jsonValue();
+  assert.equal(checked, true, `Could not enable ${featureID}`);
+  popup.close();
+}
+
+// ========================================================
+// Functional Tests
+// ========================================================
 
 describe('Functional Testing', function() {
   this.timeout(20000);
@@ -88,13 +144,13 @@ describe('Functional Testing', function() {
       let darkTheme = await page.$('.darkTheme');
       assert.ok(darkTheme, 'Dark Theme Feature was not rendered');
 
-      let toggle = await page.$('#toggleDarkTheme + label .onoffswitch-switch');
+      await page.$('#toggleDarkTheme + label .onoffswitch-switch');
       let checkbox = await page.$('#toggleDarkTheme');
       let checked = await(await checkbox.getProperty('checked')).jsonValue();
 
       assert.equal(checked, false, 'Checkbox was already checked');
 
-      await toggle.click();
+      await page.$eval('#toggleDarkTheme + label .onoffswitch-switch', elem => elem.click());
 
       checked = await(await checkbox.getProperty('checked')).jsonValue();
       assert.equal(checked, true, 'Could not enable Dark Theme');
@@ -171,6 +227,86 @@ describe('Functional Testing', function() {
       let duration = await page.$eval('.tracklist_track.track_heading .tracklist_track_pos span', elem => elem.textContent === 'Total Time:');
 
       assert.equal(duration, true, 'Release durations were not rendered');
+    });
+  });
+
+  describe('Large YouTube Playlists', async function() {
+    it('should embiggen the YouTube Playlists', async function() {
+
+      await enableFeature('#toggleYtPlaylists');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/Various-After-Hours-2/release/77602'),
+        page.waitFor('body')
+      ]);
+
+      let isLarge = await page.$eval('#youtube_tracklist', elem => elem.offsetHeight > 166);
+
+      assert.equal(isLarge, true, 'YouTube playlists were not hugeified');
+    });
+  });
+
+  describe('Rating Percentage', async function() {
+    it('should show the Rating Percent on a release', async function() {
+
+      await enableFeature('#toggleRatingPercent');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/Various-After-Hours-2/release/77602'),
+        page.waitFor('body')
+      ]);
+
+      let hasPercentage = await page.$eval('.de-percentage', elem => elem.classList.contains('de-percentage'));
+
+      assert.equal(hasPercentage, true, 'Rating Percentage was not displayed');
+    });
+  });
+
+  describe('Tracklist Readability', async function() {
+    it('should render readability dividers in the tracklist', async function() {
+
+      await enableFeature('#toggleReadability');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/Various-After-Hours-2/release/77602'),
+        page.waitFor('body')
+      ]);
+
+      let hasSpacer = await page.$eval('.de-spacer', elem => elem.classList.contains('de-spacer'));
+
+      assert.equal(hasSpacer, true, 'Readability dividers were not rendered');
+    });
+  });
+
+  describe('Tweak Discriminators', async function() {
+    it('should render spans around discriminators', async function() {
+
+      await enableFeature('#toggleTweakDiscrims');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/Digital-Assassins-DJEF-Skot-Vs-Mt-Vibes-Deep-Sound-Of-Underground-Los-Angeles/release/3931002'),
+        page.waitFor('body')
+      ]);
+
+      let hasSpans = await page.$eval('.de-discriminator', elem => elem.classList.contains('de-discriminator'));
+
+      assert.equal(hasSpans, true, 'Discriminators spans were not rendered');
+    });
+  });
+
+  describe('Show Relative Last Sold Dates', async function() {
+    it('should render the date in relative terms', async function() {
+
+      await enableFeature('#toggleRelativeSoldDate');
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/Digital-Assassins-DJEF-Skot-Vs-Mt-Vibes-Deep-Sound-Of-Underground-Los-Angeles/release/3931002'),
+        page.waitFor('body')
+      ]);
+
+      let relativeDate = await page.$eval('.de-last-sold', elem => elem.classList.contains('de-last-sold'));
+
+      assert.equal(relativeDate, true, 'Last Sold Date was not rendered');
     });
   });
 
