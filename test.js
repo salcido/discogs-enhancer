@@ -78,6 +78,29 @@ async function openPopup() {
 }
 
 /**
+ * Opens the specified config page
+ * @returns {Object}
+ */
+async function openConfig(file) {
+  let configPage = await browser.newPage();
+  await Promise.all([
+    await configPage.goto(`chrome-extension://${id}/html/${file}.html`),
+    await configPage.setRequestInterception(true),
+    await configPage.setViewport({ width: 1280, height: 768 }),
+    await configPage.evaluate(() => { localStorage.setItem('analytics', false); })
+  ]);
+  configPage.on('request', interceptedRequest => {
+    if (interceptedRequest.url().startsWith('https://www.google-analytics.com/')) {
+      interceptedRequest.abort();
+      console.log('\nBlocked Request:\n', interceptedRequest.url(), '\n');
+    } else {
+        interceptedRequest.continue();
+    }
+  });
+  return configPage;
+}
+
+/**
  * Enables a feature in the popup menu
  * @param {String} featureID - The ID of the feature to enable
  * @param {String} helpBubble - The help bubble class
@@ -307,6 +330,32 @@ describe('Functional Testing', function() {
       let relativeDate = await page.$eval('.de-last-sold', elem => elem.classList.contains('de-last-sold'));
 
       assert.equal(relativeDate, true, 'Last Sold Date was not rendered');
+    });
+  });
+
+  describe('Filter Shipping Countries', async function() {
+    it('should filter items based on their country of origin', async function() {
+
+      await enableFeature('#toggleFilterShippingCountry');
+      let configPage = await openConfig('filter-shipping-country');
+      await configPage.waitFor('.country-input');
+      await configPage.type('.restore-input', '["United States", "United Kingdom", "Germany"]');
+      await configPage.click('.restore .btn.btn-green');
+      await configPage.close();
+
+      await Promise.all([
+        page.goto('https://www.discogs.com/sell/list'),
+        page.waitFor('.de-page-stamp'),
+        page.waitFor('.de-hide-country')
+      ]);
+
+      let countryInfo = await page.$eval('.country-list-info', elem => elem.classList.contains('country-list-info'));
+
+      assert.equal(countryInfo, true, 'Country info icon was not rendered');
+
+      let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
+
+      assert.equal(hiddenCountry, true, 'Country was not hidden');
     });
   });
 
