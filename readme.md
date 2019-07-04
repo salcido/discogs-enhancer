@@ -80,6 +80,11 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 * Watch for changes:
   * `npm run watch`
 
+#### Testing
+
+* Run functional tests:
+  * `npm test`
+
 #### Building
 * Export the extension to `dist` directory:
   * `npm run build`
