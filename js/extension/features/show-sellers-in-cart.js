@@ -93,6 +93,7 @@ rl.ready(() => {
         }
         .de-items-in-cart + .tooltip {
           white-space: normal;
+          opacity: 1;
         }`;
 
   // ========================================================

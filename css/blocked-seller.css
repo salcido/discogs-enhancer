@@ -41,4 +41,5 @@
 
 .de-blocked-seller-icon + .tooltip {
   white-space: normal;
+  opacity: 1;
 }

@@ -70,6 +70,7 @@ rl.ready(() => {
       }
       .de-favorite-seller + .tooltip {
         white-space: normal;
+        opacity: 1;
       }
       `;
 

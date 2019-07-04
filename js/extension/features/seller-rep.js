@@ -91,6 +91,7 @@ rl.ready(() => {
         }
         .de-seller-rep-icon + .tooltip {
           white-space: normal;
+          opacity: 1;
         }
         `;
     // ========================================================
