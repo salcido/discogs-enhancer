@@ -26,7 +26,17 @@ async function boot() {
 
   browser = await puppeteer.launch(config);
   let setupPage = await browser.newPage();
+  await setupPage.setRequestInterception(true),
   await setupPage.waitFor(100);
+
+  setupPage.on('request', interceptedRequest => {
+    if (interceptedRequest.url().startsWith('https://www.google-analytics.com/')) {
+      interceptedRequest.abort();
+      console.log('\nBlocked Request:\n', interceptedRequest.url(), '\n');
+    } else {
+        interceptedRequest.continue();
+    }
+  });
 
   let targets = await browser.targets();
   let extensionTarget = targets.find(({ _targetInfo }) => {
@@ -133,6 +143,8 @@ describe('Functional Testing', function() {
   this.timeout(20000);
   before(async function() { await boot(); });
 
+  // Searching
+  // ------------------------------------------------------
   describe('Search Features', async function() {
     it('should refine the features list', async function() {
 
@@ -152,6 +164,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Enable Dark Theme
+  // ------------------------------------------------------
   describe('Enable Dark Theme', async function() {
     it('should enable the Dark Theme when checked', async function() {
 
@@ -177,6 +191,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Dark Theme
+  // ------------------------------------------------------
   describe('Dark Theme', async function() {
     it('should apply the Dark Theme to Discogs.com', async function() {
 
@@ -191,6 +207,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Marketplace Hightlights
+  // ------------------------------------------------------
   describe('Marketplace Highlights', async function() {
     it('should highlight media/sleeve conditions in the Marketplace', async function() {
 
@@ -201,6 +219,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Currency Converter
+  // ------------------------------------------------------
   describe('Currency Converter', async function() {
     it('should render the currency converter in the DOM', async function() {
 
@@ -211,6 +231,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Sort Buttons
+  // ------------------------------------------------------
   describe('Sort Buttons', async function() {
     it('show render sort buttons into the Marketplace filters', async function() {
 
@@ -227,6 +249,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Everlasting Marketplace
+  // ------------------------------------------------------
   describe('Everlasting Marketplace', async function() {
     it('renders EM headers in the DOM', async function() {
         let pageStamp = await page.waitForSelector('.de-page-stamp');
@@ -234,6 +258,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Release Durations
+  // ------------------------------------------------------
   describe('Release Durations', async function() {
     it('displays the release durations', async function() {
 
@@ -250,6 +276,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Large YouTube Playlists
+  // ------------------------------------------------------
   describe('Large YouTube Playlists', async function() {
     it('should embiggen the YouTube Playlists', async function() {
 
@@ -266,6 +294,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Rating Percentage
+  // ------------------------------------------------------
   describe('Rating Percentage', async function() {
     it('should show the Rating Percent on a release', async function() {
 
@@ -282,6 +312,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Tracklist Readability
+  // ------------------------------------------------------
   describe('Tracklist Readability', async function() {
     it('should render readability dividers in the tracklist', async function() {
 
@@ -298,6 +330,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Tweak Discriminators
+  // ------------------------------------------------------
   describe('Tweak Discriminators', async function() {
     it('should render spans around discriminators', async function() {
 
@@ -314,6 +348,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Relative Last Sold Dates
+  // ------------------------------------------------------
   describe('Show Relative Last Sold Dates', async function() {
     it('should render the date in relative terms', async function() {
 
@@ -330,6 +366,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Filter Shipping Countries
+  // ------------------------------------------------------
   describe('Filter Shipping Countries', async function() {
     it('should filter items based on their country of origin', async function() {
 
@@ -376,6 +414,8 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Filter Media Condition
+  // ------------------------------------------------------
   describe('Filter Media Condition', async function() {
     it('should filter items based on media condition', async function() {
       await toggleFeature('#toggleFilterMediaCondition');
