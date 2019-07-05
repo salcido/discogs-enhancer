@@ -402,6 +402,56 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Release Ratings
+  // ------------------------------------------------------
+  describe('Release Ratings', async function() {
+
+    it('should insert rating links into listings in the Marketplace', async function() {
+      await toggleFeature('#toggleReleaseRatings');
+      await Promise.all([
+        page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
+        page.waitFor('.de-rating-link')
+      ]);
+      let hasRatingLinks = await page.$eval('.de-rating-link', elem => elem.classList.contains('de-rating-link'));
+      assert.equal(hasRatingLinks, true, 'Rating links were not rendered');
+    });
+
+    it('should render the preloader when clicked', async function() {
+      await page.$eval('.de-rating-link', elem => elem.click());
+      await page.waitFor('i.preloader');
+      let preloader = await page.$eval('i.preloader', elem => elem.classList.contains('preloader'));
+      assert.equal(preloader, true, 'Preloader was not rendered');
+    });
+
+    it('should fetch the release rating', async function() {
+      await page.$eval('.de-rating-link', elem => elem.click());
+      let isFetching;
+
+      await page.waitForResponse(response => {
+        if ( response.request().resourceType() !== undefined ) {
+          isFetching = true;
+          return isFetching;
+        }
+      });
+
+      assert.equal(isFetching, true, 'Fetch was not initiated');
+    });
+  });
+
+  // Quick Search
+  // ------------------------------------------------------
+  describe('Quick Search', async function() {
+    it('should wrap the release title in a span', async function() {
+      await toggleFeature('#toggleQuickSearch');
+      await Promise.all([
+        page.goto('https://www.discogs.com/Lou-Karsh-Phantom-Structures/release/13705345'),
+        page.waitFor('.de-one-click')
+      ]);
+      let hasQuickSearch = await page.$eval('.de-one-click', elem => elem.classList.contains('de-one-click'));
+      assert.equal(hasQuickSearch, true, 'Quick Search span was not rendered');
+    });
+  });
+
   // List Items In New Tabs
   // ------------------------------------------------------
   describe('List Items In New Tabs', async function() {
