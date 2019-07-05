@@ -229,6 +229,7 @@ describe('Functional Testing', function() {
 
       assert.equal(converter, true, 'Currency converter was not rendered');
     });
+    // TODO: test conversions
   });
 
   // Sort Buttons
@@ -256,6 +257,7 @@ describe('Functional Testing', function() {
         let pageStamp = await page.waitForSelector('.de-page-stamp');
         assert.ok(pageStamp, 'Everlasting Marketplace headers were not rendered');
     });
+    // TODO: test page loading on scroll
   });
 
   // Release Durations
@@ -372,7 +374,7 @@ describe('Functional Testing', function() {
     it('should append the Scan Releases button', async function() {
       await toggleFeature('#toggleReleaseScanner');
       await Promise.all([
-        page.goto('https://www.discogs.com/artist/5269363-Trance-Wax', {waitUntil: 'networkidle2'}),
+        page.goto('https://www.discogs.com/artist/5269363-Trance-Wax', { waitUntil: 'networkidle2' }),
         page.waitFor('.de-scan-releases')
       ]);
 
