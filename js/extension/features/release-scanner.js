@@ -14,6 +14,7 @@ rl.ready(() => {
       interval = opts && opts.int ? Number(opts.int) : 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
       skittles = document.querySelectorAll('.skittles .skittles'),
+      checkbox = document.querySelectorAll('td.mr_checkbox'),
       button = '<button class="buy_release_button button button-green de-scan-releases">Scan Releases</button>';
 
   // ========================================================
@@ -72,7 +73,7 @@ rl.ready(() => {
   function appendSpinners() {
     document.querySelectorAll('.card td.image a').forEach((r,i) => {
       let preloader = '<i class="icon icon-spinner icon-spin de-loader" style="font-style: normal;"></i>';
-      return skittles[i].insertAdjacentHTML('beforeend', preloader);
+      return (skittles[i]||checkbox[i]).insertAdjacentHTML('beforeend', preloader);
     });
   }
 
@@ -90,7 +91,7 @@ rl.ready(() => {
     data.position = position;
     badge = createBadge(data);
 
-    return count || colorize && moreWants ? skittles[position].insertAdjacentHTML('beforeend', badge) : null;
+    return count || colorize && moreWants ? (skittles[position]||checkbox[position]).insertAdjacentHTML('beforeend', badge) : null;
   }
 
   /**
