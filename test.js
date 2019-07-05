@@ -366,6 +366,40 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Release Scanner
+  // ------------------------------------------------------
+  describe('Release Scanner', async function() {
+    it('should append the Scan Releases button', async function() {
+      await toggleFeature('#toggleReleaseScanner');
+      await Promise.all([
+        page.goto('https://www.discogs.com/artist/5269363-Trance-Wax', {waitUntil: 'networkidle2'}),
+        page.waitFor('.de-scan-releases')
+      ]);
+
+      let hasScanButton = await page.$eval('.de-scan-releases', elem => elem.classList.contains('de-scan-releases'));
+      assert.equal(hasScanButton, true, 'Scan Releases button was not appended');
+    });
+
+    it('Should scan releases when clicked', async function() {
+
+      await page.waitFor('.de-scan-releases');
+      await page.$eval('.de-scan-releases', elem => elem.click());
+      let scanText = await page.$eval('.de-scan-releases', elem => elem.textContent == 'Scanning...');
+      assert.equal(scanText, true, 'Button text was not updated when clicked');
+
+      let isScanning;
+
+      await page.waitForResponse(response => {
+        if ( response.request().resourceType() !== undefined ) {
+          isScanning = true;
+          return isScanning;
+        }
+      });
+
+      assert.equal(isScanning, true, 'Scan was unsuccessful');
+    });
+  });
+
   // List Items In New Tabs
   // ------------------------------------------------------
   describe('List Items In New Tabs', async function() {
@@ -465,6 +499,7 @@ describe('Functional Testing', function() {
     await browser.close();
   });
 });
+
 // puppeteer.launch(config).then(async browser => {
 
 //   Testing popup menu
