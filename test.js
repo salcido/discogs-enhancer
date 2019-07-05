@@ -366,6 +366,21 @@ describe('Functional Testing', function() {
     });
   });
 
+  // List Items In New Tabs
+  // ------------------------------------------------------
+  describe('List Items In New Tabs', async function() {
+    it('should open list items in new tabs', async function() {
+      await toggleFeature('#toggleListsInTabs');
+      await Promise.all([
+        page.goto('https://www.discogs.com/lists/2019-Favorites/476255'),
+        page.waitFor('.de-list-new-tabs')
+      ]);
+
+      let hasNewWindow = await page.$eval('.de-list-new-tabs', elem => elem.classList.contains('de-list-new-tabs'));
+      assert.equal(hasNewWindow, true, 'List anchor elements are missing target attribute');
+    });
+  });
+
   // Filter Shipping Countries
   // ------------------------------------------------------
   describe('Filter Shipping Countries', async function() {
