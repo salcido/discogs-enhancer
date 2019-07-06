@@ -503,7 +503,7 @@ describe('Functional Testing', function() {
       await toggleFeature('#toggleFilterShippingCountry');
       let configPage = await openConfig('filter-shipping-country');
       await configPage.waitFor('.country-input');
-      await configPage.type('.restore-input', '["United States", "United Kingdom", "Germany"]');
+      await configPage.type('.restore-input', '["United States", "United Kingdom", "Germany", "France"]');
       await configPage.click('.restore .btn.btn-green');
       await configPage.close();
 
