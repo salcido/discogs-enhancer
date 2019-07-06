@@ -12,7 +12,7 @@ rl.ready(() => {
   let href = window.location.href,
       reactApp = document.querySelector('#CollectionApp'),
       layout = rl.getCookie('rl_layout'),
-      username = document.querySelector('img.user_image').alt;
+      username = rl.username();
 
   if ( href.includes(`/${username}/collection`)
        && layout !== 'big'

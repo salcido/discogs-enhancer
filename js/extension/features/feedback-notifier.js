@@ -16,7 +16,7 @@ rl.ready(() => {
       feedback = rl.getPreference('feedback') || null,
       language = rl.language(),
       timeStamp = new Date().getTime(),
-      user = document.querySelector('#site_account_menu .user_image').alt,
+      user = rl.username(),
       // user = 'recordsale-de', /* used for testing */
       waitTime = (1000 * 60) * 2; // 2 mins
 

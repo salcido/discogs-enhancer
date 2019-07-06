@@ -54,7 +54,7 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let user = document.querySelector('#site_account_menu .user_image').alt,
+  let user = rl.username(),
       iconSize = '14px',
       icon = `<li style="position: relative;">
                 <a class="nav_group_control de-random-item needs_delegated_tooltip"
