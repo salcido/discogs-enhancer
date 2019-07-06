@@ -4,10 +4,11 @@
   "description": "A Chrome extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --progress --colors",
+    "build:production": "NODE_ENV=production npm run build",
     "bump": "node version-bump.js",
     "test": "mocha",
-    "watch": "webpack --watch"
+    "watch": "NODE_ENV=development webpack --watch --progress --colors"
   },
   "repository": {
     "type": "git",

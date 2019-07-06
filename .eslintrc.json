@@ -6,6 +6,7 @@
         "mocha": true
     },
     "globals": {
+        "__ANALYTICS__": true,
         "$": false,
         "chrome": false,
         "ga": false,

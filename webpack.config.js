@@ -1,10 +1,29 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const sass = require('node-sass');
+const webpack = require('webpack');
 
 const config = './js/popup/configuration-pages/';
 const deps = './js/extension/dependencies/';
 const features = './js/extension/features/';
+
+let analytics;
+
+let setupAnalytics = function() {
+  switch (process.env.NODE_ENV) {
+    case 'production':
+      analytics = true;
+      break;
+    case 'development':
+      analytics = false;
+      break;
+    default:
+      analytics = false;
+      break;
+  }
+};
+
+setupAnalytics();
 
 module.exports = {
   entry: {
@@ -114,7 +133,9 @@ module.exports = {
   plugins: [
   // Uncomment for maximum minification
   // new webpack.optimize.UglifyJsPlugin(),
-
+  new webpack.DefinePlugin({
+    __ANALYTICS__: analytics
+  }),
   // move all this stuff into the /dist folder
   new CopyWebpackPlugin([
     { from: 'manifest.json', to: 'manifest.json' },
