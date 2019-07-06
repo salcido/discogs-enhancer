@@ -98,46 +98,46 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 <p>
 
 #### AUTHENTICATED
-- [ ] Show Actual Add Date
-- [ ] Show Average Prices
-- [ ] Larger BAOI Fields
-- [ ] Block Buyers
-- [ ] Everlasting Collection
-- [ ] Collection In New Tabs
 - [ ] Better Collection UI
+- [ ] Block Buyers
+- [ ] Collection In New Tabs
+- [ ] Everlasting Collection
 - [ ] Feedback Notifications
-- [ ] Text Format Shortcuts
 - [ ] Hide Min/Med/Max columns
+- [ ] Larger BAOI Fields
 - [ ] Notes Counter
 - [ ] Random Item
 - [ ] Remove From Wantlist Shortcuts
 - [ ] Seller Items In Cart
+- [ ] Show Actual Add Date
+- [ ] Show Average Prices
 - [ ] Suggested Prices
+- [ ] Text Format Shortcuts
 
 #### UNAUTHENTICATED
+- [ ] Block Sellers
 - [ ] Blurry Image Fix
 - [ ] Favorite Sellers
-- [ ] Block Sellers
-- [ ] Inventory Ratings
 - [ ] Filter Sleeve Condition
+- [ ] Inventory Ratings
 - [ ] Seller Rep
 - [x] Currency Converter
 - [x] Dark Theme
 - [x] Everlasting Marketplace
 - [x] Filter Media Condition
 - [x] Filter Shipping Country
-- [x] Marketplace Condition Highlights
+- [x] Large YouTube playlists
 - [x] Lists In New Tabs
+- [x] Marketplace Condition Highlights
 - [x] Quick Search
 - [x] Rating Percentage
-- [x] Tracklist Readability
 - [x] Relative Last Sold Dates
-- [x] Release Scanner
 - [x] Release Durations
 - [x] Release Ratings
+- [x] Release Scanner
 - [x] Sort Buttons
+- [x] Tracklist Readability
 - [x] Tweak Discriminators
-- [x] Large YouTube playlists
 
 </p>
 </details>
