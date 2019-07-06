@@ -197,7 +197,7 @@ describe('Functional Testing', function() {
     it('should apply the Dark Theme to Discogs.com', async function() {
 
       await Promise.all([
-        page.goto('https://www.discogs.com/sell/list'),
+        page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
         page.waitFor('body')
       ]);
 
@@ -226,10 +226,38 @@ describe('Functional Testing', function() {
 
       await page.waitForSelector('.currency-converter', { timeout: 10000 });
       let converter = await page.$eval('.currency-converter', elem => elem.classList.contains('currency-converter'));
-
       assert.equal(converter, true, 'Currency converter was not rendered');
     });
-    // TODO: test conversions
+
+    it('should request rates from discogs-enhancer.com', async function() {
+
+      await Promise.all([
+        await page.waitFor('#ccInput'),
+        await page.waitFor('#baseCurrency')
+      ]);
+
+      let gotRates;
+      await page.select('#baseCurrency', 'AUD');
+      await page.waitForResponse(response => {
+        if ( response.request().url() === 'https://discogs-enhancer.com/rates?base=AUD' ) {
+          gotRates = true;
+          return gotRates;
+        }
+        assert.equal(gotRates, true, 'Converter rates were not fetched');
+      });
+    });
+
+    it('should convert currencies', async function() {
+
+      await Promise.all([
+        await page.waitFor('#ccInput'),
+        await page.waitFor('#ccOutput'),
+        await page.waitFor('#baseCurrency')
+      ]);
+      await page.type('#ccInput', '4');
+      let hasOutput = await page.$eval('#ccOutput', elem => elem.textContent !== '');
+      assert.equal(hasOutput, true, 'Converter did not convert');
+    });
   });
 
   // Sort Buttons
