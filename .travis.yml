@@ -3,9 +3,8 @@ os: osx
 node_js:
   - "10"
 sudo: required
-install:
-  - npm run build:development
 script:
+  - npm run build:dev
   - npm test
 addons:
   chrome: stable
