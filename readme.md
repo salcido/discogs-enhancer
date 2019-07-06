@@ -88,10 +88,59 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 #### Building
 * Export the extension to `dist` directory:
-  * `npm run build`
+  * `npm run build:production`
   * Go to `chrome://extensions` in a new Chrome tab
   * Click "Developer Mode" in the upper-right corner
   * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
+
+## Functional Tests
+<details><summary>Test Checklist</summary>
+<p>
+
+#### AUTHENTICATED
+- [ ] Show Actual Add Date
+- [ ] Show Average Prices
+- [ ] Larger BAOI Fields
+- [ ] Block Buyers
+- [ ] Everlasting Collection
+- [ ] Collection In New Tabs
+- [ ] Better Collection UI
+- [ ] Feedback Notifications
+- [ ] Text Format Shortcuts
+- [ ] Hide Min/Med/Max columns
+- [ ] Notes Counter
+- [ ] Random Item
+- [ ] Remove From Wantlist Shortcuts
+- [ ] Seller Items In Cart
+- [ ] Suggested Prices
+
+#### UNAUTHENTICATED
+- [ ] Blurry Image Fix
+- [ ] Favorite Sellers
+- [ ] Block Sellers
+- [ ] Inventory Ratings
+- [ ] Filter Sleeve Condition
+- [ ] Seller Rep
+- [x] Currency Converter
+- [x] Dark Theme
+- [x] Everlasting Marketplace
+- [x] Filter Media Condition
+- [x] Filter Shipping Country
+- [x] Marketplace Condition Highlights
+- [x] Lists In New Tabs
+- [x] Quick Search
+- [x] Rating Percentage
+- [x] Tracklist Readability
+- [x] Relative Last Sold Dates
+- [x] Release Scanner
+- [x] Release Durations
+- [x] Release Ratings
+- [x] Sort Buttons
+- [x] Tweak Discriminators
+- [x] Large YouTube playlists
+
+</p>
+</details>
 
 ***
 
