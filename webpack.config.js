@@ -7,18 +7,22 @@ const config = './js/popup/configuration-pages/';
 const deps = './js/extension/dependencies/';
 const features = './js/extension/features/';
 
-let analytics;
+let analytics,
+    development;
 
 let setupAnalytics = function() {
   switch (process.env.NODE_ENV) {
     case 'production':
       analytics = true;
+      development = false;
       break;
     case 'development':
       analytics = false;
+      development = true;
       break;
     default:
       analytics = false;
+      development = true;
       break;
   }
 };
@@ -131,10 +135,9 @@ module.exports = {
     ]
   },
   plugins: [
-  // Uncomment for maximum minification
-  // new webpack.optimize.UglifyJsPlugin(),
   new webpack.DefinePlugin({
-    __ANALYTICS__: analytics
+    __ANALYTICS__: analytics,
+    __DEV__: development
   }),
   // move all this stuff into the /dist folder
   new CopyWebpackPlugin([

@@ -56,17 +56,20 @@ if ( !Element.prototype.addClasses ) {
 function isDev() {
 
   let hasBlocklist = localStorage.getItem('blockList'),
-      blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
+      blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null,
+      development = __DEV__;
 
-  if ( blocklist
+  if ( development
+       && blocklist
        && blocklist.list
-       && blocklist.list.includes('github')
-       && blocklist.list.includes('development') ) {
+       && !blocklist.list.includes('github')
+       && !blocklist.list.includes('dropbox') ) {
     document.querySelector('.title h1').style.color = 'gold';
     document.querySelector('.title h1').textContent = 'Developer Edition';
   }
 
-  if ( blocklist
+  if ( development
+       && blocklist
        && blocklist.list
        && blocklist.list.includes('github')
        && blocklist.list.includes('dropbox') ) {
