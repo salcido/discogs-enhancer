@@ -1029,6 +1029,14 @@
         let path = `${window.location.pathname}?${searchParams.toString()}`;
         history.pushState(null, '', path);
       }
+    },
+
+    /**
+     * Returns the username of the logged in user
+     * @returns {String}
+     */
+    username: function() {
+      return window.dsdata().username;
     }
   };
 }());
