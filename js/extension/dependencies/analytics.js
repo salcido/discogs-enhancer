@@ -8,9 +8,7 @@
  *
  */
 
-let analytics = localStorage.getItem('analytics') || __ANALYTICS__;
-
-analytics = JSON.parse(analytics);
+let analytics = __ANALYTICS__;
 
 if ( analytics ) {
 

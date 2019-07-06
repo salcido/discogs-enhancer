@@ -70,68 +70,6 @@ function getCurrentFilterState() {
   return currentFilterState;
 }
 
-/**
- * TODO:
- * @returns {undefined}
- */
-function initAnalyitcs() {
-
-  let action,
-      config = { attributes: true, childList: true, subtree: true },
-      hasRun = false,
-      observer;
-
-  action = mutationsList => {
-    for ( let mutation of mutationsList ) {
-
-      if ( mutation.type === 'childList' ) {
-        mutation.addedNodes.forEach(n => {
-
-          if ( n.classList
-               && n.classList.value === 'options-modal'
-               && !hasRun ) {
-
-            hasRun = true;
-
-            let analyticsElem = document.querySelector('.options #analytics');
-
-            if ( analyticsElem ) {
-              analyticsElem.addEventListener('change', toggleAnalytics);
-              toggleAnalytics(analyticsElem);
-            }
-
-            observer.disconnect();
-          }
-        });
-      }
-    }
-  };
-
-  observer = new MutationObserver(action);
-  observer.observe(document.documentElement, config);
-}
-
-/**
- * Saves the analytics preference on both the Extension side
- * and the DOM side.
- * @param {Object} elem - The analytics checkbox element
- * @returns {undefined}
- */
-function toggleAnalytics(elem) {
-
-  let prefs = JSON.parse(localStorage.getItem('userPreferences')),
-      opts = prefs.options,
-      request = { request: 'analytics', enabled: elem.checked };
-
-  chrome.runtime.sendMessage(request, ({ enabled }) => {
-
-    opts.analytics = enabled;
-    prefs = JSON.stringify(prefs);
-
-    localStorage.setItem('userPreferences', prefs);
-  });
-}
-
 // ========================================================
 // Install/Update Notifications
 // ========================================================
@@ -1160,7 +1098,6 @@ appendFragment([resourceLibrary]).then(() => {
         if ( !newPrefs.hasOwnProperty('options') ) {
 
           let options = {
-                analytics: true,
                 colorize: false,
                 comments: false,
                 debug: false,
@@ -1178,7 +1115,6 @@ appendFragment([resourceLibrary]).then(() => {
     .then(() => document.ready())
     .then(() => appendFragment(elems))
     .then(() => {
-      initAnalyitcs();
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
         child.parentNode.removeChild(child);

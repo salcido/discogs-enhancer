@@ -18,10 +18,6 @@ resourceLibrary.ready(() => {
                   <h3>Super Secret Options Menu</h3>
                   <ul class="options">
                     <li>
-                      <input id="analytics" name="analytics" type="checkbox" value="analytics" />
-                      <label for="analytics">Analytics</label>
-                    </li>
-                    <li>
                       <input id="colorize" name="colorize" type="checkbox" value="colorize" />
                       <label for="colorize">Colorize Prices</label>
                     </li>

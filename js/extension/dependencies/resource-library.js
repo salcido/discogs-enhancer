@@ -511,16 +511,6 @@
     options: {
 
       /**
-       * Whether to use analytics
-       * @returns {boolean}
-       */
-      analytics: function() {
-        let hasOptions = resourceLibrary.getPreference('options'),
-            analytics = hasOptions ? hasOptions.analytics : true;
-        return analytics;
-      },
-
-      /**
        * Whether to change price colors
        * @returns {boolean}
        */
@@ -557,15 +547,12 @@
       getOptions: function() {
 
         let options = resourceLibrary.getPreference('options'),
-            { analytics,
-              colorize,
+            { colorize,
               comments,
               debug,
               quicksearch,
               threshold,
               unitTests } = options;
-
-        if (analytics) { document.getElementById('analytics').checked = true; }
 
         if (colorize) { document.getElementById('colorize').checked = true; }
 
@@ -587,7 +574,6 @@
       saveOptions: function() {
 
         let options,
-            analytics = document.getElementById('analytics').checked,
             colorize = document.getElementById('colorize').checked,
             comments = document.getElementById('comments').checked,
             debug = document.getElementById('debug').checked,
@@ -601,7 +587,6 @@
         options = resourceLibrary.getPreference('options');
 
         /* update values */
-        options.analytics = analytics;
         options.colorize = colorize;
         options.comments = comments;
         options.debug = debug;

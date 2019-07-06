@@ -32,21 +32,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       }
       break;
 
-    // analytics
-    case 'analytics':
-
-      if (msg.enabled) {
-
-        localStorage.setItem('analytics', 'true');
-        sendResponse({ enabled: true });
-
-      } else {
-
-        localStorage.setItem('analytics', 'false');
-        sendResponse({ enabled: false });
-      }
-      break;
-
     // user preferences
     case 'userPreferences': {
       let userPreferences = {

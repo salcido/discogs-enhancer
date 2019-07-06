@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --colors",
+    "build:dev": "NODE_ENV=development npm run build",
     "build:production": "NODE_ENV=production npm run build",
     "bump": "node version-bump.js",
     "test": "mocha",
