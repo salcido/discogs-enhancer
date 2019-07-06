@@ -5,5 +5,3 @@ node_js:
 sudo: required
 addons:
   chrome: stable
-before_install:
-  - google-chrome-stable --no-sandbox
