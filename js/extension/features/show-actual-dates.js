@@ -81,7 +81,6 @@ rl.ready(() => {
     // ========================================================
     let rules = `
         .cw_block_timestamp span {
-          cursor: pointer;
           display: inline-block;
           width: 45%;
         }`;
