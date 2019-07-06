@@ -11,6 +11,7 @@ const config = {
   args: [
     `--disable-extensions-except=${path}`,
     `--load-extension=${path}`,
+    '--no-sandbox'
   ]
 };
 
