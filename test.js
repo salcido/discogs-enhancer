@@ -7,7 +7,6 @@ const url = 'https://www.discogs.com/sell/list';
 const path = require('path').join(__dirname, './dist');
 const config = {
   headless: false,
-  executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   ignoreHTTPSErrors: true,
   args: [
     `--disable-extensions-except=${path}`,
