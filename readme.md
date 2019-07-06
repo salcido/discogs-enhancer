@@ -93,6 +93,8 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
   * Click "Developer Mode" in the upper-right corner
   * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
 
+***
+
 ## Functional Tests
 <details><summary>Test Checklist</summary>
 <p>
