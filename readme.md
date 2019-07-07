@@ -83,8 +83,13 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 #### Testing
 
-* Run functional tests:
+* Run unauthenticated functional tests:
   * `npm test`
+  > Note: Jenkins will run the unauthed tests automatically
+
+* Run authenticated functional tests:
+  * `env USERNAME=<username> env PASSWORD=<password> npm test`
+  > Note: If you want to run authenticated tests you'll need an account to log in with.
 
 #### Building
 * Export the extension to `dist` directory:
