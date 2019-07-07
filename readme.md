@@ -117,12 +117,12 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 - [ ] Text Format Shortcuts
 
 #### UNAUTHENTICATED
-- [ ] Block Sellers
-- [ ] Blurry Image Fix
-- [ ] Favorite Sellers
-- [ ] Filter Sleeve Condition
-- [ ] Inventory Ratings
-- [ ] Seller Rep
+- [x] Block Sellers
+- [ ] Blurry Image Fix (unsure how to test as this point)
+- [x] Favorite Sellers
+- [x] Filter Sleeve Condition
+- [x] Inventory Ratings
+- [x] Seller Rep
 - [x] Currency Converter
 - [x] Dark Theme
 - [x] Everlasting Marketplace
