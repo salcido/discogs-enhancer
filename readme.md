@@ -107,11 +107,11 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 - [ ] Feedback Notifications
 - [ ] Hide Min/Med/Max columns
 - [ ] Larger BAOI Fields
-- [ ] Notes Counter
-- [ ] Random Item
+- [x] Notes Counter
+- [x] Random Item
 - [ ] Remove From Wantlist Shortcuts
 - [ ] Seller Items In Cart
-- [ ] Show Actual Add Date
+- [x] Show Actual Add Date
 - [ ] Show Average Prices
 - [ ] Suggested Prices
 - [ ] Text Format Shortcuts
