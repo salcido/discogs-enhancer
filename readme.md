@@ -83,13 +83,13 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 #### Testing
 
-* Run unauthenticated functional tests:
+* Run `unauthenticated` functional tests:
   * `npm test`
-  > Note: Jenkins will run the unauthed tests automatically
+  > Note: Jenkins will run the unauthed tests automatically when pushing to the repo.
 
-* Run authenticated functional tests:
+* Run `authenticated` functional tests:
   * `env USERNAME=<username> env PASSWORD=<password> npm test`
-  > Note: If you want to run authenticated tests you'll need an account to log in with.
+  > Note: If you want to run authenticated tests you'll need an account to log in with and run them manually with the command above. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
 
 #### Building
 * Export the extension to `dist` directory:
@@ -107,23 +107,23 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 #### AUTHENTICATED
 - [ ] Better Collection UI
 - [ ] Block Buyers
-- [ ] Collection In New Tabs
+- [x] Collection In New Tabs
 - [ ] Everlasting Collection
 - [ ] Feedback Notifications
-- [ ] Hide Min/Med/Max columns
-- [ ] Larger BAOI Fields
+- [x] Hide Min/Med/Max columns
+- [x] Larger BAOI Fields
 - [x] Notes Counter
 - [x] Random Item
-- [ ] Remove From Wantlist Shortcuts
+- [x] Remove From Wantlist Shortcuts
 - [ ] Seller Items In Cart
 - [x] Show Actual Add Date
-- [ ] Show Average Prices
+- [x] Show Average Prices
 - [ ] Suggested Prices
-- [ ] Text Format Shortcuts
+- [x] Text Format Shortcuts
 
 #### UNAUTHENTICATED
 - [x] Block Sellers
-- [ ] Blurry Image Fix (unsure how to test as this point)
+- [ ] Blurry Image Fix (unsure how to test at this point)
 - [x] Favorite Sellers
 - [x] Filter Sleeve Condition
 - [x] Inventory Ratings
