@@ -3,7 +3,6 @@ const assert = require('assert');
 
 const username = process.env.USERNAME || null;
 const password = process.env.PASSWORD || null;
-const url = 'https://www.discogs.com/sell/list';
 const path = require('path').join(__dirname, './dist');
 const config = {
   headless: false,
@@ -864,7 +863,7 @@ describe('Functional Testing', function() {
       });
     });
 
-    // Show Acutal Add Dates
+    // Show Actual Add Dates
     // ------------------------------------------------------
     describe('Show Actual Add Dates', async function() {
       it('should show the date the item was added', async function() {
@@ -878,6 +877,120 @@ describe('Functional Testing', function() {
 
         let actualDate = await page.$eval('.cw_block_timestamp span', elem => elem.dataset.approx.includes('ago'));
         assert.equal(actualDate, true, 'Actual date markup was not rendered');
+      });
+    });
+
+    // Collection Links In New Tabs
+    // ------------------------------------------------------
+    describe('Collection Links In New Tabs', async function() {
+      it('should open links from the React Collection in new tabs', async function() {
+        await toggleFeature('#toggleCollectionNewTabs');
+
+        await Promise.all([
+          page.goto(`https://www.discogs.com/user/${process.env.USERNAME}/collection`, { waitUntil: 'networkidle2' }),
+          page.waitFor('.release-table-card a'),
+          page.waitFor('.FacetGroup a')
+        ]);
+
+        let release = await page.$eval('.release-table-card a', elem => elem.target === '_blank');
+        assert.equal(release, true, 'Anchors were not modified');
+      });
+    });
+
+    // Hide Min Med Max Columns
+    // ------------------------------------------------------
+    describe('Hide Min Med Max Columns', async function() {
+      it('should hide the Min, Med, Max columns in the React Collection', async function() {
+        await toggleFeature('#toggleMinMaxColumns');
+
+        await Promise.all([
+          page.goto(`https://www.discogs.com/user/${process.env.USERNAME}/collection`, { waitUntil: 'networkidle2' }),
+          page.waitFor('td[data-header="Max"')
+        ]);
+
+        let maxHidden = await page.$eval('td[data-header="Max"', elem => elem.clientHeight === 0);
+        assert.equal(maxHidden, true, 'Max Columns were not hidden');
+
+        let medHidden = await page.$eval('td[data-header="Med"', elem => elem.clientHeight === 0);
+        assert.equal(medHidden, true, 'Med Columns were not hidden');
+
+        let minHidden = await page.$eval('td[data-header="Min"', elem => elem.clientHeight === 0);
+        assert.equal(minHidden, true, 'Min Columns were not hidden');
+      });
+    });
+
+    // Show Average Price
+    // ------------------------------------------------------
+    describe('Show Average Price', async function() {
+      it('should show the average price paid for an item', async function() {
+        await toggleFeature('#toggleAveragePrice');
+
+        await Promise.all([
+          page.goto('https://www.discogs.com/Sascha-Dive-The-Basic-Collective-EP-Part-1-Of-3/release/950480', { waitUntil: 'networkidle2' }),
+          page.waitFor('.de-average-price')
+        ]);
+
+        let hasAverage = await page.$eval('.de-average-price', elem => elem.classList.contains('de-average-price'));
+        assert.equal(hasAverage, true, 'Price average was not rendered');
+      });
+    });
+
+    // Text Format Shortcuts
+    // ------------------------------------------------------
+    describe('Text Format Shortcuts', async function() {
+      it('should render text format shortcuts', async function() {
+
+        await Promise.all([
+          page.waitFor('.quick-button')
+        ]);
+
+        let hasShortcuts = await page.$eval('.quick-button', elem => elem.classList.contains('quick-button'));
+        assert.equal(hasShortcuts, true, 'Text Format Shortcuts were not rendered');
+      });
+    });
+
+    // Large BAOI Fields
+    // ------------------------------------------------------
+    describe('Large BAOI Fields', async function() {
+      it('should render large BAOI fields', async function() {
+        await toggleFeature('#toggleBaoiFields');
+
+        await Promise.all([
+          page.goto('https://www.discogs.com/release/edit/950480', { waitUntil: 'networkidle2' }),
+          page.waitFor('.clearfix_no_overflow')
+        ]);
+
+        let hasLargeFields = await page.$eval('td[data-ref-overview="barcode"] input', elem => elem.offsetWidth > 232);
+        assert.equal(hasLargeFields, true, 'Large BAOI fields were not rendered');
+      });
+    });
+
+    // Remove From Wantlist Shortcuts
+    // ------------------------------------------------------
+    describe('Remove From Wantlist Shortcuts', async function() {
+      it('should render the shortcut in a listing', async function() {
+        await toggleFeature('#toggleRemoveFromWantlist');
+
+        await Promise.all([
+          page.goto('https://www.discogs.com/sell/mywants', { waitUntil: 'networkidle2' }),
+          page.waitFor('.de-remove-wantlist')
+        ]);
+
+        let hasShortcuts = await page.$eval('.de-remove-wantlist', elem => elem.classList.contains('de-remove-wantlist'));
+        assert.equal(hasShortcuts, true, 'Shortcuts were not rendered');
+      });
+
+      it('should render a prompt when clicked', async function() {
+        page.waitFor('.de-remove-wantlist');
+        page.click('.de-remove-wantlist');
+
+        await Promise.all([
+          page.waitFor('.de-remove-yes'),
+          page.waitFor('.de-remove-no')
+        ]);
+
+        let hasPrompt = await page.$eval('.de-remove-yes', elem => elem.classList.contains('de-remove-yes'));
+        assert.equal(hasPrompt, true, 'Prompt was not displayed');
       });
     });
 
