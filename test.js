@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
 
-const username = process.argv[2];
-const password = process.argv[3];
+const username = process.env.USERNAME || null;
+const password = process.env.PASSWORD || null;
 const url = 'https://www.discogs.com/sell/list';
 const path = require('path').join(__dirname, './dist');
 const config = {
@@ -547,7 +547,7 @@ describe('Functional Testing', function() {
       await toggleFeature('#toggleFilterMediaCondition');
 
       await Promise.all([
-        page.goto('https://www.discogs.com/sell/list'),
+        page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
         page.waitFor('.mint.bold')
       ]);
 
@@ -557,7 +557,7 @@ describe('Functional Testing', function() {
       await toggleFeature('#toggleEverlastingMarket');
 
       await Promise.all([
-        page.goto('https://www.discogs.com/sell/list'),
+        page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
         page.waitFor('.mint.bold'),
         page.waitFor('a.pagination_next')
       ]);
@@ -566,7 +566,7 @@ describe('Functional Testing', function() {
       assert.equal(conditions, true, 'Items were not hidden based on condition');
 
       await page.$eval('a.pagination_next', elem => elem.click());
-
+      await page.waitFor(3000);
       conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
       assert.equal(conditions, true, 'Items were not hidden based on condition after using native navigation');
     });
@@ -792,21 +792,101 @@ describe('Functional Testing', function() {
     });
   });
 
-  after(async function() {
-    await browser.close();
-  });
+  if ( username && password ) {
+    // auth testing
+    describe('Authenticated feature testing', async function() {
+      it('should authenticate the test user', async function() {
+        await page.goto('https://auth.discogs.com/login?service=https%3A//www.discogs.com/login%3Freturn_to%3D%252Fmy');
+        await page.type('#username', username);
+        await page.type('#password', password);
+        await page.click('button.green');
+
+        let pageUrl = await page.url();
+        assert.equal(pageUrl, 'https://www.discogs.com/my', 'Login was unsuccessful');
+      });
+    });
+
+    // Random Item Button
+    // ------------------------------------------------------
+    describe('Random Item Button', async function() {
+      it('should append an icon to the nav bar', async function() {
+        await toggleFeature('#toggleRandomItem');
+        await Promise.all([
+          page.goto('https://www.discogs.com/my', { waitUntil: 'networkidle2' }),
+          page.waitFor('.de-random-item')
+        ]);
+        let hasIcon = await page.$eval('.de-random-item', elem => elem.classList.contains('de-random-item'));
+        assert.equal(hasIcon, true, 'Random Item Button was not appended to nav');
+      });
+
+      it('should get a random item when clicked', async function() {
+        await page.click('.de-random-item');
+        let randomItem = false;
+        await page.waitForResponse(response => {
+          if ( response.request().url().includes('/collection') ) {
+            randomItem = true;
+            return randomItem;
+          }
+          assert.equal(randomItem, true, 'Random item was not fetched');
+        });
+      });
+    });
+
+    // Notes Counter
+    // ------------------------------------------------------
+    describe('Notes Counter', async function() {
+      it('should append the counter to the In Collection box', async function() {
+        await page.waitFor(3000);
+        let pageUrl = await page.url();
+
+        await Promise.all([
+          page.goto(pageUrl, { waitUntil: 'networkidle2' }),
+          page.waitFor('[data-field-name="Notes"]')
+        ]);
+
+        await page.$eval('[data-field-name="Notes"] .notes_show', elem => elem.click());
+
+        await page.waitFor('.de-notes-count');
+
+        let counter = await page.$eval('.de-notes-count', elem => elem.classList.contains('de-notes-count'));
+        assert.equal(counter, true, 'Counter was not appended to Notes');
+      });
+
+      it('should count the characters in a note', async function() {
+
+        await Promise.all([
+          await page.waitFor('.notes_textarea'),
+          await page.type('.notes_textarea', 'METALLICA!!!')
+        ]);
+
+        let counter = await page.$eval('.de-notes-count', elem => elem.textContent === '12 / 255');
+        assert.equal(counter, true, 'Counter did not change after typing');
+      });
+    });
+
+    // Show Acutal Add Dates
+    // ------------------------------------------------------
+    describe('Show Actual Add Dates', async function() {
+      it('should show the date the item was added', async function() {
+        await toggleFeature('#toggleAbsoluteDate');
+        await page.waitFor(3000);
+        let pageUrl = await page.url();
+        await Promise.all([
+          page.goto(pageUrl, { waitUntil: 'networkidle2' }),
+          page.waitFor('.cw_block_timestamp')
+        ]);
+
+        let actualDate = await page.$eval('.cw_block_timestamp span', elem => elem.dataset.approx.includes('ago'));
+        assert.equal(actualDate, true, 'Actual date markup was not rendered');
+      });
+    });
+
+    after(async function() {
+      await browser.close();
+    });
+  } else {
+    after(async function() {
+      await browser.close();
+    });
+  }
 });
-
-// puppeteer.launch(config).then(async browser => {
-
-//   Testing popup menu
-
-//   await page.goto(url);
-//   await page.type('#username', username);
-//   await page.type('#password', password);
-//   await page.click('button.green');
-
-//   currencyConverter = await page.evaluate(() => document.querySelectorAll('.currency-converter').length);
-//   console.log('Converter', currencyConverter);
-//   await browser.close();
-// });
