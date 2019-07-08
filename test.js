@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
-
 const username = process.env.USERNAME || null;
 const password = process.env.PASSWORD || null;
+// Extension path
 const path = require('path').join(__dirname, './dist');
+// Browser configuration
 const config = {
   headless: false,
   ignoreHTTPSErrors: true,
@@ -14,7 +15,9 @@ const config = {
   ]
 };
 
-let browser, page, id;
+let browser,
+    page,
+    id;
 
 /**
  * Instantiates the extension in the browser.
@@ -31,9 +34,8 @@ async function boot() {
   setupPage.on('request', interceptedRequest => {
     if (interceptedRequest.url().startsWith('https://www.google-analytics.com/')) {
       interceptedRequest.abort();
-      console.log('\nBlocked Request:\n', interceptedRequest.url(), '\n');
     } else {
-        interceptedRequest.continue();
+      interceptedRequest.continue();
     }
   });
 
@@ -239,8 +241,9 @@ describe('Functional Testing', function() {
           gotRates = true;
           return gotRates;
         }
-        assert.equal(gotRates, true, 'Converter rates were not fetched');
       });
+
+      assert.equal(gotRates, true, 'Converter rates were not fetched');
     });
 
     it('should convert currencies', async function() {
