@@ -2,7 +2,7 @@ const assert = require('assert');
 
 let test = async function(page) {
   await Promise.all([
-    page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
+    page.goto('https://www.discogs.com/sell/list'),
     page.waitFor('body')
   ]);
 

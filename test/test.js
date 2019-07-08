@@ -115,15 +115,17 @@ async function openConfig(file) {
  * @returns {undefined}
  */
 async function toggleFeature(featureID) {
+
   let popup = await openPopup();
 
   await Promise.all([
     popup.waitForSelector(`${featureID}`, { timeout: 10000 }),
     popup.waitForSelector(`${featureID} + label .onoffswitch-switch`),
-    popup.waitForSelector(`${featureID}`)
+    popup.waitForSelector(`${featureID}`),
   ]);
 
   await popup.$(`${featureID} + label .onoffswitch-switch`);
+
   let checkbox = await popup.$(`${featureID}`);
 
   await popup.$eval(`${featureID} + label .onoffswitch-switch`, elem => elem.click());
@@ -133,7 +135,7 @@ async function toggleFeature(featureID) {
   popup.close();
 }
 
-module.exports = { toggleFeature, openConfig };
+module.exports = { toggleFeature, openConfig, openPopup };
 
 // ========================================================
 // Functional Tests
@@ -257,404 +259,132 @@ describe('Functional Testing', function() {
     });
   });
 
-  // // Release Scanner
-  // // ------------------------------------------------------
-  // describe('Release Scanner', async function() {
-  //   it('should append the Scan Releases button', async function() {
-  //     await toggleFeature('#toggleReleaseScanner');
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/artist/5269363-Trance-Wax', { waitUntil: 'networkidle2' }),
-  //       page.waitFor('.de-scan-releases')
-  //     ]);
-
-  //     let hasScanButton = await page.$eval('.de-scan-releases', elem => elem.classList.contains('de-scan-releases'));
-  //     assert.equal(hasScanButton, true, 'Scan Releases button was not appended');
-  //   });
-
-  //   it('Should scan releases when clicked', async function() {
-
-  //     await page.waitFor('.de-scan-releases');
-  //     await page.$eval('.de-scan-releases', elem => elem.click());
-  //     let scanText = await page.$eval('.de-scan-releases', elem => elem.textContent == 'Scanning...');
-  //     assert.equal(scanText, true, 'Button text was not updated when clicked');
-
-  //     let isScanning;
-
-  //     await page.waitForResponse(response => {
-  //       if ( response.request().resourceType() !== undefined ) {
-  //         isScanning = true;
-  //         return isScanning;
-  //       }
-  //     });
-
-  //     assert.equal(isScanning, true, 'Scan was unsuccessful');
-  //   });
-  // });
-
-  // // Release Ratings
-  // // ------------------------------------------------------
-  // describe('Release Ratings', async function() {
-
-  //   it('should insert rating links into listings in the Marketplace', async function() {
-  //     await toggleFeature('#toggleReleaseRatings');
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
-  //       page.waitFor('.de-rating-link')
-  //     ]);
-  //     let hasRatingLinks = await page.$eval('.de-rating-link', elem => elem.classList.contains('de-rating-link'));
-  //     assert.equal(hasRatingLinks, true, 'Rating links were not rendered');
-  //   });
-
-  //   it('should render the preloader when clicked', async function() {
-  //     await page.$eval('.de-rating-link', elem => elem.click());
-  //     await page.waitFor('i.preloader');
-  //     let preloader = await page.$eval('i.preloader', elem => elem.classList.contains('preloader'));
-  //     assert.equal(preloader, true, 'Preloader was not rendered');
-  //   });
-
-  //   it('should fetch the release rating', async function() {
-  //     await page.$eval('.de-rating-link', elem => elem.click());
-  //     let isFetching;
-
-  //     await page.waitForResponse(response => {
-  //       if ( response.request().resourceType() !== undefined ) {
-  //         isFetching = true;
-  //         return isFetching;
-  //       }
-  //     });
-
-  //     assert.equal(isFetching, true, 'Fetch was not initiated');
-  //   });
-  // });
-
-  // // Quick Search
-  // // ------------------------------------------------------
-  // describe('Quick Search', async function() {
-  //   it('should wrap the release title in a span', async function() {
-  //     await toggleFeature('#toggleQuickSearch');
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/Lou-Karsh-Phantom-Structures/release/13705345'),
-  //       page.waitFor('.de-one-click')
-  //     ]);
-  //     let hasQuickSearch = await page.$eval('.de-one-click', elem => elem.classList.contains('de-one-click'));
-  //     assert.equal(hasQuickSearch, true, 'Quick Search span was not rendered');
-  //   });
-  // });
-
-  // // List Items In New Tabs
-  // // ------------------------------------------------------
-  // describe('List Items In New Tabs', async function() {
-  //   it('should open list items in new tabs', async function() {
-  //     await toggleFeature('#toggleListsInTabs');
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/lists/2019-Favorites/476255'),
-  //       page.waitFor('.de-list-new-tabs')
-  //     ]);
-
-  //     let hasNewWindow = await page.$eval('.de-list-new-tabs', elem => elem.classList.contains('de-list-new-tabs'));
-  //     assert.equal(hasNewWindow, true, 'List anchor elements are missing target attribute');
-  //   });
-  // });
-
-  // // Filter Shipping Countries
-  // // ------------------------------------------------------
-  // describe('Filter Shipping Countries', async function() {
-  //   it('should filter items based on their country of origin', async function() {
-
-  //     await toggleFeature('#toggleFilterShippingCountry');
-  //     let configPage = await openConfig('filter-shipping-country');
-  //     await configPage.waitFor('.country-input');
-  //     await configPage.type('.restore-input', '["United States", "United Kingdom", "Germany", "France"]');
-  //     await configPage.click('.restore .btn.btn-green');
-  //     await configPage.close();
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list'),
-  //       page.waitFor('.de-page-stamp'),
-  //       page.waitFor('.de-hide-country')
-  //     ]);
-
-  //     let countryInfo = await page.$eval('.country-list-info', elem => elem.classList.contains('country-list-info'));
-
-  //     assert.equal(countryInfo, true, 'Country info icon was not rendered');
-
-  //     let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
-  //     assert.equal(hiddenCountry, true, 'Country was not hidden');
-  //   });
-
-  //   it('should filter items based on their country of origin using native navigation', async function() {
-
-  //     await toggleFeature('#toggleEverlastingMarket');
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list'),
-  //       page.waitFor('.de-hide-country'),
-  //       page.waitFor('a.pagination_next'),
-  //       page.waitFor('.country-list-info')
-  //     ]);
-
-  //     let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
-  //     assert.equal(hiddenCountry, true, 'Country was not hidden after toggling Everlasting Marketplace.');
-
-  //     await page.$eval('a.pagination_next', elem => elem.click());
-  //     hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
-  //     assert.equal(hiddenCountry, true, 'Country was not hidden on Next click.');
-
-  //     await toggleFeature('#toggleEverlastingMarket');
-  //   });
-  // });
-
-  // // Filter Media Condition
-  // // ------------------------------------------------------
-  // describe('Filter Media Condition', async function() {
-  //   it('should filter items based on media condition', async function() {
-  //     await toggleFeature('#toggleFilterMediaCondition');
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
-  //       page.waitFor('.mint.bold')
-  //     ]);
-
-  //     let conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
-  //     assert.equal(conditions, true, 'Items were not hidden based on condition');
-
-  //     await toggleFeature('#toggleEverlastingMarket');
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
-  //       page.waitFor('.mint.bold'),
-  //       page.waitFor('a.pagination_next')
-  //     ]);
-
-  //     conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
-  //     assert.equal(conditions, true, 'Items were not hidden based on condition');
-
-  //     await page.$eval('a.pagination_next', elem => elem.click());
-  //     await page.waitFor(3000);
-  //     conditions = await page.$$eval('tr.shortcut_navigable.de-hide-media', elems => elems.filter(e => e.$eval('.mint')).length === 0);
-  //     assert.equal(conditions, true, 'Items were not hidden based on condition after using native navigation');
-  //   });
-  // });
-
-  // // Tag Seller Repuation
-  // // ------------------------------------------------------
-  // describe('Tag Seller Repuation', async function() {
-  //   it('should tag sellers with low repuations', async function() {
-
-  //     let popup = await browser.newPage();
-  //     await Promise.all([
-  //       await popup.goto(`chrome-extension://${id}/html/popup.html`),
-  //       await popup.setRequestInterception(true),
-  //       await popup.setViewport({ width: 1280, height: 768 })
-  //     ]);
-  //     let featureID = '#toggleSellerRep';
-
-  //     await Promise.all([
-  //       popup.waitForSelector(`${featureID}`, { timeout: 10000 }),
-  //       popup.waitForSelector(`${featureID} + label .onoffswitch-switch`),
-  //       popup.waitForSelector(`${featureID}`),
-  //       popup.waitFor('#percent')
-  //     ]);
-
-  //     await popup.evaluate(() => { document.querySelector('#percent').value = 100; });
-  //     await popup.$(`${featureID} + label .onoffswitch-switch`);
-  //     await popup.$eval(`${featureID} + label .onoffswitch-switch`, elem => elem.click());
-
-  //     await popup.close();
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=250&page=1'),
-  //       page.waitFor('.de-seller-rep-icon')
-  //     ]);
-
-  //     let hasIcons = await page.$eval('.de-seller-rep-icon', elem => elem.classList.contains('de-seller-rep-icon'));
-  //     assert.equal(hasIcons, true, 'Seller Rep Icons were not rendered');
-  //   });
-  // });
-
-  // // Inventory Ratings
-  // // ------------------------------------------------------
-  // describe('Inventory Ratings', async function() {
-  //   it('should highlight ratings above a specified rating', async function() {
-
-  //     let popup = await browser.newPage();
-  //     await Promise.all([
-  //       await popup.goto(`chrome-extension://${id}/html/popup.html`),
-  //       await popup.setRequestInterception(true),
-  //       await popup.setViewport({ width: 1280, height: 768 })
-  //     ]);
-  //     let featureID = '#toggleInventoryRatings';
-
-  //     await Promise.all([
-  //       popup.waitForSelector(`${featureID}`, { timeout: 10000 }),
-  //       popup.waitForSelector(`${featureID} + label .onoffswitch-switch`),
-  //       popup.waitForSelector(`${featureID}`),
-  //       popup.waitFor('#ratingsValue')
-  //     ]);
-
-  //     await popup.evaluate(() => { document.querySelector('#ratingsValue').value = 1.25; });
-  //     await popup.$(`${featureID} + label .onoffswitch-switch`);
-  //     await popup.$eval(`${featureID} + label .onoffswitch-switch`, elem => elem.click());
-
-  //     await popup.close();
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/seller/letitberarities/profile'),
-  //       page.waitFor('.de-inventory-rating')
-  //     ]);
-
-  //     let hasRatingHighlights = await page.$eval('.de-inventory-rating', elem => elem.classList.contains('de-inventory-rating'));
-  //     assert.equal(hasRatingHighlights, true, 'Inventory ratings were not rendered');
-  //   });
-  // });
-
-  // // Filter Sleeve Conditions
-  // // ------------------------------------------------------
-  // describe('Filter Sleeve Conditions', async function() {
-  //   it('should filter items below a specified condition', async function() {
-
-  //     let popup = await browser.newPage();
-  //     await Promise.all([
-  //       await popup.goto(`chrome-extension://${id}/html/popup.html`),
-  //       await popup.setRequestInterception(true),
-  //       await popup.setViewport({ width: 1280, height: 768 })
-  //     ]);
-
-  //     let featureID = '#toggleFilterSleeveCondition';
-
-  //     await Promise.all([
-  //       popup.waitForSelector(`${featureID}`, { timeout: 10000 }),
-  //       popup.waitForSelector(`${featureID} + label .onoffswitch-switch`),
-  //       popup.waitForSelector(`${featureID}`),
-  //       popup.waitFor('#sleeveConditionValue')
-  //     ]);
-
-  //     await popup.select('#sleeveConditionValue', '7');
-  //     await popup.close();
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/seller/letitberarities/profile'),
-  //       page.waitFor('.de-hide-sleeve')
-  //     ]);
-
-  //     let hasHiddenSleeves = await page.$eval('.de-hide-sleeve', elem => elem.classList.contains('de-hide-sleeve'));
-  //     assert.equal(hasHiddenSleeves, true, 'Items were not hidden');
-  //   });
-  // });
-
-  // // Favorite Sellers
-  // // ------------------------------------------------------
-  // describe('Favorite Sellers', async function() {
-  //   it('should mark sellers as favorites', async function() {
-  //     await page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=50&page=1');
-
-  //     await page.waitFor('.seller_info .seller_label + strong a');
-
-  //     let sellerNames = await page.$$eval('.seller_info .seller_label + strong a', elems => {
-  //       let sellerNames = [];
-  //       elems.forEach(n => sellerNames.push(n.textContent));
-  //       return sellerNames;
-  //     });
-
-  //     let configPage = await openConfig('favorite-sellers');
-
-  //     await configPage.type('.restore-input', JSON.stringify(sellerNames));
-  //     await configPage.click('.restore .btn.btn-green');
-  //     await configPage.close();
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list'),
-  //       page.waitFor('.de-favorite-seller')
-  //     ]);
-
-  //     let hasFavorites = await page.$eval('.de-favorite-seller', elem => elem.classList.contains('de-favorite-seller'));
-  //     assert.equal(hasFavorites, true, 'Sellers were not marked as favorites');
-  //   });
-
-  //   it('should mark sellers as favorites on pagination clicks', async function() {
-
-  //     await toggleFeature('#toggleEverlastingMarket');
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=25&page=1'),
-  //       page.waitFor('a.pagination_next')
-  //     ]);
-
-  //     await page.$eval('a.pagination_next', elem => elem.click());
-
-  //     await Promise.all([
-  //       page.waitFor('.de-favorite-seller')
-  //     ]);
-
-  //     let hasBlocked = await page.$eval('.de-favorite-seller', elem => elem.classList.contains('de-favorite-seller'));
-  //     assert.equal(hasBlocked, true, 'Sellers were not marked as favorites on next page click');
-  //   });
-
-  //   it('should reset the favorite sellers list when done', async function() {
-  //     // reset favorites list so theres no conflict with blocked sellers tests
-  //     let configPage = await openConfig('favorite-sellers');
-  //     await configPage.type('.restore-input', '[]');
-  //     await configPage.click('.restore .btn.btn-green');
-  //     await configPage.close();
-  //   });
-  // });
-
-  // // Block Sellers
-  // // ------------------------------------------------------
-  // describe('Block Sellers', async function() {
-  //   it('should mark sellers as blocked', async function() {
-
-  //     await page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=50&page=1');
-
-  //     await page.waitFor('.seller_info .seller_label + strong a');
-
-  //     let sellerNames = await page.$$eval('.seller_info .seller_label + strong a', elems => {
-  //       let sellerNames = [];
-  //       elems.forEach(n => sellerNames.push(n.textContent));
-  //       return sellerNames;
-  //     });
-
-  //     let configPage = await openConfig('block-sellers');
-
-  //     await configPage.type('.restore-input', JSON.stringify(sellerNames));
-  //     await configPage.click('.restore .btn.btn-green');
-  //     await configPage.close();
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list'),
-  //       page.waitFor('.blocked-seller')
-  //     ]);
-
-  //     let hasBlocked = await page.$eval('.blocked-seller', elem => elem.classList.contains('blocked-seller'));
-  //     assert.equal(hasBlocked, true, 'Sellers were not marked as blocked');
-  //   });
-
-  //   it('should mark sellers as blocked on pagination clicks', async function() {
-
-  //     await toggleFeature('#toggleEverlastingMarket');
-
-  //     await Promise.all([
-  //       page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=25&page=1'),
-  //       page.waitFor('a.pagination_next')
-  //     ]);
-
-  //     await page.$eval('a.pagination_next', elem => elem.click());
-
-  //     await Promise.all([
-  //       page.waitFor('.blocked-seller')
-  //     ]);
-
-  //     let hasBlocked = await page.$eval('.blocked-seller', elem => elem.classList.contains('blocked-seller'));
-  //     assert.equal(hasBlocked, true, 'Sellers were not marked as blocked on next page click');
-  //   });
-
-  //   it('should reset the blocked sellers list when done', async function() {
-  //     // reset blocked list so theres no conflict with other tests
-  //     let configPage = await openConfig('block-sellers');
-  //     await configPage.type('.restore-input', '[]');
-  //     await configPage.click('.restore .btn.btn-green');
-  //     await configPage.close();
-  //   });
-  // });
+  // Release Scanner
+  // ------------------------------------------------------
+  describe('Release Scanner', async function() {
+    it('should append the Scan Releases button', async function() {
+      await require('./unauthenticated/release-scanner').addButton(page);
+    });
+
+    it('should scan releases when clicked', async function() {
+      await require('./unauthenticated/release-scanner').scan(page);
+    });
+  });
+
+  // Release Ratings
+  // ------------------------------------------------------
+  describe('Release Ratings', async function() {
+
+    it('should insert rating links into listings in the Marketplace', async function() {
+      await require('./unauthenticated/release-ratings').addLinks(page);
+    });
+
+    it('should render the preloader when clicked', async function() {
+      await require('./unauthenticated/release-ratings').preloader(page);
+    });
+
+    it('should fetch the release rating', async function() {
+      await require('./unauthenticated/release-ratings').fetchRelease(page);
+    });
+  });
+
+  // Quick Search
+  // ------------------------------------------------------
+  describe('Quick Search', async function() {
+    it('should wrap the release title in a span', async function() {
+      await require('./unauthenticated/quick-search').test(page);
+    });
+  });
+
+  // List Items In New Tabs
+  // ------------------------------------------------------
+  describe('List Items In New Tabs', async function() {
+    it('should open list items in new tabs', async function() {
+      await require('./unauthenticated/list-items-in-tabs').test(page);
+    });
+  });
+
+  // Filter Shipping Countries
+  // ------------------------------------------------------
+  describe('Filter Shipping Countries', async function() {
+    it('should filter items based on their country of origin', async function() {
+      await require('./unauthenticated/filter-shipping-country').filter(page);
+    });
+
+    it('should filter items based on their country of origin using native navigation', async function() {
+      await require('./unauthenticated/filter-shipping-country').filterNative(page);
+    });
+  });
+
+  // Filter Media Condition
+  // ------------------------------------------------------
+  describe('Filter Media Condition', async function() {
+    it('should filter items based on media condition', async function() {
+      await require('./unauthenticated/filter-media-condition').filter(page);
+    });
+
+    it('should filter items based on media condition using native navigation', async function() {
+      await require('./unauthenticated/filter-shipping-country').filterNative(page);
+    });
+  });
+
+  // Tag Seller Repuation
+  // ------------------------------------------------------
+  describe('Tag Seller Repuation', async function() {
+    it('should tag sellers with low repuations', async function() {
+      await require('./unauthenticated/seller-rep').test(page);
+    });
+  });
+
+  // Inventory Ratings
+  // ------------------------------------------------------
+  describe('Inventory Ratings', async function() {
+    it('should highlight ratings above a specified rating', async function() {
+      await require('./unauthenticated/inventory-ratings').test(page);
+    });
+  });
+
+  // Filter Sleeve Conditions
+  // ------------------------------------------------------
+  describe('Filter Sleeve Conditions', async function() {
+    it('should filter items below a specified condition', async function() {
+      await require('./unauthenticated/filter-sleeve-condition').test(page);
+    });
+  });
+
+  // Favorite Sellers
+  // ------------------------------------------------------
+  describe('Favorite Sellers', async function() {
+    it('should mark sellers as favorites', async function() {
+      await require('./unauthenticated/favorite-sellers').mark(page);
+    });
+
+    it('should mark sellers as favorites on pagination clicks', async function() {
+      await require('./unauthenticated/favorite-sellers').markNative(page);
+    });
+
+    it('should reset the favorite sellers list when done', async function() {
+      // reset favorites list so theres no conflict with blocked sellers tests
+      await require('./unauthenticated/favorite-sellers').reset(page);
+    });
+  });
+
+  // Block Sellers
+  // ------------------------------------------------------
+  describe('Block Sellers', async function() {
+    it('should mark sellers as blocked', async function() {
+      await require('./unauthenticated/block-sellers').block(page);
+    });
+
+    it('should mark sellers as blocked on pagination clicks', async function() {
+      await require('./unauthenticated/block-sellers').blockNative(page);
+    });
+
+    it('should reset the blocked sellers list when done', async function() {
+      // reset blocked list so theres no conflict with other tests
+      await require('./unauthenticated/block-sellers').reset(page);
+    });
+  });
 
   // if ( username && password ) {
   //   // auth testing
