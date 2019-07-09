@@ -372,6 +372,7 @@ describe('Functional Testing', function() {
   // Block Sellers
   // ------------------------------------------------------
   describe('Block Sellers', async function() {
+    // TODO: store current blocklist and restore afterwards
     it('should mark sellers as blocked', async function() {
       await require('./unauthenticated/block-sellers').block(page);
     });
