@@ -386,215 +386,105 @@ describe('Functional Testing', function() {
     });
   });
 
-  // if ( username && password ) {
-  //   // auth testing
-  //   describe('Authenticated feature testing', async function() {
-  //     it('should authenticate the test user', async function() {
-  //       await page.goto('https://auth.discogs.com/login?service=https%3A//www.discogs.com/login%3Freturn_to%3D%252Fmy');
-  //       await page.type('#username', username);
-  //       await page.type('#password', password);
-  //       await page.click('button.green');
+  // Auth Testing
+  // ------------------------------------------------------
+  if ( username && password ) {
+    describe('Authenticated feature testing', async function() {
+      it('should authenticate the test user', async function() {
+        await require('./authenticated/login').test(page, username, password);
+      });
+    });
 
-  //       let pageUrl = await page.url();
-  //       assert.equal(pageUrl, 'https://www.discogs.com/my', 'Login was unsuccessful');
-  //     });
-  //   });
+    // Random Item Button
+    // ------------------------------------------------------
+    describe('Random Item Button', async function() {
+      it('should append an icon to the nav bar', async function() {
+        await require('./authenticated/random-item').append(page);
+      });
 
-  //   // Random Item Button
-  //   // ------------------------------------------------------
-  //   describe('Random Item Button', async function() {
-  //     it('should append an icon to the nav bar', async function() {
-  //       await toggleFeature('#toggleRandomItem');
-  //       await Promise.all([
-  //         page.goto('https://www.discogs.com/my', { waitUntil: 'networkidle2' }),
-  //         page.waitFor('.de-random-item')
-  //       ]);
-  //       let hasIcon = await page.$eval('.de-random-item', elem => elem.classList.contains('de-random-item'));
-  //       assert.equal(hasIcon, true, 'Random Item Button was not appended to nav');
-  //     });
+      it('should get a random item when clicked', async function() {
+        await require('./authenticated/random-item').random(page);
+      });
+    });
 
-  //     it('should get a random item when clicked', async function() {
-  //       await page.click('.de-random-item');
-  //       let randomItem = false;
-  //       await page.waitForResponse(response => {
-  //         if ( response.request().url().includes('/collection') ) {
-  //           randomItem = true;
-  //           return randomItem;
-  //         }
-  //         assert.equal(randomItem, true, 'Random item was not fetched');
-  //       });
-  //     });
-  //   });
+    // Notes Counter
+    // ------------------------------------------------------
+    describe('Notes Counter', async function() {
+      it('should append the counter to the In Collection box', async function() {
+        await require('./authenticated/notes-counter').appendCounter(page);
+      });
 
-  //   // Notes Counter
-  //   // ------------------------------------------------------
-  //   describe('Notes Counter', async function() {
-  //     it('should append the counter to the In Collection box', async function() {
-  //       await page.waitFor(3000);
-  //       let pageUrl = await page.url();
+      it('should count the characters in a note', async function() {
+        await require('./authenticated/notes-counter').count(page);
+      });
+    });
 
-  //       await Promise.all([
-  //         page.goto(pageUrl, { waitUntil: 'networkidle2' }),
-  //         page.waitFor('[data-field-name="Notes"]')
-  //       ]);
+    // Show Actual Add Dates
+    // ------------------------------------------------------
+    describe('Show Actual Add Dates', async function() {
+      it('should show the date the item was added', async function() {
+        await require('./authenticated/show-actual-dates').test(page);
+      });
+    });
 
-  //       await page.$eval('[data-field-name="Notes"] .notes_show', elem => elem.click());
+    // Collection Links In New Tabs
+    // ------------------------------------------------------
+    describe('Collection Links In New Tabs', async function() {
+      it('should open links from the React Collection in new tabs', async function() {
+        await require('./authenticated/collection-new-tabs').test(page);
+      });
+    });
 
-  //       await page.waitFor('.de-notes-count');
+    // Hide Min Med Max Columns
+    // ------------------------------------------------------
+    describe('Hide Min Med Max Columns', async function() {
+      it('should hide the Min, Med, Max columns in the React Collection', async function() {
+        await require('./authenticated/min-max-columns').test(page);
+      });
+    });
 
-  //       let counter = await page.$eval('.de-notes-count', elem => elem.classList.contains('de-notes-count'));
-  //       assert.equal(counter, true, 'Counter was not appended to Notes');
-  //     });
+    // Show Average Price
+    // ------------------------------------------------------
+    describe('Show Average Price', async function() {
+      it('should show the average price paid for an item', async function() {
+        await require('./authenticated/average-price').test(page);
+      });
+    });
 
-  //     it('should count the characters in a note', async function() {
+    // Text Format Shortcuts
+    // ------------------------------------------------------
+    describe('Text Format Shortcuts', async function() {
+      it('should render text format shortcuts', async function() {
+        await require('./authenticated/text-format-shortcuts').test(page);
+      });
+    });
 
-  //       await Promise.all([
-  //         await page.waitFor('.notes_textarea'),
-  //         await page.type('.notes_textarea', 'METALLICA!!!')
-  //       ]);
+    // Large BAOI Fields
+    // ------------------------------------------------------
+    describe('Large BAOI Fields', async function() {
+      it('should render large BAOI fields', async function() {
+        await require('./authenticated/baoi-fields').test(page);
+      });
+    });
 
-  //       let counter = await page.$eval('.de-notes-count', elem => elem.textContent === '12 / 255');
-  //       assert.equal(counter, true, 'Counter did not change after typing');
-  //     });
-  //   });
+    // Remove From Wantlist Shortcuts
+    // ------------------------------------------------------
+    describe('Remove From Wantlist Shortcuts', async function() {
+      it('should render the shortcut in a listing', async function() {
+        await require('./authenticated/remove-from-wantlist').render(page);
+      });
 
-  //   // Show Actual Add Dates
-  //   // ------------------------------------------------------
-  //   describe('Show Actual Add Dates', async function() {
-  //     it('should show the date the item was added', async function() {
-  //       await toggleFeature('#toggleAbsoluteDate');
-  //       await page.waitFor(3000);
-  //       let pageUrl = await page.url();
-  //       await Promise.all([
-  //         page.goto(pageUrl, { waitUntil: 'networkidle2' }),
-  //         page.waitFor('.cw_block_timestamp')
-  //       ]);
+      it('should render a prompt when clicked', async function() {
+        await require('./authenticated/remove-from-wantlist').prompt(page);
+      });
+    });
 
-  //       let actualDate = await page.$eval('.cw_block_timestamp span', elem => elem.dataset.approx.includes('ago'));
-  //       assert.equal(actualDate, true, 'Actual date markup was not rendered');
-  //     });
-  //   });
-
-  //   // Collection Links In New Tabs
-  //   // ------------------------------------------------------
-  //   describe('Collection Links In New Tabs', async function() {
-  //     it('should open links from the React Collection in new tabs', async function() {
-  //       await toggleFeature('#toggleCollectionNewTabs');
-
-  //       await Promise.all([
-  //         page.goto(`https://www.discogs.com/user/${process.env.USERNAME}/collection`, { waitUntil: 'networkidle2' }),
-  //         page.waitFor('.release-table-card a'),
-  //         page.waitFor('.FacetGroup a')
-  //       ]);
-
-  //       let release = await page.$eval('.release-table-card a', elem => elem.target === '_blank');
-  //       assert.equal(release, true, 'Anchors were not modified');
-  //     });
-  //   });
-
-  //   // Hide Min Med Max Columns
-  //   // ------------------------------------------------------
-  //   describe('Hide Min Med Max Columns', async function() {
-  //     it('should hide the Min, Med, Max columns in the React Collection', async function() {
-  //       await toggleFeature('#toggleMinMaxColumns');
-
-  //       await Promise.all([
-  //         page.goto(`https://www.discogs.com/user/${process.env.USERNAME}/collection`, { waitUntil: 'networkidle2' }),
-  //         page.waitFor('td[data-header="Max"')
-  //       ]);
-
-  //       let maxHidden = await page.$eval('td[data-header="Max"', elem => elem.clientHeight === 0);
-  //       assert.equal(maxHidden, true, 'Max Columns were not hidden');
-
-  //       let medHidden = await page.$eval('td[data-header="Med"', elem => elem.clientHeight === 0);
-  //       assert.equal(medHidden, true, 'Med Columns were not hidden');
-
-  //       let minHidden = await page.$eval('td[data-header="Min"', elem => elem.clientHeight === 0);
-  //       assert.equal(minHidden, true, 'Min Columns were not hidden');
-  //     });
-  //   });
-
-  //   // Show Average Price
-  //   // ------------------------------------------------------
-  //   describe('Show Average Price', async function() {
-  //     it('should show the average price paid for an item', async function() {
-  //       await toggleFeature('#toggleAveragePrice');
-
-  //       await Promise.all([
-  //         page.goto('https://www.discogs.com/Sascha-Dive-The-Basic-Collective-EP-Part-1-Of-3/release/950480', { waitUntil: 'networkidle2' }),
-  //         page.waitFor('.de-average-price')
-  //       ]);
-
-  //       let hasAverage = await page.$eval('.de-average-price', elem => elem.classList.contains('de-average-price'));
-  //       assert.equal(hasAverage, true, 'Price average was not rendered');
-  //     });
-  //   });
-
-  //   // Text Format Shortcuts
-  //   // ------------------------------------------------------
-  //   describe('Text Format Shortcuts', async function() {
-  //     it('should render text format shortcuts', async function() {
-
-  //       await Promise.all([
-  //         page.waitFor('.quick-button')
-  //       ]);
-
-  //       let hasShortcuts = await page.$eval('.quick-button', elem => elem.classList.contains('quick-button'));
-  //       assert.equal(hasShortcuts, true, 'Text Format Shortcuts were not rendered');
-  //     });
-  //   });
-
-  //   // Large BAOI Fields
-  //   // ------------------------------------------------------
-  //   describe('Large BAOI Fields', async function() {
-  //     it('should render large BAOI fields', async function() {
-  //       await toggleFeature('#toggleBaoiFields');
-
-  //       await Promise.all([
-  //         page.goto('https://www.discogs.com/release/edit/950480', { waitUntil: 'networkidle2' }),
-  //         page.waitFor('.clearfix_no_overflow')
-  //       ]);
-
-  //       let hasLargeFields = await page.$eval('td[data-ref-overview="barcode"] input', elem => elem.offsetWidth > 232);
-  //       assert.equal(hasLargeFields, true, 'Large BAOI fields were not rendered');
-  //     });
-  //   });
-
-  //   // Remove From Wantlist Shortcuts
-  //   // ------------------------------------------------------
-  //   describe('Remove From Wantlist Shortcuts', async function() {
-  //     it('should render the shortcut in a listing', async function() {
-  //       await toggleFeature('#toggleRemoveFromWantlist');
-
-  //       await Promise.all([
-  //         page.goto('https://www.discogs.com/sell/mywants', { waitUntil: 'networkidle2' }),
-  //         page.waitFor('.de-remove-wantlist')
-  //       ]);
-
-  //       let hasShortcuts = await page.$eval('.de-remove-wantlist', elem => elem.classList.contains('de-remove-wantlist'));
-  //       assert.equal(hasShortcuts, true, 'Shortcuts were not rendered');
-  //     });
-
-  //     it('should render a prompt when clicked', async function() {
-  //       page.waitFor('.de-remove-wantlist');
-  //       page.click('.de-remove-wantlist');
-
-  //       await Promise.all([
-  //         page.waitFor('.de-remove-yes'),
-  //         page.waitFor('.de-remove-no')
-  //       ]);
-
-  //       let hasPrompt = await page.$eval('.de-remove-yes', elem => elem.classList.contains('de-remove-yes'));
-  //       assert.equal(hasPrompt, true, 'Prompt was not displayed');
-  //     });
-  //   });
-
-  //   after(async function() {
-  //     await browser.close();
-  //   });
-  // } else {
     after(async function() {
       await browser.close();
     });
-  // }
+  } else {
+    after(async function() {
+      await browser.close();
+    });
+  }
 });
