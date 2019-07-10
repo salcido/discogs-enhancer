@@ -25,7 +25,7 @@ let render = async function(page) {
   popup.close();
 
   await Promise.all([
-    page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=250&page=1', { waitUntil: 'networkidle2' }),
+    page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
     page.waitFor('.de-price-link')
   ]);
 
@@ -36,7 +36,12 @@ let render = async function(page) {
 // Show price on click
 let showPrice = async function(page) {
 
-  await page.click('.de-price-link')
+  await Promise.all([
+    page.goto('https://www.discogs.com/sell/list', { waitUntil: 'networkidle2' }),
+    page.waitFor('.de-price-link')
+  ]);
+
+  await page.$eval('.de-price-link', elem => elem.click());
 
   await Promise.all([
     page.waitFor(1000),
@@ -44,7 +49,7 @@ let showPrice = async function(page) {
   ]);
 
   let didDisplayPrice = await page.$eval('.de-suggested-price', elem => elem.classList.contains('de-suggested-price'));
-  assert.equal(didDisplayPrice, true, 'Suggested price was not displayed');
+  assert.equal(didDisplayPrice, true, 'Suggested price was not displayed when clicked');
 };
 
 // Show prices on release page
@@ -56,7 +61,7 @@ let showReleasePrice = async function(page) {
   ]);
 
   let didDisplayPrice = await page.$eval('.de-suggested-price', elem => elem.classList.contains('de-suggested-price'));
-  assert.equal(didDisplayPrice, true, 'Suggested price was not displayed');
+  assert.equal(didDisplayPrice, true, 'Suggested prices were not displayed on release page');
 };
 
 module.exports = { render, showPrice, showReleasePrice };
