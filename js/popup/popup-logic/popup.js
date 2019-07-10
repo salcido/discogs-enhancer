@@ -59,11 +59,7 @@ function isDev() {
       blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null,
       development = __DEV__;
 
-  if ( development
-       && blocklist
-       && blocklist.list
-       && !blocklist.list.includes('github')
-       && !blocklist.list.includes('dropbox') ) {
+  if ( development ) {
     document.querySelector('.title h1').style.color = 'gold';
     document.querySelector('.title h1').textContent = 'Developer Edition';
   }
