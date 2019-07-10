@@ -122,12 +122,12 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 - [ ] Seller Items In Cart
 - [x] Show Actual Add Date
 - [x] Show Average Prices
-- [ ] Suggested Prices
+- [x] Suggested Prices
 - [x] Text Format Shortcuts
 
 #### UNAUTHENTICATED
 - [x] Block Sellers
-- [ ] Blurry Image Fix (unsure how to test at this point)
+- [x] Blurry Image Fix
 - [x] Favorite Sellers
 - [x] Filter Sleeve Condition
 - [x] Inventory Ratings
