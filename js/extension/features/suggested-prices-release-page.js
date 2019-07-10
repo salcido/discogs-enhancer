@@ -121,7 +121,7 @@ rl.ready(() => {
           // ------------------------------------------------------
           if ( !isFinite(percentage) ) {
 
-            spanOuter.className = 'converted_price de-price';
+            spanOuter.className = 'converted_price de-price de-suggested-price';
             spanOuter.innerHTML = rl.css.noData;
 
             listing.insertAdjacentHTML('beforeend', spanOuter);
@@ -163,7 +163,7 @@ rl.ready(() => {
           spanPrice = document.createElement('span');
 
       spanOuter.textContent = desc;
-      spanOuter.className = 'converted_price de-price';
+      spanOuter.className = 'converted_price de-price de-suggested-price';
 
       spanPct.textContent = `${plusmn} ${Math.abs(percentage)}% ${qt}`;
       spanPct.className = _class;
@@ -231,7 +231,7 @@ rl.ready(() => {
     function handleErrors() {
       document.querySelectorAll('td.item_price').forEach(price => {
         let span = document.createElement('span');
-        span.className = 'converted_price de-price';
+        span.className = 'converted_price de-price de-suggested-price';
         span.textContent = 'Error getting price data.';
         price.insertAdjacentElement('beforeEnd', span);
         rl.fade(price);
