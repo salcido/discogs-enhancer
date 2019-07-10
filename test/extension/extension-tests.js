@@ -1,5 +1,4 @@
 const assert = require('assert');
-
 // Search
 let search = async function(page) {
   let searchElem = await page.$('#searchbox');

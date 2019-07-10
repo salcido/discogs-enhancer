@@ -119,7 +119,7 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 - [x] Notes Counter
 - [x] Random Item
 - [x] Remove From Wantlist Shortcuts
-- [ ] Seller Items In Cart
+- [x] Seller Items In Cart
 - [x] Show Actual Add Date
 - [x] Show Average Prices
 - [x] Suggested Prices

@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const assert = require('assert');
 const username = process.env.USERNAME || null;
 const password = process.env.PASSWORD || null;
 // Extension path
@@ -509,10 +508,15 @@ describe('Functional Testing', function() {
       });
     });
 
-    // Feedback Notifications
-    // ------------------------------------------------------
-
     // Seller Items In Cart
+    // ------------------------------------------------------
+    describe('Show Sellers In Cart', async function() {
+      it('should display an icon next to the seller\'s name', async function() {
+        await require('./authenticated/seller-items-in-cart').test(page);
+      });
+    });
+
+    // Feedback Notifications
     // ------------------------------------------------------
 
     // Block Buyers
