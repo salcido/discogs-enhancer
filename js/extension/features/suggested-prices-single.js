@@ -158,7 +158,7 @@ rl.ready(() => {
       // No data from Discogs
       if ( !isFinite(percentage) ) {
 
-        spanOuter.className = 'converted_price de-price';
+        spanOuter.className = 'converted_price de-price de-suggested-price';
         spanOuter.innerHTML = rl.css.noData;
 
         target.insertAdjacentElement('beforeend', spanOuter);

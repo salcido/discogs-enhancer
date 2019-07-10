@@ -121,7 +121,7 @@
        * not have seller privileges
        * @type {string}
        */
-      pleaseRegister: '<span class="converted_price" ' +
+      pleaseRegister: '<span class="converted_price de-suggested-price" ' +
                       'style="margin-top: 10px !important; ' +
                       'border-top: 1px dotted gray !important; '+
                       'padding-top: 5px !important;">' +

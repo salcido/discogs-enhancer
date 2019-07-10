@@ -27,22 +27,16 @@ rl.ready(() => {
    */
   function addUIListeners() {
 
-    let next = document.querySelector('.image_gallery_nav.image_gallery_next'),
-        prev = document.querySelector('.image_gallery_nav.image_gallery_prev'),
-        slide = document.querySelectorAll('.image_gallery_slide img'),
-        thumb = document.querySelectorAll('.image_gallery_thumb');
+    let next = '.image_gallery_nav.image_gallery_next',
+        prev = '.image_gallery_nav.image_gallery_prev',
+        slide = '.image_gallery_slide img',
+        thumb = '.image_gallery_thumb',
+        elems = document.querySelectorAll([next, prev, slide, thumb].join(','));
 
-    // Next button
-    next.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
-    // Previous button
-    prev.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
-    // Image slide
-    slide.forEach(s => {
-      s.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
-    });
-    // Gallery thumbs
-    thumb.forEach(t => {
-      t.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
+    // Images/UI elements
+    elems.forEach(el => {
+      el.addEventListener('click', ()=> setTimeout(checkForZoom, 0));
+      el.classList.add('de-blurry-fix');
     });
   }
 
@@ -99,20 +93,17 @@ rl.ready(() => {
   // ========================================================
 
   if ( gallery ) {
-
+    // Testing class
+    gallery.classList.add('de-blurry-fix');
     // Add initial event listener to gallery element.
     // Delaying a bit so that the UI elements that
     // this script hooks on to have time to be
     // rendered in the DOM
     gallery.addEventListener('click', () => {
-
       setTimeout(() => {
-
         // Fix initial image that is loaded
         unblur();
-
         if ( !hasListeners ) {
-
           // add event listeners only once
           addUIListeners();
           hasListeners = true;
@@ -122,9 +113,7 @@ rl.ready(() => {
 
     // Left and Right key presses
     document.addEventListener('keyup', event => {
-
       let code = event.keyCode || event.which;
-
       if ( code === 39 || code === 37 ) { checkForZoom(); }
     });
 
@@ -140,11 +129,9 @@ rl.ready(() => {
         let img = document.querySelectorAll('#image_gallery_modal .image_gallery_slide_wrapper img.loaded');
 
         if ( img.length ) {
-
           clearInterval(int);
 
           setTimeout(() => {
-
             addUIListeners();
             unblur();
             hasListeners = true;

@@ -9,7 +9,7 @@
     "build:production": "NODE_ENV=production npm run build",
     "bump": "node version-bump.js",
     "test": "mocha",
-    "watch": "NODE_ENV=development npm run build"
+    "watch": "NODE_ENV=development webpack --watch --progress --colors"
   },
   "repository": {
     "type": "git",
