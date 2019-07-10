@@ -227,6 +227,18 @@ describe('Functional Testing', function() {
     });
   });
 
+  // Blurry Image Fix
+  // ------------------------------------------------------
+  describe('Fix Blurry Gallery Images', async function() {
+    it('should apply the .de-blurry-fix class to the thumb', async function() {
+      await require('./unauthenticated/blurry-image-fix').init(page);
+    });
+
+    it('should apply the .de-blurry-fix class to the images', async function() {
+      await require('./unauthenticated/blurry-image-fix').apply(page);
+    });
+  });
+
   // Rating Percentage
   // ------------------------------------------------------
   describe('Rating Percentage', async function() {
@@ -355,6 +367,7 @@ describe('Functional Testing', function() {
   // Favorite Sellers
   // ------------------------------------------------------
   describe('Favorite Sellers', async function() {
+    // TODO: store current favorite list and restore afterwards
     it('should mark sellers as favorites', async function() {
       await require('./unauthenticated/favorite-sellers').mark(page);
     });
@@ -479,6 +492,31 @@ describe('Functional Testing', function() {
         await require('./authenticated/remove-from-wantlist').prompt(page);
       });
     });
+
+    // Suggested Prices
+    // ------------------------------------------------------
+    describe('Suggested Prices', async function() {
+      it('should render links into the DOM', async function() {
+        await require('./authenticated/suggested-prices').render(page);
+      });
+
+      it('should display a price when clicked', async function() {
+        await require('./authenticated/suggested-prices').showPrice(page);
+      });
+
+      it('should display prices on a release page', async function() {
+        await require('./authenticated/suggested-prices').showReleasePrice(page);
+      });
+    });
+
+    // Feedback Notifications
+    // ------------------------------------------------------
+
+    // Seller Items In Cart
+    // ------------------------------------------------------
+
+    // Block Buyers
+    // ------------------------------------------------------
 
     after(async function() {
       await browser.close();
