@@ -205,8 +205,8 @@ describe('Functional Testing', function() {
   // ------------------------------------------------------
   describe('Everlasting Marketplace', async function() {
     it('renders EM headers in the DOM', async function() {
-      // TODO: test page loading on scroll
       await require('./unauthenticated/everlasting-marketplace').test(page);
+      await require('./unauthenticated/everlasting-marketplace').scroll(page);
     });
   });
 
@@ -366,7 +366,6 @@ describe('Functional Testing', function() {
   // Favorite Sellers
   // ------------------------------------------------------
   describe('Favorite Sellers', async function() {
-    // TODO: store current favorite list and restore afterwards
     it('should mark sellers as favorites', async function() {
       await require('./unauthenticated/favorite-sellers').mark(page);
     });
@@ -384,7 +383,6 @@ describe('Functional Testing', function() {
   // Block Sellers
   // ------------------------------------------------------
   describe('Block Sellers', async function() {
-    // TODO: store current blocklist and restore afterwards
     it('should mark sellers as blocked', async function() {
       await require('./unauthenticated/block-sellers').block(page);
     });
