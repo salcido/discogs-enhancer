@@ -105,52 +105,53 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 ***
 
 ## Functional Tests
-<details><summary>Test Checklist</summary>
-<p>
+<details>
+  <summary>Test Checklist (34/38)</summary>
+  <p>
 
-#### AUTHENTICATED
-- [ ] Better Collection UI
-- [ ] Block Buyers
-- [x] Collection In New Tabs
-- [ ] Everlasting Collection
-- [ ] Feedback Notifications
-- [x] Hide Min/Med/Max columns
-- [x] Larger BAOI Fields
-- [x] Notes Counter
-- [x] Random Item
-- [x] Remove From Wantlist Shortcuts
-- [x] Seller Items In Cart
-- [x] Show Actual Add Date
-- [x] Show Average Prices
-- [x] Suggested Prices
-- [x] Text Format Shortcuts
+  #### AUTHENTICATED
+  - [ ] Better Collection UI (Requires 2500+ items in Collection)
+  - [ ] Block Buyers (Requires user w/ sales history)
+  - [x] Collection In New Tabs
+  - [ ] Everlasting Collection (Requires 2500+ items in Collection)
+  - [ ] Feedback Notifications (Requires user w/ Buyer/Seller feedback)
+  - [x] Hide Min/Med/Max columns
+  - [x] Larger BAOI Fields
+  - [x] Notes Counter
+  - [x] Random Item
+  - [x] Remove From Wantlist Shortcuts
+  - [x] Seller Items In Cart
+  - [x] Show Actual Add Date
+  - [x] Show Average Prices
+  - [x] Suggested Prices
+  - [x] Text Format Shortcuts
 
-#### UNAUTHENTICATED
-- [x] Block Sellers
-- [x] Blurry Image Fix
-- [x] Favorite Sellers
-- [x] Filter Sleeve Condition
-- [x] Inventory Ratings
-- [x] Seller Rep
-- [x] Currency Converter
-- [x] Dark Theme
-- [x] Everlasting Marketplace
-- [x] Filter Media Condition
-- [x] Filter Shipping Country
-- [x] Large YouTube playlists
-- [x] Lists In New Tabs
-- [x] Marketplace Condition Highlights
-- [x] Quick Search
-- [x] Rating Percentage
-- [x] Relative Last Sold Dates
-- [x] Release Durations
-- [x] Release Ratings
-- [x] Release Scanner
-- [x] Sort Buttons
-- [x] Tracklist Readability
-- [x] Tweak Discriminators
+  #### UNAUTHENTICATED
+  - [x] Block Sellers
+  - [x] Blurry Image Fix
+  - [x] Favorite Sellers
+  - [x] Filter Sleeve Condition
+  - [x] Inventory Ratings
+  - [x] Seller Rep
+  - [x] Currency Converter
+  - [x] Dark Theme
+  - [x] Everlasting Marketplace
+  - [x] Filter Media Condition
+  - [x] Filter Shipping Country
+  - [x] Large YouTube playlists
+  - [x] Lists In New Tabs
+  - [x] Marketplace Condition Highlights
+  - [x] Quick Search
+  - [x] Rating Percentage
+  - [x] Relative Last Sold Dates
+  - [x] Release Durations
+  - [x] Release Ratings
+  - [x] Release Scanner
+  - [x] Sort Buttons
+  - [x] Tracklist Readability
+  - [x] Tweak Discriminators
 
-</p>
+  </p>
 </details>
 
 ***
