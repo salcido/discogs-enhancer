@@ -110,11 +110,11 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
   <p>
 
   #### AUTHENTICATED
-  - [ ] Better Collection UI (Requires 2500+ items in Collection)
-  - [ ] Block Buyers (Requires user w/ sales history)
+  - [ ] Better Collection UI _(Requires 2500+ items in Collection)_
+  - [ ] Block Buyers _(Requires user w/ sales history)_
   - [x] Collection In New Tabs
-  - [ ] Everlasting Collection (Requires 2500+ items in Collection)
-  - [ ] Feedback Notifications (Requires user w/ Buyer/Seller feedback)
+  - [ ] Everlasting Collection _(Requires 2500+ items in Collection)_
+  - [ ] Feedback Notifications _(Requires user w/ Buyer/Seller feedback)_
   - [x] Hide Min/Med/Max columns
   - [x] Larger BAOI Fields
   - [x] Notes Counter
