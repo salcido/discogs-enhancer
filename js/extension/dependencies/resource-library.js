@@ -741,7 +741,7 @@
           total = pagination.split('of')[1];
           break;
       }
-      console.log('return: ',total);
+
       return total;
     },
 
