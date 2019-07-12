@@ -206,7 +206,14 @@ describe('Functional Testing', function() {
   describe('Everlasting Marketplace', async function() {
     it('renders EM headers in the DOM', async function() {
       await require('./unauthenticated/everlasting-marketplace').test(page);
-      await require('./unauthenticated/everlasting-marketplace').scroll(page);
+    });
+
+    it('loads the next page in the Marketplace', async function() {
+      await require('./unauthenticated/everlasting-marketplace').scrollMarketplace(page);
+    });
+
+    it('loads the next page on a single Release', async function() {
+      await require('./unauthenticated/everlasting-marketplace').scrollRelease(page);
     });
   });
 
