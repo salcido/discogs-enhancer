@@ -23,6 +23,6 @@ let apply = async function(page) {
 
     let hasFixClass = await page.$eval('.image_gallery_thumb.current', elem => elem.classList.contains('de-blurry-fix'));
     assert.equal(hasFixClass, true, 'Blurry Image Fix was not applied');
-}
+};
 
 module.exports = { init, apply };
