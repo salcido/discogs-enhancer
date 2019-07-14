@@ -12,11 +12,19 @@ module.exports = {
       updates: [
         {
           name: 'Enhancement',
+          description: 'Functional testing with Travis CI and Puppeteer! This means Discogs Enhancer will ship with less bugs!'
+        },
+        {
+          name: 'Enhancement',
           description: 'Extension support for Korean language.'
         },
         {
           name: 'Enhancement',
-          description: 'Functional testing with Travis CI and Puppeteer!'
+          description: 'Fixed an issue where hidden sellers were not actually hidden on previous/next page clicks.'
+        },
+        {
+          name: 'Bug fix',
+          description: 'Fixed an issue where block buyer shortcuts would not correctly parse some usernames.'
         },
       ],
       thanks: [
