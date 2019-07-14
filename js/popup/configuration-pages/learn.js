@@ -10,7 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  let clearSearch = document.querySelector('.clear-search'),
+  let log = require('../change-log'),
+      clearSearch = document.querySelector('.clear-search'),
       debounce = null,
       select = document.getElementById('nav-select'),
       search = document.getElementById('search'),
@@ -107,6 +108,135 @@ document.addEventListener('DOMContentLoaded', () => {
     search.focus();
     select.innerHTML = '<option>Select a feature</option>';
     searchFeatures('');
+  }
+
+  /**
+   * Appends new features markup to the Learn page.
+   * @param {Array} target - The type of feature to get (current or previous)
+   * @returns {HTMLElement}
+   */
+  function getFeatures(target) {
+
+    let fragment = document.createDocumentFragment(),
+        { features } = target;
+
+    features.forEach(feature => {
+      let p = document.createElement('p'),
+          feat = document.createElement('span'),
+          title = document.createElement('span'),
+          desc = document.createElement('span'),
+          link = document.createElement('a');
+
+      feat.textContent = 'New Feature:';
+      feat.className = 'feature';
+
+      title.textContent = feature.name;
+      title.classList = 'item-title';
+      title.style = 'margin-bottom: 10px; display: block;';
+
+      desc.textContent = feature.description + ' ';
+      desc.classList = 'text';
+
+      link.textContent = 'Click here to read more about it';
+      link.classList = 'scroll-target';
+      link.href = feature.link;
+
+      p.append(feat);
+      p.append(title);
+      p.append(desc);
+      desc.append(link);
+      fragment.appendChild(p);
+    });
+
+    return fragment;
+  }
+
+  /**
+   * Appends updates to the Learn page
+   * @returns {undefined}
+   */
+  function getUpdates(target) {
+
+    let fragment = document.createDocumentFragment(),
+        { updates } = target;
+
+    updates.forEach(update => {
+      let li = document.createElement('li'),
+          name = document.createElement('div'),
+          desc = document.createElement('span');
+
+      name.classList = 'mint';
+      name.textContent = update.name;
+      desc.textContent = update.description;
+      li.append(name);
+      li.append(desc);
+      fragment.appendChild(li);
+    });
+
+    return fragment;
+  }
+
+  /**
+   * Appends thanks to the Learn page
+   * @returns {undefined}
+   */
+  function getThanks() {
+    let { thanks } = log.current[0],
+        fragment = document.createDocumentFragment();
+
+    thanks.forEach(thank => {
+      let li = document.createElement('li');
+      li.innerHTML = thank;
+      fragment.appendChild(li);
+    });
+
+    document.querySelector('.update-list').append(fragment);
+  }
+
+  /**
+   * Appends the new features to the DOM
+   * @returns {undefined}
+   */
+  function getCurrentFeatures() {
+    let features = getFeatures(log.current[0]);
+    document.querySelector('.new-features').append(features);
+  }
+
+  /**
+   * Appends the new updates to the DOM
+   * @returns {undefined}
+   */
+  function getCurrentUpdates() {
+    let updates = getUpdates(log.current[0]);
+    document.querySelector('.update-list').append(updates);
+  }
+
+  /**
+   * Creates and appends `details` elements containing
+   * previous update information
+   * @returns {undefined}
+   */
+  function getPreviousFeaturesAndUpdates() {
+
+    let fragment = document.createDocumentFragment();
+
+    log.previous.forEach(entry => {
+
+      let features = getFeatures(entry),
+          updates = getUpdates(entry),
+          ul = document.createElement('ul'),
+          details = document.createElement('details'),
+          summary = document.createElement('summary');
+
+      summary.textContent = entry.version;
+      details.append(summary);
+      details.append(features);
+      ul.append(updates);
+      details.append(ul);
+      fragment.append(details);
+    });
+
+    document.querySelector('.news-item.previous').append(fragment);
   }
 
   /**
@@ -317,6 +447,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return setTimeout(() => { select.style.height = '35px'; }, 0);
   }
 
+  /**
+   * Adds click event listeners to each `.scroll-target` element
+   * which will scroll to the specified feature.
+   * @returns {undefined}
+   */
+  function scrollTargetListeners() {
+    document.querySelectorAll('.scroll-target').forEach(f => {
+      f.addEventListener('click', () => {
+        setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+      });
+    });
+  }
+
   // ======================================================
   // UI Functionality
   // ======================================================
@@ -334,15 +477,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // (-80px to adjust for space up top)
       setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
     }
-  });
-
-
-  // Scrolls to any .scroll-target element
-  // ------------------------------------------------------
-  document.querySelectorAll('.scroll-target').forEach(f => {
-    f.addEventListener('click', () => {
-      setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
-    });
   });
 
   // Searches the features for a string match
@@ -396,6 +530,11 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     search.focus();
     checkForURLHash();
+    getCurrentFeatures();
+    getCurrentUpdates();
+    getThanks();
+    getPreviousFeaturesAndUpdates();
+    scrollTargetListeners();
   }, 200);
 
   // Check for extension issues

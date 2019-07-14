@@ -39,6 +39,19 @@ hr {
   border: 1px solid #313335;
 }
 
+details {
+  border: 1px solid #424242;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background: #333;
+  outline: none;
+}
+
+summary {
+  outline: none;
+}
+
 .sidebar {
   background: #242424;
   border-right: 1px solid #424242;
