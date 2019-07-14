@@ -22,11 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Adds the `.highlight` class to the target element
-   *
    * @param {object} value The value from the selected feature
    * @returns {method}
    */
-
   function addHighlight(value) {
 
     let target = document.querySelector(`#${value}`);
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {object} updateData The data returned from the updates endpoint
    * @returns {undefined}
    */
-
   function appendNewsItem(updateData) {
 
     let d = document.createElement('div'),
@@ -77,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
    * updates.
    * @returns {object}
    */
-
   async function checkForIssues() {
 
     let url = 'https://discogs-enhancer.com/updates',
@@ -92,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
    * to the specified ID.
    * @returns {Undefined}
    */
-
   function checkForURLHash() {
 
     if ( location.hash ) {
@@ -104,10 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Clears the search query from the input element
-   *
    * @returns {undefined}
    */
-
   function clearSearchField() {
 
     search.value = '';
@@ -118,11 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Appends the version and year to the DOM
-   *
    * @method   getVersionAndYear
    * @return   {undefined}
    */
-
   function getVersionAndYear() {
 
     let manifest = chrome.runtime.getManifest(),
@@ -137,11 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Checks for the `hide` class on an element
-   *
    * @param {object} elem The element to examine
    * @returns {boolean}
    */
-
   function isHidden(elem) {
     return elem.classList.contains('hide');
   }
@@ -149,10 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Lists the number of results returned from
    * the search
-   *
    * @returns {undefined}
    */
-
   function listResults() {
 
     let features = [...document.querySelectorAll('.feature-block')],
@@ -173,11 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Shows the `no-results` element if all features
    * are hidden
-   *
    * @param {Array} features An array of every feature
    * @returns {method}
    */
-
   function noResultsCheck(features) {
 
     let noResults = document.querySelector('.no-results');
@@ -192,11 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Populates the select element in the navigation
    * with IDs of any element with a .feature class
-   *
    * @method   populateNavigation
    * @return   {undefined}
    */
-
   function populateNavigation(features) {
 
     let noResults = document.createElement('option'),
@@ -224,11 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Removes all `.highlight` classes from the h2 elements
-   *
    * @method removeHighlight
    * @returns {undefined}
    */
-
   function removeHighlight() {
 
     let h2s = [...document.querySelectorAll('.feature-block h2')];
@@ -238,11 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Searches the features for a matching text
-   *
    * @param {string} query The string to search the DOM with
    * @returns {method} Adds or removes the `.hide` class
    */
-
   function searchFeatures(query) {
 
     let features = [...document.querySelectorAll('.feature-block')];
@@ -267,11 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Sets the `.selected` class on a tab
-   *
    * @param {object} target The `.tabs` object that was clicked
    * @returns {method}
    */
-
   function setTabFocus(target) {
 
     tabs.forEach(tab => tab.classList.remove('selected'));
@@ -281,11 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Shows the selected tab's content
-   *
    * @param {object} target The tab element that was clicked
    * @returns {undefined}
    */
-
   function showTabContent(target) {
 
     let tabContents = document.querySelectorAll('.tab-content');
@@ -303,10 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Shows/hides the `.clear-search` button
-   *
    * @returns {method}
    */
-
   function toggleClearButton() {
 
     if ( search.value !== '' ) {
@@ -319,11 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Updates the select element to display a ToC of sorts
    * when searching.
-   *
    * @param {Array} features Array of all the features
    * @returns {method}
    */
-
   function updateNavigation(features) {
 
     let visibleFeatures = features.filter(f => !f.classList.contains('hide')),
