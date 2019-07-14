@@ -11,7 +11,7 @@
  */
 
 rl.ready(() => {
-
+  // TODO: convert to mutation observer
   if ( rl.pageIs('history') ) {
 
     setTimeout(() => {

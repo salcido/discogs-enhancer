@@ -10,11 +10,6 @@
  * was last sold on the Release page.
  */
 
- // Over 3 years
- // https://www.discogs.com/Siddhartha-Microphen/release/230239
- // Over 1 year ago
- // https://www.discogs.com/Digital-Assassins-DJEF-Skot-Vs-Mt-Vibes-Deep-Sound-Of-Underground-Los-Angeles/release/3931002
-
 rl.ready(() => {
   if ( rl.pageIs('release') ) {
     // ========================================================

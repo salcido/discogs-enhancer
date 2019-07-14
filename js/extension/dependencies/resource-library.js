@@ -42,7 +42,6 @@
       let notice = document.createElement('div');
 
       notice.id = 'deAlertNotice';
-
       notice.style = 'background-color:' + color + ' !important;' +
                      'text-align: center;' +
                      'color: black !important;' +
@@ -53,13 +52,10 @@
       notice.textContent = message;
 
       document.getElementById('site_headers_super_wrap').appendChild(notice);
-
       document.getElementById('deAlertNotice').addEventListener('click', function() { this.remove(); });
 
-      setTimeout(function() {
-
+      setTimeout(() => {
         document.getElementById('deAlertNotice').remove();
-
       }, 7000);
     },
 
@@ -147,7 +143,6 @@
         data = this.getPreference('exchangeRates').data;
 
         if ( data === null ) {
-
           console.log('Currency has recently been changed. Please refresh the page one more time.');
         }
       }
@@ -161,11 +156,8 @@
         for ( let h = 0; h < source.length; h++ ) {
 
           if ( !data.rates[obj.exchangeName] ) {
-
             obj.convertedPrice = Number(obj.sanitizedPrice);
-
           } else {
-
             obj.convertedPrice = (obj.sanitizedPrice / data.rates[obj.exchangeName]);
           }
 
@@ -190,13 +182,9 @@
      * @returns {method}
      */
     fade: function(elem) {
-
       return setTimeout(() => {
-
         [...elem.querySelectorAll('.de-price')].forEach(el => {
-
           if ( !el.classList.contains('show') ) {
-
             el.classList.add('show');
           }
         });
@@ -241,12 +229,10 @@
         let c = ca[i];
 
         while ( c.charAt(0) === ' ' ) {
-
           c = c.substring(1);
         }
 
         if ( c.indexOf(name) === 0 ) {
-
           return c.substring(name.length, c.length);
         }
       }
@@ -263,19 +249,12 @@
     getItem: function(item) {
 
       try {
-
         return JSON.parse(localStorage.getItem(item));
-
       } catch (e) {
-
         try {
-
           return localStorage.getItem(item);
-
         } catch (err) {
-
           console.warn('Could not getItem without errors. Removing item from localStorage');
-
           return localStorage.removeItem(item);
         }
       }
@@ -308,9 +287,7 @@
       let language = this.language();
 
       this.exchangeList.forEach((name, f) => {
-
         if ( name === userCurrency ) {
-
           symbol = this.printSymbol[language][f];
         }
       });
@@ -394,9 +371,7 @@
           priceConfig;
 
       if ( !userCurrency || !language ) {
-
         userCurrency = this.getPreference('userCurrency');
-
         language = this.language();
       }
 
@@ -461,10 +436,7 @@
      */
     matchSymbols: function(source, language) {
 
-      if ( !language ) {
-
-        language = this.language();
-      }
+      if ( !language ) { language = this.language(); }
 
       source.forEach((releaseData, i) => {
 
@@ -472,9 +444,7 @@
         let symbol = this.symbolRegex[language];
 
         for ( i = 0; i < symbol.length; i++ ) {
-
           if ( releaseData.price.match(symbol[i], 'g') ) {
-
             // Determine if the release is listed in JPY
             switch ( symbol[i] ) {
 
@@ -760,12 +730,10 @@
             num = urlArr[urlArr.length - 1];
 
         if ( num.includes('-') ) {
-
           num = num.split('-')[0];
         }
 
         if ( num.includes('?') ) {
-
           num = num.split('?')[0];
         }
 
@@ -825,11 +793,8 @@
     ready: function(fn) {
 
       if ( document.readyState !== 'loading' ) {
-
         fn();
-
       } else {
-
         document.addEventListener('DOMContentLoaded', fn);
       }
     },
@@ -849,15 +814,12 @@
         let page = /page=/g;
 
         params = url.split('?')[1].split('&');
-
-        params.forEach(function(param) {
+        params.forEach(param => {
 
           let target;
 
-          if ( param.match(page) ) {
-
+          if (param.match(page)) {
             target = params.indexOf(param);
-
             params.splice(target, 1);
           }
         });
@@ -892,22 +854,16 @@
       source.forEach(obj => {
 
         obj.price = String(obj.price);
-
         obj.price = obj.price.replace(/&nbsp;/g, '');
-
         obj.price = obj.price.replace(/ /g, '');
-
         obj.price = obj.price.replace(/,/g, '');
-
         obj.price = obj.price.replace(/\./g, '');
 
         // extract all digits
         let digits = obj.price.match(/\d+(,\d+)*(\.\d+)?/, 'g')[0];
 
         obj.sanitizedPrice = digits;
-
         this.log('Sanitized Price:', obj.sanitizedPrice);
-
         return obj;
       });
     },
@@ -943,9 +899,7 @@
      * @returns   {function}
      */
     setItem: function(name, value) {
-
       value = JSON.stringify(value);
-
       return localStorage.setItem(name, value);
     },
 
@@ -958,9 +912,7 @@
     setPreference: function(name, value) {
 
       let userPreferences = this.getItem('userPreferences');
-
       userPreferences[name] = value;
-
       this.setItem('userPreferences', userPreferences);
     },
 
