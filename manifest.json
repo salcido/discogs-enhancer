@@ -33,7 +33,7 @@
       "js/extension/background.js"
     ]
   },
-  "minimum_chrome_version": "49",
+  "minimum_chrome_version": "51",
   "permissions": [
     "*://*.discogs.com/*",
     "storage",
