@@ -247,7 +247,8 @@ select {
   text-transform: uppercase;
 }
 
-.info-wrap span.update {
+.info-wrap span.update,
+.info-wrap span.previous-updates {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   color: #56CCF2;
