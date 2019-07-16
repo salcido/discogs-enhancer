@@ -19,6 +19,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" alt="License GPL 3.0">
 </p>
 
+***
 
 #### Project Overview
 
