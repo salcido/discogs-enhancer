@@ -2,11 +2,15 @@
   <img width="413" height="275" src="https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-logo.gif" alt="Discogs Enhancer">
 </p>
 
+<p align="center">
+
 [![Build Status](https://travis-ci.com/salcido/discogs-enhancer.svg?branch=master)](https://travis-ci.com/salcido/discogs-enhancer)
 [![Chrome Web Store](https://img.shields.io/badge/users-3.4k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/fljfmblajgejeicncojogelbkhbobejn.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/fljfmblajgejeicncojogelbkhbobejn.svg?color=blue&label=rating%20count)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
  ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
+
+</p>
 
 #### Project Overview
 
