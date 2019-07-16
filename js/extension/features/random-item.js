@@ -40,7 +40,7 @@ rl.ready(() => {
       }
 
       .rotate-out {
-        animation: rotateOut .333s ease-in;
+        animation: rotateOut .4s ease-in;
       }
 
       @keyframes rotateIn {
@@ -53,7 +53,7 @@ rl.ready(() => {
         25% { transform: rotateX(90deg); }
         50% { transform: rotateX(0deg); }
         75% { transform: rotateX(90deg); }
-        100% { transform: rotateX(0deg); }
+        100% { transform: rotateX(135deg); }
       }
       `;
 
