@@ -1,4 +1,6 @@
-# Discogs Enhancer
+<p align="center">
+  <img width="413" height="275" src="https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-logo.gif" alt="Discogs Enhancer">
+</p>
 
 [![Build Status](https://travis-ci.com/salcido/discogs-enhancer.svg?branch=master)](https://travis-ci.com/salcido/discogs-enhancer)
 [![Chrome Web Store](https://img.shields.io/badge/users-3.4k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
