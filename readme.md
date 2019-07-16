@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="413" height="275" src="https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-logo.gif" alt="Discogs Enhancer">
+  <img width="360" src="https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-logo.gif" alt="Discogs Enhancer" style="height: 100%;">
 </p>
 
 
