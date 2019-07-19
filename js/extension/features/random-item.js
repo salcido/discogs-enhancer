@@ -40,7 +40,7 @@ rl.ready(() => {
       }
 
       .rotate-out {
-        animation: rotateOut .4s ease-in;
+        animation: rotateOut .4s infinite;
       }
 
       @keyframes rotateIn {
