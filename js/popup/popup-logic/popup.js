@@ -61,7 +61,6 @@ function isDev() {
 
   if ( development ) {
     document.querySelector('.title h1').style.color = 'gold';
-    document.querySelector('.title h1').textContent = 'Developer Edition';
   }
 
   if ( development
@@ -70,7 +69,6 @@ function isDev() {
        && blocklist.list.includes('github')
        && blocklist.list.includes('dropbox') ) {
     document.querySelector('.title h1').style.color = 'hotpink';
-    document.querySelector('.title h1').textContent = 'Staging Edition';
   }
 }
 
