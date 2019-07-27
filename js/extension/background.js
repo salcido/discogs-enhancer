@@ -144,6 +144,7 @@ appendFragment([resourceLibrary]).then(() => {
         filterShippingCountry: false,
         filterSleeveCondition: false,
         filterSleeveConditionValue: null,
+        filterUnavailable: false,
         formatShortcuts: true,
         hideMinMaxColumns: false,
         highlightMedia: true,
@@ -581,6 +582,18 @@ appendFragment([resourceLibrary]).then(() => {
       if (result.prefs.filterSleeveConditionValue) {
 
         localStorage.setItem('sleeveCondition', result.prefs.filterSleeveConditionValue);
+      }
+
+      if (result.prefs.filterUnavailable) {
+
+        // filter-unavailable.js
+        let unavailable = document.createElement('script');
+
+        unavailable.type = 'text/javascript';
+        unavailable.src = chrome.extension.getURL('js/extension/features/filter-unavailable.js');
+        unavailable.className = 'de-init';
+
+        elems.push(unavailable);
       }
 
       if (result.prefs.notesCount) {
@@ -1117,7 +1130,7 @@ appendFragment([resourceLibrary]).then(() => {
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
-        child.parentNode.removeChild(child);
+        // child.parentNode.removeChild(child);
       });
     })
     .catch(err => console.error('Error injecting scripts', err));

@@ -158,6 +158,8 @@ rl.ready(() => {
       if ( window.insertRemoveLinks ) window.insertRemoveLinks();
       // Seller Items in Cart
       if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
+      // Filter Unavailable Items
+      if ( window.filterUnavailable ) window.filterUnavailable();
     }
 
     /**

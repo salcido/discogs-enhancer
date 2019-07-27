@@ -45,6 +45,7 @@ export function applySave(message, event) {
         filterMediaCondition: document.getElementById('toggleFilterMediaCondition').checked,
         filterSleeveCondition: document.getElementById('toggleFilterSleeveCondition').checked,
         filterShippingCountry: document.getElementById('toggleFilterShippingCountry').checked,
+        filterUnavailable: document.getElementById('toggleFilterUnavailable').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
