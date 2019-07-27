@@ -14,6 +14,18 @@
  */
 
 rl.ready(() => {
+
+  // ========================================================
+  // Function
+  // ========================================================
+  /**
+   * Stops the .random-item animation
+   * @returns {undefined}
+   */
+  function stopAnimation() {
+    document.querySelector('.de-random-item').classList.replace('rotate-out', 'rotate-in');
+  }
+
   // ========================================================
   // CSS
   // ========================================================
@@ -76,11 +88,13 @@ rl.ready(() => {
 
 
   if ( user ) {
+
     rl.attachCss('random-item', rules);
     document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
+
     document.querySelector('.de-random-item').addEventListener('click', event => {
-      event.target.classList.remove('rotate-in');
-      event.target.classList.add('rotate-out');
+      event.target.classList.replace('rotate-in', 'rotate-out');
+      setTimeout(() => stopAnimation(), 4000);
     });
   }
 });
