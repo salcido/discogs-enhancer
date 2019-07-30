@@ -39,6 +39,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Filter Marketplace items by media condition
 * Filter Marketplace items by sleeve condition
 * Filter Marketplace items by shipping country
+* Filter Marketplace items by availability
 * Open release links from your Collection in new tabs
 * Open items in Lists in new tabs
 * Search Google for releases by clicking on the release title
