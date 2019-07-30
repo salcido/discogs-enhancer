@@ -651,7 +651,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         randomItem.type = 'text/javascript';
         randomItem.src = chrome.extension.getURL('js/extension/features/random-item.js');
-        randomItem.className = 'de-init';
+        // randomItem.className = 'de-init';
 
         elems.push(randomItem);
       }
@@ -1108,7 +1108,7 @@ appendFragment([resourceLibrary]).then(() => {
     .then(newPrefs => {
       // Instantiate default options
       return new Promise(resolve => {
-        if ( !newPrefs.hasOwnProperty('options') ) {
+        if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
 
           let options = {
                 colorize: false,
@@ -1130,7 +1130,7 @@ appendFragment([resourceLibrary]).then(() => {
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
-        // child.parentNode.removeChild(child);
+        child.parentNode.removeChild(child);
       });
     })
     .catch(err => console.error('Error injecting scripts', err));
