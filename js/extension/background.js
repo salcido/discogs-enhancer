@@ -144,6 +144,7 @@ appendFragment([resourceLibrary]).then(() => {
         filterShippingCountry: false,
         filterSleeveCondition: false,
         filterSleeveConditionValue: null,
+        filterUnavailable: false,
         formatShortcuts: true,
         hideMinMaxColumns: false,
         highlightMedia: true,
@@ -583,6 +584,18 @@ appendFragment([resourceLibrary]).then(() => {
         localStorage.setItem('sleeveCondition', result.prefs.filterSleeveConditionValue);
       }
 
+      if (result.prefs.filterUnavailable) {
+
+        // filter-unavailable.js
+        let unavailable = document.createElement('script');
+
+        unavailable.type = 'text/javascript';
+        unavailable.src = chrome.extension.getURL('js/extension/features/filter-unavailable.js');
+        unavailable.className = 'de-init';
+
+        elems.push(unavailable);
+      }
+
       if (result.prefs.notesCount) {
 
         // notes-counter.js
@@ -638,7 +651,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         randomItem.type = 'text/javascript';
         randomItem.src = chrome.extension.getURL('js/extension/features/random-item.js');
-        randomItem.className = 'de-init';
+        // randomItem.className = 'de-init';
 
         elems.push(randomItem);
       }
@@ -1095,7 +1108,7 @@ appendFragment([resourceLibrary]).then(() => {
     .then(newPrefs => {
       // Instantiate default options
       return new Promise(resolve => {
-        if ( !newPrefs.hasOwnProperty('options') ) {
+        if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
 
           let options = {
                 colorize: false,

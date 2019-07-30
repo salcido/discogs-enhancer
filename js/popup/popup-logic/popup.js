@@ -61,7 +61,6 @@ function isDev() {
 
   if ( development ) {
     document.querySelector('.title h1').style.color = 'gold';
-    document.querySelector('.title h1').textContent = 'Developer Edition';
   }
 
   if ( development
@@ -70,7 +69,6 @@ function isDev() {
        && blocklist.list.includes('github')
        && blocklist.list.includes('dropbox') ) {
     document.querySelector('.title h1').style.color = 'hotpink';
-    document.querySelector('.title h1').textContent = 'Staging Edition';
   }
 }
 
@@ -98,6 +96,7 @@ window.addEventListener('load', () => {
       toggleFilterMediaCondition = document.getElementById('toggleFilterMediaCondition'),
       toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
+      toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
       toggleListsInTabs = document.getElementById('toggleListsInTabs'),
@@ -267,6 +266,7 @@ window.addEventListener('load', () => {
   toggleFilterMediaCondition.addEventListener('change', filterMediaCondition.toggleHideConditions);
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
+  toggleFilterUnavailable.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
   toggleListsInTabs.addEventListener('change', triggerSave);
@@ -345,6 +345,7 @@ window.addEventListener('load', () => {
       toggleFilterMediaCondition.checked = result.prefs.filterMediaCondition;
       toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
+      toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleInventoryRatings.checked = result.prefs.inventoryRatings;
       toggleListsInTabs.checked = result.prefs.listsInTabs;

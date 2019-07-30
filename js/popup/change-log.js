@@ -1,6 +1,27 @@
 module.exports = {
   current: [
     {
+      version: '2.17.0',
+      features: [
+        {
+          name: 'Filter Unavailable Items',
+          description: 'Hide all items in the Marketplace if they are unavailable in your country.',
+          link: '#filter-unavailable'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Random Item Button has a new icon and you can now right-click on it and open the random page in a new tab/window!'
+        },
+      ],
+      thanks: [
+        'Thanks again to <span class="mint">nmussy</span> for opening up some issues on GitHub!'
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.16.0',
       features: [
         {
@@ -30,8 +51,6 @@ module.exports = {
       thanks: [
       ]
     },
-  ],
-  previous: [
     {
       version: '2.15.0',
       features: [

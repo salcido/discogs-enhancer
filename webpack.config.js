@@ -62,6 +62,7 @@ module.exports = {
     [features + 'filter-monitor']: `${features}filter-monitor.js`,
     [features + 'filter-shipping-country']: `${features}filter-shipping-country.js`,
     [features + 'filter-sleeve-condition']: `${features}filter-sleeve-condition.js`,
+    [features + 'filter-unavailable']: `${features}filter-unavailable.js`,
     [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
