@@ -1,10 +1,25 @@
-# Discogs Enhancer
+<p align="center">
+  <img width="360" src="https://github.com/salcido/Discogs-Enhancer/blob/master/assets/de-logo.gif" alt="Discogs Enhancer" style="height: 100%;">
+</p>
 
-[![Build Status](https://travis-ci.com/salcido/discogs-enhancer.svg?branch=master)](https://travis-ci.com/salcido/discogs-enhancer)
-[![Chrome Web Store](https://img.shields.io/badge/users-3.4k-brightgreen.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/fljfmblajgejeicncojogelbkhbobejn.svg)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/fljfmblajgejeicncojogelbkhbobejn.svg?color=blue&label=rating%20count)](https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn)
- ![License GPL 3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)
+
+<p align="center">
+  <a href="https://travis-ci.com/salcido/discogs-enhancer">
+    <img src="https://travis-ci.com/salcido/discogs-enhancer.svg?branch=master" alt="Build Status">
+  </a>
+  <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
+    <img src="https://img.shields.io/badge/users-3.4k-brightgreen.svg" alt="Chrome Web Store">
+  </a>
+  <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
+    <img src="https://img.shields.io/chrome-web-store/rating/fljfmblajgejeicncojogelbkhbobejn.svg" alt="Chrome Web Store">
+  </a>
+  <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
+    <img src="https://img.shields.io/chrome-web-store/rating-count/fljfmblajgejeicncojogelbkhbobejn.svg?color=blue&label=rating%20count" alt="Chrome Web Store">
+  </a>
+  <img src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" alt="License GPL 3.0">
+</p>
+
+***
 
 #### Project Overview
 
