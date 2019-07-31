@@ -2,7 +2,12 @@ language: node_js
 os: osx
 node_js:
   - "10"
-sudo: required
+notifications:
+  email:
+    recipients:
+      - discogs.enhancer@gmail.com
+    on_success: never
+    on_failure: always
 script:
   - npm run build:dev
   - npm test
