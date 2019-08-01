@@ -95,11 +95,9 @@ rl.ready(() => {
     document.querySelector('.de-random-item').addEventListener('click', event => {
       event.target.classList.replace('rotate-in', 'rotate-out');
       if (event.metaKey) {
-        // https://github.com/salcido/discogs-enhancer/issues/58
-        setTimeout(() => stopAnimation(), 500);
-      } else {
-        setTimeout(() => stopAnimation(), 4000);
+        return setTimeout(() => stopAnimation(), 250);
       }
+      return setTimeout(() => stopAnimation(), 4000);
     });
   }
 });
