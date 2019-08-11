@@ -63,7 +63,7 @@ function isDev() {
     document.querySelector('.title h1').style.color = 'gold';
   }
 
-  if ( development
+  if ( !development
        && blocklist
        && blocklist.list
        && blocklist.list.includes('github')

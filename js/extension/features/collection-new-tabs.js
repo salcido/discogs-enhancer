@@ -22,7 +22,7 @@ rl.ready(() => {
         coverView = '.release-covers a.release-image',
         isCollectionView = document.querySelector('.collection-header .menu-item.first').classList.contains('current'),
         selector = isCollectionView ? collection : coverView,
-        links = document.querySelectorAll(selector);
+        links = document.querySelectorAll(selector + ', .tabs-wrap a');
 
     links.forEach(l => {
       l.setAttribute('target', '_blank');
@@ -43,6 +43,12 @@ rl.ready(() => {
            event.target.closest('.FacetsNav') ||
            event.target.closest('.tab_menu') ||
            event.target.closest('.clear') ) {
+        setTimeout(() => modifyReleaseLinks(), 100);
+      }
+    });
+    // Select change events
+    document.body.addEventListener('change', event => {
+      if ( event.target.type === 'select-one' ) {
         setTimeout(() => modifyReleaseLinks(), 100);
       }
     });

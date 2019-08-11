@@ -33,13 +33,12 @@ rl.ready(() => {
           msPerYear = msPerDay * 365,
           elapsed = current - previous;
 
-      if (elapsed <= msPerDay) {
-        return 'Today';
-      }
+      if (elapsed <= msPerDay) { return 'Today'; }
 
       if (elapsed < msPerMonth) {
         let duration = Math.floor(elapsed/msPerDay),
             units = duration > 1 ? 'days' : 'day';
+
         return `${duration} ${units} ago`;
       }
 
@@ -71,7 +70,7 @@ rl.ready(() => {
     function addMouseListeners(rawDate, relative) {
 
       lastSold.style.display = 'inline-block';
-      lastSold.style.fontSize = getFontSize(relative.length);
+      lastSold.style.fontSize = 'inherit';
 
       lastSold.addEventListener('mouseover', () => {
         lastSold.textContent = rawDate;
@@ -84,31 +83,9 @@ rl.ready(() => {
       });
     }
 
-    /**
-     * Determines the date's font-size value
-     * @returns {String}
-     */
-    function getFontSize(length) {
-      let size;
-      switch(true) {
-        case length <= 16:
-          size = 'inherit';
-          break;
-
-        case length == 17:
-          size = 'small';
-          break;
-
-        case length > 17:
-          size = 'smaller';
-          break;
-      }
-      return size;
-    }
-
-  // ========================================================
-  // DOM Setup
-  // ========================================================
+    // ========================================================
+    // DOM Setup
+    // ========================================================
     let lastSold = document.querySelector('.last_sold a'),
         rawDate = lastSold && lastSold.textContent ? lastSold.textContent : null,
         relative = rawDate ? getRelativeTime(rawDate) : '';
@@ -116,6 +93,7 @@ rl.ready(() => {
     if (rawDate && relative) {
       lastSold.textContent = relative;
       lastSold.classList.add('de-last-sold');
+      lastSold.closest('.section_content.toggle_section_content').style.width = '400px';
       addMouseListeners(rawDate, relative);
     }
   }

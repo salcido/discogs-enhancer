@@ -1,6 +1,21 @@
 module.exports = {
   current: [
     {
+      version: '2.17.1',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Fixed an issue where Collection Links In New Tabs did not always open links in new tabs.'
+        },
+      ],
+      thanks: [
+        'Thanks again to <span class="mint">nmussy</span> for opening up some issues on GitHub!'
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.17.0',
       features: [
         {
@@ -19,8 +34,6 @@ module.exports = {
         'Thanks again to <span class="mint">nmussy</span> for opening up some issues on GitHub!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.16.0',
       features: [

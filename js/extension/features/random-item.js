@@ -94,7 +94,10 @@ rl.ready(() => {
 
     document.querySelector('.de-random-item').addEventListener('click', event => {
       event.target.classList.replace('rotate-in', 'rotate-out');
-      setTimeout(() => stopAnimation(), 4000);
+      if (event.metaKey) {
+        return setTimeout(() => stopAnimation(), 250);
+      }
+      return setTimeout(() => stopAnimation(), 4000);
     });
   }
 });
