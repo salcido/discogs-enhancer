@@ -308,7 +308,7 @@
      */
     handlePaginationClicks: function(fn, ...args) {
       let checkjQ = setInterval(() => {
-        if ( window.hasOwnProperty('$')
+        if ( Object.prototype.hasOwnProperty.call(window, '$')
              && typeof window.$ === 'function') {
           clearInterval(checkjQ);
           window.$(document).on('pjax:end', () => fn(...args));
@@ -971,12 +971,6 @@
       console.log('Test initiated. This window will reload in 2 minutes.');
       setTimeout(() => { location.reload(); }, 120000);
     },
-
-    /**
-     * Used to determine if user has seller permissions
-     * @type {string}
-     */
-    unregistered: 'Please complete your Seller Settings before listing items for sale.',
 
     /**
      * Updates the `page` query param in the URL
