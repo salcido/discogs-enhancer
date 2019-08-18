@@ -356,7 +356,9 @@ rl.ready(() => {
     let sel = '#page_aside .list_no_style.user_marketplace_rating ',
         typeSel = `a[href*="${type}_feedback"]`;
 
-    return Number(div.querySelector(sel + typeSel).textContent.trim().replace(/,/g, ''));
+    if ( div.querySelector(sel + typeSel) ) {
+      return Number(div.querySelector(sel + typeSel).textContent.trim().replace(/,/g, ''));
+    }
   }
 
   /**
