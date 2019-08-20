@@ -3111,4 +3111,12 @@
   .de-external {
     color: #829fc4 !important;
   }
+
+  // inbox message dropshadow
+  #deh-wrapper table table {
+    box-shadow: 0 0 25px 0 #292929 !important;
+  }
+  #deh-wrapper table table table {
+    box-shadow: none !important;
+  }
 }
