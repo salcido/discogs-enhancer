@@ -659,6 +659,7 @@
       'sellRelease': '/sell/release',
       'settings': '/settings/',
       'stats': '/stats/',
+      'update': '/update',
       'videos': '/videos/',
     },
 

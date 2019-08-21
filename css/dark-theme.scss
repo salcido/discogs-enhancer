@@ -3119,4 +3119,12 @@
   #deh-wrapper table table table {
     box-shadow: none !important;
   }
+
+  // Disabled image tag in Release History page
+  .text_label_red {
+    background: #BF3A38 !important;
+  }
+  .image_preview.disabled {
+    background-color: #292929 !important;
+  }
 }
