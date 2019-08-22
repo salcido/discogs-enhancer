@@ -41,6 +41,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Favorite Sellers
 * Compare suggested prices to listed prices
 * Contextual menu searching
+* Ask for confirmation before removing items from your Collection
 * Quick currency conversion
 * Dark Theme (WCAG 2.0 AA compliant)
 * Scan Artist/Label releases for comments

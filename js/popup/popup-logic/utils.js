@@ -35,6 +35,7 @@ export function applySave(message, event) {
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
         collectionNewTabs: document.getElementById('toggleCollectionNewTabs').checked,
+        confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,

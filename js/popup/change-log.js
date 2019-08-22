@@ -1,6 +1,29 @@
 module.exports = {
   current: [
     {
+      version: '2.18.0',
+      features: [
+        {
+          name: 'Confirm Before Removing Items',
+          description: 'Asks you to confirm that you want to remove an item from your Collection when clicking "Remove" on a Release page.',
+          link: '#confirm-before-removing'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Made the dropshadow color darker on inbox messages when using the Dark Theme.'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Disabled images will be more visible in the Release History when using the Dark Theme.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.17.1',
       features: [],
       updates: [
@@ -13,8 +36,6 @@ module.exports = {
         'Thanks again to <span class="mint">nmussy</span> for opening up some issues on GitHub!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.17.0',
       features: [

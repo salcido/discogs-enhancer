@@ -132,6 +132,7 @@ appendFragment([resourceLibrary]).then(() => {
         blockSellers: true,
         blurryImageFix: false,
         collectionNewTabs: false,
+        confirmBeforeRemoving: false,
         collectionUi: false,
         converter: true,
         darkTheme: false,
@@ -374,6 +375,17 @@ appendFragment([resourceLibrary]).then(() => {
         collectionNewTabs.className = 'de-init';
 
         elems.push(collectionNewTabs);
+      }
+
+      if ( result.prefs.confirmBeforeRemoving ) {
+
+        let confirmBeforeRemoving = document.createElement('script');
+
+        confirmBeforeRemoving.type = 'text/javascript';
+        confirmBeforeRemoving.src = chrome.extension.getURL('js/extension/features/confirm-before-removing.js');
+        confirmBeforeRemoving.className = 'de-init';
+
+        elems.push(confirmBeforeRemoving);
       }
 
       if (result.prefs.collectionUi) {
