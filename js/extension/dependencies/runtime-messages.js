@@ -19,6 +19,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
       if (msg.method === 'create') {
 
+        try {
+          // prevent "Cannot create item with duplicate id" errors
+          chrome.contextMenus.remove(msg.id);
+        } catch (err) {
+          () => {};
+        }
+
         chrome.contextMenus.create({
           contexts: ['selection'],
           id: msg.id,
