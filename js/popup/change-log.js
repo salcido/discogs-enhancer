@@ -19,7 +19,9 @@ module.exports = {
           description: 'Disabled images will be more visible in the Release History when using the Dark Theme.'
         },
       ],
-      thanks: []
+      thanks: [
+        'Thank you to Transferwise for buying me a coffee!'
+      ]
     },
   ],
   previous: [
