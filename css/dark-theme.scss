@@ -3111,4 +3111,30 @@
   .de-external {
     color: #829fc4 !important;
   }
+
+  // inbox message dropshadow
+  #deh-wrapper table table {
+    box-shadow: 0 0 25px 0 #292929 !important;
+  }
+  #deh-wrapper table table table {
+    box-shadow: none !important;
+  }
+
+  // Disabled image tag in Release History page
+  .text_label_red {
+    background: #BF3A38 !important;
+  }
+
+  .image_preview {
+    border-bottom: 1px solid #454545 !important;
+
+    &.disabled {
+      background-color: #292929 !important;
+    }
+
+    &.dragging {
+      border: 5px dashed #454545 !important;
+      border-color: #4dd2ff !important;
+    }
+  }
 }

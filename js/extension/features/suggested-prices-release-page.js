@@ -188,7 +188,7 @@ rl.ready(() => {
     function checkForSellerPermissions(result) {
 
       // User does not have seller setup
-      if ( result.innerHTML.includes(rl.unregistered)
+      if ( result.querySelector('#seller-paypal-verification')
            && !priceKey['post:suggestedPrices'] ) {
 
         document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());

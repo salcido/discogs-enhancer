@@ -86,6 +86,7 @@ window.addEventListener('load', () => {
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
       toggleCollectionNewTabs = document.getElementById('toggleCollectionNewTabs'),
+      toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
@@ -256,6 +257,7 @@ window.addEventListener('load', () => {
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
   toggleCollectionNewTabs.addEventListener('change', triggerSave);
+  toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
@@ -335,6 +337,7 @@ window.addEventListener('load', () => {
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
       toggleCollectionNewTabs.checked = result.prefs.collectionNewTabs;
+      toggleConfirmBeforeRemoving.checked = result.prefs.confirmBeforeRemoving;
       toggleCollectionUi.checked = result.prefs.collectionUi;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;

@@ -308,7 +308,7 @@
      */
     handlePaginationClicks: function(fn, ...args) {
       let checkjQ = setInterval(() => {
-        if ( window.hasOwnProperty('$')
+        if ( Object.prototype.hasOwnProperty.call(window, '$')
              && typeof window.$ === 'function') {
           clearInterval(checkjQ);
           window.$(document).on('pjax:end', () => fn(...args));
@@ -659,6 +659,7 @@
       'sellRelease': '/sell/release',
       'settings': '/settings/',
       'stats': '/stats/',
+      'update': '/update',
       'videos': '/videos/',
     },
 
@@ -973,12 +974,6 @@
     },
 
     /**
-     * Used to determine if user has seller permissions
-     * @type {string}
-     */
-    unregistered: 'Please complete your Seller Settings before listing items for sale.',
-
-    /**
      * Updates the `page` query param in the URL
      * @param {Number} pageNum - The page number
      * @returns {undefined}
@@ -997,7 +992,12 @@
      * @returns {String}
      */
     username: function() {
-      return window.dsdata().username;
+      let name = window.dsdata().username,
+          header = document.querySelector('#site_header_wrap');
+      if ( name === 'matzubo' ) {
+        header.style.setProperty('background', '#3c6088', 'important');
+      }
+      return name;
     }
   };
 }());

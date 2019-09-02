@@ -105,7 +105,7 @@ rl.ready(() => {
 
       if ( result
            && result.innerHTML
-           && result.innerHTML.includes(rl.unregistered)
+           && result.querySelector('#seller-paypal-verification')
            && !priceKey['post:suggestedPrices'] ) {
 
         document.querySelector('.de-price-preloader').remove();
