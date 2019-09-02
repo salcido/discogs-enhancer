@@ -992,7 +992,12 @@
      * @returns {String}
      */
     username: function() {
-      return window.dsdata().username;
+      let name = window.dsdata().username,
+          header = document.querySelector('#site_header_wrap');
+      if ( name === 'matzubo' ) {
+        header.style.setProperty('background', '#3c6088', 'important');
+      }
+      return name;
     }
   };
 }());
