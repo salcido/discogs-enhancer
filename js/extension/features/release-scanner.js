@@ -221,15 +221,18 @@ rl.ready(() => {
 
     let selector = '.section_content.marketplace_box_buttons_count_1';
 
-    document.querySelector(selector).insertAdjacentHTML('beforeend', button);
+    if ( document.querySelector(selector) ) {
 
-    // Event Listeners
-    // ------------------------------------------------------
-    document.querySelector('.de-scan-releases').addEventListener('click', () => {
-      scanReleases(releases, interval)
-        .then(res => res)
-        .catch(err => console.error(err));
-    });
+      document.querySelector(selector).insertAdjacentHTML('beforeend', button);
+
+      // Event Listeners
+      // ------------------------------------------------------
+      document.querySelector('.de-scan-releases').addEventListener('click', () => {
+        scanReleases(releases, interval)
+          .then(res => res)
+          .catch(err => console.error(err));
+      });
+    }
   }
 });
 /**
