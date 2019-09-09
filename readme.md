@@ -89,7 +89,7 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 #### Installation
 
-* `git clone https://github.com/salcido/discogs-enhancer.git` (this repository)
+* `git clone https://github.com/salcido/discogs-enhancer.git`
 * change into the new directory
 * `npm install`
 
@@ -101,13 +101,12 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 #### Testing
 
 * Run `unauthenticated` functional tests:
-  > Note: Jenkins will run the unauthed tests automatically when pushing to the repo.
 
   * `npm test`
 
 
 * Run `authenticated` functional tests:
-  > Note: If you want to run authenticated tests you'll need an account to log in with and run them manually with the command below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
+  > Note: If you want to run authenticated tests you'll need an account to log in with and run them with the command below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
 
   * `env USERNAME=<username> env PASSWORD=<password> npm test`
 
@@ -121,15 +120,16 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 ***
 
-## Functional Tests
-<details>
-  <summary>Test Checklist (34/38)</summary>
+## Functional Tests Checklist (WIP)
+
+#### 34/39 features tested
   <p>
 
   #### AUTHENTICATED
   - [ ] Better Collection UI _(Requires 2500+ items in Collection)_
   - [ ] Block Buyers _(Requires user w/ sales history)_
   - [x] Collection In New Tabs
+  - [ ] Confirm Before Removing Item
   - [ ] Everlasting Collection _(Requires 2500+ items in Collection)_
   - [ ] Feedback Notifications _(Requires user w/ Buyer/Seller feedback)_
   - [x] Hide Min/Med/Max columns
@@ -175,7 +175,7 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 ## 🏗 Adding a Feature
 
-In order to add a simple, togglable feature to the extension, you'll need to update the files listed below. This guide assumes you've added a new `<feature>.js` file to `js/extension/features/` and that it does not require additional CSS files, configuration pages, or submenus. Features that require their own configuration pages or submenus are more complex and are out of scope for this guide. I plan on adding a more in-depth guide in the future.
+In order to add a togglable feature to the extension you'll need to update the files listed below. This guide assumes you've added a new `<feature>.js` file to `js/extension/features/` and that it does not require additional CSS files, configuration pages, or submenus. Features that require their own configuration pages or submenus are more complex and are out of scope for this guide.
 
 ### 1️⃣ background.js
 
