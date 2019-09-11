@@ -1137,7 +1137,6 @@ appendFragment([resourceLibrary]).then(() => {
         return resolve();
       });
     })
-    .then(() => document.ready())
     .then(() => appendFragment(elems))
     .then(() => {
       // DOM clean up
