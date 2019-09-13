@@ -30,7 +30,7 @@ let scrollMarketplace = async function(page) {
 
 let scrollRelease = async function(page) {
   await Promise.all([
-    page.goto('https://www.discogs.com/sell/release/2897713'),
+    page.goto('https://www.discogs.com/sell/release/2897713', { waitUntil: 'networkidle2' }),
     page.waitFor('.de-page-stamp')
   ]);
 
