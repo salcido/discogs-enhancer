@@ -1,6 +1,16 @@
 module.exports = {
   current: [
     {
+      version: '2.19.0',
+      features: [],
+      updates: [],
+      thanks: [
+        'Thank you to sdsowlsa for buying me a coffee!'
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.18.0',
       features: [
         {
@@ -23,8 +33,6 @@ module.exports = {
         'Thank you to Transferwise for buying me a coffee!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.17.1',
       features: [],
