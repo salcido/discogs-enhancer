@@ -88,7 +88,7 @@ rl.ready(() => {
     // ========================================================
     // DOM setup
     // ========================================================
-    if (usDateFormat === undefined) usDateFormat = false;
+    if ( usDateFormat === undefined ) usDateFormat = false;
 
     rl.attachCss('date-toggle', rules);
     storeRelativeDates();
@@ -109,9 +109,6 @@ rl.ready(() => {
         span.textContent = actual;
       });
     });
-
-    // TODO: remove this later
-    rl.removePreference('absoluteDate');
   }
 });
 /*
