@@ -42,6 +42,6 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.1"
   }
 }
