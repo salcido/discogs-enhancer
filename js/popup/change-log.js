@@ -5,7 +5,7 @@ module.exports = {
       features: [],
       updates: [],
       thanks: [
-        'Thank you to sdsowlsa and Roman G for buying me a coffee!'
+        'Thank you to sdsowlsa and Roman G. for buying me a coffee!'
       ]
     },
   ],
