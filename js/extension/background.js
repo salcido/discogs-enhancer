@@ -131,7 +131,6 @@ appendFragment([resourceLibrary]).then(() => {
         blockBuyers: false,
         blockSellers: true,
         blurryImageFix: false,
-        collectionNewTabs: false,
         confirmBeforeRemoving: false,
         collectionUi: false,
         converter: true,
@@ -363,18 +362,6 @@ appendFragment([resourceLibrary]).then(() => {
         blurryImageFix.src = chrome.extension.getURL('js/extension/features/blurry-image-fix.js');
 
         elems.push(blurryImageFix);
-      }
-
-      if (result.prefs.collectionNewTabs) {
-
-        // collection-new-tabs.js.js
-        let collectionNewTabs = document.createElement('script');
-
-        collectionNewTabs.type = 'text/javascript';
-        collectionNewTabs.src = chrome.extension.getURL('js/extension/features/collection-new-tabs.js');
-        collectionNewTabs.className = 'de-init';
-
-        elems.push(collectionNewTabs);
       }
 
       if ( result.prefs.confirmBeforeRemoving ) {
