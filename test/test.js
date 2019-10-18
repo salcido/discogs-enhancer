@@ -447,11 +447,11 @@ describe('Functional Testing', function() {
 
     // Collection Links In New Tabs
     // ------------------------------------------------------
-    describe('Collection Links In New Tabs', async function() {
-      it('should open links from the React Collection in new tabs', async function() {
-        await require('./authenticated/collection-new-tabs').test(page);
-      });
-    });
+    // describe('Collection Links In New Tabs', async function() {
+    //   it('should open links from the React Collection in new tabs', async function() {
+    //     await require('./authenticated/collection-new-tabs').test(page);
+    //   });
+    // });
 
     // Hide Min Med Max Columns
     // ------------------------------------------------------

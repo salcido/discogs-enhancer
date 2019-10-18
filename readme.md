@@ -56,7 +56,6 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Filter Marketplace items by sleeve condition
 * Filter Marketplace items by shipping country
 * Filter Marketplace items by availability
-* Open release links from your Collection in new tabs
 * Open items in Lists in new tabs
 * Search Google for releases by clicking on the release title
 * Hide Min, Median, Max columns on the Collection page
@@ -120,17 +119,15 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 ***
 
-## Functional Tests Checklist (WIP)
-
-#### 34/39 features tested
+## Functional Tests
+<details>
+  <summary>Test Checklist (33/37)</summary>
   <p>
 
   #### AUTHENTICATED
-  - [ ] Better Collection UI _(Requires 2500+ items in Collection)_
+  - [ ] Better Collection UI
   - [ ] Block Buyers _(Requires user w/ sales history)_
-  - [x] Collection In New Tabs
-  - [ ] Confirm Before Removing Item
-  - [ ] Everlasting Collection _(Requires 2500+ items in Collection)_
+  - [ ] Everlasting Collection
   - [ ] Feedback Notifications _(Requires user w/ Buyer/Seller feedback)_
   - [x] Hide Min/Med/Max columns
   - [x] Larger BAOI Fields
