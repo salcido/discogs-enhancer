@@ -1,6 +1,21 @@
 module.exports = {
   current: [
     {
+      version: '2.18.1',
+      features: [],
+      updates: [
+        {
+          name: 'Feature Removal',
+          description: 'The "beta" collection app has been removed from Discogs so I\'ve updated the extension to remove the Collection Links In New Tabs feature as well as (hopefully) all references to the "beta" collection.'
+        }
+      ],
+      thanks: [
+        'Thank you to sdsowlsa and Roman G. for buying me a coffee!'
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.18.0',
       features: [
         {
@@ -23,8 +38,6 @@ module.exports = {
         'Thank you to Transferwise for buying me a coffee!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.17.1',
       features: [],
