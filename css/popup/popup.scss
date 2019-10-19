@@ -729,9 +729,12 @@ span.clear-search {
   margin-top: 10px;
 }
 
-// .help.contextual-help {
-//   margin-right: 74px;
-// }
+.help.contextual-help {
+  margin-right: 74px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
 .arrow-right {
   border-bottom: 10px solid transparent;
