@@ -37,7 +37,6 @@ rl.ready(() => {
     document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
 
     if ( mediaCondition ) {
-
       let conditions = ['Poor (P)',
                         'Fair (F)',
                         'Good (G)',
@@ -52,14 +51,11 @@ rl.ready(() => {
 
       // Remove offending items from the DOM based on whatever's left in the conditions array
       conditions.forEach(condition => {
-
         // Create array of media conditions
         let elems = document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:first-child + span');
 
         elems.forEach(el => {
-
           if ( el.textContent.trim() === condition ) {
-
             el.closest('.shortcut_navigable').classList.add('de-hide-media');
           }
         });

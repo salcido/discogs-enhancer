@@ -141,7 +141,7 @@ module.exports = { toggleFeature, openConfig, openPopup };
 // ========================================================
 
 describe('Functional Testing', function() {
-  this.timeout(20000);
+  this.timeout(40000);
   before(async function() { await boot(); });
 
   // Search Extension Features

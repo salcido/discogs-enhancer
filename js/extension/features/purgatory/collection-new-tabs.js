@@ -72,6 +72,8 @@ rl.ready(() => {
         observer,
         action;
 
+    if ( !reactApp ) { return; }
+
     action = mutationsList => {
       for ( let mutation of mutationsList ) {
 
