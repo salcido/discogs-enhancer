@@ -1262,6 +1262,7 @@
   table.release_list_table tbody tr,
   .review,
   .pagination.top,
+  .collection-value-and-pagination,
   #list_details .listitem,
   .order-item-row,
   #youtube_tracklist,
@@ -1269,6 +1270,10 @@
   #messages_list .messagelist tr,
   table.marketplace-table-react td {
     border-bottom: 1px solid #454545 !important;
+  }
+
+  #collection .pagination.top {
+    border-bottom: none !important;
   }
 
   .cards .card {
@@ -1763,7 +1768,7 @@
   ul.module_blocks .header,
   table.table_block tfoot tr {
     background: #454545 !important;
-    border-bottom: 1px solid #292929 !important;
+    border-bottom: 1px solid #323334 !important;
   }
 
   /* x icons on dashboard modules */
@@ -3143,5 +3148,8 @@
   // Highlights
   .highlight {
     background: #4a3f50 !important;
+  }
+  .hotkey {
+    color: #fff !important;
   }
 }
