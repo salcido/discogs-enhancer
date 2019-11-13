@@ -1763,7 +1763,7 @@
   ul.module_blocks .header,
   table.table_block tfoot tr {
     background: #454545 !important;
-    border-bottom: 1px solid #454545 !important;
+    border-bottom: 1px solid #292929 !important;
   }
 
   /* x icons on dashboard modules */
@@ -1896,7 +1896,8 @@
   }
 
   ul.module_blocks > li.table_body table thead tr {
-    border-bottom: 2px solid #454545 !important;
+    background: #454545 !important;
+    border-bottom: 2px solid #414141 !important;
   }
 
   .panel-success,
