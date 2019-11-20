@@ -3153,6 +3153,20 @@
     color: #fff !important;
   }
 
+  // text-format-shortcuts
+  .quick-button {
+    color: #cccccc !important;
+
+    i.icon-chain {
+      color: #cccccc !important;
+    }
+
+    &:hover,
+    &:hover > i.icon-chain {
+      color: white !important;
+    }
+  }
+
   // cookie consent
   #onetrust-consent-sdk #onetrust-banner-sdk {
     background-color: #000000 !important;

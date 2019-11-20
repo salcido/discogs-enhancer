@@ -1,26 +1,20 @@
 .quick-menu {
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .quick-menu a {
   outline: 0;
 }
 
-.quick-button,
-.de-dark-theme .quick-button {
+.quick-button {
   display: inline-block;
   height: 2em;
-  margin-right: 5px;
-  padding: 0 10px;
-  background-image: linear-gradient(#F2F2F2, #EAEAEA) !important;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #DBDBDB !important;
-  border-top-color: #E0E0E0 !important;
-  border-bottom-color: #D3D3D3 !important;
+  padding: 0 5px;
+  border-width: 0;
+  border: none !important;
   border-radius: 3px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05),inset -1px 0 0 rgba(255,255,255,0.025),inset 1px 0 0 rgba(255,255,255,0.025),0 1px 1px rgba(0,0,0,0.1);
+  background: none;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -29,12 +23,16 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.2s ease-out;
-
   vertical-align: middle;
 }
 
 .quick-button:hover {
-  background-image: linear-gradient(#FFFFFF, #FAFAFA) !important;
+  color: #000 !important;
+}
+
+.quick-button:active {
+  border: none;
+  outline: none;
 }
 
 .quick-button .icon,
