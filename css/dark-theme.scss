@@ -3152,4 +3152,20 @@
   .hotkey {
     color: #fff !important;
   }
+
+  // cookie consent
+  #onetrust-consent-sdk #onetrust-banner-sdk {
+    background-color: #000000 !important;
+
+    #onetrust-pc-btn-handler.cookie-setting-link {
+      background-color: #1276ce !important;
+      color: #fff !important;
+    }
+
+    #onetrust-accept-btn-handler {
+      background-color: #68b631 !important;
+      color: #fff !important;
+      border-color: #68b631 !important;
+    }
+  }
 }
