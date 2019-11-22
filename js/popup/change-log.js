@@ -1,6 +1,24 @@
 module.exports = {
   current: [
     {
+      version: '2.18.2',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Text Format Shortcuts has a new look - no more garish buttons!'
+        },
+        {
+          name: 'Enhancement',
+          description: 'A few small Dark Theme fixes - .highlight class color rule, dashboard module header fix, and GDPR cookie consent styles.'
+        },
+      ],
+      thanks: [
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.18.1',
       features: [],
       updates: [
@@ -13,8 +31,6 @@ module.exports = {
         'Thank you to sdsowlsa and Roman G. for buying me a coffee!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.18.0',
       features: [
