@@ -1262,6 +1262,7 @@
   table.release_list_table tbody tr,
   .review,
   .pagination.top,
+  .collection-value-and-pagination,
   #list_details .listitem,
   .order-item-row,
   #youtube_tracklist,
@@ -1269,6 +1270,10 @@
   #messages_list .messagelist tr,
   table.marketplace-table-react td {
     border-bottom: 1px solid #454545 !important;
+  }
+
+  #collection .pagination.top {
+    border-bottom: none !important;
   }
 
   .cards .card {
@@ -1763,7 +1768,7 @@
   ul.module_blocks .header,
   table.table_block tfoot tr {
     background: #454545 !important;
-    border-bottom: 1px solid #454545 !important;
+    border-bottom: 1px solid #323334 !important;
   }
 
   /* x icons on dashboard modules */
@@ -1896,7 +1901,8 @@
   }
 
   ul.module_blocks > li.table_body table thead tr {
-    border-bottom: 2px solid #454545 !important;
+    background: #454545 !important;
+    border-bottom: 2px solid #414141 !important;
   }
 
   .panel-success,
@@ -3136,6 +3142,44 @@
     &.dragging {
       border: 5px dashed #454545 !important;
       border-color: #4dd2ff !important;
+    }
+  }
+
+  // Highlights
+  .highlight {
+    background: #4a3f50 !important;
+  }
+  .hotkey {
+    color: #fff !important;
+  }
+
+  // text-format-shortcuts
+  .quick-button {
+    color: #cccccc !important;
+
+    i.icon-chain {
+      color: #cccccc !important;
+    }
+
+    &:hover,
+    &:hover > i.icon-chain {
+      color: white !important;
+    }
+  }
+
+  // cookie consent
+  #onetrust-consent-sdk #onetrust-banner-sdk {
+    background-color: #000000 !important;
+
+    #onetrust-pc-btn-handler.cookie-setting-link {
+      background-color: #1276ce !important;
+      color: #fff !important;
+    }
+
+    #onetrust-accept-btn-handler {
+      background-color: #68b631 !important;
+      color: #fff !important;
+      border-color: #68b631 !important;
     }
   }
 }
