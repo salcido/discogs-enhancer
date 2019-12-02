@@ -3209,4 +3209,13 @@
       color: #FFFFFF !important;
     }
   }
+  #ot-sdk-btn.ot-sdk-show-settings {
+    color: #7d91b0 !important;
+    border: 1px solid #7d91b0 !important;
+
+    &:hover {
+      color: #cae0fa !important;
+      border: 1px solid #cae0fa !important;
+    }
+  }
 }
