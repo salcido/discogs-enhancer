@@ -3167,6 +3167,14 @@
     }
   }
 
+  // demand-index
+  .de-demand-negative {
+    color: #e7413f !important;
+  }
+  .de-demand-positive {
+    color: #60C43F !important;
+  }
+
   // cookie consent
   #onetrust-consent-sdk #onetrust-banner-sdk {
     background-color: #000000 !important;
@@ -3180,6 +3188,42 @@
       background-color: #68b631 !important;
       color: #fff !important;
       border-color: #68b631 !important;
+    }
+  }
+  // Cookie settings
+  #onetrust-pc-sdk {
+    background: #454545 !important;
+
+    .always-active {
+      color: #287ce9 !important;
+    }
+    .close-icon {
+      color: #fff !important;
+    }
+    .accordion-text .switch-label {
+      border: 1px solid #ddd !important;
+      background-color: #f2f1f1 !important;
+    }
+    .switch-nob {
+      background: #7d7d7d !important;
+      border: 2px solid #7d7d7d !important;
+    }
+    .switch-inner:before {
+      background-color: #5BD14B !important;
+    }
+    button {
+      background-color: #68b631 !important;
+      border-color: #68b631 !important;
+      color: #FFFFFF !important;
+    }
+  }
+  #ot-sdk-btn.ot-sdk-show-settings {
+    color: #7d91b0 !important;
+    border: 1px solid #7d91b0 !important;
+
+    &:hover {
+      color: #cae0fa !important;
+      border: 1px solid #cae0fa !important;
     }
   }
 }

@@ -34,57 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Injects the `.news-item` markup when an update is returned
-   * @param {object} updateData The data returned from the updates endpoint
-   * @returns {undefined}
-   */
-  function appendNewsItem(updateData) {
-
-    let d = document.createElement('div'),
-        p = document.createElement('p'),
-        type = document.createElement('span'),
-        title = document.createElement('span'),
-        content = document.createElement('span'),
-        selector = document.querySelector('.info-wrap .updates');
-
-    if ( updateData.content ) {
-
-      d.className = 'news-item';
-
-      type.className = 'issue';
-      type.textContent = 'Extension issue: ';
-
-      title.className = 'item-title';
-      title.textContent = updateData.title || null;
-
-      content.className = 'text';
-      content.textContent = updateData.content;
-
-      p.append(type);
-      p.append(title);
-      p.append(content);
-      d.append(p);
-
-      return selector.insertAdjacentElement('afterbegin', d);
-    }
-    return;
-  }
-
-  /**
-   * Queries the `updates` endpoint for any urgent
-   * updates.
-   * @returns {object}
-   */
-  async function checkForIssues() {
-
-    let url = 'https://discogs-enhancer.com/updates',
-        request = await fetch(url),
-        data = await request.json();
-
-    return data;
-  }
-
-  /**
    * Checks the URL for a hash and scrolls the document
    * to the specified ID.
    * @returns {Undefined}
@@ -536,9 +485,4 @@ document.addEventListener('DOMContentLoaded', () => {
     getPreviousFeaturesAndUpdates();
     scrollTargetListeners();
   }, 200);
-
-  // Check for extension issues
-  checkForIssues()
-    .then(res => appendNewsItem(res))
-    .catch(err => console.warn('error getting updates', err));
 });

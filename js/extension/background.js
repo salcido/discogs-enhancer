@@ -135,6 +135,7 @@ appendFragment([resourceLibrary]).then(() => {
         collectionUi: false,
         converter: true,
         darkTheme: false,
+        demandIndex: false,
         everlastingCollection: false,
         everlastingMarket: true,
         favoriteSellers: true,
@@ -428,6 +429,18 @@ appendFragment([resourceLibrary]).then(() => {
         options.className = 'de-init';
 
         elems.push(options);
+      }
+
+      // demand-index.js
+      if ( result.prefs.demandIndex ) {
+
+        let demandIndex = document.createElement('script');
+
+        demandIndex.type = 'text/javascript';
+        demandIndex.src = chrome.extension.getURL('js/extension/features/demand-index.js');
+        demandIndex.className = 'de-init';
+
+        elems.push(demandIndex);
       }
 
       // everlasting collection
