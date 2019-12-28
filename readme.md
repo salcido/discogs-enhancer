@@ -44,6 +44,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Ask for confirmation before removing items from your Collection
 * Quick currency conversion
 * Dark Theme (WCAG 2.0 AA compliant)
+* Demand Index
 * Scan Artist/Label releases for comments
 * Tweak Artist/Label Discriminators
 * Everlasting Collection
