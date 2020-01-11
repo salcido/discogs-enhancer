@@ -151,6 +151,7 @@ select option {
   outline: none;
   color: var(--gray);
   vertical-align: top;
+  font-size: .75rem;
 }
 
 .rep-value {
@@ -286,6 +287,7 @@ input[type="checkbox"]:focus {
   float: left;
   width: 110px;
   color: var(--text-color);
+  font-size: .75rem;
 
   input {
     margin-right: 10px;
@@ -698,6 +700,7 @@ span.clear-search {
   border-radius: 5px;
   box-shadow: -2px 3px 5px 0px var(--bg-accent);
   color: var(--help-text);
+  font-size: .75rem;
   padding: 15px;
   position: absolute;
   top: 50%;
