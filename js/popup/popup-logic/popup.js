@@ -137,6 +137,7 @@ window.addEventListener('load', () => {
       toggleKristina,
       toggleOye,
       togglePhonica,
+      toggleRateYourMusic,
       toggleRushhour,
       toggleSotu,
       toggleYoutube;
@@ -323,6 +324,7 @@ window.addEventListener('load', () => {
     toggleKristina = document.getElementById('kristina');
     toggleOye = document.getElementById('oye');
     togglePhonica = document.getElementById('phonica');
+    toggleRateYourMusic = document.getElementById('rateyourmusic');
     toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
     toggleYoutube = document.getElementById('youtube');
@@ -387,6 +389,7 @@ window.addEventListener('load', () => {
       toggleKristina.checked = result.prefs.useKristina;
       toggleOye.checked = result.prefs.useOye;
       togglePhonica.checked = result.prefs.usePhonica;
+      toggleRateYourMusic.checked = result.prefs.useRateYourMusic;
       toggleRushhour.checked = result.prefs.useRushhour;
       toggleSotu.checked = result.prefs.useSotu;
       toggleYoutube.checked = result.prefs.useYoutube;

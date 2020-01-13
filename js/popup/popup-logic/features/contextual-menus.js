@@ -94,6 +94,11 @@ export function createContextualMenuElements() {
             id: 'phonica'
           },
           {
+            name: 'RateYourMusic',
+            fn: 'searchRateYourMusic',
+            id: 'rateyourmusic'
+          },
+          {
             name: 'Rush Hour',
             fn: 'searchRushhour',
             id: 'rushhour'

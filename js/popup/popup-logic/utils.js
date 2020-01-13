@@ -86,6 +86,7 @@ export function applySave(message, event) {
         useKristina: document.getElementById('kristina').checked,
         useOye: document.getElementById('oye').checked,
         usePhonica: document.getElementById('phonica').checked,
+        useRateYourMusic: document.getElementById('rateyourmusic').checked,
         useRushhour: document.getElementById('rushhour').checked,
         useSotu: document.getElementById('sotu').checked,
         useYoutube: document.getElementById('youtube').checked
