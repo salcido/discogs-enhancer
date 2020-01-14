@@ -2,16 +2,10 @@ module.exports = {
   current: [
     {
       version: '2.19.0',
-      features: [
-        {
-          name: 'Demand Index',
-          description: 'The Demand Index is a release\'s Want to Have ratio converted into a percentage.',
-          link: '#demandIndex'
-        },
-      ],
+      features: [],
       updates: [],
       thanks: [
-        'Thank you to <a href="https://www.discogs.com/user/naturality">Naturality</a> for his generous donation!'
+        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a> for his generous donation!'
       ]
     },
   ],
