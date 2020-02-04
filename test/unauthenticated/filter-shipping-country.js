@@ -17,10 +17,6 @@ let filter = async function(page) {
     page.waitFor('.de-hide-country')
   ]);
 
-  let countryInfo = await page.$eval('.country-list-info', elem => elem.classList.contains('country-list-info'));
-
-  assert.equal(countryInfo, true, 'Country info icon was not rendered');
-
   let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
   assert.equal(hiddenCountry, true, 'Country was not hidden');
 };
