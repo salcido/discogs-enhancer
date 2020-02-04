@@ -7,7 +7,7 @@ let filter = async function(page) {
 
   let configPage = await openConfig('filter-shipping-country');
   await configPage.waitFor('.country-input');
-  await configPage.type('.restore-input', '["United States", "United Kingdom"]');
+  await configPage.type('.restore-input', '["United States", "United Kingdom", "Japan", "Germany", "Australia"]');
   await configPage.click('.restore .btn.btn-green');
   await configPage.close();
 
