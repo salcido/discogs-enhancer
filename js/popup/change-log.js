@@ -5,7 +5,7 @@ module.exports = {
       features: [],
       updates: [],
       thanks: [
-        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a> for his generous donation!'
+        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a> and <b>Chance Warner</b> for their generous donations!'
       ]
     },
   ],
