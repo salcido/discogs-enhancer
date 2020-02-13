@@ -40,6 +40,8 @@ let filterNative = async function(page) {
   assert.equal(hiddenCountry, true, 'Country was not hidden on Next click.');
   // Re-enable for subsequent tests
   await toggleFeature('#toggleEverlastingMarket');
+  // Disable country filtering for subsequent tests
+  await toggleFeature('#toggleFilterShippingCountry');
 };
 
 module.exports = { filter, filterNative };
