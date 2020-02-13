@@ -342,7 +342,7 @@ describe('Functional Testing', function() {
     });
 
     it('should filter items based on media condition using native navigation', async function() {
-      await require('./unauthenticated/filter-shipping-country').filterNative(page);
+      await require('./unauthenticated/filter-media-condition').filterNative(page);
     });
   });
 
