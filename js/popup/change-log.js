@@ -3,9 +3,12 @@ module.exports = {
     {
       version: '2.19.0',
       features: [],
-      updates: [],
+      updates: [{
+        name: 'Enhancement',
+        description: 'New option for Contextual Menu Searching: rateyourmusic.com.'
+      }],
       thanks: [
-        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a> and <b>Chance Warner</b> for their generous donations!'
+        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a>, <b>Joe Brabant</b>, and <b>Chance Warner</b> for their generous donations!'
       ]
     },
   ],
