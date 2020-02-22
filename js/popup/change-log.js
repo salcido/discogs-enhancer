@@ -2,16 +2,13 @@ module.exports = {
   current: [
     {
       version: '2.19.0',
-      features: [
-        {
-          name: 'Demand Index',
-          description: 'The Demand Index is a release\'s Want to Have ratio converted into a percentage.',
-          link: '#demandIndex'
-        },
-      ],
-      updates: [],
+      features: [],
+      updates: [{
+        name: 'Enhancement',
+        description: 'New option for Contextual Menu Searching: rateyourmusic.com.'
+      }],
       thanks: [
-        'Thank you to <a href="https://www.discogs.com/user/naturality">Naturality</a> for his generous donation!'
+        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a>, <b>Joe Brabant</b>, and <b>Chance Warner</b> for their generous donations!'
       ]
     },
   ],

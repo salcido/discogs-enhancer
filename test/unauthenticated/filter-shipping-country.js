@@ -7,7 +7,7 @@ let filter = async function(page) {
 
   let configPage = await openConfig('filter-shipping-country');
   await configPage.waitFor('.country-input');
-  await configPage.type('.restore-input', '["United States", "United Kingdom"]');
+  await configPage.type('.restore-input', '["United States", "United Kingdom", "Japan", "Germany", "Australia"]');
   await configPage.click('.restore .btn.btn-green');
   await configPage.close();
 
@@ -16,10 +16,6 @@ let filter = async function(page) {
     page.waitFor('.de-page-stamp'),
     page.waitFor('.de-hide-country')
   ]);
-
-  let countryInfo = await page.$eval('.country-list-info', elem => elem.classList.contains('country-list-info'));
-
-  assert.equal(countryInfo, true, 'Country info icon was not rendered');
 
   let hiddenCountry = await page.$eval('.de-hide-country', elem => elem.classList.contains('de-hide-country'));
   assert.equal(hiddenCountry, true, 'Country was not hidden');
@@ -44,6 +40,8 @@ let filterNative = async function(page) {
   assert.equal(hiddenCountry, true, 'Country was not hidden on Next click.');
   // Re-enable for subsequent tests
   await toggleFeature('#toggleEverlastingMarket');
+  // Disable country filtering for subsequent tests
+  await toggleFeature('#toggleFilterShippingCountry');
 };
 
 module.exports = { filter, filterNative };

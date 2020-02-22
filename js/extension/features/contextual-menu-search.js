@@ -128,6 +128,14 @@ function searchPhonica(event) {
   chrome.tabs.create({url: 'http://www.phonicarecords.com/search/' + encodeStr});
 }
 
+function searchRateYourMusic(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({url: 'https://rateyourmusic.com/search?searchterm=' + encodeStr + '&type=l'});
+}
+
 function searchRushhour(event) {
 
   let str = event.selectionText,

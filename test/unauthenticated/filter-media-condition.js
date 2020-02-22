@@ -41,7 +41,6 @@ let filterNative = async function(page) {
   await Promise.all([
     page.goto('https://www.discogs.com/sell/list?sort=listed%2Cdesc&limit=250&page=1', { waitUntil: 'networkidle2' }),
     page.waitFor('.mint.bold'),
-    page.waitFor('.de-filter-stamp'),
     page.waitFor('a.pagination_next')
   ]);
 

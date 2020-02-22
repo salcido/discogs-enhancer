@@ -46,7 +46,7 @@ rl.ready(() => {
           let icon = document.createElement('span');
 
           icon.className = 'de-favorite-seller needs_delegated_tooltip';
-          icon.title = `${seller} is on your Favorite Seller list.`;
+          icon.title = `${seller} is on your Favorite Sellers list.`;
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
           name.closest('li').insertAdjacentElement('beforeend', icon);

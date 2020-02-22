@@ -10,7 +10,8 @@ let block = async function(page) {
   let sellerNames = await page.$$eval('.seller_info .seller_label + strong a', elems => {
     let sellerNames = [];
     elems.forEach(n => sellerNames.push(n.textContent));
-    return sellerNames;
+    let uniqueNames = new Set(sellerNames);
+    return [...uniqueNames];
   });
 
   let configPage = await openConfig('block-sellers');

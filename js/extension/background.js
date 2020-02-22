@@ -184,6 +184,7 @@ appendFragment([resourceLibrary]).then(() => {
         useKristina: false,
         useOye: false,
         usePhonica: false,
+        useRateYourMusic: false,
         useRushhour: false,
         useSotu: false,
         useYoutube: false
@@ -1060,6 +1061,17 @@ appendFragment([resourceLibrary]).then(() => {
           id: 'phonica',
           method: 'create',
           name: 'Phonica',
+          request: 'updateContextMenu'
+        });
+      }
+
+      if (result.prefs.useRateYourMusic) {
+
+        chrome.runtime.sendMessage({
+          fn: 'searchRateYourMusic',
+          id: 'rateyourmusic',
+          method: 'create',
+          name: 'Rate Your Music',
           request: 'updateContextMenu'
         });
       }

@@ -506,12 +506,13 @@ h2.highlight {
   background-size: cover;
 }
 
-.thanks ul {
-  margin: 0 auto;
+ul.thanks {
+  columns: 2;
+  margin-bottom: 8rem;
 }
 
 .thanks li {
-  margin: 0.5rem auto;
+  margin: 0 auto 1rem auto;
 }
 
 .thanks li.donor {
