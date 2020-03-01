@@ -24,7 +24,7 @@
   "homepage": "https://github.com/salcido/discogs-enhancer#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-es2015": "^6.22.0",
