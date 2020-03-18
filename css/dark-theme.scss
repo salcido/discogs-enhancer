@@ -1632,6 +1632,12 @@
   .cart_page .order_shipping_hint {
     background: #dbedff !important;
     border: 1px solid #8ac4ff !important;
+    color: #323334 !important;
+
+    &:hover {
+      text-decoration: underline !important;
+      color: #323334 !important;
+    }
   }
 
   .order_pay_now {
@@ -3045,6 +3051,10 @@
       background: #f7d266 !important;
       padding: 0px 3px;
       border-radius: 3px;
+    }
+
+    span {
+      color: #323334 !important;
     }
   }
 
