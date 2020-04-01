@@ -9,7 +9,6 @@
   background-color: white;
   border: 1px solid grey !important;
   border-radius: 5px 0 0 5px;
-  box-shadow: 0 5px 10px #000000;
   color: gray !important;
   transition: all 0.3s ease-in-out;
 }
