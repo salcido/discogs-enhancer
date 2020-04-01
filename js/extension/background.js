@@ -285,17 +285,6 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(highlightScript);
 
-      // marketplace-highlights.css
-      let highlightCss = document.createElement('link');
-
-      highlightCss.rel = 'stylesheet';
-      highlightCss.type = 'text/css';
-      highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
-      highlightCss.id = 'mediaHighLightsCss';
-      highlightCss.disabled = !result.prefs.highlightMedia;
-
-      elems.push(highlightCss);
-
       // ========================================================
       // Preference-dependent scripts
       // ========================================================

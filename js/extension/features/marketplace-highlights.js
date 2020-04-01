@@ -68,25 +68,63 @@ rl.ready(() => {
     // Orders Page
     // ========================================================
 
-    /*
-     * Commenting this out for now. Sleeve conditions are not wrapped in a span like media conditions
-     * so it's not easy to isolate their values to colorize/embolden them. I've decided not to use this
-     * because it won't be consistent with the Marketplace Highlights since both Media and Sleeve are
-     * highlighted there. If Discogs ever updates their markup, this could be pretty rad.
-
     // Media conditions
     const orderMedia = [...document.querySelectorAll('.order-item-conditions span:nth-child(2)')],
-          orderSleeves = [...document.querySelectorAll('.order-item-conditions span:nth-child(4)')]
+          orderSleeves = [...document.querySelectorAll('.order-item-conditions span:nth-child(5)')];
 
     addHighlights(orderMedia);
     addHighlights(orderSleeves);
-
-    */
   };
 
-  // Apply styles on ready/prev/next clicks
-  if ( rl.pageIs('allItems', 'sellRelease', 'myWants', 'seller') ) {
+  // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .bold {
+        font-weight: bold !important;
+      }
 
+      .mint {
+          color: #00b4db !important;
+      }
+
+      .near-mint {
+        color: #00cfaa !important;
+      }
+
+      .very-good-plus {
+        color: #05cf21 !important;
+      }
+
+      .very-good {
+        color: #85ab11 !important;
+      }
+
+      .good-plus {
+        color: #f8b41f !important;
+      }
+
+      .good {
+        color: #d87307 !important;
+      }
+
+      .fair {
+        color: #e54803 !important;
+      }
+
+      .poor {
+        color: #ff0000 !important;
+      }
+    `;
+
+// ========================================================
+// DOM Setup
+// ========================================================
+
+  // Apply styles on ready/prev/next clicks
+  if ( rl.pageIs('allItems', 'sellRelease', 'myWants', 'seller', 'order') ) {
+
+    rl.attachCss('marketplace-highlights', rules);
     window.applyStyles();
     // Prev/Next clicks
     rl.handlePaginationClicks(window.applyStyles);
