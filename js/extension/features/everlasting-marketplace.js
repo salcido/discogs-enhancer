@@ -134,6 +134,8 @@ rl.ready(() => {
       if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
       // Filter Unavailable Items
       if ( window.filterUnavailable ) window.filterUnavailable();
+      // Filter Prices
+      if ( window.filterPrices ) window.filterPrices();
     }
 
     /**
@@ -276,14 +278,14 @@ rl.ready(() => {
 
       let mc = mediaCondition ? Number(mediaCondition) : null,
           sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null,
-          filterState = window.setFilterStateText ? `&mdash; ${ window.setFilterStateText(mc, sc)}` : '';
+          filterState = window.setFilterStateText ? `${ window.setFilterStateText(mc, sc)}` : '';
 
       return `<tr class="shortcut_navigable">
                 <td class="item_description de-page-stamp de-page-number">
                   <h3 class="de-current-page">Page: ${pageNum}</h3>
                 </td>
                 <td class="item_description de-filter-stamp de-page-stamp">
-                  ${pTotal} results ${filterState}
+                  ${filterState}
                 </td>
                 <td class="de-page-stamp de-marketplace-results z-1 back-to-top"><a href="#site_header">Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
@@ -341,7 +343,10 @@ rl.ready(() => {
 
     // Hide standard means of page navigation
     document.querySelectorAll('.pagination_page_links').forEach(el => { el.style.display = 'none'; });
-    document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp(pageHist[0]));
+    // Add page stamp and filters (if any)
+    setTimeout(() => {
+      document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp(pageHist[0]));
+    }, 0);
     // Open in new tabs
     document.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
 

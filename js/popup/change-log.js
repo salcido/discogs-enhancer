@@ -1,7 +1,40 @@
 module.exports = {
   current: [
     {
-      version: '2.19.1',
+      version: '2.20.0',
+      features: [
+        {
+          name: 'Filter Prices',
+          description: 'Hides all items that are below a minimum value or above a maximum value in the Marketplace.',
+          link: '#filterPrices'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'New option for Contextual Menu Searching: rateyourmusic.com.'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Everlasting Collection will now respect page parameters in the URL.'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Marketplace Highlights will now be applied to the Orders page!'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Various Dark Theme fixes! Woohoo!'
+        }
+      ],
+      thanks: [
+        'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a> for the shoutout on his <a href="https://www.youtube.com/watch?v=fTvwDiHnPWU">Mark Anthony\'s Music Picks show</a>. Check it out if you are into Electronic music!'
+      ]
+    },
+  ],
+  previous: [
+    {
+      version: '2.19.0',
       features: [],
       updates: [{
         name: 'Enhancement',
@@ -11,8 +44,6 @@ module.exports = {
         'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a>, <b>Joe Brabant</b>, and <b>Chance Warner</b> for their generous donations!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.18.2',
       features: [],

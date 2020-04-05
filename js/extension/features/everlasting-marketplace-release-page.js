@@ -160,6 +160,8 @@ rl.ready(() => {
       if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
       // Filter Unavailable Items
       if ( window.filterUnavailable ) window.filterUnavailable();
+      // Filter Prices
+      if ( window.filterPrices ) window.filterPrices();
     }
 
     /**

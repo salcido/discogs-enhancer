@@ -64,6 +64,7 @@ function getCurrentFilterState() {
   let currentFilterState = {
         everlastingMarket: prefs.everlastingMarket,
         filterMediaCondition: prefs.filterMediaCondition,
+        filterPrices: prefs.filterPrices,
         filterShippingCountry: prefs.filterShippingCountry,
         filterSleeveCondition: prefs.filterSleeveCondition,
       };
@@ -142,6 +143,7 @@ appendFragment([resourceLibrary]).then(() => {
         feedback: false,
         filterMediaCondition: false,
         filterMediaConditionValue: null,
+        filterPrices: false,
         filterShippingCountry: false,
         filterSleeveCondition: false,
         filterSleeveConditionValue: null,
@@ -526,6 +528,17 @@ appendFragment([resourceLibrary]).then(() => {
         filterMediaCondition.className = 'de-init';
 
         elems.push(filterMediaCondition);
+      }
+
+      if ( result.prefs.filterPrices ) {
+
+        let filterPrices = document.createElement('script');
+
+        filterPrices.type = 'text/javascript';
+        filterPrices.src = chrome.extension.getURL('js/extension/features/filter-prices.js');
+        filterPrices.className = 'de-init';
+
+        elems.push(filterPrices);
       }
 
       if (result.prefs.filterShippingCountry) {

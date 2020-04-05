@@ -79,6 +79,7 @@
     "js/extension/features/feedback-notifier.js",
     "js/extension/features/filter-media-condition.js",
     "js/extension/features/filter-monitor.js",
+    "js/extension/features/filter-prices.js",
     "js/extension/features/filter-shipping-country.js",
     "js/extension/features/filter-sleeve-condition.js",
     "js/extension/features/filter-unavailable.js",

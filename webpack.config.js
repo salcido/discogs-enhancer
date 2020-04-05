@@ -61,6 +61,7 @@ module.exports = {
     [features + 'feedback-notifier']: `${features}feedback-notifier.js`,
     [features + 'filter-media-condition']: `${features}filter-media-condition.js`,
     [features + 'filter-monitor']: `${features}filter-monitor.js`,
+    [features + 'filter-prices']: `${features}filter-prices.js`,
     [features + 'filter-shipping-country']: `${features}filter-shipping-country.js`,
     [features + 'filter-sleeve-condition']: `${features}filter-sleeve-condition.js`,
     [features + 'filter-unavailable']: `${features}filter-unavailable.js`,
