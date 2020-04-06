@@ -74,7 +74,8 @@ body {
 h1 {
   color: var(--logo);
   display: inline-block;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Barlow', sans-serif;
+  text-transform: uppercase;
   font-size: 1.5rem;
   margin-left: 15px;
   margin-top: 10px;
@@ -98,7 +99,7 @@ a.button {
   height: 2em;
   letter-spacing: 0.05rem;
   line-height: 2em;
-  margin: 0 0 0 20px;
+  margin: 0 0 0 10px;
   outline: none;
   text-align: center;
   text-decoration: none;
@@ -161,13 +162,6 @@ select option {
 #editList:hover,
 #editReadability:hover {
   color: var(--white);
-}
-
-.header {
-
-  .title {
-    margin: 1rem 0 0.5rem 0;
-  }
 }
 
 .marketplace-features-container {
@@ -704,7 +698,7 @@ input[type="checkbox"]:focus {
   color: var(--white);
   font-size: 14px;
   height: 20px;
-  margin: 0 auto 15px;
+  margin: 0 auto 18px;
   outline: none;
   padding: 5px 25px 5px 32px;
   width: 75%;
