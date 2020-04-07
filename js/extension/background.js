@@ -219,6 +219,15 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(filterMonitor);
 
+      // update-exchange-rates.js
+      let updateExchangeRates = document.createElement('script');
+
+      updateExchangeRates.type = 'text/javascript';
+      updateExchangeRates.src = chrome.extension.getURL('js/extension/dependencies/update-exchange-rates.js');
+      updateExchangeRates.className = 'de-init';
+
+      elems.push(updateExchangeRates);
+
       // - Toggleable CSS files -
       // --------------------------------------------------------
       // These are always appended and enabled/disabled via
@@ -827,16 +836,6 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       if (result.prefs.suggestedPrices) {
-
-        // update-exchange-rates.js
-        let updateExchangeRates = document.createElement('script');
-
-        updateExchangeRates.type = 'text/javascript';
-        updateExchangeRates.src = chrome.extension.getURL('js/extension/dependencies/update-exchange-rates.js');
-        updateExchangeRates.className = 'de-init';
-
-        elems.push(updateExchangeRates);
-
         // suggested-prices-release-page.js
         let suggestedPricesRelease = document.createElement('script');
 
