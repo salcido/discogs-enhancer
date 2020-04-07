@@ -203,7 +203,7 @@ describe('Functional Testing', function() {
 
   // Everlasting Marketplace
   // ------------------------------------------------------
-  describe('Everlasting Marketplace', async function() {
+  describe.skip('Everlasting Marketplace', async function() {
     it('renders EM headers in the DOM', async function() {
       await require('./unauthenticated/everlasting-marketplace').test(page);
     });
@@ -324,7 +324,7 @@ describe('Functional Testing', function() {
 
   // Filter Shipping Countries
   // ------------------------------------------------------
-  describe('Filter Shipping Countries', async function() {
+  describe.skip('Filter Shipping Countries', async function() {
     it('should filter items based on their country of origin', async function() {
       await require('./unauthenticated/filter-shipping-country').filter(page);
     });
