@@ -71,7 +71,7 @@ rl.ready(() => {
               mc = mediaCondition ? Number(mediaCondition) : null,
               sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
 
-          div.innerHTML = window.setFilterStateText(mc, sc);
+          setTimeout(() => { div.innerHTML = window.setFilterStateText(mc, sc); }, 0);
           div.style.margin = '8px 0';
           div.className = 'de-filter-stamp';
           e.insertAdjacentElement('afterend', div);

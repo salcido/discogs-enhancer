@@ -66,5 +66,6 @@ rl.ready(() => {
 
     rl.attachCss('price-filters', rules);
     window.filterPrices();
+    rl.handlePaginationClicks(window.filterPrices);
   }
 });

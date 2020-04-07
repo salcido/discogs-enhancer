@@ -69,7 +69,7 @@ rl.ready(() => {
 
         let div = document.createElement('div');
 
-        div.innerHTML = window.setFilterStateText();
+        setTimeout(() => { div.innerHTML = window.setFilterStateText(); }, 0);
         div.className = 'de-filter-stamp';
         div.style.margin = '8px 0';
         e.insertAdjacentElement('afterend', div);
