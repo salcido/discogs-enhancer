@@ -12,6 +12,7 @@ rl.ready(() => {
   if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
 
     let prefs = rl.getPreference('filterPrices') || { minimum: null, maximum: null },
+        currentFilterState = rl.getPreference('currentFilterState'),
         minimum = prefs.minimum,
         maximum = prefs.maximum;
 
@@ -50,6 +51,23 @@ rl.ready(() => {
           if (prices[i].convertedPrice > maximum) {
             item.closest('.shortcut_navigable').classList.add('de-maximum-price');
           }
+        });
+      }
+
+      // Update page with filter notice (everlasting)
+      if ( !currentFilterState.filterMediaCondition
+        && !currentFilterState.everlastingMarket
+        && !currentFilterState.filterSleeveCondition
+        && !document.querySelector('.de-filter-stamp') ) {
+
+        document.querySelectorAll('.pagination').forEach(e => {
+
+          let div = document.createElement('div');
+
+          setTimeout(() => { div.innerHTML = window.setFilterStateText(); }, 0);
+          div.className = 'de-filter-stamp';
+          div.style.margin = '8px 0';
+          e.insertAdjacentElement('afterend', div);
         });
       }
     };
