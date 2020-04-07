@@ -18,45 +18,15 @@ rl.ready(() => {
        && layout !== 'big'
        &&  !reactApp ) {
 
-    let blackBar,
-        hasLoaded = false,
+    let hasLoaded = false,
+        initialPage = (new URL(document.location)).searchParams.get('page') || 1,
+        pageNum = initialPage,
         max = document.querySelector('.pagination.bottom li a.pagination_next')
-                      .parentElement.previousElementSibling.textContent.trim(),
-        pagination,
-        pTotal,
-        page = 2,
-        paused = false;
+                      .parentElement.previousElementSibling.textContent.trim();
 
     // ========================================================
     // Functions (Alphabetical)
     // ========================================================
-
-    /**
-     * Adds the click event listner for `.de-resume`
-     * @method addResumeListener
-     * @returns {method}
-     */
-    function addResumeListener() {
-
-      let loadingText = document.querySelector('.de-next-text'),
-          pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Collection"></i>',
-          controls = document.querySelector('.de-pause'),
-          resume = document.querySelector('.de-resume'),
-          spinner = document.querySelector('#de-next .icon-spinner');
-
-      resume.addEventListener('click', event => {
-
-        event.preventDefault();
-
-        controls.innerHTML = pauseIcon;
-        spinner.style.display = 'block';
-        loadingText.textContent = 'Loading next page...';
-
-        paused = false;
-
-        return getNextPage();
-      });
-    }
 
     /**
      * Appends the next page of the collection to the DOM
@@ -68,19 +38,15 @@ rl.ready(() => {
       let body = document.querySelector('#collection tbody'),
           fragment = document.createDocumentFragment(),
           lastChild = '#collection tbody:last-child',
-          opt = document.createElement('option'),
-          selectBox = document.querySelector('.de-scroll-to-page'),
           pageStamp = assignPageStamp(layout);
+
       // Insert the page stamp in between each set of page results that are appended
       document.querySelector(lastChild).insertAdjacentHTML('beforeEnd', pageStamp);
       // Populate the document fragment
       data.forEach(tr => fragment.appendChild(tr));
       // Append the fragment to the DOM
       body.appendChild(fragment);
-      // Update the select box in the blackBar component
-      opt.value = page;
-      opt.textContent = `Page: ${page}`;
-      selectBox.insertAdjacentElement('beforeend', opt);
+
       setTimeout(() => window.injectStars(), 100);
       // Optional notes-counter feature functionality
       if ( window.addNotesCounter ) setTimeout(() => window.addNotesCounter(), 100);
@@ -102,7 +68,7 @@ rl.ready(() => {
                         <td class="as_table_cell mobile_status"></td>
                         <td class="status hide_mobile"><div class="tooltip_wrapper"><span class="needs_tooltip" data-title=""></span></div></td>
                         <td class="collection-release-title-cell" data-followable=".release_title_link a">
-                          <h2 class="de-current-page" id="de-page-${page}">Page: ${page}</h2>
+                          <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
                         </td>
                         <td class="collection-value-column hide_mobile"></td>
                         <td class="collection-value-column hide_mobile"></td>
@@ -121,7 +87,7 @@ rl.ready(() => {
                         <td class="image as_float"><div class="collection-image-wrapper"></div></td>
                         <td class="status hide_mobile"></td>
                         <td class="collection-release-title-cell" data-followable=".release_title_link a">
-                          <h2 class="de-current-page" id="de-page-${page}">Page: ${page}</h2>
+                          <h2 class="de-current-page" id="de-page-${pageNum}">Page: ${pageNum}</h2>
                         </td>
                         <td class="right has_header pricing collection-value-column cell_collapsed" data-header="Min"></td>
                         <td class="right has_header pricing collection-value-column cell_collapsed" data-header="Med"></td>
@@ -138,13 +104,15 @@ rl.ready(() => {
 
     /**
      * Gets the next page of the collection
-     * @returns {method}
+     * @returns {undefined}
      */
     async function getNextPage() {
 
+      pageNum++;
+
       try {
 
-        let url = `https://www.discogs.com/user/${username}/collection?page=${page}${rl.removePageParam(href)}`,
+        let url = `https://www.discogs.com/user/${username}/collection?page=${pageNum}${rl.removePageParam(href)}`,
             data = await fetch(`${url}`, { credentials: 'include' }),
             response = await data.text(),
             tr = '#collection tbody tr',
@@ -166,17 +134,16 @@ rl.ready(() => {
           the page request number against the total number of pages and append
           a notice if we've reached the end.
         */
-        if ( page <= Number(max) ) {
+        if ( pageNum <= Number(max) ) {
 
           appendCollectionData(markup);
-
+          rl.updatePageParam(pageNum);
         } else {
 
           loader.remove();
           document.querySelector('#collection table').insertAdjacentHTML('afterend', noItems);
         }
 
-        page++;
         hasLoaded = false;
 
       } catch (err) {
@@ -187,34 +154,8 @@ rl.ready(() => {
     // ========================================================
     // DOM Setup / Init
     // ========================================================
-
-    pagination = document.querySelector('.pagination_total').textContent;
-    // This will grab the total number of results returned by discogs
-    // depending on the language that the user has set
-    pTotal = rl.paginationTotal(pagination);
     // Hide pagination
     document.querySelectorAll('.pagination.bottom').forEach(el => { el.style.display = 'none'; });
-
-    blackBar = `<div class="de-page-bar">
-                  <span class="de-page-info">
-                    <span class="de-page de-page-num">Page: 1</span>
-                    <span> ${pTotal} results</span>
-                  </span>
-                  <a href="#" id="de-update-filters">Back to top</a>
-                  <div class="de-select-wrap">
-                    <span>Scroll to: &nbsp;</span>
-                    <select class="de-scroll-to-page">
-                      <option value="" selected>Select</option>
-                      <option value="1">Page: 1</option>
-                    </select>
-                    <span class="de-pause">
-                      <i class="icon icon-pause" title="Pause Everlasting Collection"></i>
-                    </span>
-                  </div>
-                </div>`;
-
-    // Everlasting Collection add/remove filters bar
-    document.body.insertAdjacentHTML('beforeend', blackBar);
 
     if ( !document.getElementById('de-next') ) {
 
@@ -229,125 +170,14 @@ rl.ready(() => {
     }
 
     // ========================================================
-    // UI Functionalty
-    // ========================================================
-
-    // Scroll the browser up to the top so the user can change Collection filters
-    document.querySelector('#de-update-filters').addEventListener('click', event => {
-
-      event.preventDefault();
-      window.scroll({ top: 0, left: 0 });
-    });
-
-    // Pause/resume Everlasting Collection
-    document.querySelector('.de-pause').addEventListener('click', event => {
-
-      let
-          loader = document.querySelector('.de-next-text'),
-          pauseIcon = '<i class="icon icon-pause" title="Pause Everlasting Collection"></i>',
-          playIcon = '<i class="icon icon-play" title="Resume Everlasting Collection"></i>',
-          resumeLink = '<p>Everlasting Collection is paused.</p> <p><a href="#" class="de-resume">Click here to resume loading results</a></p>',
-          spinner = document.querySelector('#de-next .icon-spinner'),
-          target = event.target;
-
-      // Paused
-      if ( target.classList.contains('icon-pause') ) {
-
-        target.parentElement.innerHTML = playIcon;
-
-        spinner.style.display = 'none';
-        loader.innerHTML = resumeLink;
-
-        paused = true;
-
-        addResumeListener();
-
-      // Resume
-      } else {
-
-        target.parentElement.innerHTML = pauseIcon;
-
-        spinner.style.display = 'block';
-        loader.textContent = 'Loading next page...';
-
-        paused = false;
-      }
-    });
-
-    // scroll to page section select box functionality
-    document.querySelector('.de-scroll-to-page').addEventListener('change', event => {
-
-      let target = event.target,
-          targetId = '#de-page-' + target.value;
-
-      if ( target.value ) {
-
-        if ( target.value === '1' ) {
-
-          window.scroll({ top: 0, left: 0 });
-
-        } else {
-
-          document.querySelector(targetId).scrollIntoView();
-          window.scroll({top: window.scrollY - 30, left: 0});
-        }
-      }
-    });
-
-    // ========================================================
     // Scrolling Functionality
     // ========================================================
-
     window.addEventListener('scroll', () => {
+      let kurtLoder = document.querySelector('#de-next');
 
-      let currentPage = document.querySelector('.de-page'),
-          everlasting = document.querySelector('.de-page-bar'),
-          kurtLoder = document.querySelector('#de-next'), // also former MTV anchor
-          pageIndicator = document.getElementsByClassName('de-current-page'),
-          siteHeader = document.querySelector('#site_header');
-
-      if ( rl.isOnScreen(kurtLoder)
-            && !hasLoaded
-            && !paused ) {
-
+      if ( rl.isOnScreen(kurtLoder) && !hasLoaded ) {
         hasLoaded = true;
-
         return getNextPage();
-      }
-
-      // Show/Hide the blackbar nav component
-      if ( rl.isOnScreen(siteHeader) ) {
-
-        everlasting.classList.remove('show');
-        everlasting.classList.add('hide');
-        currentPage.textContent = 'Page: 1';
-
-      } else {
-
-        if ( !rl.isOnScreen(siteHeader)
-             && everlasting.getBoundingClientRect().top < -30 ) {
-
-          everlasting.classList.remove('hide');
-          everlasting.classList.add('show');
-        }
-      }
-
-      // This gnarly bit of code will display the currently viewed page
-      // of results in the Everlasting Collection top bar.
-      if ( pageIndicator && pageIndicator.length > 0 ) {
-
-        for ( let i = 0; i < page; i++ ) {
-
-          try {
-
-            if ( rl.isOnScreen(pageIndicator[i]) ) {
-
-              currentPage.textContent = pageIndicator[i].textContent;
-            }
-          } catch (e) {
-            // I'm just here so I don't throw errors
-          }
-        }
       }
     });
   }

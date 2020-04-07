@@ -6,7 +6,7 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * This feature relays the filter media/sleeve/countries feature settings
+ * This feature relays the filter feature settings
  * so that their current status can be shown whilst browsing the Marketplace
  */
 
@@ -14,12 +14,15 @@ rl.ready(() => {
 
   let currentFilterState = rl.getPreference('currentFilterState'),
       sleeveCondition = rl.getPreference('sleeveCondition'),
+      filterPrices = rl.getPreference('filterPrices'),
+      userCurrency = rl.getPreference('userCurrency'),
       countryList = rl.getPreference('countryList');
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
       include = countryList && countryList.include ? 'Including' : 'Excluding',
       mediaEnabled = currentFilterState.filterMediaCondition,
+      pricesEnabled = currentFilterState.filterPrices,
       sleeveEnabled = currentFilterState.filterSleeveCondition,
       info = countryList && countryList.list ? `
               <span class="country-list-info">
@@ -37,6 +40,35 @@ rl.ready(() => {
   function mediaFilter(mediaLength) {
     if ( mediaEnabled && mediaLength ) {
       return `Media: <span class="${_class[mediaLength]}">${key[mediaLength]}</span>`;
+    }
+    return null;
+  }
+
+  function priceFilter() {
+    let { minimum, maximum } = filterPrices,
+        currCode = {
+            AUD: 'A$',
+            BRL: 'R$',
+            CAD: 'CA$',
+            CHF: 'CHF',
+            EUR: '€',
+            GBP: '£',
+            JPY: '¥',
+            MXN: 'MX$',
+            NZD: 'NZ$',
+            SEK: 'SEK',
+            USD: '$',
+            ZAR: 'ZAR',
+        };
+
+    if ( pricesEnabled && filterPrices ) {
+      if (minimum && !maximum) {
+        return `Min Price: ${currCode[userCurrency]}${minimum}`;
+      } else if (maximum && !minimum) {
+        return `Max Price: ${currCode[userCurrency]}${maximum}`;
+      } else if (minimum && maximum) {
+        return `Min Price: ${currCode[userCurrency]}${minimum} / Max Price: ${currCode[userCurrency]}${maximum}`;
+      }
     }
     return null;
   }
@@ -110,8 +142,16 @@ rl.ready(() => {
         sleeve = sleeveFilter(sleeveLength),
         generic = genericFilter(),
         noCover = noCoverFilter(),
+        prices = priceFilter(),
         // toggle = '<button onClick="window.toggleItems(event)" class="de-show-toggle">Toggle Filtered Items</button>',
-        filters = [media, sleeve, generic, noCover, countriesFilter(countryEnabled, countryList, currency)].filter(f => f !== null).join(', ');
+        filters = [
+          media,
+          sleeve,
+          generic,
+          noCover,
+          prices,
+          countriesFilter(countryEnabled, countryList, currency)
+        ].filter(f => f !== null).join(', ');
 
     if ( filters.length ) return `Filtering - ${filters}`;
 

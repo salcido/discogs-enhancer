@@ -73,7 +73,7 @@ rl.ready(() => {
   function appendSpinners() {
     document.querySelectorAll('.card td.image a').forEach((r,i) => {
       let preloader = '<i class="icon icon-spinner icon-spin de-loader" style="font-style: normal;"></i>';
-      return (skittles[i]||checkbox[i]).insertAdjacentHTML('beforeend', preloader);
+      return (skittles[i] || checkbox[i]).insertAdjacentHTML('beforeend', preloader);
     });
   }
 
@@ -91,7 +91,7 @@ rl.ready(() => {
     data.position = position;
     badge = createBadge(data);
 
-    return count || colorize && moreWants ? (skittles[position]||checkbox[position]).insertAdjacentHTML('beforeend', badge) : null;
+    return count || colorize && moreWants ? (skittles[position] || checkbox[position]).insertAdjacentHTML('beforeend', badge) : null;
   }
 
   /**

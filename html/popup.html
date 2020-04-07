@@ -6,7 +6,7 @@
     <script async src="../js/extension/dependencies/analytics.js"></script>
     <script src="../js/popup/popup-logic/popup.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow:300" rel="stylesheet">
   </head>
   <body>
 
@@ -378,6 +378,71 @@
           <div class="help-bubble">
             <div class="help-text">
               Filters out items in the Marketplace that are below a specified media condition.
+              <span class="learn-more"></span>
+            </div>
+            <div class="arrow-right stroke"></div><div class="arrow-right"></div>
+          </div>
+        </div> <!-- /.help -->
+      </div>
+    </div>
+
+    <!-- Filter Prices -->
+    <div class="toggle-group filter-prices has-options">
+      <p class="label" title="Click to display options">
+        <span class="arrow">&rsaquo;&nbsp;</span>
+          Filter Prices
+          <span class="min-max-values"></span>
+        <span class="status"></span>
+      </p>
+      <div class="meta hide">filter prices marketplace minimum maximum</div>
+
+      <div class="hide-filter-prices hide">
+        <div class="user-currency">
+          <label for="filterPricesCurrency">Currency:</label>
+          <select id="filterPricesCurrency" class="user-currency-select">
+            <option value="-">-</option>
+            <option value="AUD">AUD</option>
+            <option value="BRL">BRL</option>
+            <option value="CAD">CAD</option>
+            <option value="CHF">CHF</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="MXN">MXN</option>
+            <option value="NZD">NZD</option>
+            <option value="SEK">SEK</option>
+            <option value="USD">USD</option>
+            <option value="ZAR">ZAR</option>
+          </select>
+        </div>
+
+        <div class="minimum">
+          <label for="minimum">Minimum:</label>
+          <input type="number" id="minimum" min="0">
+        </div>
+        <div class="maximum">
+          <label for="maximum">Maximum:</label>
+          <input type="number" id="maximum" min="0">
+        </div>
+
+        <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleFilterPrices" checked>
+          <label class="onoffswitch-label" for="toggleFilterPrices">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+          </label>
+        </div>
+
+        <div class="help filterPrices filter-prices" style="display:block">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-help-circle" color="#384047">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12" y2="17"></line>
+          </svg>
+          <div class="help-bubble">
+            <div class="help-text">
+              Filters out items in the Marketplace that are above or below the specified minimum and/or maximum values.
               <span class="learn-more"></span>
             </div>
             <div class="arrow-right stroke"></div><div class="arrow-right"></div>
@@ -999,7 +1064,7 @@
     <div class="toggle-group">
       <p class="label">Suggested Prices</p>
       <div class="meta hide">Suggested Prices Compare Comparison Marketplace High Low</div>
-      <select id="currency">
+      <select id="currency" class="user-currency-select">
         <option value="-">-</option>
         <option value="AUD">AUD</option>
         <option value="BRL">BRL</option>

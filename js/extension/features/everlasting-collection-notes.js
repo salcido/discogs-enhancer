@@ -124,23 +124,25 @@ function saveNotes(event) {
 
 rl.ready(() => {
 
-  document.querySelector('body').addEventListener('click', event => {
+  if (rl.pageIs('collection')) {
+    document.querySelector('body').addEventListener('click', event => {
 
-    let target = event.target;
+      let target = event.target;
 
-    // cancel button
-    if ( target.id === 'notes_edit_cancel' ) {
-      return cancelNotes(event);
-    }
-    // edit/add notes
-    if ( target.closest('.de-notes-show') ) {
-      return openNoteField(event);
-    }
-    // save notes
-    if ( target.parentElement.previousElementSibling
-         && target.parentElement.previousElementSibling.closest('.de-notes-show')
-         && target.id == 'notes_edit_save') {
-      return saveNotes(event);
-    }
-  });
+      // cancel button
+      if ( target.id === 'notes_edit_cancel' ) {
+        return cancelNotes(event);
+      }
+      // edit/add notes
+      if ( target.closest('.de-notes-show') ) {
+        return openNoteField(event);
+      }
+      // save notes
+      if ( target.parentElement.previousElementSibling
+           && target.parentElement.previousElementSibling.closest('.de-notes-show')
+           && target.id == 'notes_edit_save') {
+        return saveNotes(event);
+      }
+    });
+  }
 });

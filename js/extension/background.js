@@ -64,6 +64,7 @@ function getCurrentFilterState() {
   let currentFilterState = {
         everlastingMarket: prefs.everlastingMarket,
         filterMediaCondition: prefs.filterMediaCondition,
+        filterPrices: prefs.filterPrices,
         filterShippingCountry: prefs.filterShippingCountry,
         filterSleeveCondition: prefs.filterSleeveCondition,
       };
@@ -142,6 +143,7 @@ appendFragment([resourceLibrary]).then(() => {
         feedback: false,
         filterMediaCondition: false,
         filterMediaConditionValue: null,
+        filterPrices: false,
         filterShippingCountry: false,
         filterSleeveCondition: false,
         filterSleeveConditionValue: null,
@@ -284,17 +286,6 @@ appendFragment([resourceLibrary]).then(() => {
       highlightScript.className = 'de-init';
 
       elems.push(highlightScript);
-
-      // marketplace-highlights.css
-      let highlightCss = document.createElement('link');
-
-      highlightCss.rel = 'stylesheet';
-      highlightCss.type = 'text/css';
-      highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
-      highlightCss.id = 'mediaHighLightsCss';
-      highlightCss.disabled = !result.prefs.highlightMedia;
-
-      elems.push(highlightCss);
 
       // ========================================================
       // Preference-dependent scripts
@@ -537,6 +528,17 @@ appendFragment([resourceLibrary]).then(() => {
         filterMediaCondition.className = 'de-init';
 
         elems.push(filterMediaCondition);
+      }
+
+      if ( result.prefs.filterPrices ) {
+
+        let filterPrices = document.createElement('script');
+
+        filterPrices.type = 'text/javascript';
+        filterPrices.src = chrome.extension.getURL('js/extension/features/filter-prices.js');
+        filterPrices.className = 'de-init';
+
+        elems.push(filterPrices);
       }
 
       if (result.prefs.filterShippingCountry) {

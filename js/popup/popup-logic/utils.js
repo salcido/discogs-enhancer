@@ -21,11 +21,12 @@ export function acknowledgeUpdate() {
  * Saves the users preferences when a toggle is clicked
  *
  * @method   applySave
- * @param    {String}  message [The message displayed to the user]
- * @param    {Object}  event   [The event object]
+ * @param    {String}  message - The message displayed to the user
+ * @param    {Object}  event   - The event object
+ * @param    {String}  currencyTarget  - The id of the currency select element
  * @return   {undefined}
  */
-export function applySave(message, event) {
+export function applySave(message, event, currencyTarget = 'currency') {
 
   let prefs = {
         absoluteDate: document.getElementById('toggleAbsoluteDate').checked,
@@ -44,6 +45,7 @@ export function applySave(message, event) {
         favoriteSellers: document.getElementById('toggleFavoriteSellers').checked,
         feedback: document.getElementById('toggleFeedback').checked,
         filterMediaCondition: document.getElementById('toggleFilterMediaCondition').checked,
+        filterPrices: document.getElementById('toggleFilterPrices').checked,
         filterSleeveCondition: document.getElementById('toggleFilterSleeveCondition').checked,
         filterShippingCountry: document.getElementById('toggleFilterShippingCountry').checked,
         filterUnavailable: document.getElementById('toggleFilterUnavailable').checked,
@@ -68,7 +70,7 @@ export function applySave(message, event) {
         suggestedPrices: document.getElementById('togglePrices').checked,
         tweakDiscrims: document.getElementById('toggleTweakDiscrims').checked,
         ytPlaylists: document.getElementById('toggleYtPlaylists').checked,
-        userCurrency: document.getElementById('currency').value,
+        userCurrency: document.getElementById(currencyTarget).value,
 
         // Contextual menus
         useAllDay: document.getElementById('allday').checked,
@@ -93,6 +95,12 @@ export function applySave(message, event) {
       };
 
   chrome.storage.sync.set({prefs: prefs}, function() {
+
+    // Make sure both user currency selects are in sync.
+    // TODO: move this into a global single preference
+    document.querySelectorAll('#currency, #filterPricesCurrency').forEach(select => {
+      select.value = document.getElementById(currencyTarget).value;
+    });
 
     notify(message);
   });
@@ -260,6 +268,8 @@ export function optionsToggle(options, toggleGroup, parentClass, height) {
             event.target.nodeName !== 'A' &&
             event.target.nodeName !== 'SELECT' &&
             !event.target.className.includes('rep-color') &&
+            !event.target.className.includes('maximum') &&
+            !event.target.className.includes('minimum') &&
             event.target.parentNode.className !== 'rep-color-wrap' ) {
 
     fadeOut(options);

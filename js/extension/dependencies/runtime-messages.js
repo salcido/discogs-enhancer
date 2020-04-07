@@ -46,6 +46,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         countryList: localStorage.getItem('countryList'),
         discriminators: localStorage.getItem('discriminators'),
         favoriteList: localStorage.getItem('favoriteList'),
+        filterPrices: localStorage.getItem('filterPrices'),
         inventoryRatings: localStorage.getItem('inventoryRatings'),
         mediaCondition: localStorage.getItem('mediaCondition'),
         readability: localStorage.getItem('readability'),

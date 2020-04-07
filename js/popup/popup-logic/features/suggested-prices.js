@@ -5,14 +5,14 @@
 import { applySave, fadeOut } from '../utils';
 
 // ========================================================
-// getCurrency
+// getSuggestedPricesCurrency
 // ========================================================
  /**
   * Gets and saves currency preferences
-  * @method   getCurrency
+  * @method   getSuggestedPricesCurrency
   * @return   {undefined}
   */
- export function getCurrency() {
+ export function getSuggestedPricesCurrency() {
 
    let togglePrices = document.getElementById('togglePrices'),
        userCurrency = document.getElementById('currency');
@@ -37,16 +37,16 @@ import { applySave, fadeOut } from '../utils';
  }
 
 // ========================================================
-// showPrices
+// validateAndSave
 // ========================================================
  /**
   * Toggles price comparisons and displays an Error
   * if a currency value is not selected.
-  * @method   showPrices
-  * @param    {Object}   event [The event object]
+  * @method   validateAndSave
+  * @param    {Object} event - The event object
   * @return   {undefined}
   */
- export function showPrices(event) {
+ export function validateAndSave(event) {
 
    let togglePrices = document.getElementById('togglePrices'),
        userCurrency = document.getElementById('currency');
@@ -57,7 +57,7 @@ import { applySave, fadeOut } from '../utils';
        togglePrices.checked = true;
        userCurrency.className = '';
 
-       applySave('refresh', event);
+       applySave('refresh', event, 'currency');
 
      }
 
@@ -79,6 +79,6 @@ import { applySave, fadeOut } from '../utils';
      } else {
 
        userCurrency.disabled = false;
-       applySave('refresh', event);
+       applySave('refresh', event, 'currency');
    }
  }

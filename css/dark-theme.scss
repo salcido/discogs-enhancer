@@ -1632,6 +1632,12 @@
   .cart_page .order_shipping_hint {
     background: #dbedff !important;
     border: 1px solid #8ac4ff !important;
+    color: #3a708b !important;
+
+    &:hover {
+      text-decoration: underline !important;
+      color: #3a708b !important;
+    }
   }
 
   .order_pay_now {
@@ -3046,6 +3052,10 @@
       padding: 0px 3px;
       border-radius: 3px;
     }
+
+    span {
+      color: #323334 !important;
+    }
   }
 
   /* selected payment method */
@@ -3228,5 +3238,38 @@
       color: #cae0fa !important;
       border: 1px solid #cae0fa !important;
     }
+  }
+
+  // Marketplace Highlights
+  .mint {
+      color: #00b4db !important;
+  }
+
+  .near-mint {
+    color: #00dbb4 !important;
+  }
+
+  .very-good-plus {
+    color: #00db1f !important;
+  }
+
+  .very-good {
+    color: #85ab11 !important;
+  }
+
+  .good-plus {
+    color: #f6bf48 !important;
+  }
+
+  .good {
+    color: #d87307 !important;
+  }
+
+  .fair {
+    color: #e54803 !important;
+  }
+
+  .poor {
+    color: #ff0000 !important;
   }
 }

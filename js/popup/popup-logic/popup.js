@@ -16,6 +16,7 @@ import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterMediaCondition from './features/filter-media-condition.js';
+import * as filterPrices from './features/filter-prices.js';
 import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
 import * as filterShippingCountry from './features/filter-shipping-country.js';
 import * as inventoryRatings from './features/inventory-ratings.js';
@@ -95,6 +96,7 @@ window.addEventListener('load', () => {
       toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterMediaCondition = document.getElementById('toggleFilterMediaCondition'),
+      toggleFilterPrices = document.getElementById('toggleFilterPrices'),
       toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
       toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
@@ -218,6 +220,10 @@ window.addEventListener('load', () => {
   // ========================================================
   filterMediaCondition.init();
 
+  // Filter Prices
+  // ========================================================
+  filterPrices.init();
+
   // Filter Sleeve Condition Options
   // ========================================================
   filterSleeveCondition.init();
@@ -267,6 +273,7 @@ window.addEventListener('load', () => {
   toggleFavoriteSellers.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterMediaCondition.addEventListener('change', filterMediaCondition.toggleHideConditions);
+  toggleFilterPrices.addEventListener('change', filterPrices.validateFilterPrices);
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
   toggleFilterUnavailable.addEventListener('change', triggerSave);
@@ -276,7 +283,7 @@ window.addEventListener('load', () => {
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleQuickSearch.addEventListener('change', triggerSave);
-  togglePrices.addEventListener('change', suggestedPrices.showPrices);
+  togglePrices.addEventListener('change', suggestedPrices.validateAndSave);
   toggleRandomItem.addEventListener('change', triggerSave);
   toggleRatingPercent.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
@@ -348,6 +355,7 @@ window.addEventListener('load', () => {
       toggleFavoriteSellers.checked = result.prefs.favoriteSellers;
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterMediaCondition.checked = result.prefs.filterMediaCondition;
+      toggleFilterPrices.checked = result.prefs.filterPrices;
       toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
       toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
@@ -397,7 +405,8 @@ window.addEventListener('load', () => {
 
     // Set values for features with options
     checkForUpdate();
-    suggestedPrices.getCurrency();
+    suggestedPrices.getSuggestedPricesCurrency();
+    filterPrices.getFilterPricesCurrency();
     sellerRep.setSellerRep();
     absoluteDate.setAbsoluteDateStatus();
     inventoryRatings.setInventoryRatings();
