@@ -11,6 +11,10 @@ module.exports = {
       ],
       updates: [
         {
+          name: 'Bug fix',
+          description: 'Fixed an issue with Marketplace Highlights always being applied. Fixed an issue where the Filter settings were appearing under all pagination links across the site. Fixed an issue where Filter Prices would not work if Suggested Prices was not enabled.'
+        },
+        {
           name: 'Enhancement',
           description: 'New option for Contextual Menu Searching: rateyourmusic.com.'
         },
