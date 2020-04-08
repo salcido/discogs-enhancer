@@ -17,8 +17,7 @@ rl.ready(() => {
 
   let countryList = rl.getPreference('countryList'),
       href = window.location.href,
-      currencyInURL = href.includes('currency='),
-      currentFilterState = rl.getPreference('currentFilterState');
+      currencyInURL = href.includes('currency=');
 
   // ========================================================
   // Functions
@@ -59,22 +58,6 @@ rl.ready(() => {
         });
       }
     }
-
-    // Update page with filter notice (everlasting)
-    if ( !currentFilterState.filterMediaCondition
-          && !currentFilterState.filterSleeveCondition
-          && !document.querySelector('.de-filter-stamp') ) {
-
-      document.querySelectorAll('.pagination').forEach(e => {
-
-        let div = document.createElement('div');
-
-        setTimeout(() => { div.innerHTML = window.setFilterStateText(); }, 0);
-        div.className = 'de-filter-stamp';
-        div.style.margin = '8px 0';
-        e.insertAdjacentElement('afterend', div);
-      });
-    }
   };
 
   // ========================================================
@@ -99,7 +82,5 @@ rl.ready(() => {
       rl.attachCss('filterShippingCountryCss', rules);
       window.filterCountries(countryList.include, countryList.currency);
     }
-
-    rl.handlePaginationClicks(window.filterCountries, countryList.include, countryList.currency);
   }
 });

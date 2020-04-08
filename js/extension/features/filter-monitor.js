@@ -16,7 +16,8 @@ rl.ready(() => {
       sleeveCondition = rl.getPreference('sleeveCondition') || { value: null, generic: false, noCover: false },
       filterPrices = rl.getPreference('filterPrices') || { minimum: null, maximum: null },
       userCurrency = rl.getPreference('userCurrency'),
-      countryList = rl.getPreference('countryList') || { list: [], currency: false, include: false };
+      countryList = rl.getPreference('countryList') || { list: [], currency: false, include: false },
+      mediaCondition = rl.getPreference('mediaCondition') || null;
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
@@ -108,33 +109,11 @@ rl.ready(() => {
   }
 
   /**
-   * Shows/hides filtered items in the Marketplace
-   * @returns {undefined}
-   * Commenting this out for now. Toggling filtered items sounds good
-   * on paper but it doesn't work that well in reality. Sometimes filtered
-   * items are "below the fold" so it looks as if nothing was toggled.
-   * Not great UX.
-
-  window.toggleItems = function toggleItems(event) {
-
-    event.preventDefault();
-
-    let target = event.target.parentElement.parentElement.parentElement.nextElementSibling;
-
-    let items = target.querySelectorAll('tr ~ .de-hide-media');
-
-    items.forEach(item => {
-      item.classList.toggle('de-show');
-    });
-  };
-  */
-
-  /**
-   * Creates HTML that represents the Media and Sleeve filter settings to
+   * Creates a string that represents the Media and Sleeve filter settings to
    * display to the user in the Marketplace.
    * @param {Number} mediaLength  - The current length of the Media Condtion array
    * @param {Number} sleeveLength - The current length of the Sleeve Condition array
-   * @returns {HTMLElement}
+   * @returns {string}
    */
   window.setFilterStateText = function setFilterStateText(mediaLength, sleeveLength) {
 
@@ -143,7 +122,6 @@ rl.ready(() => {
         generic = genericFilter(),
         noCover = noCoverFilter(),
         prices = priceFilter(),
-        // toggle = '<button onClick="window.toggleItems(event)" class="de-show-toggle">Toggle Filtered Items</button>',
         filters = [
           media,
           sleeve,
@@ -157,6 +135,47 @@ rl.ready(() => {
 
     return 'Filtering - none';
   };
+
+  /**
+   * Renders the current filter configuration below the Prev/Next links
+   * in the Marketplace. Used when Everlasting Marketplace is not enabled
+   * @returns {undefined}
+   */
+  function renderFilterConfig() {
+    document.querySelectorAll('.pagination').forEach(elem => {
+
+      let div = document.createElement('div'),
+          mc = mediaCondition ? Number(mediaCondition) : null,
+          sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
+
+      div.innerHTML = window.setFilterStateText(mc, sc);
+      div.style.margin = '8px 0';
+      div.className = 'de-filter-stamp';
+      elem.insertAdjacentElement('afterend', div);
+    });
+  }
+
+  /**
+   * Calls injectConfigIntoPage() when pageIs/pagIsNot conditions are met
+   * @returns {method}
+   */
+  function injectConfigIntoPage() {
+    // Marketplace
+    if ( rl.pageIs('allItems', 'sellRelease', 'seller', 'myWants')
+          && rl.pageIsNot('sellerFeedback', 'settings')
+          && !currentFilterState.everlastingMarket
+          && !document.querySelector('.de-filter-stamp') ) {
+
+      return renderFilterConfig();
+    // Seller Inventory
+    } else if ( rl.pageIs('seller')
+        && rl.pageIsNot('sellerFeedback', 'settings', 'allItems', 'sellRelease', 'myWants')
+        && currentFilterState.everlastingMarket
+        && !document.querySelector('.de-filter-stamp') ) {
+
+      return renderFilterConfig();
+    }
+  }
 
   // ========================================================
   // CSS
@@ -196,6 +215,9 @@ rl.ready(() => {
   // DOM setup
   // ========================================================
   rl.attachCss('filter-monitor', rules);
+  // Call injectConfigIntoPage on prev/next clicks
+  injectConfigIntoPage();
+  rl.handlePaginationClicks(injectConfigIntoPage);
 });
 
 

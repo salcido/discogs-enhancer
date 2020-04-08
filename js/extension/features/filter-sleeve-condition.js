@@ -23,9 +23,7 @@
 
 rl.ready(() => {
 
-    let currentFilterState = rl.getPreference('currentFilterState'),
-        mediaCondition = rl.getPreference('mediaCondition'),
-        sleeveCondition = rl.getPreference('sleeveCondition');
+    let sleeveCondition = rl.getPreference('sleeveCondition');
 
     /**
      * Find all instances of selected items in list and hide them
@@ -78,25 +76,6 @@ rl.ready(() => {
           }
         });
 
-        // Update page with filter notice (normal)
-        if ( !currentFilterState.filterMediaCondition
-             && !currentFilterState.everlastingMarket
-             && currentFilterState.filterSleeveCondition ) {
-
-          let mc = mediaCondition ? Number(mediaCondition) : null,
-              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
-
-          document.querySelectorAll('.pagination').forEach(e => {
-
-            let div = document.createElement('div');
-
-            setTimeout(() => { div.innerHTML = window.setFilterStateText(mc, sc); }, 0);
-            div.className = 'de-filter-stamp';
-            div.style.margin = '8px 0';
-            e.insertAdjacentElement('afterend', div);
-          });
-        }
-
         // Show message if all results have been removed
         if ( !document.getElementsByClassName('shortcut_navigable').length ) {
 
@@ -134,7 +113,5 @@ rl.ready(() => {
       rl.attachCss('filter-sleeve-condition', rules);
       // hide items when page first loads
       window.filterSleeveCondition();
-      // Call filterSleeveCondition on prev/next clicks
-      rl.handlePaginationClicks(window.filterSleeveCondition);
     }
   });

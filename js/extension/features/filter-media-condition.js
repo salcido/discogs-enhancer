@@ -61,23 +61,6 @@ rl.ready(() => {
         });
       });
 
-      if ( !currentFilterState.everlastingMarket
-            && currentFilterState.filterMediaCondition
-            && !document.querySelector('.de-filter-stamp') ) {
-
-        document.querySelectorAll('.pagination').forEach(e => {
-
-          let div = document.createElement('div'),
-              mc = mediaCondition ? Number(mediaCondition) : null,
-              sc = sleeveCondition && sleeveCondition.value ? Number(sleeveCondition.value) : null;
-
-          setTimeout(() => { div.innerHTML = window.setFilterStateText(mc, sc); }, 0);
-          div.style.margin = '8px 0';
-          div.className = 'de-filter-stamp';
-          e.insertAdjacentElement('afterend', div);
-        });
-      }
-
       // Show message if all results have been removed
       if ( !document.getElementsByClassName('shortcut_navigable').length ) {
 
@@ -109,9 +92,7 @@ rl.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let currentFilterState = rl.getPreference('currentFilterState'),
-      mediaCondition = rl.getPreference('mediaCondition'),
-      sleeveCondition = rl.getPreference('sleeveCondition');
+  let mediaCondition = rl.getPreference('mediaCondition');
 
   if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
        && rl.pageIsNot('sellerFeedback', 'settings') ) {
@@ -119,7 +100,5 @@ rl.ready(() => {
     rl.attachCss('filter-media-condition', rules);
     // hide items when page first loads
     window.filterMediaCondition();
-    // Call filterMediaCondition on prev/next clicks
-    rl.handlePaginationClicks(window.filterMediaCondition);
   }
 });
