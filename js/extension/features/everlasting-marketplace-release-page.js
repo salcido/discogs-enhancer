@@ -102,69 +102,6 @@ rl.ready(() => {
     }
 
     /**
-     * Calls any other Marketplace filtering features
-     * the user might have enabled.
-     * @method callOtherMarketplaceFeatures
-     * @returns {undefined}
-     */
-    function callOtherMarketplaceFeatures() {
-
-      let blockList = rl.getPreference('blockList'),
-          favoriteList = rl.getPreference('favoriteList'),
-          sellerNames = rl.getPreference('sellerNames');
-
-      // apply Marketplace Highlights
-      if ( window.applyStyles ) window.applyStyles();
-
-      // apply price comparisons
-      if ( window.appendPrices ) {
-        window.releasePricesInit();
-        window.appendPrices();
-      }
-
-      // Hide/tag sellers in marketplace
-      if ( blockList && blockList.hide === 'global' && window.blockSellers ||
-           blockList && blockList.hide === 'marketplace' && window.blockSellers ) {
-
-        window.blockSellers('hide');
-      }
-
-      if ( blockList && blockList.hide === 'tag' && window.blockSellers ) {
-        window.blockSellers('tag');
-      }
-
-      // Favorite sellers
-      if ( favoriteList && window.favoriteSellers ) window.favoriteSellers();
-      // filter marketplace item by condition
-      if ( window.filterMediaCondition ) window.filterMediaCondition();
-      // filter marketplace media condition
-      if ( window.filterMediaCondition ) window.filterMediaCondition();
-      // filter marketplace sleeve condition
-      if ( window.filterSleeveCondition ) window.filterSleeveCondition();
-
-      // Filter shipping country
-      if ( window.filterCountries ) {
-        let countryList = rl.getPreference('countryList'),
-            include = countryList.include,
-            useCurrency = countryList.currency;
-        window.filterCountries(include, useCurrency);
-      }
-
-      // Tag sellers by reputation
-      if ( window.sellersRep ) window.sellersRep();
-      // Release ratings
-      if ( window.insertRatingsLink ) window.insertRatingsLink();
-      // Remove from wantlist
-      if ( window.insertRemoveLinks ) window.insertRemoveLinks();
-      // Seller Items in Cart
-      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
-      // Filter Unavailable Items
-      if ( window.filterUnavailable ) window.filterUnavailable();
-      // Filter Prices
-      if ( window.filterPrices ) window.filterPrices();
-    }
-
-    /**
      * Grabs the next set of items
      * @method   getNextPage
      * @return   {undefined}
@@ -206,7 +143,7 @@ rl.ready(() => {
 
         addPauseListener();
         addSelectListener();
-        callOtherMarketplaceFeatures();
+        rl.callOtherMarketplaceFeatures();
 
       } catch (err) {
         console.log('Everlastning Marketplace could not fetch data', err);

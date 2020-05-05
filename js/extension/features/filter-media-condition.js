@@ -100,5 +100,7 @@ rl.ready(() => {
     rl.attachCss('filter-media-condition', rules);
     // hide items when page first loads
     window.filterMediaCondition();
+    // Prev/Next clicks
+    rl.handlePaginationClicks(window.filterMediaCondition);
   }
 });

@@ -81,6 +81,8 @@ rl.ready(() => {
 
       rl.attachCss('filterShippingCountryCss', rules);
       window.filterCountries(countryList.include, countryList.currency);
+      // Prev/Next clicks
+      rl.handlePaginationClicks(window.filterCountries, countryList.include, countryList.currency);
     }
   }
 });

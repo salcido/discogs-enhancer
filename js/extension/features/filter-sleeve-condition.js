@@ -113,5 +113,7 @@ rl.ready(() => {
       rl.attachCss('filter-sleeve-condition', rules);
       // hide items when page first loads
       window.filterSleeveCondition();
+      // Prev/Next clicks
+      rl.handlePaginationClicks(window.filterSleeveCondition);
     }
   });

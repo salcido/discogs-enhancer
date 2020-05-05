@@ -9,7 +9,7 @@
  */
 rl.ready(() => {
 
-  if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
+  if ( rl.pageIs('myWants', 'allItems', 'sellRelease', 'seller') ) {
 
     let prefs = rl.getPreference('filterPrices') || { minimum: null, maximum: null },
         minimum = prefs.minimum,
@@ -66,5 +66,7 @@ rl.ready(() => {
 
     rl.attachCss('price-filters', rules);
     window.filterPrices();
+    // Prev/Next clicks
+    rl.handlePaginationClicks(window.filterPrices);
   }
 });
