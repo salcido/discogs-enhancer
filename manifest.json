@@ -71,6 +71,7 @@
     "js/extension/features/confirm-before-removing.js",
     "js/extension/features/currency-converter.js",
     "js/extension/features/demand-index.js",
+    "js/extension/features/demand-index-marketplace.js",
     "js/extension/features/everlasting-collection-notes.js",
     "js/extension/features/everlasting-collection-ratings.js",
     "js/extension/features/everlasting-collection-sm-med.js",

@@ -52,6 +52,7 @@ module.exports = {
     [features + 'confirm-before-removing']: `${features}confirm-before-removing.js`,
     [features + 'currency-converter']: `${features}currency-converter.js`,
     [features + 'demand-index']: `${features}demand-index.js`,
+    [features + 'demand-index-marketplace']: `${features}demand-index-marketplace.js`,
     [features + 'everlasting-collection-notes']: `${features}everlasting-collection-notes.js`,
     [features + 'everlasting-collection-ratings']: `${features}everlasting-collection-ratings.js`,
     [features + 'everlasting-collection-sm-med']: `${features}everlasting-collection-sm-med.js`,
