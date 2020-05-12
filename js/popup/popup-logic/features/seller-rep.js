@@ -7,7 +7,7 @@ import { applySave, optionsToggle, setEnabledStatus } from '../utils';
 export function init() {
 
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function () {
-    optionsToggle('.hide-percentage', this, '.seller-rep', 200);
+    optionsToggle('.hide-percentage', this, '.seller-rep', 230);
   });
 
   // Swatches
@@ -15,6 +15,12 @@ export function init() {
     swatch.addEventListener('click', event => {
       selectSwatch(event);
     });
+  });
+
+  // Filter checkbox
+  document.getElementById('filter-seller-rep').addEventListener('change', (event) => {
+    localStorage.setItem('sellerRepFilter', JSON.stringify(event.target.checked));
+    applySave('refresh', event);
   });
 }
 /**
@@ -76,7 +82,9 @@ export function saveSellerRep() {
  */
 export function setSellerRep() {
 
-  let input = document.getElementById('percent'),
+  let checkbox = document.getElementById('filter-seller-rep'),
+      filter = localStorage.getItem('sellerRepFilter') || false,
+      input = document.getElementById('percent'),
       percent = localStorage.getItem('sellerRep') || null,
       lscolor = localStorage.getItem('sellerRepColor') || 'darkorange',
       color = lscolor.match(/\w/g).join(''),
@@ -87,8 +95,13 @@ export function setSellerRep() {
 
   if ( percent !== null ) { input.value = percent; }
 
+  // Set default color to localStorage
   if ( !localStorage.getItem('sellerRepColor') ) {
     localStorage.setItem('sellerRepColor', JSON.stringify('darkorange'));
+  }
+
+  if (filter && JSON.parse(filter)) {
+    checkbox.checked = true;
   }
 
   swatch.className += ' selected';

@@ -21,7 +21,8 @@
 
 rl.ready(() => {
 
-  let threshold = rl.getPreference('sellerRep');
+  let threshold = rl.getPreference('sellerRep'),
+      filter = rl.getPreference('sellerRepFilter');
 
   if ( !threshold ) return;
 
@@ -61,6 +62,9 @@ rl.ready(() => {
           icon.rel = 'tooltip';
           icon.title = `${name}'s seller reputation is below ${threshold}%`;
 
+          if (filter) {
+            seller_info[i].closest('tr.shortcut_navigable').classList.add('de-seller-rep-hide');
+          }
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
                         .insertAdjacentElement('beforeend', icon);
@@ -71,6 +75,7 @@ rl.ready(() => {
     // ========================================================
     // CSS
     // ========================================================
+
     let sellerRepColor = rl.getPreference('sellerRepColor') || 'darkorange',
         color = sellerRepColor.match(/#*\w/g).join(''),
         rules = `
@@ -92,6 +97,10 @@ rl.ready(() => {
         .de-seller-rep-icon + .tooltip {
           white-space: normal;
           opacity: 1;
+        }
+
+        .de-seller-rep-hide {
+          display: none;
         }
         `;
     // ========================================================

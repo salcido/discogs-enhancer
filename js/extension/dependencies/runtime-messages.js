@@ -52,6 +52,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         readability: localStorage.getItem('readability'),
         sellerRep: localStorage.getItem('sellerRep'),
         sellerRepColor: localStorage.getItem('sellerRepColor'),
+        sellerRepFilter: localStorage.getItem('sellerRepFilter'),
         sleeveCondition: localStorage.getItem('sleeveCondition'),
         usDateFormat: localStorage.getItem('usDateFormat'),
       };
