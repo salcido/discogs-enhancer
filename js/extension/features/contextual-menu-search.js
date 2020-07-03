@@ -72,28 +72,12 @@ function searchGramaphone(event) {
   chrome.tabs.create({url: 'http://webstore.gramaphonerecords.com/search.aspx?find=' + encodeStr});
 }
 
-function searchHalcyon(event) {
-
-  let str = event.selectionText,
-      encodeStr = encodeURIComponent(str);
-
-  chrome.tabs.create({url: 'https://www.halcyontheshop.com/search.php?search_query=' + encodeStr + '&section=product'});
-}
-
 function searchHardwax(event) {
 
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://hardwax.com/?search=' + encodeStr});
-}
-
-function searchInsound(event) {
-
-  let str = event.selectionText,
-      encodeStr = encodeURIComponent(str);
-
-  chrome.tabs.create({url: 'http://www.insound.com/catalogsearch/result/?q=' + encodeStr + '&order=relevance&dir=desc'});
 }
 
 function searchJuno(event) {
