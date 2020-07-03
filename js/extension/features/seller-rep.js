@@ -65,6 +65,7 @@ rl.ready(() => {
           if (filter) {
             seller_info[i].closest('tr.shortcut_navigable').classList.add('de-seller-rep-hide');
           }
+
           seller_info[i].classList.add('de-seller-rep');
           seller_info[i].querySelector('li:first-child')
                         .insertAdjacentElement('beforeend', icon);
