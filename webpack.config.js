@@ -69,7 +69,7 @@ module.exports = {
     [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
-    [features + 'list-items-in-tabs']: `${features}list-items-in-tabs.js`,
+    [features + 'links-in-new-tabs']: `${features}links-in-new-tabs.js`,
     [features + 'marketplace-highlights']: `${features}marketplace-highlights.js`,
     [features + 'notes-counter']: `${features}notes-counter.js`,
     [features + 'quick-search']: `${features}quick-search.js`,

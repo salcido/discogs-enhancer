@@ -89,7 +89,7 @@
     "js/extension/features/hide-min-max-columns.js",
     "js/extension/features/highlight-comments.js",
     "js/extension/features/inventory-ratings.js",
-    "js/extension/features/list-items-in-tabs.js",
+    "js/extension/features/links-in-new-tabs.js",
     "js/extension/features/marketplace-highlights.js",
     "js/extension/features/notes-counter.js",
     "js/extension/features/quick-search.js",
