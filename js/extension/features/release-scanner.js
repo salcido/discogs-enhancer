@@ -191,6 +191,16 @@ rl.ready(() => {
     return responses;
   }
 
+  /**
+   * Resets the scanner so that it can be called again on subsequent pages
+   */
+  function resetScanner() {
+    document.querySelector('.de-scan-releases').textContent = 'Scan Releases';
+    document.querySelector('.de-scan-releases').disabled = false;
+    releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href);
+    scanReleases(releases, interval).then(res => res).catch(err => console.error(err));
+  }
+
   // ========================================================
   // CSS
   // ========================================================
@@ -233,6 +243,8 @@ rl.ready(() => {
           .catch(err => console.error(err));
       });
     }
+
+    rl.handlePaginationClicks(resetScanner);
   }
 });
 /**
