@@ -59,19 +59,9 @@ export function createContextualMenuElements() {
             id: 'gramaphone'
           },
           {
-            name: 'Halcyon',
-            fn: 'searchHalcyon',
-            id: 'halcyon'
-          },
-          {
             name: 'Hardwax',
             fn: 'searchHardwax',
             id: 'hardwax'
-          },
-          {
-            name: 'InSound',
-            fn: 'searchInsound',
-            id: 'insound'
           },
           {
             name: 'Juno',
