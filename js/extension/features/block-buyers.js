@@ -90,7 +90,7 @@ rl.ready(() => {
    */
   function setup() {
 
-    let username = '.order-user-details a[href^="/user/"]',
+    let username = '.order-user-details a[href*="/user/"]',
         buyerInfo = document.querySelector(username).closest('.box-card'),
         button = document.createElement('button'),
         header = buyerInfo.querySelector('.box-card-header');
