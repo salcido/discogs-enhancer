@@ -1,6 +1,39 @@
 module.exports = {
   current: [
     {
+      version: '2.21.0',
+      features: [
+        {
+          name: 'Open Links In New Tabs',
+          description: 'Allows you select which links in various sections of Discogs will open in new tabs.',
+          link: '#linksInTabs'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Tag Seller Reputation will now let you filter sellers based on reputation!'
+        },
+        {
+          name: 'Enhancement',
+          description: 'The Demand Index feature will now be applied to items in the Marketplace'
+        },
+        {
+          name: 'Enhancement',
+          description: 'More Dark Theme fixes! Woohoo!'
+        },
+        {
+          name: 'Bugfix',
+          description: 'Fixed an issue where Release Scanner would not work after clicking on pagination links.'
+        },
+      ],
+      thanks: [
+        'Thank you Mick, Ritesh K, Jason, Cuddly_D, and Ollie S. for their generous donations!'
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.20.0',
       features: [
         {
@@ -35,8 +68,6 @@ module.exports = {
         'Thank you to <a href="https://www.discogs.com/user/Mark_Anthony">Mark_Anthony</a> for the shoutout on his <a href="https://www.youtube.com/watch?v=fTvwDiHnPWU">Mark Anthony\'s Music Picks show</a>. Check it out if you are into Electronic music!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.19.0',
       features: [],
