@@ -193,6 +193,8 @@
       if ( window.filterPrices ) window.filterPrices();
       // Demand Index
       if ( window.mpDemandIndex ) window.mpDemandIndex();
+      // Open links in new tabs
+      window.modifyLinks();
     },
 
     /**

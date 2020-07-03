@@ -48,10 +48,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         favoriteList: localStorage.getItem('favoriteList'),
         filterPrices: localStorage.getItem('filterPrices'),
         inventoryRatings: localStorage.getItem('inventoryRatings'),
+        linksInTabs: localStorage.getItem('linksInTabs'),
         mediaCondition: localStorage.getItem('mediaCondition'),
         readability: localStorage.getItem('readability'),
         sellerRep: localStorage.getItem('sellerRep'),
         sellerRepColor: localStorage.getItem('sellerRepColor'),
+        sellerRepFilter: localStorage.getItem('sellerRepFilter'),
         sleeveCondition: localStorage.getItem('sleeveCondition'),
         usDateFormat: localStorage.getItem('usDateFormat'),
       };
