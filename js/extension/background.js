@@ -152,7 +152,6 @@ appendFragment([resourceLibrary]).then(() => {
         hideMinMaxColumns: false,
         highlightMedia: true,
         inventoryRatings: false,
-        listsInTabs: false,
         notesCount: true,
         quickSearch: false,
         randomItem: false,
@@ -179,9 +178,7 @@ appendFragment([resourceLibrary]).then(() => {
         useDiscogs: true,
         useEarcave: false,
         useGramaphone: false,
-        useHalcyon: false,
         useHardwax: false,
-        useInsound: false,
         useJuno: false,
         useKristina: false,
         useOye: false,
@@ -227,6 +224,15 @@ appendFragment([resourceLibrary]).then(() => {
       updateExchangeRates.className = 'de-init';
 
       elems.push(updateExchangeRates);
+
+      // links-in-new-tabs.js
+      let linksInTabs = document.createElement('script');
+
+      linksInTabs.type = 'text/javascript';
+      linksInTabs.src = chrome.extension.getURL('js/extension/features/links-in-new-tabs.js');
+      linksInTabs.className = 'de-init';
+
+      elems.push(linksInTabs);
 
       // - Toggleable CSS files -
       // --------------------------------------------------------
@@ -453,6 +459,14 @@ appendFragment([resourceLibrary]).then(() => {
         demandIndex.className = 'de-init';
 
         elems.push(demandIndex);
+
+        let demandIndexMP = document.createElement('script');
+
+        demandIndexMP.type = 'text/javascript';
+        demandIndexMP.src = chrome.extension.getURL('js/extension/features/demand-index-marketplace.js');
+        demandIndexMP.className = 'de-init';
+
+        elems.push(demandIndexMP);
       }
 
       // everlasting collection
@@ -665,18 +679,6 @@ appendFragment([resourceLibrary]).then(() => {
         inventoryRatings.className = 'de-init';
 
         elems.push(inventoryRatings);
-      }
-
-      if ( result.prefs.listsInTabs ) {
-
-        // list-items-in-tabs.js
-        let listsInTabs = document.createElement('script');
-
-        listsInTabs.type = 'text/javascript';
-        listsInTabs.src = chrome.extension.getURL('js/extension/features/list-items-in-tabs.js');
-        listsInTabs.className = 'de-init';
-
-        elems.push(listsInTabs);
       }
 
       if (result.prefs.randomItem) {
@@ -1000,17 +1002,6 @@ appendFragment([resourceLibrary]).then(() => {
         });
       }
 
-      if (result.prefs.useHalcyon) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchHalcyon',
-          id: 'halcyon',
-          method: 'create',
-          name: 'Halcyon',
-          request: 'updateContextMenu'
-        });
-      }
-
       if (result.prefs.useHardwax) {
 
         chrome.runtime.sendMessage({
@@ -1018,17 +1009,6 @@ appendFragment([resourceLibrary]).then(() => {
           id: 'hardwax',
           method: 'create',
           name: 'Hardwax',
-          request: 'updateContextMenu'
-        });
-      }
-
-      if (result.prefs.useInsound) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchInsound',
-          id: 'insound',
-          method: 'create',
-          name: 'InSound',
           request: 'updateContextMenu'
         });
       }

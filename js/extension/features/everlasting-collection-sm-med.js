@@ -145,6 +145,8 @@ rl.ready(() => {
         }
 
         hasLoaded = false;
+        // Call Open links in new tabs feature
+        window.modifyLinks();
 
       } catch (err) {
         return console.log('Error getting next page of collection', err);

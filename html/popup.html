@@ -685,34 +685,10 @@
       </div> <!-- /.help -->
     </div>
 
-    <!-- List Items In New Tabs -->
-    <div class="toggle-group">
-      <p class="label">List Items In New Tabs</p>
-      <div class="meta hide">List Items In New Tabs Open Lists Window</div>
-
-      <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleListsInTabs" checked>
-        <label class="onoffswitch-label" for="toggleListsInTabs">
-          <span class="onoffswitch-inner"></span>
-          <span class="onoffswitch-switch"></span>
-        </label>
-      </div>
-
-      <div class="help listsInTabs">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle" color="#384047"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12" y2="17"></line></svg>
-        <div class="help-bubble">
-          <div class="help-text">
-            Opens links in new tabs when clicking on items in a List.
-          </div>
-          <div class="arrow-right stroke"></div><div class="arrow-right"></div>
-        </div>
-      </div> <!-- /.help -->
-    </div>
-
     <!-- Marketplace Highlights -->
     <div class="toggle-group">
       <p class="label">Marketplace Highlights</p>
-      <div class="meta hide">Marketplace Highlights Conditions Colors Label</div>
+      <div class="meta hide">Marketplace Highlights Conditions Colors Label media sleeve</div>
 
       <div class="onoffswitch">
         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleHighlights" checked>
@@ -781,6 +757,33 @@
       </div> <!-- /.help -->
     </div>
 
+    <!-- Open Links In New Tabs -->
+    <div class="toggle-group has-options tabs">
+      <p class="label" title="Click to display options">
+        <span class="arrow">&rsaquo;&nbsp;</span>
+        Open Links In New Tabs
+      </p>
+      <div class="meta hide">Open Links In New Tabs lists Window marketplace collection wantlist dashboard releases</div>
+
+      <div class="links-in-tabs hide" id="linksInTabs">
+        <!-- populated via setupContextualMenus() -->
+        <div class="help linksInTabs contextual-help" style="display:block">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-help-circle" color="#384047">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12" y2="17"></line>
+          </svg>
+          <div class="help-bubble">
+            <div class="help-text">
+              Opens links in new tabs when in any selected section on Discogs.com
+            </div>
+            <div class="arrow-right stroke"></div><div class="arrow-right"></div>
+          </div>
+        </div> <!-- /.help -->
+      </div>
+    </div>
+
     <!-- Quick Search -->
     <div class="toggle-group">
       <p class="label">Quick Search</p>
@@ -822,7 +825,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle" color="#384047"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12" y2="17"></line></svg>
         <div class="help-bubble">
           <div class="help-text">
-            Adds a &#x267a; button to the nav bar that will show you a random item from your collection when clicked. <span class="learn-more"></span>
+            Adds a button to the nav bar that will show you a random item from your collection when clicked. <span class="learn-more"></span>
           </div>
           <div class="arrow-right stroke"></div><div class="arrow-right"></div>
         </div>
@@ -1107,7 +1110,7 @@
         <span class="rep-value disabled"></span>
         <span class="status"></span>
       </p>
-      <div class="meta hide">Tag Seller Reputation Marketplace Ratings Seller</div>
+      <div class="meta hide">Tag Seller Reputation Marketplace Ratings Seller filter hide</div>
 
       <!-- options/switch wrap -->
       <div class="hide-percentage hide">
@@ -1133,6 +1136,11 @@
           <div class="percent-wrap">
             <label for="percent">Tag sellers with reputations below:</label>
             <input type="number" id="percent" step="0.1" max="100" min="1" maxlength="3" placeholder="75.5">%
+          </div>
+
+          <div class="filter-rep-wrap">
+            <label for="filter-seller-rep">Hide sellers when below reputation:</label>
+            <input type="checkbox" id="filter-seller-rep">
           </div>
 
           <div class="rep-color-wrap">

@@ -14,6 +14,7 @@ require('../../../css/popup/popup.scss');
 import * as absoluteDate from './features/absolute-date.js';
 import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
+import * as linksInTabs from './features/links-in-new-tabs.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterMediaCondition from './features/filter-media-condition.js';
 import * as filterPrices from './features/filter-prices.js';
@@ -102,7 +103,6 @@ window.addEventListener('load', () => {
       toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
-      toggleListsInTabs = document.getElementById('toggleListsInTabs'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       toggleQuickSearch = document.getElementById('toggleQuickSearch'),
@@ -132,9 +132,7 @@ window.addEventListener('load', () => {
       toggleDiscogs,
       toggleEarcave,
       toggleGramaphone,
-      toggleHalcyon,
       toggleHardwax,
-      toggleInsound,
       toggleJuno,
       toggleKristina,
       toggleOye,
@@ -212,6 +210,12 @@ window.addEventListener('load', () => {
     optionsToggle('#contextMenus', this, '.menus', 180 );
   });
 
+  // Open Links In New tabs
+  // ------------------------------------------------------
+  document.querySelector('.toggle-group.tabs').addEventListener('click', function() {
+    optionsToggle('#linksInTabs', this, '.tabs', 130 );
+  });
+
   // Absolute Date Feature
   // ------------------------------------------------------
   absoluteDate.init();
@@ -279,7 +283,6 @@ window.addEventListener('load', () => {
   toggleFilterUnavailable.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
-  toggleListsInTabs.addEventListener('change', triggerSave);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleQuickSearch.addEventListener('change', triggerSave);
@@ -314,6 +317,7 @@ window.addEventListener('load', () => {
   function init() {
 
     contextualMenus.createContextualMenuElements();
+    linksInTabs.createLinkTabElements();
 
     // Assign contextual menu elements to vars
     toggleAllDay = document.getElementById('allday');
@@ -324,9 +328,7 @@ window.addEventListener('load', () => {
     toggleDiscogs = document.getElementById('discogs');
     toggleEarcave = document.getElementById('earcave');
     toggleGramaphone = document.getElementById('gramaphone');
-    toggleHalcyon = document.getElementById('halcyon');
     toggleHardwax = document.getElementById('hardwax');
-    toggleInsound = document.getElementById('insound');
     toggleJuno = document.getElementById('juno');
     toggleKristina = document.getElementById('kristina');
     toggleOye = document.getElementById('oye');
@@ -361,7 +363,6 @@ window.addEventListener('load', () => {
       toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleInventoryRatings.checked = result.prefs.inventoryRatings;
-      toggleListsInTabs.checked = result.prefs.listsInTabs;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
       toggleQuickSearch.checked = result.prefs.quickSearch;
@@ -390,9 +391,7 @@ window.addEventListener('load', () => {
       toggleDiscogs.checked = result.prefs.useDiscogs;
       toggleEarcave.checked = result.prefs.useEarcave;
       toggleGramaphone.checked = result.prefs.useGramaphone;
-      toggleHalcyon.checked = result.prefs.useHalcyon;
       toggleHardwax.checked = result.prefs.useHardwax;
-      toggleInsound.checked = result.prefs.useInsound;
       toggleJuno.checked = result.prefs.useJuno;
       toggleKristina.checked = result.prefs.useKristina;
       toggleOye.checked = result.prefs.useOye;
