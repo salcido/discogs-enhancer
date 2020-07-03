@@ -314,14 +314,6 @@ describe('Functional Testing', function() {
     });
   });
 
-  // List Items In New Tabs
-  // ------------------------------------------------------
-  describe('List Items In New Tabs', async function() {
-    it('should open list items in new tabs', async function() {
-      await require('./unauthenticated/list-items-in-tabs').test(page);
-    });
-  });
-
   // Filter Shipping Countries
   // ------------------------------------------------------
   describe.skip('Filter Shipping Countries', async function() {
