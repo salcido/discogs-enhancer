@@ -3240,4 +3240,15 @@
       border: 1px solid #cae0fa !important;
     }
   }
+
+  // shipping rates modal
+  .show-seller-terms,
+  .view-shipping-methods {
+    color: #829fc4 !important;
+  }
+
+  // View More Lists link
+  .more_lists_link:before {
+    border-top: solid 1px #454545 !important;
+  }
 }
