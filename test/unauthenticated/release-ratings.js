@@ -27,4 +27,4 @@ let fetchRelease = async function(page) {
   assert.equal(isFetching, true, 'Fetch was not initiated');
 };
 
-module.exports = { addLinks, preloader, fetchRelease };
+module.exports = { addLinks, fetchRelease };
