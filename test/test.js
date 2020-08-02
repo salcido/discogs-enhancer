@@ -7,7 +7,7 @@ const path = require('path').join(__dirname, '../dist');
 const config = {
   headless: false,
   ignoreHTTPSErrors: true,
-  slowMo: 50,
+  slowMo: 100,
   args: [
     `--disable-extensions-except=${path}`,
     `--load-extension=${path}`,
@@ -296,10 +296,6 @@ describe('Functional Testing', function() {
 
     it('should insert rating links into listings in the Marketplace', async function() {
       await require('./unauthenticated/release-ratings').addLinks(page);
-    });
-
-    it('should render the preloader when clicked', async function() {
-      await require('./unauthenticated/release-ratings').preloader(page);
     });
 
     it('should fetch the release rating', async function() {

@@ -12,14 +12,6 @@ let addLinks = async function(page) {
   assert.equal(hasRatingLinks, true, 'Rating links were not rendered');
 };
 
-// Render preloader
-let preloader = async function(page) {
-  await page.$eval('.de-rating-link', elem => elem.click());
-  await page.waitFor('i.preloader');
-  let preloader = await page.$eval('i.preloader', elem => elem.classList.contains('preloader'));
-  assert.equal(preloader, true, 'Preloader was not rendered');
-};
-
 // Fetch release
 let fetchRelease = async function(page) {
   await page.$eval('.de-rating-link', elem => elem.click());
