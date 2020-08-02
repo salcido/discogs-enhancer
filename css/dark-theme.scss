@@ -499,6 +499,15 @@
     min-height: 100px !important;
   }
 
+  .facets_nav a .facet_name,
+  .more_facets_text {
+    color: #809bbe !important;
+
+    &:hover {
+      color: #cae0fa !important;
+    }
+  }
+
   #page_aside .selected_facets li a {
     background-color: #72a3d8 !important;
     border-radius: 2px !important;
@@ -2485,11 +2494,9 @@
 
   .currency-converter {
     background-color: #333333 !important;
-    background-color: #333333 !important;
-    border-bottom: 1px solid #333333 !important;
+    border: 1px solid gray !important;
     color: white !important;
     .toggle {
-      background-color: #333333 !important;
       background-color: #333333 !important;
       border-bottom: 1px solid #333333 !important;
       color: white !important;
