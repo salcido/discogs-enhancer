@@ -7,7 +7,7 @@ const path = require('path').join(__dirname, '../dist');
 const config = {
   headless: false,
   ignoreHTTPSErrors: true,
-  slowMo: 125,
+  slowMo: 225,
   args: [
     `--disable-extensions-except=${path}`,
     `--load-extension=${path}`,
