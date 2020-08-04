@@ -141,13 +141,13 @@ module.exports = { toggleFeature, openConfig, openPopup };
 // Functional Tests
 // ========================================================
 
-describe('Functional Testing', function() {
+describe.skip('Functional Testing', function() {
   this.timeout(40000);
   before(async function() { await boot(); });
 
   // Search Extension Features
   // ------------------------------------------------------
-  describe('Search Features', async function() {
+  describe.skip('Search Features', async function() {
     it('should refine the features list', async function() {
       await require('./extension/extension-tests').search(page);
     });
@@ -155,7 +155,7 @@ describe('Functional Testing', function() {
 
   // Extension Dark Theme
   // ------------------------------------------------------
-  describe('Extension Dark Theme', async function() {
+  describe.skip('Extension Dark Theme', async function() {
     it('should apply the dark theme to the extension', async function() {
       await require('./extension/extension-tests').darkTheme(page);
     });
@@ -163,7 +163,7 @@ describe('Functional Testing', function() {
 
   // Dark Theme
   // ------------------------------------------------------
-  describe('Dark Theme', async function() {
+  describe.skip('Dark Theme', async function() {
     it('should apply the Dark Theme to Discogs.com', async function() {
       await require('./unauthenticated/dark-theme').test(page);
     });
@@ -171,7 +171,7 @@ describe('Functional Testing', function() {
 
   // Marketplace Hightlights
   // ------------------------------------------------------
-  describe('Marketplace Highlights', async function() {
+  describe.skip('Marketplace Highlights', async function() {
     it('should highlight media/sleeve conditions in the Marketplace', async function() {
       await require('./unauthenticated/marketplace-highlights').test(page);
     });
@@ -179,7 +179,7 @@ describe('Functional Testing', function() {
 
   // Currency Converter
   // ------------------------------------------------------
-  describe('Currency Converter', async function() {
+  describe.skip('Currency Converter', async function() {
     it('should render the currency converter in the DOM', async function() {
       await require('./unauthenticated/currency-converter').render(page);
     });
@@ -195,7 +195,7 @@ describe('Functional Testing', function() {
 
   // Sort Buttons
   // ------------------------------------------------------
-  describe('Sort Buttons', async function() {
+  describe.skip('Sort Buttons', async function() {
     it('show render sort buttons into the Marketplace filters', async function() {
       // TODO: test explore, list sorting
       await require('./unauthenticated/sort-buttons').test(page);
@@ -220,7 +220,7 @@ describe('Functional Testing', function() {
 
   // Release Durations
   // ------------------------------------------------------
-  describe('Release Durations', async function() {
+  describe.skip('Release Durations', async function() {
     it('displays the release durations', async function() {
       await require('./unauthenticated/release-durations').test(page);
     });
@@ -228,7 +228,7 @@ describe('Functional Testing', function() {
 
   // Large YouTube Playlists
   // ------------------------------------------------------
-  describe('Large YouTube Playlists', async function() {
+  describe.skip('Large YouTube Playlists', async function() {
     it('should embiggen the YouTube Playlists', async function() {
       await require('./unauthenticated/large-youtube-playlists').test(page);
     });
@@ -236,7 +236,7 @@ describe('Functional Testing', function() {
 
   // Blurry Image Fix
   // ------------------------------------------------------
-  describe('Fix Blurry Gallery Images', async function() {
+  describe.skip('Fix Blurry Gallery Images', async function() {
     it('should apply the .de-blurry-fix class to the thumb', async function() {
       await require('./unauthenticated/blurry-image-fix').init(page);
     });
@@ -248,7 +248,7 @@ describe('Functional Testing', function() {
 
   // Rating Percentage
   // ------------------------------------------------------
-  describe('Rating Percentage', async function() {
+  describe.skip('Rating Percentage', async function() {
     it('should show the Rating Percent on a release', async function() {
       await require('./unauthenticated/rating-percentage').test(page);
     });
@@ -256,7 +256,7 @@ describe('Functional Testing', function() {
 
   // Tracklist Readability
   // ------------------------------------------------------
-  describe('Tracklist Readability', async function() {
+  describe.skip('Tracklist Readability', async function() {
     it('should render readability dividers in the tracklist', async function() {
       await require('./unauthenticated/tracklist-readability').test(page);
     });
@@ -264,7 +264,7 @@ describe('Functional Testing', function() {
 
   // Tweak Discriminators
   // ------------------------------------------------------
-  describe('Tweak Discriminators', async function() {
+  describe.skip('Tweak Discriminators', async function() {
     it('should render spans around discriminators', async function() {
       await require('./unauthenticated/tweak-discriminators').test(page);
     });
@@ -272,7 +272,7 @@ describe('Functional Testing', function() {
 
   // Relative Last Sold Dates
   // ------------------------------------------------------
-  describe('Show Relative Last Sold Dates', async function() {
+  describe.skip('Show Relative Last Sold Dates', async function() {
     it('should render the date in relative terms', async function() {
       await require('./unauthenticated/relative-sold-date').test(page);
     });
@@ -280,7 +280,7 @@ describe('Functional Testing', function() {
 
   // Release Scanner
   // ------------------------------------------------------
-  describe('Release Scanner', async function() {
+  describe.skip('Release Scanner', async function() {
     it('should append the Scan Releases button', async function() {
       await require('./unauthenticated/release-scanner').addButton(page);
     });
@@ -292,7 +292,7 @@ describe('Functional Testing', function() {
 
   // Release Ratings
   // ------------------------------------------------------
-  describe('Release Ratings', async function() {
+  describe.skip('Release Ratings', async function() {
 
     it('should insert rating links into listings in the Marketplace', async function() {
       await require('./unauthenticated/release-ratings').addLinks(page);
@@ -305,7 +305,7 @@ describe('Functional Testing', function() {
 
   // Quick Search
   // ------------------------------------------------------
-  describe('Quick Search', async function() {
+  describe.skip('Quick Search', async function() {
     it('should wrap the release title in a span', async function() {
       await require('./unauthenticated/quick-search').test(page);
     });
@@ -325,7 +325,7 @@ describe('Functional Testing', function() {
 
   // Filter Media Condition
   // ------------------------------------------------------
-  describe('Filter Media Condition', async function() {
+  describe.skip('Filter Media Condition', async function() {
     it('should filter items based on media condition', async function() {
       await require('./unauthenticated/filter-media-condition').filter(page);
     });
@@ -337,7 +337,7 @@ describe('Functional Testing', function() {
 
   // Tag Seller Repuation
   // ------------------------------------------------------
-  describe('Tag Seller Repuation', async function() {
+  describe.skip('Tag Seller Repuation', async function() {
     it('should tag sellers with low repuations', async function() {
       await require('./unauthenticated/seller-rep').test(page);
     });
@@ -345,7 +345,7 @@ describe('Functional Testing', function() {
 
   // Inventory Ratings
   // ------------------------------------------------------
-  describe('Inventory Ratings', async function() {
+  describe.skip('Inventory Ratings', async function() {
     it('should highlight ratings above a specified rating', async function() {
       await require('./unauthenticated/inventory-ratings').test(page);
     });
@@ -353,7 +353,7 @@ describe('Functional Testing', function() {
 
   // Filter Sleeve Conditions
   // ------------------------------------------------------
-  describe('Filter Sleeve Conditions', async function() {
+  describe.skip('Filter Sleeve Conditions', async function() {
     it('should filter items below a specified condition', async function() {
       await require('./unauthenticated/filter-sleeve-condition').test(page);
     });
@@ -361,7 +361,7 @@ describe('Functional Testing', function() {
 
   // Favorite Sellers
   // ------------------------------------------------------
-  describe('Favorite Sellers', async function() {
+  describe.skip('Favorite Sellers', async function() {
     it('should mark sellers as favorites', async function() {
       await require('./unauthenticated/favorite-sellers').mark(page);
     });
@@ -378,7 +378,7 @@ describe('Functional Testing', function() {
 
   // Block Sellers
   // ------------------------------------------------------
-  describe('Block Sellers', async function() {
+  describe.skip('Block Sellers', async function() {
     it('should mark sellers as blocked', async function() {
       await require('./unauthenticated/block-sellers').block(page);
     });
@@ -396,7 +396,7 @@ describe('Functional Testing', function() {
   // Auth Testing
   // ------------------------------------------------------
   if ( username && password ) {
-    describe('Authenticated feature testing', async function() {
+    describe.skip('Authenticated feature testing', async function() {
       it('should authenticate the test user', async function() {
         await require('./authenticated/login').test(page, username, password);
       });
@@ -404,7 +404,7 @@ describe('Functional Testing', function() {
 
     // Random Item Button
     // ------------------------------------------------------
-    describe('Random Item Button', async function() {
+    describe.skip('Random Item Button', async function() {
       it('should append an icon to the nav bar', async function() {
         await require('./authenticated/random-item').append(page);
       });
@@ -416,7 +416,7 @@ describe('Functional Testing', function() {
 
     // Notes Counter
     // ------------------------------------------------------
-    describe('Notes Counter', async function() {
+    describe.skip('Notes Counter', async function() {
       it('should append the counter to the In Collection box', async function() {
         await require('./authenticated/notes-counter').appendCounter(page);
       });
@@ -428,7 +428,7 @@ describe('Functional Testing', function() {
 
     // Show Actual Add Dates
     // ------------------------------------------------------
-    describe('Show Actual Add Dates', async function() {
+    describe.skip('Show Actual Add Dates', async function() {
       it('should show the date the item was added', async function() {
         await require('./authenticated/show-actual-dates').test(page);
       });
@@ -436,7 +436,7 @@ describe('Functional Testing', function() {
 
     // Collection Links In New Tabs
     // ------------------------------------------------------
-    // describe('Collection Links In New Tabs', async function() {
+    // describe.skip('Collection Links In New Tabs', async function() {
     //   it('should open links from the React Collection in new tabs', async function() {
     //     await require('./authenticated/collection-new-tabs').test(page);
     //   });
@@ -444,7 +444,7 @@ describe('Functional Testing', function() {
 
     // Hide Min Med Max Columns
     // ------------------------------------------------------
-    describe('Hide Min Med Max Columns', async function() {
+    describe.skip('Hide Min Med Max Columns', async function() {
       it('should hide the Min, Med, Max columns in the React Collection', async function() {
         await require('./authenticated/min-max-columns').test(page);
       });
@@ -452,7 +452,7 @@ describe('Functional Testing', function() {
 
     // Show Average Price
     // ------------------------------------------------------
-    describe('Show Average Price', async function() {
+    describe.skip('Show Average Price', async function() {
       it('should show the average price paid for an item', async function() {
         await require('./authenticated/average-price').test(page);
       });
@@ -460,7 +460,7 @@ describe('Functional Testing', function() {
 
     // Text Format Shortcuts
     // ------------------------------------------------------
-    describe('Text Format Shortcuts', async function() {
+    describe.skip('Text Format Shortcuts', async function() {
       it('should render text format shortcuts', async function() {
         await require('./authenticated/text-format-shortcuts').test(page);
       });
@@ -468,7 +468,7 @@ describe('Functional Testing', function() {
 
     // Large BAOI Fields
     // ------------------------------------------------------
-    describe('Large BAOI Fields', async function() {
+    describe.skip('Large BAOI Fields', async function() {
       it('should render large BAOI fields', async function() {
         await require('./authenticated/baoi-fields').test(page);
       });
@@ -476,7 +476,7 @@ describe('Functional Testing', function() {
 
     // Remove From Wantlist Shortcuts
     // ------------------------------------------------------
-    describe('Remove From Wantlist Shortcuts', async function() {
+    describe.skip('Remove From Wantlist Shortcuts', async function() {
       it('should render the shortcut in a listing', async function() {
         await require('./authenticated/remove-from-wantlist').render(page);
       });
@@ -488,7 +488,7 @@ describe('Functional Testing', function() {
 
     // Suggested Prices
     // ------------------------------------------------------
-    describe('Suggested Prices', async function() {
+    describe.skip('Suggested Prices', async function() {
       it('should render links into the DOM', async function() {
         await require('./authenticated/suggested-prices').render(page);
       });
@@ -504,7 +504,7 @@ describe('Functional Testing', function() {
 
     // Seller Items In Cart
     // ------------------------------------------------------
-    describe('Show Sellers In Cart', async function() {
+    describe.skip('Show Sellers In Cart', async function() {
       it('should display an icon next to the seller\'s name', async function() {
         await require('./authenticated/seller-items-in-cart').test(page);
       });
