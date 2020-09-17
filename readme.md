@@ -13,7 +13,7 @@
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/rating-4.83%2F5-blue?style=for-the-badge" alt="Chrome Web Store">
   </a>
-  <img src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" alt="License GPL 3.0">
+  <img src="https://img.shields.io/badge/License-GPL%203.0-blue.svg?style=for-the-badge" alt="License GPL 3.0">
 </p>
 
 ***
