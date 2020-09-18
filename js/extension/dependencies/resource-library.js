@@ -415,8 +415,8 @@
      */
     language: function() {
 
-      let id = document.getElementById('i18n_select'),
-          hasValue = (id.options[id.selectedIndex] && id.options[id.selectedIndex].value),
+      let id = document.getElementById('i18n_select') || null,
+          hasValue = id ? id.options[id.selectedIndex] && id.options[id.selectedIndex].value : null,
           language = hasValue ? id.options[id.selectedIndex].value : 'en';
 
       language = (language === 'pt_BR') ? 'pt' : language;
@@ -1059,7 +1059,7 @@
      * @returns {String}
      */
     username: function() {
-      let name = window.dsdata().username,
+      let name = window.dsdata ? window.dsdata().username : null,
           header = document.querySelector('#site_header_wrap');
       if ( name === 'matzubo' ) {
         header.style.setProperty('background', '#3c6088', 'important');

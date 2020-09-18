@@ -16,10 +16,10 @@ rl.ready(() => {
       feedback = rl.getPreference('feedback') || null,
       language = rl.language(),
       timeStamp = new Date().getTime(),
-      user = rl.username(),
+      user = rl.username() || null,
       // user = 'recordsale-de', /* used for testing */
       waitTime = (1000 * 60) * 2; // 2 mins
-
+  if (!user) return;
   // ========================================================
   // Functions (Alphabetical)
   // ========================================================
