@@ -3100,7 +3100,8 @@
 
   /* recently changed item in cart */
 
-  .cart_page .item-changed-hint {
+  .cart_page .item-changed-hint,
+  .order_free_shipping {
     color: #323334 !important;
     background: #f7d266 !important;
     padding: 0px 3px;
