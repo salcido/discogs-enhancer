@@ -3016,9 +3016,14 @@
     }
     .method {
       background: #323334 !important;
+      border: 1px solid gray !important;
       &.contracted {
         // background: #454545 !important;
         border: 1px solid #454545 !important;
+      }
+      tr.range button {
+        background: #454545 !important;
+        border: 1px solid #cccccc !important;
       }
     }
     .policy_right {
@@ -3055,7 +3060,7 @@
       }
     }
 
-    .shipping_policy_editor .destinations li.branch.expanded:before {
+    .destinations li.branch.expanded:before {
       border-left: 1px dotted gray !important;
     }
 
