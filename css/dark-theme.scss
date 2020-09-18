@@ -3010,8 +3010,16 @@
 
   .shipping_policy_editor {
     .policy,
-    .method {
+    .method,
+    .remove_link {
       border: 1px solid #454545 !important;
+    }
+    .method {
+      background: #323334 !important;
+      &.contracted {
+        // background: #454545 !important;
+        border: 1px solid #454545 !important;
+      }
     }
     .policy_right {
       border-left: 1px solid #454545 !important;
@@ -3033,11 +3041,49 @@
     }
     .method.expanded .method_metadata,
     .method_time,
+    .method_ranges,
     .method_constraint {
-      border-bottom: 1px solid #454545 !important;
+      border-top: 1px solid #454545 !important;
     }
     .policy_header {
       background: #292929 !important;
+    }
+    .expander {
+      .expander-icon {
+        background-color: lightblue !important;
+        color: black !important;
+      }
+    }
+
+    .shipping_policy_editor .destinations li.branch.expanded:before {
+      border-left: 1px dotted gray !important;
+    }
+
+    .valid_policy_icon {
+      color: #60C43F !important;
+      i, div {
+        color: #60C43F !important;
+      }
+    }
+
+    .invalid_policy_icon {
+      color: #c7630e !important;
+      i, div {
+        color: #c7630e !important;
+      }
+    }
+
+    .invalid_method {
+      background: #fee8d7 !important;
+      i, div {
+        color: #c7630e !important;
+      }
+    }
+
+    .formats,
+    .range_type_wrap,
+    #shipping_service {
+      border: 1px solid #454545 !important;
     }
   }
 
@@ -3257,5 +3303,17 @@
   // View More Lists link
   .more_lists_link:before {
     border-top: solid 1px #454545 !important;
+  }
+
+  .free-shipping-banner {
+    background: black !important;
+
+    div {
+      color: #ecb10c !important;
+
+      button {
+        color: #3ea6c9 !important;
+      }
+    }
   }
 }
