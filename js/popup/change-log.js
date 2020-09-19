@@ -1,6 +1,25 @@
 module.exports = {
   current: [
     {
+      version: '2.21.1',
+      features: [],
+      updates: [
+        {
+          name: 'Bugfix',
+          description: 'Fixed an issue where Release Scanner would not work after clicking on pagination links.'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Dark Theme updates for the Shipping Policy Editor and Free Shipping banners'
+        },
+      ],
+      thanks: [
+        'Thank you Ian and Alan for their generous donations!'
+      ]
+    },
+  ],
+  previous: [
+    {
       version: '2.21.0',
       features: [
         {
@@ -31,8 +50,6 @@ module.exports = {
         'Thank you Mick, Ritesh K, Jason, Cuddly_D, and Ollie S. for their generous donations!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.20.0',
       features: [
