@@ -377,12 +377,6 @@
     background-color: #323334 !important;
   }
 
-  mark {
-    margin-left: 3px !important;
-    background: gray !important;
-    color: #000000 !important;
-  }
-
   .side_menu a:hover {
     background-color: #2f2f2f !important;
   }
@@ -3321,5 +3315,10 @@
         color: #3ea6c9 !important;
       }
     }
+  }
+  // Search term highlights
+  ins, mark {
+    background: gray !important;
+    color: #000000 !important;
   }
 }
