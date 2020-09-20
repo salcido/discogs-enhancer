@@ -16,7 +16,7 @@ let block = async function(page) {
 
   let configPage = await openConfig('block-sellers');
 
-  await configPage.type('.restore-input', JSON.stringify(sellerNames));
+  await configPage.$eval('.restore-input', el => { el.value = JSON.stringify(sellerNames); });
   await configPage.click('.restore .btn.btn-green');
   await configPage.close();
 

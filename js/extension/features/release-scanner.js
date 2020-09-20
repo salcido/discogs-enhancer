@@ -198,7 +198,9 @@ rl.ready(() => {
     document.querySelector('.de-scan-releases').textContent = 'Scan Releases';
     document.querySelector('.de-scan-releases').disabled = false;
     releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href);
-    scanReleases(releases, interval).then(res => res).catch(err => console.error(err));
+    releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href);
+    skittles = document.querySelectorAll('.skittles .skittles');
+    checkbox = document.querySelectorAll('td.mr_checkbox');
   }
 
   // ========================================================

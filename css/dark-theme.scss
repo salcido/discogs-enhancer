@@ -377,12 +377,6 @@
     background-color: #323334 !important;
   }
 
-  mark {
-    margin-left: 3px !important;
-    background: gray !important;
-    color: #000000 !important;
-  }
-
   .side_menu a:hover {
     background-color: #2f2f2f !important;
   }
@@ -497,6 +491,15 @@
 
   .notes_textarea {
     min-height: 100px !important;
+  }
+
+  .facets_nav a .facet_name,
+  .more_facets_text {
+    color: #809bbe !important;
+
+    &:hover {
+      color: #cae0fa !important;
+    }
   }
 
   #page_aside .selected_facets li a {
@@ -2485,11 +2488,9 @@
 
   .currency-converter {
     background-color: #333333 !important;
-    background-color: #333333 !important;
-    border-bottom: 1px solid #333333 !important;
+    border: 1px solid gray !important;
     color: white !important;
     .toggle {
-      background-color: #333333 !important;
       background-color: #333333 !important;
       border-bottom: 1px solid #333333 !important;
       color: white !important;
@@ -3003,8 +3004,21 @@
 
   .shipping_policy_editor {
     .policy,
-    .method {
+    .method,
+    .remove_link {
       border: 1px solid #454545 !important;
+    }
+    .method {
+      background: #323334 !important;
+      border: 1px solid gray !important;
+      &.contracted {
+        // background: #454545 !important;
+        border: 1px solid #454545 !important;
+      }
+      tr.range button {
+        background: #454545 !important;
+        border: 1px solid #cccccc !important;
+      }
     }
     .policy_right {
       border-left: 1px solid #454545 !important;
@@ -3026,11 +3040,49 @@
     }
     .method.expanded .method_metadata,
     .method_time,
+    .method_ranges,
     .method_constraint {
-      border-bottom: 1px solid #454545 !important;
+      border-top: 1px solid #454545 !important;
     }
     .policy_header {
       background: #292929 !important;
+    }
+    .expander {
+      .expander-icon {
+        background-color: lightblue !important;
+        color: black !important;
+      }
+    }
+
+    .destinations li.branch.expanded:before {
+      border-left: 1px dotted gray !important;
+    }
+
+    .valid_policy_icon {
+      color: #60C43F !important;
+      i, div {
+        color: #60C43F !important;
+      }
+    }
+
+    .invalid_policy_icon {
+      color: #c7630e !important;
+      i, div {
+        color: #c7630e !important;
+      }
+    }
+
+    .invalid_method {
+      background: #fee8d7 !important;
+      i, div {
+        color: #c7630e !important;
+      }
+    }
+
+    .formats,
+    .range_type_wrap,
+    #shipping_service {
+      border: 1px solid #454545 !important;
     }
   }
 
@@ -3042,7 +3094,8 @@
 
   /* recently changed item in cart */
 
-  .cart_page .item-changed-hint {
+  .cart_page .item-changed-hint,
+  .order_free_shipping {
     color: #323334 !important;
     background: #f7d266 !important;
     padding: 0px 3px;
@@ -3250,5 +3303,22 @@
   // View More Lists link
   .more_lists_link:before {
     border-top: solid 1px #454545 !important;
+  }
+
+  .free-shipping-banner {
+    background: black !important;
+
+    div {
+      color: #ecb10c !important;
+
+      button {
+        color: #3ea6c9 !important;
+      }
+    }
+  }
+  // Search term highlights
+  ins, mark {
+    background: gray !important;
+    color: #000000 !important;
   }
 }
