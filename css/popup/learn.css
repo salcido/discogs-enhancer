@@ -410,7 +410,8 @@ h2.highlight {
   color: #85AB11 !important;
 }
 
-.good-plus {
+.good-plus,
+.contributor {
   color: #F6BF48 !important;
 }
 
@@ -527,6 +528,16 @@ ul.thanks {
   color: #fff;
 }
 
+.thanks li.contributor {
+  text-shadow: 0px 0px 5px #a2a184;
+}
+
+.thanks li.contributor::after {
+  content: '\272A';
+  display: inline-block;
+  margin-left: 0.2rem;
+  color: #fff;
+}
 
 .love {
   margin: 45px auto 10px;
