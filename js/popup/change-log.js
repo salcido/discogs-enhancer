@@ -1,6 +1,23 @@
 module.exports = {
   current: [
     {
+      version: '2.21.2',
+      features: [],
+      updates: [
+        {
+          name: 'Bugfix',
+          description: 'Fixed an issue where the dark theme would be applied when printing an invoice.'
+        },
+        {
+          name: 'Bugfix',
+          description: 'Fixed an issue where the currency converter would appear when printing an invoice.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.21.1',
       features: [],
       updates: [
@@ -17,8 +34,6 @@ module.exports = {
         'Thank you Ian and Alan for their generous donations!'
       ]
     },
-  ],
-  previous: [
     {
       version: '2.21.0',
       features: [
