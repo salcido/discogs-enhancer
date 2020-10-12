@@ -196,10 +196,10 @@ appendFragment([resourceLibrary]).then(() => {
 
     // Dark Theme
     if ( result.prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
-    // Don't use the dark theme on subdomains
+    // Don't use the dark theme on subdomains or when printing an order
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
-    if ( !window.location.href.includes('www') ) {
+    if ( !window.location.href.includes('www') || window.location.href.includes('/order/prints?')) {
       document.documentElement.classList.remove('de-dark-theme');
     }
 
@@ -406,7 +406,8 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(collectionUi);
       }
 
-      if (result.prefs.converter) {
+      if ( result.prefs.converter
+           && !window.location.href.includes('/order/prints?') ) {
 
         // currency-converter.css
         let converter_css = document.createElement('link');
