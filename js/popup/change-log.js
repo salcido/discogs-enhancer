@@ -13,7 +13,7 @@ module.exports = {
           description: 'Fixed an issue where the currency converter would appear when printing an invoice.'
         },
       ],
-      thanks: []
+      thanks: ['Thank you Collector for your generous donation!']
     },
   ],
   previous: [
