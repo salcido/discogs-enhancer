@@ -1,6 +1,19 @@
 module.exports = {
   current: [
     {
+      version: '2.21.3',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'More Dark Theme fixes thanks to ToastyMallows on GitHub!'
+        },
+      ],
+      thanks: ['Thank you TheMightyChew for your generous donation!', 'Huge shoutout to ToastyMallows on GitHub for putting together a fix for the Dark Theme!']
+    },
+  ],
+  previous: [
+    {
       version: '2.21.2',
       features: [],
       updates: [
@@ -15,8 +28,6 @@ module.exports = {
       ],
       thanks: ['Thank you Collector for your generous donation!']
     },
-  ],
-  previous: [
     {
       version: '2.21.1',
       features: [],
