@@ -2650,6 +2650,11 @@
     }
   }
 
+  .result-item.current,
+  .no-results.current {
+    background: #454545 !important;
+  }
+
   /* Beta Tracks UI */
 
   .tracks-beta-banner {
