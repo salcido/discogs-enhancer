@@ -16,9 +16,10 @@ rl.ready( () => {
   }
 
   // HTML variables
-  const className = 'de-editing-notepad';
-  const textAreaId = 'de-editing-notepad-textarea';
+  const notepadId = 'de-editing-notepad';
+  const notepadAreaId = 'de-editing-notepad-area';
   const toggleButtonId = 'de-editing-notepad-toggle-button';
+  const areaWrapperId = 'de-editing-notepad-area-wrapper';
   const hiddenClass = 'de-editing-notepad-hidden';
   const rotateClass = 'de-editing-notepad-rotate';
   const showTitle = 'Show Notepad';
@@ -50,53 +51,74 @@ rl.ready( () => {
 
   const isNotepadInitiallyVisible = getNotepadVisible();
 
-  const initialTextAreaClasses = isNotepadInitiallyVisible ? '' : hiddenClass;
+  const initialNotepadClasses = isNotepadInitiallyVisible ? '' : hiddenClass;
   const initialToggleButtonClasses = isNotepadInitiallyVisible ? rotateClass : '';
   const initialTitle = isNotepadInitiallyVisible ? hideTitle : showTitle;
 
   const markup = `
-    <div class="${className}">
+    <div id="${notepadId}" class="${initialNotepadClasses}">
       <div>
-        <button id="${toggleButtonId}" class="${initialToggleButtonClasses}" title="${initialTitle}">◀</button>
-        <textarea id="${textAreaId}" class="${initialTextAreaClasses}">${getNotepadText()}</textarea>
+        <button id="${toggleButtonId}" class="${initialToggleButtonClasses} button" title="${initialTitle}">◀</button>
+        <div id="${areaWrapperId}">
+          <p id="${notepadAreaId}" contenteditable="true">${getNotepadText()}</p>
+        </div>
       </div>
     </div>
   `;
 
   const css = `
-    .${className} {
+    #${notepadId} {
       position: fixed;
       right: 0;
       top: 50%;
       transform: translateY(-50%);
       height: 600px;
       width: 400px;
+      transition: all 0.3s ease-in-out;
     }
 
-    .${className} > div {
+    #${notepadId}.${hiddenClass} {
+      right: -375px;
+    }
+
+    #${notepadId} > div {
       height: 100%;
       width: 100%;
       display: flex;
       flex-flow: row nowrap;
       justify-content: flex-end;
       align-items: center;
+      padding: 0;
+      margin: 0;
     }
 
-    #${textAreaId} {
+    #${areaWrapperId} {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #${notepadAreaId} {
       height: 100%;
       width: 100%;
-      margin; 5px;
+      padding: 5px 0 0 5px;
+      margin: 0;
+      background-color: white;
+      border: 1px solid grey !important;
     }
 
-    #${textAreaId}.${hiddenClass} {
-      display: none;
-      visibility: hidden;
+    .de-dark-theme #${notepadAreaId} {
+      background-color: #292929 !important;
     }
 
     #${toggleButtonId} {
       width: auto;
       height: 1.1em;
       font-size: xx-large;
+      padding: 0;
+      line-height: 0;
+      transition: all 0.3s ease-in-out;
     }
 
     #${toggleButtonId}.${rotateClass} {
@@ -107,21 +129,24 @@ rl.ready( () => {
   rl.attachCss( 'editing-notepad', css );
   document.body.insertAdjacentHTML( 'beforeend', markup );
 
-  const textArea = document.getElementById( textAreaId );
+  const notepad = document.getElementById( notepadId )
+  const notepadArea = document.getElementById( notepadAreaId );
   const toggleButton = document.getElementById( toggleButtonId );
 
-  textArea.addEventListener( 'input', ( event ) => {
+  notepadArea.addEventListener( 'input', ( event ) => {
     setNotepadText( event.target.value );
   } );
 
   toggleButton.addEventListener( 'click', ( event ) => {
-    if ( textArea.classList.contains( hiddenClass ) ) {
-      textArea.classList.remove( hiddenClass );
+    if ( notepad.classList.contains( hiddenClass ) ) {
+      // Show the Notepad
+      notepad.classList.remove( hiddenClass );
       toggleButton.classList.add( rotateClass );
       toggleButton.title = hideTitle;
       setNotepadVisible( true );
     } else {
-      textArea.classList.add( hiddenClass );
+      // Hide the Notepad
+      notepad.classList.add( hiddenClass );
       toggleButton.classList.remove( rotateClass );
       toggleButton.title = showTitle;
       setNotepadVisible( false );
