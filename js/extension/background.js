@@ -41,7 +41,7 @@ HTMLDocument.prototype.ready = () => {
 /**
  * Used to append the js/css nodes to the DOM when the
  * extension first runs.
- * @param    {Array} elems - An array of nodes to be appeneded
+ * @param    {Array} elems - An array of nodes to be appended
  * @return   {Promise}
  */
 function appendFragment(elems) {
@@ -125,6 +125,7 @@ appendFragment([resourceLibrary]).then(() => {
 
     if (!result.prefs) {
 
+      // Adding A Feature: Step 1
       prefs = {
         absoluteDate: false,
         averagePrice: false,
@@ -137,6 +138,7 @@ appendFragment([resourceLibrary]).then(() => {
         converter: true,
         darkTheme: false,
         demandIndex: false,
+        editingNotepad: false,
         everlastingCollection: false,
         everlastingMarket: true,
         favoriteSellers: true,
@@ -316,6 +318,8 @@ appendFragment([resourceLibrary]).then(() => {
       // ========================================================
       // Preference-dependent scripts
       // ========================================================
+      //
+      // Adding A Feature: Step 1
 
       if ( result.prefs.absoluteDate ) {
         // show-actual-dates.js
@@ -468,6 +472,18 @@ appendFragment([resourceLibrary]).then(() => {
         demandIndexMP.className = 'de-init';
 
         elems.push(demandIndexMP);
+      }
+      
+      // editing notepad
+      if ( result.prefs.editingNotepad ) {
+
+        let editingNotepad = document.createElement( 'script' );
+
+        editingNotepad.type = 'text/javascript';
+        editingNotepad.src = chrome.extension.getURL( 'js/extension/features/editing-notepad.js' );
+        editingNotepad.className = 'de-init';
+
+        elems.push( editingNotepad );
       }
 
       // everlasting collection

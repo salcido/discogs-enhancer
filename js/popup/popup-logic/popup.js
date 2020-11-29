@@ -77,6 +77,8 @@ function isDev() {
 // ========================================================
 // Document ready
 // ========================================================
+//
+// Adding A Feature: Step 5
 window.addEventListener('load', () => {
 
   let
@@ -92,6 +94,7 @@ window.addEventListener('load', () => {
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleDemandIndex = document.getElementById('toggleDemandIndex'),
+      toggleEditingNotepad = document.getElementById( 'toggleEditingNotepad' ),
       toggleEverlastingCollection = document.getElementById('toggleEverlastingCollection'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
@@ -261,6 +264,8 @@ window.addEventListener('load', () => {
   // ========================================================
   // Event listeners for toggles
   // ========================================================
+  //
+  // Adding A Feature: Step 5
   toggleAbsoluteDate.addEventListener('change', triggerSave);
   toggleAveragePrice.addEventListener('change', triggerSave);
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
@@ -272,6 +277,7 @@ window.addEventListener('load', () => {
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleDemandIndex.addEventListener('change', triggerSave);
+  toggleEditingNotepad.addEventListener('change', triggerSave);
   toggleEverlastingCollection.addEventListener('change', triggerSave);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFavoriteSellers.addEventListener('change', triggerSave);
@@ -339,6 +345,8 @@ window.addEventListener('load', () => {
     toggleYoutube = document.getElementById('youtube');
 
     // Get the user's saved preferences and set the toggles accordingly
+    //
+    // Adding A Feature: Step 5
     chrome.storage.sync.get('prefs', result => {
       // Feature preferences
       toggleAbsoluteDate.checked = result.prefs.absoluteDate;
@@ -352,6 +360,7 @@ window.addEventListener('load', () => {
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleDemandIndex.checked = result.prefs.demandIndex;
+      toggleEditingNotepad.checked = result.prefs.editingNotepad;
       toggleEverlastingCollection.checked = result.prefs.everlastingCollection;
       toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
       toggleFavoriteSellers.checked = result.prefs.favoriteSellers;
