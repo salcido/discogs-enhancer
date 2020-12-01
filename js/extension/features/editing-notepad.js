@@ -233,12 +233,7 @@ rl.ready( () => {
     }
 
     .${notepadEditingClass} .${buttonClass} {
-      border-top-width: 1px;
-      border-left-width: 1px;
-      border-bottom-width: 1px;
-      border-right-width: 0px !important;
-      border-style: solid;
-      border-color: red !important;
+      border: 1px solid red !important;
       box-shadow: 0 0 10px red;
     }
   `;
