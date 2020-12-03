@@ -22,7 +22,7 @@ rl.ready( () => {
   const toggleButtonId = `${PREFIX}-toggle-button`;
   const editButtonId = `${PREFIX}-edit-button`;
   const areaWrapperId = `${PREFIX}-area-wrapper`;
-  const notepadEditWrapperId = `${PREFIX}-edit-wrapper`;
+  const notepadEditCoverId = `${PREFIX}-edit-cover`;
   const notepadEditingClass = `${PREFIX}-isediting`;
   const notepadFocusedClass = `${PREFIX}-isfocused`;
   const buttonClass = `${PREFIX}-button`;
@@ -31,6 +31,7 @@ rl.ready( () => {
   const rotateClass = `${PREFIX}-rotate`;
   const visibleClass = `${PREFIX}-visible`;
   const notepadLinkClass = `${PREFIX}-link`;
+  const discogsLoadingClass = "loading-placeholder";
   const showTitle = 'Show Notepad';
   const hideTitle = 'Hide Notepad';
 
@@ -63,14 +64,14 @@ rl.ready( () => {
     setNotepadTextPreference( '<div></div>' );
   }
 
-  const isNotepadInitiallyVisible = getNotepadVisiblePreference();
+  const isNotepadInitiallyVisible = getNotepadVisiblePreference() === null ? false : true;
 
   const initialNotepadClasses = isNotepadInitiallyVisible ? '' : hiddenClass;
   const initialToggleButtonClasses = isNotepadInitiallyVisible ? rotateClass : '';
   const initialTitle = isNotepadInitiallyVisible ? hideTitle : showTitle;
 
   const markup = `
-    <div id="${notepadEditWrapperId}"></div>
+    <div id="${notepadEditCoverId}"></div>
     <div id="${notepadId}" class="${initialNotepadClasses}">
       <div>
         <div class="${buttonsWrapperClass}">
@@ -86,7 +87,7 @@ rl.ready( () => {
 
   const css = `
 
-    #${notepadEditWrapperId} {
+    #${notepadEditCoverId} {
       position: fixed;
       top: 0;
       bottom: 0;
@@ -97,7 +98,7 @@ rl.ready( () => {
       z-index: 0;
     }
 
-    #${notepadEditWrapperId}.${visibleClass} {
+    #${notepadEditCoverId}.${visibleClass} {
       visibility: visible;
       display: unset;
     }
@@ -238,122 +239,137 @@ rl.ready( () => {
     }
   `;
 
-  rl.attachCss( 'editing-notepad', css );
-  document.body.insertAdjacentHTML( 'beforeend', markup );
+  /**
+   * Detects when the Edit page is done loading and loads the feature.
+   */
+  let loadingInterval = setInterval( () => {
+    let loadingElement = document.querySelector( `.${discogsLoadingClass}` );
 
-  const notepad = document.getElementById( notepadId )
-  const notepadArea = document.getElementById( notepadAreaId );
-  const notepadEditWrapper = document.getElementById( notepadEditWrapperId );
-  const toggleButton = document.getElementById( toggleButtonId );
-  const editButton = document.getElementById( editButtonId );
-
-  // populate notepad with saved text
-  notepadArea.innerHTML = getNotepadTextPreference();
-
-  function focusNotepadArea() {
-    notepadArea.focus();
-    notepad.classList.add( notepadFocusedClass );
-  }
-
-  function unfocusNotepadArea() {
-    notepad.classList.remove( notepadFocusedClass );
-  }
-
-  function stopEditing() {
-    notepadEditWrapper.classList.remove( visibleClass );
-    notepadArea.contentEditable = false;
-    notepad.classList.remove( notepadEditingClass );
-  }
-
-  function startEditing() {
-    focusNotepadArea();
-    notepad.classList.add( notepadEditingClass );
-    notepadArea.contentEditable = true;
-    notepadEditWrapper.classList.add( visibleClass );
-  }
-
-  function toggleEditing() {
-    if ( notepad.classList.contains( notepadEditingClass ) ) {
-      stopEditing();
-    } else {
-      startEditing();
+    if ( !loadingElement ) {
+      clearInterval( loadingInterval );
+      loadNotepad();
     }
-  }
+  }, 100 );
 
-  function showNotepad() {
-    notepad.classList.remove( hiddenClass );
-    toggleButton.classList.add( rotateClass );
-    toggleButton.title = hideTitle;
-    setNotepadVisiblePreference( true );
-    focusNotepadArea();
-  }
+  function loadNotepad() {
 
-  function hideNotepad() {
-    stopEditing();
-    unfocusNotepadArea();
-    notepad.classList.add( hiddenClass );
-    toggleButton.classList.remove( rotateClass );
-    toggleButton.title = showTitle;
-    setNotepadVisiblePreference( false );
-  }
+    rl.attachCss( 'editing-notepad', css );
+    document.body.insertAdjacentHTML( 'beforeend', markup );
 
-  function toggleNotepad() {
-    if ( notepad.classList.contains( hiddenClass ) ) {
-      showNotepad();
-    } else {
-      hideNotepad();
+    const notepad = document.getElementById( notepadId )
+    const notepadArea = document.getElementById( notepadAreaId );
+    const notepadEditCover = document.getElementById( notepadEditCoverId );
+    const toggleButton = document.getElementById( toggleButtonId );
+    const editButton = document.getElementById( editButtonId );
+
+    // populate notepad with saved text
+    notepadArea.innerHTML = getNotepadTextPreference();
+
+    function focusNotepadArea() {
+      notepadArea.focus();
+      notepad.classList.add( notepadFocusedClass );
     }
-  }
 
-  notepadArea.addEventListener( 'mousedown', focusNotepadArea );
-  notepadArea.addEventListener( 'click', focusNotepadArea );
-  notepadArea.addEventListener( 'mouseenter', focusNotepadArea );
-  notepadArea.addEventListener( 'mouseleave', unfocusNotepadArea );
+    function unfocusNotepadArea() {
+      notepad.classList.remove( notepadFocusedClass );
+    }
 
-  notepadEditWrapper.addEventListener( 'click', stopEditing );
+    function stopEditing() {
+      notepadEditCover.classList.remove( visibleClass );
+      notepadArea.contentEditable = false;
+      notepad.classList.remove( notepadEditingClass );
+    }
 
-  editButton.addEventListener( 'click', toggleEditing );
-  editButton.addEventListener( 'mouseenter', focusNotepadArea );
-  editButton.addEventListener( 'mouseleave', unfocusNotepadArea );
+    function startEditing() {
+      focusNotepadArea();
+      notepad.classList.add( notepadEditingClass );
+      notepadArea.contentEditable = true;
+      notepadEditCover.classList.add( visibleClass );
+    }
 
-  toggleButton.addEventListener( 'click', toggleNotepad );
-  toggleButton.addEventListener( 'mouseenter', focusNotepadArea );
-  toggleButton.addEventListener( 'mouseleave', unfocusNotepadArea );
-
-  notepadArea.addEventListener( 'input', ( event ) => {
-    setNotepadTextPreference( event.target.innerHTML );
-  } );
-
-  notepadArea.addEventListener( 'paste', ( event ) => {
-    if ( notepadArea.isContentEditable ) {
-
-      let paste = ( event.clipboardData || window.clipboardData ).getData( 'text' );
-
-      if ( paste.startsWith( 'http://' ) || paste.startsWith( 'https://' ) ) {
-
-        // assume this is a Url
-        const selection = window.getSelection();
-        if ( !selection.rangeCount ) {
-          return false;
-        }
-
-        const link = document.createElement( 'a' );
-        link.href = paste;
-        link.text = paste;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.classList.add( notepadLinkClass );
-
-        selection.deleteFromDocument();
-        selection.getRangeAt( 0 ).insertNode( link )
-        selection.collapseToEnd();
-
-        event.preventDefault();
-
-        // Since we have to preventDefault, we need to manually save
-        // instead of relying on the input event listener to do it.
-        setNotepadTextPreference( notepadArea.innerHTML );
+    function toggleEditing() {
+      if ( notepad.classList.contains( notepadEditingClass ) ) {
+        stopEditing();
+      } else {
+        startEditing();
       }
     }
-  } );
+
+    function showNotepad() {
+      notepad.classList.remove( hiddenClass );
+      toggleButton.classList.add( rotateClass );
+      toggleButton.title = hideTitle;
+      setNotepadVisiblePreference( true );
+      focusNotepadArea();
+    }
+
+    function hideNotepad() {
+      stopEditing();
+      unfocusNotepadArea();
+      notepad.classList.add( hiddenClass );
+      toggleButton.classList.remove( rotateClass );
+      toggleButton.title = showTitle;
+      setNotepadVisiblePreference( false );
+    }
+
+    function toggleNotepad() {
+      if ( notepad.classList.contains( hiddenClass ) ) {
+        showNotepad();
+      } else {
+        hideNotepad();
+      }
+    }
+
+    notepadArea.addEventListener( 'mousedown', focusNotepadArea );
+    notepadArea.addEventListener( 'click', focusNotepadArea );
+    notepadArea.addEventListener( 'mouseenter', focusNotepadArea );
+    notepadArea.addEventListener( 'mouseleave', unfocusNotepadArea );
+
+    notepadEditCover.addEventListener( 'click', stopEditing );
+
+    editButton.addEventListener( 'click', toggleEditing );
+    editButton.addEventListener( 'mouseenter', focusNotepadArea );
+    editButton.addEventListener( 'mouseleave', unfocusNotepadArea );
+
+    toggleButton.addEventListener( 'click', toggleNotepad );
+    toggleButton.addEventListener( 'mouseenter', focusNotepadArea );
+    toggleButton.addEventListener( 'mouseleave', unfocusNotepadArea );
+
+    notepadArea.addEventListener( 'input', ( event ) => {
+      setNotepadTextPreference( event.target.innerHTML );
+    } );
+
+    notepadArea.addEventListener( 'paste', ( event ) => {
+      if ( notepadArea.isContentEditable ) {
+
+        let paste = ( event.clipboardData || window.clipboardData ).getData( 'text' );
+
+        if ( paste.startsWith( 'http://' ) || paste.startsWith( 'https://' ) ) {
+
+          // assume this is a Url
+          const selection = window.getSelection();
+          if ( !selection.rangeCount ) {
+            return false;
+          }
+
+          const link = document.createElement( 'a' );
+          link.href = paste;
+          link.text = paste;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.classList.add( notepadLinkClass );
+
+          selection.deleteFromDocument();
+          selection.getRangeAt( 0 ).insertNode( link )
+          selection.collapseToEnd();
+
+          event.preventDefault();
+
+          // Since we have to preventDefault, we need to manually save
+          // instead of relying on the input event listener to do it.
+          setNotepadTextPreference( notepadArea.innerHTML );
+        }
+      }
+    } );
+  }
 } );
