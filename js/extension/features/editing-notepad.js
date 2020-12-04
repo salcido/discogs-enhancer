@@ -34,6 +34,11 @@ rl.ready( () => {
   const discogsLoadingClass = "loading-placeholder";
   const showTitle = 'Show Notepad';
   const hideTitle = 'Hide Notepad';
+  const editEmoji = '✎';
+  const saveEmoji = '✔';
+  const editTitle = 'Edit';
+  const saveTitle = 'Save';
+  const supportedURISchemes = ['https://', 'http://', 'sftp://', 'file://', 'chrome://', 'smb://']
 
   // Resource Library variables
   const notepadTextPreferenceId = 'notepadText';
@@ -76,7 +81,7 @@ rl.ready( () => {
       <div>
         <div class="${buttonsWrapperClass}">
           <button id="${toggleButtonId}" class="${initialToggleButtonClasses} ${buttonClass} button" title="${initialTitle}">◀</button>
-          <button id="${editButtonId}" class="${buttonClass} button" title="Edit">✎</button>
+          <button id="${editButtonId}" class="${buttonClass} button" title="${editTitle}">${editEmoji}</button>
         </div>
         <div id="${areaWrapperId}">
           <p id="${notepadAreaId}" contenteditable="false" tabindex="-1"></p>
@@ -278,6 +283,8 @@ rl.ready( () => {
       notepadEditCover.classList.remove( visibleClass );
       notepadArea.contentEditable = false;
       notepad.classList.remove( notepadEditingClass );
+      editButton.innerText = editEmoji;
+      editButton.title = editTitle;
     }
 
     function startEditing() {
@@ -285,6 +292,8 @@ rl.ready( () => {
       notepad.classList.add( notepadEditingClass );
       notepadArea.contentEditable = true;
       notepadEditCover.classList.add( visibleClass );
+      editButton.innerText = saveEmoji;
+      editButton.title = saveTitle;
     }
 
     function toggleEditing() {
@@ -344,7 +353,7 @@ rl.ready( () => {
 
         let paste = ( event.clipboardData || window.clipboardData ).getData( 'text' );
 
-        if ( paste.startsWith( 'http://' ) || paste.startsWith( 'https://' ) ) {
+        if ( supportedURISchemes.some( ( scheme ) => paste.trimStart().startsWith( scheme ) ) ) {
 
           // assume this is a Url
           const selection = window.getSelection();
@@ -353,7 +362,7 @@ rl.ready( () => {
           }
 
           const link = document.createElement( 'a' );
-          link.href = paste;
+          link.href = paste.trim();
           link.text = paste;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
