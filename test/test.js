@@ -400,17 +400,13 @@ describe( 'Functional Testing', function () {
   if ( ( username && password ) || useOAuth ) {
     if ( useOAuth ) {
       describe( 'Authenticated feature testing', async function () {
-        it( 'should allow the test user to manually authenticate with OAuth2', async ( done ) => {
-          await ( async function () {
-            await Promise.all( [
-              await page.goto( 'https://auth.discogs.com/login' ),
-            ] );
+        it( 'should allow the test user to manually authenticate with OAuth2', async function () {
+          await Promise.all( [
+            await page.goto( 'https://auth.discogs.com/login' ),
+          ] );
 
-            page.waitForResponse( "https://www.discogs.com/my", { timeout: 100000 } ).then( () => {
-              assert.strictEqual( true, true );
-              done();
-            } );
-          } )();
+          await page.waitForResponse( "https://www.discogs.com/my", { timeout: 100000 } );
+          assert.strictEqual( true, true );
         } ).timeout( 100000 );
       } );
     } else {
@@ -548,6 +544,10 @@ describe( 'Functional Testing', function () {
 
       it( 'should be editable when edit button is clicked', async function () {
         await require( testFile ).goesIntoEditMode( page );
+      } );
+
+      it( 'should save edits across refreshes', async function () {
+        await require( testFile ).savesEdits( page );
       } );
     } );
 
