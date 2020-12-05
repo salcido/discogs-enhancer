@@ -104,9 +104,12 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 
 * Run `authenticated` functional tests:
-  > Note: If you want to run authenticated tests you'll need an account to log in with and run them with the command below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
+  > Note: If you want to run authenticated tests you'll need an account to log in with and run them with one of the commands below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
 
   * `env USERNAME=<username> env PASSWORD=<password> npm test`
+    * This will try to log you in automatically using Discogs authentication.
+  * `env USEOAUTH=true npm test`
+    * This will pop up the login page to allow you to manually login via supported OAuth providers; Google, Facebook, or Apple.
 
 
 #### Building
