@@ -399,7 +399,7 @@ describe( 'Functional Testing', function () {
   // ------------------------------------------------------
   if ( ( username && password ) || useOAuth ) {
     if ( useOAuth ) {
-      describe( 'Authenticated feature testing', async function () {
+      describe.skip( 'Authenticated feature testing', async function () {
         it( 'should allow the test user to manually authenticate with OAuth2', async function () {
           await Promise.all( [
             await page.goto( 'https://auth.discogs.com/login' ),
@@ -532,7 +532,7 @@ describe( 'Functional Testing', function () {
 
     // Editing Notepad
     // ------------------------------------------------------
-    describe( 'Editing Notepad', async function () {
+    describe.skip( 'Editing Notepad', async function () {
       const testFile = './authenticated/editing-notepad';
       it( 'should be hidden on first run', async function () {
         await require( testFile ).hiddenOnFirstRun( page );
