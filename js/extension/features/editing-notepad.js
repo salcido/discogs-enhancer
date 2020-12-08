@@ -10,8 +10,8 @@
  */
 rl.ready( () => {
 
-  if ( rl.pageIsNot( 'edit', 'update' ) ) {
-    // Only add Editing Notepad on edit pages
+  if ( rl.pageIsNot( 'edit', 'update', 'addRelease', 'drafts' ) ) {
+    // Only add Editing Notepad on editing related pages
     return;
   }
 
