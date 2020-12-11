@@ -31,14 +31,14 @@ rl.ready( () => {
   const rotateClass = `${PREFIX}-rotate`;
   const visibleClass = `${PREFIX}-visible`;
   const notepadLinkClass = `${PREFIX}-link`;
-  const discogsLoadingClass = "loading-placeholder";
+  const discogsLoadingClass = 'loading-placeholder';
   const showTitle = 'Show Notepad';
   const hideTitle = 'Hide Notepad';
   const editEmoji = '✎';
   const saveEmoji = '✔';
   const editTitle = 'Edit';
   const saveTitle = 'Save';
-  const supportedURISchemes = ['https://', 'http://', 'sftp://', 'file://', 'chrome://', 'smb://']
+  const supportedURISchemes = ['https://', 'http://', 'sftp://', 'file://', 'chrome://', 'smb://'];
 
   // Resource Library variables
   const notepadTextPreferenceId = 'notepadText';
@@ -206,7 +206,7 @@ rl.ready( () => {
       min-width: 1em;
       max-width: 1em;
       font-size: xx-large;
-      padding: 0;
+      padding: 5px;
       line-height: 0;
       z-index: 0;
       border-radius: 5px 0 0 5px;
@@ -261,7 +261,7 @@ rl.ready( () => {
     rl.attachCss( 'editing-notepad', css );
     document.body.insertAdjacentHTML( 'beforeend', markup );
 
-    const notepad = document.getElementById( notepadId )
+    const notepad = document.getElementById( notepadId );
     const notepadArea = document.getElementById( notepadAreaId );
     const notepadEditCover = document.getElementById( notepadEditCoverId );
     const toggleButton = document.getElementById( toggleButtonId );
@@ -365,11 +365,11 @@ rl.ready( () => {
           link.href = paste.trim();
           link.text = paste;
           link.target = "_blank";
-          link.rel = "noopener noreferrer";
+          link.rel = 'noopener noreferrer';
           link.classList.add( notepadLinkClass );
 
           selection.deleteFromDocument();
-          selection.getRangeAt( 0 ).insertNode( link )
+          selection.getRangeAt( 0 ).insertNode( link );
           selection.collapseToEnd();
 
           event.preventDefault();
