@@ -185,8 +185,8 @@ rl.ready( () => {
 
     .${notepadEditingClass} #${notepadAreaId} {
       cursor: text;
-      outline: 1px solid red !important;
-      box-shadow: 0 0 10px red !important;
+      outline: 1px solid goldenrod !important;
+      box-shadow: 0 0 10px goldenrod !important;
     }
 
     .${notepadEditingClass} #${notepadAreaId} * {
@@ -239,8 +239,8 @@ rl.ready( () => {
     }
 
     .${notepadEditingClass} .${buttonClass} {
-      border: 1px solid red !important;
-      box-shadow: 0 0 10px red;
+      border: 1px solid goldenrod !important;
+      box-shadow: 0 0 10px goldenrod;
     }
   `;
 
