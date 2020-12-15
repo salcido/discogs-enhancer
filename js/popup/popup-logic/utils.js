@@ -19,6 +19,8 @@ export function acknowledgeUpdate() {
 // ========================================================
 /**
  * Saves the users preferences when a toggle is clicked
+ * 
+ * Adding A Feature: Step 4
  *
  * @method   applySave
  * @param    {String}  message - The message displayed to the user
@@ -40,6 +42,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
         demandIndex: document.getElementById('toggleDemandIndex').checked,
+        editingNotepad: document.getElementById( 'toggleEditingNotepad' ).checked,
         everlastingCollection: document.getElementById('toggleEverlastingCollection').checked,
         everlastingMarket: document.getElementById('toggleEverlastingMarket').checked,
         favoriteSellers: document.getElementById('toggleFavoriteSellers').checked,

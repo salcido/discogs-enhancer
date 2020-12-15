@@ -1,6 +1,8 @@
-const puppeteer = require('puppeteer');
+const assert = require( 'assert' );
+const puppeteer = require( 'puppeteer' );
 const username = process.env.USERNAME || null;
 const password = process.env.PASSWORD || null;
+const useOAuth = process.env.USEOAUTH || null;
 // Extension path
 const path = require('path').join(__dirname, '../dist');
 // Browser configuration
@@ -141,7 +143,7 @@ module.exports = { toggleFeature, openConfig, openPopup };
 // Functional Tests
 // ========================================================
 
-describe.skip('Functional Testing', function() {
+describe( 'Functional Testing', function () {
   this.timeout(40000);
   before(async function() { await boot(); });
 
@@ -395,13 +397,25 @@ describe.skip('Functional Testing', function() {
 
   // Auth Testing
   // ------------------------------------------------------
-  if ( username && password ) {
-    describe.skip('Authenticated feature testing', async function() {
-      it('should authenticate the test user', async function() {
-        await require('./authenticated/login').test(page, username, password);
-      });
-    });
+  if ( ( username && password ) || useOAuth ) {
+    if ( useOAuth ) {
+      describe.skip( 'Authenticated feature testing', async function () {
+        it( 'should allow the test user to manually authenticate with OAuth2', async function () {
+          await Promise.all( [
+            await page.goto( 'https://auth.discogs.com/login' ),
+          ] );
 
+          await page.waitForResponse( "https://www.discogs.com/my", { timeout: 100000 } );
+          assert.strictEqual( true, true );
+        } ).timeout( 100000 );
+      } );
+    } else {
+      describe.skip( 'Authenticated feature testing', async function () {
+        it( 'should authenticate the test user', async function () {
+          await require( './authenticated/login' ).test( page, username, password );
+        } );
+      } );
+    }
     // Random Item Button
     // ------------------------------------------------------
     describe.skip('Random Item Button', async function() {
@@ -515,6 +529,27 @@ describe.skip('Functional Testing', function() {
 
     // Block Buyers
     // ------------------------------------------------------
+
+    // Editing Notepad
+    // ------------------------------------------------------
+    describe.skip( 'Editing Notepad', async function () {
+      const testFile = './authenticated/editing-notepad';
+      it( 'should be hidden on first run', async function () {
+        await require( testFile ).hiddenOnFirstRun( page );
+      } );
+
+      it( 'should be expanded when clicked', async function () {
+        await require( testFile ).expandedWhenClicked( page );
+      } );
+
+      it( 'should be editable when edit button is clicked', async function () {
+        await require( testFile ).goesIntoEditMode( page );
+      } );
+
+      it( 'should save edits across refreshes', async function () {
+        await require( testFile ).savesEdits( page );
+      } );
+    } );
 
     after(async function() {
       await browser.close();

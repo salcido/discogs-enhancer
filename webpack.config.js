@@ -43,6 +43,7 @@ module.exports = {
     [deps + 'runtime-messages']: `${deps}runtime-messages.js`,
     [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
     // features files
+    // Adding A Feature: Step 3
     [features + 'average-price']: `${features}average-price.js`,
     [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
     [features + 'block-buyers']: `${features}block-buyers.js`,
@@ -53,6 +54,7 @@ module.exports = {
     [features + 'currency-converter']: `${features}currency-converter.js`,
     [features + 'demand-index']: `${features}demand-index.js`,
     [features + 'demand-index-marketplace']: `${features}demand-index-marketplace.js`,
+    [features + 'editing-notepad']: `${features}editing-notepad.js`,
     [features + 'everlasting-collection-notes']: `${features}everlasting-collection-notes.js`,
     [features + 'everlasting-collection-ratings']: `${features}everlasting-collection-ratings.js`,
     [features + 'everlasting-collection-sm-med']: `${features}everlasting-collection-sm-med.js`,

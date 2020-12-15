@@ -199,7 +199,7 @@
 
     /**
      * Converts prices to user's currency
-     * @param    {array<object>} source an array of releaes objects
+     * @param    {array<object>} source an array of release objects
      * @param    {object} data the exchange rates data
      * @returns   {array}
      */
@@ -259,7 +259,7 @@
     },
 
     /**
-     * Determins the 'more' or 'less' word to use in the
+     * Determines the 'more' or 'less' word to use in the
      * price comparison string.
      * @param {number} percentage The +/- percent an item is priced at
      * @param {number} threshold The number the item has to exceed to be listed in red
@@ -442,7 +442,7 @@
         language = this.language();
       }
 
-      // Use fracitonal values if user's currency is not JPY
+      // Use fractional values if user's currency is not JPY
       maxDigits = (userCurrency === 'JPY') ? 0 : 2;
 
       priceConfig = {
@@ -673,7 +673,7 @@
     /**
      * Checks the page URL and returns `true` if anything in `pages`
      * IS found in the URL string
-     * @param  {String} pages - Thte type of page to check for
+     * @param  {String} pages - The type of page to check for
      * @returns {Boolean}
      */
     pageIs: function(...pages) {
@@ -684,7 +684,7 @@
     /**
      * Checks the page URL and returns `true` if anything in `pages`
      * IS NOT found in the URL string
-     * @param  {String} pages - Thte type of page to check for
+     * @param  {String} pages - The type of page to check for
      * @returns {Boolean}
      */
     pageIsNot: function(...pages) {
@@ -700,6 +700,7 @@
      * #WIP
      */
     pageKeys: {
+      'addRelease': '/release/add',
       'allItems': '/sell/list',
       'artist': '/artist/',
       'buy': '/buy/',
@@ -707,6 +708,7 @@
       'cart': '/sell/cart/',
       'collection': '/collection',
       'dashboard': '/my',
+      'drafts': '/drafts',
       'edit': '/edit/',
       'friends': '/users/friends',
       'history': '/history',

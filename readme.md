@@ -104,9 +104,12 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
 
 * Run `authenticated` functional tests:
-  > Note: If you want to run authenticated tests you'll need an account to log in with and run them with the command below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
+  > Note: If you want to run authenticated tests you'll need an account to log in with and run them with one of the commands below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
 
   * `env USERNAME=<username> env PASSWORD=<password> npm test`
+    * This will try to log you in automatically using Discogs authentication.
+  * `env USEOAUTH=true npm test`
+    * This will pop up the login page to allow you to manually login via supported OAuth providers; Google, Facebook, or Apple.
 
 
 #### Building
@@ -175,7 +178,7 @@ In order to add a togglable feature to the extension you'll need to update the f
 
 ### 1️⃣ background.js
 
-- Add a new property to the `prefs` object of `background.js`. It should be a `boolean` and have a unique name that easily identifies the feature. Make sure to add the property in the corrrect alphabetical position.
+- Add a new property to the `prefs` object of `background.js`. It should be a `boolean` and have a unique name that easily identifies the feature. Make sure to add the property in the correct alphabetical position.
 
 - Add a conditional check for the new `prefs` property under the `User Preferences` comment block. This should check the preference and create a DOM element that contains the necessary script files for the new feature.
 
@@ -196,7 +199,7 @@ In order to add a togglable feature to the extension you'll need to update the f
 
 ### 2️⃣ popup.html
 
-- Modify `popup.html` with the new preference menu option. Update the markup with a unique `id`, help-bubble text, and meta keywords. Make sure to add the markup in the corrrect alphabetical position.
+- Modify `popup.html` with the new preference menu option. Update the markup with a unique `id`, help-bubble text, and meta keywords. Make sure to add the markup in the correct alphabetical position.
 
 > Example:
 
@@ -246,11 +249,11 @@ In order to add a togglable feature to the extension you'll need to update the f
 
 ### 4️⃣ utils.js
 
-- Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup and add the property in the corrrect alphabetical position.
+- Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup and add the property in the correct alphabetical position.
 
 > Example:
 
-```javscript
+```javascript
 export function applySave(message, event) {
 
   let prefs = {
