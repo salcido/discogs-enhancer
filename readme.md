@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/travis/salcido/discogs-enhancer/master?style=for-the-badge" alt="Build Status">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/users-4.5k-brightgreen?style=for-the-badge" alt="Chrome Web Store">
+    <img src="https://img.shields.io/badge/users-4.7k-brightgreen?style=for-the-badge" alt="Chrome Web Store">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/rating-4.84%2F5-blue?style=for-the-badge" alt="Chrome Web Store">
@@ -56,6 +56,7 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Filter Marketplace items by availability
 * Filter Marketplace items by price
 * Open items in Lists in new tabs
+* Editing notepad for Releases
 * Search Google for releases by clicking on the release title
 * Hide Min, Median, Max columns on the Collection page
 * Marketplace Media/Sleeve condition highlights

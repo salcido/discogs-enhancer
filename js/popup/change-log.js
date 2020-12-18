@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.22.0',
+      features: [
+        {
+          name: 'Editing Notepad',
+          description: 'A Notepad that you can type notes into while editing releases. These notes will be saved across different editing and browser sessions.',
+          link: '#editingNotepad'
+        },
+      ],
+      updates: [],
+      thanks: ['Massive shoutout to Ross Lancaster aka ToastyMallows for the new Editing Notepad feature! This is the first feature written by someone other than myself!']
+    },
+  ],
+  previous: [
+    {
       version: '2.21.3',
       features: [],
       updates: [
@@ -11,8 +25,6 @@ module.exports = {
       ],
       thanks: ['Thank you TheMightyChew for your generous donation!', 'Huge shoutout to ToastyMallows on GitHub for putting together a fix for the Dark Theme!']
     },
-  ],
-  previous: [
     {
       version: '2.21.2',
       features: [],
