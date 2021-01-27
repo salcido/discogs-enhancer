@@ -98,7 +98,13 @@
   a {
     color: #829fc4 !important;
     i,
-    s {
+    s,
+    b,
+    strong {
+      color: #829fc4 !important;
+    }
+    // Credit links on Master Releases
+    &.credit-link span.credit_name {
       color: #829fc4 !important;
     }
   }

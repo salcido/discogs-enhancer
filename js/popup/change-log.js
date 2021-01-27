@@ -1,6 +1,25 @@
 module.exports = {
   current: [
     {
+      version: '2.23.0',
+      features: [
+        {
+          name: 'Inventory Scanner',
+          description: 'Scans your seller inventory and marks any items that are priced below the median Marketplace value.',
+          link: '#inventoryScanner'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'A few small Dark Theme fixes.'
+        },
+      ],
+      thanks: ['A huge thank you to Alan, h0ve9 and Christoph for donating!!']
+    },
+  ],
+  previous: [
+    {
       version: '2.22.0',
       features: [
         {
@@ -12,8 +31,6 @@ module.exports = {
       updates: [],
       thanks: ['Massive shoutout to Ross Lancaster aka ToastyMallows for the new Editing Notepad feature! This is the first feature written by someone other than myself!']
     },
-  ],
-  previous: [
     {
       version: '2.21.3',
       features: [],

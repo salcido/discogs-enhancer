@@ -712,6 +712,7 @@
       'edit': '/edit/',
       'friends': '/users/friends',
       'history': '/history',
+      'inventory': '/sell/manage',
       'label': '/label/',
       'lists': '/lists/',
       'master': '/master/',
