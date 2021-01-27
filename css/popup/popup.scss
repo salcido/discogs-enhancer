@@ -454,6 +454,36 @@ input[type="checkbox"]:focus {
   }
 }
 
+.inventory-scanner-wrap {
+  .inventory-scanner {
+    color: var(--text-color);
+
+    input#thresholdValue {
+      margin-right: 5px;
+      display: inline-block;
+      max-width: 45px;
+      margin-right: 3px;
+      margin-left: 5px;
+      font-size: inherit;
+      border-radius: 5px;
+      border: 1px solid var(--select-border);
+      padding: 0.25rem;
+      font-size: 15px;
+    }
+
+    .threshold-value {
+      position: absolute;
+      margin-left: 18px;
+      top: 56px;
+      left: 33px;
+
+      label {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
 /* Seller Reputation */
 /*sub-menu*/
 .seller-rep {
@@ -597,7 +627,8 @@ input[type="checkbox"]:focus {
 #maximum:disabled,
 #minimum:disabled,
 #percent:disabled,
-#ratingsValue:disabled {
+#ratingsValue:disabled,
+#thresholdValue:disabled {
   background-color: var(--disabled-element);
   border: 1px solid var(--disabled-element);
   color: var(--bg-accent);

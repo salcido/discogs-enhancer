@@ -198,7 +198,6 @@ rl.ready(() => {
     document.querySelector('.de-scan-releases').textContent = 'Scan Releases';
     document.querySelector('.de-scan-releases').disabled = false;
     releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href);
-    releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href);
     skittles = document.querySelectorAll('.skittles .skittles');
     checkbox = document.querySelectorAll('td.mr_checkbox');
   }

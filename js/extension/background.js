@@ -154,6 +154,7 @@ appendFragment([resourceLibrary]).then(() => {
         hideMinMaxColumns: false,
         highlightMedia: true,
         inventoryRatings: false,
+        inventoryScanner: false,
         notesCount: true,
         quickSearch: false,
         randomItem: false,
@@ -473,7 +474,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         elems.push(demandIndexMP);
       }
-      
+
       // editing notepad
       if ( result.prefs.editingNotepad ) {
 
@@ -696,6 +697,18 @@ appendFragment([resourceLibrary]).then(() => {
         inventoryRatings.className = 'de-init';
 
         elems.push(inventoryRatings);
+      }
+
+      if (result.prefs.inventoryScanner) {
+
+        // inventory-scanner.js
+        let inventoryScanner = document.createElement('script');
+
+        inventoryScanner.type = 'text/javascript';
+        inventoryScanner.src = chrome.extension.getURL('js/extension/features/inventory-scanner.js');
+        inventoryScanner.className = 'de-init';
+
+        elems.push(inventoryScanner);
       }
 
       if (result.prefs.randomItem) {

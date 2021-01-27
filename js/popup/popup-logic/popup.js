@@ -21,6 +21,7 @@ import * as filterPrices from './features/filter-prices.js';
 import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
 import * as filterShippingCountry from './features/filter-shipping-country.js';
 import * as inventoryRatings from './features/inventory-ratings.js';
+import * as inventoryScanner from './features/inventory-scanner.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
@@ -106,6 +107,7 @@ window.addEventListener('load', () => {
       toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
+      toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       toggleQuickSearch = document.getElementById('toggleQuickSearch'),
@@ -239,6 +241,10 @@ window.addEventListener('load', () => {
   // ========================================================
   inventoryRatings.init();
 
+  // Inventory Ratings Options
+  // ========================================================
+  inventoryScanner.init();
+
   // Search Functionality
   // ========================================================
   searchbox.addEventListener('keydown', searchFeatures);
@@ -289,6 +295,7 @@ window.addEventListener('load', () => {
   toggleFilterUnavailable.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
+  toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   toggleQuickSearch.addEventListener('change', triggerSave);
@@ -372,6 +379,7 @@ window.addEventListener('load', () => {
       toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleInventoryRatings.checked = result.prefs.inventoryRatings;
+      toggleInventoryScanner.checked = result.prefs.inventoryScanner;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
       toggleQuickSearch.checked = result.prefs.quickSearch;
@@ -418,6 +426,7 @@ window.addEventListener('load', () => {
     sellerRep.setSellerRep();
     absoluteDate.setAbsoluteDateStatus();
     inventoryRatings.setInventoryRatings();
+    inventoryScanner.setInventoryThreshold();
 
     setTimeout(() => {
       filterMediaCondition.setupFilterByCondition(toggleFilterMediaCondition.checked);

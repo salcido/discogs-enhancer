@@ -19,7 +19,7 @@ export function acknowledgeUpdate() {
 // ========================================================
 /**
  * Saves the users preferences when a toggle is clicked
- * 
+ *
  * Adding A Feature: Step 4
  *
  * @method   applySave
@@ -56,6 +56,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         inventoryRatings: document.getElementById('toggleInventoryRatings').checked,
+        inventoryScanner: document.getElementById('toggleInventoryScanner').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         quickSearch: document.getElementById('toggleQuickSearch').checked,
         randomItem: document.getElementById('toggleRandomItem').checked,
