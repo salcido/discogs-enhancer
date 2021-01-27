@@ -15,7 +15,7 @@ export function init() {
   });
   // Set "enabled/disabled" status
   document.getElementById('toggleInventoryScanner').addEventListener('change', function() {
-    let self = document.querySelector('.toggle-group.inventory-scanner .status'),
+    let self = document.querySelector('.toggle-group.inventory-scanner-wrap .status'),
         status = this.checked ? 'Enabled' : 'Disabled';
     setEnabledStatus(self, status);
   });
@@ -32,7 +32,7 @@ export function saveInventoryThreshold() {
   let
       input = document.getElementById('thresholdValue'),
       savedValue = document.getElementsByClassName('saved-value')[0],
-      self = document.querySelector('.inventory-scanner .status'),
+      self = document.querySelector('.inventory-scanner-wrap .status'),
       toggle = document.getElementById('toggleInventoryScanner');
 
     // enabled -and- has value entered
@@ -81,9 +81,11 @@ export function setInventoryThreshold() {
 
   let input = document.getElementById('thresholdValue'),
       savedValue = document.querySelector('.saved-value'),
-      self = document.querySelector('.inventory-scanner .status'),
+      self = document.querySelector('.inventory-scanner-wrap .status'),
       toggle = document.getElementById('toggleInventoryScanner'),
-      { threshold } = JSON.parse(localStorage.getItem('inventoryScanner')) || null;
+      userPreference = JSON.parse(localStorage.getItem('inventoryScanner')),
+      hasThreshold = userPreference && userPreference.threshold,
+      threshold = hasThreshold ? userPreference.threshold : null;
 
   if ( threshold !== null ) { input.value = threshold; }
 
