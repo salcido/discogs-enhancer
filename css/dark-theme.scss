@@ -1182,7 +1182,7 @@
 
   .price {
     color: #e7413f !important;
-    span {
+    span, td {
       color: #e7413f !important;
     }
   }
@@ -3095,6 +3095,33 @@
     #shipping_service {
       border: 1px solid #454545 !important;
     }
+
+    input[type="checkbox"].styled-checkbox:checked {
+      background: #5fc33e !important;
+    }
+
+    input[type="checkbox"].styled-checkbox:not(.switch):indeterminate {
+      background-color: #095afe !important;
+    }
+
+    .destinations li .expander-icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .saved_policy_icon {
+      border: 2px solid #5fc33e !important;
+      color: white !important;
+
+      div {
+        color: white !important;
+      }
+    }
+
+    .policy_errors {
+      border: 2px solid #ba3837 !important;
+      color: white !important;
+    }
   }
 
   /* review box when viewing all reviews page */
@@ -3331,5 +3358,9 @@
   ins, mark {
     background: gray !important;
     color: #000000 !important;
+  }
+  // Additional Instructions on order page
+  .additional-instructions {
+    background: #360d0d !important;
   }
 }
