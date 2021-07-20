@@ -37,8 +37,7 @@
   "permissions": [
     "*://*.discogs.com/*",
     "storage",
-    "contextMenus",
-    "notifications"
+    "contextMenus"
   ],
   "web_accessible_resources": [
     "css/baoi-fields.css",
