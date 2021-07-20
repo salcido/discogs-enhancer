@@ -21,7 +21,8 @@
 
 rl.ready(() => {
 
-  let hasPlaylist = document.querySelector('table.playlist');
+  let reactVersion = document.querySelector('#app'),
+      hasPlaylist = reactVersion ? document.querySelector('table[class*="tracklist_"]'): document.querySelector('table.playlist');
 
   if ( hasPlaylist && rl.pageIsNot('history') ) {
 
@@ -90,10 +91,15 @@ rl.ready(() => {
 
     // Grab all track times from any Index Tracks in the tracklisting
     // and add them to the array.
-    document.querySelectorAll('tr.index_track td.tracklist_track_duration span').forEach(time => {
+    let indexTrackTimes = reactVersion
+          ? document.querySelectorAll('#release-tracklist tr[class*="index_"] td[class*="duration_"]')
+          : document.querySelectorAll('tr.index_track td.tracklist_track_duration span');
+
+    indexTrackTimes.forEach(time => {
 
       let trackTime = time.textContent,
           subtracks = document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span').textContent;
+      // TODO: look for subtracks on new release page
 
       // If there are Index Tracks present but they are empty AND
       // they have subtracks WITH data, set `emptyIndexTracks` to true
@@ -121,13 +127,16 @@ rl.ready(() => {
 
     // Grab the track times from the subtrack entries.
     if ( emptyIndexTracks ) {
-
+      // TODO: look for subtracks on new release page
       gatherTrackTimes( document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span') );
     }
 
     // Grab all track times from any td that is not a child of .subtrack
     // and add them to the array.
-    gatherTrackTimes( document.querySelectorAll('tr.tracklist_track.track td.tracklist_track_duration span') );
+    let tdTrackTimes = reactVersion
+          ? document.querySelectorAll('tbody tr td[class*="duration_"] span')
+          : document.querySelectorAll('tr.tracklist_track.track td.tracklist_track_duration span');
+    gatherTrackTimes(tdTrackTimes);
 
     // Calculate total seconds
     totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
@@ -167,6 +176,8 @@ rl.ready(() => {
 
     } else {
 
+      let inlineStyles = reactVersion ? 'style="padding-right:.5rem;"' : '';
+
       html = `<div class="section_content de-durations">
                 <table>
                   <tbody>
@@ -175,7 +186,7 @@ rl.ready(() => {
                         <span style="padding-left:5px; font-weight:bold;">Total Time:</span>
                       </td>
                       <td class="track tracklist_track_title"></td>
-                      <td width="25" class="tracklist_track_duration">
+                      <td width="25" class="tracklist_track_duration" ${inlineStyles}>
                         <span style="font-weight:bold;"> ${result} </span>
                       </td>
                     </tr>
@@ -183,7 +194,11 @@ rl.ready(() => {
                 </table>
               </div>`;
 
-      document.querySelector('#tracklist .section_content').insertAdjacentHTML('beforeend', html);
+      if (reactVersion) {
+        document.querySelector('#release-tracklist div[class*="content_"]').insertAdjacentHTML('beforeend', html);
+      } else {
+        document.querySelector('#tracklist .section_content').insertAdjacentHTML('beforeend', html);
+      }
     }
   }
 });

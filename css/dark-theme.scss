@@ -607,7 +607,8 @@
     }
   }
 
-  .section.tracklist table tr {
+  .section.tracklist table tr,
+  .de-durations table tr {
     &.first {
       border-top: none !important;
     }
@@ -2234,6 +2235,7 @@
 
   .react-modal-overlay,
   .ui-widget-overlay,
+  #app div[class*="overlay_"],
   #image_gallery_modal,
   .full-width-header-cover {
     background-color: rgba(0, 0, 0, 0.75) !important;
@@ -3364,7 +3366,18 @@
     background: #360d0d !important;
   }
 
+  // Image Upload Consent Form
+  #save_images {
+    border: 2px solid #454545 !important;
+
+    .button-primary__default {
+      background-color: #000000 !important;
+    }
+  }
+
+  // ==============================
   // NEW RELEASE PAGE STYLES
+  // ==============================
 
   #app {
     // Nav Bar
@@ -3387,6 +3400,10 @@
 
       header {
         border-color: #60c43f !important;
+      }
+
+      div[class*="value_"] {
+        white-space: pre-line !important;
       }
 
       button[class*="remove_"] {
@@ -3436,6 +3453,12 @@
       }
     }
 
+    // Star Ratings
+    div[class*="ratings_"] svg[class*="fill_"] path,
+    span[class*="rating_"] svg[class*="fill_"] path {
+      color: #f7d06c !important;
+    }
+
     // Tracklist
     #release-tracklist {
       table {
@@ -3446,9 +3469,41 @@
       tbody > tr:first-child {
         border-top: none !important;
       }
+      tbody {
+        tr[class*="heading_"] {
+          background-color: #292929 !important;
+        }
+      }
     }
 
     #release-credits {
+    }
+
+    // Recommendations
+    #release-recommendations {
+      // Gradient overlays
+      div[class*="wrapper_"] {
+        &::before {
+          background: linear-gradient(to right, #323334, rgba(41, 41, 41, 0)) !important;
+        }
+        &::after {
+          background: linear-gradient(to left, #323334, rgba(41, 41, 41, 0)) !important;
+        }
+      }
+
+      nav {
+        button {
+          svg path {
+            color: #829fc4 !important;
+          }
+        }
+      }
+
+      // not working perhaps due to async loading of review css?
+      div[class*="review_"] button[class*="button_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+
     }
 
     button[type="submit"][class*="grey_"] {
