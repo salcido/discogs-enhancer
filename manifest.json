@@ -3,7 +3,7 @@
   "name": "Discogs Enhancer",
   "short_name": "Discogs Enhancer",
   "description": "Adds a dark theme, block sellers, price comparisons, currency converter, configurable quick search, & more to Discogs!",
-  "version": "2.23.2",
+  "version": "2.24.0",
   "author": "Matthew Salcido",
   "homepage_url": "https://www.discogs-enhancer.com",
   "browser_action": {
@@ -86,6 +86,7 @@
     "js/extension/features/filter-sleeve-condition.js",
     "js/extension/features/filter-unavailable.js",
     "js/extension/features/friend-counter.js",
+    "js/extension/features/force-dashboard.js",
     "js/extension/features/hide-min-max-columns.js",
     "js/extension/features/highlight-comments.js",
     "js/extension/features/inventory-ratings.js",

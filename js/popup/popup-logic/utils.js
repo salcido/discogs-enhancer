@@ -52,6 +52,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         filterSleeveCondition: document.getElementById('toggleFilterSleeveCondition').checked,
         filterShippingCountry: document.getElementById('toggleFilterShippingCountry').checked,
         filterUnavailable: document.getElementById('toggleFilterUnavailable').checked,
+        forceDashboard: document.getElementById('toggleForceDashboard').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,

@@ -150,6 +150,7 @@ appendFragment([resourceLibrary]).then(() => {
         filterSleeveCondition: false,
         filterSleeveConditionValue: null,
         filterUnavailable: false,
+        forceDashboard: true,
         formatShortcuts: true,
         hideMinMaxColumns: false,
         highlightMedia: true,
@@ -637,6 +638,18 @@ appendFragment([resourceLibrary]).then(() => {
         shortcuts_css.href = chrome.extension.getURL('css/text-format-shortcuts.css');
 
         elems.push(shortcuts_css);
+      }
+
+      // force-dashboard-link.js
+      if ( result.prefs.forceDashboard ) {
+
+        let forceDashboard = document.createElement('script');
+
+        forceDashboard.type = 'text/javascript';
+        forceDashboard.src = chrome.extension.getURL('js/extension/features/force-dashboard.js');
+        forceDashboard.className = 'de-init';
+
+        elems.push(forceDashboard);
       }
 
       // Set value for filter-media-condition.js
