@@ -105,6 +105,7 @@ window.addEventListener('load', () => {
       toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
       toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
+      toggleForceDashboard = document.getElementById('toggleForceDashboard'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
       toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
@@ -293,6 +294,7 @@ window.addEventListener('load', () => {
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
   toggleFilterUnavailable.addEventListener('change', triggerSave);
+  toggleForceDashboard.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
   toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
@@ -377,6 +379,7 @@ window.addEventListener('load', () => {
       toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
       toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
+      toggleForceDashboard.checked = result.prefs.forceDashboard;
       toggleHighlights.checked = result.prefs.highlightMedia;
       toggleInventoryRatings.checked = result.prefs.inventoryRatings;
       toggleInventoryScanner.checked = result.prefs.inventoryScanner;
