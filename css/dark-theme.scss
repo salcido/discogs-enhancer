@@ -607,7 +607,8 @@
     }
   }
 
-  .section.tracklist table tr {
+  .section.tracklist table tr,
+  .de-durations table tr {
     &.first {
       border-top: none !important;
     }
@@ -2234,6 +2235,7 @@
 
   .react-modal-overlay,
   .ui-widget-overlay,
+  #app div[class*="overlay_"],
   #image_gallery_modal,
   .full-width-header-cover {
     background-color: rgba(0, 0, 0, 0.75) !important;
@@ -3362,5 +3364,231 @@
   // Additional Instructions on order page
   .additional-instructions {
     background: #360d0d !important;
+  }
+
+  // Image Upload Consent Form
+  #save_images {
+    border: 2px solid #454545 !important;
+
+    .button-primary__default {
+      background-color: #000000 !important;
+    }
+  }
+
+  // ==============================
+  // NEW RELEASE PAGE STYLES
+  // ==============================
+
+  #app {
+    // Nav Bar
+    div[class*="root_"] > div:first-child {
+        background-color: black !important;
+    }
+
+    #release-actions {
+      header {
+        border-bottom: 1px solid #454545 !important;
+      }
+    }
+
+    // in Collection box
+    div[class*="collection_"] {
+      background-color: #1c3814 !important;
+      border: 1px solid #60c43f !important;
+      border-radius: 3px;
+      margin-top: 10px;
+
+      header {
+        border-color: #60c43f !important;
+      }
+
+      div[class*="value_"] {
+        white-space: pre-line !important;
+      }
+
+      button[class*="remove_"] {
+        color: #829fc4 !important;
+
+        &:hover {
+          color: #cae0fa !important;
+        }
+      }
+
+      button[class*="save_"] {
+        color: #fff !important;
+
+        &:hover {
+          background-image: linear-gradient(#60C43F, #59ba39) !important;
+        }
+      }
+
+      button[class*="grey_"] {
+        color: #454545 !important;
+
+        &:hover {
+          background-image: linear-gradient(#fff, #fafafa) !important;
+        }
+      }
+
+      select[class*="dropdown_"] {
+        color: #cccccc !important;
+      }
+    }
+
+    // In Wantlist box
+    div[class*="wantlist_"] {
+      background-color: #561d1d !important;
+      border: 1px solid #e7413f !important;
+      border-radius: 3px;
+      margin-top: 10px;
+
+      header {
+        border-color: #e7413f !important;
+      }
+    }
+
+    div[class*="buttons_"] {
+      button, path {
+        color: #454545 !important;
+      }
+    }
+
+    // Star Ratings
+    div[class*="ratings_"] svg[class*="fill_"] path,
+    span[class*="rating_"] svg[class*="fill_"] path {
+      color: #f7d06c !important;
+    }
+
+    // Tracklist
+    #release-tracklist {
+      table {
+        tr {
+          border-top: 1px solid #454545 !important;
+        }
+      }
+      tbody > tr:first-child {
+        border-top: none !important;
+      }
+      tbody {
+        tr[class*="heading_"] {
+          background-color: #292929 !important;
+        }
+      }
+    }
+
+    #release-credits {
+    }
+
+    // Recommendations
+    #release-recommendations {
+      // Gradient overlays
+      div[class*="wrapper_"] {
+        &::before {
+          background: linear-gradient(to right, #323334, rgba(41, 41, 41, 0)) !important;
+        }
+        &::after {
+          background: linear-gradient(to left, #323334, rgba(41, 41, 41, 0)) !important;
+        }
+      }
+
+      nav {
+        button {
+          svg path {
+            color: #829fc4 !important;
+          }
+        }
+      }
+
+      // not working perhaps due to async loading of review css?
+      div[class*="review_"] button[class*="button_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+
+    }
+
+    button[type="submit"][class*="grey_"] {
+      color: #454545 !important;
+    }
+
+    button[type="submit"][disabled] {
+      background-color: #f2f2f2 !important;
+      background-image: linear-gradient(#f2f2f2, #eaeaea) !important;
+      border-color: #dbdbdb !important;
+      border-top-color: #e0e0e0 !important;
+      border-bottom-color: #d3d3d3 !important;
+      color: #999999 !important;
+      cursor: pointer !important;
+      &:hover,
+      &:active,
+      &:visited,
+      &:focus {
+        background-color: #f2f2f2 !important;
+        background-image: linear-gradient(#f2f2f2, #eaeaea) !important;
+        border-color: #dbdbdb !important;
+        border-top-color: #e0e0e0 !important;
+        border-bottom-color: #d3d3d3 !important;
+        color: #999999 !important;
+        cursor: pointer !important;
+      }
+    }
+
+    // reviews
+    div[class*="main_"] section[class*="open_"]:last-child {
+      header {
+        border-bottom: 1px solid #454545 !important;
+      }
+    }
+
+    div[class*="preview_"] div[class*="content_"] {
+      min-height: 10px !important;
+      padding: 5px !important;
+      border: 1px solid #454545 !important;
+    }
+
+    section header {
+      border-bottom: 1px solid #454545 !important;
+    }
+
+    div[class*="content_"] {
+      button[class*="link_"] {
+        color: #829fc4 !important;
+
+        &:hover {
+          color: #cae0fa !important;
+        }
+      }
+    }
+
+    // blue Buy button
+    a[class*="blue_"],
+    button[class*="blue_"] {
+      color: white !important;
+
+      &:hover {
+        background-color: #4588c4 !important;
+        border-color: #3571a6 !important;
+        border-top-color: #3776ae !important;
+        border-bottom-color: #31699b !important;
+        color: white !important;
+      }
+    }
+
+    // grey Sell button
+    a[class*="grey_"],
+    button[class*="grey_"] {
+      color: #454545 !important;
+
+      &:hover {
+        background-color: white !important;
+        background-image: none !important;
+        color: #595959;
+      }
+    }
+
+    // for sale count
+    span[class*="forsale_"] span[class*="price_"] {
+      color: #e7413f !important;
+    }
+
   }
 }

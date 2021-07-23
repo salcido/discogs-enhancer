@@ -1062,8 +1062,9 @@
      * @returns {String}
      */
     username: function() {
-      let name = window.dsdata ? window.dsdata().username : null,
+      let name = this.getCookie('ck_username') || null,
           header = document.querySelector('#site_header_wrap');
+      if (!name) return;
       if ( name === 'matzubo' ) {
         header.style.setProperty('background', '#3c6088', 'important');
       }

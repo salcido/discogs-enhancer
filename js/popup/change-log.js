@@ -1,6 +1,25 @@
 module.exports = {
   current: [
     {
+      version: '2.24.0',
+      features: [
+        {
+          name: 'Dashboard Link',
+          description: 'This will modify the Discogs logo header link to take you back to the Dashboard',
+          link: '#force-dashboard'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'As you probably saw, Discogs is testing a new version of the Release page. This new version is completely different from the old one. And as a result, Discogs Enhancer does not work with it. I\'ve been busy trying to update as many features as possible. There is a lot of work to do still. Sadly, some features might not ever work. This update has some fixes rolled into it. Others will come in the future once I finish them up. Hang tight!'
+        },
+      ],
+      thanks: ['A huge, huge thank you to @bradykimball for donating!!']
+    },
+  ],
+  previous: [
+    {
       version: '2.23.1',
       features: [],
       updates: [
@@ -11,8 +30,6 @@ module.exports = {
       ],
       thanks: ['A huge, huge thank you to TheMightyChew, Smithsix, Brad S. Gabe M., and Lewis B. for donating!!']
     },
-  ],
-  previous: [
     {
       version: '2.23.0',
       features: [

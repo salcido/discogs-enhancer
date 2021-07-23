@@ -10,7 +10,8 @@
 rl.ready(() => {
 
   let href = window.location.href,
-      page = document.getElementById('page');
+      reactVersion = document.getElementById('app'),
+      page = reactVersion ? document.getElementById('app') : document.getElementById('page');
 
   // There are selectors that are common across multiple pages.
   // Add these classes so that there is no unintended
@@ -119,13 +120,17 @@ rl.ready(() => {
       });
 
       // Dashboard modules load async so wait for calls to finish
-      if (prefs.dashboard && rl.pageIs('dashboard')
-       || rl.pageIs('master', 'release')) {
-        setTimeout(() => {
-          $(document).ajaxStop(() => {
-            window.modifyLinks();
-          });
-        }, 200);
+      if (prefs.dashboard && rl.pageIs('dashboard') || rl.pageIs('master', 'release')) {
+        if (reactVersion) {
+          window.modifyLinks();
+        } else {
+          setTimeout(() => {
+            $(document).ajaxStop(() => {
+              window.modifyLinks();
+            });
+          }, 200);
+        }
+
       }
     }
   }

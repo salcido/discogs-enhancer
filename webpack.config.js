@@ -69,6 +69,7 @@ module.exports = {
     [features + 'filter-sleeve-condition']: `${features}filter-sleeve-condition.js`,
     [features + 'filter-unavailable']: `${features}filter-unavailable.js`,
     [features + 'friend-counter']: `${features}friend-counter.js`,
+    [features + 'force-dashboard']: `${features}force-dashboard.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
     [features + 'inventory-scanner']: `${features}inventory-scanner.js`,
