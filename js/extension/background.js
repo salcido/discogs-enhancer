@@ -108,6 +108,11 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
   });
 }
 
+window.getCookie = function(name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  if (match) return match[2];
+};
+
 // ========================================================
 //  Side A; track 1
 // ========================================================
@@ -120,6 +125,14 @@ resourceLibrary.id = 'resource-library';
 resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library.js');
 
 appendFragment([resourceLibrary]).then(() => {
+
+  let blockedUsers = ['.xxTIMEMACHINExx.'],
+      user = window.getCookie('ck_username');
+
+  if ( user && blockedUsers.includes(user) ) {
+    return;
+  }
+
   // Get the users preferences or create them
   chrome.storage.sync.get('prefs', result => {
 

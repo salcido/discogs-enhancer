@@ -15,7 +15,7 @@ module.exports = {
           description: 'As you probably saw, Discogs is testing a new version of the Release page. This new version is completely different from the old one. And as a result, Discogs Enhancer does not work with it. I\'ve been busy trying to update as many features as possible. There is a lot of work to do still. Sadly, some features might not ever work. This update has some fixes rolled into it. Others will come in the future once I finish them up. Hang tight!'
         },
       ],
-      thanks: ['A huge, huge thank you to @bradykimball for donating!!']
+      thanks: ['A huge, huge thank you to Derek H. and @bradykimball for donating!!']
     },
   ],
   previous: [
