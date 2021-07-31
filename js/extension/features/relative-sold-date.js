@@ -86,14 +86,21 @@ rl.ready(() => {
     // ========================================================
     // DOM Setup
     // ========================================================
-    let lastSold = document.querySelector('.last_sold a'),
+    let reactVersion = document.querySelector('#app') || null,
+        lastSold = reactVersion ? document.querySelector('div[class*="items_"] time') : document.querySelector('.last_sold a'),
         rawDate = lastSold && lastSold.textContent ? lastSold.textContent : null,
         relative = rawDate ? getRelativeTime(rawDate) : '';
 
     if (rawDate && relative) {
       lastSold.textContent = relative;
       lastSold.classList.add('de-last-sold');
-      lastSold.closest('.section_content.toggle_section_content').style.width = '400px';
+
+      if (reactVersion) {
+        lastSold.closest('div[class*="content_"]').style.width = '400px';
+      } else {
+        lastSold.closest('.section_content.toggle_section_content').style.width = '400px';
+      }
+
       addMouseListeners(rawDate, relative);
     }
   }
