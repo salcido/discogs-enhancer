@@ -25,6 +25,8 @@
  // be thrown in console.
 rl.ready(() => {
 
+  if (rl.pageIsReact()) return;
+
   let notesElem = document.querySelector('.notes_show'),
       cwBlock = document.querySelector('.cw_block');
 
