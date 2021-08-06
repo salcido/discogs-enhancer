@@ -4,6 +4,20 @@ module.exports = {
       version: '2.24.0',
       features: [
         {
+        },
+      ],
+      updates: [
+        {
+        },
+      ],
+      thanks: ['A huge, huge thank you to Samuel S. and Timothy B. for donating!!']
+    },
+  ],
+  previous: [
+    {
+      version: '2.24.0',
+      features: [
+        {
           name: 'Dashboard Link',
           description: 'This will modify the Discogs logo header link to take you back to the Dashboard',
           link: '#force-dashboard'
@@ -17,8 +31,6 @@ module.exports = {
       ],
       thanks: ['A huge, huge thank you to Derek H. and @bradykimball for donating!!']
     },
-  ],
-  previous: [
     {
       version: '2.23.1',
       features: [],

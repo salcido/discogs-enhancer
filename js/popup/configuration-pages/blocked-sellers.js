@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     input = input.replace(/\s/g,'').trim();
 
     if ( input ) {
+      // ga(type, category, action, label)
+      if ( window.ga ) { window.ga('send', 'event', 'block seller', input); }
 
       blockList.list.push(input);
 
