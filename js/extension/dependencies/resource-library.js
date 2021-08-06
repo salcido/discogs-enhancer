@@ -693,6 +693,14 @@
     },
 
     /**
+     * Returns a boolean based on the #app selector
+     * @returns {Boolean}
+     */
+    pageIsReact: function() {
+      return Boolean(document.querySelector('#app'));
+    },
+
+    /**
      * Key/value pairs for quickly IDing pages in Discogs.
      * Used in conjunction with `pageIs` and `pageIsNot`
      * methods above.
@@ -1069,6 +1077,32 @@
         header.style.setProperty('background', '#3c6088', 'important');
       }
       return name;
-    }
+    },
+
+    /**
+     * Mutation Observer generally used to monitor anything that loads async
+     * within the new React-based release page.
+     * @param    {string} selector - the DOM selector string you're looking for
+     * @returns   {undefined}
+     */
+      waitForElement: function(selector) {
+        return new Promise(resolve => {
+            if (document.querySelector(selector)) {
+                return resolve(document.querySelector(selector));
+            }
+
+            let observer = new MutationObserver(() => {
+                if (document.querySelector(selector)) {
+                    resolve(document.querySelector(selector));
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+      }
   };
 }());
