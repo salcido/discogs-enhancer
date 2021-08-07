@@ -76,11 +76,12 @@
   // DOM Setup
   // ========================================================
   rl.waitForElement('div[class^="profile_"]').then(() => {
+    // TODO: fix tooltip
     let user = rl.username(),
         selector = 'div[class^="profile_"]',
         position = 'afterbegin',
         elem = 'div',
-        inline_css = 'padding-top: 1.25rem; padding-right: 1.5rem;',
+        inline_css = 'padding-top: 1.3rem; padding-right: 1.2rem;',
         icon = `<${elem} style="position: relative; ${inline_css}">
                   <a class="nav_group_control de-random-item needs_delegated_tooltip rotate-in"
                     href="/user/${user}/collection/random"
