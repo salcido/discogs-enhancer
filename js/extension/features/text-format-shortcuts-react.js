@@ -12,13 +12,15 @@
  * when leaving comments or notes.
  */
 
-rl.ready(() => {
+ rl.ready(() => {
 
   let hasRun = false,
       hasTextarea = false,
-      selected = '';
+      selected = '',
+      pageIsReact = rl.pageIsReact();
 
-  if ( rl.pageIsReact() ) return;
+  if ( !pageIsReact ) return;
+
   // ========================================================
   // Functions (Alphabetical)
   // ========================================================
@@ -142,9 +144,7 @@ rl.ready(() => {
   function insertShortcuts() {
 
     let markup = `<div class="quick-menu">
-                    <button class="quick-button quick-link" title="Insert url">
-                      <i class="icon icon-chain" style="pointer-events: none;"></i>
-                    </button>
+                    <button class="quick-button quick-link" title="Insert url">🔗</button>
                     <button class="quick-button quick-bold" title="Insert bold code">B</button>
                     <button class="quick-button quick-italic" title="Insert italic code">I</button>
                     <button class="quick-button quick-strikethrough" title="Insert strikethrough code">S</button>
@@ -181,6 +181,8 @@ rl.ready(() => {
         if (
              // reviews
              t[i].id === 'review' ||
+             // reviews on react-based release page
+             t[i].name === 'review' ||
              // new threads in groups/forums
              t[i].id === 'text' ||
              // comments
@@ -343,9 +345,21 @@ rl.ready(() => {
 
   // Forums, history pages, etc ...
   // --------------------------------------------------------
-  // There's no need to wait for the textarea element to
-  // appear in the DOM so just call `inspectTextareas` immediately
-  window.addEventListener('load', () => inspectTextareas());
+  window.addEventListener('load', () => {
+    // The review section in the new React-based Release page
+    // loads things async so wait for the review element to be rendered
+    if (pageIsReact) {
+
+      let selector = 'textarea[name="review"]';
+      rl.waitForElement(selector).then(() => inspectTextareas());
+
+    } else {
+      // There's no need to wait for the textarea element to
+      // appear in the DOM outside of the new release page
+      // so just call `inspectTextareas` immediately
+      inspectTextareas();
+    }
+  });
 
   // Release pages
   // --------------------------------------------------------
