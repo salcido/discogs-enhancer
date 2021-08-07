@@ -1437,7 +1437,7 @@
   }
 
   /* green shipped */
-
+  div[class*="skittles_"] span[class*="collection_"],
   .skittles .skittle.skittle_collection {
     background-color: #60c43f !important;
     color: white !important;
@@ -1481,12 +1481,16 @@
   }
 
   .skittle.skittle_wantlist,
+  div[class*="skittles_"] span[class*="wantlist_"],
   span.skittle.skittle_wantlist.needs_delegated_tooltip {
     background-color: #bf3a38 !important;
+    color: white !important;
   }
 
-  .skittle.skittle_inventory {
+  .skittle.skittle_inventory,
+  div[class*="skittles_"] span[class*="inventory_"] {
     background-color: #326fb2 !important;
+    color: white !important;
   }
 
   /* NEW SKITTLES */
@@ -3390,6 +3394,17 @@
         background-color: black !important;
     }
 
+    // search bar
+    form[class*="search_"] {
+      background: #292929 !important;
+
+      button[class*="submit_"] {
+        svg path {
+          color: grey !important;
+        }
+      }
+    }
+
     // global line height value
     div[class*="content_"] {
       line-height: 18px;
@@ -3414,10 +3429,16 @@
           color: #888888 !important;
         }
       }
-      // tooltips
-      div[class*="tooltip_"] {
-        background: #000000 !important;
-      }
+    }
+
+    // tooltips
+    div[class*="tooltip_"] {
+      background: #000000 !important;
+    }
+
+    // release ID tooltip
+    div#discogsid-tooltip {
+      background: #000000 !important;
     }
 
     // global banner style (temporary)
@@ -3425,11 +3446,18 @@
       background: #444444 !important;
     }
 
-
-
     #release-actions {
       header {
         border-bottom: 1px solid #454545 !important;
+      }
+    }
+
+    #release-stats {
+      div[class*="items_"] h4 {
+        width: auto;
+      }
+      div[class*="content_"] ul {
+        display: block;
       }
     }
 
@@ -3438,11 +3466,22 @@
       background-color: #1c3814 !important;
       border: 1px solid #60c43f !important;
       border-radius: 3px;
-      margin-top: 10px;
+      margin: 10px 5px;
       color: white !important;
+      font-size: 14px;
+
+      label {
+        font-weight: 400;
+        font-size: 13px;
+        color: white !important;
+      }
 
       header {
         border-color: #60c43f !important;
+
+        h2 {
+          color: white !important;
+        }
       }
 
       div[class*="value_"] {
@@ -3497,6 +3536,26 @@
       }
     }
 
+    div[class*="side_"]:nth-of-type(4) {
+      border-bottom: 1px solid #454545 !important;
+    }
+
+    div[class*="side_"]:nth-of-type(5) {
+      // share icon
+      button[class*="button_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+    }
+
+    // remove unnecessary right margin on svg icons
+    button[class*="button_"] svg[class*="icon_"] {
+      margin-right: 0;
+    }
+
+    div[class*="ratings_"] {
+      border-right: 1px solid #454545 !important;
+    }
+
     // Star Ratings
     div[class*="ratings_"] svg[class*="fill_"] path,
     span[class*="rating_"] svg[class*="fill_"] path {
@@ -3516,6 +3575,17 @@
       tbody {
         tr[class*="heading_"] {
           background-color: #292929 !important;
+        }
+      }
+    }
+
+    // search dropdown
+    form[class*="search_"] {
+      div[class*="dropdown_"] {
+        background-color: #292929 !important;
+
+        ul[class*="results_"] li {
+          border-bottom: 1px solid #454545 !important;
         }
       }
     }
@@ -3551,7 +3621,6 @@
       button[class*="grey_"]:hover {
         background: none !important;
       }
-
       button[class*="button_"] svg[class*="icon_"] path {
         color: #829fc4 !important;
       }
@@ -3665,6 +3734,16 @@
     // for sale count
     span[class*="forsale_"] span[class*="price_"] {
       color: #e7413f !important;
+    }
+
+    #site_footer_wrap {
+      a[class*="link_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+    }
+
+    #select-lang {
+      color: #cccccc !important;
     }
 
   }
