@@ -119,6 +119,7 @@
     "js/extension/features/suggested-prices-all.js",
     "js/extension/features/suggested-prices-release-page.js",
     "js/extension/features/suggested-prices-single.js",
+    "js/extension/features/text-format-shortcuts-react.js",
     "js/extension/features/text-format-shortcuts.js",
     "js/extension/features/show-actual-dates.js",
     "js/extension/features/tracklist-readability.js",

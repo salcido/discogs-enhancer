@@ -651,6 +651,14 @@ appendFragment([resourceLibrary]).then(() => {
 
         elems.push(shortcuts);
 
+        let shortcutsReact = document.createElement('script');
+
+        shortcutsReact.type = 'text/javascript';
+        shortcutsReact.src = chrome.extension.getURL('js/extension/features/text-format-shortcuts-react.js');
+        shortcutsReact.className = 'de-init';
+
+        elems.push(shortcutsReact);
+
         // text-format-shortcuts.css
         let shortcuts_css = document.createElement('link');
 

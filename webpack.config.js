@@ -99,6 +99,7 @@ module.exports = {
     [features + 'sort-personal-lists']: `${features}sort-personal-lists.js`,
     [features + 'suggested-prices-release-page']: `${features}suggested-prices-release-page.js`,
     [features + 'suggested-prices-single']: `${features}suggested-prices-single.js`,
+    [features + 'text-format-shortcuts-react']: `${features}text-format-shortcuts-react.js`,
     [features + 'text-format-shortcuts']: `${features}text-format-shortcuts.js`,
     [features + 'show-actual-dates']: `${features}show-actual-dates.js`,
     [features + 'toggle-baoi-fields']: `${features}toggle-baoi-fields.js`,
