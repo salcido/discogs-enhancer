@@ -88,7 +88,7 @@
 
           // append the current character count from field
           s.className = 'de-notes-count';
-          s.style = 'display:inline-block; padding:3px;';
+          s.style = 'padding-left:8px; font-weight: bold;';
           s.textContent = `${count} / 255`;
           focus.parentElement.appendChild(s);
           window.warnOnNoteLimit();
