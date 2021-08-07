@@ -411,11 +411,15 @@
     &.list tr.new td.status,
     &.cw_releases tr.new td.status,
     &.cards tr.new td.status,
-    &.release_list_table tr.new td.status {
+    &.release_list_table tr.new td.status,
+    td[class*="newsubmission_"] {
       background: #f2b90d !important;
     }
     &.mpitems tr {
       border-bottom: 1px dotted #454545 !important;
+    }
+    td[class*="needschanges_"] {
+      background: red !important;
     }
   }
 
@@ -3386,6 +3390,43 @@
         background-color: black !important;
     }
 
+    // global line height value
+    div[class*="content_"] {
+      line-height: 18px;
+    }
+
+    // header nave line height for hover states
+    div[class*="header_"] {
+      div[class*="content_"] {
+        line-height: 12px;
+      }
+    }
+
+    div[class*="profile_"] {
+
+      // cart icon text
+      a[href="/sell/cart"] {
+        color: #cccccc !important;
+      }
+      // messages icon
+      a[class*="empty_"] {
+        svg path {
+          color: #888888 !important;
+        }
+      }
+      // tooltips
+      div[class*="tooltip_"] {
+        background: #000000 !important;
+      }
+    }
+
+    // global banner style (temporary)
+    div[class*="banner_"] {
+      background: #444444 !important;
+    }
+
+
+
     #release-actions {
       header {
         border-bottom: 1px solid #454545 !important;
@@ -3398,6 +3439,7 @@
       border: 1px solid #60c43f !important;
       border-radius: 3px;
       margin-top: 10px;
+      color: white !important;
 
       header {
         border-color: #60c43f !important;
@@ -3405,6 +3447,7 @@
 
       div[class*="value_"] {
         white-space: pre-line !important;
+        color: white !important;
       }
 
       button[class*="remove_"] {
@@ -3477,8 +3520,43 @@
       }
     }
 
-    #release-credits {
+    // Other versions
+    #release-other-versions {
+      tr {
+        border-bottom: 1px solid #454545 !important;
+      }
     }
+
+    // add to list modal
+    div[class*="modal_"] {
+      background: #454545 !important;
+    }
+
+    // reviews
+    div[class*="review_"] {
+      border-bottom: 1px solid #454545 !important;
+
+      div[class*="content_"] {
+        margin-left: .4rem;
+      }
+
+      span[class*="content_"] {
+        display: block;
+        margin-top: .3rem !important;
+        margin-bottom: .3rem !important;
+        line-height: 1.3rem !important;
+        max-width: 645px;
+      }
+
+      button[class*="grey_"]:hover {
+        background: none !important;
+      }
+
+      button[class*="button_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+    }
+
 
     // Recommendations
     #release-recommendations {
@@ -3499,16 +3577,14 @@
           }
         }
       }
-
-      // not working perhaps due to async loading of review css?
-      div[class*="review_"] button[class*="button_"] svg[class*="icon_"] path {
-        color: #829fc4 !important;
-      }
-
     }
 
     button[type="submit"][class*="grey_"] {
       color: #454545 !important;
+    }
+
+    button[type="submit"][class*="green_"] {
+      color: #ffffff !important;
     }
 
     button[type="submit"][disabled] {
