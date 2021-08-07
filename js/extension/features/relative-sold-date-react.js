@@ -75,7 +75,7 @@
 
       lastSold.addEventListener('mouseover', () => {
         lastSold.textContent = rawDate;
-        lastSold.style.width = '60%';
+        lastSold.style.width = 'auto';
       });
 
       lastSold.addEventListener('mouseleave', () => {
