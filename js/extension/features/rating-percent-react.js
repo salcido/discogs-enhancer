@@ -11,12 +11,16 @@
  rl.ready(() => {
   if (!rl.pageIsReact()) return;
 
-  let releasePageRating = document.querySelector('#release-stats ul li:nth-child(3) span'),
-      releaseRating = releasePageRating ? releasePageRating.textContent : null;
+  let selector = '#release-stats ul li:nth-child(3) span';
 
-  if ( releaseRating && releaseRating !== '--' ) {
+  rl.waitForElement(selector).then(() => {
+    let releasePageRating = document.querySelector(selector);
 
-    let percent = Number(releasePageRating.textContent.split(' / ')[0]) / 5 * 100;
-    releasePageRating.innerHTML += ` <span class="de-percentage">(${Math.floor(percent)}%)</span>`;
-  }
+    if ( releasePageRating && !releasePageRating.textContent.includes('--') ) {
+
+      let percent = Number(releasePageRating.textContent.split(' / ')[0]) / 5 * 100;
+
+      releasePageRating.innerHTML += ` <span class="de-percentage">(${Math.floor(percent)}%)</span>`;
+    }
+  });
 });
