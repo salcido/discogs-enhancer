@@ -23,7 +23,7 @@
 
   if ( rl.pageIsReact() ) {
 
-    let selector = 'table[class*="tracklist_"]';
+    let selector = 'table[class*="tracklist_"] tr';
 
     rl.waitForElement(selector).then(() => {
       let hasPlaylist = document.querySelector(selector);
@@ -136,8 +136,12 @@
         // Grab all track times from any td that is not a child of .subtrack
         // and add them to the array.
         let tdTrackTimes = document.querySelectorAll('#release-tracklist td[class*="duration_"]');
-        gatherTrackTimes(tdTrackTimes);
 
+        if (tdTrackTimes.length) {
+          gatherTrackTimes(tdTrackTimes);
+        }
+
+        if (!arr.length) return;
         // Calculate total seconds
         totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
 
