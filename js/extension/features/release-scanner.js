@@ -40,19 +40,34 @@ rl.ready(() => {
           moreWants;
 
       div.innerHTML = data;
-      reviewCount = div.querySelectorAll('.review').length || 0;
 
-      // Check for blocked releases
-      if ( div.querySelector('.coll_num') ) {
-        haves = Number(div.querySelector('.coll_num').textContent);
-        wants = Number(div.querySelector('.want_num').textContent);
-        rating = div.querySelector('.rating_value').textContent;
-        votes = div.querySelector('.rating_count').textContent;
+      if (div.querySelector('#app')) {
+        // react
+        let releaseId = url.match(/(\d+)$/g)[0];
+
+        reviewCount = await fetchCommentsFromRelease(releaseId);
+        haves = Number(div.querySelectorAll('#app #release-stats ul li a')[0].textContent);
+        wants = Number(div.querySelectorAll('#app #release-stats ul li a')[1].textContent);
+        votes = div.querySelectorAll('#app #release-stats ul li:nth-child(4) a')[0].textContent;
+        rating = div.querySelectorAll('#app #release-stats ul li:nth-child(3) span')[0].textContent.split(' / ')[0];
+        // no ratings
+        if (rating.includes('--')) rating = 0;
+
       } else {
-        haves = 0;
-        wants = 0;
-        rating = null;
-        votes = null;
+        // old release page
+        reviewCount = div.querySelectorAll('.review').length || 0;
+        // Check for blocked releases
+        if ( div.querySelector('.coll_num') ) {
+          haves = Number(div.querySelector('.coll_num').textContent);
+          wants = Number(div.querySelector('.want_num').textContent);
+          rating = div.querySelector('.rating_value').textContent;
+          votes = div.querySelector('.rating_count').textContent;
+        } else {
+          haves = 0;
+          wants = 0;
+          rating = null;
+          votes = null;
+        }
       }
 
       moreWants = wants > (haves * 1.9);
@@ -63,6 +78,22 @@ rl.ready(() => {
 
       console.error('Could not fetch release count for: ', url, err);
     }
+  }
+
+  /**
+   * Returns the number of comments from the new release page
+   * @param {number} releaseId - The release ID to look up
+   * @returns {number}
+   */
+  async function fetchCommentsFromRelease(releaseId) {
+    let hash = 'b0734ecb6aa4ba3249f5968ab4ed5e4a09a312eb67f44d35278be18ce53a9933',
+        url = `/internal/release-page/api/graphql?operationName=DeferredReleaseData&variables=%7B%22discogsId%22%3A${releaseId}%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22${hash}%22%7D%7D`;
+
+    return fetch(url)
+      .then(response => response.json())
+      .then(res => {
+        return res.data.release.reviews.totalCount;
+    });
   }
 
   /**
