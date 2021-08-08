@@ -135,7 +135,7 @@
 
         // Grab all track times from any td that is not a child of .subtrack
         // and add them to the array.
-        let tdTrackTimes = document.querySelectorAll('tbody tr td[class*="duration_"] span');
+        let tdTrackTimes = document.querySelectorAll('#release-tracklist td[class*="duration_"]');
         gatherTrackTimes(tdTrackTimes);
 
         // Calculate total seconds
