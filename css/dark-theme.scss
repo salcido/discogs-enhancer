@@ -2870,6 +2870,10 @@
     background: #292929 !important;
   }
 
+  tr[class*="index_"] {
+    background: #292929 !important;
+  }
+
   /* API Gear icon in forums */
 
   .forum-landing-topic-list.section-boxes {
@@ -3588,6 +3592,10 @@
           border-bottom: 1px solid #454545 !important;
         }
       }
+    }
+
+    nav[class*="dropdown_"] {
+      background-color: black !important;
     }
 
     // Other versions
