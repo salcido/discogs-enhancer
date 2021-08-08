@@ -8,9 +8,9 @@
  *
  */
 
-rl.ready(() => {
+ rl.ready(() => {
 
-  if ( rl.pageIsReact() ) return;
+  if ( !rl.pageIsReact() ) return;
   // ========================================================
   // Functions
   // ========================================================
@@ -69,7 +69,7 @@ rl.ready(() => {
 
     generateCss(hide, superscript, unselectable, transparent);
 
-    document.querySelectorAll('#profile_title span span a').forEach(s => {
+    document.querySelectorAll('#release-header h1 a').forEach(s => {
 
       let markup = `<span class="trim-me">$1</span><${elemType} class="de-discriminator">$2</${elemType}>`;
 

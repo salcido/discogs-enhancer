@@ -1007,6 +1007,14 @@ appendFragment([resourceLibrary]).then(() => {
         tweakDiscrims.className = 'de-init';
 
         elems.push(tweakDiscrims);
+
+        let tweakDiscrimsReact = document.createElement('script');
+
+        tweakDiscrimsReact.type = 'text/javascript';
+        tweakDiscrimsReact.src = chrome.extension.getURL('js/extension/features/tweak-discriminators-react.js');
+        tweakDiscrimsReact.className = 'de-init';
+
+        elems.push(tweakDiscrimsReact);
       }
 
       // unit-tests.js

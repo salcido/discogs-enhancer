@@ -123,6 +123,7 @@
     "js/extension/features/text-format-shortcuts.js",
     "js/extension/features/show-actual-dates.js",
     "js/extension/features/tracklist-readability.js",
+    "js/extension/features/tweak-discriminators-react.js",
     "js/extension/features/tweak-discriminators.js"
   ],
   "icons": {
