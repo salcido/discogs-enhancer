@@ -32,7 +32,6 @@
 
         let
             arr = [],
-            emptyIndexTracks = false,
             hours,
             html,
             minutes,
@@ -54,6 +53,8 @@
          */
 
         function convertToSeconds(str) {
+
+          str = str.replace('(', '').replace(')', '');
 
           let p = str.split(':'),
               sec = 0,
@@ -93,52 +94,11 @@
         // DOM Setup
         // ========================================================
 
-        // Grab all track times from any Index Tracks in the tracklisting
-        // and add them to the array.
-        let indexTrackTimes = document.querySelectorAll('#release-tracklist tr[class*="index_"] td[class*="duration_"]');
+        // Grab all track times
+        let trackTimes = document.querySelectorAll('#release-tracklist [class*="duration_"]');
 
-        indexTrackTimes.forEach(time => {
-
-          let trackTime = time.textContent,
-              subtracks = document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span').textContent;
-          // TODO: look for subtracks on new release page
-
-          // If there are Index Tracks present but they are empty AND
-          // they have subtracks WITH data, set `emptyIndexTracks` to true
-          // and use the subtrack data to calculate the total playing time.
-          if ( trackTime === '' && subtracks !== '' ) {
-
-            emptyIndexTracks = true;
-            return;
-
-          // If there are Index Tracks and subtracks present but they are
-          // both empty, don't count them in the total.
-          } else if ( trackTime === '' && subtracks === '' ) {
-
-            return arr.push('0');
-
-          } else {
-
-            // Strip any times wrapped in parenthesis and add their numbers
-            // to the array
-            trackTime = trackTime.replace('(', '').replace(')', '');
-
-            return arr.push(trackTime);
-          }
-        });
-
-        // Grab the track times from the subtrack entries.
-        if ( emptyIndexTracks ) {
-          // TODO: look for subtracks on new release page
-          gatherTrackTimes( document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span') );
-        }
-
-        // Grab all track times from any td that is not a child of .subtrack
-        // and add them to the array.
-        let tdTrackTimes = document.querySelectorAll('#release-tracklist td[class*="duration_"]');
-
-        if (tdTrackTimes.length) {
-          gatherTrackTimes(tdTrackTimes);
+        if (trackTimes.length) {
+          gatherTrackTimes(trackTimes);
         }
 
         if (!arr.length) return;
