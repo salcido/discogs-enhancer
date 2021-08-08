@@ -3423,14 +3423,29 @@
 
     div[class*="profile_"] {
 
+      a[class*="headericon_"] {
+        font-size: 13px;
+        margin-right: 0;
+        padding-right: .75rem;
+
+        svg {
+          vertical-align: middle;
+          padding-bottom: 4px;
+        }
+      }
+
       // cart icon text
       a[href="/sell/cart"] {
         color: #cccccc !important;
       }
       // messages icon
-      a[class*="empty_"] {
-        svg path {
-          color: #888888 !important;
+      a[href="/messages"] {
+        color: white !important;
+
+        &[class*="empty_"] {
+          svg path {
+            color: #888888 !important;
+          }
         }
       }
     }
@@ -3448,6 +3463,12 @@
     // global banner style (temporary)
     div[class*="banner_"] {
       background: #444444 !important;
+    }
+
+    #release-header {
+      h1 {
+        margin-bottom: .5rem;
+      }
     }
 
     #release-actions {
@@ -3614,6 +3635,10 @@
     div[class*="review_"] {
       border-bottom: 1px solid #454545 !important;
 
+      &:last-of-type {
+        border-bottom: none !important;
+      }
+
       div[class*="content_"] {
         margin-left: .4rem;
       }
@@ -3745,6 +3770,13 @@
     }
 
     #site_footer_wrap {
+      background: #292929 !important;
+      border-top: 0 !important;
+
+      ul li {
+        padding-top: .5rem;
+      }
+
       a[class*="link_"] svg[class*="icon_"] path {
         color: #829fc4 !important;
       }
@@ -3753,6 +3785,5 @@
     #select-lang {
       color: #cccccc !important;
     }
-
   }
 }
