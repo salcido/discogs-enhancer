@@ -97,6 +97,7 @@
 
   a {
     color: #829fc4 !important;
+    time,
     i,
     s,
     b,
@@ -410,11 +411,15 @@
     &.list tr.new td.status,
     &.cw_releases tr.new td.status,
     &.cards tr.new td.status,
-    &.release_list_table tr.new td.status {
+    &.release_list_table tr.new td.status,
+    td[class*="newsubmission_"] {
       background: #f2b90d !important;
     }
     &.mpitems tr {
       border-bottom: 1px dotted #454545 !important;
+    }
+    td[class*="needschanges_"] {
+      background: red !important;
     }
   }
 
@@ -1432,7 +1437,7 @@
   }
 
   /* green shipped */
-
+  div[class*="skittles_"] span[class*="collection_"],
   .skittles .skittle.skittle_collection {
     background-color: #60c43f !important;
     color: white !important;
@@ -1476,12 +1481,16 @@
   }
 
   .skittle.skittle_wantlist,
+  div[class*="skittles_"] span[class*="wantlist_"],
   span.skittle.skittle_wantlist.needs_delegated_tooltip {
     background-color: #bf3a38 !important;
+    color: white !important;
   }
 
-  .skittle.skittle_inventory {
+  .skittle.skittle_inventory,
+  div[class*="skittles_"] span[class*="inventory_"] {
     background-color: #326fb2 !important;
+    color: white !important;
   }
 
   /* NEW SKITTLES */
@@ -2861,6 +2870,10 @@
     background: #292929 !important;
   }
 
+  tr[class*="index_"] {
+    background: #292929 !important;
+  }
+
   /* API Gear icon in forums */
 
   .forum-landing-topic-list.section-boxes {
@@ -3385,9 +3398,112 @@
         background-color: black !important;
     }
 
+    // search bar
+    form[class*="search_"] {
+      background: #292929 !important;
+
+      button[class*="submit_"] {
+        svg path {
+          color: grey !important;
+        }
+      }
+    }
+
+    // global line height value
+    div[class*="content_"] {
+      line-height: 18px;
+    }
+
+    // header nave line height for hover states
+    div[class*="header_"] {
+      div[class*="content_"] {
+        line-height: 12px;
+      }
+    }
+
+    div[class*="profile_"] {
+
+      a[class*="headericon_"] {
+        font-size: 13px;
+        margin-right: 0;
+        padding-right: .75rem;
+
+        svg {
+          vertical-align: middle;
+          padding-bottom: 4px;
+        }
+      }
+
+      div[class*="user_"] nav[class*="dropdown_"] li a[class*="link_"] {
+        color: #cccccc !important;
+
+        &:hover {
+          color: #cccccc !important;
+          text-decoration: underline;
+        }
+      }
+
+      // cart icon text
+      a[href="/sell/cart"] {
+        color: #cccccc !important;
+      }
+      // messages icon
+      a[href="/messages"] {
+        color: white !important;
+
+        &[class*="empty_"] {
+          svg path {
+            color: #888888 !important;
+          }
+        }
+      }
+    }
+
+    // tooltips
+    div[class*="tooltip_"],
+    nav[class*="active_"],
+    nav[class*="dropdown_"] {
+      background: #000000 !important;
+
+      a {
+        color: #829fc4 !important;
+        &:visited {
+          color: #829fc4 !important;
+        }
+        &:hover {
+          color: #cae0fa !important;
+        }
+      }
+    }
+
+    // release ID tooltip
+    div#discogsid-tooltip {
+      background: #000000 !important;
+    }
+
+    // global banner style (temporary)
+    div[class*="banner_"] {
+      background: #444444 !important;
+    }
+
+    #release-header {
+      h1 {
+        margin-bottom: .5rem;
+      }
+    }
+
     #release-actions {
       header {
         border-bottom: 1px solid #454545 !important;
+      }
+    }
+
+    #release-stats {
+      div[class*="items_"] h4 {
+        width: auto;
+      }
+      div[class*="content_"] ul {
+        display: block;
       }
     }
 
@@ -3396,14 +3512,28 @@
       background-color: #1c3814 !important;
       border: 1px solid #60c43f !important;
       border-radius: 3px;
-      margin-top: 10px;
+      margin: 10px 5px;
+      color: white !important;
+      font-size: 14px;
+
+      label {
+        font-weight: 400;
+        font-size: 13px;
+        color: white !important;
+      }
 
       header {
         border-color: #60c43f !important;
+
+        h2 {
+          color: white !important;
+        }
       }
 
       div[class*="value_"] {
         white-space: pre-line !important;
+        color: white !important;
+        word-break: break-word;
       }
 
       button[class*="remove_"] {
@@ -3453,6 +3583,26 @@
       }
     }
 
+    div[class*="side_"]:nth-of-type(4) {
+      border-bottom: 1px solid #454545 !important;
+    }
+
+    div[class*="side_"]:nth-of-type(5) {
+      // share icon
+      button[class*="button_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+    }
+
+    // remove unnecessary right margin on svg icons
+    button[class*="button_"] svg[class*="icon_"] {
+      margin-right: 0;
+    }
+
+    div[class*="ratings_"] {
+      border-right: 1px solid #454545 !important;
+    }
+
     // Star Ratings
     div[class*="ratings_"] svg[class*="fill_"] path,
     span[class*="rating_"] svg[class*="fill_"] path {
@@ -3476,8 +3626,119 @@
       }
     }
 
-    #release-credits {
+    // search dropdown
+    form[class*="search_"] {
+      div[class*="dropdown_"] {
+        background-color: #292929 !important;
+
+        div[class*="categories_"] {
+          button {
+            border-right: 1px solid #292929 !important;
+            background: #454545 !important;
+          }
+          button[class*="active_"] {
+            background: #326fb2 !important;
+            color: white !important;
+          }
+        }
+
+        ul[class*="results_"] li {
+          border-bottom: 1px solid #454545 !important;
+
+          a:visited span[class*="title_"] {
+            color: #a590d0 !important;
+          }
+
+          a:hover span[class*="title_"] {
+            color: #cae0fa !important;
+          }
+
+          span[class*="title_"] {
+            color: #829fc4 !important;
+          }
+
+          &:hover {
+            background: #434343 !important;
+
+            span[class*="title_"] {
+              color: #cae0fa !important;
+            }
+          }
+        }
+      }
     }
+
+    nav[class*="dropdown_"] {
+      background-color: black !important;
+    }
+
+    div[class*="menu_"] div[class*="dropdown_"][class*="active_"] {
+      h4 a,
+      ul li a {
+        color: #cccccc !important;
+
+        &:hover {
+          color: #cccccc !important;
+          text-decoration: underline;
+        }
+        &:visited {
+          color: #cccccc !important;
+        }
+      }
+    }
+
+    // Other versions
+    #release-other-versions {
+      tr {
+        border-bottom: 1px solid #454545 !important;
+      }
+    }
+
+    // add to list modal
+    div[class*="modal_"] {
+      background: #454545 !important;
+    }
+
+    // reviews
+    div[class*="review_"] {
+      border-bottom: 1px solid #454545 !important;
+
+      &:last-of-type {
+        border-bottom: none !important;
+      }
+
+      div[class*="content_"] {
+        margin-left: .4rem;
+      }
+
+      div[class*="edited_"] {
+        font-size: small;
+      }
+
+      span[class*="content_"] {
+        display: block;
+        margin-top: .3rem !important;
+        margin-bottom: .3rem !important;
+        line-height: 1.3rem !important;
+        max-width: 645px;
+      }
+
+      button[class*="grey_"]:hover {
+        background: none !important;
+      }
+      button[class*="button_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+    }
+
+    #release-marketplace {
+      // inventory skittle on release page
+      a[class*="skittle_"] {
+        background: #326fb2 !important;
+        color: white !important;
+      }
+    }
+
 
     // Recommendations
     #release-recommendations {
@@ -3498,16 +3759,15 @@
           }
         }
       }
-
-      // not working perhaps due to async loading of review css?
-      div[class*="review_"] button[class*="button_"] svg[class*="icon_"] path {
-        color: #829fc4 !important;
-      }
-
     }
 
     button[type="submit"][class*="grey_"] {
       color: #454545 !important;
+    }
+
+    button[type="submit"][class*="green_"] {
+      color: #ffffff !important;
+      background-color: #60c43f !important;
     }
 
     button[type="submit"][disabled] {
@@ -3590,5 +3850,21 @@
       color: #e7413f !important;
     }
 
+    #site_footer_wrap {
+      background: #292929 !important;
+      border-top: 0 !important;
+
+      ul li {
+        padding-top: .5rem;
+      }
+
+      a[class*="link_"] svg[class*="icon_"] path {
+        color: #829fc4 !important;
+      }
+    }
+
+    #select-lang {
+      color: #cccccc !important;
+    }
   }
 }

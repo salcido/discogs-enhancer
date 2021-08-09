@@ -21,5 +21,4 @@ if ( analytics ) {
   ga('set', 'anonymizeIp', true);
   ga('set', 'checkProtocolTask', function() { });
   ga('require', 'displayfeatures');
-  ga('send', 'pageview', '/popup.html');
 }

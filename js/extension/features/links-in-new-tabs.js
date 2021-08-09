@@ -62,6 +62,17 @@ rl.ready(() => {
       selectors = [],
       enabled = false;
 
+  if (rl.pageIsReact()) {
+    relCompanies = '#release-companies a';
+    relVersions = '#release-other-versions a';
+    relRecommends = '#release-recommendations ul[class*="cards_"] a';
+    relLists = '.de-release #release-lists a';
+    relContribs = '#release-contributors a';
+    relTracklist = '#release-tracklist tr a';
+    relLastSold = '#release-stats ul li a[href*="/sell/history/"]';
+    relOtherVers = '.de-release .title a, .de-release .label a';
+  }
+
   let sections = {
     artists: [artThumbs, artTitles, artLabels, artLists],
     collection: [colThumbs, colThumbsLg, colTitle],
@@ -122,7 +133,11 @@ rl.ready(() => {
       // Dashboard modules load async so wait for calls to finish
       if (prefs.dashboard && rl.pageIs('dashboard') || rl.pageIs('master', 'release')) {
         if (reactVersion) {
-          window.modifyLinks();
+          // Guessing that recommendations are one of the last things to render on the page
+          // Maybe there is a better way to tell when all requests have finished?
+          rl.waitForElement('#release-recommendations ul li a').then(() => {
+            window.modifyLinks();
+          });
         } else {
           setTimeout(() => {
             $(document).ajaxStop(() => {

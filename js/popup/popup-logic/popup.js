@@ -460,6 +460,7 @@ window.addEventListener('load', () => {
 
     // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
+    if (window.ga) { window.ga('send', 'pageview', '/popup.html'); }
   }
 
   init();

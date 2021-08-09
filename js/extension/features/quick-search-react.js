@@ -13,13 +13,12 @@
  */
 
  rl.ready(() => {
-  // Don't run on React Release page
-  if ( rl.pageIsReact() ) return;
+
+  if ( !rl.pageIsReact() ) return;
 
   let additionalText = rl.options.quicksearch(),
       re,
-      shouldRun = false,
-      title = document.title;
+      shouldRun = false;
 
   // Master release pages
   // ------------------------------------------------------
@@ -35,8 +34,9 @@
   if ( rl.pageIs('release')
        && rl.pageIsNot('reviews', 'videos', 'edit', 'stats', 'update') ) {
     // Match patterns:
+    // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) - Discogs
     // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) For Sale | Discogs
-    re = /(?:.(?!\(.+\).+\| Discogs))+$/g;
+    re = /(?:.(?!\(.+\).+\- Discogs))+$/g;
     shouldRun = true;
   }
 
@@ -79,17 +79,22 @@
   // DOM Setup
   // ========================================================
   let i = document.createElement('i'),
-      query = title.replace(re, ''),
-      releaseTitle = document.querySelector('#profile_title span');
+      query = document.title.replace(re, ''),
+      releaseTitle = document.querySelector('#release-header h1');
 
   // DOM manipulation
   i.classList = 'icon icon-external-link de-external';
-  releaseTitle.nextElementSibling.classList = 'de-one-click';
-  releaseTitle.nextElementSibling.insertAdjacentElement('afterend', i);
-  releaseTitle.nextElementSibling.textContent = releaseTitle.nextElementSibling.textContent.trim();
 
-  // Handle click events
-  releaseTitle.nextElementSibling.addEventListener('click', () => {
+  let regex = /(\– .+)+$/g,
+  titleText = releaseTitle.innerHTML.match(regex);
+
+  let newReleaseMarkup = releaseTitle.innerHTML.toString().replace(regex, `<span class="de-one-click">${titleText[0]}</span>`);
+
+  releaseTitle.innerHTML = newReleaseMarkup;
+  releaseTitle.insertAdjacentElement('beforeend', i);
+
+  // Click handler
+  document.querySelector('.de-one-click').addEventListener('click', () => {
     window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
   });
 

@@ -11,7 +11,8 @@
 rl.ready(() => {
 
   if ( rl.pageIsNot('release')
-       || !document.querySelector('.coll_num') ) return;
+       || !document.querySelector('.coll_num')
+       || document.querySelector('#app') ) return;
 
   let haves = Number(document.querySelector('.coll_num').textContent),
       wants = Number(document.querySelector('.want_num').textContent),

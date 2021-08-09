@@ -345,6 +345,14 @@ appendFragment([resourceLibrary]).then(() => {
         absoluteDate.className = 'de-init';
 
         elems.push(absoluteDate);
+
+        let absoluteDateReact = document.createElement('script');
+
+        absoluteDateReact.type = 'text/javascript';
+        absoluteDateReact.src = chrome.extension.getURL('js/extension/features/show-actual-dates-react.js');
+        absoluteDateReact.className = 'de-init';
+
+        elems.push(absoluteDateReact);
       }
 
       if ( result.prefs.averagePrice ) {
@@ -479,6 +487,14 @@ appendFragment([resourceLibrary]).then(() => {
         demandIndex.className = 'de-init';
 
         elems.push(demandIndex);
+
+        let demandIndexReact = document.createElement('script');
+
+        demandIndexReact.type = 'text/javascript';
+        demandIndexReact.src = chrome.extension.getURL('js/extension/features/demand-index-react.js');
+        demandIndexReact.className = 'de-init';
+
+        elems.push(demandIndexReact);
 
         let demandIndexMP = document.createElement('script');
 
@@ -643,6 +659,14 @@ appendFragment([resourceLibrary]).then(() => {
 
         elems.push(shortcuts);
 
+        let shortcutsReact = document.createElement('script');
+
+        shortcutsReact.type = 'text/javascript';
+        shortcutsReact.src = chrome.extension.getURL('js/extension/features/text-format-shortcuts-react.js');
+        shortcutsReact.className = 'de-init';
+
+        elems.push(shortcutsReact);
+
         // text-format-shortcuts.css
         let shortcuts_css = document.createElement('link');
 
@@ -699,6 +723,14 @@ appendFragment([resourceLibrary]).then(() => {
         notesCount.className = 'de-init';
 
         elems.push(notesCount);
+
+        let notesCountReact = document.createElement('script');
+
+        notesCountReact.type = 'text/javascript';
+        notesCountReact.src = chrome.extension.getURL('js/extension/features/notes-counter-react.js');
+        notesCountReact.className = 'de-init';
+
+        elems.push(notesCountReact);
       }
 
       if ( result.prefs.quickSearch ) {
@@ -711,6 +743,14 @@ appendFragment([resourceLibrary]).then(() => {
         quickSearch.className = 'de-init';
 
         elems.push(quickSearch);
+
+        let quickSearchReact = document.createElement('script');
+
+        quickSearchReact.type = 'text/javascript';
+        quickSearchReact.src = chrome.extension.getURL('js/extension/features/quick-search-react.js');
+        quickSearchReact.className = 'de-init';
+
+        elems.push(quickSearchReact);
       }
 
       if (result.prefs.inventoryRatings) {
@@ -747,6 +787,13 @@ appendFragment([resourceLibrary]).then(() => {
         // randomItem.className = 'de-init';
 
         elems.push(randomItem);
+
+        let randomItemReact = document.createElement('script');
+
+        randomItemReact.type = 'text/javascript';
+        randomItemReact.src = chrome.extension.getURL('js/extension/features/random-item-react.js');
+
+        elems.push(randomItemReact);
       }
 
       if ( result.prefs.ratingPercent ) {
@@ -759,6 +806,14 @@ appendFragment([resourceLibrary]).then(() => {
         ratingPercent.className = 'de-init';
 
         elems.push(ratingPercent);
+
+        let ratingPercentReact = document.createElement('script');
+
+        ratingPercentReact.type = 'text/javascript';
+        ratingPercentReact.src = chrome.extension.getURL('js/extension/features/rating-percent-react.js');
+        ratingPercentReact.className = 'de-init';
+
+        elems.push(ratingPercentReact);
       }
 
       if (result.prefs.readability) {
@@ -792,6 +847,14 @@ appendFragment([resourceLibrary]).then(() => {
         relativeSoldDate.className = 'de-init';
 
         elems.push(relativeSoldDate);
+
+        let relativeSoldDateReact = document.createElement('script');
+
+        relativeSoldDateReact.type = 'text/javascript';
+        relativeSoldDateReact.src = chrome.extension.getURL('js/extension/features/relative-sold-date-react.js');
+        relativeSoldDateReact.className = 'de-init';
+
+        elems.push(relativeSoldDateReact);
       }
 
       // release-durations
@@ -804,6 +867,14 @@ appendFragment([resourceLibrary]).then(() => {
         releaseDurations.className = 'de-init';
 
         elems.push(releaseDurations);
+
+        let releaseDurationsReact = document.createElement('script');
+
+        releaseDurationsReact.type = 'text/javascript';
+        releaseDurationsReact.src = chrome.extension.getURL('js/extension/features/release-durations-react.js');
+        releaseDurationsReact.className = 'de-init';
+
+        elems.push(releaseDurationsReact);
       }
 
       // release-ratings
@@ -944,6 +1015,14 @@ appendFragment([resourceLibrary]).then(() => {
         tweakDiscrims.className = 'de-init';
 
         elems.push(tweakDiscrims);
+
+        let tweakDiscrimsReact = document.createElement('script');
+
+        tweakDiscrimsReact.type = 'text/javascript';
+        tweakDiscrimsReact.src = chrome.extension.getURL('js/extension/features/tweak-discriminators-react.js');
+        tweakDiscrimsReact.className = 'de-init';
+
+        elems.push(tweakDiscrimsReact);
       }
 
       // unit-tests.js

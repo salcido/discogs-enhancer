@@ -11,7 +11,8 @@
  */
 
  rl.ready(() => {
-  if ( rl.pageIs('release') && !rl.pageIsReact() ) {
+
+  if ( rl.pageIs('release') && rl.pageIsReact() ) {
     // ========================================================
     // Functions
     // ========================================================
@@ -74,7 +75,7 @@
 
       lastSold.addEventListener('mouseover', () => {
         lastSold.textContent = rawDate;
-        lastSold.style.width = '60%';
+        lastSold.style.width = 'auto';
       });
 
       lastSold.addEventListener('mouseleave', () => {
@@ -86,15 +87,21 @@
     // ========================================================
     // DOM Setup
     // ========================================================
-    let lastSold = document.querySelector('.last_sold a'),
-        rawDate = lastSold && lastSold.textContent ? lastSold.textContent : null,
-        relative = rawDate ? getRelativeTime(rawDate) : '';
+    let selector = 'div[class*="items_"] time',
+        lastSold = document.querySelector(selector);
 
-    if (rawDate && relative) {
-      lastSold.textContent = relative;
-      lastSold.classList.add('de-last-sold');
-      lastSold.closest('.section_content.toggle_section_content').style.width = '400px';
-      addMouseListeners(rawDate, relative);
-    }
+    rl.waitForElement(selector).then(() => {
+      let rawDate = lastSold && lastSold.textContent ? lastSold.textContent : null,
+          relative = rawDate ? getRelativeTime(rawDate) : '';
+
+      if (rawDate && relative) {
+        lastSold.textContent = relative;
+        lastSold.classList.add('de-last-sold');
+
+        lastSold.closest('div[class*="content_"]').style.width = '400px';
+
+        addMouseListeners(rawDate, relative);
+      }
+    });
   }
 });
