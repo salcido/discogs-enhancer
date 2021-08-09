@@ -73,8 +73,8 @@
           meridiem = timeRaw[2],
           time = `${hours}:${mins} ${meridiem}`,
           monthIndex = monthList.indexOf(date[0]),
-          international = `${date[0]} ${getMonth(monthIndex)} ${year} ${convertTo24(time)}`,
-          american = `${getMonth(monthIndex)} ${date[1]}, ${year} ${time}`,
+          international = `Added ${date[0]} ${getMonth(monthIndex)} ${year} ${convertTo24(time)}`,
+          american = `Added ${getMonth(monthIndex)} ${date[1]}, ${year} ${time}`,
           specific = usDateFormat ? american : international;
 
       elem.querySelector('span').textContent = specific;
@@ -86,7 +86,8 @@
     let rules = `
         div[class*="collection_"] span[class*="added_"] {
           display: inline-block;
-          width: 45%;
+          width: auto;
+          font-size: smaller;
         }`;
 
     // ========================================================
