@@ -3434,6 +3434,15 @@
         }
       }
 
+      div[class*="user_"] nav[class*="dropdown_"] li a[class*="link_"] {
+        color: #cccccc !important;
+
+        &:hover {
+          color: #cccccc !important;
+          text-decoration: underline;
+        }
+      }
+
       // cart icon text
       a[href="/sell/cart"] {
         color: #cccccc !important;
@@ -3451,8 +3460,20 @@
     }
 
     // tooltips
-    div[class*="tooltip_"] {
+    div[class*="tooltip_"],
+    nav[class*="active_"],
+    nav[class*="dropdown_"] {
       background: #000000 !important;
+
+      a {
+        color: #829fc4 !important;
+        &:visited {
+          color: #829fc4 !important;
+        }
+        &:hover {
+          color: #cae0fa !important;
+        }
+      }
     }
 
     // release ID tooltip
@@ -3512,6 +3533,7 @@
       div[class*="value_"] {
         white-space: pre-line !important;
         color: white !important;
+        word-break: break-word;
       }
 
       button[class*="remove_"] {
@@ -3609,14 +3631,60 @@
       div[class*="dropdown_"] {
         background-color: #292929 !important;
 
+        div[class*="categories_"] {
+          button {
+            border-right: 1px solid #292929 !important;
+            background: #454545 !important;
+          }
+          button[class*="active_"] {
+            background: #326fb2 !important;
+            color: white !important;
+          }
+        }
+
         ul[class*="results_"] li {
           border-bottom: 1px solid #454545 !important;
+
+          a:visited span[class*="title_"] {
+            color: #a590d0 !important;
+          }
+
+          a:hover span[class*="title_"] {
+            color: #cae0fa !important;
+          }
+
+          span[class*="title_"] {
+            color: #829fc4 !important;
+          }
+
+          &:hover {
+            background: #434343 !important;
+
+            span[class*="title_"] {
+              color: #cae0fa !important;
+            }
+          }
         }
       }
     }
 
     nav[class*="dropdown_"] {
       background-color: black !important;
+    }
+
+    div[class*="menu_"] div[class*="dropdown_"][class*="active_"] {
+      h4 a,
+      ul li a {
+        color: #cccccc !important;
+
+        &:hover {
+          color: #cccccc !important;
+          text-decoration: underline;
+        }
+        &:visited {
+          color: #cccccc !important;
+        }
+      }
     }
 
     // Other versions
@@ -3643,6 +3711,10 @@
         margin-left: .4rem;
       }
 
+      div[class*="edited_"] {
+        font-size: small;
+      }
+
       span[class*="content_"] {
         display: block;
         margin-top: .3rem !important;
@@ -3656,6 +3728,14 @@
       }
       button[class*="button_"] svg[class*="icon_"] path {
         color: #829fc4 !important;
+      }
+    }
+
+    #release-marketplace {
+      // inventory skittle on release page
+      a[class*="skittle_"] {
+        background: #326fb2 !important;
+        color: white !important;
       }
     }
 
@@ -3687,6 +3767,7 @@
 
     button[type="submit"][class*="green_"] {
       color: #ffffff !important;
+      background-color: #60c43f !important;
     }
 
     button[type="submit"][disabled] {
