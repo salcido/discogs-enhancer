@@ -1,13 +1,15 @@
 module.exports = {
   current: [
     {
-      version: '2.24.0',
+      version: '2.24.2',
       features: [
         {
         },
       ],
       updates: [
         {
+          name: 'Enhancement',
+          description: 'I spent the last few weeks working to get these features compatible with the new release page. Almost everything is functional! There are a few features that are absent - List Sorting on the Add To List modal, and Confirm Before Removing Items (I\'m not sure this one will work at all - still investigating) and maybe one or two others. That said, I think it\'s about 90% complete!'
         },
       ],
       thanks: ['A huge, huge thank you to Samuel S. and Timothy B. for donating!!']
