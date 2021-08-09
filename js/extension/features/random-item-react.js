@@ -95,7 +95,6 @@
                   </a>
                 </${elem}>`;
 
-      // TODO: Fix CSS in new layout
       document.querySelector(selector).insertAdjacentHTML(position, icon);
 
       document.querySelector('.de-random-item').addEventListener('click', event => {
