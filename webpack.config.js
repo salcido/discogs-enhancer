@@ -101,6 +101,7 @@ module.exports = {
     [features + 'suggested-prices-single']: `${features}suggested-prices-single.js`,
     [features + 'text-format-shortcuts-react']: `${features}text-format-shortcuts-react.js`,
     [features + 'text-format-shortcuts']: `${features}text-format-shortcuts.js`,
+    [features + 'show-actual-dates-react']: `${features}show-actual-dates-react.js`,
     [features + 'show-actual-dates']: `${features}show-actual-dates.js`,
     [features + 'toggle-baoi-fields']: `${features}toggle-baoi-fields.js`,
     [features + 'toggle-dark-theme']: `${features}toggle-dark-theme.js`,

@@ -345,6 +345,14 @@ appendFragment([resourceLibrary]).then(() => {
         absoluteDate.className = 'de-init';
 
         elems.push(absoluteDate);
+
+        let absoluteDateReact = document.createElement('script');
+
+        absoluteDateReact.type = 'text/javascript';
+        absoluteDateReact.src = chrome.extension.getURL('js/extension/features/show-actual-dates-react.js');
+        absoluteDateReact.className = 'de-init';
+
+        elems.push(absoluteDateReact);
       }
 
       if ( result.prefs.averagePrice ) {
