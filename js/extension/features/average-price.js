@@ -10,7 +10,10 @@
 
 rl.ready(() => {
 
-  let href = window.location.href;
+  let href = window.location.href,
+      selector = rl.pageIsReact()
+                 ? '#release-stats ul:last-of-type'
+                 : '.statistics .section_content ul.last';
 
   /**
    * Fetches the average price from the history page and injects
@@ -33,14 +36,14 @@ rl.ready(() => {
       li.classList = 'de-average-price';
       li.innerHTML = `<h4>Average:</h4> ${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}`;
 
-      return document.querySelector('.statistics .section_content ul.last').append(li);
+      return document.querySelector(selector).append(li);
 
     } catch (err) {
 
       let li = document.createElement('li');
 
       li.innerHTML = 'Error fetching price average';
-      return document.querySelector('.statistics .section_content ul.last').append(li);
+      return document.querySelector(selector).append(li);
     }
   }
 
@@ -50,7 +53,7 @@ rl.ready(() => {
   if ( rl.pageIs('release')
        && rl.pageIsNot('edit', 'history', 'master', 'sell') ) {
 
-    let stats = document.querySelector('.statistics ul.last li:nth-child(2)');
+    let stats = document.querySelector(selector);
 
     if (!stats) return;
 
@@ -61,7 +64,7 @@ rl.ready(() => {
       let li = document.createElement('li');
       li.innerHTML = '<h4>Average:</h4> --';
 
-      return document.querySelector('.statistics .section_content ul.last').append(li);
+      return document.querySelector(selector).append(li);
     }
 
     // Computer, do the thing
