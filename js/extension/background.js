@@ -23,7 +23,7 @@ let elems = [],
 // ========================================================
 
 /**
- * Augment `HMTLDocument` prototype for ready state checks
+ * Augment `document` prototype for ready state checks
  * @returns {Promise}
  */
 HTMLDocument.prototype.ready = () => {
@@ -419,6 +419,14 @@ appendFragment([resourceLibrary]).then(() => {
         confirmBeforeRemoving.className = 'de-init';
 
         elems.push(confirmBeforeRemoving);
+
+        let confirmBeforeRemovingReact = document.createElement('script');
+
+        confirmBeforeRemovingReact.type = 'text/javascript';
+        confirmBeforeRemovingReact.src = chrome.extension.getURL('js/extension/features/confirm-before-removing-react.js');
+        confirmBeforeRemovingReact.className = 'de-init';
+
+        elems.push(confirmBeforeRemovingReact);
       }
 
       if (result.prefs.collectionUi) {
@@ -835,6 +843,14 @@ appendFragment([resourceLibrary]).then(() => {
         readability.className = 'de-init';
 
         elems.push(readability);
+
+        let readabilityReact = document.createElement('script');
+
+        readabilityReact.type = 'text/javascript';
+        readabilityReact.src = chrome.extension.getURL('js/extension/features/tracklist-readability-react.js');
+        readabilityReact.className = 'de-init';
+
+        elems.push(readabilityReact);
       }
 
       if ( result.prefs.relativeSoldDate ) {

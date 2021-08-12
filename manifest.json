@@ -67,6 +67,7 @@
     "js/extension/features/block-buyers.js",
     "js/extension/features/block-sellers.js",
     "js/extension/features/blurry-image-fix.js",
+    "js/extension/features/confirm-before-removing-react.js",
     "js/extension/features/confirm-before-removing.js",
     "js/extension/features/currency-converter.js",
     "js/extension/features/demand-index-react.js",
@@ -123,6 +124,7 @@
     "js/extension/features/text-format-shortcuts.js",
     "js/extension/features/show-actual-dates-react.js",
     "js/extension/features/show-actual-dates.js",
+    "js/extension/features/tracklist-readability-react.js",
     "js/extension/features/tracklist-readability.js",
     "js/extension/features/tweak-discriminators-react.js",
     "js/extension/features/tweak-discriminators.js"
