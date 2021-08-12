@@ -622,6 +622,10 @@
     }
   }
 
+  .de-durations {
+    border-top: 1px solid #454545 !important;
+  }
+
   .module_blocks .dashboard_addmodules,
   ul.module_blocks > li.module_placeholder {
     border: 5px dashed #454545 !important;
@@ -1833,46 +1837,21 @@
 
   .tooltip {
     .tooltip-inner {
-      background: #454545 !important;
+      background: black !important;
     }
     &.top .tooltip-arrow {
-      border-color: #454545 transparent transparent transparent !important;
+      border-color: black transparent transparent transparent !important;
     }
     &.left .tooltip-arrow {
-      border-color: transparent transparent transparent #454545 !important;
+      border-color: transparent transparent transparent black !important;
     }
     &.right .tooltip-arrow {
-      border-color: transparent #454545 transparent transparent !important;
+      border-color: transparent black transparent transparent !important;
     }
     &.bottom .tooltip-arrow {
-      border-color: transparent transparent #454545 transparent !important;
+      border-color: transparent transparent black transparent !important;
     }
   }
-
-  /* ghost arrow */
-
-  /* .ui-dialog-arrow-left-top:after,
-.ui-dialog-arrow-left-bottom:after,
-.ui-dialog-arrow-right-top:after,
-.ui-dialog-arrow-right-bottom:after {
-  border-right-color: #323334 !important;
-}
-
-.ui-dialog-arrow-left-top:before,
-.ui-dialog-arrow-left-bottom:before,
-.ui-dialog-arrow-right-top:before,
-.ui-dialog-arrow-right-bottom:before {
-  border-right-color: white !important;
-}
-
-.ui-dialog-arrow-top-left:before,
-.ui-dialog-arrow-top-right:before,
-.ui-dialog-arrow-top-left:after,
-.ui-dialog-arrow-top-right:after {
-  border-top-color: #2F2F2F !important;
-  border-right-color: #2F2F2F !important;
-  border-bottom-color: #323334 !important;
-} */
 
   .ui-dialog-arrow-top-left:after,
   .ui-dialog-arrow-top-right:after,
@@ -3476,6 +3455,10 @@
       }
     }
 
+    .de-random-item-tooltip {
+      background: black !important;
+    }
+
     // release ID tooltip
     div#discogsid-tooltip {
       background: #000000 !important;
@@ -3589,8 +3572,16 @@
 
     div[class*="side_"]:nth-of-type(5) {
       // share icon
-      button[class*="button_"] svg[class*="icon_"] path {
-        color: #829fc4 !important;
+      button[class*="button_"] {
+
+        &:hover {
+          svg[class*="icon_"] path {
+            color: #cae0fa !important;
+          }
+        }
+        svg[class*="icon_"] path {
+          color: #829fc4 !important;
+        }
       }
     }
 
@@ -3622,6 +3613,17 @@
       tbody {
         tr[class*="heading_"] {
           background-color: #292929 !important;
+        }
+      }
+      .tracklist_track.track_heading {
+        background-color: #292929 !important;
+      }
+      div[class*="buttons_"] {
+        button[class*="disabled_"]:disabled {
+          color: #8c8c8c !important;
+        }
+        button[class*="button_"] svg[class*="icon_"] {
+          margin-right: .5rem;
         }
       }
     }
@@ -3723,8 +3725,16 @@
         max-width: 645px;
       }
 
-      button[class*="grey_"]:hover {
-        background: none !important;
+      button[class*="grey_"] {
+        font-size: small;
+
+        &:hover {
+          background: none !important;
+
+          svg[class*="icon_"] path {
+            color: #cae0fa !important;
+          }
+        }
       }
       button[class*="button_"] svg[class*="icon_"] path {
         color: #829fc4 !important;
