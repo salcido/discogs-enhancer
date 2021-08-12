@@ -88,7 +88,7 @@
               </li>`;
 
 
-  if ( user ) {
+  if ( user && !rl.pageIsReact() ) {
 
     rl.attachCss('random-item', rules);
     document.getElementById('activity_menu').insertAdjacentHTML('beforeend', icon);
