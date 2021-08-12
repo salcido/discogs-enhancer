@@ -24,6 +24,11 @@
   display: block;
 }
 
+div[class*="profile_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
+div[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
+  padding: .2rem .4rem;
+}
+
 .de-seller-feedback .skittle.skittle_collection span.count:after {
   content: "S";
 }
@@ -31,6 +36,14 @@
 .de-seller-feedback:hover .skittle.skittle_collection,
 .de-seller-feedback:hover .skittle.skittle_collection span.count {
   background: #CCCCCC !important;
+}
+
+div[class*="profile_"] a.de-seller-feedback {
+  padding: 2rem 0rem;
+}
+
+div[class*="profile_"] a.de-buyer-feedback {
+  padding: 2rem 0rem;
 }
 
 .de-buyer-feedback .skittle.skittle_collection,
@@ -51,6 +64,14 @@
 .de-buyer-feedback:hover .skittle.skittle_collection span.count:after {
   content: "X";
   color: #333333 !important;
+}
+
+div[class*="profile_"] .de-badge {
+  margin: 1rem .5rem;
+}
+
+div[class*="profile_"] .feedback-chart {
+  margin-top: 1.5rem;
 }
 
 

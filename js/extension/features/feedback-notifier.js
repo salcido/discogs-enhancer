@@ -56,7 +56,7 @@ rl.ready(() => {
     neu = (neu > 0 ? neu : '');
     neg = (neg > 0 ? neg : '');
 
-    badge = `<li style="position: relative;">
+    badge = `<li class="de-badge" style="position: relative; list-style-type: none;">
               <span id="${id}">
                 <a class="nav_group_control ${id}">
                   <span class="skittle skittle_collection" style="cursor: pointer; pointer-events: none;">
@@ -85,7 +85,11 @@ rl.ready(() => {
       document.querySelector(`.${type}_feedbackLoader`).remove();
     }
 
-    document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', badge);
+    if (rl.pageIsReact()) {
+      document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', badge);
+    } else {
+      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', badge);
+    }
 
     return bindUi();
   }
@@ -93,7 +97,7 @@ rl.ready(() => {
   /**
    * Appends the badge preloader to the navbar.
    * @param {string} type buyer or seller
-   * @returns {method}
+   * @returns {undefined}
    */
   function appendPreloader(type) {
 
@@ -105,7 +109,11 @@ rl.ready(() => {
       document.querySelector(`#de-${type}-feedback`).parentElement.remove();
     }
 
-    return document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
+    if (rl.pageIsReact()) {
+      document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', preloader);
+    } else {
+      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
+    }
   }
 
   /**
