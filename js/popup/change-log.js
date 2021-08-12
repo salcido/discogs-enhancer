@@ -3,8 +3,6 @@ module.exports = {
     {
       version: '2.24.2',
       features: [
-        {
-        },
       ],
       updates: [
         {
