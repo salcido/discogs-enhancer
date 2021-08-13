@@ -3528,6 +3528,10 @@
         word-break: break-word;
       }
 
+      button[class*="wrapper_"]:hover {
+        background: #355235 !important;
+      }
+
       button[class*="remove_"] {
         color: #829fc4 !important;
 
@@ -3553,7 +3557,10 @@
       }
 
       select[class*="dropdown_"] {
-        color: #cccccc !important;
+        color: white !important;
+        &:hover {
+          background: #355235 !important;
+        }
       }
 
       // notes edit textarea
