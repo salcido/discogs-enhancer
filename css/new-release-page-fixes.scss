@@ -76,6 +76,19 @@
     margin-right: 0 !important;
   }
 
+  div[class*="ratings_"] svg {
+    margin: 0 1px 0 0 !important;
+  }
+  div[class*="ratings_"] {
+    button[class*="remove_"] {
+      height: auto !important;
+      svg {
+        height: 1.3em !important;
+        top: 0 !important;
+      }
+    }
+  }
+
   // Tracklist
   #release-tracklist {
     tbody > tr:first-child {
@@ -118,9 +131,13 @@
           margin-right: 5px !important;
         }
       }
+
+      // Star ratings on release and reviews
+      span[class*="rating_"] svg {
+        margin: 0 1px 0 0 !important;
+      }
     }
   }
-
 
   div[class*="preview_"] div[class*="content_"] {
     min-height: 10px !important;
