@@ -44,9 +44,9 @@
  *
  */
 
-rl.ready(() => {
+ rl.ready(() => {
 
-  if ( rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease') && !rl.pageIsReact()) {
+  if ( rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease') && rl.pageIsReact() ) {
 
     let
         config = rl.getPreference('readability') || useDefaults(),
@@ -57,17 +57,18 @@ rl.ready(() => {
         // don't insert spacers if headings or index tracks already exist.
         // And don't confuse release durations with track headers
         durations = document.querySelector('.de-durations'),
-        noHeadings = durations ? document.querySelectorAll('.track_heading').length <= 1 : document.querySelectorAll('.track_heading').length < 1,
-        hasIndexTracks = document.querySelectorAll('.index_track').length > 0,
+        noHeadings = durations ? document.querySelectorAll('tr[class*="heading_"]').length <= 1 : document.querySelectorAll('tr[class*="heading_"]').length < 1,
+        hasIndexTracks = document.querySelectorAll('tr[class*="index_"]').length > 0,
 
         // Compilations have different markup requirements when rendering track headings...
-        isCompilation = document.querySelectorAll('.tracklist_track_artists').length > 0,
+        // isCompilation = document.querySelectorAll('.tracklist_track_artists').length > 0,
+        isCompilation = false,
 
         // ...so only insert the duration markup if it's a compilation
         duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
 
         // array of all tracks on a release
-        tracklist = [...document.querySelectorAll('.playlist tbody tr')],
+        tracklist = [...document.querySelectorAll('#release-tracklist tbody tr')],
 
         // size of dividers inserted between tracks
         size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
@@ -78,9 +79,9 @@ rl.ready(() => {
 
         // divider markup to be injected
         display = show ? '' : 'hide',
-        spacer = `<tr class="tracklist_track track_heading de-spacer ${display}" style="${size}">
+        spacer = `<tr class="tracklist_track track_heading de-spacer index_3D8To ${display}" style="${size}">
                     <td class="tracklist_track_pos"></td>
-                    <td colspan="2" class="tracklist_track_title">&nbsp;</td>
+                    <td colspan="3" class="tracklist_track_title">&nbsp;</td>
                     ${duration}
                   </tr>`;
 
@@ -99,9 +100,10 @@ rl.ready(() => {
 
         // title of show/hide dividers link
         let text = show ? 'Hide' : 'Show',
-            trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
+            styles = 'style="font-size: 12px; width: 115px; text-align: right; margin-top: .2rem; cursor: pointer; border: none; background: none;"',
+            trigger = `<button class="de-spacer-trigger" ${styles}>${text} Dividers</button>`;
 
-        document.querySelector('#tracklist .group').insertAdjacentHTML('beforeend',trigger);
+        document.querySelector('#release-tracklist header[class*="header_"]').insertAdjacentHTML('beforeend',trigger);
       }
 
       // Trigger functionality
@@ -387,7 +389,7 @@ rl.ready(() => {
     if ( noHeadings && !hasIndexTracks ) {
 
       let prefixes = false,
-          trackpos = [...document.querySelectorAll('.tracklist_track_pos')].map(t => t.textContent );
+          trackpos = [...document.querySelectorAll('td[class*="trackPos_"]')].map(t => t.textContent );
 
       // Determine any common prefixes in the track positions
       for ( let i = 0; i < trackpos.length; i++ ) {

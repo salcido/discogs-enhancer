@@ -50,6 +50,7 @@ module.exports = {
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
     /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
+    [features + 'confirm-before-removing-react']: `${features}confirm-before-removing-react.js`,
     [features + 'confirm-before-removing']: `${features}confirm-before-removing.js`,
     [features + 'currency-converter']: `${features}currency-converter.js`,
     [features + 'demand-index-react']: `${features}demand-index-react.js`,
@@ -109,6 +110,7 @@ module.exports = {
     [features + 'toggle-highlights']: `${features}toggle-highlights.js`,
     [features + 'toggle-min-max-columns']: `${features}toggle-min-max-columns.js`,
     [features + 'toggle-youtube-playlists']: `${features}toggle-youtube-playlists.js`,
+    [features + 'tracklist-readability-react']: `${features}tracklist-readability-react.js`,
     [features + 'tracklist-readability']: `${features}tracklist-readability.js`,
     [features + 'tweak-discriminators-react']: `${features}tweak-discriminators-react.js`,
     [features + 'tweak-discriminators']: `${features}tweak-discriminators.js`,
@@ -163,6 +165,12 @@ module.exports = {
     { from: 'html', to: 'html' },
     // CSS assets
     { from: 'css/dark-theme.scss', to: 'css/dark-theme.css',
+      transform(content, path) {
+        let result = sass.renderSync({ file: path });
+        return result.css.toString();
+      }
+    },
+    { from: 'css/new-release-page-fixes.scss', to: 'css/new-release-page-fixes.css',
       transform(content, path) {
         let result = sass.renderSync({ file: path });
         return result.css.toString();

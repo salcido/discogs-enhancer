@@ -23,20 +23,21 @@ let elems = [],
 // ========================================================
 
 /**
- * Augment `HMTLDocument` prototype for ready state checks
+ * docuemnt.readyState check via promise
  * @returns {Promise}
  */
-HTMLDocument.prototype.ready = () => {
+function documentReady(document) {
   return new Promise(resolve => {
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
       return resolve(document);
     }
+
     document.addEventListener('DOMContentLoaded', () => {
       return resolve(document);
     });
   });
-};
+}
 
 /**
  * Used to append the js/css nodes to the DOM when the
@@ -251,6 +252,16 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(linksInTabs);
 
+      // New Release Page Fixes
+      let newReleasePageFixes = document.createElement('link');
+
+      newReleasePageFixes.rel = 'stylesheet';
+      newReleasePageFixes.type = 'text/css';
+      newReleasePageFixes.href = chrome.extension.getURL('css/new-release-page-fixes.css');
+      newReleasePageFixes.id = 'newReleasePageFixes';
+
+      elems.push(newReleasePageFixes);
+
       // - Toggleable CSS files -
       // --------------------------------------------------------
       // These are always appended and enabled/disabled via
@@ -419,6 +430,14 @@ appendFragment([resourceLibrary]).then(() => {
         confirmBeforeRemoving.className = 'de-init';
 
         elems.push(confirmBeforeRemoving);
+
+        let confirmBeforeRemovingReact = document.createElement('script');
+
+        confirmBeforeRemovingReact.type = 'text/javascript';
+        confirmBeforeRemovingReact.src = chrome.extension.getURL('js/extension/features/confirm-before-removing-react.js');
+        confirmBeforeRemovingReact.className = 'de-init';
+
+        elems.push(confirmBeforeRemovingReact);
       }
 
       if (result.prefs.collectionUi) {
@@ -835,6 +854,14 @@ appendFragment([resourceLibrary]).then(() => {
         readability.className = 'de-init';
 
         elems.push(readability);
+
+        let readabilityReact = document.createElement('script');
+
+        readabilityReact.type = 'text/javascript';
+        readabilityReact.src = chrome.extension.getURL('js/extension/features/tracklist-readability-react.js');
+        readabilityReact.className = 'de-init';
+
+        elems.push(readabilityReact);
       }
 
       if ( result.prefs.relativeSoldDate ) {
@@ -1277,7 +1304,7 @@ appendFragment([resourceLibrary]).then(() => {
       });
     })
     .then(() => appendFragment(elems))
-    .then(() => document.ready())
+    .then(() => documentReady(window.document))
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {

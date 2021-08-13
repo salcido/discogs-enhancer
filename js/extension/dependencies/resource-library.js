@@ -1071,8 +1071,11 @@
      */
     username: function() {
       let name = this.getCookie('ck_username') || null,
-          header = document.querySelector('#site_header_wrap');
+          selector = this.pageIsReact() ? '.header_2TYJF' : '#site_header_wrap',
+          header = document.querySelector(selector);
+
       if (!name) return;
+
       if ( name === 'matzubo' ) {
         header.style.setProperty('background', '#3c6088', 'important');
       }

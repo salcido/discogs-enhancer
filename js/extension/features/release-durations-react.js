@@ -142,7 +142,7 @@
 
           let inlineStyles = 'style="padding-right:.5rem;"';
 
-          html = `<div class="section_content de-durations">
+          html = `<div class="section_content de-durations index_3D8To" style="margin-top: .3rem;">
                     <table>
                       <tbody>
                         <tr class="tracklist_track track_heading">

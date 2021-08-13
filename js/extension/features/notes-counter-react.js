@@ -48,6 +48,10 @@
         // Remove existing listeners to as not to duplicate them
         elem.removeEventListener('click', window.activateNotesCounter);
         elem.addEventListener('click', window.activateNotesCounter);
+        // set the height of the notes elem to the data attr for reference later
+        if ( elem.querySelector('div[class*="value_"]') ) {
+          elem.querySelector('div[class*="value_"]').dataset.height = elem.offsetHeight;
+        }
       });
     };
 
@@ -144,12 +148,16 @@
       // "value_" is the notes field (is returned when there are pre-existing notes)
       if ( Array.from(classList).some((c) => /wrapper_.*/.test(c)) ||
            Array.from(classList).some((c) => /value_.*/.test(c)) ) {
-        // add save / cancel classes to buttons
 
         document.querySelectorAll('div[class*="textedit_"]').forEach(elem => {
+          let textarea = elem.querySelectorAll('[class*="textarea_"]')[0];
+          // add save / cancel classes to buttons
           elem.querySelectorAll('button')[0].classList.add('notes_edit_save');
           elem.querySelectorAll('button')[1].classList.add('notes_edit_cancel');
-          elem.querySelectorAll('[class*="textarea_"]')[0].classList.add('notes_textarea');
+          textarea.classList.add('notes_textarea');
+          textarea.style.height = `${event.target.dataset.height}px`;
+          // Place the cursor after the last character of the note
+          textarea.selectionStart = textarea.value.length;
         });
       }
 
@@ -171,10 +179,20 @@
     });
 
     // ========================================================
+    // CSS
+    // ========================================================
+    let rules = `
+      .price {
+        color: #BF3A34;
+      }
+    `;
+
+    // ========================================================
     // DOM Setup / Init
     // ========================================================
     if ( notesElem || cwBlock ) {
       setTimeout(() => { window.addNotesCounter(); }, 100);
+      rl.attachCss('warn-on-character-limit', rules);
     }
   });
 });
