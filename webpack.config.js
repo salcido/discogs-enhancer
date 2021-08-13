@@ -170,6 +170,12 @@ module.exports = {
         return result.css.toString();
       }
     },
+    { from: 'css/new-release-page-fixes.scss', to: 'css/new-release-page-fixes.css',
+      transform(content, path) {
+        let result = sass.renderSync({ file: path });
+        return result.css.toString();
+      }
+    },
     { from: 'css', to: 'css', ignore: ['*.scss'] },
     { from: 'img', to: 'img' },
     // contextual menu searching

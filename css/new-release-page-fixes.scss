@@ -1,0 +1,135 @@
+#app {
+  // global line height value
+  div[class*="content_"] {
+    line-height: 18px !important;
+  }
+
+  // header nave line height for hover states
+  div[class*="header_"] {
+    div[class*="content_"] {
+      line-height: 12px !important;
+    }
+  }
+
+  div[class*="profile_"] {
+
+    a[class*="headericon_"] {
+      font-size: 13px !important;
+      margin-right: 0 !important;
+      padding-right: .75rem !important;
+
+      svg {
+        vertical-align: middle !important;
+        padding-bottom: 4px !important;
+      }
+    }
+  }
+
+  #release-header {
+    h1 {
+      margin-bottom: .5rem !important;
+    }
+  }
+
+  #release-stats {
+    div[class*="items_"] h4 {
+      width: auto !important;
+    }
+    div[class*="content_"] ul {
+      display: block !important;
+    }
+  }
+
+  // in Collection box
+  div[class*="collection_"] {
+    font-size: 14px !important;
+    margin: 10px 5px;
+
+    label {
+      font-weight: 400 !important;
+      font-size: 13px !important;
+    }
+    // notes
+    div[class*="value_"] {
+      white-space: pre-line !important;
+      word-break: break-word !important;
+    }
+
+    // notes editing textarea
+    div[class*="textedit_"] {
+      width: 218px !important;
+      margin: 0 !important;
+      textarea {
+        overflow: auto !important;
+        word-break: break-word !important;
+      }
+    }
+  }
+
+  // In Wantlist box
+  div[class*="wantlist_"] {
+    margin-top: 10px !important;
+  }
+
+  // remove unnecessary right margin on svg icons
+  button[class*="button_"] svg[class*="icon_"] {
+    margin-right: 0 !important;
+  }
+
+  // Tracklist
+  #release-tracklist {
+    tbody > tr:first-child {
+      border-top: none !important;
+    }
+
+    div[class*="buttons_"] {
+      button[class*="button_"] svg[class*="icon_"] {
+        margin-right: .5rem !important;
+      }
+    }
+  }
+
+  // reviews
+  #release-reviews {
+    div[class*="review_"] {
+
+      div[class*="content_"] {
+        margin-left: .4rem !important;
+      }
+
+      div[class*="edited_"] {
+        font-size: small !important;
+      }
+
+      span[class*="content_"] {
+        display: block !important;
+        margin-top: .3rem !important;
+        margin-bottom: .3rem !important;
+        line-height: 1.3rem !important;
+        max-width: 645px !important;
+      }
+
+      button[class*="grey_"] {
+        font-size: small !important;
+      }
+
+      div[class*="dropdown_"] button[class*="grey_"] {
+        svg[class*="icon_"] {
+          margin-right: 5px !important;
+        }
+      }
+    }
+  }
+
+
+  div[class*="preview_"] div[class*="content_"] {
+    min-height: 10px !important;
+    padding: 5px !important;
+  }
+
+  #site_footer_wrap {
+    ul li {
+      padding-top: .5rem !important;
+    }
+  }
+}

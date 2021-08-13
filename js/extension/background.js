@@ -252,6 +252,16 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(linksInTabs);
 
+      // New Release Page Fixes
+      let newReleasePageFixes = document.createElement('link');
+
+      newReleasePageFixes.rel = 'stylesheet';
+      newReleasePageFixes.type = 'text/css';
+      newReleasePageFixes.href = chrome.extension.getURL('css/new-release-page-fixes.css');
+      newReleasePageFixes.id = 'newReleasePageFixes';
+
+      elems.push(newReleasePageFixes);
+
       // - Toggleable CSS files -
       // --------------------------------------------------------
       // These are always appended and enabled/disabled via
