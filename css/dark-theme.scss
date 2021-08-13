@@ -3490,6 +3490,15 @@
       }
     }
 
+    button[class*="grey_"][class*="disabled_"] {
+      background-color: #cccccc !important;
+      color: rgb(153, 153, 153) !important;
+
+      svg[class*="icon_"] path {
+        color: rgb(153, 153, 153) !important;
+      }
+    }
+
     // in Collection box
     div[class*="collection_"] {
       background-color: #1c3814 !important;
@@ -3545,6 +3554,15 @@
 
       select[class*="dropdown_"] {
         color: #cccccc !important;
+      }
+
+      // notes edit textarea
+      div[class*="textedit_"] {
+        width: 215px;
+        margin: 0;
+        textarea {
+          overflow: auto;
+        }
       }
     }
 
@@ -3735,9 +3753,28 @@
             color: #cae0fa !important;
           }
         }
+
+        &[class*="link_"][class*="disabled_"] {
+          background: none !important;
+          color: #999999 !important;
+
+          svg[class*="icon_"] path {
+            color: #999999 !important;
+          }
+        }
       }
-      button[class*="button_"] svg[class*="icon_"] path {
+
+      button[class*="button_"] svg[class*="icon_"] path,
+      a[class*="link_"] svg[class*="icon_"] path {
         color: #829fc4 !important;
+      }
+
+      div[class*="dropdown_"] button[class*="grey_"] {
+        color: #cccccc !important;
+
+        svg[class*="icon_"] {
+          margin-right: 5px;
+        }
       }
     }
 
@@ -3803,6 +3840,12 @@
     }
 
     // reviews
+
+    #release-reviews {
+      div[class*="dropdown_"] ul li {
+        background: #292929 !important;
+      }
+    }
     div[class*="main_"] section[class*="open_"]:last-child {
       header {
         border-bottom: 1px solid #454545 !important;
