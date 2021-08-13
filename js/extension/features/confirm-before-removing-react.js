@@ -161,9 +161,9 @@ rl.ready(() => {
   function deleteOriginalRemoveLink() {
     return new Promise(resolve => {
 
-      let removeText = document.querySelector('button[class*="remove_"]').textContent;
+      let removeText = document.querySelector('div[class*="collection_"] button[class*="remove_"]').textContent;
 
-      document.querySelectorAll('button[class*="remove_"]').forEach(rem => {
+      document.querySelectorAll('div[class*="collection_"] button[class*="remove_"]').forEach(rem => {
         rem.remove();
       });
 
