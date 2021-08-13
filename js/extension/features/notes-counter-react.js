@@ -48,6 +48,10 @@
         // Remove existing listeners to as not to duplicate them
         elem.removeEventListener('click', window.activateNotesCounter);
         elem.addEventListener('click', window.activateNotesCounter);
+        // set the height of the notes elem to the data attr for reference later
+        if ( elem.querySelector('div[class*="value_"]') ) {
+          elem.querySelector('div[class*="value_"]').dataset.height = elem.offsetHeight;
+        }
       });
     };
 
@@ -151,6 +155,7 @@
           elem.querySelectorAll('button')[0].classList.add('notes_edit_save');
           elem.querySelectorAll('button')[1].classList.add('notes_edit_cancel');
           textarea.classList.add('notes_textarea');
+          textarea.style.height = `${event.target.dataset.height}px`;
           // Place the cursor after the last character of the note
           textarea.selectionStart = textarea.value.length;
         });
