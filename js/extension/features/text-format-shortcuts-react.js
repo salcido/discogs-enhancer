@@ -152,7 +152,7 @@
                   </div>`;
 
     // Inject buttons into DOM
-    document.getElementsByTagName('textarea')[0].insertAdjacentHTML('afterend', markup);
+    document.querySelector('#release-reviews textarea').insertAdjacentHTML('afterend', markup);
     // bold, italic, strikethrough and underline
     attachBISUlisteners();
     attachTextSelectionListeners();
