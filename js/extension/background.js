@@ -23,20 +23,21 @@ let elems = [],
 // ========================================================
 
 /**
- * Augment `document` prototype for ready state checks
+ * docuemnt.readyState check via promise
  * @returns {Promise}
  */
-HTMLDocument.prototype.ready = () => {
+function documentReady(document) {
   return new Promise(resolve => {
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
       return resolve(document);
     }
+
     document.addEventListener('DOMContentLoaded', () => {
       return resolve(document);
     });
   });
-};
+}
 
 /**
  * Used to append the js/css nodes to the DOM when the
@@ -1293,7 +1294,7 @@ appendFragment([resourceLibrary]).then(() => {
       });
     })
     .then(() => appendFragment(elems))
-    .then(() => document.ready())
+    .then(() => documentReady(window.document))
     .then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
