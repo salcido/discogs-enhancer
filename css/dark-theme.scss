@@ -3558,10 +3558,11 @@
 
       // notes edit textarea
       div[class*="textedit_"] {
-        width: 215px;
+        width: 218px;
         margin: 0;
         textarea {
           overflow: auto;
+          word-break: break-word;
         }
       }
     }
