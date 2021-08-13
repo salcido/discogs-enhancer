@@ -1,6 +1,19 @@
 module.exports = {
   current: [
     {
+      version: '2.24.3',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Ok, more updates are here! Feedback Notifier and Tracklist Readability have been updated. Also a few minor UX enhancements on the Notes Counter and Dark Theme. Still a few more features to go.'
+        },
+      ],
+      thanks: ['A huge, huge thank you to Samuel S. and Timothy B. for donating!!']
+    },
+  ],
+  previous: [
+    {
       version: '2.24.2',
       features: [
       ],
@@ -12,8 +25,6 @@ module.exports = {
       ],
       thanks: ['A huge, huge thank you to Samuel S. and Timothy B. for donating!!']
     },
-  ],
-  previous: [
     {
       version: '2.24.0',
       features: [
