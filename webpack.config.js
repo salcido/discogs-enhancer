@@ -37,6 +37,7 @@ module.exports = {
     './js/extension/background': './js/extension/background.js',
     // dependencies
     [deps + 'analytics']: `${deps}analytics.js`,
+    [deps + 'hashes']: `${deps}hashes.js`,
     [deps + 'update-exchange-rates']: `${deps}update-exchange-rates.js`,
     [deps + 'options']: `${deps}options.js`,
     [deps + 'resource-library']: `${deps}resource-library.js`,

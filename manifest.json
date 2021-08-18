@@ -59,6 +59,7 @@
     "html/favorite-sellers.html",
     "html/learn.html",
     "html/readability.html",
+    "js/extension/dependencies/hashes.js",
     "js/extension/dependencies/options.js",
     "js/extension/dependencies/resource-library.js",
     "js/extension/dependencies/tests/unit-tests.js",
