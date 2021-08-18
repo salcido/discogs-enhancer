@@ -3455,6 +3455,18 @@
       }
     }
 
+    // left arrow on credits tooltips
+    span[class*="link_"] {
+      div[class*="tooltip_"] {
+        &::before {
+          border-right-color: black !important;
+        }
+        &::after {
+          border-right-color: black !important;
+        }
+      }
+    }
+
     .de-random-item-tooltip {
       background: black !important;
     }
@@ -3464,9 +3476,21 @@
       background: #000000 !important;
     }
 
-    // global banner style (temporary)
+    // global banner style (temporary?)
     div[class*="banner_"] {
       background: #444444 !important;
+
+      div[class*="content_"] span a {
+        color: #829fc4 !important;
+
+        &:hover {
+          color: #cae0fa !important;
+        }
+
+        &:visited {
+          color: #829fc4 !important;
+        }
+      }
     }
 
     #release-header {
@@ -3784,6 +3808,29 @@
           margin-right: 5px;
         }
       }
+
+      // top arrow on the report menu
+      div[class*="dropdown_"] ul {
+        &::before,
+        &::after {
+          border-bottom-color: black !important;
+        }
+        li a::after {
+          border-bottom-color: black !important;
+        }
+      }
+
+      div[class*="dropdown_"] ul,
+      div[class*="dropdown_"] ul li {
+        background: black !important;
+      }
+
+      // div[class*="dropdown_"] ul li button::hover {
+      //   border-bottom-color: #292929 !important;
+      //   &::after {
+      //     border-bottom-color: #292929 !important;
+      //   }
+      // }
     }
 
     #release-marketplace {

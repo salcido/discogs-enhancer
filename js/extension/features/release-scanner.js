@@ -86,7 +86,7 @@ rl.ready(() => {
    * @returns {number}
    */
   async function fetchCommentsFromRelease(releaseId) {
-    let hash = 'b0734ecb6aa4ba3249f5968ab4ed5e4a09a312eb67f44d35278be18ce53a9933',
+    let hash = rl.getPreference('releaseHash'),
         url = `/internal/release-page/api/graphql?operationName=DeferredReleaseData&variables=%7B%22discogsId%22%3A${releaseId}%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22${hash}%22%7D%7D`;
 
     return fetch(url)

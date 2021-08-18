@@ -15,6 +15,7 @@
 
 let elems = [],
     filterMonitor,
+    hashes,
     prefs = {},
     resourceLibrary;
 
@@ -225,6 +226,14 @@ appendFragment([resourceLibrary]).then(() => {
       // ========================================================
       // Preference-agnostic scripts (always appended)
       // ========================================================
+
+      // GraphQL Hashes
+      hashes = document.createElement('script');
+      hashes.type = 'text/javascript';
+      hashes.className = 'de-init';
+      hashes.src = chrome.extension.getURL('js/extension/dependencies/hashes.js');
+
+      elems.push(hashes);
 
       // Filter Monitor
       filterMonitor = document.createElement('script');

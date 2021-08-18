@@ -1,6 +1,19 @@
 module.exports = {
   current: [
     {
+      version: '2.24.5',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'A few more updates here. Large Youtube playlists should work again. Also fixed an issue where Release Scanner requests would fail.'
+        },
+      ],
+      thanks: ['A huge, huge thank you to Borys S. for donating!!']
+    },
+  ],
+  previous: [
+    {
       version: '2.24.4',
       features: [],
       updates: [
@@ -11,8 +24,6 @@ module.exports = {
       ],
       thanks: ['A huge, huge thank you to Samuel S. and Timothy B. for donating!!']
     },
-  ],
-  previous: [
     {
       version: '2.24.2',
       features: [

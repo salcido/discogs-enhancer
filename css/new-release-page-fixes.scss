@@ -1,10 +1,10 @@
 #app {
-  // global line height value
+  // global line-height value
   div[class*="content_"] {
     line-height: 18px !important;
   }
 
-  // header nave line height for hover states
+  // header nav line height for hover states
   div[class*="header_"] {
     div[class*="content_"] {
       line-height: 12px !important;
@@ -12,6 +12,11 @@
   }
 
   div[class*="profile_"] {
+
+    // even out the spacing at the bottom of the profile menu
+    nav[class*="dropdown_"] {
+      padding-bottom: .3rem !important;
+    }
 
     a[class*="headericon_"] {
       font-size: 13px !important;
@@ -71,19 +76,27 @@
     margin-top: 10px !important;
   }
 
-  // remove unnecessary right margin on svg icons
+  // Remove unnecessary right margin on svg icons
   button[class*="button_"] svg[class*="icon_"] {
     margin-right: 0 !important;
   }
-
-  div[class*="ratings_"] svg {
-    margin: 0 1px 0 0 !important;
+  // make an exception for the share button icon
+  div[class*="ratings_"] + div[class*="wrapper_"] button svg {
+    margin-right: 2px !important;
   }
+
+  // Star ratings
+  div[class*="ratings_"] svg {
+    margin: 0 2px 0 0 !important;
+  }
+
   div[class*="ratings_"] {
     button[class*="remove_"] {
       height: auto !important;
+      margin-top: -2px !important;
+      margin-left: .3em !important;
       svg {
-        height: 1.3em !important;
+        height: 1.2em !important;
         top: 0 !important;
       }
     }
@@ -102,21 +115,40 @@
     }
   }
 
+  // image zoom buttons
+  div[class*="overlay_"] {
+    a[class*="grey_"] svg path,
+    button[class*="grey_"] svg path {
+      color: #333333 !important;
+    }
+
+    button[class*="grey_"]:disabled svg path {
+      color: #999999 !important;
+    }
+  }
+
   // reviews
   #release-reviews {
     div[class*="review_"] {
+
+      div[class*="header_"] {
+        // margin-bottom: .2rem !important;
+      }
 
       div[class*="content_"] {
         margin-left: .4rem !important;
       }
 
       div[class*="edited_"] {
-        font-size: small !important;
+        margin-top: .1rem !important;
+        margin-bottom: .2rem !important;
+        font-size: 12px !important;
+        text-transform: lowercase;
       }
 
       span[class*="content_"] {
         display: block !important;
-        margin-top: .3rem !important;
+        margin-top: 0 !important;
         margin-bottom: .3rem !important;
         line-height: 1.3rem !important;
         max-width: 645px !important;
@@ -133,8 +165,11 @@
       }
 
       // Star ratings on release and reviews
-      span[class*="rating_"] svg {
-        margin: 0 1px 0 0 !important;
+      span[class*="rating_"] {
+        margin-top: .2rem !important;
+          svg {
+          margin: 0 2px 0 0 !important;
+        }
       }
     }
   }
