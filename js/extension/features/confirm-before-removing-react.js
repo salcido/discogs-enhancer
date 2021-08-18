@@ -180,7 +180,7 @@ rl.ready(() => {
 
   async function fetchCollectionIDs(releaseId) {
 
-    let hash = '278ee4c0414aac2a2b02138005c9873a7e9bdc4eedbd2979e68ac7628e03e77a',
+    let hash = rl.getPreference('userHash'),
         url = `/internal/release-page/api/graphql?operationName=UserReleaseData&variables=%7B%22discogsId%22%3A${releaseId}%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22${hash}%22%7D%7D`;
 
     return fetch(url)
