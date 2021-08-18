@@ -1,16 +1,17 @@
 .currency-converter {
-  width: 350px;
+  background-color: white;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid grey !important;
+  bottom: -255px;
+  color: gray !important;
+  font-family: Helvetica Neue,Helvetica,Nimbus Sans,Arial,sans-serif;
   margin: 10px 0 0 10px;
   padding: 20px 30px 0 20px;
   position: fixed;
-  z-index: 20;
   right: 0;
-  bottom: -255px;
-  background-color: white;
-  border: 1px solid grey !important;
-  border-radius: 5px 0 0 5px;
-  color: gray !important;
   transition: all 0.3s ease-in-out;
+  width: 350px;
+  z-index: 20;
 }
 
 .currency-converter .ui-wrap,
@@ -42,6 +43,13 @@
 .currency-converter #clearBtn,
 .de-dark-theme .currency-converter #clearBtn {
   float: right;
+  padding: .5rem 1rem;
+}
+
+/* .is_not_mobile is any non-react page */
+.is_not_mobile .currency-converter #clear,
+.is_not_mobile.de-dark-theme .currency-converter #clear {
+  padding: auto
 }
 
 .currency-converter input,
@@ -88,10 +96,10 @@
 
 .currency-converter .toggle,
 .de-dark-theme .currency-converter .toggle {
-  padding: 3px 8px;
+  padding: 12px 15px;
   position: absolute;
   z-index: 21;
-  top: -28px;
+  top: -36px;
   right: -1px;
   background-color: white;
   border-top: 1px solid grey !important;
@@ -99,8 +107,16 @@
   border-bottom: 1px solid white;
   border-left: 1px solid grey !important;
   border-radius: 10px 0 0 0;
-  font-size: 10px;
+  font-size: 11px;
   cursor: pointer;
+}
+
+/* .is_not_mobile is any non-react page */
+.is_not_mobile .currency-converter .toggle,
+.is_not_mobile.de-dark-theme .currency-converter .toggle {
+  padding: 3px 8px;
+  top: -28px;
+  font-size: 10px;
 }
 
 .show-converter {
