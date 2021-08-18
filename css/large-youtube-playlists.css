@@ -1,3 +1,8 @@
 #youtube_tracklist {
   max-height: 350px !important;
 }
+/* New Release Page */
+#release-videos ul[class*="videos_"] {
+  max-height: 300px !important;
+}
+
