@@ -181,7 +181,11 @@ rl.ready(() => {
   async function fetchCollectionIDs(releaseId) {
 
     let hash = rl.getPreference('userHash'),
-        url = `/internal/release-page/api/graphql?operationName=UserReleaseData&variables=%7B%22discogsId%22%3A${releaseId}%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22${hash}%22%7D%7D`;
+        url = `/internal/release-page/api/graphql?operationName=UserReleaseData&variables={"discogsId":${releaseId}}&extensions={"persistedQuery":{"version":1,"sha256Hash":"${hash}"}}`;
+
+    // Return an empty array if this executes before
+    // the userHash has been written to localStorage
+    if (!hash) return [];
 
     return fetch(url)
       .then(response => response.json())
