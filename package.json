@@ -1,6 +1,6 @@
 {
   "name": "discogs-enhancer",
-  "version": "2.24.5",
+  "version": "2.24.6",
   "description": "A Chrome extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {

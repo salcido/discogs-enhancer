@@ -13,38 +13,48 @@
  * the extension will be successful.
  */
 
-function onRequestsObserved(batch) {
-    let name = batch.getEntries()[0].name;
-    // Release Data
-    if (name.includes('DeferredReleaseData')) {
-      let releaseHash = rl.getPreference('releaseHash'),
-          hash = extractHash(batch);
-
-      if (!releaseHash || releaseHash && releaseHash !== hash) {
-        rl.setPreference('releaseHash', hash);
-      }
-    }
-    // User Data
-    if (name.includes('UserReleaseData')) {
-      let userHash = rl.getPreference('userHash'),
-          hash = extractHash(batch);
-
-      if (!userHash || userHash && userHash !== hash) {
-        rl.setPreference('userHash', hash);
-      }
-    }
+ function onRequestsObserved(batch) {
+  let name = batch.getEntries()[0].name;
+  // Release Data
+  if (name.includes('DeferredReleaseData')) {
+    let hash = extractHash(name);
+    updateHash('releaseHash', hash);
+  }
+  // User Data
+  if (name.includes('UserReleaseData')) {
+    let hash = extractHash(name);
+    updateHash('userHash', hash);
+  }
 }
 
-function extractHash(batch) {
-  let name = batch.getEntries()[0].name,
-      uri = decodeURIComponent(name),
+/**
+* Writes a hash string to the userPreferences object in localStorage
+* @param {string} hashName - The property name of the hash string: releaseHash || userHash
+* @param {string} hash - The hash extracted from the GET request
+*/
+function updateHash(hashName, hash) {
+  let savedHash = rl.getPreference(hashName);
+
+  if ( !savedHash || savedHash && savedHash !== hash ) {
+    rl.setPreference(hashName, hash);
+  }
+}
+
+/**
+* Retrieves the hash string from the network requests
+* @param {string} name - The get request url made in the background
+* @returns {string} - The sha256Hash value from the request parameters
+*/
+function extractHash(name) {
+
+  let uri = decodeURIComponent(name),
       object = uri.toString().split('extensions='),
       hash = JSON.parse(object[1]).persistedQuery.sha256Hash;
 
   return hash;
 }
 
-let requestObserver = new PerformanceObserver(onRequestsObserved);
-requestObserver.observe( { type: 'resource' } );
-
-
+if ( rl.pageIs('release') ) {
+  let requestObserver = new PerformanceObserver(onRequestsObserved);
+  requestObserver.observe( { type: 'resource' } );
+}
