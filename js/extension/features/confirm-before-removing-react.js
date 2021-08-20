@@ -241,21 +241,24 @@ rl.ready(() => {
   // ========================================================
   if ( rl.pageIs('release') && rl.pageIsReact() ) {
 
-    rl.waitForElement('div[class*="collection_"]').then(async () => {
+    rl.waitForElement('div[class*="collection_"]').then(() => {
 
       rl.attachCss('random-item', rules);
-
       // Find the collection ID and attach it to each collection box
-      let regex = /(\d+)/g,
-          releaseId = document.querySelector('#release-actions button[class*="id_"]').textContent.match(regex),
-          ids = await fetchCollectionIDs(releaseId),
-          itemsInCollection = document.querySelectorAll('div[class*="collection_"]');
+      // Wrapped in a setTimeout so that hashes.js can update any hashes before
+      // this executes
+      setTimeout(async () => {
+        let regex = /(\d+)/g,
+            releaseId = document.querySelector('#release-actions button[class*="id_"]').textContent.match(regex),
+            ids = await fetchCollectionIDs(releaseId),
+            itemsInCollection = document.querySelectorAll('div[class*="collection_"]');
 
-      ids.forEach((id, i) => {
-        itemsInCollection[i].dataset.collectionId = id.node.discogsId;
-      });
+        ids.forEach((id, i) => {
+          itemsInCollection[i].dataset.collectionId = id.node.discogsId;
+        });
 
-      deleteOriginalRemoveLink().then(addUIListeners);
+        deleteOriginalRemoveLink().then(addUIListeners);
+      }, 250);
     });
   }
 });
