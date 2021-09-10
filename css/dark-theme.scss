@@ -3326,6 +3326,12 @@
     }
   }
 
+  // + List Activity button in Customize This Page modal on Dashboard
+  .react-modal #add_modules button:disabled span,
+  .react-modal #add_modules button:disabled i {
+    color: #777777 !important;
+  }
+
   // shipping rates modal
   .show-seller-terms,
   .view-shipping-methods {
