@@ -90,8 +90,9 @@ window.addEventListener('load', () => {
       toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
-      toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
+      toggleCommentScanner = document.getElementById('toggleCommentScanner'),
+      toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleDemandIndex = document.getElementById('toggleDemandIndex'),
@@ -102,8 +103,8 @@ window.addEventListener('load', () => {
       toggleFeedback = document.getElementById('toggleFeedback'),
       toggleFilterMediaCondition = document.getElementById('toggleFilterMediaCondition'),
       toggleFilterPrices = document.getElementById('toggleFilterPrices'),
-      toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
+      toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
       toggleForceDashboard = document.getElementById('toggleForceDashboard'),
       toggleHighlights = document.getElementById('toggleHighlights'),
@@ -111,8 +112,8 @@ window.addEventListener('load', () => {
       toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
-      toggleQuickSearch = document.getElementById('toggleQuickSearch'),
       togglePrices = document.getElementById('togglePrices'),
+      toggleQuickSearch = document.getElementById('toggleQuickSearch'),
       toggleRandomItem = document.getElementById('toggleRandomItem'),
       toggleRatingPercent = document.getElementById('toggleRatingPercent'),
       toggleReadability = document.getElementById('toggleReadability'),
@@ -279,8 +280,9 @@ window.addEventListener('load', () => {
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
-  toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
+  toggleCommentScanner.addEventListener('change', triggerSave);
+  toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleDemandIndex.addEventListener('change', triggerSave);
@@ -291,8 +293,8 @@ window.addEventListener('load', () => {
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterMediaCondition.addEventListener('change', filterMediaCondition.toggleHideConditions);
   toggleFilterPrices.addEventListener('change', filterPrices.validateFilterPrices);
-  toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
+  toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterUnavailable.addEventListener('change', triggerSave);
   toggleForceDashboard.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
@@ -300,8 +302,8 @@ window.addEventListener('load', () => {
   toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
-  toggleQuickSearch.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.validateAndSave);
+  toggleQuickSearch.addEventListener('change', triggerSave);
   toggleRandomItem.addEventListener('change', triggerSave);
   toggleRatingPercent.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
@@ -364,8 +366,9 @@ window.addEventListener('load', () => {
       toggleBlockBuyers.checked = result.prefs.blockBuyers;
       toggleBlockSellers.checked = result.prefs.blockSellers;
       toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
-      toggleConfirmBeforeRemoving.checked = result.prefs.confirmBeforeRemoving;
       toggleCollectionUi.checked = result.prefs.collectionUi;
+      toggleCommentScanner.checked = result.prefs.commentScanner;
+      toggleConfirmBeforeRemoving.checked = result.prefs.confirmBeforeRemoving;
       toggleConverter.checked = result.prefs.converter;
       toggleDarkTheme.checked = result.prefs.darkTheme;
       toggleDemandIndex.checked = result.prefs.demandIndex;
@@ -376,8 +379,8 @@ window.addEventListener('load', () => {
       toggleFeedback.checked = result.prefs.feedback;
       toggleFilterMediaCondition.checked = result.prefs.filterMediaCondition;
       toggleFilterPrices.checked = result.prefs.filterPrices;
-      toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
+      toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
       toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
       toggleForceDashboard.checked = result.prefs.forceDashboard;
       toggleHighlights.checked = result.prefs.highlightMedia;
@@ -385,8 +388,8 @@ window.addEventListener('load', () => {
       toggleInventoryScanner.checked = result.prefs.inventoryScanner;
       toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
       toggleNotesCount.checked = result.prefs.notesCount;
-      toggleQuickSearch.checked = result.prefs.quickSearch;
       togglePrices.checked = result.prefs.suggestedPrices;
+      toggleQuickSearch.checked = result.prefs.quickSearch;
       toggleRandomItem.checked = result.prefs.randomItem;
       toggleRatingPercent.checked = result.prefs.ratingPercent;
       toggleReadability.checked = result.prefs.readability;

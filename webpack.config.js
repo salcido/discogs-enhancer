@@ -50,6 +50,7 @@ module.exports = {
     [features + 'block-buyers']: `${features}block-buyers.js`,
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
+    [features + 'comment-scanner']: `${features}comment-scanner.js`,
     /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
     [features + 'confirm-before-removing-react']: `${features}confirm-before-removing-react.js`,
     [features + 'confirm-before-removing']: `${features}confirm-before-removing.js`,
@@ -71,8 +72,8 @@ module.exports = {
     [features + 'filter-shipping-country']: `${features}filter-shipping-country.js`,
     [features + 'filter-sleeve-condition']: `${features}filter-sleeve-condition.js`,
     [features + 'filter-unavailable']: `${features}filter-unavailable.js`,
-    [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'force-dashboard']: `${features}force-dashboard.js`,
+    [features + 'friend-counter']: `${features}friend-counter.js`,
     [features + 'highlight-comments']: `${features}highlight-comments.js`,
     [features + 'inventory-ratings']: `${features}inventory-ratings.js`,
     [features + 'inventory-scanner']: `${features}inventory-scanner.js`,

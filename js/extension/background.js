@@ -150,6 +150,7 @@ appendFragment([resourceLibrary]).then(() => {
         blurryImageFix: false,
         confirmBeforeRemoving: false,
         collectionUi: false,
+        commentScanner: false,
         converter: true,
         darkTheme: false,
         demandIndex: false,
@@ -459,6 +460,18 @@ appendFragment([resourceLibrary]).then(() => {
         collectionUi.className = 'de-init';
 
         elems.push(collectionUi);
+      }
+
+      // comment-scanner.js
+      if ( result.prefs.commentScanner ) {
+
+        let commentScanner = document.createElement('script');
+
+        commentScanner.type = 'text/javascript';
+        commentScanner.src = chrome.extension.getURL('js/extension/features/comment-scanner.js');
+        commentScanner.className = 'de-init';
+
+        elems.push(commentScanner);
       }
 
       if ( result.prefs.converter

@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.0',
+      features: [
+        {
+          name: 'Comment Scanner',
+          description: 'The Comment Scanner aims to find the comments missing from your Friends Activity feed by scanning through recent reviews and matching them to users on your friends list.',
+          link: '#comment-scanner'
+        },
+      ],
+      updates: [],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.24.7',
       features: [],
       updates: [
@@ -11,8 +25,6 @@ module.exports = {
       ],
       thanks: ['A huge, huge thank you to Borys S. for donating!!']
     },
-  ],
-  previous: [
     {
       version: '2.24.4',
       features: [],

@@ -109,9 +109,8 @@
   let user = rl.username(),
       selector = 'div[class^="profile_"]',
       position = 'afterbegin',
-      elem = 'div',
       inline_css = 'padding-top: 1.2rem; margin-right: .7rem;',
-      icon = `<${elem} style="position: relative; ${inline_css}" class="de-random-item rotate-in">
+      icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
                   rel="tooltip"
@@ -123,29 +122,31 @@
                   </span>
                 </a>
                 <div class="de-random-item-tooltip">Random Item</div>
-              </${elem}>`;
+              </div>`;
 
-    document.querySelector(selector).insertAdjacentHTML(position, icon);
+    rl.waitForElement(selector).then(() => {
+      document.querySelector(selector).insertAdjacentHTML(position, icon);
 
-    // show the tooltip
-    document.querySelector('.de-random-item a').addEventListener('mouseover', () => {
-      document.querySelector('.de-random-item-tooltip').style.display = 'block';
-    });
+      // show the tooltip
+      document.querySelector('.de-random-item a').addEventListener('mouseover', () => {
+        document.querySelector('.de-random-item-tooltip').style.display = 'block';
+      });
 
-    // hide the tooltip
-    document.querySelector('.de-random-item a').addEventListener('mouseout', () => {
-      document.querySelector('.de-random-item-tooltip').style.display = 'none';
-    });
+      // hide the tooltip
+      document.querySelector('.de-random-item a').addEventListener('mouseout', () => {
+        document.querySelector('.de-random-item-tooltip').style.display = 'none';
+      });
 
-    document.querySelector('.de-random-item').addEventListener('click', event => {
-      document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
+      document.querySelector('.de-random-item').addEventListener('click', event => {
+        document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
 
-      event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
+        event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
 
-      if (event.metaKey) {
-        return setTimeout(() => stopAnimation(), 250);
-      }
-      return setTimeout(() => stopAnimation(), 4000);
+        if (event.metaKey) {
+          return setTimeout(() => stopAnimation(), 250);
+        }
+        return setTimeout(() => stopAnimation(), 4000);
+      });
     });
 });
 /**
