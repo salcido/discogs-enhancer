@@ -1086,25 +1086,29 @@
      * Mutation Observer generally used to monitor anything that loads async
      * within the new React-based release page.
      * @param    {string} selector - the DOM selector string you're looking for
-     * @returns   {undefined}
+     * @returns   {Promise}
      */
       waitForElement: function(selector) {
         return new Promise(resolve => {
-            if (document.querySelector(selector)) {
-                return resolve(document.querySelector(selector));
+          let int = setInterval(() => {
+            if ( document.querySelector(selector) && document.hasFocus() ) {
+              clearInterval(int);
+              return resolve(document.querySelector(selector));
             }
 
             let observer = new MutationObserver(() => {
-                if (document.querySelector(selector)) {
-                    resolve(document.querySelector(selector));
-                    observer.disconnect();
-                }
+              if ( document.querySelector(selector) && document.hasFocus() ) {
+                clearInterval(int);
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+              }
             });
 
             observer.observe(document.body, {
-                childList: true,
-                subtree: true
+              childList: true,
+              subtree: true
             });
+          }, 100);
         });
       }
   };
