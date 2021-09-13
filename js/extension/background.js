@@ -128,7 +128,7 @@ resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resourc
 
 appendFragment([resourceLibrary]).then(() => {
 
-  let blockedUsers = ['.xxTIMEMACHINExx.'],
+  let blockedUsers = ['.xxTIMEMACHINExx.', 'Efx.Libris'],
       user = window.getCookie('ck_username');
 
   if ( user && blockedUsers.includes(user) ) {
