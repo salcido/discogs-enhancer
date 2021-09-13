@@ -1,6 +1,25 @@
 module.exports = {
   current: [
     {
+      version: '2.25.1',
+      features: [
+        {
+          name: 'Comment Scanner',
+          description: 'The Comment Scanner aims to find the comments missing from your Friends Activity feed by scanning through recent reviews and matching them to users on your friends list.',
+          link: '#comment-scanner'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Small tweak for the new Comment Scanner feature. Previously fetched comments will now be saved until overwritten by a new comment scan. Newer comments will appear on top of the list as well.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.0',
       features: [
         {
@@ -12,8 +31,6 @@ module.exports = {
       updates: [],
       thanks: []
     },
-  ],
-  previous: [
     {
       version: '2.24.7',
       features: [],
