@@ -16,7 +16,8 @@ rl.ready(() => {
   let friends = [],
       pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       reviewDiv = document.createElement('div'),
-      existingId = rl.getPreference('friendsListId');
+      existingId = rl.getPreference('friendsListId'),
+      commentScannerHistory = rl.getPreference('commentScannerHistory');
 
   // ========================================================
   // Template Strings
@@ -61,7 +62,7 @@ rl.ready(() => {
             <div style="display: flex; flex-direction: column;">
               <i class="icon icon-spinner icon-spin"></i>
               <span class="status">Initializing...</span>
-              <span class="bonus"></span>
+              <span class="long-scan-warning"></span>
             </div>
           </div>
         `,
@@ -220,9 +221,9 @@ rl.ready(() => {
 
     // insert comment markup preloader
     boxpad.innerHTML = preloader;
-
-    if (value > 7) {
-      document.querySelector('.bonus').textContent = subtext;
+    // Show the warning text if scanning for more than 1500 comments
+    if ( value > 7 ) {
+      document.querySelector('.long-scan-warning').textContent = subtext;
     }
 
     getFriends()
@@ -248,7 +249,7 @@ rl.ready(() => {
           markup = createCommentMarkup(review, username, trClass);
 
           hasComments = true;
-          tbody.insertAdjacentHTML('afterbegin', markup);
+          tbody.insertAdjacentHTML('beforeend', markup);
           count++;
         }
       });
@@ -256,6 +257,7 @@ rl.ready(() => {
       // Hide the default message if there are comments to display
       if (hasComments) {
         tbody.querySelector('.no-comments').remove();
+        rl.setPreference('commentScannerHistory', tbody.innerHTML.trim());
       }
       document.querySelector('.reset-ui').classList.toggle('hidden');
     });
@@ -274,13 +276,29 @@ rl.ready(() => {
         footer = document.querySelector(`#dashboard_list_${existingId} .footer`);
 
     try {
-      // inject the get comments button
-      boxpad.innerHTML = getCommentsUI;
-      header.querySelector('small').remove();
-      footer.insertAdjacentHTML('afterbegin', resetButton);
 
-      if (lastUsedValue) {
-        document.querySelector('#comment-limit').value = lastUsedValue;
+      if ( !commentScannerHistory ) {
+        // inject the get comments button
+        boxpad.innerHTML = getCommentsUI;
+        header.querySelector('small').remove();
+        footer.insertAdjacentHTML('afterbegin', resetButton);
+
+        if (lastUsedValue) {
+          document.querySelector('#comment-limit').value = lastUsedValue;
+        }
+
+      } else {
+        // show previously stored comments
+        boxpad.outerHTML = commentMarkupPrimer;
+
+        let selector = `#dashboard_list_${existingId} tbody`,
+            tbody = document.querySelector(selector);
+
+        tbody.innerHTML = commentScannerHistory;
+        header.querySelector('small').remove();
+
+        footer.insertAdjacentHTML('afterbegin', resetButton);
+        document.querySelector('.reset-ui').classList.toggle('hidden');
       }
 
     } catch (e) {
@@ -439,7 +457,7 @@ rl.ready(() => {
       margin-bottom: 1rem;
     }
 
-    .bonus {
+    .long-scan-warning {
       font-size: smaller;
       font-style: italic;
     }
