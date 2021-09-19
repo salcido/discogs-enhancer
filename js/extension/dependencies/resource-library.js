@@ -739,6 +739,7 @@
       'stats': '/stats/',
       'update': '/update',
       'videos': '/videos/',
+      'messages': '/messages/view/',
     },
 
     /**
