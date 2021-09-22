@@ -371,6 +371,7 @@
   }
 
   blockquote,
+  table.wantlist-card,
   #forum_search_results .search-result-snippet {
     background-color: #292929 !important;
     box-shadow: none !important;
@@ -579,6 +580,7 @@
   a.button-blue i,
   button.button-green i,
   a.button-green i,
+  table .wantlist-button,
   button.button-red i,
   a.button-red i {
     color: white !important;

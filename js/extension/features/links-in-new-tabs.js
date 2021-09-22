@@ -96,10 +96,12 @@ rl.ready(() => {
    * Grabs all elements with user-chosen selectors and modifies them
    * to open in a new window.
    */
-  window.modifyLinks = function modifyLinks() {
-    document.querySelectorAll(selectors.join(',')).forEach(a => {
-      a.setAttribute('target', '_blank');
-    });
+   window.modifyLinks = function modifyLinks() {
+    if (selectors.length) {
+      document.querySelectorAll(selectors.join(',')).forEach(a => {
+        a.setAttribute('target', '_blank');
+      });
+    }
   };
 
   // ========================================================
