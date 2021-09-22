@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.2',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bugfix',
+          description: 'Fixed a few performace-related bugs and a small Dark Theme update.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.1',
       features: [
         {
@@ -17,8 +31,6 @@ module.exports = {
       ],
       thanks: []
     },
-  ],
-  previous: [
     {
       version: '2.25.0',
       features: [
