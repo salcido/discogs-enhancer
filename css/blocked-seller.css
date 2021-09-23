@@ -3,8 +3,8 @@
 }
 
 .blocked-seller .seller_info strong a,
-.blocked-seller a,
-.blocked-seller a strong,
+.wantlist-card.blocked-seller a,
+.wantlist-card.blocked-seller a strong,
 .de-dark-theme .blocked-seller .seller_info strong a {
   color: #BF3A38 !important;
 }

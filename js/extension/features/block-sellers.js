@@ -20,10 +20,6 @@
  * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
 
-const marketplaceQuerySelector =  'td.seller_info ul li:first-child a';
-
-const wantlistMessageQuerySelector = 'table.wantlist-card tbody tr:last-child td table tbody tr td table:last-child tbody tr td a strong';
-
 rl.ready(() => {
 
   // ========================================================
@@ -40,9 +36,19 @@ rl.ready(() => {
    * @return {function}
    */
 
-  window.blockSellers = function blockSellers(type, querySelector, tag, clazz) {
+  window.blockSellers = function blockSellers(type, querySelector) {
 
-    let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
+    let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller',
+        tag,
+        clazz;
+
+    if (querySelector === marketplaceQuerySelector) {
+      tag = 'a';
+      clazz = '.shortcut_navigable';
+    } else {
+      tag = 'strong';
+      clazz = '.wantlist-card';
+    }
 
     blockList.list.forEach(seller => {
 
@@ -70,7 +76,9 @@ rl.ready(() => {
   // DOM manipulation
   // ========================================================
   let blockList = rl.getPreference('blockList'),
-      type;
+      type,
+      marketplaceQuerySelector =  'td.seller_info ul li:first-child a',
+      wantlistMessageQuerySelector = 'table.wantlist-card tbody tr:last-child td table tbody tr td table:last-child tbody tr td a strong';
 
   if ( blockList ) {
 
@@ -82,11 +90,11 @@ rl.ready(() => {
 
         if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
           type = 'hide';
-          window.blockSellers(type, marketplaceQuerySelector, 'a', '.shortcut_navigable');
+          window.blockSellers(type, marketplaceQuerySelector);
 
         } else if ( rl.pageIs('messages') ) {
           type = 'hide';
-          window.blockSellers(type, wantlistMessageQuerySelector, 'strong', '.wantlist-card');
+          window.blockSellers(type, wantlistMessageQuerySelector);
         }
         break;
 
@@ -96,11 +104,11 @@ rl.ready(() => {
 
         if ( rl.pageIs('myWants') ) {
           type = 'hide';
-          window.blockSellers(type, marketplaceQuerySelector, 'a', '.shortcut_navigable');
+          window.blockSellers(type, marketplaceQuerySelector);
 
         } else if ( rl.pageIs('allItems', 'seller', 'sellRelease') ) {
           type = 'tag';
-          window.blockSellers(type, wantlistMessageQuerySelector, 'strong', '.wantlist-card');
+          window.blockSellers(type, wantlistMessageQuerySelector);
         }
         break;
 
@@ -110,16 +118,16 @@ rl.ready(() => {
 
         if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
           type = 'tag';
-          window.blockSellers(type, marketplaceQuerySelector, 'a', '.shortcut_navigable');
+          window.blockSellers(type, marketplaceQuerySelector);
 
         } else if ( rl.pageIs('messages') ) {
           type = 'tag';
-          window.blockSellers(type, wantlistMessageQuerySelector, 'strong', '.wantlist-card');
+          window.blockSellers(type, wantlistMessageQuerySelector);
         }
         break;
     }
 
-    rl.handlePaginationClicks(window.blockSellers, type, marketplaceQuerySelector, 'a', '.shortcut_navigable');
+    rl.handlePaginationClicks(window.blockSellers, type, marketplaceQuerySelector);
   }
 });
 /**
