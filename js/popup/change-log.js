@@ -10,7 +10,7 @@ module.exports = {
           description: 'Fixed a few performace-related bugs and a small Dark Theme update.'
         },
       ],
-      thanks: []
+      thanks: ['Huge thank you to Zack W. for the kind donation!']
     },
   ],
   previous: [
