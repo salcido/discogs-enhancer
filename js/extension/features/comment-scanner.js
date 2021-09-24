@@ -268,7 +268,7 @@ rl.ready(() => {
       } else if ( !hasComments && commentScannerHistory ) {
         let selector = `#dashboard_list_${existingId} .de-comment-overlay`;
 
-        document.querySelector(selector).style.display = 'block';
+        document.querySelector(selector).classList.toggle('show');
         tbody.innerHTML = commentScannerHistory;
       }
       document.querySelector('.reset-ui').classList.toggle('hidden');
@@ -425,7 +425,12 @@ rl.ready(() => {
       position: absolute;
       width: 100%;
       z-index: 10;
-      display: none;
+      opacity: 0;
+      box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 20%) inset;
+    }
+
+    #dashboard_list_${existingId} .de-comment-overlay.show {
+      opacity: 1;
     }
 
     #dashboard_list_${existingId} .message {
@@ -436,6 +441,7 @@ rl.ready(() => {
 
     .de-dark-theme #dashboard_list_${existingId} .de-comment-overlay {
       background: #333 !important;
+      box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 78%) inset;
     }
 
     .loader {
