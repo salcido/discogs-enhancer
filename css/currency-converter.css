@@ -14,8 +14,8 @@
   z-index: 20;
 }
 
-.currency-converter .ui-wrap,
-.de-dark-theme .currency-converter .ui-wrap {
+.currency-converter .de-ui-wrap,
+.de-dark-theme .currency-converter .de-ui-wrap {
   margin-bottom: 10px;
 }
 
