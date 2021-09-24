@@ -420,13 +420,13 @@ rl.ready(() => {
     }
 
     #dashboard_list_${existingId} .de-comment-overlay {
-      background: white;
+      background: #fffffff2;
       height: 100%;
       position: absolute;
       width: 100%;
       z-index: 10;
       opacity: 0;
-      box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 20%) inset;
+      box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 20%) inset;
     }
 
     #dashboard_list_${existingId} .de-comment-overlay.show {
@@ -440,8 +440,8 @@ rl.ready(() => {
     }
 
     .de-dark-theme #dashboard_list_${existingId} .de-comment-overlay {
-      background: #333 !important;
-      box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 78%) inset;
+      background: #333333f0 !important;
+      box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 70%) inset;
     }
 
     .loader {
