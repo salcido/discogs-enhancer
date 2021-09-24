@@ -69,6 +69,12 @@ rl.ready(() => {
 
       commentMarkupPrimer = `
           <div class="box_pad">
+            <div class="de-comment-overlay">
+              <div class="message">
+                ${noCommentsText}
+                <a class="de-close-overlay">Close</a>
+              </div>
+            </div>
             <table class="broadcast_table table_block">
               <tbody>
                 <tr class="no-comments">
@@ -258,6 +264,12 @@ rl.ready(() => {
       if (hasComments) {
         tbody.querySelector('.no-comments').remove();
         rl.setPreference('commentScannerHistory', tbody.innerHTML.trim());
+
+      } else if ( !hasComments && commentScannerHistory ) {
+        let selector = `#dashboard_list_${existingId} .de-comment-overlay`;
+
+        document.querySelector(selector).style.display = 'block';
+        tbody.innerHTML = commentScannerHistory;
       }
       document.querySelector('.reset-ui').classList.toggle('hidden');
     });
@@ -341,6 +353,11 @@ rl.ready(() => {
       if ( event.target.classList.contains('de-list-id-save') ) {
         saveListId();
       }
+      // Close no new comments overlay
+      // -----------------------------------------
+      if ( event.target.classList.contains('de-close-overlay') ) {
+        document.querySelector('.de-comment-overlay').style.display = 'none';
+      }
       // Kick off everything
       // -----------------------------------------
       if (event.target.id === 'get-comments') {
@@ -389,6 +406,7 @@ rl.ready(() => {
 
   let rules = `
     #dashboard_list_${existingId} .box_pad {
+      position: relative;
       display: flex;
       justify-content: center;
       padding: 0;
@@ -399,6 +417,25 @@ rl.ready(() => {
     #dashboard_list_${existingId} .footer {
       display: flex;
       justify-content: space-between;
+    }
+
+    #dashboard_list_${existingId} .de-comment-overlay {
+      background: white;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      z-index: 10;
+      display: none;
+    }
+
+    #dashboard_list_${existingId} .message {
+      position: absolute;
+      top: calc(50% - 1rem);
+      left: calc(50% - 160px);
+    }
+
+    .de-dark-theme #dashboard_list_${existingId} .de-comment-overlay {
+      background: #333 !important;
     }
 
     .loader {
