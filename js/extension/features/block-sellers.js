@@ -30,21 +30,34 @@ rl.ready(() => {
    *
    * @method blockSellers
    * @param {String} type Either 'hide' or 'tag'
+   * @param {String} querySelector Either 'marketplaceQuerySelector' or 'wantlistMessageQuerySelector' const
+   * @param {String} tag Either 'a' (anchor) or 'strong' tag
+   * @param {String} clazz Either 'shortcut_navigable' (marketplace) or 'wantlist-card' (wantlist message)
    * @return {function}
    */
 
-  window.blockSellers = function blockSellers(type) {
+  window.blockSellers = function blockSellers(type, querySelector) {
 
-    let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller';
+    let _class = type === 'hide' ? 'hidden-seller' : 'blocked-seller',
+        tag,
+        clazz;
+
+    if (querySelector === marketplaceQuerySelector) {
+      tag = 'li';
+      clazz = '.shortcut_navigable';
+    } else {
+      tag = 'strong';
+      clazz = '.wantlist-card';
+    }
 
     blockList.list.forEach(seller => {
 
-      let sellerNames = document.querySelectorAll('td.seller_info ul li:first-child a');
+      let sellerNames = document.querySelectorAll(querySelector);
 
       sellerNames.forEach(name => {
 
         if ( name.textContent.trim() === seller
-             && !name.closest('li').querySelector('.de-blocked-seller-icon') ) {
+          && !name.closest(tag).querySelector('.de-blocked-seller-icon') ) {
 
           let icon = document.createElement('span');
           icon.className = 'de-blocked-seller-icon needs_delegated_tooltip';
@@ -52,8 +65,8 @@ rl.ready(() => {
           icon.rel = 'tooltip';
           icon.title = `${seller} is on your Blocked Seller list.`;
 
-          name.closest('.shortcut_navigable').classList.add(_class);
-          name.closest('li').insertAdjacentElement('beforeend', icon);
+          name.closest(clazz).classList.add(_class);
+          name.closest(tag).insertAdjacentElement('beforeend', icon);
         }
       });
     });
@@ -63,7 +76,9 @@ rl.ready(() => {
   // DOM manipulation
   // ========================================================
   let blockList = rl.getPreference('blockList'),
-      type;
+      type,
+      marketplaceQuerySelector =  'td.seller_info ul li:first-child a',
+      wantlistMessageQuerySelector = 'table.wantlist-card tbody tr:last-child td table tbody tr td table:last-child tbody tr td a strong';
 
   if ( blockList ) {
 
@@ -75,7 +90,11 @@ rl.ready(() => {
 
         if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
           type = 'hide';
-          window.blockSellers(type);
+          window.blockSellers(type, marketplaceQuerySelector);
+
+        } else if ( rl.pageIs('messages') ) {
+          type = 'hide';
+          window.blockSellers(type, wantlistMessageQuerySelector);
         }
         break;
 
@@ -85,11 +104,11 @@ rl.ready(() => {
 
         if ( rl.pageIs('myWants') ) {
           type = 'hide';
-          window.blockSellers(type);
+          window.blockSellers(type, marketplaceQuerySelector);
 
         } else if ( rl.pageIs('allItems', 'seller', 'sellRelease') ) {
           type = 'tag';
-          window.blockSellers(type);
+          window.blockSellers(type, wantlistMessageQuerySelector);
         }
         break;
 
@@ -99,12 +118,16 @@ rl.ready(() => {
 
         if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
           type = 'tag';
-          window.blockSellers(type);
+          window.blockSellers(type, marketplaceQuerySelector);
+
+        } else if ( rl.pageIs('messages') ) {
+          type = 'tag';
+          window.blockSellers(type, wantlistMessageQuerySelector);
         }
         break;
     }
 
-    rl.handlePaginationClicks(window.blockSellers, type);
+    rl.handlePaginationClicks(window.blockSellers, type, marketplaceQuerySelector);
   }
 });
 /**

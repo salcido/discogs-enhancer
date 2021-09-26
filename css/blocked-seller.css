@@ -3,6 +3,8 @@
 }
 
 .blocked-seller .seller_info strong a,
+.wantlist-card.blocked-seller a,
+.wantlist-card.blocked-seller a strong,
 .de-dark-theme .blocked-seller .seller_info strong a {
   color: #BF3A38 !important;
 }
@@ -18,8 +20,9 @@
 .blocked-seller .button.button-green,
 .blocked-seller .button.button-green span,
 .de-dark-theme .blocked-seller .button.button-green,
-.de-dark-theme .blocked-seller .button.button-green span {
-  background-image: linear-gradient(#BF3A38, #B33635);
+.de-dark-theme .blocked-seller .button.button-green span,
+.blocked-seller a.wantlist-button {
+  background-image: linear-gradient(#BF3A38, #B33635) !important;
   border-color: #982E2C !important;
   border-top-color: #902C2A !important;
   border-bottom-color: #842827 !important;
