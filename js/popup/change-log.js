@@ -1,6 +1,28 @@
 module.exports = {
   current: [
     {
+      version: '2.25.3',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'ezienecker (https://github.com/ezienecker) has written an update to modify the Block Sellers feature to also apply to Wantlist messages sent to your Discogs inbox. Thanks so much for this awesome contribution!'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Fixed a display issue with the currency converter.'
+        },
+        {
+          name: 'Enhancement',
+          description: 'Updated the Comment Scanner to show a dismissible overlay when no new comments are found.'
+        },
+      ],
+      thanks: ['Huge thank you to Zack W. for the kind donation! And a massive shout out to Emanuel Z. (ezienecker) for contributing to the Block Seller feature!']
+    },
+  ],
+  previous: [
+    {
       version: '2.25.2',
       features: [
       ],
@@ -10,10 +32,8 @@ module.exports = {
           description: 'Fixed a few performace-related bugs and a small Dark Theme update.'
         },
       ],
-      thanks: []
+      thanks: ['Huge thank you to Zack W. for the kind donation!']
     },
-  ],
-  previous: [
     {
       version: '2.25.1',
       features: [

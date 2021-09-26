@@ -26,7 +26,7 @@ rl.ready(() => {
       markup = `<div class="currency-converter">
                   <div class="toggle">¥ € $</div>
                   <div class="top">
-                    <div class="ui-wrap">
+                    <div class="de-ui-wrap">
                       <div class="currency">Convert:</div>
                       <div class="currency-select">
                         <select id="baseCurrency">
@@ -46,14 +46,14 @@ rl.ready(() => {
                           <option value="ZAR">ZAR (ZAR)</option>
                         </select>
                       </div>
-                      <div class="<value-input></value-input>">
+                      <div class="value-input">
                         <input type="number" id="ccInput" max="999999999" min="0"></input>
                       </div>
                     </div>
                   </div>
 
                   <div class="bottom">
-                    <div class="ui-wrap">
+                    <div class="de-ui-wrap">
                       <div class="currency">To:</div>
                       <div class="currency-select">
                         <select id="userCurrency">
@@ -311,6 +311,27 @@ rl.ready(() => {
   input = document.querySelector('.currency-converter #ccInput');
   output = document.querySelector('.currency-converter #ccOutput');
   errors = document.querySelector('#errors');
+
+  // css for new release page
+  let rules = `
+    .currency-converter #clear {
+      border-radius: 3px;
+      border-style: solid;
+      border-width: 1px;
+      display: inline-block;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      height: 2em;
+      padding: 5px 15px;
+      text-align: center;
+      vertical-align: middle;
+    }
+  `;
+
+  if (rl.pageIsReact()) {
+    rl.attachCss('currency-converter', rules);
+  }
 
   // Check for existing rates
   if ( !rl.getPreference('converterRates') ) {
