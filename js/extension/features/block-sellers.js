@@ -43,7 +43,7 @@ rl.ready(() => {
         clazz;
 
     if (querySelector === marketplaceQuerySelector) {
-      tag = 'a';
+      tag = 'li';
       clazz = '.shortcut_navigable';
     } else {
       tag = 'strong';
