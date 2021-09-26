@@ -140,7 +140,8 @@
 
       let blockList = rl.getPreference('blockList'),
           favoriteList = rl.getPreference('favoriteList'),
-          sellerNames = rl.getPreference('sellerNames');
+          sellerNames = rl.getPreference('sellerNames'),
+          marketplaceQuerySelector =  'td.seller_info ul li:first-child a';
 
       // apply Marketplace Highlights
       if ( window.applyStyles ) window.applyStyles();
@@ -157,11 +158,12 @@
       if ( blockList && blockList.hide === 'global' && window.blockSellers ||
            blockList && blockList.hide === 'marketplace' && window.blockSellers ) {
 
-        window.blockSellers('hide');
+        window.blockSellers('hide', marketplaceQuerySelector);
       }
 
       if ( blockList && blockList.hide === 'tag' && window.blockSellers ) {
-        window.blockSellers('tag');
+
+        window.blockSellers('tag', marketplaceQuerySelector);
       }
 
       // Favorite sellers
