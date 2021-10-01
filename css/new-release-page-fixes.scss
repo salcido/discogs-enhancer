@@ -135,7 +135,7 @@
         // margin-bottom: .2rem !important;
       }
 
-      div[class*="content_"] {
+      div[class*="content_"]:first-of-type {
         margin-left: .4rem !important;
       }
 

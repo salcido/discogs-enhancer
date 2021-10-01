@@ -3437,12 +3437,6 @@
       // messages icon
       a[href="/messages"] {
         color: white !important;
-
-        &[class*="empty_"] {
-          svg path {
-            color: #888888 !important;
-          }
-        }
       }
     }
 
@@ -3765,22 +3759,6 @@
 
       &:last-of-type {
         border-bottom: none !important;
-      }
-
-      div[class*="content_"] {
-        margin-left: .4rem;
-      }
-
-      div[class*="edited_"] {
-        font-size: small;
-      }
-
-      span[class*="content_"] {
-        display: block;
-        margin-top: .3rem !important;
-        margin-bottom: .3rem !important;
-        line-height: 1.3rem !important;
-        max-width: 645px;
       }
 
       button[class*="grey_"] {

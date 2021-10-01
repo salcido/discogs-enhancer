@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.5',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Updated the Random Item feature to match with the new Nav design.'
+        },
+      ],
+      thanks: ['A big thank you to Daniel J. for his kind donation!']
+    },
+  ],
+  previous: [
+    {
       version: '2.25.3',
       features: [
       ],
@@ -20,8 +34,6 @@ module.exports = {
       ],
       thanks: ['Huge thank you to Zack W. for the kind donation! And a massive shout out to Emanuel Z. (ezienecker) for contributing to the Block Seller feature!']
     },
-  ],
-  previous: [
     {
       version: '2.25.2',
       features: [
