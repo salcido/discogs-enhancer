@@ -73,7 +73,7 @@ rl.ready(() => {
      * @returns {undefined}
      */
     async function getPrice(releaseId) {
-
+      releaseId = releaseId.split('-')[0];
       target.querySelector('.de-price-link').remove();
       target.insertAdjacentHTML('beforeend', rl.css.pricePreloader);
 
