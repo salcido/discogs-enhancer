@@ -23,6 +23,8 @@ rl.ready(() => {
    */
   async function getAverage(id) {
 
+    id = id.split('-')[0];
+
     try {
 
       let url = `https://www.discogs.com/sell/history/${id}`,
@@ -42,7 +44,7 @@ rl.ready(() => {
 
       let li = document.createElement('li');
 
-      li.innerHTML = 'Error fetching price average';
+      li.innerHTML = 'Error';
       return document.querySelector(selector).append(li);
     }
   }
