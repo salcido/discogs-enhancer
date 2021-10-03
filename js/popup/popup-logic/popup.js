@@ -53,25 +53,12 @@ if ( !Element.prototype.addClasses ) {
 
 /**
  * Helper method that lets me know I'm working with the
- * `development` or `staging` version of the extension
+ * `development` version of the extension
  * @returns {undefined}
  */
 function isDev() {
-
-  let hasBlocklist = localStorage.getItem('blockList'),
-      blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null,
-      development = __DEV__;
-
-  if ( development ) {
+  if (__DEV__) {
     document.querySelector('.title h1').style.color = 'gold';
-  }
-
-  if ( !development
-       && blocklist
-       && blocklist.list
-       && blocklist.list.includes('github')
-       && blocklist.list.includes('dropbox') ) {
-    document.querySelector('.title h1').style.color = 'hotpink';
   }
 }
 
@@ -320,6 +307,66 @@ window.addEventListener('load', () => {
   toggleYtPlaylists.addEventListener('change', ytPlaylists.toggleYtPlaylists);
   userCurrency.addEventListener('change', () => applySave(null, event));
 
+  /**
+   * Fetchs known issues from discogs-enhancer.com/issues
+   * @returns {Object} - Performance issue data: { content: <string>, version: <string> }
+   */
+   async function getIssues() {
+    let url,
+        hasBlocklist = localStorage.getItem('blockList'),
+        blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
+
+    if (__DEV__
+        && blocklist
+        && blocklist.list
+        && blocklist.list.includes('development')
+      ) {
+      url = 'http://localhost:3000/issues';
+    } else {
+      url = 'https://discogs-enhancer.com/issues';
+    }
+
+    return await fetch(url)
+      .then(response => response.json())
+      .catch(() => {
+        return { content: null, version: null };
+      });
+  }
+
+  /**
+   * Compares version numbers and returns a boolean
+   * which is used to show a note about any known site issues.
+   * @param {String} va - a version string (1.0.0)
+   * @param {String} vb - a version string (1.0.1)
+   * @returns {boolean}
+   */
+  function compareVersions(va, vb) {
+    return va.localeCompare(vb, undefined, { numeric: true }) <= 0;
+  }
+
+  /**
+   * Whether to display the warning message in the popup
+   * @param {Object} - The response object from discogs-enhancer.com/issues endpoint
+   */
+  function showHeadsUp({ content = null, version = null }) {
+
+    let manifest = chrome.runtime.getManifest(),
+        thisVersion = manifest.version,
+        versionWithIssue = version,
+        showWarning = false;
+
+    if (version) {
+      showWarning = compareVersions(thisVersion, versionWithIssue);
+    }
+
+    if (content && content.length && showWarning) {
+      let warning = document.querySelector('.issues');
+
+      warning.querySelector('.content').textContent = content;
+      warning.style.display = 'block';
+    }
+  }
+
   // ========================================================
   // DOM Setup
   // ========================================================
@@ -331,7 +378,7 @@ window.addEventListener('load', () => {
    * @method   init
    * @return   {undefined}
    */
-  function init() {
+  async function init() {
 
     contextualMenus.createContextualMenuElements();
     linksInTabs.createLinkTabElements();
@@ -464,6 +511,10 @@ window.addEventListener('load', () => {
     // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
     if (window.ga) { window.ga('send', 'pageview', '/popup.html'); }
+
+    // Check for any known issues with Discogs
+    let issues = await getIssues();
+    showHeadsUp(issues);
   }
 
   init();

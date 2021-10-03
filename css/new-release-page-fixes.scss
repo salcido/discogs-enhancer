@@ -185,3 +185,9 @@
     }
   }
 }
+// Not part of the new release page but this widens
+// the activity menu in the nav bar so that random item
+// and feedback notifications can be displayed
+#activity_menu {
+  width: 450px;
+}

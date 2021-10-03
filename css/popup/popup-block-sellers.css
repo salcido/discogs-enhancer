@@ -108,7 +108,6 @@ label {
   background-color: red;
   cursor: pointer;
   transform: scale(1.2);
-  font-weight: bold;
 }
 
 .blocked-sellers .seller span a,
