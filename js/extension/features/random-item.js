@@ -32,10 +32,6 @@
   // ========================================================
 
   let rules = `
-      #activity_menu {
-        width: 350px;
-      }
-
       .de-random-item {
         cursor: pointer;
         font-size: 14px;
