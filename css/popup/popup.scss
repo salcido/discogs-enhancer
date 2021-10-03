@@ -1,40 +1,40 @@
 // Dark version
 html {
-  --bg-color: #313335;
-  --off-white: #CCCCCC;
-  --white: #FFFFFF;
-  --gray: #808080;
   --bg-accent: #292929;
-  --text-color: #cccccc;
-  --logo: #e8e8e8;
-  --green: #51B32C;
-  --green-hover: #61D335;
-  --help: #222222;
-  --help-icon: #606060;
-  --help-text: #CCCCCC;
+  --bg-color: #313335;
   --disabled-element: #808080;
   --disabled-text: #ffffff;
+  --gray: #808080;
+  --green-hover: #61D335;
+  --green: #51B32C;
+  --help-icon: #606060;
+  --help-text: #CCCCCC;
+  --help: #222222;
   --learn-more: #51B32C;
+  --logo: #e8e8e8;
+  --off-white: #CCCCCC;
   --select-bg: #333;
   --select-border: #424242;
+  --text-color: #cccccc;
+  --white: #FFFFFF;
 }
 
 html.light {
-  --bg-color: #FFFFFF;
-  --off-white: #CCCCCC;
-  --white: #222222;
-  --help: dimgray;
-  --gray: #808080;
   --bg-accent: #F0F0F0;
-  --text-color: dimgray;
-  --logo: darkgray;
-  --help-icon: #CCCCCC;
-  --help-text: #FFFFFF;
+  --bg-color: #FFFFFF;
   --disabled-element: lightgray;
   --disabled-text: gray;
+  --gray: #808080;
+  --help-icon: #CCCCCC;
+  --help-text: #FFFFFF;
+  --help: dimgray;
   --learn-more: lawngreen;
+  --logo: darkgray;
+  --off-white: #CCCCCC;
   --select-bg: #fafafa;
   --select-border: #ccc;
+  --text-color: dimgray;
+  --white: #222222;
 }
 
 .light .status {
@@ -850,6 +850,40 @@ span.clear-search {
 
 #noResults .label {
   padding-left: 150px;
+}
+
+// /issues API endpoint
+.issues {
+  margin-bottom: 1rem;
+  padding: .5rem .5rem .1rem .5rem;
+  display: none;
+  border-radius: 5px;
+
+  .wrap {
+    background: var(--select-bg);
+    border-radius: 5px;
+    border: 1px solid var(--help-icon);
+
+    h2 {
+      margin-bottom: .3rem;
+      margin-top: 0;
+      text-align: center;
+      background: var(--white);
+      color: var(--bg-accent);
+      border-radius: 5px 5px 0 0;
+      padding: .4rem;
+    }
+
+    p {
+      border-radius: 5px;
+      padding: .5rem 1rem .2rem 1rem;
+      margin-top: 0;
+      color: var(--text-color);
+      text-transform: none;
+      font-weight: bold;
+      user-select: auto;
+    }
+  }
 }
 
 /* fadeout animation */
