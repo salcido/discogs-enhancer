@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.7',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'I\'ve added a new endpoint that will allow me to send a heads up if there are changes to Discogs that end up breaking a feature of Discogs Enhancer. Hopefully this will go a long way to getting the word out when something goes wrong.'
+        },
+      ],
+      thanks: ['A big thank you to Daniel J. for his kind donation!']
+    },
+  ],
+  previous: [
+    {
       version: '2.25.5',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: ['A big thank you to Daniel J. for his kind donation!']
     },
-  ],
-  previous: [
     {
       version: '2.25.3',
       features: [
