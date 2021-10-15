@@ -139,6 +139,10 @@
         margin-left: .4rem !important;
       }
 
+      div[class*="content_"] div[class*="content_"] {
+        margin: .3rem 0 !important;
+      }
+
       div[class*="edited_"] {
         margin-top: .1rem !important;
         margin-bottom: .2rem !important;
