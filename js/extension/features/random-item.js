@@ -35,7 +35,6 @@
       .de-random-item {
         cursor: pointer;
         font-size: 14px;
-        margin-top: 1px;
         margin-right: 10px;
         color: white;
       }
@@ -58,6 +57,12 @@
 
       .rotate-out {
         animation: rotateOut .4s infinite;
+        background-color: none !important;
+      }
+
+      .rotate-out:hover {
+        background-color: none !important;
+        background: none !important;
       }
 
       @keyframes rotateIn {
