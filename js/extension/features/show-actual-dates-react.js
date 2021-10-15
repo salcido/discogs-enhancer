@@ -18,7 +18,7 @@
       let { usDateFormat } = rl.getItem('userPreferences'),
           copies = document.querySelectorAll('div[class*="collection_"]'),
           language = rl.language(),
-          monthList = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+          monthList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
       // ========================================================
       // Functions
@@ -62,24 +62,48 @@
       }
 
       /**
+       * Returns a string in simplified extended ISO format which
+       * accounts for the user's timezone offset
+       * @param {<object>Date} date - Date object
+       * @returns {String}
+       */
+      function toIsoStringOffset(date) {
+        let tzo = -date.getTimezoneOffset(),
+            dif = tzo >= 0 ? '+' : '-',
+            pad = function(num) {
+                let norm = Math.floor(Math.abs(num));
+                return (norm < 10 ? '0' : '') + norm;
+            };
+
+        return date.getFullYear() +
+            '-' + pad(date.getMonth() + 1) +
+            '-' + pad(date.getDate()) +
+            'T' + pad(date.getHours()) +
+            ':' + pad(date.getMinutes()) +
+            ':' + pad(date.getSeconds()) +
+            dif + pad(tzo / 60) +
+            ':' + pad(tzo % 60);
+      }
+
+      /**
       * Renders the date format into the DOM
       * @returns {undefined}
       */
       function renderDate(elem) {
-        // '5/4/2015, 11:41:51 PM'
-        let timestamp = elem.querySelector('span[class*="added_"]').title,
-            date = timestamp.split('/'),
-            timeRaw = date[2].split(' '),
-            year = timeRaw[0],
-            [hours, mins] = timeRaw[1].split(':'),
-            meridiem = timeRaw[2],
+        let timestamp = elem.querySelector('span[class*="added_"]').title, // '5/4/2015, 11:41:51 PM'
+            isoString = new Date(timestamp).toISOString(), // '2015-05-05T06:41:51.000Z'
+            dateOffset = toIsoStringOffset(new Date(isoString)).split('T')[0], // '2015-05-04'
+            [year, month, day] = dateOffset.split('-'), // ['2015', '05', '04']
+            timeRaw = new Date(timestamp).toLocaleTimeString().split(' '), // ['11:41:51', 'PM']
+            [hours, mins] = timeRaw[0].split(':'),
+            meridiem = timeRaw[1],
             time = `${hours}:${mins} ${meridiem}`,
-            monthIndex = monthList.indexOf(date[0]),
-            international = `Added ${date[0]} ${getMonth(monthIndex)} ${year} ${convertTo24(time)}`,
-            american = `Added ${getMonth(monthIndex)} ${date[1]}, ${year} ${time}`,
-            specific = usDateFormat ? american : international;
+            monthIndex = monthList.indexOf(month),
+            international = `Added ${day} ${getMonth(monthIndex)} ${year} ${convertTo24(time)}`,
+            american = `Added ${getMonth(monthIndex)} ${day}, ${year} ${time}`,
+            actualDateAdded = usDateFormat ? american : international;
 
-        elem.querySelector('span').textContent = specific;
+        elem.querySelector('span').textContent = actualDateAdded;
       }
 
       // ========================================================

@@ -10,7 +10,7 @@ module.exports = {
           description: 'I\'ve added a new endpoint that will allow me to send a heads up if there are changes to Discogs that end up breaking a feature of Discogs Enhancer. Hopefully this will go a long way to getting the word out when something goes wrong.'
         },
       ],
-      thanks: ['A big thank you to Daniel J. for his kind donation!']
+      thanks: ['A big thank you to Tobias B. for his kind donation!']
     },
   ],
   previous: [

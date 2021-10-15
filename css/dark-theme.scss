@@ -3401,7 +3401,7 @@
       line-height: 18px;
     }
 
-    // header nave line height for hover states
+    // header nav line height for hover states
     div[class*="header_"] {
       div[class*="content_"] {
         line-height: 12px;
@@ -3726,6 +3726,10 @@
       background-color: black !important;
     }
 
+    div[class*="menu_"] div[class*="dropdown_"] a {
+      color: #cccccc !important;
+    }
+
     div[class*="menu_"] div[class*="dropdown_"][class*="active_"] {
       h4 a,
       ul li a {
@@ -3745,6 +3749,18 @@
     #release-other-versions {
       tr {
         border-bottom: 1px solid #454545 !important;
+      }
+      span[class*="skittle_"][class*="collection_"] {
+        background: #60c43f !important;
+        color: white !important;
+      }
+      span[class*="skittle_"][class*="wantlist_"] {
+        background: #bf3a38 !important;
+        color: white !important;
+      }
+      span[class*="skittle_"][class*="inventory_"] {
+        background: #326fb2 !important;
+        color: white !important;
       }
     }
 
