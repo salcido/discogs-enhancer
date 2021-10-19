@@ -13,6 +13,7 @@ rl.ready(() => {
       colorize = opts && opts.wants ? opts.wants : null,
       interval = opts && opts.int ? Number(opts.int) : 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
+      ids = [...document.querySelectorAll('.card')].map(r => r.dataset.objectId),
       skittles = document.querySelectorAll('.skittles .skittles'),
       checkbox = document.querySelectorAll('td.mr_checkbox'),
       button = '<button class="buy_release_button button button-green de-scan-releases">Scan Releases</button>';
@@ -25,7 +26,7 @@ rl.ready(() => {
    * @param {String} url - The URL to fetch data from
    * @returns {Number} - The number of comments on the page
    */
-  async function fetchRelease(url) {
+  async function fetchRelease(url, id) {
 
     try {
 
@@ -43,9 +44,7 @@ rl.ready(() => {
 
       if (div.querySelector('#app')) {
         // react
-        let releaseId = url.match(/(\d+)$/g)[0];
-
-        reviewCount = await fetchCommentsFromRelease(releaseId);
+        reviewCount = await fetchCommentsFromRelease(id);
         haves = Number(div.querySelectorAll('#app #release-stats ul li a')[0].textContent);
         wants = Number(div.querySelectorAll('#app #release-stats ul li a')[1].textContent);
         votes = div.querySelectorAll('#app #release-stats ul li:nth-child(4) a')[0].textContent;
@@ -191,7 +190,7 @@ rl.ready(() => {
    * @param {Number} delay - The time in milliseconds to delay each request
    * @returns {Array} - An array of comment counts for each URL
    */
-  async function scanReleases(urls, delay) {
+  async function scanReleases(urls, ids, delay) {
 
     let button = document.querySelector('.de-scan-releases'),
         responses = [],
@@ -203,10 +202,10 @@ rl.ready(() => {
     button.disabled = true;
     button.textContent = 'Scanning...';
 
-    for ( let url of urls ) {
+    for ( let [i, url] of urls.entries() ) {
 
       try {
-        let data = await fetchRelease(url);
+        let data = await fetchRelease(url, ids[i]);
 
         document.querySelector('.de-loader').remove();
         appendCount(data, index);
@@ -217,6 +216,7 @@ rl.ready(() => {
         responses.push(null);
       }
       await promiseDelay(delay);
+
     }
 
     button.textContent = 'Scan Complete';
@@ -271,7 +271,7 @@ rl.ready(() => {
       // Event Listeners
       // ------------------------------------------------------
       document.querySelector('.de-scan-releases').addEventListener('click', () => {
-        scanReleases(releases, interval)
+        scanReleases(releases, ids, interval)
           .then(res => res)
           .catch(err => console.error(err));
       });
