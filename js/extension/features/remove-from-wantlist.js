@@ -73,10 +73,9 @@ rl.ready(() => {
 
     try {
 
-      let releaseId = id.split('/release/')[1],
-          releases = document.querySelectorAll('.item_description .item_release_link'),
+      let releases = document.querySelectorAll('.item_description .item_release_link'),
           headers = { 'content-type': 'application/x-www-form-urlencoded' },
-          url = `https://www.discogs.com/_rest/wantlist/${releaseId}`,
+          url = `https://www.discogs.com/_rest/wantlist/${id}`,
           initObj = {
             credentials: 'include',
             headers: headers,
@@ -85,10 +84,12 @@ rl.ready(() => {
           response = await fetch(url, initObj);
 
       if ( response.ok ) {
+
         // Go over all the releases to check for duplicates
         releases.forEach(release => {
-          let tr = release.closest('.shortcut_navigable');
-          if ( release.href === id ) {
+          let tr = release.closest('tr.shortcut_navigable');
+
+          if ( tr.dataset.releaseId == id ) {
             tr.classList.add('hide');
             setTimeout(() => { tr.style.display = 'none'; }, 300);
           }
@@ -125,7 +126,7 @@ rl.ready(() => {
         div.className = 'de-remove-wantlist-wrap';
 
         a.className = 'de-remove-wantlist';
-        a.dataset.id = release.href;
+        a.dataset.id = release.closest('tr').dataset.releaseId;
         a.style = 'display:block;';
         a.textContent = 'Remove From Wantlist';
 

@@ -3552,6 +3552,12 @@
         white-space: pre-line !important;
         color: white !important;
         word-break: break-word;
+
+        div[class*="markup_"] {
+          white-space: pre-line !important;
+          color: white !important;
+          word-break: break-word;
+        }
       }
 
       button[class*="wrapper_"]:hover {
