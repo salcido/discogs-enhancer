@@ -50,7 +50,7 @@
         elem.addEventListener('click', window.activateNotesCounter);
         // set the height of the notes elem to the data attr for reference later
         if ( elem.querySelector('div[class*="value_"]') ) {
-          elem.querySelector('div[class*="value_"]').dataset.height = elem.offsetHeight;
+          elem.closest('div[class*="field_"]').dataset.height = elem.offsetHeight + 10;
         }
       });
     };
@@ -59,14 +59,16 @@
      * Activates the notes counter when a note field is clicked
      * @returns {undefined}
      */
-    window.activateNotesCounter = function activateNotesCounter() {
+    window.activateNotesCounter = function activateNotesCounter(event) {
 
-      let count;
+      let count,
+          field = event.target.closest('div[class*="field_"]');
+
       // Wait for text field to be rendered in the DOM before
       // looking for its length value
       setTimeout(() => {
 
-        let focus = document.querySelector(':focus');
+        let focus = field.querySelector('textarea');
 
         if ( focus ) {
 
@@ -107,7 +109,7 @@
     /**
      * Counts the characters in the notes fields and
      * adds `.price` to the count element when the
-     * count approaches 250.
+     * count approaches 255.
      * @returns {undefined}
      */
     window.warnOnNoteLimit = function warnOnNoteLimit() {
@@ -146,8 +148,10 @@
 
       // "wrapper_" is the button that opens the notes field
       // "value_" is the notes field (is returned when there are pre-existing notes)
+      // "markup_" is the notes field content
       if ( Array.from(classList).some((c) => /wrapper_.*/.test(c)) ||
-           Array.from(classList).some((c) => /value_.*/.test(c)) ) {
+           Array.from(classList).some((c) => /value_.*/.test(c)) ||
+           Array.from(classList).some((c) => /markup_.*/.test(c)) ) {
 
         document.querySelectorAll('div[class*="textedit_"]').forEach(elem => {
           let textarea = elem.querySelectorAll('[class*="textarea_"]')[0];
@@ -155,7 +159,7 @@
           elem.querySelectorAll('button')[0].classList.add('notes_edit_save');
           elem.querySelectorAll('button')[1].classList.add('notes_edit_cancel');
           textarea.classList.add('notes_textarea');
-          textarea.style.height = `${event.target.dataset.height}px`;
+          textarea.style.height = `${elem.closest('div[class*="field_"]').dataset.height}px`;
           // Place the cursor after the last character of the note
           textarea.selectionStart = textarea.value.length;
         });
