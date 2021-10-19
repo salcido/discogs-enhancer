@@ -6,6 +6,10 @@ module.exports = {
       ],
       updates: [
         {
+          name: 'Bugfix',
+          description: 'Fixed an issue with the new release URL structure in the Release Scanner and Remove From Wantlist shortcuts features.'
+        },
+        {
           name: 'Enhancement',
           description: 'I\'ve added a new endpoint that will allow me to send a heads up if there are changes to Discogs that end up breaking a feature of Discogs Enhancer. Hopefully this will go a long way to getting the word out when something goes wrong.'
         },
