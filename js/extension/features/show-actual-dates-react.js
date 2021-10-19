@@ -40,12 +40,12 @@
        */
       function convertTo24(time12h) {
 
-        let [time, modifier] = time12h.split(' '),
+        let [time, meridiem] = time12h.split(' '),
             [hours, minutes,] = time.split(':');
 
         if ( hours === '12' ) { hours = '00'; }
 
-        if ( modifier === 'PM' ) { hours = parseInt(hours, 10) + 12; }
+        if ( meridiem === 'PM' ) { hours = parseInt(hours, 10) + 12; }
 
         return `${hours}:${minutes}`;
       }
@@ -90,15 +90,25 @@
       * @returns {undefined}
       */
       function renderDate(elem) {
+
         let timestamp = elem.querySelector('span[class*="added_"]').title, // '5/4/2015, 11:41:51 PM'
             isoString = new Date(timestamp).toISOString(), // '2015-05-05T06:41:51.000Z'
             dateOffset = toIsoStringOffset(new Date(isoString)).split('T')[0], // '2015-05-04'
-            [year, month, day] = dateOffset.split('-'), // ['2015', '05', '04']
             timeRaw = new Date(timestamp).toLocaleTimeString().split(' '), // ['11:41:51', 'PM']
             [hours, mins] = timeRaw[0].split(':'),
             meridiem = timeRaw[1],
             time = `${hours}:${mins} ${meridiem}`,
-            monthIndex = monthList.indexOf(month),
+            year,
+            month,
+            day;
+
+        if (navigator.language == 'en-US') {
+          [year, month, day] = dateOffset.split('-'); // ['2015', '05', '04']
+        } else {
+          [year, day, month] = dateOffset.split('-');
+        }
+
+        let monthIndex = monthList.indexOf(month),
             international = `Added ${day} ${getMonth(monthIndex)} ${year} ${convertTo24(time)}`,
             american = `Added ${getMonth(monthIndex)} ${day}, ${year} ${time}`,
             actualDateAdded = usDateFormat ? american : international;
