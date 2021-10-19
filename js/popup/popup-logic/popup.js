@@ -308,11 +308,11 @@ window.addEventListener('load', () => {
   userCurrency.addEventListener('change', () => applySave(null, event));
 
   /**
-   * Fetchs known issues from discogs-enhancer.com/issues
+   * Fetches known issues from discogs-enhancer.com/issues
    * @returns {Object} - Performance issue data: { content: <string>, version: <string> }
    */
    async function getIssues() {
-    let url,
+    let url = 'https://discogs-enhancer.com/issues',
         hasBlocklist = localStorage.getItem('blockList'),
         blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
 
@@ -322,8 +322,6 @@ window.addEventListener('load', () => {
         && blocklist.list.includes('development')
       ) {
       url = 'http://localhost:3000/issues';
-    } else {
-      url = 'https://discogs-enhancer.com/issues';
     }
 
     return await fetch(url)
@@ -335,20 +333,38 @@ window.addEventListener('load', () => {
 
   /**
    * Compares version numbers and returns a boolean
-   * which is used to show a note about any known site issues.
-   * @param {String} va - a version string (1.0.0)
-   * @param {String} vb - a version string (1.0.1)
+   * which is used to display a note about any known site issues.
+   * @param {String} vA - Current version - a version string (1.0.0)
+   * @param {String} vB - Version with issue - a version string (1.0.1)
    * @returns {boolean}
    */
-  function compareVersions(va, vb) {
-    return va.localeCompare(vb, undefined, { numeric: true }) <= 0;
+  function compareVersions(vA, vB) {
+    return vA.localeCompare(vB, undefined, { numeric: true }) <= 0;
+  }
+
+  /**
+   * Iterates over the features array and looks for any enabled
+   * features that are contained within it.
+   * @param {Array} features - An array of feature names returned from /issues endpoint
+   * @returns {Boolean}
+   */
+  function hasFeatureEnabled(features) {
+    let featureEnabled = false;
+
+    for ( let [key] of Object.entries(prefs) ) {
+
+        if ( features.includes('any') || prefs[key] && features.includes(key) ) {
+          featureEnabled = true;
+        }
+    }
+    return featureEnabled;
   }
 
   /**
    * Whether to display the warning message in the popup
    * @param {Object} - The response object from discogs-enhancer.com/issues endpoint
    */
-  function showHeadsUp({ content = null, version = null }) {
+  function showHeadsUp({ content = null, version = null, features = [] }) {
 
     let manifest = chrome.runtime.getManifest(),
         thisVersion = manifest.version,
@@ -359,7 +375,11 @@ window.addEventListener('load', () => {
       showWarning = compareVersions(thisVersion, versionWithIssue);
     }
 
-    if (content && content.length && showWarning) {
+    if ( content
+         && content.length
+         && showWarning
+         && hasFeatureEnabled(features) ) {
+
       let warning = document.querySelector('.issues');
 
       warning.querySelector('.content').textContent = content;
@@ -370,6 +390,9 @@ window.addEventListener('load', () => {
   // ========================================================
   // DOM Setup
   // ========================================================
+
+  // Store prefs to reference with showHeadsup()
+  let prefs;
 
   /**
    * Sets toggle button values when the popup is rendered
@@ -470,6 +493,8 @@ window.addEventListener('load', () => {
       toggleRushhour.checked = result.prefs.useRushhour;
       toggleSotu.checked = result.prefs.useSotu;
       toggleYoutube.checked = result.prefs.useYoutube;
+      // Store prefs to reference with showHeadsup()
+      prefs = result.prefs;
     });
 
     // Set values for features with options
