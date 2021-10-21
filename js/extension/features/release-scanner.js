@@ -262,7 +262,7 @@ rl.ready(() => {
 
   if ( rl.pageIs('artist', 'label') ) {
 
-    let selector = '.section_content.marketplace_box_buttons_count_1';
+    let selector = 'div[class*="marketplace_box_buttons_count_"]';
 
     if ( document.querySelector(selector) ) {
 
