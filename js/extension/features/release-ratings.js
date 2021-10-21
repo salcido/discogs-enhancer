@@ -60,25 +60,31 @@ rl.ready(() => {
    * Gets the release rating and votes from a specified release
    *
    * @method getReleaseRating
-   * @param  {String} id [the event's data-id attribute value]
+   * @param  {String} url [the event's data-id attribute value]
    * @param  {object} parent [the parent of the event.target element]
    * @return {object}
    */
-  async function getReleaseRating(id, parent) {
+  async function getReleaseRating(url, parent) {
 
     try {
 
-      let response = await fetch(id),
+      let response = await fetch(url),
           data = await response.text(),
           div = document.createElement('div'),
+          id = parent.closest('tr').dataset.releaseId,
+          selector = '#release-stats div[class*="items_"] ul li:nth-child(4) a',
+          href = `/release/stats/${id}`,
           rating;
 
       div.innerHTML = data;
-      rating = div.querySelector('.statistics ul:first-of-type li:last-child').textContent;
+      rating = div.querySelector(selector).textContent;
 
       parent.querySelector('.preloader').remove();
 
-      return parent.append(rating);
+      return parent.insertAdjacentHTML(
+        'afterbegin',
+        `Ratings: <a href="${href}" target="_blank">${rating}</a>`
+      );
 
     } catch (err) {
 
