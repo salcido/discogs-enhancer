@@ -1,7 +1,21 @@
 module.exports = {
   current: [
     {
-      version: '2.25.8',
+      version: '2.25.10',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bugfix',
+          description: 'Updated the Marketplace Ratings feature to work with the new Release Page. Fixed Quick Search. And the Release Scanner will now add the scan button even when there are no items for sale.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
+      version: '2.25.9',
       features: [
       ],
       updates: [
@@ -16,8 +30,6 @@ module.exports = {
       ],
       thanks: ['A big thank you to Tobias B. for his kind donation! And shout out to Sonny C. for the bug report!']
     },
-  ],
-  previous: [
     {
       version: '2.25.7',
       features: [
