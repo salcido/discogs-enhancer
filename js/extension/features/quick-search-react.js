@@ -56,10 +56,10 @@
   // CSS
   // ========================================================
   let rules = `
-      .de-one-click {
+      .de-quick-search {
         cursor: pointer;
       }
-      .de-one-click:hover {
+      .de-quick-search:hover {
         text-decoration: underline;
       }
       .de-external {
@@ -69,7 +69,7 @@
         opacity: 0;
         position: absolute;
       }
-      .de-one-click:hover + .de-external {
+      .de-quick-search:hover + .de-external {
         opacity: 1;
         text-decoration: none;
       }
@@ -80,7 +80,7 @@
   // ========================================================
   let i = document.createElement('i'),
       query = document.title.replace(re, ''),
-      releaseTitle = document.querySelector('#release-header h1');
+      releaseTitle = document.querySelector('h1[class*="title_"]');
 
   // DOM manipulation
   i.classList = 'icon icon-external-link de-external';
@@ -88,13 +88,13 @@
   let regex = /(\– .+)+$/g,
   titleText = releaseTitle.innerHTML.match(regex);
 
-  let newReleaseMarkup = releaseTitle.innerHTML.toString().replace(regex, `<span class="de-one-click">${titleText[0]}</span>`);
+  let newReleaseMarkup = releaseTitle.innerHTML.toString().replace(regex, `<span class="de-quick-search">${titleText[0]}</span>`);
 
   releaseTitle.innerHTML = newReleaseMarkup;
   releaseTitle.insertAdjacentElement('beforeend', i);
 
   // Click handler
-  document.querySelector('.de-one-click').addEventListener('click', () => {
+  document.querySelector('.de-quick-search').addEventListener('click', () => {
     window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
   });
 

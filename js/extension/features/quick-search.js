@@ -56,10 +56,10 @@
   // CSS
   // ========================================================
   let rules = `
-      .de-one-click {
+      .de-quick-search {
         cursor: pointer;
       }
-      .de-one-click:hover {
+      .de-quick-search:hover {
         text-decoration: underline;
       }
       .de-external {
@@ -69,7 +69,7 @@
         opacity: 0;
         position: absolute;
       }
-      .de-one-click:hover + .de-external {
+      .de-quick-search:hover + .de-external {
         opacity: 1;
         text-decoration: none;
       }
@@ -84,7 +84,7 @@
 
   // DOM manipulation
   i.classList = 'icon icon-external-link de-external';
-  releaseTitle.nextElementSibling.classList = 'de-one-click';
+  releaseTitle.nextElementSibling.classList = 'de-quick-search';
   releaseTitle.nextElementSibling.insertAdjacentElement('afterend', i);
   releaseTitle.nextElementSibling.textContent = releaseTitle.nextElementSibling.textContent.trim();
 
