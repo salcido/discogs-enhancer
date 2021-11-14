@@ -986,6 +986,33 @@
     },
 
     /**
+     * Sets up a MutationObserver to look for specific
+     * DOM elements to be rendered.
+     * @param {String} selector - querySelector string
+     * @returns {Promise}
+     */
+    setObserver: function(selector) {
+      return new Promise(resolve => {
+        if ( document.querySelector(selector) ) {
+          return resolve(document.querySelector(selector));
+        }
+
+        let observer = new MutationObserver(() => {
+          if ( document.querySelector(selector) ) {
+
+            observer.disconnect();
+            return resolve(document.querySelector(selector));
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      });
+    },
+
+    /**
      * Sets feature data on the `userPreferences` object
      * @param {String} name - The prop name to set
      * @param {Object|Array|Number|String} value - The prop value to set
@@ -1092,27 +1119,14 @@
      * @returns   {Promise}
      */
       waitForElement: function(selector) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           let int = setInterval(() => {
-            if ( document.querySelector(selector) && document.hasFocus() ) {
+            if (document.hasFocus()) {
               clearInterval(int);
-              return resolve(document.querySelector(selector));
+              return resolve(this.setObserver(selector));
             }
-
-            let observer = new MutationObserver(() => {
-              if ( document.querySelector(selector) && document.hasFocus() ) {
-                clearInterval(int);
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-              }
-            });
-
-            observer.observe(document.body, {
-              childList: true,
-              subtree: true
-            });
           }, 100);
         });
-      }
+      },
   };
 }());
