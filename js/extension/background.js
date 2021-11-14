@@ -219,7 +219,10 @@ appendFragment([resourceLibrary]).then(() => {
     // Don't use the dark theme on subdomains or when printing an order
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
-    if ( !window.location.href.includes('www') || window.location.href.includes('/order/prints?')) {
+    if ( !window.location.href.includes('www')
+         || window.location.href.includes('/order/prints?')
+         || window.location.href.includes('/digs')) {
+
       document.documentElement.classList.remove('de-dark-theme');
     }
 

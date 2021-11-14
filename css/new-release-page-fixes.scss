@@ -168,6 +168,20 @@
         }
       }
 
+      // review text block
+      div[class*="markup_"] {
+        margin-top: .25rem;
+      }
+
+      // reply / helpful buttons
+      div[class*="markup_"] + div {
+        margin-top: .5rem;
+
+        button {
+          margin-right: 1rem;
+        }
+      }
+
       // Star ratings on release and reviews
       span[class*="rating_"] {
         margin-top: .2rem !important;

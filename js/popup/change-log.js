@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.11',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'I have disabled the Dark Theme on the new Discogs Digs page for the time being. Sorry for the inconvenience.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.10',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: []
     },
-  ],
-  previous: [
     {
       version: '2.25.9',
       features: [
