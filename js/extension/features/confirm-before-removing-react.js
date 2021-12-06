@@ -178,22 +178,6 @@ rl.ready(() => {
     });
   }
 
-  async function fetchCollectionIDs(releaseId) {
-
-    let hash = rl.getPreference('userHash'),
-        url = `/internal/release-page/api/graphql?operationName=UserReleaseData&variables={"discogsId":${releaseId}}&extensions={"persistedQuery":{"version":1,"sha256Hash":"${hash}"}}`;
-
-    // Return an empty array if this executes before
-    // the userHash has been written to localStorage
-    if (!hash) return [];
-
-    return fetch(url)
-      .then(response => response.json())
-      .then(res => {
-        return res.data.release.collectionItems.edges;
-    });
-  }
-
   // ========================================================
   // CSS
   // ========================================================
@@ -250,7 +234,7 @@ rl.ready(() => {
       setTimeout(async () => {
         let regex = /(\d+)/g,
             releaseId = document.querySelector('#release-actions button[class*="id_"]').textContent.match(regex),
-            ids = await fetchCollectionIDs(releaseId),
+            ids = await window.getUserData(releaseId),
             itemsInCollection = document.querySelectorAll('div[class*="collection_"]');
 
         ids.forEach((id, i) => {
