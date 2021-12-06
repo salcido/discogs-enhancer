@@ -44,7 +44,7 @@ rl.ready(() => {
 
       if (div.querySelector('#app')) {
         // react
-        reviewCount = await window.getUserData(id);
+        reviewCount = await window.getReleaseData(id);
         haves = Number(div.querySelectorAll('#app #release-stats ul li a')[0].textContent);
         wants = Number(div.querySelectorAll('#app #release-stats ul li a')[1].textContent);
         votes = div.querySelectorAll('#app #release-stats ul li:nth-child(4) a')[0].textContent;
