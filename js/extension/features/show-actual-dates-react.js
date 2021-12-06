@@ -62,6 +62,25 @@
       }
 
       /**
+       * Injects the `addedAt` data into the "In Collection" element(s)
+       * @returns {Promise}
+       */
+      function getAddedDate() {
+        return new Promise((resolve) => {
+          return setTimeout(async () => {
+            let regex = /(\d+)/g,
+                releaseId = document.querySelector('#release-actions button[class*="id_"]').textContent.match(regex),
+                ids = await window.getUserData(releaseId),
+                itemsInCollection = document.querySelectorAll('div[class*="collection_"]');
+
+            ids.forEach((id, i) => { itemsInCollection[i].dataset.addedAt = id.node.addedAt; });
+
+            return resolve();
+          }, 100);
+        });
+      }
+
+      /**
        * Returns a string in simplified extended ISO format which
        * accounts for the user's timezone offset
        * @param {<object>Date} date - Date object
@@ -91,10 +110,9 @@
       */
       function renderDate(elem) {
 
-        let timestamp = elem.querySelector('span[class*="added_"]').title, // '5/4/2015, 11:41:51 PM'
-            isoString = new Date(timestamp).toISOString(), // '2015-05-05T06:41:51.000Z'
-            dateOffset = toIsoStringOffset(new Date(isoString)).split('T')[0], // '2015-05-04'
-            timeRaw = new Date(timestamp).toLocaleTimeString().split(' '), // ['11:41:51', 'PM']
+        let timestamp = elem.dataset.addedAt, // '2019-02-01T16:39:27-08:00'
+            dateOffset = toIsoStringOffset(new Date(timestamp)).split('T')[0], // '2019-02-01'
+            timeRaw = new Date(timestamp).toLocaleTimeString().split(' '), // ['04:39:51', 'PM']
             [hours, mins] = timeRaw[0].split(':'),
             meridiem = timeRaw[1],
             time = `${hours}:${mins} ${meridiem}`,
@@ -103,7 +121,7 @@
             day;
 
         if (navigator.language == 'en-US') {
-          [year, month, day] = dateOffset.split('-'); // ['2015', '05', '04']
+          [year, month, day] = dateOffset.split('-'); // ['2019', '02', '01']
         } else {
           [year, day, month] = dateOffset.split('-');
         }
@@ -133,21 +151,24 @@
 
       rl.attachCss('date-toggle', rules);
       storeRelativeDates();
-      copies.forEach(copy => renderDate(copy));
 
-      // Event listeners
-      // ------------------------------------------------------
-      copies.forEach(copy => {
+      getAddedDate().then(() => {
+        copies.forEach(copy => renderDate(copy));
 
-        let span = copy.querySelector('span[class*="added_"'),
-            actual = span.textContent;
+        // Mouseover/mouseleave Event listeners
+        // ------------------------------------------------------
+        copies.forEach(copy => {
 
-        copy.querySelector('span[class*="added_"').addEventListener('mouseover', () => {
-          span.textContent = span.dataset.approx;
-        });
+          let span = copy.querySelector('span[class*="added_"'),
+              actual = span.textContent;
 
-        copy.querySelector('span[class*="added_"').addEventListener('mouseleave', () => {
-          span.textContent = actual;
+          copy.querySelector('span[class*="added_"').addEventListener('mouseover', () => {
+            span.textContent = span.dataset.approx;
+          });
+
+          copy.querySelector('span[class*="added_"').addEventListener('mouseleave', () => {
+            span.textContent = actual;
+          });
         });
       });
     });

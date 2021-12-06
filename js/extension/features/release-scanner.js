@@ -44,7 +44,7 @@ rl.ready(() => {
 
       if (div.querySelector('#app')) {
         // react
-        reviewCount = await fetchCommentsFromRelease(id);
+        reviewCount = await window.getReleaseData(id);
         haves = Number(div.querySelectorAll('#app #release-stats ul li a')[0].textContent);
         wants = Number(div.querySelectorAll('#app #release-stats ul li a')[1].textContent);
         votes = div.querySelectorAll('#app #release-stats ul li:nth-child(4) a')[0].textContent;
@@ -77,23 +77,6 @@ rl.ready(() => {
 
       console.error('Could not fetch release count for: ', url, err);
     }
-  }
-
-  /**
-   * Returns the number of comments from the new release page
-   * @param {number} releaseId - The release ID to look up
-   * @returns {number}
-   */
-  async function fetchCommentsFromRelease(releaseId) {
-
-    let hash = rl.getPreference('releaseHash'),
-        url = `/internal/release-page/api/graphql?operationName=DeferredReleaseData&variables={"discogsId":${releaseId}}&extensions={"persistedQuery":{"version":1,"sha256Hash":"${hash}"}}`;
-
-    return fetch(url)
-      .then(response => response.json())
-      .then(res => {
-        return res.data.release.reviews.totalCount;
-    });
   }
 
   /**
