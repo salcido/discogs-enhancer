@@ -12,18 +12,34 @@
  * updates the hashes when they change so that requests made by
  * the extension will be successful.
  */
+ const USER_TYPE = 'UserReleaseData',
+       RELEASE_TYPE = 'DeferredReleaseData';
 
- function onRequestsObserved(batch) {
+ let releaseDataObserver,
+     userDataObserver,
+     releaseHash = '',
+     releaseData = '',
+     userHash = '',
+     userData = '';
+
+
+ function onReleaseRequestsObserved(batch) {
   let name = batch.getEntries()[0].name;
   // Release Data
-  if (name.includes('DeferredReleaseData')) {
-    let hash = extractHash(name);
-    updateHash('releaseHash', hash);
+  if (name.includes(RELEASE_TYPE)) {
+    releaseHash = extractHash(name);
+    updateHash('releaseHash', releaseHash);
+    releaseDataObserver.disconnect();
   }
+}
+
+ function onUserRequestsObserved(batch) {
+  let name = batch.getEntries()[0].name;
   // User Data
-  if (name.includes('UserReleaseData')) {
-    let hash = extractHash(name);
-    updateHash('userHash', hash);
+  if (name.includes(USER_TYPE)) {
+    userHash = extractHash(name);
+    updateHash('userHash', userHash);
+    userDataObserver.disconnect();
   }
 }
 
@@ -54,7 +70,56 @@ function extractHash(name) {
   return hash;
 }
 
+function fetchData(type, hash, releaseId) {
+  return new Promise((resolve) => {
+    let url = `/internal/release-page/api/graphql?operationName=${type}&variables={"discogsId":${releaseId}}&extensions={"persistedQuery":{"version":1,"sha256Hash":"${hash}"}}`;
+    return fetch(url)
+      .then(response => response.json())
+      .then(res => {
+        if (type === USER_TYPE) {
+          userData = res.data.release.collectionItems.edges;
+          return resolve(userData);
+        }
+
+        if (type === RELEASE_TYPE) {
+          // TODO: just return release and have feature grab review count
+          releaseData = res.data.release.reviews.totalCount;
+          return resolve(releaseData);
+        }
+    }).catch(err => console.log(`Discogs Enhancer could not fetchData for ${type}`, err));
+  });
+}
+
+window.getUserData = function getUserData(releaseId) {
+  return new Promise((resolve) => {
+    if (userData) {
+      return resolve(userData);
+    } else {
+      let usrHash = rl.getPreference('userHash');
+      return resolve(fetchData(USER_TYPE, usrHash, releaseId));
+    }
+  });
+};
+
+window.getReleaseData = function getReleaseData(releaseId) {
+  return new Promise((resolve) => {
+    if (releaseData) {
+      return resolve(releaseData);
+    } else {
+      let rlsHash = rl.getPreference('releaseHash');
+      return resolve(fetchData(RELEASE_TYPE, rlsHash, releaseId));
+    }
+  });
+};
+
+// ========================================================
+// DOM setup
+// ========================================================
 if ( rl.pageIs('release') ) {
-  let requestObserver = new PerformanceObserver(onRequestsObserved);
-  requestObserver.observe( { type: 'resource' } );
+
+  releaseDataObserver = new PerformanceObserver(onReleaseRequestsObserved);
+  userDataObserver = new PerformanceObserver(onUserRequestsObserved);
+
+  releaseDataObserver.observe( { type: 'resource' } );
+  userDataObserver.observe( { type: 'resource' } );
 }
