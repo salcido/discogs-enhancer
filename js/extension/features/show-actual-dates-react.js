@@ -116,15 +116,7 @@
             [hours, mins] = timeRaw[0].split(':'),
             meridiem = timeRaw[1],
             time = `${hours}:${mins} ${meridiem}`,
-            year,
-            month,
-            day;
-
-        if (navigator.language == 'en-US') {
-          [year, month, day] = dateOffset.split('-'); // ['2019', '02', '01']
-        } else {
-          [year, day, month] = dateOffset.split('-');
-        }
+            [year, month, day] = dateOffset.split('-'); // ['2019', '02', '01']
 
         let monthIndex = monthList.indexOf(month),
             international = `Added ${day} ${getMonth(monthIndex)} ${year} ${convertTo24(time)}`,
