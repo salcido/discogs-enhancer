@@ -124,7 +124,7 @@
                 <div class="de-random-item-tooltip">Random Item</div>
               </div>`;
 
-    rl.waitForElement(selector).then(() => {
+    rl.waitForElement(selector + ' a').then(() => {
       document.querySelector(selector).insertAdjacentHTML(position, icon);
 
       // show the tooltip
