@@ -18,7 +18,6 @@
  let releaseDataObserver,
      userDataObserver,
      releaseHash = '',
-     releaseData = '',
      userHash = '',
      userData = '';
 
@@ -83,7 +82,7 @@ function fetchData(type, hash, releaseId) {
 
         if (type === RELEASE_TYPE) {
           // TODO: just return release and have feature grab review count
-          releaseData = res.data.release.reviews.totalCount;
+          let releaseData = res.data.release.reviews.totalCount;
           return resolve(releaseData);
         }
     }).catch(err => console.log(`Discogs Enhancer could not fetchData for ${type}`, err));
@@ -103,12 +102,8 @@ window.getUserData = function getUserData(releaseId) {
 
 window.getReleaseData = function getReleaseData(releaseId) {
   return new Promise((resolve) => {
-    if (releaseData) {
-      return resolve(releaseData);
-    } else {
-      let rlsHash = rl.getPreference('releaseHash');
-      return resolve(fetchData(RELEASE_TYPE, rlsHash, releaseId));
-    }
+    let rlsHash = rl.getPreference('releaseHash');
+    return resolve(fetchData(RELEASE_TYPE, rlsHash, releaseId));
   });
 };
 
