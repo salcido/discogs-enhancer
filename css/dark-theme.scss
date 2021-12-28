@@ -343,8 +343,19 @@
     }
   }
 
-  li.ui-menu-item a span.sublabel {
-    color: gray !important;
+  li.ui-menu-item {
+    a.ui-state-focus {
+      background: #222 !important;
+    }
+  }
+
+  li.ui-menu-item a {
+    span.with-sublabel {
+      color: #829fc4 !important;
+    }
+    span.sublabel {
+      color: #ccc !important;
+    }
   }
 
   #site_footer_wrap {
@@ -3722,6 +3733,10 @@
         ul[class*="results_"] li {
           border-bottom: 1px solid #454545 !important;
 
+          a[class*="active_"] {
+            background: #222 !important;
+          }
+
           a:visited span[class*="title_"] {
             color: #a590d0 !important;
           }
@@ -3735,7 +3750,7 @@
           }
 
           &:hover {
-            background: #434343 !important;
+            background: #222 !important;
 
             span[class*="title_"] {
               color: #cae0fa !important;
