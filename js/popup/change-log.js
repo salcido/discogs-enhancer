@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.16',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue with the Dark Theme. Thanks to Kristian for letting me know!'
+        }
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.15',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: ['Huge thank you to Salvatore C. for his tireless efforts in helping me finally solve an international date bug.And a massive thank you to h0ve9 for their donations!']
     },
-  ],
-  previous: [
     {
       version: '2.25.12',
       features: [
