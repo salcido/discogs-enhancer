@@ -1,7 +1,7 @@
 module.exports = {
   current: [
     {
-      version: '2.25.17',
+      version: '2.25.18',
       features: [
       ],
       updates: [
