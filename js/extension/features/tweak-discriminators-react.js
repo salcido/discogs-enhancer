@@ -69,7 +69,7 @@
 
     generateCss(hide, superscript, unselectable, transparent);
 
-    document.querySelectorAll('#release-header h1 a').forEach(s => {
+    document.querySelectorAll('div[class^="main_"] h1 a').forEach(s => {
 
       let markup = `<span class="trim-me">$1</span><${elemType} class="de-discriminator">$2</${elemType}>`;
 
