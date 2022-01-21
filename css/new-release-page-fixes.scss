@@ -30,6 +30,16 @@
     }
   }
 
+  // Credits
+  #Credits {
+    span[class*="fallback_"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #454545 !important;
+    }
+  }
+
   #release-header {
     h1 {
       margin-bottom: .5rem !important;
@@ -139,8 +149,14 @@
         margin-left: .4rem !important;
       }
 
-      div[class*="content_"] div[class*="content_"] {
-        margin: .3rem 0 !important;
+      div[class*="content_"] {
+        p {
+          margin: 0.25rem 0;
+          padding: 0;
+        }
+        div[class*="content_"] {
+          margin: .3rem 0 !important;
+        }
       }
 
       div[class*="edited_"] {
