@@ -3523,6 +3523,14 @@
       }
     }
 
+    div[class*="masterWrapper"] {
+      border-top: 1px solid #454545 !important;
+    }
+
+    button[class*="showMoreButton"] {
+      border: 1px solid #454545 !important;
+    }
+
     #release-header {
       h1 {
         margin-bottom: .5rem;
@@ -4048,6 +4056,112 @@
     ul[class*="list_"] {
       li[class*="video_"]:hover {
         background: #454545 !important;
+      }
+    }
+  }
+
+  // Master Release Version Finder
+  div[class*="main_"] {
+
+    button.aui-primary {
+      background: black !important;
+
+      &:hover {
+        background: #333 !important;
+      }
+    }
+
+    button.aui-secondary {
+      border: 1px solid #454545 !important;
+      background: #292929 !important;
+    }
+
+    div[class*="dropdown__ListBox"] {
+      border: 1px solid #454545 !important;
+      background: #292929 !important;
+      box-shadow: none;
+
+      button:hover {
+        background: black !important;
+      }
+    }
+
+    section[class*="section_"] {
+      div[class*="content_"] {
+
+        button[class*="chip__Button"] {
+          background: black !important;
+        }
+
+        div[class*="progressbar__Bar"] {
+          background: #7e99bc !important;
+        }
+
+        table[class*="ui__Table"] {
+          tr[class*="row__HeaderRow"] {
+            background: #454545 !important;
+          }
+          tr[class*="row__TableRow"] {
+            border: 1px solid #454545 !important;
+
+            &:hover {
+              background: #444 !important;
+            }
+
+            td[class*="row__Cell"] {
+              svg path {
+                fill: #ccc !important;
+              }
+
+              span[class*="row__Tag"] {
+                background: #f5df2e !important;
+                color: black !important;
+              }
+            }
+
+            div[class*="row__Tray"] {
+              background: #292929 !important;
+            }
+          }
+        }
+
+        div[class*="ui__Filters"] {
+          div[class*="ui__Wrapper"] {
+
+            div[class*="ui__Box"] {
+              border: 1px solid #454545 !important;
+              background: #292929 !important;
+
+              input {
+                &::placeholder {
+                  color: #666 !important;
+                }
+              }
+            }
+
+            #filter-select-listbox {
+              border: 1px solid #454545 !important;
+              background: #292929 !important;
+              box-shadow: none;
+
+              span[class*="ui__Tick"] {
+                border: 1px solid #454545 !important;
+
+                &.dMPUAr {
+                  background: black !important;
+                }
+              }
+              div[class*="ui__Size"] {
+                background: #454545 !important;
+              }
+              div[class*="ui__Item-"] {
+                &:hover {
+                  background: #222 !important;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
