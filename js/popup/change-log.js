@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.17',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue with Tweak Discriminators.'
+        }
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.16',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: []
     },
-  ],
-  previous: [
     {
       version: '2.25.15',
       features: [
