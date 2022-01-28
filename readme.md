@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/travis/salcido/discogs-enhancer/master?style=for-the-badge" alt="Build Status">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/users-5.4k-brightgreen?style=for-the-badge" alt="Chrome Web Store">
+    <img src="https://img.shields.io/badge/users-6.1k-brightgreen?style=for-the-badge" alt="Chrome Web Store">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/rating-4.85%2F5-blue?style=for-the-badge" alt="Chrome Web Store">
