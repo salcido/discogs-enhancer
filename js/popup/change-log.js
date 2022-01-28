@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.19',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue with Release Scanner where it would not run on some Master Release pages.'
+        }
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.18',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: []
     },
-  ],
-  previous: [
     {
       version: '2.25.16',
       features: [
