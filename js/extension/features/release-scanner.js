@@ -13,7 +13,7 @@ rl.ready(() => {
       colorize = opts && opts.wants ? opts.wants : null,
       interval = opts && opts.int ? Number(opts.int) : 1000,
       releases = [...document.querySelectorAll('.card td.image a')].map(r => r.href),
-      ids = [...document.querySelectorAll('.card')].map(r => r.dataset.objectId),
+      ids = [...document.querySelectorAll('.card')].map(r => r.id),
       skittles = document.querySelectorAll('.skittles .skittles'),
       checkbox = document.querySelectorAll('td.mr_checkbox'),
       button = '<button class="buy_release_button button button-green de-scan-releases">Scan Releases</button>';
@@ -44,11 +44,25 @@ rl.ready(() => {
 
       if (div.querySelector('#app')) {
         // react
-        reviewCount = await window.getReleaseData(id);
-        haves = Number(div.querySelectorAll('#app #release-stats ul li a')[0].textContent);
-        wants = Number(div.querySelectorAll('#app #release-stats ul li a')[1].textContent);
-        votes = div.querySelectorAll('#app #release-stats ul li:nth-child(4) a')[0].textContent;
-        rating = div.querySelectorAll('#app #release-stats ul li:nth-child(3) span')[0].textContent.split(' / ')[0];
+        let mSelector = 'div[class*="side_3"] div[class*="items_"]',
+            rSelector = '#app #release-stats ul li';
+
+        reviewCount = id.includes('m')
+                    ? await window.getMasterData(id.match(/\d+/)[0]) // => hashes.js
+                    : await window.getReleaseData(id.match(/\d+/)[0]),
+        haves = id.includes('m')
+                ? Number(div.querySelector(`${mSelector} ul li a`).textContent)
+                : Number(div.querySelectorAll(`${rSelector} a`)[0].textContent);
+        wants = id.includes('m')
+                ? Number(div.querySelector(`${mSelector} ul li a`).textContent)
+                : Number(div.querySelectorAll(`${rSelector} a`)[1].textContent);
+        rating = id.includes('m')
+                ? div.querySelector(`${mSelector}:last-of-type ul li span`).textContent.split(' / ')[0]
+                : div.querySelectorAll(`${rSelector}:nth-child(3) span`)[0].textContent.split(' / ')[0];
+        votes = id.includes('m')
+                ? div.querySelector(`${mSelector}:last-of-type ul li:last-of-type a`).textContent
+                : div.querySelectorAll(`${rSelector}:nth-child(4) a`)[0].textContent;
+
         // no ratings
         if (rating.includes('--')) rating = 0;
 
@@ -69,7 +83,7 @@ rl.ready(() => {
         }
       }
 
-      moreWants = wants > (haves * 1.9);
+      moreWants = wants > (haves * 1.5);
 
       return { reviewCount, moreWants, rating, votes };
 
