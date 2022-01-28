@@ -13,16 +13,19 @@
  * the extension will be successful.
  */
  const USER_TYPE = 'UserReleaseData',
-       RELEASE_TYPE = 'DeferredReleaseData';
+       RELEASE_TYPE = 'DeferredReleaseData',
+       MASTER_TYPE = 'DeferredMasterData';
 
  let releaseDataObserver,
+     masterDataObserver,
      userDataObserver,
      releaseHash = '',
+     masterHash = '',
      userHash = '',
      userData = '';
 
 
- function onReleaseRequestsObserved(batch) {
+function onReleaseRequestsObserved(batch) {
   let name = batch.getEntries()[0].name;
   // Release Data
   if (name.includes(RELEASE_TYPE)) {
@@ -32,7 +35,17 @@
   }
 }
 
- function onUserRequestsObserved(batch) {
+function onMasterRequestsObserved(batch) {
+  let name = batch.getEntries()[0].name;
+  // Master Data
+  if (name.includes(MASTER_TYPE)) {
+    masterHash = extractHash(name);
+    updateHash('masterHash', masterHash);
+    masterDataObserver.disconnect();
+  }
+}
+
+function onUserRequestsObserved(batch) {
   let name = batch.getEntries()[0].name;
   // User Data
   if (name.includes(USER_TYPE)) {
@@ -85,6 +98,11 @@ function fetchData(type, hash, releaseId) {
           let releaseData = res.data.release.reviews.totalCount;
           return resolve(releaseData);
         }
+
+        if (type === MASTER_TYPE) {
+          let masterData = res.data.masterRelease.reviews.totalCount;
+          return resolve(masterData);
+        }
     }).catch(err => console.log(`Discogs Enhancer could not fetchData for ${type}`, err));
   });
 }
@@ -107,14 +125,23 @@ window.getReleaseData = function getReleaseData(releaseId) {
   });
 };
 
+window.getMasterData = function getMasterData(masterId) {
+  return new Promise((resolve) => {
+    let mstrHash = rl.getPreference('masterHash');
+    return resolve(fetchData(MASTER_TYPE, mstrHash, masterId));
+  });
+};
+
 // ========================================================
 // DOM setup
 // ========================================================
-if ( rl.pageIs('release') ) {
+if ( rl.pageIs('release') || rl.pageIs('master') ) {
 
   releaseDataObserver = new PerformanceObserver(onReleaseRequestsObserved);
+  masterDataObserver = new PerformanceObserver(onMasterRequestsObserved);
   userDataObserver = new PerformanceObserver(onUserRequestsObserved);
 
   releaseDataObserver.observe( { type: 'resource' } );
+  masterDataObserver.observe( { type: 'resource' } );
   userDataObserver.observe( { type: 'resource' } );
 }
