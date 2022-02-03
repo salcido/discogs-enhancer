@@ -67,6 +67,7 @@ function updateDisplayValues() {
         BRL: 'R$',
         CAD: 'CA$',
         CHF: 'CHF',
+        DKK: 'DKK',
         EUR: '&euro;',
         GBP: '&pound;',
         JPY: '&yen;',

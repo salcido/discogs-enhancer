@@ -52,6 +52,7 @@ rl.ready(() => {
             BRL: 'R$',
             CAD: 'CA$',
             CHF: 'CHF',
+            DKK: 'DKK',
             EUR: '€',
             GBP: '£',
             JPY: '¥',
