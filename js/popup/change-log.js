@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.20',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Added support for the Danish Krone (DKK)!'
+        }
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.19',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: []
     },
-  ],
-  previous: [
     {
       version: '2.25.18',
       features: [
