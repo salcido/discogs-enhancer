@@ -1,6 +1,6 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const sass = require('node-sass');
+const sass = require('sass');
 const webpack = require('webpack');
 
 const config = './js/popup/configuration-pages/';
