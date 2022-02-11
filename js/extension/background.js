@@ -192,6 +192,7 @@ appendFragment([resourceLibrary]).then(() => {
         //
         useAllDay: false,
         useBandcamp: false,
+        useBeatport: false,
         useBoomkat: false,
         useClone: false,
         useDeejay: false,
@@ -1130,6 +1131,17 @@ appendFragment([resourceLibrary]).then(() => {
           id: 'bandcamp',
           method: 'create',
           name: 'Bandcamp',
+          request: 'updateContextMenu'
+        });
+      }
+
+      if (result.prefs.useBeatport) {
+
+        chrome.runtime.sendMessage({
+          fn: 'searchBeatport',
+          id: 'beatport',
+          method: 'create',
+          name: 'Beatport',
           request: 'updateContextMenu'
         });
       }

@@ -10,7 +10,7 @@ module.exports = {
           description: 'Added support for the Danish Krone (DKK)!'
         }
       ],
-      thanks: []
+      thanks: ['Huge thank you to Robert P. for their generous donation!']
     },
   ],
   previous: [

@@ -29,6 +29,11 @@ export function createContextualMenuElements() {
             id: 'bandcamp'
           },
           {
+            name: 'Beatport',
+            fn: 'searchBeatport',
+            id: 'beatport'
+          },
+          {
             name: 'Boomkat',
             fn: 'searchBoomkat',
             id: 'boomkat'

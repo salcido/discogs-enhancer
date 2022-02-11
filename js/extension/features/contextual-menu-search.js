@@ -24,6 +24,14 @@ function searchBandcamp(event) {
   chrome.tabs.create({url: 'https://bandcamp.com/search?q=' + encodeStr});
 }
 
+function searchBeatport(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({url: 'https://www.beatport.com/search?q=' + encodeStr});
+}
+
 function searchBoomkat(event) {
 
   let str = event.selectionText,
