@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.21',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Added Beatport and Red Eye Records to the Contextual Menu items.'
+        }
+      ],
+      thanks: ['Huge thank you to Robert P. for their generous donation!']
+    },
+  ],
+  previous: [
+    {
       version: '2.25.20',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: ['Huge thank you to Robert P. for their generous donation!']
     },
-  ],
-  previous: [
     {
       version: '2.25.19',
       features: [
