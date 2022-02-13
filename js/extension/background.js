@@ -192,6 +192,7 @@ appendFragment([resourceLibrary]).then(() => {
         //
         useAllDay: false,
         useBandcamp: false,
+        useBeatport: false,
         useBoomkat: false,
         useClone: false,
         useDeejay: false,
@@ -200,10 +201,10 @@ appendFragment([resourceLibrary]).then(() => {
         useGramaphone: false,
         useHardwax: false,
         useJuno: false,
-        useKristina: false,
         useOye: false,
         usePhonica: false,
         useRateYourMusic: false,
+        useRedeye: false,
         useRushhour: false,
         useSotu: false,
         useYoutube: false
@@ -1134,6 +1135,17 @@ appendFragment([resourceLibrary]).then(() => {
         });
       }
 
+      if (result.prefs.useBeatport) {
+
+        chrome.runtime.sendMessage({
+          fn: 'searchBeatport',
+          id: 'beatport',
+          method: 'create',
+          name: 'Beatport',
+          request: 'updateContextMenu'
+        });
+      }
+
       if (result.prefs.useBoomkat) {
 
         chrome.runtime.sendMessage({
@@ -1211,17 +1223,6 @@ appendFragment([resourceLibrary]).then(() => {
         });
       }
 
-      if (result.prefs.useKristina) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchKristina',
-          id: 'kristina',
-          method: 'create',
-          name: 'Kristina',
-          request: 'updateContextMenu'
-        });
-      }
-
       if (result.prefs.useOye) {
 
         chrome.runtime.sendMessage({
@@ -1251,6 +1252,17 @@ appendFragment([resourceLibrary]).then(() => {
           id: 'rateyourmusic',
           method: 'create',
           name: 'Rate Your Music',
+          request: 'updateContextMenu'
+        });
+      }
+
+      if (result.prefs.useRedeye) {
+
+        chrome.runtime.sendMessage({
+          fn: 'searchRedeye',
+          id: 'redeye',
+          method: 'create',
+          name: 'Red Eye',
           request: 'updateContextMenu'
         });
       }

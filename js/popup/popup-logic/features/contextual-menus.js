@@ -29,6 +29,11 @@ export function createContextualMenuElements() {
             id: 'bandcamp'
           },
           {
+            name: 'Beatport',
+            fn: 'searchBeatport',
+            id: 'beatport'
+          },
+          {
             name: 'Boomkat',
             fn: 'searchBoomkat',
             id: 'boomkat'
@@ -69,11 +74,6 @@ export function createContextualMenuElements() {
             id: 'juno'
           },
           {
-            name: 'Kristina',
-            fn: 'searchKristina',
-            id: 'kristina'
-          },
-          {
             name: 'Oye',
             fn: 'searchOye',
             id: 'oye'
@@ -87,6 +87,11 @@ export function createContextualMenuElements() {
             name: 'RateYourMusic',
             fn: 'searchRateYourMusic',
             id: 'rateyourmusic'
+          },
+          {
+            name: 'Red Eye',
+            fn: 'searchRedeye',
+            id: 'redeye'
           },
           {
             name: 'Rush Hour',

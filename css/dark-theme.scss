@@ -4106,8 +4106,8 @@
           background: #7e99bc !important;
         }
 
-        table[class*="ui__Table"] {
-          tr[class*="row__HeaderRow"] {
+        table[class*="table__TableUI"] {
+          tr[class*="row__Header"] {
             background: #454545 !important;
           }
           tr[class*="row__TableRow"] {
@@ -4128,8 +4128,21 @@
               }
             }
 
+            button[class*="row__SortButton"] {
+              color: #829fc4 !important;
+              svg {
+                path {
+                  fill: #829fc4 !important;
+                }
+              }
+            }
+
             div[class*="row__Tray"] {
               background: #292929 !important;
+            }
+
+            div[class*="row__Tooltip"] {
+              background: black !important;
             }
 
             span[class*="skittle_"][class*="collection_"] {
@@ -4146,12 +4159,16 @@
             }
           }
           // new submission
-          .djFpBj {
+          .kqSzDR {
             background: #f2b90d !important;
           }
           // needs changes
-          .bmiqgM {
+          .cYhbq {
             background: red !important;
+          }
+          // prices
+          .cWLZCm {
+            color: #e7413f !important;
           }
         }
 
