@@ -183,7 +183,7 @@ module.exports = {
         from: 'css',
         to: 'css',
         globOptions: {
-          ignore: ['*.scss']
+          ignore: ['**/*.scss']
         }
       },
       { from: 'img', to: 'img' },
