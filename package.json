@@ -4,12 +4,12 @@
   "description": "A Chrome extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --colors",
+    "build": "webpack --progress",
     "build:dev": "NODE_ENV=development npm run build",
     "build:production": "NODE_ENV=production npm run build",
     "bump": "node version-bump.js",
     "test": "mocha",
-    "watch": "NODE_ENV=development webpack --watch --progress --colors"
+    "watch": "NODE_ENV=development webpack --watch --progress"
   },
   "repository": {
     "type": "git",
@@ -29,20 +29,20 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-es2016": "^6.24.1",
-    "copy-webpack-plugin": "^5.1.2",
-    "css-loader": "^3.6.0",
-    "eslint": "^6.8.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "css-loader": "^6.6.0",
+    "eslint": "^8.9.0",
     "eslint-plugin-import": "^2.24.2",
     "puppeteer": "^2.1.1",
     "sass": "^1.49.7",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.3.0",
     "url-loader": "^3.0.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
   },
   "dependencies": {
     "clipboardy": "^2.3.0",
-    "mocha": "^7.2.0"
+    "mocha": "^9.2.0"
   }
 }

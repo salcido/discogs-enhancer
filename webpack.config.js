@@ -134,7 +134,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
+        options: {
           plugins: ['transform-async-to-generator'],
           presets: ['es2016']
         },
@@ -152,7 +152,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
@@ -162,26 +162,34 @@ module.exports = {
     __DEV__: development
   }),
   // move all this stuff into the /dist folder
-  new CopyWebpackPlugin([
-    { from: 'manifest.json', to: 'manifest.json' },
-    { from: 'html', to: 'html' },
-    // CSS assets
-    { from: 'css/dark-theme.scss', to: 'css/dark-theme.css',
-      transform(content, path) {
-        let result = sass.renderSync({ file: path });
-        return result.css.toString();
-      }
-    },
-    { from: 'css/new-release-page-fixes.scss', to: 'css/new-release-page-fixes.css',
-      transform(content, path) {
-        let result = sass.renderSync({ file: path });
-        return result.css.toString();
-      }
-    },
-    { from: 'css', to: 'css', ignore: ['*.scss'] },
-    { from: 'img', to: 'img' },
-    // contextual menu searching
-    { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js' }
-  ]),
+  new CopyWebpackPlugin({
+    patterns: [
+      { from: 'manifest.json', to: 'manifest.json' },
+      { from: 'html', to: 'html' },
+      // CSS assets
+      { from: 'css/dark-theme.scss', to: 'css/dark-theme.css',
+        transform(content, path) {
+          let result = sass.renderSync({ file: path });
+          return result.css.toString();
+        }
+      },
+      { from: 'css/new-release-page-fixes.scss', to: 'css/new-release-page-fixes.css',
+        transform(content, path) {
+          let result = sass.renderSync({ file: path });
+          return result.css.toString();
+        }
+      },
+      {
+        from: 'css',
+        to: 'css',
+        globOptions: {
+          ignore: ['*.scss']
+        }
+      },
+      { from: 'img', to: 'img' },
+      // contextual menu searching
+      { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js' }
+    ]
+  }),
  ]
 };
