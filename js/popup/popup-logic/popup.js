@@ -120,6 +120,7 @@ window.addEventListener('load', () => {
       // Contextual menus
       toggleAllDay,
       toggleBandcamp,
+      toggleBeatport,
       toggleBoomkat,
       toggleClone,
       toggleDeeJay,
@@ -128,10 +129,10 @@ window.addEventListener('load', () => {
       toggleGramaphone,
       toggleHardwax,
       toggleJuno,
-      toggleKristina,
       toggleOye,
       togglePhonica,
       toggleRateYourMusic,
+      toggleRedeye,
       toggleRushhour,
       toggleSotu,
       toggleYoutube;
@@ -409,6 +410,7 @@ window.addEventListener('load', () => {
     // Assign contextual menu elements to vars
     toggleAllDay = document.getElementById('allday');
     toggleBandcamp = document.getElementById('bandcamp');
+    toggleBeatport = document.getElementById('beatport');
     toggleBoomkat = document.getElementById('boomkat');
     toggleClone = document.getElementById('clone');
     toggleDeeJay = document.getElementById('deejay');
@@ -417,10 +419,10 @@ window.addEventListener('load', () => {
     toggleGramaphone = document.getElementById('gramaphone');
     toggleHardwax = document.getElementById('hardwax');
     toggleJuno = document.getElementById('juno');
-    toggleKristina = document.getElementById('kristina');
     toggleOye = document.getElementById('oye');
     togglePhonica = document.getElementById('phonica');
     toggleRateYourMusic = document.getElementById('rateyourmusic');
+    toggleRedeye = document.getElementById('redeye');
     toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
     toggleYoutube = document.getElementById('youtube');
@@ -478,6 +480,7 @@ window.addEventListener('load', () => {
       // Contextual menus
       toggleAllDay.checked = result.prefs.useAllDay;
       toggleBandcamp.checked = result.prefs.useBandcamp;
+      toggleBeatport.checked = result.prefs.useBeatport;
       toggleBoomkat.checked = result.prefs.useBoomkat;
       toggleClone.checked = result.prefs.useClone;
       toggleDeeJay.checked = result.prefs.useDeejay;
@@ -486,10 +489,10 @@ window.addEventListener('load', () => {
       toggleGramaphone.checked = result.prefs.useGramaphone;
       toggleHardwax.checked = result.prefs.useHardwax;
       toggleJuno.checked = result.prefs.useJuno;
-      toggleKristina.checked = result.prefs.useKristina;
       toggleOye.checked = result.prefs.useOye;
       togglePhonica.checked = result.prefs.usePhonica;
       toggleRateYourMusic.checked = result.prefs.useRateYourMusic;
+      toggleRedeye.checked = result.prefs.useRedeye;
       toggleRushhour.checked = result.prefs.useRushhour;
       toggleSotu.checked = result.prefs.useSotu;
       toggleYoutube.checked = result.prefs.useYoutube;

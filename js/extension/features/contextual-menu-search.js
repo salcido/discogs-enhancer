@@ -77,7 +77,7 @@ function searchGramaphone(event) {
   let str = event.selectionText,
       encodeStr = encodeURIComponent(str);
 
-  chrome.tabs.create({url: 'http://webstore.gramaphonerecords.com/search.aspx?find=' + encodeStr});
+  chrome.tabs.create({url: 'https://gramaphonerecords.com/search?q=' + encodeStr});
 }
 
 function searchHardwax(event) {
@@ -94,14 +94,6 @@ function searchJuno(event) {
       encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=' + encodeStr});
-}
-
-function searchKristina(event) {
-
-  let str = event.selectionText,
-      encodeStr = encodeURIComponent(str);
-
-  chrome.tabs.create({url: 'http://kristinarecords.com/?s=' + encodeStr});
 }
 
 function searchOye(event) {
@@ -126,6 +118,14 @@ function searchRateYourMusic(event) {
       encodeStr = encodeURIComponent(str);
 
   chrome.tabs.create({url: 'https://rateyourmusic.com/search?searchterm=' + encodeStr + '&type=l'});
+}
+
+function searchRedeye(event) {
+
+  let str = event.selectionText,
+      encodeStr = encodeURIComponent(str);
+
+  chrome.tabs.create({url: 'https://www.redeyerecords.co.uk/search/?searchType=Artist&keywords=' + encodeStr + '&type=l'});
 }
 
 function searchRushhour(event) {

@@ -80,6 +80,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         // Contextual menus
         useAllDay: document.getElementById('allday').checked,
         useBandcamp: document.getElementById('bandcamp').checked,
+        useBeatport: document.getElementById('beatport').checked,
         useBoomkat: document.getElementById('boomkat').checked,
         useClone: document.getElementById('clone').checked,
         useDeejay: document.getElementById('deejay').checked,
@@ -88,10 +89,10 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useGramaphone: document.getElementById('gramaphone').checked,
         useHardwax: document.getElementById('hardwax').checked,
         useJuno: document.getElementById('juno').checked,
-        useKristina: document.getElementById('kristina').checked,
         useOye: document.getElementById('oye').checked,
         usePhonica: document.getElementById('phonica').checked,
         useRateYourMusic: document.getElementById('rateyourmusic').checked,
+        useRedeye: document.getElementById('redeye').checked,
         useRushhour: document.getElementById('rushhour').checked,
         useSotu: document.getElementById('sotu').checked,
         useYoutube: document.getElementById('youtube').checked
