@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.22',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue with Inventory Scanner.'
+        }
+      ],
+      thanks: ['Huge thank you to Robert P. for their generous donation!']
+    },
+  ],
+  previous: [
+    {
       version: '2.25.21',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: ['Huge thank you to Robert P. for their generous donation!']
     },
-  ],
-  previous: [
     {
       version: '2.25.20',
       features: [
