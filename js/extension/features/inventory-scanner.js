@@ -76,7 +76,7 @@ rl.ready(() => {
             data = await response.text(),
             div = document.createElement('div'),
             digits = /\d+./g,
-            priceSelector = '.section.statistics .last li:nth-child(3)',
+            priceSelector = '#release-stats ul:nth-child(2) li:nth-child(3)',
             priceString,
             priceNumber;
 
