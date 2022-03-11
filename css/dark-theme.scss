@@ -4068,7 +4068,8 @@
   // Master Release Version Finder
   div[class*="main_"] {
 
-    button.aui-primary {
+    button.aui-primary,
+    a[class*="tray__ShopButton"] {
       background: black !important;
 
       &:hover {
@@ -4083,6 +4084,34 @@
       &:hover {
         background: #000 !important;
       }
+    }
+
+    div[class*="ui__List"] {
+      border: 1px solid #454545 !important;
+      background: #292929 !important;
+      box-shadow: none;
+
+      button:hover {
+        background: black !important;
+      }
+
+      div[class*="ui__Item"]:hover {
+        span[class*="ui__Tick"] {
+          border: 1px solid #cccccc !important;
+        }
+      }
+
+      span[class*="ui__Tick"] {
+        border: 1px solid #454545 !important;
+      }
+
+      div[class*="ui__Size"] {
+        background: #454545 !important;
+      }
+    }
+
+    div[class*="ui__Well"] {
+      background-color: #292929 !important;
     }
 
     div[class*="dropdown__ListBox"] {
@@ -4110,7 +4139,30 @@
           tr[class*="row__Header"] {
             background: #454545 !important;
           }
+
+          .fLqRRO {
+            border-left: 1px solid #222222 !important;
+          }
+          .cCzWyy {
+            border-top: 1px solid #222222 !important;
+            border-left: 1px solid #222222 !important;
+          }
+          .eXUmLR {
+            border-top: 1px solid #222222 !important;
+          }
+          .hkeGTp {
+            border-top: 1px solid #222222 !important;
+            border-bottom: 1px solid #222222 !important;
+          }
+          .dcVLSH {
+            border-top: 1px solid #222222 !important;
+          }
+          .hupIQu:not(:first-child) {
+            border-left: 1px solid #222222 !important;
+          }
+
           tr[class*="row__TableRow"] {
+            background: #323334 !important;
             border: 1px solid #454545 !important;
 
             &:hover {
@@ -4159,11 +4211,14 @@
             }
           }
           // new submission
-          .kqSzDR {
+          .jTZUDA {
             background: #f2b90d !important;
           }
+          .oXLEV {
+            background-color: rgba(242, 185, 13, 0.2) !important;
+          }
           // needs changes
-          .cYhbq {
+          .jZLKhj {
             background: red !important;
           }
           // prices
@@ -4225,6 +4280,15 @@
           }
         }
       }
+    }
+  }
+
+  // Opt In toggle
+  .optin_3Ze0T {
+    background: #222222 !important;
+
+    .switch_2cmFj.enabled_lxcoE {
+      background: #377d25 !important;
     }
   }
 }
