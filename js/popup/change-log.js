@@ -1,6 +1,20 @@
 module.exports = {
   current: [
     {
+      version: '2.25.24',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'More Dark Theme fixes to work with the new Version Finder'
+        }
+      ],
+      thanks: ['Shout out to John K. for the donation! Thanks John!']
+    },
+  ],
+  previous: [
+        {
       version: '2.25.23',
       features: [
       ],
@@ -12,8 +26,6 @@ module.exports = {
       ],
       thanks: ['A very big thank you to Rosalyn R. for their generous donation!']
     },
-  ],
-  previous: [
     {
       version: '2.25.22',
       features: [
