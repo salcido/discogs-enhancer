@@ -96,6 +96,7 @@
           s.className = 'de-notes-count';
           s.style = 'padding-left:8px; font-weight: bold;';
           s.textContent = `${count} / 255`;
+          focus.focus();
           focus.parentElement.appendChild(s);
           window.warnOnNoteLimit();
 
