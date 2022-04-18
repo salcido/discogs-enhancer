@@ -3417,7 +3417,9 @@
     }
 
     // search bar
-    div[class*="header_"] {
+    div[class*="root_"] > header[class*="header_"]:first-of-type {
+      background: black !important;
+
       form[class*="search_"] {
         background: #292929 !important;
 
@@ -3475,8 +3477,8 @@
 
     // tooltips
     div[class*="tooltip_"],
-    nav[class*="active_"],
-    nav[class*="dropdown_"] {
+    div[class*="active_"],
+    div[class*="dropdown_"] {
       background: #000000 !important;
 
       a {
@@ -3486,6 +3488,18 @@
         }
         &:hover {
           color: #cae0fa !important;
+        }
+      }
+
+      div[class*="group_"] {
+        a {
+          color: #ccc !important;
+          &:visited {
+            color: #ccc !important;
+          }
+          &:hover {
+            color: #ccc !important;
+          }
         }
       }
     }
@@ -4009,23 +4023,6 @@
     // for sale count
     span[class*="forsale_"] span[class*="price_"] {
       color: #e7413f !important;
-    }
-
-    #site_footer_wrap {
-      background: #292929 !important;
-      border-top: 0 !important;
-
-      ul li {
-        padding-top: .5rem;
-      }
-
-      a[class*="link_"] svg[class*="icon_"] path {
-        color: #829fc4 !important;
-      }
-    }
-
-    #select-lang {
-      color: #cccccc !important;
     }
   }
 
