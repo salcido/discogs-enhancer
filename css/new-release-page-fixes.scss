@@ -213,7 +213,7 @@
     padding: 5px !important;
   }
 
-  #site_footer_wrap {
+  #site_footer_wrap > div[class*="content_"] {
     ul li {
       padding-top: .5rem !important;
     }
