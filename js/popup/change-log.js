@@ -14,7 +14,7 @@ module.exports = {
           description: 'Fixed an issue where the icons in the main nav are misaligned.'
         }
       ],
-      thanks: ['Shout out to John K. for the donation! Thanks John!']
+      thanks: ['Shout out to Alan and Steven E. for the donations!!!']
     },
   ],
   previous: [
