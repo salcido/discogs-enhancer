@@ -1,6 +1,24 @@
 module.exports = {
   current: [
     {
+      version: '2.25.25',
+      features: [
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'The Dashboard Icon in the nav will now be hidden when using the Dashboard Link feature.'
+        },
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue where the icons in the main nav are misaligned.'
+        }
+      ],
+      thanks: ['Shout out to John K. for the donation! Thanks John!']
+    },
+  ],
+  previous: [
+    {
       version: '2.25.24',
       features: [
       ],
@@ -12,9 +30,7 @@ module.exports = {
       ],
       thanks: ['Shout out to John K. for the donation! Thanks John!']
     },
-  ],
-  previous: [
-        {
+    {
       version: '2.25.23',
       features: [
       ],
