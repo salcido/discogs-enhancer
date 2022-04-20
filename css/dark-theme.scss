@@ -3406,6 +3406,9 @@
   // ==============================
 
   #app {
+    a[class*="logo_"] svg g {
+      fill: white !important;
+    }
     // Nav Bar
     div[class*="root_"] > div:first-child {
         background-color: black !important;
@@ -3419,6 +3422,7 @@
     // search bar
     div[class*="root_"] > header[class*="header_"]:first-of-type {
       background: black !important;
+      border: none;
 
       form[class*="search_"] {
         background: #292929 !important;
@@ -3437,7 +3441,8 @@
     }
 
     // header nav line height for hover states
-    div[class*="header_"] {
+    header[class*="header_"] {
+
       div[class*="content_"] {
         line-height: 12px;
       }
@@ -3478,7 +3483,7 @@
     // tooltips
     div[class*="tooltip_"],
     div[class*="active_"],
-    div[class*="dropdown_"] {
+    nav[class*="dropdown_"] {
       background: #000000 !important;
 
       a {
@@ -3500,6 +3505,23 @@
           &:hover {
             color: #ccc !important;
           }
+        }
+      }
+
+      div[class*="groups_"] {
+        margin-top: -1px;
+      }
+    }
+
+    div[class*="user_"] ul[class*="dropdown_"] {
+      background: #000000 !important;
+      a {
+        color: #ccc !important;
+        &:visited {
+          color: #ccc !important;
+        }
+        &:hover {
+          color: #ccc !important;
         }
       }
     }
