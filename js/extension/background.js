@@ -166,7 +166,7 @@ appendFragment([resourceLibrary]).then(() => {
         filterSleeveCondition: false,
         filterSleeveConditionValue: null,
         filterUnavailable: false,
-        forceDashboard: true,
+        forceDashboard: false,
         formatShortcuts: true,
         hideMinMaxColumns: false,
         highlightMedia: true,
