@@ -109,7 +109,7 @@
   let user = rl.username(),
       selector = 'div[class^="profile_"]',
       position = 'afterbegin',
-      inline_css = 'padding-top: 1.2rem; margin-right: 1rem;',
+      inline_css = 'padding-top: 1.2rem; margin-right: 1rem; margin-left: 1rem;',
       icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
