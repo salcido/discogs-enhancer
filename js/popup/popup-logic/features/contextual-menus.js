@@ -154,6 +154,7 @@ export function createContextualMenuElements() {
  * @return   {undefined}
  */
 function updateContextualMenu(event) {
+  let port = chrome.runtime.connect();
 
   if (event.target.checked) {
 
@@ -165,16 +166,15 @@ function updateContextualMenu(event) {
       request: 'updateContextMenu'
     });
 
-    applySave(null, event);
+    applySave('refresh', event);
 
   } else {
-
-    chrome.runtime.sendMessage({
+    port.postMessage({
       id: event.target.id,
       method: 'remove',
       request: 'updateContextMenu'
     });
 
-    applySave(null, event);
+    applySave('refresh', event);
   }
 }
