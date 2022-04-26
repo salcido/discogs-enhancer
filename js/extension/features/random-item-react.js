@@ -147,6 +147,10 @@
         }
         return setTimeout(() => stopAnimation(), 4000);
       });
+
+      if (!document.querySelector('.de-random-item')) {
+        document.querySelector(selector).insertAdjacentHTML(position, icon);
+      }
     });
 });
 /**
