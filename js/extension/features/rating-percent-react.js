@@ -11,7 +11,7 @@
  rl.ready(() => {
   if (!rl.pageIsReact()) return;
 
-  let selector = '#release-stats ul li:nth-child(3) span';
+  let selector = '#release-stats ul:first-of-type li:nth-child(3) span:nth-child(2)';
 
   rl.waitForElement(selector).then(() => {
     let releasePageRating = document.querySelector(selector);
