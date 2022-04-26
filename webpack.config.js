@@ -31,10 +31,9 @@ setupAnalytics();
 
 module.exports = {
   entry: {
-    // popup.js
     './js/popup/popup-logic/popup': './js/popup/popup-logic/popup.js',
-    // background.js
     './js/extension/background': './js/extension/background.js',
+    './js/extension/content-script': './js/extension/content-script.js',
     // dependencies
     [deps + 'analytics']: `${deps}analytics.js`,
     [deps + 'hashes']: `${deps}hashes.js`,
