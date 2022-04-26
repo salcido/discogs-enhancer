@@ -17,8 +17,8 @@
     let haves = Number(document.querySelectorAll('#release-stats ul li a')[0].textContent),
         wants = Number(document.querySelectorAll('#release-stats ul li a')[1].textContent),
         li = document.createElement('li'),
-        h4 = document.createElement('h4'),
-        span = document.createElement('span'),
+        spanA = document.createElement('span'),
+        spanB = document.createElement('span'),
         demand = Math.round(wants / haves * 100) - 100,
         isInfiniteOrNaN = !isFinite(demand) || isNaN(demand),
         selector = '#release-stats ul',
@@ -34,12 +34,13 @@
       className = 'de-demand-positive';
     }
 
-    h4.textContent = 'Demand:';
-    span.textContent = isInfiniteOrNaN ? ' --' : ` ${demand}%`;
-    span.classList = className;
+    spanA.textContent = 'Demand:';
+    spanA.className = 'de-stats-span';
+    spanB.textContent = isInfiniteOrNaN ? ' --' : ` ${demand}%`;
+    spanB.classList = className;
 
-    li.appendChild(h4);
-    li.appendChild(span);
+    li.appendChild(spanA);
+    li.appendChild(spanB);
 
 
     // ========================================================
@@ -53,6 +54,10 @@
         .de-demand-positive {
           color: #00b500;
           font-weight: bold;
+        }
+        .de-stats-span {
+          display: table-cell;
+          width: 50%;
         }
     `;
 
