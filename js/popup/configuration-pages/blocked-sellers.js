@@ -9,7 +9,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  // TODO: get ls then save to chrome.storage.sync
   let hasBlockList = localStorage.getItem('blockList'),
       blockList = hasBlockList ? JSON.parse(hasBlockList) : setNewBlocklist(),
       hasFavoriteList = localStorage.getItem('favoriteList'),
@@ -47,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if ( window.ga ) { window.ga('send', 'event', 'block seller', input); }
 
       blockList.list.push(input);
+      // Update chrome.storage
+      chrome.storage.sync.set({ 'blockList': blockList });
 
       blockList = JSON.stringify(blockList);
 
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {function}
    */
   function removeSellerName(event) {
-
+    // TODO: remove from chrome.storage
     let targetName = event.target.innerHTML.trim();
 
     event.target.parentNode.classList.add('fadeOut');
