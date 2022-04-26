@@ -11,7 +11,14 @@
  * @return   {undefined}
  */
 export function acknowledgeUpdate() {
-  chrome.storage.sync.set({didUpdate: false}, function() { /*noop*/ });
+  chrome.action.setBadgeText({text: ''});
+  chrome.storage.sync.set({ didUpdate: false }, function() { /*noop*/ });
+}
+
+export async function getTabId() {
+  let queryOptions = { active: true, currentWindow: true };
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  return tab.id;
 }
 
 // ========================================================
@@ -109,15 +116,15 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  if ( ga ) {
+  // if ( ga ) {
 
-    let checked = event.target.checked;
+  //   let checked = event.target.checked;
 
-    if ( checked !== undefined ) {
+  //   if ( checked !== undefined ) {
 
-      ga('send', 'event', event.target.id, checked);
-    }
-  }
+  //     ga('send', 'event', event.target.id, checked);
+  //   }
+  // }
 }
 
 // ========================================================
