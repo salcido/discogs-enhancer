@@ -2,7 +2,7 @@
  * Filter by Country feature
  */
 
-import { applySave } from '../utils';
+import { applySave, getTabId } from '../utils';
 
 
 // ========================================================
@@ -14,10 +14,10 @@ import { applySave } from '../utils';
  * @param  {object} event [the event object]
  * @return {undefined}
  */
-export function toggleHideCountries(event) {
-
-  let path = 'js/extension/features/toggle-filter-shipping-country-css.js';
-
-      chrome.tabs.executeScript(null, { file: path }, () => {} );
-      applySave(null, event);
+export async function toggleHideCountries(event) {
+  let tabId = await getTabId();
+  chrome.scripting.executeScript({
+    target: {tabId: tabId},
+    files: ['js/extension/features/toggle-filter-shipping-country-css.js']
+  }, () => { applySave(null, event) });
 }
