@@ -32,7 +32,7 @@ export function init() {
  * @method saveInventoryRatings
  * @return {undefined}
  */
-export function saveInventoryRatings() {
+export async function saveInventoryRatings() {
 
   let
       input = document.getElementById('ratingsValue'),
@@ -47,9 +47,10 @@ export function saveInventoryRatings() {
     toggle.disabled = false;
     input.classList.remove('alert');
 
-    localStorage.setItem('inventoryRatings', input.value);
+    chrome.storage.sync.set({ 'minimumRating': JSON.parse(input.value) });
 
-    input.value = localStorage.getItem('inventoryRatings');
+    let { minimumRating } = await chrome.storage.sync.get(['minimumRating'])
+    input.value = minimumRating;
 
     // Displays rating as "- 4.45"
     inventoryValue.innerHTML = `&#8209; ${input.value}`;
@@ -62,7 +63,7 @@ export function saveInventoryRatings() {
     input.disabled = false;
     inventoryValue.textContent = '';
 
-    setEnabledStatus( self, 'Disabled' );
+    setEnabledStatus(self, 'Disabled');
     applySave('refresh', event);
 
     } else if ( !input.value ) {
@@ -78,28 +79,26 @@ export function saveInventoryRatings() {
  * @method setInventoryRating
  * @return {undefined}
  */
-export function setInventoryRatings() {
+export async function setInventoryRatings() {
 
   let input = document.getElementById('ratingsValue'),
-      minimumValue = localStorage.getItem('inventoryRatings') || null,
+      { minimumRating = null } = await chrome.storage.sync.get(['minimumRating']),
       ratingDisplay = document.querySelector('.inventory-value'),
       self = document.querySelector('.inventory .status'),
       toggle = document.getElementById('toggleInventoryRatings');
 
-  if ( minimumValue !== null ) { input.value = minimumValue; }
+  if ( minimumRating ) { input.value = minimumRating; }
 
   chrome.storage.sync.get('prefs', function(result) {
-    // Has value saved
-    if ( result.prefs.inventoryRatings && minimumValue !== null ) {
+
+    if ( result.prefs.inventoryRatings && minimumRating !== null ) {
 
       input.disabled = true;
-      input.value = minimumValue;
-
+      input.value = minimumRating;
       ratingDisplay.innerHTML = `&#8209; ${input.value}`;
       setEnabledStatus( self, 'Enabled' );
-    }
-    // Has no value saved
-    else if ( result.prefs.inventoryRatings && minimumValue === null ) {
+
+    } else if ( result.prefs.inventoryRatings && minimumRating === null ) {
 
       toggle.checked = false;
       setEnabledStatus( self, 'Disabled' );
