@@ -16,7 +16,7 @@ export function init() {
 
   // Save the Use US Date format preference
   document.getElementById('usFormat').addEventListener('change', function () {
-    localStorage.setItem('usDateFormat', JSON.stringify(this.checked));
+    chrome.storage.sync.set({'usDateFormat': this.checked });
   });
 
   // Setup example US date format
@@ -60,6 +60,8 @@ export function setAbsoluteDateStatus() {
       setEnabledStatus( self, 'Disabled' );
     }
     // Setup US Date Format checkbox preference
-    document.getElementById('usFormat').checked = JSON.parse(localStorage.getItem('usDateFormat'));
+    chrome.storage.sync.get(['usDateFormat']).then(({ usDateFormat }) => {
+      document.getElementById('usFormat').checked = JSON.parse(usDateFormat);
+    })
   });
 }
