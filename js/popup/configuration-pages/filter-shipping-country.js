@@ -8,10 +8,10 @@
  *
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasList = localStorage.getItem('countryList'),
-      countryList = hasList ? JSON.parse(hasList) : setNewlist(),
+  let hasList = await chrome.storage.sync.get(['countryList']),
+      initialCountryList = hasList ? hasList.countryList : setNewlist(),
       countryListError = 'is already on your list.';
 
   // ========================================================
@@ -38,16 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let input = document.getElementById('country-input').value;
 
     if ( input ) {
+      chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+        countryList.list.push(input);
 
-      countryList.list.push(input);
+        chrome.storage.sync.set({ countryList });
 
-      countryList = JSON.stringify(countryList);
+        document.querySelector('.errors').textContent = '';
 
-      localStorage.setItem('countryList', countryList);
-
-      document.querySelector('.errors').textContent = '';
-
-      return location.reload();
+        return location.reload();
+      })
     }
   }
 
@@ -73,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * each name as markup into the DOM
    * @returns {undefined}
    */
-  function insertCountriesIntoDOM() {
+  function insertCountriesIntoDOM(countryList) {
 
     countryList.list.sort();
     countryList.list.forEach(country => {
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Remove the country name from the list/localStorage
+   * Remove the country name from the list/chrome.storage
    * @param {object} event The event object
    * @returns {function}
    */
@@ -113,19 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    countryList.list.forEach((country, i) => {
+    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+      countryList.list.forEach((country, i) => {
 
-      if ( targetName === country ) {
+        if ( targetName === country ) {
 
-        countryList.list.splice(i, 1);
+          countryList.list.splice(i, 1);
+          chrome.storage.sync.set({ countryList });
 
-        countryList = JSON.stringify(countryList);
+          initialCountryList = countryList;
 
-        localStorage.setItem('countryList', countryList);
-
-        return setTimeout(() => updatePageData(), 400);
-      }
-    });
+          return setTimeout(() => updatePageData(), 400);
+        }
+      });
+    })
   }
 
   /**
@@ -133,10 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {object}
    */
   function setNewlist() {
+    let defaultList = { list: [], currency: false, include: false }
 
-    localStorage.setItem('countryList', '{ "list": [], "currency": false, "include": false }');
+    chrome.storage.sync.set({ 'countryList': defaultList });
 
-    return JSON.parse(localStorage.getItem('countryList'));
+    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+        return countryList;
+    })
   }
 
   /**
@@ -156,26 +159,25 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {undefined}
    */
   function updatePageData() {
-
-    countryList = JSON.parse(localStorage.getItem('countryList'));
-    // remove all the countries from the DOM
-    [...document.getElementsByClassName('country')].forEach(c => c.remove());
-
-    // Add them back in with the newly updated countrylist data
-    insertCountriesIntoDOM();
-    // reattach event listerns to countries
-    addCountryEventListeners();
-    // update backup/restore output
-    document.querySelector('.backup-output').textContent = JSON.stringify(countryList.list);
-    // check for empty list
-    checkForEmptyCountryList();
+    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+      // remove all the countries from the DOM
+      [...document.getElementsByClassName('country')].forEach(c => c.remove());
+      // Add them back in with the newly updated countrylist data
+      insertCountriesIntoDOM(countryList);
+      // reattach event listerns to countries
+      addCountryEventListeners();
+      // update backup/restore output
+      document.querySelector('.backup-output').textContent = JSON.stringify(countryList.list);
+      // check for empty list
+      checkForEmptyCountryList();
+    })
   }
 
   /**
    * Validates the input value from the restore section by
    * checking that it is first parseable and second an Array
    * with strings in each index.
-   * @param  {string} list The country list passed in from localStorage
+   * @param  {string} list The country list passed in from chrome.storage
    * @returns {boolean}
    */
   function validateCountrylist(list) {
@@ -207,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let input = document.getElementById('country-input').value;
 
-    if ( input && !countryList.list.includes(input) ) {
+    if ( input && !initialCountryList.list.includes(input) ) {
 
       addCountryToList();
 
@@ -222,29 +224,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // Radio button listener
   document.getElementById('country-prefs').addEventListener('change', event => {
 
-    countryList = JSON.parse(localStorage.getItem('countryList'));
+    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
 
-    countryList.include = JSON.parse(event.target.value);
+      countryList.include = JSON.parse(event.target.value);
 
-    countryList = JSON.stringify(countryList);
-
-    localStorage.setItem('countryList', countryList);
-
-    return location.reload();
+      chrome.storage.sync.set({ countryList }).then(() => {
+        return location.reload();
+      })
+    })
   });
 
   // Checkbox listener
   document.getElementById('currency').addEventListener('change', event => {
 
-    countryList = JSON.parse(localStorage.getItem('countryList'));
+    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
 
-    countryList.currency = event.target.checked;
+      countryList.currency = event.target.checked;
 
-    countryList = JSON.stringify(countryList);
+      chrome.storage.sync.set({ countryList });
 
-    localStorage.setItem('countryList', countryList);
-
-    return location.reload();
+      return location.reload();
+    })
   });
 
   // Restore functionality
@@ -256,9 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let restore = { list: JSON.parse(list), currency: false, include: false };
 
-      localStorage.setItem('countryList', JSON.stringify(restore));
-
-      return location.reload();
+      chrome.storage.sync.set({ 'countryList': restore }).then(() => {
+        return location.reload();
+      })
 
     } else {
 
@@ -274,14 +274,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enter key is pressed
     if ( e.which === 13
          && input
-         && !countryList.list.includes(input) ) {
+         && !initialCountryList.list.includes(input) ) {
 
       addCountryToList();
 
       return location.reload();
 
     // name is already on the list
-    } else if ( countryList.list.includes(input) ) {
+    } else if ( initialCountryList.list.includes(input) ) {
 
       return showError(countryListError);
 
@@ -297,14 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
 
   // Select the radio button on page load
-  if ( countryList.include ) {
+  if ( initialCountryList.include ) {
     document.getElementById('include').checked = true;
   } else {
     document.getElementById('exclude').checked = true;
   }
 
   // Select the currency checkbox on page load
-  if ( countryList.currency ) {
+  if ( initialCountryList.currency ) {
     document.getElementById('currency').checked = true;
   }
 
