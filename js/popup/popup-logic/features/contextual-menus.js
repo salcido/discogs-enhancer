@@ -136,26 +136,9 @@ export function createContextualMenuElements() {
  * @return   {undefined}
  */
 function updateContextualMenu(event) {
+
   let port = chrome.runtime.connect();
 
-  if (event.target.checked) {
-
-    chrome.runtime.sendMessage({
-      id: event.target.id,
-      method: 'create',
-      name: event.target.dataset.name,
-      request: 'updateContextMenu'
-    });
-
-    applySave('refresh', event);
-
-  } else {
-    port.postMessage({
-      id: event.target.id,
-      method: 'remove',
-      request: 'updateContextMenu'
-    });
-
-    applySave('refresh', event);
-  }
+  port.postMessage({ request: 'updateContextMenu' });
+  applySave(null, event);
 }
