@@ -1,56 +1,15 @@
-// chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-//   let
-//   { blockList } = await chrome.storage.sync.get(['blockList']),
-//   { countryList } = await chrome.storage.sync.get(['countryList']),
-//   { discriminators } = await chrome.storage.sync.get(['discriminators']),
-//   { favoriteList } = await chrome.storage.sync.get(['favoriteList']),
-//   { filterPrices } = await chrome.storage.sync.get(['filterPrices']),
-//   { inventoryRatings } = await chrome.storage.sync.get(['inventoryRatings']),
-//   { inventoryScanner } = await chrome.storage.sync.get(['inventoryScanner']),
-//   { linksInTabs } = await chrome.storage.sync.get(['linksInTabs']),
-//   { mediaCondition } = await chrome.storage.sync.get(['mediaCondition']),
-//   { readability } = await chrome.storage.sync.get(['readability']),
-//   { sellerRep } = await chrome.storage.sync.get(['sellerRep']),
-//   { sellerRepColor } = await chrome.storage.sync.get(['sellerRepColor']),
-//   { sellerRepFilter } = await chrome.storage.sync.get(['sellerRepFilter']),
-//   { sleeveCondition } = await chrome.storage.sync.get(['sleeveCondition']),
-//   { usDateFormat } = await chrome.storage.sync.get(['usDateFormat']);
-
-// let userPreferences = {
-//     blockList,
-//     countryList,
-//     discriminators,
-//     favoriteList,
-//     filterPrices,
-//     inventoryRatings,
-//     inventoryScanner,
-//     linksInTabs,
-//     mediaCondition,
-//     readability,
-//     sellerRep,
-//     sellerRepColor,
-//     sellerRepFilter,
-//     sleeveCondition,
-//     usDateFormat,
-//   };
-//   chrome.scripting.executeScript({
-//     target: { tabId },
-//     function: (userPreferences) => {console.log(userPreferences)},
-//     args: [userPreferences]
-//   });
-// });
-
-
-
-// chrome.runtime.onMessage.addListener(
-//   function(request, sender, sendResponse) {
-//     console.log(sender.tab ?
-//                 "from a content script:" + sender.tab.url :
-//                 "from the extension");
-//     if (request.greeting === "hello")
-//       sendResponse({farewell: "goodbye"});
-//   }
-// );
+/**
+ *
+ * Discogs Enhancer
+ *
+ * @author: Matthew Salcido
+ * @website: http://www.msalcido.com
+ * @github: https://github.com/salcido
+ *
+ * This is the background service worker. It handles update badge notifications
+ * and adding / removing contextual menu items.
+ *
+ */
 
 chrome.runtime.onInstalled.addListener((details) => {
   // ========================================================
