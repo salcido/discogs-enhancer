@@ -140,7 +140,7 @@
 
       let blockList = rl.getPreference('blockList'),
           favoriteList = rl.getPreference('favoriteList'),
-          sellerNames = rl.getPreference('sellerNames'),
+          sellersInCart = rl.getPreference('sellersInCart'),
           marketplaceQuerySelector =  'td.seller_info ul li:first-child a';
 
       // apply Marketplace Highlights
@@ -188,7 +188,7 @@
       // Remove from wantlist
       if ( window.insertRemoveLinks ) window.insertRemoveLinks();
       // Seller Items in Cart
-      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
+      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellersInCart);
       // Filter Unavailable Items
       if ( window.filterUnavailable ) window.filterUnavailable();
       // Filter Prices
