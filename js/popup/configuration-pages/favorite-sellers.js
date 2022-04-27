@@ -8,12 +8,12 @@
  *
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasBlockList = localStorage.getItem('blockList'),
-      blockList = hasBlockList ? JSON.parse(hasBlockList) : { list:[], hide: 'tag' },
-      hasFavoriteList = localStorage.getItem('favoriteList'),
-      favoriteList = hasFavoriteList ? JSON.parse(hasFavoriteList) : setNewfavoriteList(),
+  let hasBlockList = await chrome.storage.sync.get(['blockList']),
+      blockList = hasBlockList ? hasBlockList.blockList : { list:[], hide: 'tag' },
+      hasFavoriteList = await chrome.storage.sync.get(['favoriteList']),
+      initialFavoriteList = hasFavoriteList ? hasFavoriteList.favoriteList : setNewfavoriteList(),
       blocklistError = 'is on your block list. You must remove them from your block list before adding them as a favorite.',
       favoriteListError = 'is already on your favorites list.';
 
@@ -46,15 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
       // ga(type, category, action, label)
       if ( window.ga ) { window.ga('send', 'event', 'favorite seller', input); }
 
-      favoriteList.list.push(input);
-
-      favoriteList = JSON.stringify(favoriteList);
-
-      localStorage.setItem('favoriteList', favoriteList);
-
-      document.querySelector('.errors').textContent = '';
-
-      return location.reload();
+      chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
+        favoriteList.list.push(input);
+        // Update chrome.storage
+        chrome.storage.sync.set({ favoriteList }).then(() => {
+          document.querySelector('.errors').textContent = '';
+          return location.reload();
+        });
+      })
     }
   }
 
@@ -80,8 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * each name as markup into the DOM
    * @returns {undefined}
    */
-  function insertSellersIntoDOM() {
-
+  function insertSellersIntoDOM(favoriteList) {
     favoriteList.list.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
     favoriteList.list.forEach(seller => {
 
@@ -110,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Remove the sellers name from the list/localStorage
+   * Remove the sellers name from the list/chrome.storage
    * @param {object} event The event object
    * @returns {function}
    */
@@ -120,19 +118,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    favoriteList.list.forEach((seller, i) => {
+    chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
+      favoriteList.list.forEach((seller, i) => {
 
-      if ( targetName === seller ) {
+        if ( targetName === seller ) {
 
-        favoriteList.list.splice(i, 1);
+          favoriteList.list.splice(i, 1);
+          chrome.storage.sync.set({ favoriteList });
+          initialFavoriteList = favoriteList
 
-        favoriteList = JSON.stringify(favoriteList);
-
-        localStorage.setItem('favoriteList', favoriteList);
-
-        return setTimeout(() => updatePageData(), 400);
-      }
-    });
+          return setTimeout(() => updatePageData(), 400);
+        }
+      });
+    })
   }
 
   /**
@@ -141,9 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function setNewfavoriteList() {
 
-    localStorage.setItem('favoriteList', '{"list":[]}');
+    let defaultList = { list: [] };
 
-    return JSON.parse(localStorage.getItem('favoriteList'));
+    chrome.storage.sync.set({ 'favoriteList': defaultList });
+
+    chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
+      return favoriteList;
+    })
   }
 
   /**
@@ -164,25 +166,25 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {undefined}
    */
   function updatePageData() {
-
-    favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
-    // remove all the sellers from the DOM
-    [...document.getElementsByClassName('seller')].forEach(s => s.remove());
-    // Add them back in with the newly updated favoriteList data
-    insertSellersIntoDOM();
-    // reattach event listerns to sellers
-    addSellerEventListeners();
-    // update backup/restore output
-    document.querySelector('.backup-output').textContent = JSON.stringify(favoriteList.list);
-    // check for empty list
-    checkForEmptySellersList();
+    chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
+      // remove all the sellers from the DOM
+      [...document.getElementsByClassName('seller')].forEach(seller => seller.remove());
+      // Add them back in with the newly updated favoriteList data
+      insertSellersIntoDOM(favoriteList);
+      // reattach event listerns to sellers
+      addSellerEventListeners();
+      // update backup/restore output
+      document.querySelector('.backup-output').textContent = JSON.stringify(favoriteList.list);
+      // check for empty list
+      checkForEmptySellersList();
+    })
   }
 
   /**
    * Validates the input value from the restore section by
    * checking that it is (first) parseable and (second) an Array
    * with strings in each index.
-   * @param  {string} list The favorite list passed in from localStorage
+   * @param  {string} list The favorite list passed in from chrome.storage
    * @returns {boolean}
    */
   function validatefavoriteList(list) {
@@ -215,14 +217,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let input = document.getElementById('seller-input').value;
 
     if ( input
-         && !favoriteList.list.includes(input)
+         && !initialFavoriteList.list.includes(input)
          && !blockList.list.includes(input) ) {
 
       addSellerToList();
 
       return location.reload();
 
-    } else if ( favoriteList.list.includes(input) ) {
+    } else if ( initialFavoriteList.list.includes(input) ) {
 
       return showError(favoriteListError);
 
@@ -244,9 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hide: 'tag'
       };
 
-      localStorage.setItem('favoriteList', JSON.stringify(restore));
-
-      return location.reload();
+      chrome.storage.sync.set({ 'favoriteList': restore }).then(() => {
+        return location.reload();
+      })
 
     } else {
 
@@ -262,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enter key is pressed
     if ( e.which === 13
          && input
-         && !favoriteList.list.includes(input)
+         && !initialFavoriteList.list.includes(input)
          && !blockList.list.includes(input) ) {
 
       addSellerToList();
@@ -270,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return location.reload();
 
       // name is already on the list
-    } else if ( favoriteList.list.includes(input) ) {
+    } else if ( initialFavoriteList.list.includes(input) ) {
 
       return showError(favoriteListError);
 
