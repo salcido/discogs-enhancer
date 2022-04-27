@@ -14,7 +14,9 @@ import { applySave, getTabId } from '../utils';
  * @return   {undefined}
  */
 export async function useDarkTheme(event) {
+
   let tabId = await getTabId();
+
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     files: ['js/extension/features/toggle-dark-theme.js']
