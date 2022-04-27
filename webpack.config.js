@@ -33,14 +33,13 @@ module.exports = {
   entry: {
     './js/popup/popup-logic/popup': './js/popup/popup-logic/popup.js',
     './js/extension/background': './js/extension/background.js',
-    './js/extension/content-script': './js/extension/content-script.js',
+    './js/extension/user-preferences': './js/extension/user-preferences.js',
     // dependencies
     [deps + 'analytics']: `${deps}analytics.js`,
     [deps + 'hashes']: `${deps}hashes.js`,
     [deps + 'update-exchange-rates']: `${deps}update-exchange-rates.js`,
     [deps + 'options']: `${deps}options.js`,
     [deps + 'resource-library']: `${deps}resource-library.js`,
-    [deps + 'runtime-messages']: `${deps}runtime-messages.js`,
     [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
     // features files
     // Adding A Feature: Step 3
