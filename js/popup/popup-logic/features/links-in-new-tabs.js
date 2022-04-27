@@ -1,10 +1,5 @@
 /**
  * Contextual Menus search feature
- *
- * TODO:
- * - Save link preferences to localStorage
- * - Pass prefs to frontend via background.js
- * - Only save enabled boolean to chrome.storage
  */
 
 import { applySave } from '../utils';
@@ -27,11 +22,11 @@ const defaults = {
  * Creates contextual menu markup inside the
  * Contextual Menu options feature in the popup.
  */
-export function createLinkTabElements() {
-  // TODO: rename linkTabs to someting more descriptive
-  let linkTabs = document.getElementById('linksInTabs'),
+export async function createLinkTabElements() {
+
+  let tabOptionsDiv = document.getElementById('linksInTabs'),
       fragment = document.createDocumentFragment(),
-      prefs = getPreferences(),
+      { linksInTabs = defaults } = await chrome.storage.sync.get(['linksInTabs']),
       menus = [
           {
             name: 'Artists',
@@ -79,7 +74,7 @@ export function createLinkTabElements() {
 
     input.type = 'checkbox';
     input.id = menu.value;
-    input.checked = prefs[menu.value];
+    input.checked = linksInTabs[menu.value];
 
     span.textContent = menu.name;
 
@@ -91,24 +86,12 @@ export function createLinkTabElements() {
   });
 
   // Append all contextual menu elements
-  linkTabs.appendChild(fragment);
+  tabOptionsDiv.appendChild(fragment);
 
   // Attach eventListeners
   menus.forEach(menu => {
     document.getElementById(menu.value).addEventListener('change', updateLinkPreference);
   });
-}
-
-/**
- * Returns the saved preferences as an object
- */
-function getPreferences() {
-  let prefs = JSON.parse(localStorage.getItem('linksInTabs')) || defaults;
-  return prefs;
-}
-
-function setPreferences(prefs) {
-  localStorage.setItem('linksInTabs', JSON.stringify(prefs));
 }
 
 // ========================================================
@@ -118,12 +101,13 @@ function setPreferences(prefs) {
  * Sets the enabled/disabled preference
  */
 function updateLinkPreference(event) {
+  chrome.storage.sync.get(['linksInTabs']).then(({ linksInTabs }) => {
 
-  let prefs = getPreferences(),
-      id = event.target.id;
+    let id = event.target.id;
+    linksInTabs[id] = event.target.checked;
 
-  prefs[id] = event.target.checked;
-  setPreferences(prefs);
-
-  applySave('refresh', event);
+    chrome.storage.sync.set({ linksInTabs }).then(() => {
+      applySave('refresh', event);
+    });
+  });
 }
