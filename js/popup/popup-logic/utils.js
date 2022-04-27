@@ -11,7 +11,6 @@
  * @return   {undefined}
  */
 export function acknowledgeUpdate() {
-  chrome.action.setBadgeText({text: ''});
   chrome.storage.sync.set({ didUpdate: false }, function() { /*noop*/ });
 }
 
@@ -171,7 +170,7 @@ export function checkForUpdate() {
       learn.classList.remove('button_green');
       learn.classList.add('button_orange');
 
-      chrome.browserAction.setBadgeText({text: ''});
+      chrome.action.setBadgeText({text: ''});
 
     } else {
 
