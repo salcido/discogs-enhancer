@@ -2,7 +2,7 @@
  * Min, median, max columns
  */
 
-import { applySave } from '../utils';
+import { applySave, getTabId } from '../utils';
 
 // ========================================================
 // toggleColumns
@@ -13,8 +13,12 @@ import { applySave } from '../utils';
  * @param    {Object}     event [The event object]
  * @return   {undefined}
  */
-export function toggleColumns(event) {
+export async function toggleColumns(event) {
 
-  chrome.tabs.executeScript(null, { file: 'js/extension/features/toggle-min-max-columns.js' },
-    function () { applySave(null, event); });
+  let tabId = await getTabId();
+
+  chrome.scripting.executeScript({
+    target: {tabId: tabId},
+    files: ['js/extension/features/toggle-min-max-columns.js']
+  }, () => { applySave(null, event) });
 }
