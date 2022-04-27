@@ -33,15 +33,15 @@ export function init() {
     optionsToggle('.hide-condition', this, '.condition', 100);
   });
 
-  // Save the Filter by Condition Select value to localStorage
-  document.getElementById('conditionValue').addEventListener('change', function () {
+  // Save the Filter by Condition Select value to chrome.storage
+  document.getElementById('conditionValue').addEventListener('change', async function () {
 
     let toggle = document.getElementById('toggleFilterMediaCondition'),
-        mediaCondition = localStorage.getItem('mediaCondition') || 7,
+        mediaCondition = await chrome.storage.sync.get(['mediaCondition']) || 7,
         status = document.querySelector('.toggle-group.condition .label .status');
 
-    mediaCondition = this.value;
-    localStorage.setItem('mediaCondition', String(mediaCondition));
+    mediaCondition = JSON.parse(this.value);
+    chrome.storage.sync.set({ mediaCondition });
 
     if (!toggle.checked) {
 
@@ -64,25 +64,26 @@ export function init() {
  * @return {undefined}
  */
 export function setupFilterByCondition(enabled) {
+  chrome.storage.sync.get(['mediaCondition']).then(({ mediaCondition = 7 }) => {
 
-  let select = document.getElementById('conditionValue'),
-      setting = Number(localStorage.getItem('mediaCondition')) || 7,
-      status = document.querySelector('.toggle-group.condition .label .status');
+    let select = document.getElementById('conditionValue'),
+        status = document.querySelector('.toggle-group.condition .label .status');
 
-  if ( enabled ) {
+    if ( enabled ) {
 
-    status.textContent = conditions[setting];
-    status.classList.add(colors[setting]);
+      status.textContent = conditions[mediaCondition];
+      status.classList.add(colors[mediaCondition]);
 
-  } else {
+    } else {
 
-    status.textContent = 'Disabled';
-    status.classList.add('disabled');
-  }
+      status.textContent = 'Disabled';
+      status.classList.add('disabled');
+    }
 
-  if ( setting ) {
-    select.value = setting;
-  }
+    if ( mediaCondition ) {
+      select.value = mediaCondition;
+    }
+  })
 }
 
 /**
@@ -92,20 +93,20 @@ export function setupFilterByCondition(enabled) {
  * @returns {undefined}
  */
 export function toggleHideConditions(event) {
+  chrome.storage.sync.get(['mediaCondition']).then(({ mediaCondition = 7 }) => {
+    let status = document.querySelector('.toggle-group.condition .label .status');
 
-  let setting = Number(localStorage.getItem('mediaCondition')) || 7,
-      status = document.querySelector('.toggle-group.condition .label .status');
+    if ( !event.target.checked ) {
 
-  if ( !event.target.checked ) {
+      status.className = 'status hide disabled';
+      status.textContent = 'Disabled';
 
-    status.className = 'status hide disabled';
-    status.textContent = 'Disabled';
+    } else {
 
-  } else {
+      status.textContent = conditions[mediaCondition];
+      status.classList.add(colors[mediaCondition]);
+    }
 
-    status.textContent = conditions[setting];
-    status.classList.add(colors[setting]);
-  }
-
-  applySave('refresh', event);
+    applySave('refresh', event);
+  })
 }
