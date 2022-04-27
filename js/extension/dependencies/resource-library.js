@@ -1069,7 +1069,8 @@
      */
     testFeedback: function() {
       let obj = this.getPreference('feedback'),
-          { buyer, seller } = obj;
+          username = this.username(),
+          { buyer, seller } = obj[username];
 
       buyer.gTotal -= 1;
       seller.gTotal -= 1;
