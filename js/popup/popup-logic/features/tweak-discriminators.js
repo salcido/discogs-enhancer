@@ -12,7 +12,6 @@
 
 import { setEnabledStatus, optionsToggle, notify } from '../utils';
 
-const LS_KEY = 'discriminators';
 const DEFAULTS = {
   hide: false,
   superscript: true,
@@ -25,32 +24,32 @@ const DEFAULTS = {
  * @param {Object} lsObject - the localStorage object that saves the user's preferences
  * @returns {Object} - The user's preferences or the default settings
  */
-function getSettings(lsObject) {
-  let obj = localStorage.getItem(lsObject) || null;
-  if (obj) return JSON.parse(obj);
-  localStorage.setItem(LS_KEY, JSON.stringify(DEFAULTS));
-  return DEFAULTS;
+async function getSettings() {
+  let { discriminators = null } = await chrome.storage.sync.get(['discriminators']);
+  if (discriminators) return discriminators;
+  chrome.storage.sync.set({ 'discriminators': DEFAULTS }).then(() => {
+    return DEFAULTS;
+  });
 }
 
 /**
  * Saves the user's preferences to localStorage
- * @param {Object} lsObject - The localStorage object that saves the user's preferences
  * @param {String} key - The name of the preference
  * @param {Boolean} value - The preference value
  * @returns {undefined}
  */
-function setSettings(lsObject, key, value) {
-  let obj = getSettings(lsObject) || DEFAULTS;
-  obj[key] = value;
-  localStorage.setItem(LS_KEY, JSON.stringify(obj));
+async function setSettings(key, value) {
+  let discriminators = await getSettings();
+  discriminators[key] = value;
+  chrome.storage.sync.set({ discriminators });
 }
 
 /**
  * Sets the checkbox values when the popup menu is rendered
  * @returns {undefined}
  */
-function setCheckboxValues() {
-  let settings = getSettings(LS_KEY),
+async function setCheckboxValues() {
+  let settings = await getSettings(),
       status = document.querySelector('.toggle-group.discrims .status');
   // Submenu checkboxes
   for (let prop in settings) {
@@ -85,15 +84,15 @@ function disableBoxes() {
  * Sets up the event listeners for the Tweak Discriminators UI
  * @returns {undefined}
  */
-export function init() {
+export async function init() {
   // Expand and show the submenu
   document.querySelector('.toggle-group.discrims').addEventListener('click', function() {
     optionsToggle('#discrims', this, '.discrims', 140);
   });
   // Save the preferences
-  for (let prop in getSettings(LS_KEY)) {
+  for (let prop in await getSettings()) {
     document.getElementById(`${prop}-discrims`).addEventListener('change', function() {
-      setSettings(LS_KEY, prop, this.checked);
+      setSettings(prop, this.checked);
       notify('refresh');
     });
   }
