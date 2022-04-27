@@ -38,7 +38,7 @@
     "storage",
     "contextMenus",
     "scripting",
-    "tabs"
+    "activeTab"
   ],
   "host_permissions": [
     "*://*.discogs.com/*"
