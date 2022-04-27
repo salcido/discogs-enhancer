@@ -22,7 +22,7 @@
         "*://*.discogs.com/*"
       ],
       "js": [
-        "js/extension/content-script.js"
+        "js/extension/user-preferences.js"
       ],
       "css": [
         "css/dark-theme.css"
