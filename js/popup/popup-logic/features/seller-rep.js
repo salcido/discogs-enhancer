@@ -19,8 +19,9 @@ export function init() {
 
   // Filter checkbox
   document.getElementById('filter-seller-rep').addEventListener('change', (event) => {
-    localStorage.setItem('sellerRepFilter', JSON.stringify(event.target.checked));
-    applySave('refresh', event);
+    chrome.storage.sync.set({'sellerRepFilter': event.target.checked}).then(() => {
+      applySave('refresh', event);
+    })
   });
 }
 /**
@@ -46,15 +47,17 @@ export function saveSellerRep() {
     // reset value to '100' if user enters a greater value
     if ( input.value > 100 ) { input.value = 100; }
 
-    localStorage.setItem('sellerRep', input.value);
+    chrome.storage.sync.set({'sellerRep': JSON.parse(input.value)}).then(() => {
 
-    input.value = localStorage.getItem('sellerRep');
+      chrome.storage.sync.get(['sellerRep']).then(({ sellerRep }) => {
+        input.value = sellerRep;
+        // Displays percentage value like: - 80%
+        repValue.innerHTML = `&#8209; ${input.value}%`;
 
-    // Displays percentage value like: - 80%
-    repValue.innerHTML = `&#8209; ${input.value}%`;
-
-    setEnabledStatus( self, 'Enabled' );
-    applySave('refresh', event);
+        setEnabledStatus( self, 'Enabled' );
+        applySave('refresh', event);
+      });
+    });
 
   } else if ( input.value && !toggle.checked ) {
 
@@ -80,14 +83,14 @@ export function saveSellerRep() {
  * @method setSellerRep
  * @return {undefined}
  */
-export function setSellerRep() {
+export async function setSellerRep() {
 
   let checkbox = document.getElementById('filter-seller-rep'),
-      filter = localStorage.getItem('sellerRepFilter') || false,
+      { sellerRepFilter = false } = await chrome.storage.sync.get(['sellerRepFilter']),
       input = document.getElementById('percent'),
-      percent = localStorage.getItem('sellerRep') || null,
-      lscolor = localStorage.getItem('sellerRepColor') || 'darkorange',
-      color = lscolor.match(/\w/g).join(''),
+      { sellerRep: percent = null } = await chrome.storage.sync.get(['sellerRep']),
+      { sellerRepColor = 'darkorange' } = await chrome.storage.sync.get(['sellerRepColor']),
+      color = sellerRepColor.match(/\w/g).join(''),
       repValue = document.getElementsByClassName('rep-value')[0],
       self = document.querySelector('.seller-rep .status'),
       swatch = document.querySelector(`.rep-color.${color}`),
@@ -95,12 +98,7 @@ export function setSellerRep() {
 
   if ( percent !== null ) { input.value = percent; }
 
-  // Set default color to localStorage
-  if ( !localStorage.getItem('sellerRepColor') ) {
-    localStorage.setItem('sellerRepColor', JSON.stringify('darkorange'));
-  }
-
-  if (filter && JSON.parse(filter)) {
+  if (sellerRepFilter) {
     checkbox.checked = true;
   }
 
@@ -133,7 +131,7 @@ export function setSellerRep() {
 // ========================================================
 /**
  * Selects the swatch when clicked and sets the
- * value in localStorage.
+ * value in chrome.storage.
  *
  * Each key in the `colorTable` object corresponds with a
  * CSS class. Swatch color values are determined by class
@@ -170,9 +168,8 @@ function selectSwatch(event) {
   // Extract the class name for the `colorTable` value
   classname = swatch.className.split(' ')[1];
 
-  localStorage.setItem('sellerRepColor', JSON.stringify(colorTable[classname]));
-
-  applySave('refresh', event);
-
-  return swatch.classList.add('selected');
+  chrome.storage.sync.set({'sellerRepColor': colorTable[classname]}).then(() => {
+    applySave('refresh', event);
+    return swatch.classList.add('selected');
+  });
 }
