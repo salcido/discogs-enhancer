@@ -15,7 +15,9 @@ import { applySave, getTabId } from '../utils';
  * @return {undefined}
  */
 export async function toggleHideCountries(event) {
+
   let tabId = await getTabId();
+
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     files: ['js/extension/features/toggle-filter-shipping-country-css.js']
