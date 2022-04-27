@@ -40,6 +40,9 @@ chrome.runtime.onInstalled.addListener((details) => {
 
       chrome.storage.sync.set({ didUpdate: true }, function() {});
     }
+
+    // Instantiate Contextual Menu Options
+    updateContextMenus();
   }
 
   // ========================================================
@@ -132,28 +135,182 @@ chrome.runtime.onInstalled.addListener((details) => {
   })
 })
 
+/**
+ * Creates contextual menus based on the user's saved preferences
+ * @returns {undefined}
+ */
+function updateContextMenus() {
+  chrome.storage.sync.get('prefs', result => {
+
+    if (result.prefs.useDiscogs) {
+      let name = 'Discogs'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'discogs',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    // Then the remaining stores in alphabetical order
+    if (result.prefs.useAllDay) {
+      let name = 'All Day'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'allday',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useBandcamp) {
+      let name = 'Bandcamp'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'bandcamp',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useBeatport) {
+      let name = 'Beatport'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'beatport',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useBoomkat) {
+      let name = 'Boomkat'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'boomkat',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useClone) {
+      let name = 'Clone'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'clone',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useDeejay) {
+      let name = 'DeeJay'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'deejay',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useEarcave) {
+      let name = 'Earcave'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'earcave',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useGramaphone) {
+      let name = 'Gramaphone'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'gramaphone',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useHardwax) {
+      let name = 'Hardwax'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'hardwax',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useJuno) {
+      let name = 'Juno'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'juno',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useOye) {
+      let name = 'Oye'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'oye',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.usePhonica) {
+      let name = 'Phonica'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'phonica',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useRateYourMusic) {
+      let name = 'Rate Your Music'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'rateyourmusic',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useRedeye) {
+      let name = 'Red Eye'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'redeye',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useRushhour) {
+      let name = 'Rush Hour'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'rushhour',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useSotu) {
+      let name = 'SOTU'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'sotu',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+
+    if (result.prefs.useYoutube) {
+      let name = 'YouTube'
+      chrome.contextMenus.create({
+        contexts: ['selection'],
+        id: 'youtube',
+        title: 'Search for "%s" on ' + name
+      });
+    }
+  })
+}
+
 // ========================================================
 // Contextual Menu Add / Remove
 // ========================================================
 chrome.runtime.onConnect.addListener(function(port) {
-
-  chrome.contextMenus.removeAll()
-
-  port.onMessage.addListener(function(msg) {
-
-    if (msg.request === 'updateContextMenu') {
-      if (msg.method === 'create') {
-
-        chrome.contextMenus.create({
-          contexts: ['selection'],
-          id: msg.id,
-          title: 'Search for "%s" on ' + msg.name
-        });
-
-      } else if (msg.method === 'remove') {
-
-        chrome.contextMenus.remove(msg.id);
-      }
-    }
-  })
+  chrome.contextMenus.removeAll();
+  updateContextMenus();
 })
