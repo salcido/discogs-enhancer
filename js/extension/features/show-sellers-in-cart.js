@@ -22,16 +22,16 @@ rl.ready(() => {
 
     return new Promise(resolve => {
       let namesInCart = elem.querySelectorAll('.linked_username'),
-          sellerNames = {
+          sellersInCart = {
             names: []
           };
 
       if ( namesInCart.length ) {
-        namesInCart.forEach(n => sellerNames.names.push( n.textContent.trim() ));
+        namesInCart.forEach(n => sellersInCart.names.push( n.textContent.trim() ));
       }
 
-      rl.setPreference('sellerNames', sellerNames);
-      return resolve(sellerNames);
+      rl.setPreference('sellersInCart', sellersInCart);
+      return resolve(sellersInCart);
     });
   }
 
@@ -102,15 +102,15 @@ rl.ready(() => {
 
   // Marketplace wantlists, all items, release pages
   if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
-    fetchSellersFromCart()
+  fetchSellersFromCart()
       .then(data => captureSellerNames(data))
-      .then(sellerNames => {
+      .then(sellersInCart => {
         rl.attachCss('items-in-cart', rules);
-        if ( sellerNames
-             && sellerNames.names
-             && sellerNames.names.length ) {
-          window.sellerItemsInCart(sellerNames);
-          rl.handlePaginationClicks(window.sellerItemsInCart, sellerNames);
+        if ( sellersInCart
+             && sellersInCart.names
+             && sellersInCart.names.length ) {
+          window.sellerItemsInCart(sellersInCart);
+          rl.handlePaginationClicks(window.sellerItemsInCart, sellersInCart);
         }
     });
   }
