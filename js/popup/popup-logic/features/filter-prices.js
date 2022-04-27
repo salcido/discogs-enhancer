@@ -7,9 +7,9 @@ import { applySave, optionsToggle, fadeOut, setEnabledStatus } from '../utils';
 /**
  * Sets up the event listeners for the Filter Prices UI
  */
-export function init() {
+export async function init() {
 
-  let filterPrices = JSON.parse(localStorage.getItem('filterPrices')) || { minimum: null, maximum: null },
+  let { filterPrices = { minimum: null, maximum: null } } = await chrome.storage.sync.get(['filterPrices']),
       minimum = document.getElementById('minimum'),
       maximum = document.getElementById('maximum');
 
@@ -57,10 +57,10 @@ function setStatus() {
 /**
  * Displays the user's settings along side the feature title
  */
-function updateDisplayValues() {
+async function updateDisplayValues() {
   let values = document.querySelector('.min-max-values'),
       userCurrency = document.getElementById('filterPricesCurrency').value || 'USD',
-      filterPrices = JSON.parse(localStorage.getItem('filterPrices')) || { minimum: null, maximum: null },
+      { filterPrices = { minimum: null, maximum: null } } = await chrome.storage.sync.get(['filterPrices']),
       { minimum, maximum } = filterPrices,
       currCode = {
         AUD: 'A$',
@@ -98,21 +98,23 @@ function updateDisplayValues() {
  * Sets the Min / Max values to localStorage and updates the display
  * on the popup
  */
-function setMinMaxValues() {
-  let filterPrices = JSON.parse(localStorage.getItem('filterPrices')) || { minimum: null, maximum: null },
+async function setMinMaxValues() {
+  let { filterPrices = { minimum: null, maximum: null } } = await chrome.storage.sync.get(['filterPrices']),
       min = document.querySelector('#minimum'),
       max = document.querySelector('#maximum');
 
   min.addEventListener('change', event => {
     filterPrices.minimum = Math.abs(Number(event.target.value));
-    localStorage.setItem('filterPrices', JSON.stringify(filterPrices));
-    updateDisplayValues();
+    chrome.storage.sync.set({ filterPrices }).then(() => {
+      updateDisplayValues();
+    });
   });
 
   max.addEventListener('change', event => {
     filterPrices.maximum = Math.abs(Number(event.target.value));
-    localStorage.setItem('filterPrices', JSON.stringify(filterPrices));
-    updateDisplayValues();
+    chrome.storage.sync.set({ filterPrices }).then(() => {
+      updateDisplayValues();
+    });
   });
 }
 
