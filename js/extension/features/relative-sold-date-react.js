@@ -97,8 +97,12 @@
       if (rawDate && relative) {
         lastSold.textContent = relative;
         lastSold.classList.add('de-last-sold');
-
+        lastSold.style.width = '120px';
         lastSold.closest('div[class*="content_"]').style.width = '400px';
+
+        lastSold.closest('ul').querySelectorAll('li span').forEach(elem => {
+          elem.style.width = '75px';
+        })
 
         addMouseListeners(rawDate, relative);
       }
