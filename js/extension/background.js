@@ -33,7 +33,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     thisVersion = chrome.runtime.getManifest().version.split('.');
 
     if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
-        Number(thisVersion[1]) > Number(previousVersion[1]) ) {
+         Number(thisVersion[1]) > Number(previousVersion[1]) ) {
 
       chrome.action.setBadgeText({text: ' '});
 
