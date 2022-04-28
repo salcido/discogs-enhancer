@@ -163,7 +163,7 @@ window.addEventListener('load', () => {
     chrome.tabs.create({url: '../html/learn.html'});
     acknowledgeUpdate();
 
-    // if ( ga ) { ga('send', 'event', 'learn', 'learn clicked'); }
+    if ( window.ga ) { ga('send', 'event', 'learn', 'learn clicked'); }
   });
 
   // Help Bubble Clicks
@@ -430,74 +430,74 @@ window.addEventListener('load', () => {
     // Get the user's saved preferences and set the toggles accordingly
     //
     // Adding A Feature: Step 5
-    chrome.storage.sync.get('prefs', result => {
+    chrome.storage.sync.get('prefs', ({ prefs }) => {
       // Feature preferences
-      toggleAbsoluteDate.checked = result.prefs.absoluteDate;
-      toggleAveragePrice.checked = result.prefs.averagePrice;
-      toggleBaoiFields.checked = result.prefs.baoiFields;
-      toggleBlockBuyers.checked = result.prefs.blockBuyers;
-      toggleBlockSellers.checked = result.prefs.blockSellers;
-      toggleBlurryImageFix.checked = result.prefs.blurryImageFix;
-      toggleCollectionUi.checked = result.prefs.collectionUi;
-      toggleCommentScanner.checked = result.prefs.commentScanner;
-      toggleConfirmBeforeRemoving.checked = result.prefs.confirmBeforeRemoving;
-      toggleConverter.checked = result.prefs.converter;
-      toggleDarkTheme.checked = result.prefs.darkTheme;
-      toggleDemandIndex.checked = result.prefs.demandIndex;
-      toggleEditingNotepad.checked = result.prefs.editingNotepad;
-      toggleEverlastingCollection.checked = result.prefs.everlastingCollection;
-      toggleEverlastingMarket.checked = result.prefs.everlastingMarket;
-      toggleFavoriteSellers.checked = result.prefs.favoriteSellers;
-      toggleFeedback.checked = result.prefs.feedback;
-      toggleFilterMediaCondition.checked = result.prefs.filterMediaCondition;
-      toggleFilterPrices.checked = result.prefs.filterPrices;
-      toggleFilterShippingCountry.checked = result.prefs.filterShippingCountry;
-      toggleFilterSleeveCondition.checked = result.prefs.filterSleeveCondition;
-      toggleFilterUnavailable.checked = result.prefs.filterUnavailable;
-      toggleForceDashboard.checked = result.prefs.forceDashboard;
-      toggleHighlights.checked = result.prefs.highlightMedia;
-      toggleInventoryRatings.checked = result.prefs.inventoryRatings;
-      toggleInventoryScanner.checked = result.prefs.inventoryScanner;
-      toggleMinMaxColumns.checked = result.prefs.hideMinMaxColumns;
-      toggleNotesCount.checked = result.prefs.notesCount;
-      togglePrices.checked = result.prefs.suggestedPrices;
-      toggleQuickSearch.checked = result.prefs.quickSearch;
-      toggleRandomItem.checked = result.prefs.randomItem;
-      toggleRatingPercent.checked = result.prefs.ratingPercent;
-      toggleReadability.checked = result.prefs.readability;
-      toggleRelativeSoldDate.checked = result.prefs.relativeSoldDate;
-      toggleReleaseDurations.checked = result.prefs.releaseDurations;
-      toggleReleaseRatings.checked = result.prefs.releaseRatings;
-      toggleReleaseScanner.checked = result.prefs.releaseScanner;
-      toggleRemoveFromWantlist.checked = result.prefs.removeFromWantlist;
-      toggleSellerItemsInCart.checked = result.prefs.sellerItemsInCart;
-      toggleSellerRep.checked = result.prefs.sellerRep;
-      toggleShortcuts.checked = result.prefs.formatShortcuts;
-      toggleSortBtns.checked = result.prefs.sortButtons;
-      toggleTweakDiscrims.checked = result.prefs.tweakDiscrims;
-      toggleYtPlaylists.checked = result.prefs.ytPlaylists;
+      toggleAbsoluteDate.checked = prefs.absoluteDate;
+      toggleAveragePrice.checked = prefs.averagePrice;
+      toggleBaoiFields.checked = prefs.baoiFields;
+      toggleBlockBuyers.checked = prefs.blockBuyers;
+      toggleBlockSellers.checked = prefs.blockSellers;
+      toggleBlurryImageFix.checked = prefs.blurryImageFix;
+      toggleCollectionUi.checked = prefs.collectionUi;
+      toggleCommentScanner.checked = prefs.commentScanner;
+      toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;
+      toggleConverter.checked = prefs.converter;
+      toggleDarkTheme.checked = prefs.darkTheme;
+      toggleDemandIndex.checked = prefs.demandIndex;
+      toggleEditingNotepad.checked = prefs.editingNotepad;
+      toggleEverlastingCollection.checked = prefs.everlastingCollection;
+      toggleEverlastingMarket.checked = prefs.everlastingMarket;
+      toggleFavoriteSellers.checked = prefs.favoriteSellers;
+      toggleFeedback.checked = prefs.feedback;
+      toggleFilterMediaCondition.checked = prefs.filterMediaCondition;
+      toggleFilterPrices.checked = prefs.filterPrices;
+      toggleFilterShippingCountry.checked = prefs.filterShippingCountry;
+      toggleFilterSleeveCondition.checked = prefs.filterSleeveCondition;
+      toggleFilterUnavailable.checked = prefs.filterUnavailable;
+      toggleForceDashboard.checked = prefs.forceDashboard;
+      toggleHighlights.checked = prefs.highlightMedia;
+      toggleInventoryRatings.checked = prefs.inventoryRatings;
+      toggleInventoryScanner.checked = prefs.inventoryScanner;
+      toggleMinMaxColumns.checked = prefs.hideMinMaxColumns;
+      toggleNotesCount.checked = prefs.notesCount;
+      togglePrices.checked = prefs.suggestedPrices;
+      toggleQuickSearch.checked = prefs.quickSearch;
+      toggleRandomItem.checked = prefs.randomItem;
+      toggleRatingPercent.checked = prefs.ratingPercent;
+      toggleReadability.checked = prefs.readability;
+      toggleRelativeSoldDate.checked = prefs.relativeSoldDate;
+      toggleReleaseDurations.checked = prefs.releaseDurations;
+      toggleReleaseRatings.checked = prefs.releaseRatings;
+      toggleReleaseScanner.checked = prefs.releaseScanner;
+      toggleRemoveFromWantlist.checked = prefs.removeFromWantlist;
+      toggleSellerItemsInCart.checked = prefs.sellerItemsInCart;
+      toggleSellerRep.checked = prefs.sellerRep;
+      toggleShortcuts.checked = prefs.formatShortcuts;
+      toggleSortBtns.checked = prefs.sortButtons;
+      toggleTweakDiscrims.checked = prefs.tweakDiscrims;
+      toggleYtPlaylists.checked = prefs.ytPlaylists;
 
       // Contextual menus
-      toggleAllDay.checked = result.prefs.useAllDay;
-      toggleBandcamp.checked = result.prefs.useBandcamp;
-      toggleBeatport.checked = result.prefs.useBeatport;
-      toggleBoomkat.checked = result.prefs.useBoomkat;
-      toggleClone.checked = result.prefs.useClone;
-      toggleDeeJay.checked = result.prefs.useDeejay;
-      toggleDiscogs.checked = result.prefs.useDiscogs;
-      toggleEarcave.checked = result.prefs.useEarcave;
-      toggleGramaphone.checked = result.prefs.useGramaphone;
-      toggleHardwax.checked = result.prefs.useHardwax;
-      toggleJuno.checked = result.prefs.useJuno;
-      toggleOye.checked = result.prefs.useOye;
-      togglePhonica.checked = result.prefs.usePhonica;
-      toggleRateYourMusic.checked = result.prefs.useRateYourMusic;
-      toggleRedeye.checked = result.prefs.useRedeye;
-      toggleRushhour.checked = result.prefs.useRushhour;
-      toggleSotu.checked = result.prefs.useSotu;
-      toggleYoutube.checked = result.prefs.useYoutube;
+      toggleAllDay.checked = prefs.useAllDay;
+      toggleBandcamp.checked = prefs.useBandcamp;
+      toggleBeatport.checked = prefs.useBeatport;
+      toggleBoomkat.checked = prefs.useBoomkat;
+      toggleClone.checked = prefs.useClone;
+      toggleDeeJay.checked = prefs.useDeejay;
+      toggleDiscogs.checked = prefs.useDiscogs;
+      toggleEarcave.checked = prefs.useEarcave;
+      toggleGramaphone.checked = prefs.useGramaphone;
+      toggleHardwax.checked = prefs.useHardwax;
+      toggleJuno.checked = prefs.useJuno;
+      toggleOye.checked = prefs.useOye;
+      togglePhonica.checked = prefs.usePhonica;
+      toggleRateYourMusic.checked = prefs.useRateYourMusic;
+      toggleRedeye.checked = prefs.useRedeye;
+      toggleRushhour.checked = prefs.useRushhour;
+      toggleSotu.checked = prefs.useSotu;
+      toggleYoutube.checked = prefs.useYoutube;
       // Store prefs to reference with showHeadsup()
-      prefs = result.prefs;
+      prefs = prefs;
     });
 
     // Set values for features with options
