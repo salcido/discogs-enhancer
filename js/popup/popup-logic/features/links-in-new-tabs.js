@@ -101,12 +101,12 @@ export async function createLinkTabElements() {
  * Sets the enabled/disabled preference
  */
 function updateLinkPreference(event) {
-  chrome.storage.sync.get(['linksInTabs']).then(({ linksInTabs }) => {
+  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
 
     let id = event.target.id;
-    linksInTabs[id] = event.target.checked;
+    featurePrefs.linksInTabs[id] = event.target.checked;
 
-    chrome.storage.sync.set({ linksInTabs }).then(() => {
+    chrome.storage.sync.set({ featurePrefs }).then(() => {
       applySave('refresh', event);
     });
   });
