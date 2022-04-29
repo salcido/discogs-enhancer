@@ -10,8 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasConfig = await chrome.storage.sync.get(['readability']),
-      initialConfig = hasConfig ? hasConfig.readability : setDefaultConfig(),
+  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+      initialConfig = featurePrefs.readability,
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
@@ -47,31 +47,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return targetId.appendChild(fragment.cloneNode(true));
   }
 
-  /**
-   * Sets default values in the config object
-   *
-   * @method setDefaultConfig
-   * @return {object}
-   */
-  function setDefaultConfig() {
-
-    let defaults = {
-          indexTracks: false,
-          nth: 10,
-          otherMediaReadability: false,
-          otherMediaThreshold: 15,
-          size: 0.5,
-          vcReadability: true,
-          vcThreshold: 8
-        };
-
-    chrome.storage.sync.set({ readability: defaults }).then(() => {
-      chrome.storage.sync.get(['readability']).then(({ readability }) => {
-        return readability;
-      })
-    })
-  }
-
   // ========================================================
   // DOM setup
   // ========================================================
@@ -98,18 +73,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('toggleVCreleases').addEventListener('click', function(event) {
 
-    chrome.storage.sync.get(['readability']).then(({ readability }) => {
-      readability.vcReadability = event.target.checked;
-      chrome.storage.sync.set({ readability });
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+      featurePrefs.readability.vcReadability = event.target.checked;
+      chrome.storage.sync.set({ featurePrefs });
     })
   });
 
   // Single CD, digital, etc ...
   document.getElementById('toggleOtherMedia').addEventListener('click', function(event) {
 
-    chrome.storage.sync.get(['readability']).then(({ readability }) => {
-      readability.otherMediaReadability = event.target.checked;
-      chrome.storage.sync.set({ readability });
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+      featurePrefs.readability.otherMediaReadability = event.target.checked;
+      chrome.storage.sync.set({ featurePrefs });
     })
   });
 
@@ -118,9 +93,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     select.addEventListener('change', function(event) {
 
-      chrome.storage.sync.get(['readability']).then(({ readability }) => {
-        readability[event.target.id] = JSON.parse(event.target.value);
-        chrome.storage.sync.set({ readability });
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.readability[event.target.id] = JSON.parse(event.target.value);
+        chrome.storage.sync.set({ featurePrefs });
       })
     });
   });
