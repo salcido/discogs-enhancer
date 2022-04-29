@@ -56,7 +56,7 @@
   // DOM Setup
   // ========================================================
   let defaults = { hide: false, superscript: true, unselectable: true, transparent: false },
-      discriminators = rl.getPreference('discriminators') || defaults,
+      { discriminators } = rl.getPreference('featurePrefs') || defaults,
       elemType,
       { hide, superscript, transparent, unselectable } = discriminators,
       re = /(.+\s)(\(\d+\))$/gm;
