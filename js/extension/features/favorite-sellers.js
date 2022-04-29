@@ -77,7 +77,7 @@ rl.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let favoriteList = rl.getPreference('favoriteList');
+  let { favoriteList } = rl.getPreference('featurePrefs');
 
   if ( favoriteList && favoriteList.list ) {
     rl.attachCss('favorite-sellers', rules);
