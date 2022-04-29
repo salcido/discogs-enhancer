@@ -15,7 +15,7 @@
 
 rl.ready(() => {
 
-  let countryList = rl.getPreference('countryList'),
+  let { countryList } = rl.getPreference('featurePrefs'),
       href = window.location.href,
       currencyInURL = href.includes('currency=');
 
