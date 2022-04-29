@@ -17,6 +17,10 @@
  *
  * Functions are listed alphabetically.
  *
+ * NOTE: This code is abysmal. It's terrible to understand and a nightmare
+ * to maintain. If this ever breaks I will likely just remove it because I don't
+ * want to deal with it again.
+ *
  * ---------------------------------------------------------------------------
  * Use Case Examples:
  * ---------------------------------------------------------------------------
@@ -49,8 +53,9 @@
   if ( rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease') && rl.pageIsReact() ) {
 
     let
-        config = rl.getPreference('readability') || useDefaults(),
-        show = rl.getPreference('readabilityDividers') || setReadabilityTrue(),
+        { readability } = rl.getPreference('featurePrefs'),
+        readabilityDividers = rl.getPreference('readabilityDividers'),
+        show = readabilityDividers !== undefined ? readabilityDividers : setReadabilityTrue(),
 
         debug = rl.options.debug(),
 
@@ -71,7 +76,7 @@
         tracklist = [...document.querySelectorAll('#release-tracklist tbody tr')],
 
         // size of dividers inserted between tracks
-        size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
+        size = readability.size ? `line-height:${readability.size}rem;` : 'line-height:0.5rem',
 
         prefix = [],
         sequence = [],
@@ -434,9 +439,9 @@
 
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
-          if ( config &&
-               config.vcReadability &&
-               tracklist.length > config.vcThreshold ) {
+          if ( readability &&
+               readability.vcReadability &&
+               tracklist.length > readability.vcThreshold ) {
 
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
@@ -454,9 +459,9 @@
 
         } else if ( isSequential && !prefix.length ) {
 
-          if ( config &&
-               config.otherMediaReadability &&
-               tracklist.length > config.otherMediaThreshold ) {
+          if ( readability &&
+               readability.otherMediaReadability &&
+               tracklist.length > readability.otherMediaThreshold ) {
 
             if (debug) {
 
@@ -466,7 +471,7 @@
             }
 
             appendUI();
-            return insertSpacersEveryNth(tracklist, config.nth);
+            return insertSpacersEveryNth(tracklist, readability.nth);
           }
 
         } else {
@@ -474,9 +479,9 @@
           // Track numbering is not sequential (eg: A1, A2, B, C1, C2)
           // ---------------------------------------------------------------------------
 
-          if ( config &&
-               config.vcReadability &&
-               tracklist.length > config.vcThreshold &&
+          if ( readability &&
+               readability.vcReadability &&
+               tracklist.length > readability.vcThreshold &&
                !hasIndexTracks ) {
 
             appendUI();
@@ -496,9 +501,9 @@
         // Has Prefixes AKA Multi-Format releases (eg: CD + DVD, etc ...)
         // ---------------------------------------------------------------------------
 
-        if ( config &&
-             config.vcReadability &&
-             tracklist.length > config.vcReadability ) {
+        if ( readability &&
+             readability.vcReadability &&
+             tracklist.length > readability.vcReadability ) {
 
           appendUI();
           handleMultiFormatRelease(trackpos);
@@ -516,9 +521,9 @@
     // Index tracks
     // ---------------------------------------------------------------------------
 
-    if ( config &&
+    if ( readability &&
          noHeadings &&
-         config.indexTracks &&
+         readability.indexTracks &&
          hasIndexTracks ) {
 
       appendUI();
