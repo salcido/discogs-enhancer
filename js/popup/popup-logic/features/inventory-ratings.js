@@ -32,45 +32,49 @@ export function init() {
  * @method saveInventoryRatings
  * @return {undefined}
  */
-export async function saveInventoryRatings() {
+export function saveInventoryRatings(event) {
 
-  let
-      input = document.getElementById('ratingsValue'),
-      inventoryValue = document.getElementsByClassName('inventory-value')[0],
-      self = document.querySelector('.inventory .status'),
-      toggle = document.getElementById('toggleInventoryRatings');
+  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
 
-    // enabled -and- has value entered
-    if ( input.value && toggle.checked ) {
+    let
+        input = document.getElementById('ratingsValue'),
+        inventoryValue = document.getElementsByClassName('inventory-value')[0],
+        self = document.querySelector('.inventory .status'),
+        toggle = document.getElementById('toggleInventoryRatings');
 
-    input.disabled = true;
-    toggle.disabled = false;
-    input.classList.remove('alert');
+      // enabled -and- has value entered
+      if ( input.value && toggle.checked ) {
 
-    chrome.storage.sync.set({ 'minimumRating': JSON.parse(input.value) });
+        input.disabled = true;
+        toggle.disabled = false;
+        input.classList.remove('alert');
 
-    let { minimumRating } = await chrome.storage.sync.get(['minimumRating'])
-    input.value = minimumRating;
+        featurePrefs.minimumRating = JSON.parse(input.value)
+        chrome.storage.sync.set({ featurePrefs });
 
-    // Displays rating as "- 4.45"
-    inventoryValue.innerHTML = `&#8209; ${input.value}`;
+        let { minimumRating } = featurePrefs;
+        input.value = minimumRating;
 
-    setEnabledStatus( self, 'Enabled' );
-    applySave('refresh', event);
+        // Displays rating as "- 4.45"
+        inventoryValue.innerHTML = `&#8209; ${input.value}`;
 
-    } else if ( input.value && !toggle.checked ) {
+        setEnabledStatus( self, 'Enabled' );
+        applySave('refresh', event);
 
-    input.disabled = false;
-    inventoryValue.textContent = '';
+      } else if ( input.value && !toggle.checked ) {
 
-    setEnabledStatus(self, 'Disabled');
-    applySave('refresh', event);
+        input.disabled = false;
+        inventoryValue.textContent = '';
 
-    } else if ( !input.value ) {
+        setEnabledStatus(self, 'Disabled');
+        applySave('refresh', event);
 
-    toggle.checked = false;
-    input.classList.add('alert');
-  }
+      } else if ( !input.value ) {
+
+        toggle.checked = false;
+        input.classList.add('alert');
+      }
+  })
 }
 
 /**
@@ -82,7 +86,8 @@ export async function saveInventoryRatings() {
 export async function setInventoryRatings() {
 
   let input = document.getElementById('ratingsValue'),
-      { minimumRating = null } = await chrome.storage.sync.get(['minimumRating']),
+      { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+      { minimumRating } = featurePrefs,
       ratingDisplay = document.querySelector('.inventory-value'),
       self = document.querySelector('.inventory .status'),
       toggle = document.getElementById('toggleInventoryRatings');
