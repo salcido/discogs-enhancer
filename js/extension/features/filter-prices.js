@@ -11,9 +11,9 @@ rl.ready(() => {
 
   if ( rl.pageIs('myWants', 'allItems', 'sellRelease', 'seller') ) {
 
-    let prefs = rl.getPreference('filterPrices') || { minimum: null, maximum: null },
-        minimum = prefs.minimum,
-        maximum = prefs.maximum;
+    let { filterPrices } = rl.getPreference('featurePrefs') || { minimum: null, maximum: null },
+        minimum = filterPrices.minimum,
+        maximum = filterPrices.maximum;
 
     /**
      * Grabs all item prices on the page,
