@@ -10,10 +10,9 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasBlockList = await chrome.storage.sync.get(['blockList']),
-      blockList = hasBlockList ? hasBlockList.blockList : { list:[], hide: 'tag' },
-      hasFavoriteList = await chrome.storage.sync.get(['favoriteList']),
-      initialFavoriteList = hasFavoriteList ? hasFavoriteList.favoriteList : setNewfavoriteList(),
+  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+      blockList = featurePrefs.blockList,
+      initialFavoriteList = featurePrefs.favoriteList,
       blocklistError = 'is on your block list. You must remove them from your block list before adding them as a favorite.',
       favoriteListError = 'is already on your favorites list.';
 
@@ -46,10 +45,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       // ga(type, category, action, label)
       if ( window.ga ) { window.ga('send', 'event', 'favorite seller', input); }
 
-      chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
-        favoriteList.list.push(input);
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.favoriteList.list.push(input);
         // Update chrome.storage
-        chrome.storage.sync.set({ favoriteList }).then(() => {
+        chrome.storage.sync.set({ featurePrefs }).then(() => {
           document.querySelector('.errors').textContent = '';
           return location.reload();
         });
@@ -118,33 +117,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
-      favoriteList.list.forEach((seller, i) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+
+      featurePrefs.favoriteList.list.forEach((seller, i) => {
 
         if ( targetName === seller ) {
 
-          favoriteList.list.splice(i, 1);
-          chrome.storage.sync.set({ favoriteList });
-          initialFavoriteList = favoriteList
+          featurePrefs.favoriteList.list.splice(i, 1);
+          chrome.storage.sync.set({ featurePrefs });
+          initialFavoriteList = featurePrefs.favoriteList
 
           return setTimeout(() => updatePageData(), 400);
         }
       });
-    })
-  }
-
-  /**
-   * Instantiates a new favoriteList object
-   * @returns {object}
-   */
-  function setNewfavoriteList() {
-
-    let defaultList = { list: [] };
-
-    chrome.storage.sync.set({ 'favoriteList': defaultList });
-
-    chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
-      return favoriteList;
     })
   }
 
@@ -166,15 +151,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function updatePageData() {
-    chrome.storage.sync.get(['favoriteList']).then(({ favoriteList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
       // remove all the sellers from the DOM
       [...document.getElementsByClassName('seller')].forEach(seller => seller.remove());
       // Add them back in with the newly updated favoriteList data
-      insertSellersIntoDOM(favoriteList);
+      insertSellersIntoDOM(featurePrefs.favoriteList);
       // reattach event listerns to sellers
       addSellerEventListeners();
       // update backup/restore output
-      document.querySelector('.backup-output').textContent = JSON.stringify(favoriteList.list);
+      document.querySelector('.backup-output').textContent = JSON.stringify(featurePrefs.favoriteList.list);
       // check for empty list
       checkForEmptySellersList();
     })
@@ -242,12 +227,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     if ( validatefavoriteList(list) ) {
 
       let restore = {
-        list: JSON.parse(list),
-        hide: 'tag'
-      };
+            list: JSON.parse(list),
+            hide: 'tag'
+          };
 
-      chrome.storage.sync.set({ 'favoriteList': restore }).then(() => {
-        return location.reload();
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.favoriteList = restore;
+        chrome.storage.sync.set({ featurePrefs }).then(() => {
+          return location.reload();
+        })
       })
 
     } else {
