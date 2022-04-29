@@ -115,15 +115,13 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  // if ( ga ) {
+  if ( window.ga ) {
+    let checked = event.target.checked;
 
-  //   let checked = event.target.checked;
-
-  //   if ( checked !== undefined ) {
-
-  //     ga('send', 'event', event.target.id, checked);
-  //   }
-  // }
+    if ( checked !== undefined ) {
+      ga('send', 'event', event.target.id, checked);
+    }
+  }
 }
 
 // ========================================================
