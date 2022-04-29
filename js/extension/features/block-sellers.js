@@ -77,7 +77,7 @@ rl.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let blockList = rl.getPreference('blockList'),
+  let { blockList } = rl.getPreference('featurePrefs'),
       type,
       marketplaceQuerySelector =  'td.seller_info ul li:first-child a',
       wantlistMessageQuerySelector = 'table.wantlist-card tbody tr:last-child td table tbody tr td table:last-child tbody tr td a strong';
