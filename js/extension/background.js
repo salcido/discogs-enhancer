@@ -21,30 +21,28 @@ chrome.runtime.onInstalled.addListener((details) => {
 
     if (details.reason === 'install') {
 
-    console.log('Welcome to the pleasuredome!');
+      console.log('Welcome to the pleasuredome!');
 
-    chrome.storage.sync.set({ didUpdate: false }, function() {});
+      chrome.storage.sync.set({ didUpdate: false }, function() {});
 
     } else if (details.reason === 'update') {
+      // - Don't show an update notice on patches -
+      previousVersion = details.previousVersion.split('.');
 
-    // - Don't show an update notice on patches -
-    previousVersion = details.previousVersion.split('.');
+      thisVersion = chrome.runtime.getManifest().version.split('.');
 
-    thisVersion = chrome.runtime.getManifest().version.split('.');
+      if ( Number(thisVersion[0]) > Number(previousVersion[0])
+           || Number(thisVersion[1]) > Number(previousVersion[1]) ) {
 
-    if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
-         Number(thisVersion[1]) > Number(previousVersion[1]) ) {
+          chrome.action.setBadgeText({text: ' '});
 
-      chrome.action.setBadgeText({text: ' '});
+          chrome.action.setBadgeBackgroundColor({color: '#4cb749'});
 
-      chrome.action.setBadgeBackgroundColor({color: '#4cb749'});
-
-      chrome.storage.sync.set({ didUpdate: true }, function() {});
+          chrome.storage.sync.set({ didUpdate: true }, function() {});
+      }
     }
-
-    // Instantiate Contextual Menu Options
-    updateContextMenus();
-  }
+  // Instantiate Contextual Menu Options
+  updateContextMenus();
 })
 
 // ========================================================
@@ -71,6 +69,11 @@ function createContextMenu(name) {
  */
 function updateContextMenus() {
   chrome.storage.sync.get('prefs', ({ prefs }) => {
+
+    // Add Discogs on install
+    if (!prefs) {
+      createContextMenu('Discogs');
+    }
     // Put Discogs first...
     if (prefs.useDiscogs) createContextMenu('Discogs');
     // Then the remaining stores in alphabetical order
