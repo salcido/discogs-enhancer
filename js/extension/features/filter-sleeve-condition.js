@@ -23,7 +23,7 @@
 
 rl.ready(() => {
 
-    let sleeveCondition = rl.getPreference('sleeveCondition');
+    let { sleeveCondition } = rl.getPreference('featurePrefs');
 
     /**
      * Find all instances of selected items in list and hide them
