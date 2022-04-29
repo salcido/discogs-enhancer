@@ -24,7 +24,7 @@ rl.ready(() => {
     page.classList.add('de-label');
   }
 
-  let prefs = rl.getPreference('linksInTabs') || null,
+  let { linksInTabs } = rl.getPreference('featurePrefs') || null,
       // Artist
       artThumbs = '#artist .card .image a',
       artTitles = '#artist .card .title a',
@@ -108,11 +108,11 @@ rl.ready(() => {
   // DOM Setup
   // ========================================================
 
-  if (prefs) {
+  if ( linksInTabs ) {
     // Find any preferences set to true and compile
     // their respective selectors into an array
-    for (let p in prefs) {
-      if (prefs[p]) {
+    for ( let p in linksInTabs ) {
+      if ( linksInTabs[p] ) {
         enabled = true;
         selectors.push(sections[p]);
       }
@@ -133,7 +133,7 @@ rl.ready(() => {
       });
 
       // Dashboard modules load async so wait for calls to finish
-      if (prefs.dashboard && rl.pageIs('dashboard') || rl.pageIs('master', 'release')) {
+      if (linksInTabs.dashboard && rl.pageIs('dashboard') || rl.pageIs('master', 'release')) {
         if (reactVersion) {
           // Guessing that recommendations are one of the last things to render on the page
           // Maybe there is a better way to tell when all requests have finished?
