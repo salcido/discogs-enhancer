@@ -35,6 +35,7 @@ module.exports = {
     './js/extension/background': './js/extension/background.js',
     './js/extension/user-preferences': './js/extension/user-preferences.js',
     // dependencies
+    [deps + 'analytics-source']: `${deps}analytics-source.js`,
     [deps + 'analytics']: `${deps}analytics.js`,
     [deps + 'hashes']: `${deps}hashes.js`,
     [deps + 'update-exchange-rates']: `${deps}update-exchange-rates.js`,
@@ -49,7 +50,6 @@ module.exports = {
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
     [features + 'comment-scanner']: `${features}comment-scanner.js`,
-    /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
     [features + 'confirm-before-removing-react']: `${features}confirm-before-removing-react.js`,
     [features + 'confirm-before-removing']: `${features}confirm-before-removing.js`,
     [features + 'currency-converter']: `${features}currency-converter.js`,
@@ -184,9 +184,7 @@ module.exports = {
           ignore: ['**/*.scss']
         }
       },
-      { from: 'img', to: 'img' },
-      // contextual menu searching
-      { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js' }
+      { from: 'img', to: 'img' }
     ]
   }),
  ]
