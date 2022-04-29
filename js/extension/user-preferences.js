@@ -17,11 +17,115 @@ let elems = [],
     filterMonitor,
     hashes,
     prefs = {},
+    featurePrefs = {},
     resourceLibrary;
+
+// Feature preferece defaults
+let defaults = {
+      blockList: { list:[], hide: 'tag' },
+      countryList: { list: [], currency: false, include: false },
+      discriminators: {
+          hide: false,
+          superscript: true,
+          unselectable: true,
+          transparent: false,
+        },
+      favoriteList: { list: [] },
+      filterPrices: { minimum: null, maximum: null },
+      inventoryScanner: { threshold: null },
+      linksInTabs: {
+          artists: false,
+          collection: false,
+          dashboard: false,
+          labels: false,
+          lists: false,
+          marketplace: false,
+          releases: false,
+          wantlist: false,
+        },
+      mediaCondition: 7,
+      minimumRating: null,
+      readability: {
+          indexTracks: false,
+          nth: 10,
+          otherMediaReadability: false,
+          otherMediaThreshold: 15,
+          size: 0.5,
+          vcReadability: true,
+          vcThreshold: 8
+        },
+      sellerRep: 75,
+      sellerRepColor: 'darkorange',
+      sellerRepFilter: false,
+      sleeveCondition: { value: 7, generic: false, noCover: false },
+      usDateFormat: false,
+    };
 
 // ========================================================
 // Functions
 // ========================================================
+
+/**
+ * Migrates user preferences from localStorage to chrome.storage
+ * Or instantiates defaults on a fresh install.
+ * @returns {Promise}
+ */
+ async function migratePreferences() {
+
+  chrome.storage.sync.get(['migrated']).then(({ migrated }) => {
+    return new Promise(async resolve => {
+
+      if (migrated) {
+        return resolve();
+      }
+
+      let up = JSON.parse(localStorage.getItem('userPreferences')) || {};
+
+      let
+          blockList = up.blockList || defaults.blockList,
+          countryList = up.countryList || defaults.countryList,
+          discriminators = up.discriminators || defaults.discriminators,
+          favoriteList = up.favoriteList || defaults.favoriteList,
+          filterPrices = up.filterPrices || defaults.filterPrices,
+          inventoryScanner = up.inventoryScanner || defaults.inventoryScanner,
+          linksInTabs = up.linksInTabs || defaults.linksInTabs,
+          mediaCondition = up.mediaCondition || defaults.mediaCondition,
+          minimumRating = defaults.minimumRating,
+          readability = up.readability || defaults.readability,
+          sellerRep = up.sellerRep || defaults.sellerRep,
+          sellerRepColor = up.sellerRepColor || defaults.sellerRepColor,
+          sellerRepFilter = up.sellerRepFilter || defaults.sellerRepFilter,
+          sleeveCondition = up.sleeveCondition || defaults.sleeveCondition,
+          usDateFormat = up.usDateFormat || defaults.usDateFormat;
+
+      let featurePrefs = {
+            blockList,
+            countryList,
+            discriminators,
+            favoriteList,
+            filterPrices,
+            inventoryScanner,
+            linksInTabs,
+            mediaCondition,
+            minimumRating,
+            readability,
+            sellerRep,
+            sellerRepColor,
+            sellerRepFilter,
+            sleeveCondition,
+            usDateFormat
+          };
+
+        Promise.all([
+          chrome.storage.sync.set({ featurePrefs }),
+          chrome.storage.sync.set({ 'migrated': true })
+        ]).then(() => {
+          console.log('Discogs Enhancer: Feature Preferences created.');
+          return resolve();
+        })
+    });
+  })
+}
 
 /**
  * docuemnt.readyState check via promise
@@ -62,14 +166,27 @@ function appendFragment(elems) {
  * using Everlasting Marketplace.
  * @returns {Object}
  */
-function getCurrentFilterState() {
-  let currentFilterState = {
-        everlastingMarket: prefs.everlastingMarket,
-        filterMediaCondition: prefs.filterMediaCondition,
-        filterPrices: prefs.filterPrices,
-        filterShippingCountry: prefs.filterShippingCountry,
-        filterSleeveCondition: prefs.filterSleeveCondition,
-      };
+function getCurrentFilterState(prefs) {
+  let currentFilterState;
+
+  if (prefs) {
+    currentFilterState = {
+      everlastingMarket: prefs.everlastingMarket || false,
+      filterMediaCondition: prefs.filterMediaCondition || false,
+      filterPrices: prefs.filterPrices,
+      filterShippingCountry: prefs.filterShippingCountry || false,
+      filterSleeveCondition: prefs.filterSleeveCondition || false,
+    };
+  } else {
+    currentFilterState = {
+      everlastingMarket: false,
+      filterMediaCondition: false,
+      filterPrices: false,
+      filterShippingCountry: false,
+      filterSleeveCondition: false,
+    };
+  }
+
   return currentFilterState;
 }
 
@@ -89,7 +206,7 @@ resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
 resourceLibrary.src = chrome.runtime.getURL('js/extension/dependencies/resource-library.js');
 
-appendFragment([resourceLibrary]).then(() => {
+appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
 
   let blockedUsers = ['.xxTIMEMACHINExx.', 'Efx.Libris'],
       user = window.getCookie('ck_username');
@@ -150,7 +267,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortButtons: true,
         suggestedPrices: false,
         tweakDiscrims: false,
-        userCurrency: null,
+        userCurrency: 'USD',
         ytPlaylists: false,
         //
         useAllDay: false,
@@ -173,13 +290,25 @@ appendFragment([resourceLibrary]).then(() => {
         useYoutube: false
       };
 
-      chrome.storage.sync.set({ prefs: prefs }, () => console.log('Preferences created.'));
+      chrome.storage.sync.set({ prefs: prefs }, () => console.log('Discogs Enhancer: User Preferences created.'));
     } else {
       prefs = result.prefs;
     }
 
+    // Create the feature preferences if they do not exist
+    // NOTE: featurePrefs are the chrome.storage.sync'd preferences for features that originate from
+    // the preferences set in the extension's popup menu.
+    // Features that use localStorage to save things on the DOM side need to be saved outside
+    // of `featurePrefs` since they will get overwritten when the `newPrefs` object is created below.
+    chrome.storage.sync.get('featurePrefs', (res) => {
+      if (!res.featurePrefs) {
+        res.featurePrefs = defaults;
+        chrome.storage.sync.set({ 'featurePrefs': res.featurePrefs }, () => console.log('Discogs Enhancher: Feature Preferences created.'));
+      }
+    });
+
     // Dark Theme
-    if ( result.prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
+    if ( prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
     // Don't use the dark theme on subdomains or when printing an order
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
@@ -253,7 +382,7 @@ appendFragment([resourceLibrary]).then(() => {
       minMax_css.type = 'text/css';
       minMax_css.href = chrome.runtime.getURL('css/min-max-columns.css');
       minMax_css.id = 'minMaxColumnsCss';
-      minMax_css.disabled = !result.prefs.hideMinMaxColumns;
+      minMax_css.disabled = !prefs.hideMinMaxColumns;
 
       elems.push(minMax_css);
 
@@ -264,7 +393,7 @@ appendFragment([resourceLibrary]).then(() => {
       baoi_css.type = 'text/css';
       baoi_css.href = chrome.runtime.getURL('css/baoi-fields.css');
       baoi_css.id = 'baoiFieldsCss',
-      baoi_css.disabled = !result.prefs.baoiFields;
+      baoi_css.disabled = !prefs.baoiFields;
 
       elems.push(baoi_css);
 
@@ -275,7 +404,7 @@ appendFragment([resourceLibrary]).then(() => {
       ytPlaylists_css.type = 'text/css';
       ytPlaylists_css.href = chrome.runtime.getURL('css/large-youtube-playlists.css');
       ytPlaylists_css.id = 'ytPlaylistsCss',
-      ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
+      ytPlaylists_css.disabled = !prefs.ytPlaylists;
 
       elems.push(ytPlaylists_css);
 
@@ -314,7 +443,7 @@ appendFragment([resourceLibrary]).then(() => {
       highlightCss.type = 'text/css';
       highlightCss.href = chrome.runtime.getURL('css/marketplace-highlights.css');
       highlightCss.id = 'mediaHighLightsCss';
-      highlightCss.disabled = !result.prefs.highlightMedia;
+      highlightCss.disabled = !prefs.highlightMedia;
 
       elems.push(highlightCss);
 
@@ -324,7 +453,7 @@ appendFragment([resourceLibrary]).then(() => {
       //
       // Adding A Feature: Step 1
 
-      if ( result.prefs.absoluteDate ) {
+      if ( prefs.absoluteDate ) {
         // show-actual-dates.js
         let absoluteDate = document.createElement('script');
 
@@ -343,7 +472,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(absoluteDateReact);
       }
 
-      if ( result.prefs.averagePrice ) {
+      if ( prefs.averagePrice ) {
         // average-price.js
         let averagePrice = document.createElement('script');
 
@@ -354,7 +483,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(averagePrice);
       }
 
-      if ( result.prefs.blockBuyers ) {
+      if ( prefs.blockBuyers ) {
         // block-buyers.js
         let blockBuyers = document.createElement('script');
 
@@ -365,7 +494,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(blockBuyers);
       }
 
-      if (result.prefs.blockSellers) {
+      if (prefs.blockSellers) {
 
         // block-sellers.js
         let blockSellers = document.createElement('script');
@@ -386,7 +515,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(blockSellers_css);
       }
 
-      if (result.prefs.blurryImageFix) {
+      if (prefs.blurryImageFix) {
 
         // blurry-image-fix.js
         let blurryImageFix = document.createElement('script');
@@ -398,7 +527,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(blurryImageFix);
       }
 
-      if ( result.prefs.confirmBeforeRemoving ) {
+      if ( prefs.confirmBeforeRemoving ) {
 
         let confirmBeforeRemoving = document.createElement('script');
 
@@ -417,7 +546,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(confirmBeforeRemovingReact);
       }
 
-      if (result.prefs.collectionUi) {
+      if (prefs.collectionUi) {
 
         // better-collection-ui.js
         let collectionUi = document.createElement('script');
@@ -430,7 +559,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // comment-scanner.js
-      if ( result.prefs.commentScanner ) {
+      if ( prefs.commentScanner ) {
 
         let commentScanner = document.createElement('script');
 
@@ -441,7 +570,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(commentScanner);
       }
 
-      if ( result.prefs.converter
+      if ( prefs.converter
            && !window.location.href.includes('/order/prints?') ) {
 
         // currency-converter.css
@@ -464,7 +593,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // release-history-legend.js
-      if (result.prefs.darkTheme) {
+      if (prefs.darkTheme) {
 
         let releaseHistoryScript = document.createElement('script');
 
@@ -486,7 +615,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // demand-index.js
-      if ( result.prefs.demandIndex ) {
+      if ( prefs.demandIndex ) {
 
         let demandIndex = document.createElement('script');
 
@@ -514,7 +643,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // editing notepad
-      if ( result.prefs.editingNotepad ) {
+      if ( prefs.editingNotepad ) {
 
         let editingNotepad = document.createElement( 'script' );
 
@@ -526,7 +655,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // everlasting collection
-      if ( result.prefs.everlastingCollection ) {
+      if ( prefs.everlastingCollection ) {
 
         // everlasting-collection-notes.js
         let everlastingCollectionNotes = document.createElement('script');
@@ -557,7 +686,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // everlasting marketplace
-      if (result.prefs.everlastingMarket) {
+      if (prefs.everlastingMarket) {
 
         // everlasting-marketplace.js && everlasting-marketplace-release-page.js
         let everlastingMarket = document.createElement('script'),
@@ -576,7 +705,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(everlastingMarketReleases);
       }
 
-      if (result.prefs.favoriteSellers) {
+      if (prefs.favoriteSellers) {
 
         // favorite-sellers.js
         let favoriteSellers = document.createElement('script');
@@ -588,7 +717,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(favoriteSellers);
       }
 
-      if (result.prefs.feedback) {
+      if (prefs.feedback) {
 
         let feedback = document.createElement('script');
 
@@ -608,7 +737,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(feedback_css);
       }
 
-      if (result.prefs.filterMediaCondition) {
+      if (prefs.filterMediaCondition) {
 
         // filter-media-condition.js
         let filterMediaCondition = document.createElement('script');
@@ -620,7 +749,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(filterMediaCondition);
       }
 
-      if ( result.prefs.filterPrices ) {
+      if ( prefs.filterPrices ) {
 
         let filterPrices = document.createElement('script');
 
@@ -631,7 +760,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(filterPrices);
       }
 
-      if (result.prefs.filterShippingCountry) {
+      if (prefs.filterShippingCountry) {
 
         // filter-shipping-country.js
         let filterShippingCountry = document.createElement('script');
@@ -643,7 +772,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(filterShippingCountry);
       }
 
-      if (result.prefs.filterSleeveCondition) {
+      if (prefs.filterSleeveCondition) {
 
         // filter-sleeve-condition.js
         let filterSleeveCondition = document.createElement('script');
@@ -656,7 +785,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // text format shortcuts
-      if (result.prefs.formatShortcuts) {
+      if (prefs.formatShortcuts) {
 
         // text-format-shortcuts.js
         let shortcuts = document.createElement('script');
@@ -686,7 +815,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // force-dashboard-link.js
-      if ( result.prefs.forceDashboard ) {
+      if ( prefs.forceDashboard ) {
 
         let forceDashboard = document.createElement('script');
 
@@ -698,18 +827,18 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // Set value for filter-media-condition.js
-      if (result.prefs.filterMediaConditionValue) {
+      if (prefs.filterMediaConditionValue) {
 
-        localStorage.setItem('mediaCondition', result.prefs.filterMediaConditionValue);
+        localStorage.setItem('mediaCondition', prefs.filterMediaConditionValue);
       }
 
       // Set value for filter-sleeve-condition.js
-      if (result.prefs.filterSleeveConditionValue) {
+      if (prefs.filterSleeveConditionValue) {
 
-        localStorage.setItem('sleeveCondition', result.prefs.filterSleeveConditionValue);
+        localStorage.setItem('sleeveCondition', prefs.filterSleeveConditionValue);
       }
 
-      if (result.prefs.filterUnavailable) {
+      if (prefs.filterUnavailable) {
 
         // filter-unavailable.js
         let unavailable = document.createElement('script');
@@ -721,7 +850,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(unavailable);
       }
 
-      if (result.prefs.notesCount) {
+      if (prefs.notesCount) {
 
         // notes-counter.js
         let notesCount = document.createElement('script');
@@ -741,7 +870,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(notesCountReact);
       }
 
-      if ( result.prefs.quickSearch ) {
+      if ( prefs.quickSearch ) {
 
         // quick-search.js
         let quickSearch = document.createElement('script');
@@ -761,7 +890,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(quickSearchReact);
       }
 
-      if (result.prefs.inventoryRatings) {
+      if (prefs.inventoryRatings) {
 
         // inventory-ratings.js
         let inventoryRatings = document.createElement('script');
@@ -773,7 +902,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(inventoryRatings);
       }
 
-      if (result.prefs.inventoryScanner) {
+      if (prefs.inventoryScanner) {
 
         // inventory-scanner.js
         let inventoryScanner = document.createElement('script');
@@ -785,7 +914,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(inventoryScanner);
       }
 
-      if (result.prefs.randomItem) {
+      if (prefs.randomItem) {
 
         // random-item.js
         let randomItem = document.createElement('script');
@@ -804,7 +933,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(randomItemReact);
       }
 
-      if ( result.prefs.ratingPercent ) {
+      if ( prefs.ratingPercent ) {
 
         // rating-percent.js
         let ratingPercent = document.createElement('script');
@@ -824,7 +953,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(ratingPercentReact);
       }
 
-      if (result.prefs.readability) {
+      if (prefs.readability) {
 
         let tracklist_css = document.createElement('link');
 
@@ -853,7 +982,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(readabilityReact);
       }
 
-      if ( result.prefs.relativeSoldDate ) {
+      if ( prefs.relativeSoldDate ) {
 
         // relative-sold-date.js
         let relativeSoldDate = document.createElement('script');
@@ -874,7 +1003,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // release-durations
-      if (result.prefs.releaseDurations) {
+      if (prefs.releaseDurations) {
 
         let releaseDurations = document.createElement('script');
 
@@ -894,7 +1023,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // release-ratings
-      if ( result.prefs.releaseRatings ) {
+      if ( prefs.releaseRatings ) {
 
         let releaseRatings = document.createElement('script');
 
@@ -906,7 +1035,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // release-scanner
-      if ( result.prefs.releaseScanner ) {
+      if ( prefs.releaseScanner ) {
 
         let releaseScanner = document.createElement('script');
 
@@ -917,7 +1046,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(releaseScanner);
       }
 
-      if ( result.prefs.removeFromWantlist ) {
+      if ( prefs.removeFromWantlist ) {
 
         // remove-from-wantlist.js
         let removeFromWantlist = document.createElement('script');
@@ -929,7 +1058,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(removeFromWantlist);
       }
 
-      if ( result.prefs.sellerItemsInCart ) {
+      if ( prefs.sellerItemsInCart ) {
 
         let sellerItemsInCart = document.createElement('script');
 
@@ -940,7 +1069,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(sellerItemsInCart);
       }
 
-      if ( result.prefs.sellerRep ) {
+      if ( prefs.sellerRep ) {
 
         // seller-rep.js
         let sellerRep = document.createElement('script');
@@ -952,7 +1081,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(sellerRep);
       }
 
-      if ( result.prefs.sortButtons ) {
+      if ( prefs.sortButtons ) {
 
         let sortButton_css = document.createElement('link');
 
@@ -991,7 +1120,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push( sortPersonalListsScript );
       }
 
-      if (result.prefs.suggestedPrices) {
+      if (prefs.suggestedPrices) {
         // suggested-prices-release-page.js
         let suggestedPricesRelease = document.createElement('script');
 
@@ -1022,7 +1151,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // tweak-discriminators.js
-      if ( result.prefs.tweakDiscrims ) {
+      if ( prefs.tweakDiscrims ) {
 
         let tweakDiscrims = document.createElement('script');
 
@@ -1059,65 +1188,35 @@ appendFragment([resourceLibrary]).then(() => {
 
       elems.push(comments);
 
-      return resolve(result);
+      return resolve(prefs);
     })
-    .then(() => {
-      // TODO: how to handle analytics?
+    .then((prefs) => {
       return new Promise(async (resolve) => {
         // Get `userPreferences` object from DOM side
-        let oldPrefs = JSON.parse(localStorage.getItem('userPreferences'));
+        let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {};
 
-        // Remove old properties from preferences
-        // TODO: delete this eventually
-        // renamed to minimumRating
-        if (oldPrefs.inventoryRatings) {
+        // Remove deprecated properties from preferences
+        // TODO: delete these eventually
+        if (oldPrefs && oldPrefs.inventoryRatings) {
+          // renamed to minimumRating
           delete oldPrefs.inventoryRatings;
         }
-        // renamed to sellersInCart
-        if (oldPrefs.sellerNames) {
+
+        if (oldPrefs && oldPrefs.sellerNames) {
+          // renamed to sellersInCart
           delete oldPrefs.sellerNames;
         }
 
         // Delete old feedback object if it does not contain a username
-        if (oldPrefs.feedback.buyer || oldPrefs.feedback.seller) {
+        if (oldPrefs && oldPrefs.feedback && oldPrefs.feedback.buyer
+            || oldPrefs && oldPrefs.feedback && oldPrefs.feedback.seller) {
           delete oldPrefs.feedback;
         }
-        // Get preferences saved in chrome.storage
-        let syncPrefs = {
-              blockList,
-              countryList,
-              discriminators,
-              favoriteList,
-              filterPrices,
-              inventoryScanner,
-              linksInTabs,
-              mediaCondition,
-              minimumRating,
-              readability,
-              sellerRep,
-              sellerRepColor,
-              sellerRepFilter,
-              sleeveCondition,
-              usDateFormat
-            } = await chrome.storage.sync.get([
-              'blockList',
-              'countryList',
-              'discriminators',
-              'favoriteList',
-              'filterPrices',
-              'inventoryScanner',
-              'linksInTabs',
-              'mediaCondition',
-              'minimumRating',
-              'readability',
-              'sellerRep',
-              'sellerRepColor',
-              'sellerRepFilter',
-              'sleeveCondition',
-              'usDateFormat'
-            ]);
 
-        let currentFilterState = getCurrentFilterState(),
+        // Get preferences saved in chrome.storage
+        let syncPrefs = await chrome.storage.sync.get(['featurePrefs']);
+
+        let currentFilterState = getCurrentFilterState(prefs),
             userCurrency = prefs.userCurrency,
             newPrefs;
 
