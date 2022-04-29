@@ -51,7 +51,7 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  let minimumRating = rl.getPreference('minimumRating');
+  let { minimumRating } = rl.getPreference('featurePrefs');
 
   if ( rl.pageIs('seller') ) {
     rl.attachCss('seller-inventory-rating', rules);
