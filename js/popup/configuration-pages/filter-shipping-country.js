@@ -10,8 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasList = await chrome.storage.sync.get(['countryList']),
-      initialCountryList = hasList ? hasList.countryList : setNewlist(),
+  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+      initialCountryList = featurePrefs.countryList,
       countryListError = 'is already on your list.';
 
   // ========================================================
@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     let input = document.getElementById('country-input').value;
 
     if ( input ) {
-      chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
-        countryList.list.push(input);
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.countryList.list.push(input);
 
-        chrome.storage.sync.set({ countryList });
+        chrome.storage.sync.set({ featurePrefs });
 
         document.querySelector('.errors').textContent = '';
 
@@ -112,33 +112,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
-      countryList.list.forEach((country, i) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+      featurePrefs.countryList.list.forEach((country, i) => {
 
         if ( targetName === country ) {
 
-          countryList.list.splice(i, 1);
-          chrome.storage.sync.set({ countryList });
+          featurePrefs.countryList.list.splice(i, 1);
+          chrome.storage.sync.set({ featurePrefs });
 
-          initialCountryList = countryList;
+          initialCountryList = featurePrefs.countryList;
 
           return setTimeout(() => updatePageData(), 400);
         }
       });
-    })
-  }
-
-  /**
-   * Instantiates a new list object
-   * @returns {object}
-   */
-  function setNewlist() {
-    let defaultList = { list: [], currency: false, include: false }
-
-    chrome.storage.sync.set({ 'countryList': defaultList });
-
-    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
-        return countryList;
     })
   }
 
@@ -159,15 +145,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function updatePageData() {
-    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
       // remove all the countries from the DOM
       [...document.getElementsByClassName('country')].forEach(c => c.remove());
       // Add them back in with the newly updated countrylist data
-      insertCountriesIntoDOM(countryList);
+      insertCountriesIntoDOM(featurePrefs.countryList);
       // reattach event listerns to countries
       addCountryEventListeners();
       // update backup/restore output
-      document.querySelector('.backup-output').textContent = JSON.stringify(countryList.list);
+      document.querySelector('.backup-output').textContent = JSON.stringify(featurePrefs.countryList.list);
       // check for empty list
       checkForEmptyCountryList();
     })
@@ -215,7 +201,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       return location.reload();
 
-    } else if ( countryList.list.includes(input) ) {
+    } else if ( initialCountryList.list.includes(input) ) {
 
       return showError(countryListError);
     }
@@ -224,11 +210,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Radio button listener
   document.getElementById('country-prefs').addEventListener('change', event => {
 
-    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
 
-      countryList.include = JSON.parse(event.target.value);
+      featurePrefs.countryList.include = JSON.parse(event.target.value);
 
-      chrome.storage.sync.set({ countryList }).then(() => {
+      chrome.storage.sync.set({ featurePrefs }).then(() => {
         return location.reload();
       })
     })
@@ -237,13 +223,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Checkbox listener
   document.getElementById('currency').addEventListener('change', event => {
 
-    chrome.storage.sync.get(['countryList']).then(({ countryList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
 
-      countryList.currency = event.target.checked;
+      featurePrefs.countryList.currency = event.target.checked;
 
-      chrome.storage.sync.set({ countryList });
-
-      return location.reload();
+      chrome.storage.sync.set({ featurePrefs }).then(() => {
+        return location.reload();
+      });
     })
   });
 
@@ -256,8 +242,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       let restore = { list: JSON.parse(list), currency: false, include: false };
 
-      chrome.storage.sync.set({ 'countryList': restore }).then(() => {
-        return location.reload();
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.countryList = restore;
+
+        chrome.storage.sync.set({ featurePrefs }).then(() => {
+          return location.reload();
+        })
       })
 
     } else {
