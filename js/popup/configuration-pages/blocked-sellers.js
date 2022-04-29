@@ -10,10 +10,9 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasBlockList = await chrome.storage.sync.get(['blockList']),
-      initialBlockList = hasBlockList ? hasBlockList.blockList : setNewBlocklist(),
-      hasFavoriteList = await chrome.storage.sync.get(['favoriteList']),
-      favoriteList = hasFavoriteList ? hasFavoriteList.favoriteList : { list:[] },
+  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+      initialBlockList = featurePrefs.blockList,
+      favoriteList = featurePrefs.favoriteList,
       favoriteListError = 'is on your favorites list. You must remove them from your favorites list before adding them to the block list.',
       blockListError = 'is already on your block list.';
 
@@ -46,10 +45,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       // ga(type, category, action, label)
       if ( window.ga ) { window.ga('send', 'event', 'block seller', input); }
 
-      chrome.storage.sync.get(['blockList']).then(({ blockList }) => {
-        blockList.list.push(input);
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.blockList.list.push(input);
         // Update chrome.storage
-        chrome.storage.sync.set({ blockList }).then(() => {
+        chrome.storage.sync.set({ featurePrefs }).then(() => {
           document.querySelector('.errors').textContent = '';
           return location.reload();
         });
@@ -118,34 +117,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    chrome.storage.sync.get(['blockList']).then(({ blockList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
 
-      blockList.list.forEach((seller, i) => {
+      featurePrefs.blockList.list.forEach((seller, i) => {
 
         if ( targetName === seller ) {
 
-          blockList.list.splice(i, 1);
-          chrome.storage.sync.set({ blockList });
-          initialBlockList = blockList
+          featurePrefs.blockList.list.splice(i, 1);
+          chrome.storage.sync.set({ featurePrefs });
+          initialBlockList = featurePrefs.blockList;
 
           return setTimeout(() => updatePageData(), 400);
         }
       });
-    })
-  }
-
-  /**
-   * Instantiates a new blocklist object
-   * @returns {object}
-   */
-  function setNewBlocklist() {
-
-    let defaultList = { list:[], hide: 'tag' };
-
-    chrome.storage.sync.set({ 'blocklist': defaultList });
-
-    chrome.storage.sync.get(['blockList']).then(({ blockList }) => {
-      return blockList;
     })
   }
 
@@ -166,15 +150,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function updatePageData() {
-    chrome.storage.sync.get(['blockList']).then(({ blockList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
       // remove all the sellers from the DOM
       [...document.getElementsByClassName('seller')].forEach(s => s.remove());
       // Add them back in with the newly updated blocklist data
-      insertSellersIntoDOM(blockList);
+      insertSellersIntoDOM(featurePrefs.blockList);
       // reattach event listerns to sellers
       addSellerEventListeners();
       // update backup/restore output
-      document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
+      document.querySelector('.backup-output').textContent = JSON.stringify(featurePrefs.blockList.list);
       // check for empty list
       checkForEmptySellersList();
     })
@@ -237,11 +221,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Radiobutton listener
   document.getElementById('block-prefs').addEventListener('change', event => {
 
-    chrome.storage.sync.get(['blockList']).then(({ blockList }) => {
+    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
 
-      blockList.hide = event.target.value;
+      featurePrefs.blockList.hide = event.target.value;
 
-      chrome.storage.sync.set({ blockList }).then(() => {
+      chrome.storage.sync.set({ featurePrefs }).then(() => {
         return location.reload();
       })
     })
@@ -255,12 +239,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     if ( validateBlocklist(list) ) {
 
       let restore = {
-                      list: JSON.parse(list),
-                      hide: 'tag'
-                    };
+            list: JSON.parse(list),
+            hide: 'tag'
+          };
 
-      chrome.storage.sync.set({ 'blockList': restore }).then(() => {
-        return location.reload();
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        featurePrefs.blockList = restore;
+        chrome.storage.sync.set({ featurePrefs }).then(() => {
+          return location.reload();
+        })
       })
 
     } else {
