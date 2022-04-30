@@ -78,25 +78,28 @@
   // ========================================================
   // DOM Setup
   // ========================================================
-  let i = document.createElement('i'),
-      query = document.title.replace(re, ''),
-      releaseTitle = document.querySelector('h1[class*="title_"]');
+  rl.waitForElement('h1[class*="title_"]').then(() => {
 
-  // DOM manipulation
-  i.classList = 'icon icon-external-link de-external';
+    let i = document.createElement('i'),
+        query = document.title.replace(re, ''),
+        releaseTitle = document.querySelector('h1[class*="title_"]');
 
-  let regex = /(\– .+)+$/g,
-  titleText = releaseTitle.innerHTML.match(regex);
+    // DOM manipulation
+    i.classList = 'icon icon-external-link de-external';
 
-  let newReleaseMarkup = releaseTitle.innerHTML.toString().replace(regex, `<span class="de-quick-search">${titleText[0]}</span>`);
+    let regex = /(\– .+)+$/g,
+    titleText = releaseTitle.innerHTML.match(regex);
 
-  releaseTitle.innerHTML = newReleaseMarkup;
-  releaseTitle.insertAdjacentElement('beforeend', i);
+    let newReleaseMarkup = releaseTitle.innerHTML.toString().replace(regex, `<span class="de-quick-search">${titleText[0]}</span>`);
 
-  // Click handler
-  document.querySelector('.de-quick-search').addEventListener('click', () => {
-    window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
-  });
+    releaseTitle.innerHTML = newReleaseMarkup;
+    releaseTitle.insertAdjacentElement('beforeend', i);
 
-  rl.attachCss('quick-search', rules);
+    rl.attachCss('quick-search', rules);
+
+    // Click handler
+    document.querySelector('.de-quick-search').addEventListener('click', () => {
+      window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
+    });
+  })
 });
