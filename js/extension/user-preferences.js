@@ -21,6 +21,8 @@ let elems = [],
     resourceLibrary;
 
 // Feature preferece defaults
+// TODO: these can be removed after a few months once
+// users have been migrated.
 let defaults = {
       blockList: { list:[], hide: 'tag' },
       countryList: { list: [], currency: false, include: false },
@@ -66,8 +68,9 @@ let defaults = {
 // ========================================================
 
 /**
- * Migrates user preferences from localStorage to chrome.storage
- * Or instantiates defaults on a fresh install.
+ * Migrates user preferences from localStorage to chrome.storage.
+ * Background.js (service worker) does not have access to localStorage
+ * so the migration needs to happen from this content script.
  * @returns {Promise}
  */
  async function migratePreferences() {
@@ -120,7 +123,7 @@ let defaults = {
           chrome.storage.sync.set({ featurePrefs }),
           chrome.storage.sync.set({ 'migrated': true })
         ]).then(() => {
-          console.log('Discogs Enhancer: Feature Preferences created.');
+          console.log('Discogs Enhancer: Feature Preferences migrated.');
           return resolve();
         })
     });
@@ -173,7 +176,7 @@ function getCurrentFilterState(prefs) {
     currentFilterState = {
       everlastingMarket: prefs.everlastingMarket || false,
       filterMediaCondition: prefs.filterMediaCondition || false,
-      filterPrices: prefs.filterPrices,
+      filterPrices: prefs.filterPrices || false,
       filterShippingCountry: prefs.filterShippingCountry || false,
       filterSleeveCondition: prefs.filterSleeveCondition || false,
     };
@@ -190,6 +193,11 @@ function getCurrentFilterState(prefs) {
   return currentFilterState;
 }
 
+/**
+ * Gets the specified cookie. Used for retreving the username
+ * @param {string} name - The name of the cookie
+ * @returns {string}
+ */
 window.getCookie = function(name) {
   var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   if (match) return match[2];
@@ -218,94 +226,7 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
   // Get the users preferences or create them
   chrome.storage.sync.get('prefs', result => {
 
-    if (!result.prefs) {
-
-      // Adding A Feature: Step 1
-      prefs = {
-        absoluteDate: false,
-        averagePrice: false,
-        baoiFields: false,
-        blockBuyers: false,
-        blockSellers: true,
-        blurryImageFix: false,
-        confirmBeforeRemoving: false,
-        collectionUi: false,
-        commentScanner: false,
-        converter: true,
-        darkTheme: false,
-        demandIndex: false,
-        editingNotepad: false,
-        everlastingCollection: false,
-        everlastingMarket: true,
-        favoriteSellers: true,
-        feedback: false,
-        filterMediaCondition: false,
-        filterMediaConditionValue: null,
-        filterPrices: false,
-        filterShippingCountry: false,
-        filterSleeveCondition: false,
-        filterSleeveConditionValue: null,
-        filterUnavailable: false,
-        forceDashboard: false,
-        formatShortcuts: true,
-        hideMinMaxColumns: false,
-        highlightMedia: true,
-        inventoryRatings: false,
-        inventoryScanner: false,
-        notesCount: true,
-        quickSearch: false,
-        randomItem: false,
-        ratingPercent: false,
-        readability: false,
-        relativeSoldDate: false,
-        releaseScanner: false,
-        releaseDurations: true,
-        releaseRatings: false,
-        removeFromWantlist: false,
-        sellerItemsInCart: false,
-        sellerRep: false,
-        sortButtons: true,
-        suggestedPrices: false,
-        tweakDiscrims: false,
-        userCurrency: 'USD',
-        ytPlaylists: false,
-        //
-        useAllDay: false,
-        useBandcamp: false,
-        useBeatport: false,
-        useBoomkat: false,
-        useClone: false,
-        useDeejay: false,
-        useDiscogs: true,
-        useEarcave: false,
-        useGramaphone: false,
-        useHardwax: false,
-        useJuno: false,
-        useOye: false,
-        usePhonica: false,
-        useRateYourMusic: false,
-        useRedeye: false,
-        useRushhour: false,
-        useSotu: false,
-        useYoutube: false
-      };
-
-      chrome.storage.sync.set({ prefs: prefs }, () => console.log('Discogs Enhancer: User Preferences created.'));
-    } else {
-      prefs = result.prefs;
-    }
-
-    // Create the feature preferences if they do not exist
-    // NOTE: featurePrefs are the chrome.storage.sync'd preferences for features that originate from
-    // the preferences set in the extension's popup menu.
-    // Features that use localStorage to save things on the DOM side need to be saved outside
-    // of `featurePrefs` since they will get overwritten when the `newPrefs` object is created below.
-    chrome.storage.sync.get('featurePrefs', (res) => {
-      if (!res.featurePrefs) {
-        res.featurePrefs = defaults;
-        chrome.storage.sync.set({ 'featurePrefs': res.featurePrefs }, () => console.log('Discogs Enhancher: Feature Preferences created.'));
-      }
-    });
+    prefs = result.prefs;
 
     // Dark Theme
     if ( prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
@@ -1197,26 +1118,24 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
 
         // Remove deprecated properties from preferences
         // TODO: delete these eventually
-        if (oldPrefs && oldPrefs.inventoryRatings) {
+        if (oldPrefs.inventoryRatings) {
           // renamed to minimumRating
           delete oldPrefs.inventoryRatings;
         }
 
-        if (oldPrefs && oldPrefs.sellerNames) {
+        if (oldPrefs.sellerNames) {
           // renamed to sellersInCart
           delete oldPrefs.sellerNames;
         }
 
         // Delete old feedback object if it does not contain a username
-        if (oldPrefs && oldPrefs.feedback && oldPrefs.feedback.buyer
-            || oldPrefs && oldPrefs.feedback && oldPrefs.feedback.seller) {
+        if (oldPrefs.feedback && oldPrefs.feedback.buyer
+            || oldPrefs.feedback && oldPrefs.feedback.seller) {
           delete oldPrefs.feedback;
         }
 
-        // Get preferences saved in chrome.storage
-        let syncPrefs = await chrome.storage.sync.get(['featurePrefs']);
-
-        let currentFilterState = getCurrentFilterState(prefs),
+        let syncPrefs = await chrome.storage.sync.get(['featurePrefs']),
+            currentFilterState = getCurrentFilterState(prefs),
             userCurrency = prefs.userCurrency,
             newPrefs;
 
