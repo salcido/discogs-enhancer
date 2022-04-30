@@ -6,10 +6,128 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * This is the background service worker. It handles update badge notifications
- * and adding / removing contextual menu items.
+ * This is the background service worker. It handles setting up the initial
+ * feature preferences, badge notifications, and adding / removing
+ * contextual menu items.
  *
  */
+
+/**
+ * Default preferences upon installing
+ */
+prefs = {
+  absoluteDate: false,
+  averagePrice: false,
+  baoiFields: false,
+  blockBuyers: false,
+  blockSellers: true,
+  blurryImageFix: false,
+  confirmBeforeRemoving: false,
+  collectionUi: false,
+  commentScanner: false,
+  converter: true,
+  darkTheme: false,
+  demandIndex: false,
+  editingNotepad: false,
+  everlastingCollection: false,
+  everlastingMarket: true,
+  favoriteSellers: true,
+  feedback: false,
+  filterMediaCondition: false,
+  filterMediaConditionValue: null,
+  filterPrices: false,
+  filterShippingCountry: false,
+  filterSleeveCondition: false,
+  filterSleeveConditionValue: null,
+  filterUnavailable: false,
+  forceDashboard: false,
+  formatShortcuts: true,
+  hideMinMaxColumns: false,
+  highlightMedia: true,
+  inventoryRatings: false,
+  inventoryScanner: false,
+  notesCount: true,
+  quickSearch: false,
+  randomItem: false,
+  ratingPercent: false,
+  readability: false,
+  relativeSoldDate: false,
+  releaseScanner: false,
+  releaseDurations: true,
+  releaseRatings: false,
+  removeFromWantlist: false,
+  sellerItemsInCart: false,
+  sellerRep: false,
+  sortButtons: true,
+  suggestedPrices: false,
+  tweakDiscrims: false,
+  userCurrency: 'USD',
+  ytPlaylists: false,
+  //
+  useAllDay: false,
+  useBandcamp: false,
+  useBeatport: false,
+  useBoomkat: false,
+  useClone: false,
+  useDeejay: false,
+  useDiscogs: true,
+  useEarcave: false,
+  useGramaphone: false,
+  useHardwax: false,
+  useJuno: false,
+  useOye: false,
+  usePhonica: false,
+  useRateYourMusic: false,
+  useRedeye: false,
+  useRushhour: false,
+  useSotu: false,
+  useYoutube: false
+};
+
+// NOTE: featureDefaults are default settings for the chrome.storage.sync'd preferences of features
+// that have submenus / management pages (block sellers, filter countries, etc...)
+// Features that use localStorage to save things on the DOM side need to be saved outside
+// of `featurePrefs` since they will get overwritten when the `newPrefs` object is created
+// in user-preferences.js.
+let featureDefaults = {
+      blockList: { list:[], hide: 'tag' },
+      countryList: { list: [], currency: false, include: false },
+      discriminators: {
+          hide: false,
+          superscript: true,
+          unselectable: true,
+          transparent: false,
+        },
+      favoriteList: { list: [] },
+      filterPrices: { minimum: null, maximum: null },
+      inventoryScanner: { threshold: null },
+      linksInTabs: {
+          artists: false,
+          collection: false,
+          dashboard: false,
+          labels: false,
+          lists: false,
+          marketplace: false,
+          releases: false,
+          wantlist: false,
+        },
+      mediaCondition: 7,
+      minimumRating: null,
+      readability: {
+          indexTracks: false,
+          nth: 10,
+          otherMediaReadability: false,
+          otherMediaThreshold: 15,
+          size: 0.5,
+          vcReadability: true,
+          vcThreshold: 8
+        },
+      sellerRep: 75,
+      sellerRepColor: 'darkorange',
+      sellerRepFilter: false,
+      sleeveCondition: { value: 7, generic: false, noCover: false },
+      usDateFormat: false,
+    };
 
 // ========================================================
 // Install/Update Notifications
@@ -21,9 +139,15 @@ chrome.runtime.onInstalled.addListener((details) => {
 
     if (details.reason === 'install') {
 
-      console.log('Welcome to the pleasuredome!');
+      chrome.storage.sync.set({
+        didUpdate: false,
+        prefs: prefs,
+        featurePrefs: featureDefaults,
+        migrated: true
+      }).then(() => console.log('Welcome to the pleasuredome!'));
 
-      chrome.storage.sync.set({ didUpdate: false }, function() {});
+      // Launch quick start guide
+      chrome.tabs.create({url: '../html/welcome.html'});
 
     } else if (details.reason === 'update') {
       // - Don't show an update notice on patches -
