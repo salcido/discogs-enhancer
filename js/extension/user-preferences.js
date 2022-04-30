@@ -1118,22 +1118,15 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
 
         // Remove deprecated properties from preferences
         // TODO: delete these eventually
-        if (oldPrefs.inventoryRatings) {
-          // renamed to minimumRating
-          delete oldPrefs.inventoryRatings;
-        }
-
-        if (oldPrefs.sellerNames) {
-          // renamed to sellersInCart
-          delete oldPrefs.sellerNames;
-        }
 
         // Delete old feedback object if it does not contain a username
         if (oldPrefs.feedback && oldPrefs.feedback.buyer
             || oldPrefs.feedback && oldPrefs.feedback.seller) {
           delete oldPrefs.feedback;
         }
-        // delete old ls objects after migration
+        // Delete old ls objects after migration
+        delete oldPrefs.inventoryRatings;
+        delete oldPrefs.sellerNames;
         delete oldPrefs.blockList;
         delete oldPrefs.countryList;
         delete oldPrefs.discriminators;
