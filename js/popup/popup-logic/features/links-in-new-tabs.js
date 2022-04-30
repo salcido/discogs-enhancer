@@ -26,7 +26,8 @@ export async function createLinkTabElements() {
 
   let tabOptionsDiv = document.getElementById('linksInTabs'),
       fragment = document.createDocumentFragment(),
-      { linksInTabs = defaults } = await chrome.storage.sync.get(['linksInTabs']),
+      { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+      { linksInTabs } = featurePrefs,
       menus = [
           {
             name: 'Artists',
