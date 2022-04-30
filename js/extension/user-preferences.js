@@ -93,7 +93,7 @@ let defaults = {
           inventoryScanner = up.inventoryScanner || defaults.inventoryScanner,
           linksInTabs = up.linksInTabs || defaults.linksInTabs,
           mediaCondition = up.mediaCondition || defaults.mediaCondition,
-          minimumRating = defaults.minimumRating,
+          minimumRating = up.inventoryRatings || defaults.minimumRating,
           readability = up.readability || defaults.readability,
           sellerRep = up.sellerRep || defaults.sellerRep,
           sellerRepColor = up.sellerRepColor || defaults.sellerRepColor,
@@ -1133,6 +1133,22 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
             || oldPrefs.feedback && oldPrefs.feedback.seller) {
           delete oldPrefs.feedback;
         }
+        // delete old ls objects after migration
+        delete oldPrefs.blockList;
+        delete oldPrefs.countryList;
+        delete oldPrefs.discriminators;
+        delete oldPrefs.favoriteList;
+        delete oldPrefs.filterPrices;
+        delete oldPrefs.inventoryScanner;
+        delete oldPrefs.linksInTabs;
+        delete oldPrefs.mediaCondition;
+        delete oldPrefs.minimumRating;
+        delete oldPrefs.readability;
+        delete oldPrefs.sellerRep;
+        delete oldPrefs.sellerRepColor;
+        delete oldPrefs.sellerRepFilter;
+        delete oldPrefs.sleeveCondition;
+        delete oldPrefs.usDateFormat;
 
         let syncPrefs = await chrome.storage.sync.get(['featurePrefs']),
             currentFilterState = getCurrentFilterState(prefs),
