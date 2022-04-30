@@ -107,7 +107,7 @@
   // ========================================================
 
   let user = rl.username(),
-      selector = 'div[class^="profile_"]',
+      selector = 'header div[class^="profile_"]',
       position = 'afterbegin',
       inline_css = 'padding-top: 1.2rem; margin-right: 1rem; margin-left: 1rem;',
       icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
@@ -148,9 +148,13 @@
         return setTimeout(() => stopAnimation(), 4000);
       });
 
-      if (!document.querySelector('.de-random-item')) {
-        document.querySelector(selector).insertAdjacentHTML(position, icon);
-      }
+      // Sometimes it's not appended to the DOM so this is my hacky way of
+      // fixing that until I figure out what the problem is
+      setTimeout(() => {
+        if (!document.querySelector('.de-random-item')) {
+          document.querySelector(selector).insertAdjacentHTML(position, icon);
+        }
+      }, 0);
     });
 });
 /**
