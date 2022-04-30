@@ -57,7 +57,8 @@
       "html/block-sellers.html",
       "html/favorite-sellers.html",
       "html/learn.html",
-      "html/readability.html"
+      "html/readability.html",
+      "html/welcome.html"
     ],
     "matches": ["*://*.discogs.com/*"]
   }]
