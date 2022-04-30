@@ -1115,7 +1115,7 @@
 
     /**
      * Mutation Observer generally used to monitor anything that loads async
-     * within the new React-based release page.
+     * within the new React-based pages.
      * @param    {string} selector - the DOM selector string you're looking for
      * @returns   {Promise}
      */
