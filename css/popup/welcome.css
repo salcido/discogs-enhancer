@@ -16,8 +16,8 @@ h1 {
   text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   margin-top: 2rem;
   text-shadow: 0px 1px 2px rgb(0 0 0 / 25%);
-  filter: drop-shadow(0px 0px 6px #de76b6);
-  /* filter: drop-shadow(0px 0px 25px #5ec5b8); */
+  /* filter: drop-shadow(0px 0px 6px #de76b6); */
+  filter: drop-shadow(0px 0px 25px #5ec5b8);
 }
 
 h2 {
@@ -123,8 +123,8 @@ p b {
 .logo img {
   width: 50px;
   margin-top: 2rem;
-  filter: drop-shadow(0px 0px 6px #de76b6);
-  /* filter: drop-shadow(0px 0px 25px #5ec5b8); */
+  /* filter: drop-shadow(0px 0px 6px #de76b6); */
+  filter: drop-shadow(0px 0px 25px #5ec5b8);
 }
 
 .border {
@@ -177,8 +177,10 @@ figcaption {
 
 .hero {
   align-content: center;
-  background: linear-gradient(to right, #3c1053, #ad5389);
-  /* background: linear-gradient(to right, #267871, #136a8a); */
+  background: linear-gradient(to right, #267871, #136a8a, #267871, #136a8a);
+  background-size: 300% 100%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  animation: animateBg 3s infinite linear;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -187,6 +189,15 @@ figcaption {
   position: relative;
   text-align: center;
   height: 115px;
+}
+
+@keyframes animateBg {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .copyright-wrap {
