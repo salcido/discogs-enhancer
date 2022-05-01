@@ -312,24 +312,28 @@ window.addEventListener('load', () => {
    * Fetches known issues from discogs-enhancer.com/issues
    * @returns {Object} - Performance issue data: { content: <string>, version: <string> }
    */
-   async function getIssues() {
-    let url = 'https://discogs-enhancer.com/issues',
-        hasBlocklist = localStorage.getItem('blockList'),
-        blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
+   function getIssues() {
+    return chrome.storage.sync.get(['featurePrefs']).then(async ({ featurePrefs }) => {
+      let url = 'https://discogs-enhancer.com/issues',
+          { blockList } = featurePrefs;
 
-    if (__DEV__
-        && blocklist
-        && blocklist.list
-        && blocklist.list.includes('development')
-      ) {
-      url = 'http://localhost:3000/issues';
-    }
+      if (__DEV__
+          && blockList
+          && blockList.list
+          && blockList.list.includes('development')
+        ) {
+        url = 'http://localhost:3000/issues';
+      }
 
-    return await fetch(url)
-      .then(response => response.json())
-      .catch(() => {
-        return { content: null, version: null };
-      });
+      return await fetch(url)
+        .then(response => {
+          let res = response.json();
+          return res;
+        })
+        .catch(() => {
+          return { content: null, version: null };
+        });
+    })
   }
 
   /**
@@ -352,9 +356,9 @@ window.addEventListener('load', () => {
   function hasFeatureEnabled(features) {
     let featureEnabled = false;
 
-    for ( let [key] of Object.entries(prefs) ) {
+    for ( let [key] of Object.entries(cachedPrefs) ) {
 
-        if ( features.includes('any') || prefs[key] && features.includes(key) ) {
+        if ( features.includes('any') || cachedPrefs[key] && features.includes(key) ) {
           featureEnabled = true;
         }
     }
@@ -393,7 +397,7 @@ window.addEventListener('load', () => {
   // ========================================================
 
   // Store prefs to reference with showHeadsup()
-  let prefs;
+  let cachedPrefs;
 
   /**
    * Sets toggle button values when the popup is rendered
@@ -497,7 +501,7 @@ window.addEventListener('load', () => {
       toggleSotu.checked = prefs.useSotu;
       toggleYoutube.checked = prefs.useYoutube;
       // Store prefs to reference with showHeadsup()
-      prefs = prefs;
+      cachedPrefs = prefs;
     });
 
     // Set values for features with options
@@ -541,8 +545,7 @@ window.addEventListener('load', () => {
     if (window.ga) { window.ga('send', 'pageview', '/popup.html'); }
 
     // Check for any known issues with Discogs
-    let issues = await getIssues();
-    showHeadsUp(issues);
+    getIssues().then((issues) => showHeadsUp(issues));
   }
 
   init();
