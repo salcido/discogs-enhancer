@@ -13,11 +13,12 @@
  *
  */
 
-let elems = [],
+let
+    elems = [],
+    featurePrefs = {},
     filterMonitor,
     hashes,
     prefs = {},
-    featurePrefs = {},
     resourceLibrary;
 
 // Feature preferece defaults
@@ -208,7 +209,9 @@ window.getCookie = function(name) {
 // ========================================================
 
 // Resource Library
-// A singleton of shared methods for the extension
+// A singleton of shared methods for the extension.
+// Appended first so the methods are available to the
+// subsequently appended features.
 resourceLibrary = document.createElement('script');
 resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
@@ -230,11 +233,15 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
 
     // Dark Theme
     if ( prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
-    // Don't use the dark theme on subdomains or when printing an order
+    // Don't use the dark theme on subdomains or specific pages
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
     if ( !window.location.href.includes('www')
          || window.location.href.includes('/order/prints?')
+         || window.location.href.includes('discogs.com/company')
+         || window.location.href.includes('/company/careers')
+         || window.location.href.includes('discogs.com/record-stores')
+         || window.location.href.includes('discogs.com/record-store-day')
          || window.location.href.includes('/digs')) {
 
       document.documentElement.classList.remove('de-dark-theme');
