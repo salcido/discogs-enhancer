@@ -127,6 +127,11 @@ p b {
   /* filter: drop-shadow(0px 0px 25px #5ec5b8); */
 }
 
+.border {
+  border: 2px dotted #777;
+  padding: 1rem;
+}
+
 .mw-300 {
   max-width: 300px;
 }
