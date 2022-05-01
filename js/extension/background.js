@@ -165,6 +165,11 @@ chrome.runtime.onInstalled.addListener((details) => {
           chrome.storage.sync.set({ didUpdate: true }, function() {});
       }
     }
+
+  // Uninstall action
+  if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+    chrome.runtime.setUninstallURL('https://www.discogs-enhancer.com/uninstall');
+  }
   // Instantiate Contextual Menu Options
   updateContextMenus();
 })
