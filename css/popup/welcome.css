@@ -84,6 +84,11 @@ p b {
   font-weight: bold;
 }
 
+.white {
+  color: #fff;
+  font-weight: bold;
+}
+
 .learn {
   color: #6BB144;
   border: 1px solid #6BB144;
