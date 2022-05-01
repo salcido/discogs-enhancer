@@ -10,102 +10,110 @@
     <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/popup/popup-readability.css" type="text/css" media="screen">
     <script src="../js/popup/configuration-pages/readability.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:700|Barlow:400|Roboto:300,400,700" rel="stylesheet">
   </head>
   <body>
-    <div class="about">
-      <div class="title center">
-        <h2>Tracklist Readability Settings</h2>
+    <div class="hero">
+      <div class="logo">
+        <img src="/img/welcome/45-rpm.png" alt="Discogs Enhancer Logo">
       </div>
+      <h1>DISCOGS ENHANCER</h1>
+    </div>
+    <div class="container">
+      <div class="about">
+        <div class="title center">
+          <h2>Tracklist Readability Settings</h2>
+        </div>
 
-      <div class="content">
-        <p>
-          These settings determine when dividers are inserted into a release's track list in order to make them easier to read. You can show and hide dividers by clicking <em>Show/Hide Dividers</em> at the top-right area of the track list. Your show/hide preference will be saved each time you change it.
-        </p>
-        <p style="margin-bottom: 25px;"><em>Note:</em> After making changes here you must refresh your page on Discogs for changes to take effect.</p>
-        <h2>How it works</h2>
-        <p>
-          There are some conditions that must be met before any dividers are inserted into the track list.
-          <ul>
-            <li>
-              It wont insert dividers when Track Headings are already present on the release. These releases are usually readable on their own.
-            </li>
-            <li>
-              There must be sufficient tracks present before it does anything. The minimum number of tracks is determined by the <b>Threshold</b> setting. Once the Threshold has been exceeded, then the dividers will be inserted. For example, if you have a Threshold value of 8, any release with 9 or more tracks will have dividers inserted.
-            </li>
-            <li>
-              If there are vinyl tracks listed like: ABCDE (ie: there are no numbers after the side delineation &mdash; essentially one track per side), it won't insert dividers between those.
-            </li>
-            <li>
-              Note: There is no single standard when it comes to listing releases with multiple formats or CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release.
-            </li>
-          </ul>
-        </p>
+        <div class="content">
+          <p>
+            These settings determine when dividers are inserted into a release's track list in order to make them easier to read. You can show and hide dividers by clicking <em>Show/Hide Dividers</em> at the top-right area of the track list. Your show/hide preference will be saved each time you change it.
+          </p>
+          <p style="margin-bottom: 25px;"><em>Note:</em> After making changes here you must refresh your page on Discogs for changes to take effect.</p>
+          <h2>How it works</h2>
+          <p>
+            There are some conditions that must be met before any dividers are inserted into the track list.
+            <ul>
+              <li>
+                It wont insert dividers when Track Headings are already present on the release. These releases are usually readable on their own.
+              </li>
+              <li>
+                There must be sufficient tracks present before it does anything. The minimum number of tracks is determined by the <b>Threshold</b> setting. Once the Threshold has been exceeded, then the dividers will be inserted. For example, if you have a Threshold value of 8, any release with 9 or more tracks will have dividers inserted.
+              </li>
+              <li>
+                If there are vinyl tracks listed like: ABCDE (ie: there are no numbers after the side delineation &mdash; essentially one track per side), it won't insert dividers between those.
+              </li>
+              <li>
+                Note: There is no single standard when it comes to listing releases with multiple formats or CDs. Because of this, there is no guarantee that the dividers will be correctly inserted for every release.
+              </li>
+            </ul>
+          </p>
 
-        <form id="readability-prefs">
-          <div class="option-wrap">
-            <h2>Divider Size</h2>
-            <div class="feature">
-              <label for="size">Size:</label>
-              <select name="size" id="size">
-                <option value="0.2">Small</option>
-                <option value="0.5">Medium</option>
-                <option value="1">Large</option>
-              </select>
-              <p>
-                This will set the size value for the dividers &mdash; either small, medium (default) or large.
-              </p>
-            </div>
-          </div>
-
-          <div class="option-wrap">
-            <h2>Vinyl, Cassette, Multi-CD, Box Set Releases, etc &hellip;</h2>
-            <div class="feature">
-              <div class="switch-label">Enabled: </div>
-              <div class="switch-wrap">
-                <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleVCreleases" checked>
-                    <label class="onoffswitch-label" for="toggleVCreleases">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                    </label>
-                </div>
+          <form id="readability-prefs">
+            <div class="option-wrap">
+              <h2>Divider Size</h2>
+              <div class="feature">
+                <label for="size">Size:</label>
+                <select name="size" id="size">
+                  <option value="0.2">Small</option>
+                  <option value="0.5">Medium</option>
+                  <option value="1">Large</option>
+                </select>
+                <p>
+                  This will set the size value for the dividers &mdash; either small, medium (default) or large.
+                </p>
               </div>
-              <p>
-                This will insert dividers between sides/formats when there are multiple tracks per side (eg: A1, A2, B, C1, C2, or CD1-1, CD2-1, etc &hellip;) and the release exceeds the number of tracks listed here. If the release does not exceed this threshold, no dividers will be inserted.
-              </p>
-              <label for="vcReleases">Track threshold:</label>
-              <select name="vcReleases" id="vcThreshold"></select>
             </div>
-          </div>
 
-          <div class="option-wrap">
-            <h2>Single CDs, Digital Releases, etc &hellip;</h2>
-            <div class="feature">
-              <div class="switch-label">Enabled: </div>
-              <div class="switch-wrap">
-                <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleOtherMedia" checked>
-                    <label class="onoffswitch-label" for="toggleOtherMedia">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                    </label>
+            <div class="option-wrap">
+              <h2>Vinyl, Cassette, Multi-CD, Box Set Releases, etc &hellip;</h2>
+              <div class="feature">
+                <div class="switch-label">Enabled: </div>
+                <div class="switch-wrap">
+                  <div class="onoffswitch">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleVCreleases" checked>
+                      <label class="onoffswitch-label" for="toggleVCreleases">
+                          <span class="onoffswitch-inner"></span>
+                          <span class="onoffswitch-switch"></span>
+                      </label>
+                  </div>
                 </div>
+                <p>
+                  This will insert dividers between sides/formats when there are multiple tracks per side (eg: A1, A2, B, C1, C2, or CD1-1, CD2-1, etc &hellip;) and the release exceeds the number of tracks listed here. If the release does not exceed this threshold, no dividers will be inserted.
+                </p>
+                <label for="vcReleases">Track threshold:</label>
+                <select name="vcReleases" id="vcThreshold"></select>
               </div>
-              <p>
-                This will insert dividers when the release has only sequential numbers for track positions. This is most commonly seen in single CD releases or digital releases (eg: 1, 2, 3, 4, 5, 6, 7, etc &hellip;). Personally, I've found it helpful to set a high threshold so it's only active when viewing releases with a lot of tracks <a href="https://www.discogs.com/Farmers-Manual-Fsck/release/106658" target="_blank" rel="noopener noreferrer">like this one.</a>
-              </p>
-              <label for="otherMedia">Track threshold:</label>
-              <select name="otherMedia" id="otherMediaThreshold"></select>
-              <p>
-                This setting will insert dividers every nth track. For instance, if you select 5, a divider will be inserted after track 5, 10, 15, 20, and so on...
-              </p>
-              <label for="nth">nth value:</label>
-              <select name="nth" id="nth"></select>
             </div>
-          </div>
-        </form>
-      </div> <!-- end .content -->
-    </div> <!-- end .about -->
+
+            <div class="option-wrap">
+              <h2>Single CDs, Digital Releases, etc &hellip;</h2>
+              <div class="feature">
+                <div class="switch-label">Enabled: </div>
+                <div class="switch-wrap">
+                  <div class="onoffswitch">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggleOtherMedia" checked>
+                      <label class="onoffswitch-label" for="toggleOtherMedia">
+                          <span class="onoffswitch-inner"></span>
+                          <span class="onoffswitch-switch"></span>
+                      </label>
+                  </div>
+                </div>
+                <p>
+                  This will insert dividers when the release has only sequential numbers for track positions. This is most commonly seen in single CD releases or digital releases (eg: 1, 2, 3, 4, 5, 6, 7, etc &hellip;). Personally, I've found it helpful to set a high threshold so it's only active when viewing releases with a lot of tracks <a href="https://www.discogs.com/Farmers-Manual-Fsck/release/106658" target="_blank" rel="noopener noreferrer">like this one.</a>
+                </p>
+                <label for="otherMedia">Track threshold:</label>
+                <select name="otherMedia" id="otherMediaThreshold"></select>
+                <p>
+                  This setting will insert dividers every nth track. For instance, if you select 5, a divider will be inserted after track 5, 10, 15, 20, and so on...
+                </p>
+                <label for="nth">nth value:</label>
+                <select name="nth" id="nth"></select>
+              </div>
+            </div>
+          </form>
+        </div> <!-- end .content -->
+      </div> <!-- end .about -->
+    </div>
   </body>
 </html>
