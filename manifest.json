@@ -53,12 +53,7 @@
     "resources": [
       "css/*",
       "js/extension/dependencies/*",
-      "js/extension/features/*",
-      "html/block-sellers.html",
-      "html/favorite-sellers.html",
-      "html/learn.html",
-      "html/readability.html",
-      "html/welcome.html"
+      "js/extension/features/*"
     ],
     "matches": ["*://*.discogs.com/*"]
   }]
