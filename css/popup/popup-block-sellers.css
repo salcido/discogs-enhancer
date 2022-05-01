@@ -274,7 +274,7 @@ label {
   padding: 0 1rem;
   position: relative;
   text-align: center;
-  height: 75px;
+  height: 73px;
 }
 
 .logo {
@@ -310,4 +310,8 @@ h1 {
 .about {
   max-width: 600px;
   margin-top: 5rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
 }
