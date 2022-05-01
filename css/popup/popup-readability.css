@@ -155,3 +155,7 @@ h1 {
   max-width: 600px;
   margin-top: 5rem;
 }
+
+.ml-1 {
+  margin-left: 1rem;
+}
