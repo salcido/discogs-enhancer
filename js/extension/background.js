@@ -12,9 +12,9 @@
  *
  */
 
-/**
- * Default preferences upon installing
- */
+// ========================================================
+// Default preferences upon installing
+// ========================================================
 prefs = {
   absoluteDate: false,
   averagePrice: false,
