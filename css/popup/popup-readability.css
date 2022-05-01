@@ -118,7 +118,7 @@ select {
   padding: 0 1rem;
   position: relative;
   text-align: center;
-  height: 75px;
+  height: 73px;
 }
 
 .logo {
@@ -131,8 +131,8 @@ select {
 }
 
 .logo img {
-  width: 40px;
-  margin-top: 1rem;
+  width: 30px;
+  margin-top: 1.3rem;
   opacity: .7;
   /* filter: drop-shadow(0px 0px 6px #de76b6); */
   /* filter: drop-shadow(0px 0px 25px #5ec5b8); */
