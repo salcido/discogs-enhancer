@@ -53,6 +53,39 @@ h3 {
   transition: all 0.3s ease-in;
 } */
 
+.mint {
+  color: #00B4DB !important;
+}
+
+.near-mint {
+  color: #00DBB4 !important;
+}
+
+.very-good-plus {
+  color: #00DB1F !important;
+}
+
+.very-good {
+  color: #85AB11 !important;
+}
+
+.good-plus,
+.contributor {
+  color: #F6BF48 !important;
+}
+
+.good {
+  color: #D87307 !important;
+}
+
+.fair {
+  color: #E54803 !important;
+}
+
+.poor {
+  color: #FF0000 !important;
+}
+
 a {
   color: #829FC4;
   text-decoration: underline;
@@ -125,6 +158,18 @@ p b {
   margin-top: 2rem;
   /* filter: drop-shadow(0px 0px 6px #de76b6); */
   filter: drop-shadow(0px 0px 25px #5ec5b8);
+  animation: rotation 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 .border {
