@@ -104,8 +104,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useYoutube: document.getElementById('youtube').checked
       };
 
-  chrome.storage.sync.set({prefs: prefs}, function() {
-
+  chrome.storage.sync.set({prefs: prefs}).then(() => {
     // Make sure both user currency selects are in sync.
     // TODO: move this into a global single preference
     document.querySelectorAll('#currency, #filterPricesCurrency').forEach(select => {
