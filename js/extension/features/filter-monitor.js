@@ -46,7 +46,7 @@ rl.ready(() => {
   }
 
   function priceFilter() {
-    let { minimum, maximum } = filterPrices,
+    let { minimum = 0, maximum = 100 } = filterPrices,
         currCode = {
             AUD: 'A$',
             BRL: 'R$',
