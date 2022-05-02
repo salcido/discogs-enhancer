@@ -225,7 +225,7 @@ figcaption {
   background: linear-gradient(to right, #267871, #136a8a, #267871, #136a8a);
   background-size: 300% 100%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  animation: animateBg 3s infinite linear;
+  animation: animateBg 2s infinite linear;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
