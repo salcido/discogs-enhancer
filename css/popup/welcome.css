@@ -205,6 +205,10 @@ p b {
   display: none;
 }
 
+.center {
+  text-align: center;
+}
+
 .toolbar {
   display: flex;
   flex-direction: column;
