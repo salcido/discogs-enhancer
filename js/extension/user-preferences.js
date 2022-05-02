@@ -754,18 +754,6 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
         elems.push(forceDashboard);
       }
 
-      // Set value for filter-media-condition.js
-      if (prefs.filterMediaConditionValue) {
-
-        localStorage.setItem('mediaCondition', prefs.filterMediaConditionValue);
-      }
-
-      // Set value for filter-sleeve-condition.js
-      if (prefs.filterSleeveConditionValue) {
-
-        localStorage.setItem('sleeveCondition', prefs.filterSleeveConditionValue);
-      }
-
       if (prefs.filterUnavailable) {
 
         // filter-unavailable.js
