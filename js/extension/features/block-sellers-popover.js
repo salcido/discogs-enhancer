@@ -9,7 +9,7 @@
  * This is the logic that controls the popover that
  * appears when you hover over a seller's name in the Marketplace.
  */
-// TODO: update learn page
+
 // TODO: add undo button?
 rl.ready(() => {
 
@@ -35,7 +35,7 @@ rl.ready(() => {
     let message = `
           <div class="success hide">
             ${sellerName} has been added to your blocked list.
-              <div class="muted">Refresh the page to complete the blocking process or select more sellers to block.</div>
+              <div class="muted">Refresh the page to put the block into effect or select more sellers to block.</div>
           </div>`;
 
     return message;
