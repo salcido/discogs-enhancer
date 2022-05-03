@@ -597,3 +597,9 @@ ul.thanks {
 .no-highlight {
   color: #fafafa !important;
 }
+
+figcaption {
+  text-align: center;
+  font-style: italic;
+  font-size: small;
+}
