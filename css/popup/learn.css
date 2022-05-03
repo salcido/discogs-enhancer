@@ -22,6 +22,10 @@ h3 {
 
 a {
   color: #829FC4;
+  text-decoration: none;
+}
+
+a:hover {
   text-decoration: underline;
 }
 
