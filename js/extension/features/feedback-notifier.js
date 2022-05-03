@@ -491,7 +491,8 @@ rl.ready(() => {
 
     let div = await fetchBuyerSellerTotals(),
         buyerTotal = getTotalCount(div, 'buyer'),
-        sellerTotal = getTotalCount(div, 'seller');
+        sellerTotal = getTotalCount(div, 'seller'),
+        setDefaultTotal = false;
 
     /* Set timestamp when checked */
     feedback.lastChecked = timeStamp;
@@ -536,6 +537,21 @@ rl.ready(() => {
       appendPreloader('buyer_');
       getUpdates('buyer', buyerTotal);
     }
+
+    // Ensure gTotal always exists
+    if (!feedback[user].buyer.gTotal) {
+      feedback[user].buyer.gTotal = 0;
+      setDefaultTotal = true;
+    }
+
+    if (!feedback[user].seller.gTotal) {
+      feedback[user].seller.gTotal = 0;
+      setDefaultTotal = true;
+    }
+
+    if (setDefaultTotal) {
+      rl.setPreference('feedback', feedback);
+    }
   }
 
   /**
@@ -553,7 +569,7 @@ rl.ready(() => {
           neuDiff: 0,
           negCount: 0,
           negDiff: 0,
-          gTotal: obj.buyer,
+          gTotal: obj[user].buyer,
           hasViewed: true
         },
 
@@ -564,7 +580,7 @@ rl.ready(() => {
           neuDiff: 0,
           negCount: 0,
           negDiff: 0,
-          gTotal: obj.seller,
+          gTotal: obj[user].seller,
           hasViewed: true
         };
 
