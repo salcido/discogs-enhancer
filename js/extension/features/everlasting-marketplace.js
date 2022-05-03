@@ -231,7 +231,7 @@ rl.ready(() => {
                 <td class="item_description de-filter-stamp de-page-stamp">
                   ${filterState}
                 </td>
-                <td class="de-page-stamp de-marketplace-results z-1 back-to-top"><a href="#site_header">Back to top</a></td>
+                <td class="de-page-stamp de-marketplace-results z-1 to-top"><a href="#site_header">Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
                   <div class="de-select-wrap">
                     <span></span>
