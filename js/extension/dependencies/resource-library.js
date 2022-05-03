@@ -820,6 +820,11 @@
         if ( num.includes('?') ) {
           num = num.split('?')[0];
         }
+        // handle URLs with trailing /
+        // e.g.: https://developer.chrome.com/docs/extensions/mv3/intro/
+        if ( num === '' ) {
+          num = urlArr[urlArr.length - 2];
+        }
 
         return num;
       }
