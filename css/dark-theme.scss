@@ -490,8 +490,11 @@
     opacity: 0.8;
   }
 
-  a.readmore_toggler {
-    background: #222222 !important;
+  div.readmore_wrapper {
+    background: #323334 !important;
+  }
+  #full-width-header div.readmore_wrapper {
+    background: #222 !important;
   }
 
   .profile a.readmore_toggler {
