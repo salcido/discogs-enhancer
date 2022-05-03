@@ -48,6 +48,7 @@ module.exports = {
     [features + 'better-collection-ui']: `${features}better-collection-ui.js`,
     [features + 'block-buyers']: `${features}block-buyers.js`,
     [features + 'block-sellers']: `${features}block-sellers.js`,
+    [features + 'block-sellers-popover']: `${features}block-sellers-popover.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
     [features + 'comment-scanner']: `${features}comment-scanner.js`,
     [features + 'confirm-before-removing-react']: `${features}confirm-before-removing-react.js`,

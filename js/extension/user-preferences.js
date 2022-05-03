@@ -14,6 +14,7 @@
  */
 
 let
+    analyticsSource,
     elems = [],
     featurePrefs = {},
     filterMonitor,
@@ -74,9 +75,8 @@ let defaults = {
  * so the migration needs to happen from this content script.
  * @returns {Promise}
  */
- async function migratePreferences() {
-
-  chrome.storage.sync.get(['migrated']).then(({ migrated }) => {
+function migratePreferences() {
+  return chrome.storage.sync.get(['migrated']).then(({ migrated }) => {
     return new Promise(async resolve => {
 
       if (migrated) {
@@ -120,7 +120,7 @@ let defaults = {
             usDateFormat
           };
 
-        Promise.all([
+      return Promise.all([
           chrome.storage.sync.set({ featurePrefs }),
           chrome.storage.sync.set({ 'migrated': true })
         ]).then(() => {
@@ -207,6 +207,10 @@ window.getCookie = function(name) {
 // ========================================================
 //  Side A; track 1
 // ========================================================
+analyticsSource = document.createElement('script');
+analyticsSource.type = 'text/javascript';
+analyticsSource.id = 'analytics-source';
+analyticsSource.src = chrome.runtime.getURL('js/extension/dependencies/analytics-source.js');
 
 // Resource Library
 // A singleton of shared methods for the extension.
@@ -217,7 +221,9 @@ resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
 resourceLibrary.src = chrome.runtime.getURL('js/extension/dependencies/resource-library.js');
 
-appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
+appendFragment([analyticsSource, resourceLibrary])
+  .then(() => migratePreferences())
+  .then(() => {
 
   let blockedUsers = ['.xxTIMEMACHINExx.', 'Efx.Libris'],
       user = window.getCookie('ck_username');
@@ -432,6 +438,14 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
         blockSellers.className = 'de-init';
 
         elems.push(blockSellers);
+
+        let blockSellersPopover = document.createElement('script');
+
+        blockSellersPopover.type = 'text/javascript';
+        blockSellersPopover.src = chrome.runtime.getURL('js/extension/features/block-sellers-popover.js');
+        blockSellersPopover.className = 'de-init';
+
+        elems.push(blockSellersPopover);
 
         // blocked-seller.css
         let blockSellers_css = document.createElement('link');
@@ -1107,64 +1121,79 @@ appendFragment([resourceLibrary]).then(() => migratePreferences()).then(() => {
       return resolve(prefs);
     })
     .then((prefs) => {
-      return new Promise(async (resolve) => {
-        // Get `userPreferences` object from DOM side
-        let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {};
+      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+        return new Promise(async resolve => {
+              // Get `userPreferences` object from DOM side
+          let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {},
+              currentFilterState = getCurrentFilterState(prefs),
+              userCurrency = prefs.userCurrency,
+              newPrefs;
 
-        // Remove deprecated properties from preferences
-        // TODO: delete these eventually
+          // Remove deprecated properties from preferences
+          // TODO: delete these eventually
 
-        // Delete old feedback object if it does not contain a username
-        if (oldPrefs.feedback && oldPrefs.feedback.buyer
-            || oldPrefs.feedback && oldPrefs.feedback.seller) {
-          delete oldPrefs.feedback;
-        }
-        // Delete old ls objects after migration
-        delete oldPrefs.inventoryRatings;
-        delete oldPrefs.sellerNames;
-        delete oldPrefs.blockList;
-        delete oldPrefs.countryList;
-        delete oldPrefs.discriminators;
-        delete oldPrefs.favoriteList;
-        delete oldPrefs.filterPrices;
-        delete oldPrefs.inventoryScanner;
-        delete oldPrefs.linksInTabs;
-        delete oldPrefs.mediaCondition;
-        delete oldPrefs.minimumRating;
-        delete oldPrefs.readability;
-        delete oldPrefs.sellerRep;
-        delete oldPrefs.sellerRepColor;
-        delete oldPrefs.sellerRepFilter;
-        delete oldPrefs.sleeveCondition;
-        delete oldPrefs.usDateFormat;
+          // Delete old feedback object if it does not contain a username
+          if (oldPrefs.feedback && oldPrefs.feedback.buyer
+              || oldPrefs.feedback && oldPrefs.feedback.seller) {
+            delete oldPrefs.feedback;
+          }
+          // Delete old ls objects after migration
+          delete oldPrefs.inventoryRatings;
+          delete oldPrefs.sellerNames;
+          delete oldPrefs.blockList;
+          delete oldPrefs.countryList;
+          delete oldPrefs.discriminators;
+          delete oldPrefs.favoriteList;
+          delete oldPrefs.filterPrices;
+          delete oldPrefs.inventoryScanner;
+          delete oldPrefs.linksInTabs;
+          delete oldPrefs.mediaCondition;
+          delete oldPrefs.minimumRating;
+          delete oldPrefs.readability;
+          delete oldPrefs.sellerRep;
+          delete oldPrefs.sellerRepColor;
+          delete oldPrefs.sellerRepFilter;
+          delete oldPrefs.sleeveCondition;
+          delete oldPrefs.usDateFormat;
 
-        let syncPrefs = await chrome.storage.sync.get(['featurePrefs']),
-            currentFilterState = getCurrentFilterState(prefs),
-            userCurrency = prefs.userCurrency,
-            newPrefs;
+          // Get any newly blocked sellers and add them into chrome.storage
+          oldPrefs.newBlockedSellers = oldPrefs.newBlockedSellers
+                                        ? oldPrefs.newBlockedSellers
+                                        : [];
 
-        // Create new syncPrefs object from old and current preferences
-        newPrefs = Object.assign(oldPrefs, syncPrefs, { currentFilterState }, { userCurrency });
+          if (oldPrefs.newBlockedSellers.length > 0) {
+            let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)];
+            uniqueBlockedSellers.forEach(seller => {
+              featurePrefs.blockList.list.push(seller);
+            });
+          }
 
-        // Instantiate default options
-        if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
+          oldPrefs.newBlockedSellers = [];
 
-          let options = {
-                colorize: false,
-                comments: false,
-                debug: false,
-                quicksearch: '',
-                threshold: 2,
-                unitTests: false
-              };
+          newPrefs = Object.assign(oldPrefs, { featurePrefs }, { currentFilterState }, { userCurrency });
 
-          newPrefs.options = options;
-        }
+          // Instantiate default options
+          if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
 
-        localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
+            let options = {
+                  colorize: false,
+                  comments: false,
+                  debug: false,
+                  quicksearch: '',
+                  threshold: 2,
+                  unitTests: false
+                };
 
-        return resolve();
-      });
+            newPrefs.options = options;
+          }
+
+          localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
+
+          await chrome.storage.sync.set({ featurePrefs });
+
+          return resolve();
+        });
+      })
     })
     .then(() => appendFragment(elems))
     .then(() => documentReady(window.document))

@@ -155,6 +155,8 @@
       }
 
       // Hide/tag sellers in marketplace
+      if ( blockList && window.blockSellersPopover ) window.blockSellersPopover();
+
       if ( blockList && blockList.hide === 'global' && window.blockSellers ||
            blockList && blockList.hide === 'marketplace' && window.blockSellers ) {
 
