@@ -215,6 +215,17 @@ p b {
   align-items: center;
 }
 
+.link {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 figure {
   border: 2px dotted #585858;
   padding: 2rem;
