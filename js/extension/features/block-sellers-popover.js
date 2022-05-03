@@ -138,6 +138,7 @@ rl.ready(() => {
       margin-top: 1rem;
       width: 200px;
       white-space: normal;
+      color: black;
     }
     .success .muted {
       margin-top: .5rem;
