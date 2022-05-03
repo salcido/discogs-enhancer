@@ -114,12 +114,9 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  if ( window.ga ) {
+  if (window.ga && event && event.target && event.target.checked) {
     let checked = event.target.checked;
-
-    if ( checked !== undefined ) {
       ga('send', 'event', event.target.id, checked);
-    }
   }
 }
 
