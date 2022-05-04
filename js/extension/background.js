@@ -122,7 +122,7 @@ let featureDefaults = {
           vcReadability: true,
           vcThreshold: 8
         },
-      sellerRep: 75,
+      sellerRep: 99,
       sellerRepColor: 'darkorange',
       sellerRepFilter: false,
       sleeveCondition: { value: 7, generic: false, noCover: false },
