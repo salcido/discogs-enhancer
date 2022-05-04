@@ -3613,7 +3613,7 @@
         color: white !important;
       }
 
-      header {
+      div[class*="header_"] {
         border-color: #60c43f !important;
 
         h2 {
