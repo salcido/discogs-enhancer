@@ -3686,7 +3686,7 @@
       border-radius: 3px;
       margin-top: 10px;
 
-      header {
+      div[class*="header_"] {
         border-color: #e7413f !important;
       }
     }
