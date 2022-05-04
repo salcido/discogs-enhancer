@@ -76,7 +76,6 @@ window.addEventListener('load', () => {
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
-      toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleCommentScanner = document.getElementById('toggleCommentScanner'),
       toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
@@ -267,7 +266,6 @@ window.addEventListener('load', () => {
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
-  toggleBlurryImageFix.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleCommentScanner.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
@@ -441,7 +439,6 @@ window.addEventListener('load', () => {
       toggleBaoiFields.checked = prefs.baoiFields;
       toggleBlockBuyers.checked = prefs.blockBuyers;
       toggleBlockSellers.checked = prefs.blockSellers;
-      toggleBlurryImageFix.checked = prefs.blurryImageFix;
       toggleCollectionUi.checked = prefs.collectionUi;
       toggleCommentScanner.checked = prefs.commentScanner;
       toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;

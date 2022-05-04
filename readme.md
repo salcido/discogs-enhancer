@@ -146,7 +146,6 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
   #### UNAUTHENTICATED
   - [x] Block Sellers
-  - [x] Blurry Image Fix
   - [x] Favorite Sellers
   - [x] Filter Sleeve Condition
   - [x] Inventory Ratings

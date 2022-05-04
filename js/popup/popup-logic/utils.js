@@ -42,7 +42,6 @@ export function applySave(message, event, currencyTarget = 'currency') {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockBuyers: document.getElementById('toggleBlockBuyers').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
-        blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         commentScanner: document.getElementById('toggleCommentScanner').checked,
         confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,

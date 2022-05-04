@@ -457,18 +457,6 @@ appendFragment([analyticsSource, resourceLibrary])
         elems.push(blockSellers_css);
       }
 
-      if (prefs.blurryImageFix) {
-
-        // blurry-image-fix.js
-        let blurryImageFix = document.createElement('script');
-
-        blurryImageFix.type = 'text/javascript';
-        blurryImageFix.className = 'de-init';
-        blurryImageFix.src = chrome.runtime.getURL('js/extension/features/blurry-image-fix.js');
-
-        elems.push(blurryImageFix);
-      }
-
       if ( prefs.confirmBeforeRemoving ) {
 
         let confirmBeforeRemoving = document.createElement('script');

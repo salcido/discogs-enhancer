@@ -21,7 +21,6 @@ prefs = {
   baoiFields: false,
   blockBuyers: false,
   blockSellers: true,
-  blurryImageFix: false,
   confirmBeforeRemoving: false,
   collectionUi: false,
   commentScanner: false,

@@ -236,18 +236,6 @@ describe( 'Functional Testing', function () {
     });
   });
 
-  // Blurry Image Fix
-  // ------------------------------------------------------
-  describe.skip('Fix Blurry Gallery Images', async function() {
-    it('should apply the .de-blurry-fix class to the thumb', async function() {
-      await require('./unauthenticated/blurry-image-fix').init(page);
-    });
-
-    it('should apply the .de-blurry-fix class to the images', async function() {
-      await require('./unauthenticated/blurry-image-fix').apply(page);
-    });
-  });
-
   // Rating Percentage
   // ------------------------------------------------------
   describe.skip('Rating Percentage', async function() {
