@@ -7,10 +7,10 @@
  * @github: https://github.com/salcido
  *
  * This is a content script that appends the appropriate feature scripts
- * based on the user's saved preferences. Additionally, it merges the user's
- * preferences from both the extension and the DOM's localStorage into a
- * single object called `userPreferences`.
- *
+ * based on the user's saved preferences. It also merges the user's
+ * preferences from both chrome.storage and the DOM's localStorage into a
+ * single localStorage object called `userPreferences`. The feature scripts
+ * appended here rely on `userPreferences` to function.
  */
 
 let
@@ -205,7 +205,7 @@ window.getCookie = function(name) {
 };
 
 // ========================================================
-//  Side A; track 1
+//  Script Appension
 // ========================================================
 analyticsSource = document.createElement('script');
 analyticsSource.type = 'text/javascript';
@@ -232,7 +232,8 @@ appendFragment([analyticsSource, resourceLibrary])
     return;
   }
 
-  // Get the users preferences or create them
+  // Get the users preferences (preferences are created on install
+  // in background.js)
   chrome.storage.sync.get('prefs', result => {
 
     prefs = result.prefs;
@@ -384,7 +385,7 @@ appendFragment([analyticsSource, resourceLibrary])
       // ========================================================
       // Preference-dependent scripts
       // ========================================================
-      //
+
       // Adding A Feature: Step 1
 
       if ( prefs.absoluteDate ) {
@@ -1111,7 +1112,7 @@ appendFragment([analyticsSource, resourceLibrary])
     .then((prefs) => {
       chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
         return new Promise(async resolve => {
-              // Get `userPreferences` object from DOM side
+
           let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {},
               currentFilterState = getCurrentFilterState(prefs),
               userCurrency = prefs.userCurrency,
@@ -1191,6 +1192,6 @@ appendFragment([analyticsSource, resourceLibrary])
         child.parentNode.removeChild(child);
       });
     })
-    .catch(err => console.error('Error injecting scripts', err));
+    .catch(err => console.error('Discogs Enhancer: Error injecting scripts', err));
   });
 });
