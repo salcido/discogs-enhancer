@@ -139,5 +139,4 @@ function updateContextualMenu(event) {
 
   port.postMessage({ request: 'updateContextMenu' });
   applySave(null, event);
-  sendEvent('Contextual Menu', event.target.id, event,target.checked);
 }
