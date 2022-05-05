@@ -2,7 +2,7 @@
  * Contextual Menus search feature
  */
 
-import { applySave } from '../utils';
+import { applySave, sendEvent } from '../utils';
 
 const defaults = {
   artists: false,
@@ -109,6 +109,7 @@ function updateLinkPreference(event) {
 
     chrome.storage.sync.set({ featureData }).then(() => {
       applySave('refresh', event);
+      sendEvent('Links In New Tabs', id, event.target.checked);
     });
   });
 }

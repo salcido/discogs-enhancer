@@ -2,7 +2,7 @@
  * Filter Prices feature
  */
 
-import { applySave, optionsToggle, fadeOut, setEnabledStatus } from '../utils';
+import { applySave, optionsToggle, fadeOut, setEnabledStatus, sendEvent } from '../utils';
 
 /**
  * Sets up the event listeners for the Filter Prices UI
@@ -104,6 +104,7 @@ function updateDisplayValues() {
 async function setMinMaxValues() {
   let { featureData } = await chrome.storage.sync.get(['featureData']),
       { filterPrices } = featureData,
+      { prefs } = await chrome.storage.sync.get(['prefs']),
       min = document.querySelector('#minimum'),
       max = document.querySelector('#maximum');
 
@@ -114,9 +115,9 @@ async function setMinMaxValues() {
       featureData.filterPrices = filterPrices;
       chrome.storage.sync.set({ featureData }).then(() => {
         updateDisplayValues();
+        sendEvent('Filter Prices', `Minimum: ${filterPrices.minimum}`, `Currency: ${prefs.userCurrency}`);
       });
     })
-
   });
 
   max.addEventListener('change', event => {
@@ -126,6 +127,7 @@ async function setMinMaxValues() {
       featureData.filterPrices = filterPrices;
       chrome.storage.sync.set({ featureData }).then(() => {
         updateDisplayValues();
+        sendEvent('Filter Prices', `Maximum: ${filterPrices.maximum}`, `Currency: ${prefs.userCurrency}`);
       });
     })
   });

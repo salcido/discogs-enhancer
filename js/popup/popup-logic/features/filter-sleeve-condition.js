@@ -2,7 +2,7 @@
  * Filter Sleeve Condition feature
  */
 
-import { applySave, optionsToggle } from '../utils';
+import { applySave, optionsToggle, sendEvent } from '../utils';
 
 /**
  * These arrays corespond to the `.status` string [conditions] and
@@ -52,6 +52,7 @@ export function init() {
 
         status.textContent = conditions[this.value];
         status.classList.add(colors[this.value]);
+        sendEvent('Filter Sleeve Condition', conditions[this.value]);
         applySave('refresh', event);
       })
     })

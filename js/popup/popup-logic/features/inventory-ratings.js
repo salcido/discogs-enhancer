@@ -2,7 +2,7 @@
  * inventory-ratings feature
  */
 
-import { applySave, setEnabledStatus, optionsToggle } from '../utils';
+import { applySave, setEnabledStatus, optionsToggle, sendEvent } from '../utils';
 
 /**
  * Sets up the event listeners for the Inventory Ratings UI
@@ -60,6 +60,7 @@ export function saveInventoryRatings(event) {
 
         setEnabledStatus( self, 'Enabled' );
         applySave('refresh', event);
+        sendEvent('Inventory Ratings', input.value);
 
       } else if ( input.value && !toggle.checked ) {
 

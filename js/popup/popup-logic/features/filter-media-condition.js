@@ -2,7 +2,7 @@
  * Filter Media Condition feature
  */
 
-import { applySave, optionsToggle } from '../utils';
+import { applySave, optionsToggle, sendEvent } from '../utils';
 
 /**
  * These arrays corespond to the `.status` string [conditions] and
@@ -42,6 +42,7 @@ export function init() {
 
     featureData.mediaCondition = JSON.parse(this.value);
     chrome.storage.sync.set({ featureData });
+    sendEvent('Filter Media Condition', conditions[this.value]);
 
     if (!toggle.checked) {
 

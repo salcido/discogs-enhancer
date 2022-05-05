@@ -2,7 +2,7 @@
  * inventory-scanner feature
  */
 
-import { applySave, setEnabledStatus, optionsToggle } from '../utils';
+import { applySave, setEnabledStatus, optionsToggle, sendEvent } from '../utils';
 
 /**
  * Sets up the event listeners for the Inventory Scanner UI
@@ -58,6 +58,7 @@ export function saveInventoryThreshold() {
 
       setEnabledStatus(self, 'Enabled');
       applySave('refresh', event);
+      sendEvent('Inventory Scanner', input.value);
 
     // disabled -and- has value entered
     } else if ( input.value && !toggle.checked ) {

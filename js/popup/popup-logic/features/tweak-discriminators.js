@@ -10,7 +10,7 @@
  *
  */
 
-import { setEnabledStatus, optionsToggle, notify } from '../utils';
+import { setEnabledStatus, optionsToggle, notify, sendEvent } from '../utils';
 /**
  * Sets the checkbox values when the popup menu is rendered
  * @returns {undefined}
@@ -67,6 +67,7 @@ export function init() {
           featureData.discriminators[prop] = this.checked;
           chrome.storage.sync.set({ featureData }).then(() => {
             notify('refresh');
+            sendEvent('Tweak Discriminators', prop, this.checked);
           });
         });
       });

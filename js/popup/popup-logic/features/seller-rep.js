@@ -2,7 +2,7 @@
  * Seller Reputation feature
  */
 
-import { applySave, optionsToggle, setEnabledStatus } from '../utils';
+import { applySave, optionsToggle, setEnabledStatus, sendEvent } from '../utils';
 
 export function init() {
 
@@ -117,6 +117,7 @@ export function setSellerRep() {
         // Displays percentage value like: - 80%
         repValue.innerHTML = `&#8209; ${input.value}%`;
         setEnabledStatus( self, 'Enabled' );
+        sendEvent('Seller Reputation', percent, `Hide: ${sellerRepFilter}`);
       }
 
       else if ( result.prefs.sellerRep && percent === null ) {
