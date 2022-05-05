@@ -90,10 +90,6 @@ rl.ready(() => {
       event.target.textContent = 'Blocked!';
       event.target.disabled = true;
       event.target.closest('.popover-content').querySelector('.success').classList.remove('hide');
-
-      if ( window.ga ) {
-        window.ga('send', 'event', 'block seller', sellerName);
-      }
     }
   })
 
@@ -156,11 +152,4 @@ rl.ready(() => {
   rl.handlePaginationClicks(window.blockSellersPopover);
 
   blockSellersPopover();
-
-  if (window.ga) {
-    window.ga('create', 'UA-75073435-1', 'auto');
-    window.ga('set', 'anonymizeIp', true);
-    window.ga('set', 'checkProtocolTask', function() { });
-    window.ga('require', 'displayfeatures');
-  }
 });

@@ -157,12 +157,9 @@ window.addEventListener('load', () => {
 
   // Open Learn page
   // ========================================================
-  document.getElementById('learn').addEventListener('click', function() {
-
-    chrome.tabs.create({url: '../html/learn.html'});
-    acknowledgeUpdate();
-
-    if ( window.ga ) { ga('send', 'event', 'learn', 'learn clicked'); }
+  document.getElementById('learn').addEventListener('click', async function() {
+      chrome.tabs.create({url: '../html/learn.html'});
+      acknowledgeUpdate();
   });
 
   // Help Bubble Clicks
@@ -539,7 +536,6 @@ window.addEventListener('load', () => {
 
     // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
-    if (window.ga) { window.ga('send', 'pageview', '/popup.html'); }
 
     // Check for any known issues with Discogs
     getIssues().then((issues) => showHeadsUp(issues));

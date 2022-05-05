@@ -14,7 +14,6 @@
  */
 
 let
-    analyticsSource,
     elems = [],
     featurePrefs = {},
     filterMonitor,
@@ -207,11 +206,6 @@ window.getCookie = function(name) {
 // ========================================================
 //  Script Appension
 // ========================================================
-analyticsSource = document.createElement('script');
-analyticsSource.type = 'text/javascript';
-analyticsSource.id = 'analytics-source';
-analyticsSource.src = chrome.runtime.getURL('js/extension/dependencies/analytics-source.js');
-
 // Resource Library
 // A singleton of shared methods for the extension.
 // Appended first so the methods are available to the
@@ -221,7 +215,7 @@ resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
 resourceLibrary.src = chrome.runtime.getURL('js/extension/dependencies/resource-library.js');
 
-appendFragment([analyticsSource, resourceLibrary])
+appendFragment([resourceLibrary])
   .then(() => migratePreferences())
   .then(() => {
 
@@ -1151,9 +1145,18 @@ appendFragment([analyticsSource, resourceLibrary])
                                         : [];
 
           if (oldPrefs.newBlockedSellers.length > 0) {
+
             let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)];
+
             uniqueBlockedSellers.forEach(seller => {
               featurePrefs.blockList.list.push(seller);
+
+              let port = chrome.runtime.connect();
+              port.postMessage({
+                request: 'trackEvent',
+                category: 'block seller',
+                action: seller
+              });
             });
           }
 

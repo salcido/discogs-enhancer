@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if ( input ) {
       // ga(type, category, action, label)
-      if ( window.ga ) { window.ga('send', 'event', 'favorite seller', input); }
+      // if ( window.ga ) { window.ga('send', 'event', 'favorite seller', input); }
 
       chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
         featurePrefs.favoriteList.list.push(input);

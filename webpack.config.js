@@ -35,8 +35,6 @@ module.exports = {
     './js/extension/background': './js/extension/background.js',
     './js/extension/user-preferences': './js/extension/user-preferences.js',
     // dependencies
-    [deps + 'analytics-source']: `${deps}analytics-source.js`,
-    [deps + 'analytics']: `${deps}analytics.js`,
     [deps + 'hashes']: `${deps}hashes.js`,
     [deps + 'update-exchange-rates']: `${deps}update-exchange-rates.js`,
     [deps + 'options']: `${deps}options.js`,

@@ -42,9 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     input = input.replace(/\s/g,'').trim();
 
     if ( input ) {
-      // ga(type, category, action, label)
-      if ( window.ga ) { window.ga('send', 'event', 'block seller', input); }
-
       chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
         featurePrefs.blockList.list.push(input);
         // Update chrome.storage
