@@ -10,9 +10,9 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      initialBlockList = featurePrefs.blockList,
-      favoriteList = featurePrefs.favoriteList,
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      initialBlockList = featureData.blockList,
+      favoriteList = featureData.favoriteList,
       favoriteListError = 'is on your favorites list. You must remove them from your favorites list before adding them to the block list.',
       blockListError = 'is already on your block list.';
 
@@ -42,10 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     input = input.replace(/\s/g,'').trim();
 
     if ( input ) {
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.blockList.list.push(input);
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.blockList.list.push(input);
         // Update chrome.storage
-        chrome.storage.sync.set({ featurePrefs }).then(() => {
+        chrome.storage.sync.set({ featureData }).then(() => {
           document.querySelector('.errors').textContent = '';
           return location.reload();
         });
@@ -114,15 +114,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      featurePrefs.blockList.list.forEach((seller, i) => {
+      featureData.blockList.list.forEach((seller, i) => {
 
         if ( targetName === seller ) {
 
-          featurePrefs.blockList.list.splice(i, 1);
-          chrome.storage.sync.set({ featurePrefs });
-          initialBlockList = featurePrefs.blockList;
+          featureData.blockList.list.splice(i, 1);
+          chrome.storage.sync.set({ featureData });
+          initialBlockList = featureData.blockList;
 
           return setTimeout(() => updatePageData(), 400);
         }
@@ -147,15 +147,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function updatePageData() {
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       // remove all the sellers from the DOM
       [...document.getElementsByClassName('seller')].forEach(s => s.remove());
       // Add them back in with the newly updated blocklist data
-      insertSellersIntoDOM(featurePrefs.blockList);
+      insertSellersIntoDOM(featureData.blockList);
       // reattach event listerns to sellers
       addSellerEventListeners();
       // update backup/restore output
-      document.querySelector('.backup-output').textContent = JSON.stringify(featurePrefs.blockList.list);
+      document.querySelector('.backup-output').textContent = JSON.stringify(featureData.blockList.list);
       // check for empty list
       checkForEmptySellersList();
     })
@@ -218,11 +218,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Radiobutton listener
   document.getElementById('block-prefs').addEventListener('change', event => {
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      featurePrefs.blockList.hide = event.target.value;
+      featureData.blockList.hide = event.target.value;
 
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.set({ featureData }).then(() => {
         return location.reload();
       })
     })
@@ -240,9 +240,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             hide: 'tag'
           };
 
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.blockList = restore;
-        chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.blockList = restore;
+        chrome.storage.sync.set({ featureData }).then(() => {
           return location.reload();
         })
       })

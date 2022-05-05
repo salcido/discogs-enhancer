@@ -39,10 +39,10 @@ export function init() {
     let toggle = document.getElementById('toggleFilterSleeveCondition'),
         status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.sleeveCondition.value = JSON.parse(this.value);
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.sleeveCondition.value = JSON.parse(this.value);
 
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.set({ featureData }).then(() => {
 
         if ( !toggle.checked ) {
           toggle.checked = true;
@@ -59,18 +59,18 @@ export function init() {
 
   // Checkbox listeners
   document.getElementById('generic').addEventListener('change', function (event) {
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.sleeveCondition.generic = this.checked;
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.sleeveCondition.generic = this.checked;
+      chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
       })
     })
   });
 
   document.getElementById('no-cover').addEventListener('change', function (event) {
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.sleeveCondition.noCover = this.checked;
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.sleeveCondition.noCover = this.checked;
+      chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
       })
     })
@@ -84,9 +84,9 @@ export function init() {
  * @return {undefined}
  */
 export function setupFilterSleeveCondition(enabled) {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    let { sleeveCondition } = featurePrefs,
+    let { sleeveCondition } = featureData,
         generic = document.getElementById('generic'),
         noCover = document.getElementById('no-cover'),
         select = document.getElementById('sleeveConditionValue'),
@@ -117,9 +117,9 @@ export function setupFilterSleeveCondition(enabled) {
  * @returns {undefined}
  */
 export function toggleSleeveConditions(event) {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    let { sleeveCondition } = featurePrefs,
+    let { sleeveCondition } = featureData,
         status = document.querySelector('.toggle-group.sleeve-condition .label .status');
 
     if ( !event.target.checked ) {
@@ -131,7 +131,7 @@ export function toggleSleeveConditions(event) {
 
       status.textContent = conditions[sleeveCondition.value];
       status.classList.add(colors[sleeveCondition.value]);
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.set({ featureData }).then(() => {
         return applySave('refresh', event);
       })
     }

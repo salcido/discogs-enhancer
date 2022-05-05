@@ -10,9 +10,9 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      blockList = featurePrefs.blockList,
-      initialFavoriteList = featurePrefs.favoriteList,
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      blockList = featureData.blockList,
+      initialFavoriteList = featureData.favoriteList,
       blocklistError = 'is on your block list. You must remove them from your block list before adding them as a favorite.',
       favoriteListError = 'is already on your favorites list.';
 
@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       // ga(type, category, action, label)
       // if ( window.ga ) { window.ga('send', 'event', 'favorite seller', input); }
 
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.favoriteList.list.push(input);
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.favoriteList.list.push(input);
         // Update chrome.storage
-        chrome.storage.sync.set({ featurePrefs }).then(() => {
+        chrome.storage.sync.set({ featureData }).then(() => {
           document.querySelector('.errors').textContent = '';
           return location.reload();
         });
@@ -117,15 +117,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      featurePrefs.favoriteList.list.forEach((seller, i) => {
+      featureData.favoriteList.list.forEach((seller, i) => {
 
         if ( targetName === seller ) {
 
-          featurePrefs.favoriteList.list.splice(i, 1);
-          chrome.storage.sync.set({ featurePrefs });
-          initialFavoriteList = featurePrefs.favoriteList
+          featureData.favoriteList.list.splice(i, 1);
+          chrome.storage.sync.set({ featureData });
+          initialFavoriteList = featureData.favoriteList
 
           return setTimeout(() => updatePageData(), 400);
         }
@@ -151,15 +151,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function updatePageData() {
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       // remove all the sellers from the DOM
       [...document.getElementsByClassName('seller')].forEach(seller => seller.remove());
       // Add them back in with the newly updated favoriteList data
-      insertSellersIntoDOM(featurePrefs.favoriteList);
+      insertSellersIntoDOM(featureData.favoriteList);
       // reattach event listerns to sellers
       addSellerEventListeners();
       // update backup/restore output
-      document.querySelector('.backup-output').textContent = JSON.stringify(featurePrefs.favoriteList.list);
+      document.querySelector('.backup-output').textContent = JSON.stringify(featureData.favoriteList.list);
       // check for empty list
       checkForEmptySellersList();
     })
@@ -231,9 +231,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             hide: 'tag'
           };
 
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.favoriteList = restore;
-        chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.favoriteList = restore;
+        chrome.storage.sync.set({ featureData }).then(() => {
           return location.reload();
         })
       })

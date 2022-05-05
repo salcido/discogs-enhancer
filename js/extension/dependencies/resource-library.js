@@ -138,8 +138,8 @@
      */
     callOtherMarketplaceFeatures: function() {
 
-      let { blockList } = rl.getPreference('featurePrefs'),
-          { favoriteList } = rl.getPreference('featurePrefs'),
+      let { blockList } = rl.getPreference('featureData'),
+          { favoriteList } = rl.getPreference('featureData'),
           sellersInCart = rl.getPreference('sellersInCart'),
           marketplaceQuerySelector =  'td.seller_info ul li:first-child a';
 
@@ -177,7 +177,7 @@
 
       // Filter shipping country
       if ( window.filterCountries ) {
-        let { countryList } = rl.getPreference('featurePrefs'),
+        let { countryList } = rl.getPreference('featureData'),
             include = countryList.include,
             useCurrency = countryList.currency;
         window.filterCountries(include, useCurrency);

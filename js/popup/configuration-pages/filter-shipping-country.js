@@ -10,8 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      initialCountryList = featurePrefs.countryList,
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      initialCountryList = featureData.countryList,
       countryListError = 'is already on your list.';
 
   // ========================================================
@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     let input = document.getElementById('country-input').value;
 
     if ( input ) {
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.countryList.list.push(input);
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.countryList.list.push(input);
 
-        chrome.storage.sync.set({ featurePrefs });
+        chrome.storage.sync.set({ featureData });
 
         document.querySelector('.errors').textContent = '';
 
@@ -112,15 +112,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.countryList.list.forEach((country, i) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.countryList.list.forEach((country, i) => {
 
         if ( targetName === country ) {
 
-          featurePrefs.countryList.list.splice(i, 1);
-          chrome.storage.sync.set({ featurePrefs });
+          featureData.countryList.list.splice(i, 1);
+          chrome.storage.sync.set({ featureData });
 
-          initialCountryList = featurePrefs.countryList;
+          initialCountryList = featureData.countryList;
 
           return setTimeout(() => updatePageData(), 400);
         }
@@ -145,15 +145,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function updatePageData() {
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       // remove all the countries from the DOM
       [...document.getElementsByClassName('country')].forEach(c => c.remove());
       // Add them back in with the newly updated countrylist data
-      insertCountriesIntoDOM(featurePrefs.countryList);
+      insertCountriesIntoDOM(featureData.countryList);
       // reattach event listerns to countries
       addCountryEventListeners();
       // update backup/restore output
-      document.querySelector('.backup-output').textContent = JSON.stringify(featurePrefs.countryList.list);
+      document.querySelector('.backup-output').textContent = JSON.stringify(featureData.countryList.list);
       // check for empty list
       checkForEmptyCountryList();
     })
@@ -210,11 +210,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Radio button listener
   document.getElementById('country-prefs').addEventListener('change', event => {
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      featurePrefs.countryList.include = JSON.parse(event.target.value);
+      featureData.countryList.include = JSON.parse(event.target.value);
 
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.set({ featureData }).then(() => {
         return location.reload();
       })
     })
@@ -223,11 +223,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Checkbox listener
   document.getElementById('currency').addEventListener('change', event => {
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      featurePrefs.countryList.currency = event.target.checked;
+      featureData.countryList.currency = event.target.checked;
 
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.set({ featureData }).then(() => {
         return location.reload();
       });
     })
@@ -242,10 +242,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       let restore = { list: JSON.parse(list), currency: false, include: false };
 
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.countryList = restore;
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.countryList = restore;
 
-        chrome.storage.sync.set({ featurePrefs }).then(() => {
+        chrome.storage.sync.set({ featureData }).then(() => {
           return location.reload();
         })
       })

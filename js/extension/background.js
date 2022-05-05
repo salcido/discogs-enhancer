@@ -86,7 +86,7 @@ prefs = {
 // NOTE: featureDefaults are default settings for the chrome.storage.sync'd preferences of features
 // that have submenus / management pages (block sellers, filter countries, etc...)
 // Features that use localStorage to save things on the DOM side need to be saved outside
-// of `featurePrefs` since they will get overwritten when the `newPrefs` object is created
+// of `featureData` since they will get overwritten when the `newPrefs` object is created
 // in user-preferences.js.
 let featureDefaults = {
       blockList: { list:[], hide: 'tag' },
@@ -141,7 +141,7 @@ chrome.runtime.onInstalled.addListener((details) => {
       chrome.storage.sync.set({
         didUpdate: false,
         prefs: prefs,
-        featurePrefs: featureDefaults,
+        featureData: featureDefaults,
         migrated: true,
         uid: Math.random().toString(16).slice(2)
       }).then(() => console.log('Welcome to the pleasuredome!'));

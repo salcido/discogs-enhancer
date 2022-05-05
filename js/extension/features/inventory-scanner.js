@@ -14,7 +14,7 @@ rl.ready(() => {
         releases = [...document.querySelectorAll('.left.item_name a[href^="/release"]')].map(r => r.href),
         flags = [...document.querySelectorAll('tr.shortcut_navigable td:nth-child(6)')],
         button = document.createElement('button'),
-        { inventoryScanner: threshold } = rl.getPreference('featurePrefs'),
+        { inventoryScanner: threshold } = rl.getPreference('featureData'),
         inventoryPrices = [...document.querySelectorAll('tr.shortcut_navigable td:nth-child(7)')]
             .map(r => Number(r.textContent.match(/\d+./g).join('')));
 

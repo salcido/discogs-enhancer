@@ -13,11 +13,11 @@
 rl.ready(() => {
 
   let currentFilterState = rl.getPreference('currentFilterState'),
-      { sleeveCondition } = rl.getPreference('featurePrefs'),
-      { filterPrices } = rl.getPreference('featurePrefs'),
+      { sleeveCondition } = rl.getPreference('featureData'),
+      { filterPrices } = rl.getPreference('featureData'),
       userCurrency = rl.getPreference('userCurrency'),
-      { countryList } = rl.getPreference('featurePrefs'),
-      { mediaCondition } = rl.getPreference('featurePrefs');
+      { countryList } = rl.getPreference('featureData'),
+      { mediaCondition } = rl.getPreference('featureData');
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,

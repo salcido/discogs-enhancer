@@ -26,8 +26,8 @@ export async function createLinkTabElements() {
 
   let tabOptionsDiv = document.getElementById('linksInTabs'),
       fragment = document.createDocumentFragment(),
-      { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      { linksInTabs } = featurePrefs,
+      { featureData } = await chrome.storage.sync.get(['featureData']),
+      { linksInTabs } = featureData,
       menus = [
           {
             name: 'Artists',
@@ -102,12 +102,12 @@ export async function createLinkTabElements() {
  * Sets the enabled/disabled preference
  */
 function updateLinkPreference(event) {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
     let id = event.target.id;
-    featurePrefs.linksInTabs[id] = event.target.checked;
+    featureData.linksInTabs[id] = event.target.checked;
 
-    chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.set({ featureData }).then(() => {
       applySave('refresh', event);
     });
   });

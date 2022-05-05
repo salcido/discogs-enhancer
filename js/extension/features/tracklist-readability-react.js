@@ -53,7 +53,7 @@
   if ( rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease') && rl.pageIsReact() ) {
 
     let
-        { readability } = rl.getPreference('featurePrefs'),
+        { readability } = rl.getPreference('featureData'),
         readabilityDividers = rl.getPreference('readabilityDividers'),
         show = readabilityDividers !== undefined ? readabilityDividers : setReadabilityTrue(),
 

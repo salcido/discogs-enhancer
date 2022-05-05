@@ -19,9 +19,9 @@ export function init() {
 
   // Filter checkbox
   document.getElementById('filter-seller-rep').addEventListener('change', (event) => {
-    chrome.storage.sync.set({ featurePrefs }).then(() => {
-      featurePrefs.sellerRepFilter = event.target.checked;
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.set({ featureData }).then(() => {
+      featureData.sellerRepFilter = event.target.checked;
+      chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
       })
     });
@@ -50,15 +50,15 @@ export function saveSellerRep() {
     // reset value to '100' if user enters a greater value
     if ( input.value > 100 ) { input.value = 100; }
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      featurePrefs.sellerRep = JSON.parse(input.value);
+      featureData.sellerRep = JSON.parse(input.value);
 
-      input.value = featurePrefs.sellerRep;
+      input.value = featureData.sellerRep;
       // Displays percentage value like: - 80%
       repValue.innerHTML = `&#8209; ${input.value}%`;
 
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+      chrome.storage.sync.set({ featureData }).then(() => {
         setEnabledStatus( self, 'Enabled' );
         applySave('refresh', event);
       });
@@ -90,10 +90,10 @@ export function saveSellerRep() {
  * @return {undefined}
  */
 export function setSellerRep() {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
     let checkbox = document.getElementById('filter-seller-rep'),
-        { sellerRepFilter, sellerRep: percent, sellerRepColor } = featurePrefs,
+        { sellerRepFilter, sellerRep: percent, sellerRepColor } = featureData,
         input = document.getElementById('percent'),
         color = sellerRepColor.match(/\w/g).join(''),
         repValue = document.getElementsByClassName('rep-value')[0],
@@ -174,11 +174,11 @@ function selectSwatch(event) {
   // Extract the class name for the `colorTable` value
   classname = swatch.className.split(' ')[1];
 
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    featurePrefs.sellerRepColor = colorTable[classname];
+    featureData.sellerRepColor = colorTable[classname];
 
-    chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.set({ featureData }).then(() => {
       applySave('refresh', event);
       return swatch.classList.add('selected');
     });

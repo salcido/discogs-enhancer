@@ -15,7 +15,7 @@
 
 let
     elems = [],
-    featurePrefs = {},
+    featureData = {},
     filterMonitor,
     hashes,
     prefs = {},
@@ -101,7 +101,7 @@ function migratePreferences() {
           sleeveCondition = up.sleeveCondition || defaults.sleeveCondition,
           usDateFormat = up.usDateFormat || defaults.usDateFormat;
 
-      let featurePrefs = {
+      let featureData = {
             blockList,
             countryList,
             discriminators,
@@ -120,7 +120,7 @@ function migratePreferences() {
           };
 
       return Promise.all([
-          chrome.storage.sync.set({ featurePrefs }),
+          chrome.storage.sync.set({ featureData }),
           chrome.storage.sync.set({ 'migrated': true })
         ]).then(() => {
           console.log('Discogs Enhancer: Feature Preferences migrated.');
@@ -1104,7 +1104,7 @@ appendFragment([resourceLibrary])
       return resolve(prefs);
     })
     .then((prefs) => {
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
         return new Promise(async resolve => {
 
           let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {},
@@ -1149,7 +1149,7 @@ appendFragment([resourceLibrary])
             let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)];
 
             uniqueBlockedSellers.forEach(seller => {
-              featurePrefs.blockList.list.push(seller);
+              featureData.blockList.list.push(seller);
 
               let port = chrome.runtime.connect();
               port.postMessage({
@@ -1162,7 +1162,7 @@ appendFragment([resourceLibrary])
 
           oldPrefs.newBlockedSellers = [];
 
-          newPrefs = Object.assign(oldPrefs, { featurePrefs }, { currentFilterState }, { userCurrency });
+          newPrefs = Object.assign(oldPrefs, { featureData }, { currentFilterState }, { userCurrency });
 
           // Instantiate default options
           if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
@@ -1181,7 +1181,7 @@ appendFragment([resourceLibrary])
 
           localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
 
-          await chrome.storage.sync.set({ featurePrefs });
+          await chrome.storage.sync.set({ featureData });
 
           return resolve();
         });

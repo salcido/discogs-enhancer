@@ -34,7 +34,7 @@ export function init() {
  */
 export function saveInventoryRatings(event) {
 
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
     let
         input = document.getElementById('ratingsValue'),
@@ -49,10 +49,10 @@ export function saveInventoryRatings(event) {
         toggle.disabled = false;
         input.classList.remove('alert');
 
-        featurePrefs.minimumRating = JSON.parse(input.value)
-        chrome.storage.sync.set({ featurePrefs });
+        featureData.minimumRating = JSON.parse(input.value)
+        chrome.storage.sync.set({ featureData });
 
-        let { minimumRating } = featurePrefs;
+        let { minimumRating } = featureData;
         input.value = minimumRating;
 
         // Displays rating as "- 4.45"
@@ -86,8 +86,8 @@ export function saveInventoryRatings(event) {
 export async function setInventoryRatings() {
 
   let input = document.getElementById('ratingsValue'),
-      { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      { minimumRating } = featurePrefs,
+      { featureData } = await chrome.storage.sync.get(['featureData']),
+      { minimumRating } = featureData,
       ratingDisplay = document.querySelector('.inventory-value'),
       self = document.querySelector('.inventory .status'),
       toggle = document.getElementById('toggleInventoryRatings');

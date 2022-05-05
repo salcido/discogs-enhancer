@@ -9,8 +9,8 @@ import { applySave, optionsToggle, fadeOut, setEnabledStatus } from '../utils';
  */
 export async function init() {
 
-  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      { filterPrices } = featurePrefs,
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      { filterPrices } = featureData,
       minimum = document.getElementById('minimum'),
       maximum = document.getElementById('maximum');
 
@@ -59,11 +59,11 @@ function setStatus() {
  * Displays the user's settings along side the feature title
  */
 function updateDisplayValues() {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
     let values = document.querySelector('.min-max-values'),
         userCurrency = document.getElementById('filterPricesCurrency').value || 'USD',
-        { minimum, maximum } = featurePrefs.filterPrices,
+        { minimum, maximum } = featureData.filterPrices,
         currCode = {
           AUD: 'A$',
           BRL: 'R$',
@@ -102,17 +102,17 @@ function updateDisplayValues() {
  * on the popup
  */
 async function setMinMaxValues() {
-  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      { filterPrices } = featurePrefs,
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      { filterPrices } = featureData,
       min = document.querySelector('#minimum'),
       max = document.querySelector('#maximum');
 
   min.addEventListener('change', event => {
     filterPrices.minimum = Math.abs(Number(event.target.value));
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.filterPrices = filterPrices;
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.filterPrices = filterPrices;
+      chrome.storage.sync.set({ featureData }).then(() => {
         updateDisplayValues();
       });
     })
@@ -122,9 +122,9 @@ async function setMinMaxValues() {
   max.addEventListener('change', event => {
     filterPrices.maximum = Math.abs(Number(event.target.value));
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.filterPrices = filterPrices;
-      chrome.storage.sync.set({ featurePrefs }).then(() => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.filterPrices = filterPrices;
+      chrome.storage.sync.set({ featureData }).then(() => {
         updateDisplayValues();
       });
     })

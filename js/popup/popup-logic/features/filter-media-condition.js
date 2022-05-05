@@ -37,11 +37,11 @@ export function init() {
   document.getElementById('conditionValue').addEventListener('change', async function () {
 
     let toggle = document.getElementById('toggleFilterMediaCondition'),
-        { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
+        { featureData } = await chrome.storage.sync.get(['featureData']),
         status = document.querySelector('.toggle-group.condition .label .status');
 
-    featurePrefs.mediaCondition = JSON.parse(this.value);
-    chrome.storage.sync.set({ featurePrefs });
+    featureData.mediaCondition = JSON.parse(this.value);
+    chrome.storage.sync.set({ featureData });
 
     if (!toggle.checked) {
 
@@ -64,9 +64,9 @@ export function init() {
  * @return {undefined}
  */
 export function setupFilterByCondition(enabled) {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    let mediaCondition = featurePrefs.mediaCondition || 7,
+    let mediaCondition = featureData.mediaCondition || 7,
         select = document.getElementById('conditionValue'),
         status = document.querySelector('.toggle-group.condition .label .status');
 
@@ -94,8 +94,8 @@ export function setupFilterByCondition(enabled) {
  * @returns {undefined}
  */
 export function toggleHideConditions(event) {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-    let mediaCondition = featurePrefs.mediaCondition || 7,
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+    let mediaCondition = featureData.mediaCondition || 7,
         status = document.querySelector('.toggle-group.condition .label .status');
 
     if ( !event.target.checked ) {

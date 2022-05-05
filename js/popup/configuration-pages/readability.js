@@ -10,8 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      initialConfig = featurePrefs.readability,
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      initialConfig = featureData.readability,
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
@@ -73,18 +73,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('toggleVCreleases').addEventListener('click', function(event) {
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.readability.vcReadability = event.target.checked;
-      chrome.storage.sync.set({ featurePrefs });
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.readability.vcReadability = event.target.checked;
+      chrome.storage.sync.set({ featureData });
     })
   });
 
   // Single CD, digital, etc ...
   document.getElementById('toggleOtherMedia').addEventListener('click', function(event) {
 
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.readability.otherMediaReadability = event.target.checked;
-      chrome.storage.sync.set({ featurePrefs });
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.readability.otherMediaReadability = event.target.checked;
+      chrome.storage.sync.set({ featureData });
     })
   });
 
@@ -93,9 +93,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     select.addEventListener('change', function(event) {
 
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.readability[event.target.id] = JSON.parse(event.target.value);
-        chrome.storage.sync.set({ featurePrefs });
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.readability[event.target.id] = JSON.parse(event.target.value);
+        chrome.storage.sync.set({ featureData });
       })
     });
   });

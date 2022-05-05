@@ -16,9 +16,9 @@ export function init() {
 
   // Save the Use US Date format preference
   document.getElementById('usFormat').addEventListener('change', function () {
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      featurePrefs.usDateFormat = this.checked;
-      chrome.storage.sync.set({ featurePrefs });
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.usDateFormat = this.checked;
+      chrome.storage.sync.set({ featureData });
     })
   });
 
@@ -63,8 +63,8 @@ export function setAbsoluteDateStatus() {
       setEnabledStatus( self, 'Disabled' );
     }
     // Setup US Date Format checkbox preference
-    chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-      document.getElementById('usFormat').checked = JSON.parse(featurePrefs.usDateFormat);
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      document.getElementById('usFormat').checked = JSON.parse(featureData.usDateFormat);
     })
   });
 }

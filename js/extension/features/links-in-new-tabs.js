@@ -24,7 +24,7 @@ rl.ready(() => {
     page.classList.add('de-label');
   }
 
-  let { linksInTabs } = rl.getPreference('featurePrefs') || null,
+  let { linksInTabs } = rl.getPreference('featureData') || null,
       // Artist
       artThumbs = '#artist .card .image a',
       artTitles = '#artist .card .title a',

@@ -21,8 +21,8 @@
 
 rl.ready(() => {
 
-  let featurePrefs = rl.getPreference('featurePrefs'),
-      { sellerRep: threshold, sellerRepFilter } = featurePrefs;
+  let featureData = rl.getPreference('featureData'),
+      { sellerRep: threshold, sellerRepFilter } = featureData;
 
   if ( !threshold ) return;
 
@@ -77,7 +77,7 @@ rl.ready(() => {
     // CSS
     // ========================================================
 
-    let { sellerRepColor } = rl.getPreference('featurePrefs'),
+    let { sellerRepColor } = rl.getPreference('featureData'),
         color = sellerRepColor.match(/#*\w/g).join(''),
         rules = `
         .de-dark-theme .de-seller-rep ul li i,

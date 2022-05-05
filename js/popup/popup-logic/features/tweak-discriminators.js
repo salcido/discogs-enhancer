@@ -16,8 +16,8 @@ import { setEnabledStatus, optionsToggle, notify } from '../utils';
  * @returns {undefined}
  */
 function setCheckboxValues() {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-    let settings = featurePrefs.discriminators,
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+    let settings = featureData.discriminators,
         status = document.querySelector('.toggle-group.discrims .status');
     // Submenu checkboxes
     for (let prop in settings) {
@@ -54,8 +54,8 @@ function disableBoxes() {
  * @returns {undefined}
  */
 export function init() {
-  chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-    let options = featurePrefs.discriminators;
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+    let options = featureData.discriminators;
       // Expand and show the submenu
     document.querySelector('.toggle-group.discrims').addEventListener('click', function() {
       optionsToggle('#discrims', this, '.discrims', 140);
@@ -63,9 +63,9 @@ export function init() {
     // Save the preferences
     for (let prop in options) {
       document.getElementById(`${prop}-discrims`).addEventListener('change', function() {
-        chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-          featurePrefs.discriminators[prop] = this.checked;
-          chrome.storage.sync.set({ featurePrefs }).then(() => {
+        chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+          featureData.discriminators[prop] = this.checked;
+          chrome.storage.sync.set({ featureData }).then(() => {
             notify('refresh');
           });
         });

@@ -308,9 +308,9 @@ window.addEventListener('load', () => {
    * @returns {Object} - Performance issue data: { content: <string>, version: <string> }
    */
    function getIssues() {
-    return chrome.storage.sync.get(['featurePrefs']).then(async ({ featurePrefs }) => {
+    return chrome.storage.sync.get(['featureData']).then(async ({ featureData }) => {
       let url = 'https://discogs-enhancer.com/issues',
-          { blockList } = featurePrefs;
+          { blockList } = featureData;
 
       if (__DEV__
           && blockList

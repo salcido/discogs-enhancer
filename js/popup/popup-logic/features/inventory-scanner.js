@@ -47,9 +47,9 @@ export function saveInventoryThreshold() {
       if ( input.value < 0 ) { input.value = 0; }
 
       // Save the value to chrome.storage
-      chrome.storage.sync.get(['featurePrefs']).then(({ featurePrefs }) => {
-        featurePrefs.inventoryScanner = { threshold: JSON.parse(input.value) }
-        chrome.storage.sync.set({ featurePrefs });
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.inventoryScanner = { threshold: JSON.parse(input.value) }
+        chrome.storage.sync.set({ featureData });
       })
 
 
@@ -87,8 +87,8 @@ export async function setInventoryThreshold() {
       savedValue = document.querySelector('.saved-value'),
       self = document.querySelector('.inventory-scanner-wrap .status'),
       toggle = document.getElementById('toggleInventoryScanner'),
-      { featurePrefs } = await chrome.storage.sync.get(['featurePrefs']),
-      { inventoryScanner } = featurePrefs,
+      { featureData } = await chrome.storage.sync.get(['featureData']),
+      { inventoryScanner } = featureData,
       hasThreshold = inventoryScanner && inventoryScanner.threshold,
       threshold = hasThreshold ? inventoryScanner.threshold : null;
 

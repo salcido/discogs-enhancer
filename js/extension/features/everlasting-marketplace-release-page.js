@@ -25,7 +25,7 @@ rl.ready(() => {
         paused = false,
         pjax = document.querySelector('#pjax_container'),
         pTotal,
-        { mediaCondition, sleeveCondition } = rl.getPreference('featurePrefs');
+        { mediaCondition, sleeveCondition } = rl.getPreference('featureData');
 
     let pauseBtn = `<a class="de-pause button button-blue">
                       <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
