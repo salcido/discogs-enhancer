@@ -389,11 +389,11 @@ export function triggerSave(event) {
  */
 export async function sendEvent(category, action, label = '') {
 
-  let { uid } = await chrome.storage.sync.get(['uid'])
+  let { uid = false } = await chrome.storage.sync.get(['uid']);
 
   if (!uid) {
     uid = Math.random().toString(16).slice(2);
-    await chrome.storage.sync.set({ uid })
+    await chrome.storage.sync.set({ uid });
   }
 
   async function postData(data = {}) {
