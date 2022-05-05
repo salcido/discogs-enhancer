@@ -113,9 +113,12 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  if (event && event.target && event.target.checked) {
-    let checked = event.target.checked;
-    sendEvent('Feature', event.target.id, checked);
+  if (event && event.target) {
+
+    let eType = event.target.id.includes('toggle') ? 'Feature' : 'Contextual Menu',
+        checked = event.target.checked;
+
+    sendEvent(eType, event.target.id, checked);
   }
 }
 
