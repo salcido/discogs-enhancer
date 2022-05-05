@@ -19,7 +19,7 @@ export function init() {
 
   // Filter checkbox
   document.getElementById('filter-seller-rep').addEventListener('change', (event) => {
-    chrome.storage.sync.set({ featureData }).then(() => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       featureData.sellerRepFilter = event.target.checked;
       chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
@@ -52,6 +52,7 @@ export function saveSellerRep() {
 
     chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
+      let { sellerRepFilter, sellerRep: percent } = featureData;
       featureData.sellerRep = JSON.parse(input.value);
 
       input.value = featureData.sellerRep;
@@ -61,6 +62,7 @@ export function saveSellerRep() {
       chrome.storage.sync.set({ featureData }).then(() => {
         setEnabledStatus( self, 'Enabled' );
         applySave('refresh', event);
+        sendEvent('Seller Reputation', percent, `Hide: ${sellerRepFilter}`);
       });
     })
 
@@ -117,7 +119,6 @@ export function setSellerRep() {
         // Displays percentage value like: - 80%
         repValue.innerHTML = `&#8209; ${input.value}%`;
         setEnabledStatus( self, 'Enabled' );
-        sendEvent('Seller Reputation', percent, `Hide: ${sellerRepFilter}`);
       }
 
       else if ( result.prefs.sellerRep && percent === null ) {
