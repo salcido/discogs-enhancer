@@ -2,7 +2,7 @@
  * Contextual Menus search feature
  */
 
-import { applySave } from '../utils';
+import { applySave, sendEvent } from '../utils';
 
 // ========================================================
 // createContextualMenuElements
@@ -106,7 +106,6 @@ export function createContextualMenuElements() {
     input.type = 'checkbox';
     input.id = menu.id;
     input.dataset.name = menu.name;
-    input.dataset.fn = menu.fn;
 
     span.textContent = menu.name;
 
@@ -136,9 +135,9 @@ export function createContextualMenuElements() {
  * @return   {undefined}
  */
 function updateContextualMenu(event) {
-
   let port = chrome.runtime.connect();
 
   port.postMessage({ request: 'updateContextMenu' });
   applySave(null, event);
+  sendEvent('Contextual Menu', event.target.id, event,target.checked);
 }

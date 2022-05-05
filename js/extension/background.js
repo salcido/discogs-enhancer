@@ -142,11 +142,12 @@ chrome.runtime.onInstalled.addListener((details) => {
         didUpdate: false,
         prefs: prefs,
         featurePrefs: featureDefaults,
-        migrated: true
+        migrated: true,
+        uid: Math.random().toString(16).slice(2)
       }).then(() => console.log('Welcome to the pleasuredome!'));
 
       // Launch quick start guide
-      chrome.tabs.create({url: '../html/welcome.html'});
+      chrome.tabs.create({ url: '../html/welcome.html' });
 
     } else if (details.reason === 'update') {
       // - Don't show an update notice on patches -
@@ -166,7 +167,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     }
 
   // Uninstall action
-  if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+  if ( details.reason === chrome.runtime.OnInstalledReason.INSTALL ) {
     chrome.runtime.setUninstallURL('https://www.discogs-enhancer.com/uninstall');
   }
   // Instantiate Contextual Menu Options
@@ -229,11 +230,48 @@ function updateContextMenus() {
 // Contextual Menu Add / Remove
 // ========================================================
 chrome.runtime.onConnect.addListener(function(port) {
-  port.onMessage.addListener(function(msg) {
+  port.onMessage.addListener(async function(msg) {
 
     if (msg.request === 'updateContextMenu') {
       chrome.contextMenus.removeAll();
       updateContextMenus();
+    }
+
+    if (msg.request === 'trackEvent') {
+
+      let { uid } = await chrome.storage.sync.get(['uid'])
+
+      if (!uid) {
+        uid = Math.random().toString(16).slice(2);
+        await chrome.storage.sync.set({ uid })
+      }
+
+      async function postData(data = {}) {
+        let url = 'https://www.google-analytics.com/collect';
+
+        const response = await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
+          body: data
+        });
+      }
+
+      let gaParams = new URLSearchParams();
+      // https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
+      gaParams.append('v', 1); // protocol version
+      gaParams.append('tid', 'UA-75073435-1'); // web property ID
+      gaParams.append('aip', 1); // anonymize IP
+      gaParams.append('cid', uid);
+      gaParams.append('t', 'event');
+      gaParams.append('ec', msg.category);
+      gaParams.append('ea', msg.action);
+
+      await postData(gaParams);
     }
   });
 })
