@@ -141,11 +141,14 @@ rl.ready(() => {
             window.modifyLinks();
           });
         } else {
-          setTimeout(() => {
-            $(document).ajaxStop(() => {
-              window.modifyLinks();
-            });
-          }, 200);
+          rl.waitForElement('ul.module_blocks li').then(() => {
+            setTimeout(() => {
+              $(document).ajaxStop(() => {
+                console.log('l')
+                window.modifyLinks();
+              });
+            }, 200);
+          })
         }
 
       }
