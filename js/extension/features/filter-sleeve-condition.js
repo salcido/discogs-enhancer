@@ -108,7 +108,8 @@ rl.ready(() => {
     // DOM manipulation
     // ========================================================
 
-    if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
+    if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
+         && rl.pageIsNot('sellerFeedback') ) {
 
       rl.attachCss('filter-sleeve-condition', rules);
       // hide items when page first loads
