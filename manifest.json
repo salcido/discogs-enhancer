@@ -37,7 +37,8 @@
   "permissions": [
     "storage",
     "contextMenus",
-    "activeTab"
+    "activeTab",
+    "scripting"
   ],
   "icons": {
     "16": "img/icon_16.png",
