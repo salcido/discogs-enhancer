@@ -46,14 +46,14 @@ rl.ready(() => {
       mpSellers = '.shortcut_navigable .seller_info li strong a',
       mpThumbs = '.item_picture a',
       // Releases
-      relCompanies = '#page .section.companies a',
-      relVersions = '.de-release .card.release td a',
-      relRecommends = '#recs_slider .cards a',
-      relLists = '.de-release #list a',
-      relContribs = '#page .section.contribs a',
-      relTracklist = '#page .playlist tr a',
-      relLastSold = '.last_sold a',
-      relOtherVers = '.de-release .title a, .de-release .label a',
+      relCompanies = '#release-companies a';
+      relVersions = '#release-other-versions a';
+      relRecommends = '#release-recommendations ul[class*="cards_"] a';
+      relLists = '.de-release #curated-lists a';
+      relContribs = '#release-contributors a';
+      relTracklist = '#release-tracklist tr a';
+      relLastSold = '#release-stats ul li a[href*="/sell/history/"]';
+      relOtherVers = '.de-release .title a, .de-release .label a';
       // Wantlist
       wantThumbs = '[class^="wantlist_"] .image a',
       wantTitles = '[class^="wantlist_"] .artist_title a',
@@ -61,17 +61,6 @@ rl.ready(() => {
       //
       selectors = [],
       enabled = false;
-
-  if (rl.pageIsReact()) {
-    relCompanies = '#release-companies a';
-    relVersions = '#release-other-versions a';
-    relRecommends = '#release-recommendations ul[class*="cards_"] a';
-    relLists = '.de-release #release-lists a';
-    relContribs = '#release-contributors a';
-    relTracklist = '#release-tracklist tr a';
-    relLastSold = '#release-stats ul li a[href*="/sell/history/"]';
-    relOtherVers = '.de-release .title a, .de-release .label a';
-  }
 
   let sections = {
     artists: [artThumbs, artTitles, artLabels, artLists],
@@ -132,25 +121,25 @@ rl.ready(() => {
         });
       });
 
-      // Dashboard modules load async so wait for calls to finish
-      if (linksInTabs.dashboard && rl.pageIs('dashboard') || rl.pageIs('master', 'release')) {
+      if ( rl.pageIs('master', 'release') ) {
         if (reactVersion) {
           // Guessing that recommendations are one of the last things to render on the page
           // Maybe there is a better way to tell when all requests have finished?
           rl.waitForElement('#release-recommendations ul li a').then(() => {
             window.modifyLinks();
           });
-        } else {
-          rl.waitForElement('ul.module_blocks li').then(() => {
-            setTimeout(() => {
-              $(document).ajaxStop(() => {
-                console.log('l')
-                window.modifyLinks();
-              });
-            }, 200);
-          })
         }
+      }
 
+      // Dashboard modules load async so wait for calls to finish
+      if ( linksInTabs.dashboard && rl.pageIs('dashboard') ) {
+        rl.waitForElement('ul.module_blocks li').then(() => {
+          setTimeout(() => {
+            $(document).ajaxStop(() => {
+              window.modifyLinks();
+            });
+          }, 200);
+        })
       }
     }
   }
