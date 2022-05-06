@@ -33,7 +33,7 @@
   "background": {
     "service_worker": "js/extension/background.js"
   },
-  "minimum_chrome_version": "51",
+  "minimum_chrome_version": "88",
   "permissions": [
     "storage",
     "contextMenus",
