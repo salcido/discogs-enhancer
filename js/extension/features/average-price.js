@@ -34,9 +34,7 @@ rl.ready(() => {
           li = document.createElement('li');
 
       div.innerHTML = data;
-      li.style.fontWeight = 'bold';
-      li.classList = 'de-average-price';
-      li.innerHTML = `<h4>Average:</h4> ${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}`;
+      li.innerHTML = `<span class="de-average-price">Average:</span> <span style="font-weight: bold;">${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}</span>`;
 
       return document.querySelector(selector).append(li);
 
@@ -50,8 +48,20 @@ rl.ready(() => {
   }
 
   // ========================================================
+  // CSS
+  // ========================================================
+  let rules = `
+      .de-average-price {
+        display: table-cell;
+        width: 50%;
+      }
+  `;
+
+  // ========================================================
   // Init / DOM setup
   // ========================================================
+  rl.attachCss('average-price', rules);
+
   if ( rl.pageIs('release')
        && rl.pageIsNot('edit', 'history', 'master', 'sell') ) {
 
@@ -64,7 +74,7 @@ rl.ready(() => {
 
     if ( neverSold ) {
       let li = document.createElement('li');
-      li.innerHTML = '<h4>Average:</h4> --';
+      li.innerHTML = '<span class="de-average-price">Average:</span> <span>--</span>';
 
       return document.querySelector(selector).append(li);
     }

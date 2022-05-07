@@ -86,9 +86,15 @@ rl.ready(() => {
     }
 
     if (rl.pageIsReact()) {
-      document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', badge);
+      // Quick-n-dirty fix to solve an issue where the badges are immediately removed
+      // on the react version of the relase page. I could not find what was causing the removal
+      // but I don't believe it's caused by the extension itself...
+      setTimeout(() => {
+        document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', badge);
+        bindUi();
+      }, 200);
     } else {
-      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', badge);
+      document.querySelector('#activity_menu').insertAdjacentHTML('afterbegin', badge);
     }
 
     return bindUi();
@@ -112,7 +118,7 @@ rl.ready(() => {
     if (rl.pageIsReact()) {
       document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', preloader);
     } else {
-      document.querySelector('#activity_menu').insertAdjacentHTML('beforeend', preloader);
+      document.querySelector('#activity_menu').insertAdjacentHTML('afterbegin', preloader);
     }
   }
 
