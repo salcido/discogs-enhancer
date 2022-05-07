@@ -16,7 +16,7 @@ if ( analytics ) {
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','../js/shared/external/ga.js','ga');
 
-  ga('create', 'UA-50788406-1', 'auto');
+  ga('create', 'UA-75073435-1', 'auto');
   ga('set', 'anonymizeIp', true);
   ga('set', 'checkProtocolTask', function() { });
   ga('require', 'displayfeatures');
