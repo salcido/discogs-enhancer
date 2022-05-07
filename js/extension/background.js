@@ -13,11 +13,13 @@
  *
  */
 
+import { ContextMenuOption } from '../shared/constants.js'
+
 let elems = [],
-    filterMonitor,
-    hashes,
-    prefs = {},
-    resourceLibrary;
+  filterMonitor,
+  hashes,
+  prefs = {},
+  resourceLibrary;
 
 // ========================================================
 // Functions
@@ -64,12 +66,12 @@ function appendFragment(elems) {
  */
 function getCurrentFilterState() {
   let currentFilterState = {
-        everlastingMarket: prefs.everlastingMarket,
-        filterMediaCondition: prefs.filterMediaCondition,
-        filterPrices: prefs.filterPrices,
-        filterShippingCountry: prefs.filterShippingCountry,
-        filterSleeveCondition: prefs.filterSleeveCondition,
-      };
+    everlastingMarket: prefs.everlastingMarket,
+    filterMediaCondition: prefs.filterMediaCondition,
+    filterPrices: prefs.filterPrices,
+    filterShippingCountry: prefs.filterShippingCountry,
+    filterSleeveCondition: prefs.filterSleeveCondition,
+  };
   return currentFilterState;
 }
 
@@ -79,16 +81,16 @@ function getCurrentFilterState() {
 
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
-  chrome.runtime.onInstalled.addListener(function(details) {
+  chrome.runtime.onInstalled.addListener(function (details) {
 
     let previousVersion,
-        thisVersion;
+      thisVersion;
 
     if (details.reason === 'install') {
 
       console.log('Welcome to the pleasuredome!');
 
-      chrome.storage.sync.set({ didUpdate: false }, function() {});
+      chrome.storage.sync.set({ didUpdate: false }, function () { });
 
     } else if (details.reason === 'update') {
 
@@ -97,20 +99,20 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       thisVersion = chrome.runtime.getManifest().version.split('.');
 
-      if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
-           Number(thisVersion[1]) > Number(previousVersion[1]) ) {
+      if (Number(thisVersion[0]) > Number(previousVersion[0]) ||
+        Number(thisVersion[1]) > Number(previousVersion[1])) {
 
-        chrome.browserAction.setBadgeText({text: ' '});
+        chrome.action.setBadgeText({ text: ' ' });
 
-        chrome.browserAction.setBadgeBackgroundColor({color: '#4cb749'});
+        chrome.action.setBadgeBackgroundColor({ color: '#4cb749' });
 
-        chrome.storage.sync.set({didUpdate: true}, function() {});
+        chrome.storage.sync.set({ didUpdate: true }, function () { });
       }
     }
   });
 }
 
-window.getCookie = function(name) {
+self.getCookie = function (name) {
   var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   if (match) return match[2];
 };
@@ -124,105 +126,34 @@ window.getCookie = function(name) {
 resourceLibrary = document.createElement('script');
 resourceLibrary.type = 'text/javascript';
 resourceLibrary.id = 'resource-library';
-resourceLibrary.src = chrome.extension.getURL('js/extension/dependencies/resource-library.js');
+resourceLibrary.src = chrome.runtime.getURL('js/extension/dependencies/resource-library.js');
 
 appendFragment([resourceLibrary]).then(() => {
 
   let blockedUsers = ['.xxTIMEMACHINExx.', 'Efx.Libris'],
-      user = window.getCookie('ck_username');
+    user = self.getCookie('ck_username');
 
-  if ( user && blockedUsers.includes(user) ) {
+  if (user && blockedUsers.includes(user)) {
     return;
   }
 
   // Get the users preferences or create them
   chrome.storage.sync.get('prefs', result => {
 
-    if (!result.prefs) {
-
-      // Adding A Feature: Step 1
-      prefs = {
-        absoluteDate: false,
-        averagePrice: false,
-        baoiFields: false,
-        blockBuyers: false,
-        blockSellers: true,
-        blurryImageFix: false,
-        confirmBeforeRemoving: false,
-        collectionUi: false,
-        commentScanner: false,
-        converter: true,
-        darkTheme: false,
-        demandIndex: false,
-        editingNotepad: false,
-        everlastingCollection: false,
-        everlastingMarket: true,
-        favoriteSellers: true,
-        feedback: false,
-        filterMediaCondition: false,
-        filterMediaConditionValue: null,
-        filterPrices: false,
-        filterShippingCountry: false,
-        filterSleeveCondition: false,
-        filterSleeveConditionValue: null,
-        filterUnavailable: false,
-        forceDashboard: true,
-        formatShortcuts: true,
-        hideMinMaxColumns: false,
-        highlightMedia: true,
-        inventoryRatings: false,
-        inventoryScanner: false,
-        notesCount: true,
-        quickSearch: false,
-        randomItem: false,
-        ratingPercent: false,
-        readability: false,
-        relativeSoldDate: false,
-        releaseScanner: false,
-        releaseDurations: true,
-        releaseRatings: false,
-        removeFromWantlist: false,
-        sellerItemsInCart: false,
-        sellerRep: false,
-        sortButtons: true,
-        suggestedPrices: false,
-        tweakDiscrims: false,
-        userCurrency: null,
-        ytPlaylists: false,
-        //
-        useAllDay: false,
-        useBandcamp: false,
-        useBeatport: false,
-        useBoomkat: false,
-        useClone: false,
-        useDeejay: false,
-        useDiscogs: true,
-        useEarcave: false,
-        useGramaphone: false,
-        useHardwax: false,
-        useJuno: false,
-        useOye: false,
-        usePhonica: false,
-        useRateYourMusic: false,
-        useRedeye: false,
-        useRushhour: false,
-        useSotu: false,
-        useYoutube: false
-      };
-
-      chrome.storage.sync.set({ prefs: prefs }, () => console.log('Preferences created.'));
-    } else {
-      prefs = result.prefs;
+    if (!result || !result.prefs) {
+      console.log('Prefs is not defined');
     }
 
+    prefs = result.prefs;
+
     // Dark Theme
-    if ( result.prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
+    if (prefs.darkTheme) document.documentElement.classList.add('de-dark-theme');
     // Don't use the dark theme on subdomains or when printing an order
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
-    if ( !window.location.href.includes('www')
-         || window.location.href.includes('/order/prints?')
-         || window.location.href.includes('/digs')) {
+    if (!self.location.href.includes('www')
+      || self.location.href.includes('/order/prints?')
+      || self.location.href.includes('/digs')) {
 
       document.documentElement.classList.remove('de-dark-theme');
     }
@@ -236,7 +167,7 @@ appendFragment([resourceLibrary]).then(() => {
       hashes = document.createElement('script');
       hashes.type = 'text/javascript';
       hashes.className = 'de-init';
-      hashes.src = chrome.extension.getURL('js/extension/dependencies/hashes.js');
+      hashes.src = chrome.runtime.getURL('js/extension/dependencies/hashes.js');
 
       elems.push(hashes);
 
@@ -244,7 +175,7 @@ appendFragment([resourceLibrary]).then(() => {
       filterMonitor = document.createElement('script');
       filterMonitor.type = 'text/javascript';
       filterMonitor.className = 'de-init';
-      filterMonitor.src = chrome.extension.getURL('js/extension/features/filter-monitor.js');
+      filterMonitor.src = chrome.runtime.getURL('js/extension/features/filter-monitor.js');
 
       elems.push(filterMonitor);
 
@@ -252,7 +183,7 @@ appendFragment([resourceLibrary]).then(() => {
       let updateExchangeRates = document.createElement('script');
 
       updateExchangeRates.type = 'text/javascript';
-      updateExchangeRates.src = chrome.extension.getURL('js/extension/dependencies/update-exchange-rates.js');
+      updateExchangeRates.src = chrome.runtime.getURL('js/extension/dependencies/update-exchange-rates.js');
       updateExchangeRates.className = 'de-init';
 
       elems.push(updateExchangeRates);
@@ -261,7 +192,7 @@ appendFragment([resourceLibrary]).then(() => {
       let linksInTabs = document.createElement('script');
 
       linksInTabs.type = 'text/javascript';
-      linksInTabs.src = chrome.extension.getURL('js/extension/features/links-in-new-tabs.js');
+      linksInTabs.src = chrome.runtime.getURL('js/extension/features/links-in-new-tabs.js');
       linksInTabs.className = 'de-init';
 
       elems.push(linksInTabs);
@@ -271,7 +202,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       newReleasePageFixes.rel = 'stylesheet';
       newReleasePageFixes.type = 'text/css';
-      newReleasePageFixes.href = chrome.extension.getURL('css/new-release-page-fixes.css');
+      newReleasePageFixes.href = chrome.runtime.getURL('css/new-release-page-fixes.css');
       newReleasePageFixes.id = 'newReleasePageFixes';
 
       elems.push(newReleasePageFixes);
@@ -288,7 +219,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       minMax_css.rel = 'stylesheet';
       minMax_css.type = 'text/css';
-      minMax_css.href = chrome.extension.getURL('css/min-max-columns.css');
+      minMax_css.href = chrome.runtime.getURL('css/min-max-columns.css');
       minMax_css.id = 'minMaxColumnsCss';
       minMax_css.disabled = !result.prefs.hideMinMaxColumns;
 
@@ -299,9 +230,9 @@ appendFragment([resourceLibrary]).then(() => {
 
       baoi_css.rel = 'stylesheet';
       baoi_css.type = 'text/css';
-      baoi_css.href = chrome.extension.getURL('css/baoi-fields.css');
+      baoi_css.href = chrome.runtime.getURL('css/baoi-fields.css');
       baoi_css.id = 'baoiFieldsCss',
-      baoi_css.disabled = !result.prefs.baoiFields;
+        baoi_css.disabled = !result.prefs.baoiFields;
 
       elems.push(baoi_css);
 
@@ -310,9 +241,9 @@ appendFragment([resourceLibrary]).then(() => {
 
       ytPlaylists_css.rel = 'stylesheet';
       ytPlaylists_css.type = 'text/css';
-      ytPlaylists_css.href = chrome.extension.getURL('css/large-youtube-playlists.css');
+      ytPlaylists_css.href = chrome.runtime.getURL('css/large-youtube-playlists.css');
       ytPlaylists_css.id = 'ytPlaylistsCss',
-      ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
+        ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
 
       elems.push(ytPlaylists_css);
 
@@ -321,7 +252,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       everlastingCss.rel = 'stylesheet';
       everlastingCss.type = 'text/css';
-      everlastingCss.href = chrome.extension.getURL('css/everlasting.css');
+      everlastingCss.href = chrome.runtime.getURL('css/everlasting.css');
 
       elems.push(everlastingCss);
 
@@ -331,7 +262,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       friendCounter.type = 'text/javascript';
       friendCounter.className = 'de-init';
-      friendCounter.src = chrome.extension.getURL('js/extension/features/friend-counter.js');
+      friendCounter.src = chrome.runtime.getURL('js/extension/features/friend-counter.js');
 
       elems.push(friendCounter);
 
@@ -339,7 +270,7 @@ appendFragment([resourceLibrary]).then(() => {
       let highlightScript = document.createElement('script');
 
       highlightScript.type = 'text/javascript';
-      highlightScript.src = chrome.extension.getURL('js/extension/features/marketplace-highlights.js');
+      highlightScript.src = chrome.runtime.getURL('js/extension/features/marketplace-highlights.js');
       highlightScript.className = 'de-init';
 
       elems.push(highlightScript);
@@ -349,7 +280,7 @@ appendFragment([resourceLibrary]).then(() => {
 
       highlightCss.rel = 'stylesheet';
       highlightCss.type = 'text/css';
-      highlightCss.href = chrome.extension.getURL('css/marketplace-highlights.css');
+      highlightCss.href = chrome.runtime.getURL('css/marketplace-highlights.css');
       highlightCss.id = 'mediaHighLightsCss';
       highlightCss.disabled = !result.prefs.highlightMedia;
 
@@ -361,12 +292,12 @@ appendFragment([resourceLibrary]).then(() => {
       //
       // Adding A Feature: Step 1
 
-      if ( result.prefs.absoluteDate ) {
+      if (result.prefs.absoluteDate) {
         // show-actual-dates.js
         let absoluteDate = document.createElement('script');
 
         absoluteDate.type = 'text/javascript';
-        absoluteDate.src = chrome.extension.getURL('js/extension/features/show-actual-dates.js');
+        absoluteDate.src = chrome.runtime.getURL('js/extension/features/show-actual-dates.js');
         absoluteDate.className = 'de-init';
 
         elems.push(absoluteDate);
@@ -374,29 +305,29 @@ appendFragment([resourceLibrary]).then(() => {
         let absoluteDateReact = document.createElement('script');
 
         absoluteDateReact.type = 'text/javascript';
-        absoluteDateReact.src = chrome.extension.getURL('js/extension/features/show-actual-dates-react.js');
+        absoluteDateReact.src = chrome.runtime.getURL('js/extension/features/show-actual-dates-react.js');
         absoluteDateReact.className = 'de-init';
 
         elems.push(absoluteDateReact);
       }
 
-      if ( result.prefs.averagePrice ) {
+      if (result.prefs.averagePrice) {
         // average-price.js
         let averagePrice = document.createElement('script');
 
         averagePrice.type = 'text/javascript';
-        averagePrice.src = chrome.extension.getURL('js/extension/features/average-price.js');
+        averagePrice.src = chrome.runtime.getURL('js/extension/features/average-price.js');
         averagePrice.className = 'de-init';
 
         elems.push(averagePrice);
       }
 
-      if ( result.prefs.blockBuyers ) {
+      if (result.prefs.blockBuyers) {
         // block-buyers.js
         let blockBuyers = document.createElement('script');
 
         blockBuyers.type = 'text/javascript';
-        blockBuyers.src = chrome.extension.getURL('js/extension/features/block-buyers.js');
+        blockBuyers.src = chrome.runtime.getURL('js/extension/features/block-buyers.js');
         blockBuyers.className = 'de-init';
 
         elems.push(blockBuyers);
@@ -408,7 +339,7 @@ appendFragment([resourceLibrary]).then(() => {
         let blockSellers = document.createElement('script');
 
         blockSellers.type = 'text/javascript';
-        blockSellers.src = chrome.extension.getURL('js/extension/features/block-sellers.js');
+        blockSellers.src = chrome.runtime.getURL('js/extension/features/block-sellers.js');
         blockSellers.className = 'de-init';
 
         elems.push(blockSellers);
@@ -418,7 +349,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         blockSellers_css.rel = 'stylesheet';
         blockSellers_css.type = 'text/css';
-        blockSellers_css.href = chrome.extension.getURL('css/blocked-seller.css');
+        blockSellers_css.href = chrome.runtime.getURL('css/blocked-seller.css');
 
         elems.push(blockSellers_css);
       }
@@ -430,17 +361,17 @@ appendFragment([resourceLibrary]).then(() => {
 
         blurryImageFix.type = 'text/javascript';
         blurryImageFix.className = 'de-init';
-        blurryImageFix.src = chrome.extension.getURL('js/extension/features/blurry-image-fix.js');
+        blurryImageFix.src = chrome.runtime.getURL('js/extension/features/blurry-image-fix.js');
 
         elems.push(blurryImageFix);
       }
 
-      if ( result.prefs.confirmBeforeRemoving ) {
+      if (result.prefs.confirmBeforeRemoving) {
 
         let confirmBeforeRemoving = document.createElement('script');
 
         confirmBeforeRemoving.type = 'text/javascript';
-        confirmBeforeRemoving.src = chrome.extension.getURL('js/extension/features/confirm-before-removing.js');
+        confirmBeforeRemoving.src = chrome.runtime.getURL('js/extension/features/confirm-before-removing.js');
         confirmBeforeRemoving.className = 'de-init';
 
         elems.push(confirmBeforeRemoving);
@@ -448,7 +379,7 @@ appendFragment([resourceLibrary]).then(() => {
         let confirmBeforeRemovingReact = document.createElement('script');
 
         confirmBeforeRemovingReact.type = 'text/javascript';
-        confirmBeforeRemovingReact.src = chrome.extension.getURL('js/extension/features/confirm-before-removing-react.js');
+        confirmBeforeRemovingReact.src = chrome.runtime.getURL('js/extension/features/confirm-before-removing-react.js');
         confirmBeforeRemovingReact.className = 'de-init';
 
         elems.push(confirmBeforeRemovingReact);
@@ -460,33 +391,33 @@ appendFragment([resourceLibrary]).then(() => {
         let collectionUi = document.createElement('script');
 
         collectionUi.type = 'text/javascript';
-        collectionUi.src = chrome.extension.getURL('js/extension/features/better-collection-ui.js');
+        collectionUi.src = chrome.runtime.getURL('js/extension/features/better-collection-ui.js');
         collectionUi.className = 'de-init';
 
         elems.push(collectionUi);
       }
 
       // comment-scanner.js
-      if ( result.prefs.commentScanner ) {
+      if (result.prefs.commentScanner) {
 
         let commentScanner = document.createElement('script');
 
         commentScanner.type = 'text/javascript';
-        commentScanner.src = chrome.extension.getURL('js/extension/features/comment-scanner.js');
+        commentScanner.src = chrome.runtime.getURL('js/extension/features/comment-scanner.js');
         commentScanner.className = 'de-init';
 
         elems.push(commentScanner);
       }
 
-      if ( result.prefs.converter
-           && !window.location.href.includes('/order/prints?') ) {
+      if (result.prefs.converter
+        && !self.location.href.includes('/order/prints?')) {
 
         // currency-converter.css
         let converter_css = document.createElement('link');
 
         converter_css.rel = 'stylesheet';
         converter_css.type = 'text/css';
-        converter_css.href = chrome.extension.getURL('css/currency-converter.css');
+        converter_css.href = chrome.runtime.getURL('css/currency-converter.css');
 
         elems.push(converter_css);
 
@@ -495,7 +426,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         converter.type = 'text/javascript';
         converter.className = 'de-init';
-        converter.src = chrome.extension.getURL('js/extension/features/currency-converter.js');
+        converter.src = chrome.runtime.getURL('js/extension/features/currency-converter.js');
 
         elems.push(converter);
       }
@@ -506,7 +437,7 @@ appendFragment([resourceLibrary]).then(() => {
         let releaseHistoryScript = document.createElement('script');
 
         releaseHistoryScript.type = 'text/javascript';
-        releaseHistoryScript.src = chrome.extension.getURL('js/extension/features/release-history-legend.js');
+        releaseHistoryScript.src = chrome.runtime.getURL('js/extension/features/release-history-legend.js');
         releaseHistoryScript.className = 'de-init';
 
         elems.push(releaseHistoryScript);
@@ -516,19 +447,19 @@ appendFragment([resourceLibrary]).then(() => {
         let options = document.createElement('script');
 
         options.type = 'text/javascript';
-        options.src = chrome.extension.getURL('js/extension/dependencies/options.js');
+        options.src = chrome.runtime.getURL('js/extension/dependencies/options.js');
         options.className = 'de-init';
 
         elems.push(options);
       }
 
       // demand-index.js
-      if ( result.prefs.demandIndex ) {
+      if (result.prefs.demandIndex) {
 
         let demandIndex = document.createElement('script');
 
         demandIndex.type = 'text/javascript';
-        demandIndex.src = chrome.extension.getURL('js/extension/features/demand-index.js');
+        demandIndex.src = chrome.runtime.getURL('js/extension/features/demand-index.js');
         demandIndex.className = 'de-init';
 
         elems.push(demandIndex);
@@ -536,7 +467,7 @@ appendFragment([resourceLibrary]).then(() => {
         let demandIndexReact = document.createElement('script');
 
         demandIndexReact.type = 'text/javascript';
-        demandIndexReact.src = chrome.extension.getURL('js/extension/features/demand-index-react.js');
+        demandIndexReact.src = chrome.runtime.getURL('js/extension/features/demand-index-react.js');
         demandIndexReact.className = 'de-init';
 
         elems.push(demandIndexReact);
@@ -544,32 +475,32 @@ appendFragment([resourceLibrary]).then(() => {
         let demandIndexMP = document.createElement('script');
 
         demandIndexMP.type = 'text/javascript';
-        demandIndexMP.src = chrome.extension.getURL('js/extension/features/demand-index-marketplace.js');
+        demandIndexMP.src = chrome.runtime.getURL('js/extension/features/demand-index-marketplace.js');
         demandIndexMP.className = 'de-init';
 
         elems.push(demandIndexMP);
       }
 
       // editing notepad
-      if ( result.prefs.editingNotepad ) {
+      if (result.prefs.editingNotepad) {
 
-        let editingNotepad = document.createElement( 'script' );
+        let editingNotepad = document.createElement('script');
 
         editingNotepad.type = 'text/javascript';
-        editingNotepad.src = chrome.extension.getURL( 'js/extension/features/editing-notepad.js' );
+        editingNotepad.src = chrome.runtime.getURL('js/extension/features/editing-notepad.js');
         editingNotepad.className = 'de-init';
 
-        elems.push( editingNotepad );
+        elems.push(editingNotepad);
       }
 
       // everlasting collection
-      if ( result.prefs.everlastingCollection ) {
+      if (result.prefs.everlastingCollection) {
 
         // everlasting-collection-notes.js
         let everlastingCollectionNotes = document.createElement('script');
 
         everlastingCollectionNotes.type = 'text/javascript';
-        everlastingCollectionNotes.src = chrome.extension.getURL('js/extension/features/everlasting-collection-notes.js');
+        everlastingCollectionNotes.src = chrome.runtime.getURL('js/extension/features/everlasting-collection-notes.js');
         everlastingCollectionNotes.className = 'de-init';
 
         elems.push(everlastingCollectionNotes);
@@ -578,7 +509,7 @@ appendFragment([resourceLibrary]).then(() => {
         let everlastingCollectionRatings = document.createElement('script');
 
         everlastingCollectionRatings.type = 'text/javascript';
-        everlastingCollectionRatings.src = chrome.extension.getURL('js/extension/features/everlasting-collection-ratings.js');
+        everlastingCollectionRatings.src = chrome.runtime.getURL('js/extension/features/everlasting-collection-ratings.js');
         everlastingCollectionRatings.className = 'de-init';
 
         elems.push(everlastingCollectionRatings);
@@ -587,7 +518,7 @@ appendFragment([resourceLibrary]).then(() => {
         let everlastingCollection = document.createElement('script');
 
         everlastingCollection.type = 'text/javascript';
-        everlastingCollection.src = chrome.extension.getURL('js/extension/features/everlasting-collection-sm-med.js');
+        everlastingCollection.src = chrome.runtime.getURL('js/extension/features/everlasting-collection-sm-med.js');
         everlastingCollection.className = 'de-init';
 
         elems.push(everlastingCollection);
@@ -598,16 +529,16 @@ appendFragment([resourceLibrary]).then(() => {
 
         // everlasting-marketplace.js && everlasting-marketplace-release-page.js
         let everlastingMarket = document.createElement('script'),
-            everlastingMarketReleases = document.createElement('script');
+          everlastingMarketReleases = document.createElement('script');
 
         everlastingMarket.type = 'text/javascript';
-        everlastingMarket.src = chrome.extension.getURL('js/extension/features/everlasting-marketplace.js');
+        everlastingMarket.src = chrome.runtime.getURL('js/extension/features/everlasting-marketplace.js');
         everlastingMarket.className = 'de-init';
 
         elems.push(everlastingMarket);
 
         everlastingMarketReleases.type = 'text/javascript';
-        everlastingMarketReleases.src = chrome.extension.getURL('js/extension/features/everlasting-marketplace-release-page.js');
+        everlastingMarketReleases.src = chrome.runtime.getURL('js/extension/features/everlasting-marketplace-release-page.js');
         everlastingMarketReleases.className = 'de-init';
 
         elems.push(everlastingMarketReleases);
@@ -619,7 +550,7 @@ appendFragment([resourceLibrary]).then(() => {
         let favoriteSellers = document.createElement('script');
 
         favoriteSellers.type = 'text/javascript';
-        favoriteSellers.src = chrome.extension.getURL('js/extension/features/favorite-sellers.js');
+        favoriteSellers.src = chrome.runtime.getURL('js/extension/features/favorite-sellers.js');
         favoriteSellers.className = 'de-init';
 
         elems.push(favoriteSellers);
@@ -630,7 +561,7 @@ appendFragment([resourceLibrary]).then(() => {
         let feedback = document.createElement('script');
 
         feedback.type = 'text/javascript';
-        feedback.src = chrome.extension.getURL('js/extension/features/feedback-notifier.js');
+        feedback.src = chrome.runtime.getURL('js/extension/features/feedback-notifier.js');
         feedback.className = 'de-init';
 
         elems.push(feedback);
@@ -640,7 +571,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         feedback_css.rel = 'stylesheet';
         feedback_css.type = 'text/css';
-        feedback_css.href = chrome.extension.getURL('css/feedback-notifier.css');
+        feedback_css.href = chrome.runtime.getURL('css/feedback-notifier.css');
 
         elems.push(feedback_css);
       }
@@ -651,18 +582,18 @@ appendFragment([resourceLibrary]).then(() => {
         let filterMediaCondition = document.createElement('script');
 
         filterMediaCondition.type = 'text/javascript';
-        filterMediaCondition.src = chrome.extension.getURL('js/extension/features/filter-media-condition.js');
+        filterMediaCondition.src = chrome.runtime.getURL('js/extension/features/filter-media-condition.js');
         filterMediaCondition.className = 'de-init';
 
         elems.push(filterMediaCondition);
       }
 
-      if ( result.prefs.filterPrices ) {
+      if (result.prefs.filterPrices) {
 
         let filterPrices = document.createElement('script');
 
         filterPrices.type = 'text/javascript';
-        filterPrices.src = chrome.extension.getURL('js/extension/features/filter-prices.js');
+        filterPrices.src = chrome.runtime.getURL('js/extension/features/filter-prices.js');
         filterPrices.className = 'de-init';
 
         elems.push(filterPrices);
@@ -674,7 +605,7 @@ appendFragment([resourceLibrary]).then(() => {
         let filterShippingCountry = document.createElement('script');
 
         filterShippingCountry.type = 'text/javascript';
-        filterShippingCountry.src = chrome.extension.getURL('js/extension/features/filter-shipping-country.js');
+        filterShippingCountry.src = chrome.runtime.getURL('js/extension/features/filter-shipping-country.js');
         filterShippingCountry.className = 'de-init';
 
         elems.push(filterShippingCountry);
@@ -686,7 +617,7 @@ appendFragment([resourceLibrary]).then(() => {
         let filterSleeveCondition = document.createElement('script');
 
         filterSleeveCondition.type = 'text/javascript';
-        filterSleeveCondition.src = chrome.extension.getURL('js/extension/features/filter-sleeve-condition.js');
+        filterSleeveCondition.src = chrome.runtime.getURL('js/extension/features/filter-sleeve-condition.js');
         filterSleeveCondition.className = 'de-init';
 
         elems.push(filterSleeveCondition);
@@ -699,7 +630,7 @@ appendFragment([resourceLibrary]).then(() => {
         let shortcuts = document.createElement('script');
 
         shortcuts.type = 'text/javascript';
-        shortcuts.src = chrome.extension.getURL('js/extension/features/text-format-shortcuts.js');
+        shortcuts.src = chrome.runtime.getURL('js/extension/features/text-format-shortcuts.js');
         shortcuts.className = 'de-init';
 
         elems.push(shortcuts);
@@ -707,7 +638,7 @@ appendFragment([resourceLibrary]).then(() => {
         let shortcutsReact = document.createElement('script');
 
         shortcutsReact.type = 'text/javascript';
-        shortcutsReact.src = chrome.extension.getURL('js/extension/features/text-format-shortcuts-react.js');
+        shortcutsReact.src = chrome.runtime.getURL('js/extension/features/text-format-shortcuts-react.js');
         shortcutsReact.className = 'de-init';
 
         elems.push(shortcutsReact);
@@ -717,18 +648,18 @@ appendFragment([resourceLibrary]).then(() => {
 
         shortcuts_css.rel = 'stylesheet';
         shortcuts_css.type = 'text/css';
-        shortcuts_css.href = chrome.extension.getURL('css/text-format-shortcuts.css');
+        shortcuts_css.href = chrome.runtime.getURL('css/text-format-shortcuts.css');
 
         elems.push(shortcuts_css);
       }
 
       // force-dashboard-link.js
-      if ( result.prefs.forceDashboard ) {
+      if (result.prefs.forceDashboard) {
 
         let forceDashboard = document.createElement('script');
 
         forceDashboard.type = 'text/javascript';
-        forceDashboard.src = chrome.extension.getURL('js/extension/features/force-dashboard.js');
+        forceDashboard.src = chrome.runtime.getURL('js/extension/features/force-dashboard.js');
         forceDashboard.className = 'de-init';
 
         elems.push(forceDashboard);
@@ -752,7 +683,7 @@ appendFragment([resourceLibrary]).then(() => {
         let unavailable = document.createElement('script');
 
         unavailable.type = 'text/javascript';
-        unavailable.src = chrome.extension.getURL('js/extension/features/filter-unavailable.js');
+        unavailable.src = chrome.runtime.getURL('js/extension/features/filter-unavailable.js');
         unavailable.className = 'de-init';
 
         elems.push(unavailable);
@@ -764,7 +695,7 @@ appendFragment([resourceLibrary]).then(() => {
         let notesCount = document.createElement('script');
 
         notesCount.type = 'text/javascript';
-        notesCount.src = chrome.extension.getURL('js/extension/features/notes-counter.js');
+        notesCount.src = chrome.runtime.getURL('js/extension/features/notes-counter.js');
         notesCount.className = 'de-init';
 
         elems.push(notesCount);
@@ -772,19 +703,19 @@ appendFragment([resourceLibrary]).then(() => {
         let notesCountReact = document.createElement('script');
 
         notesCountReact.type = 'text/javascript';
-        notesCountReact.src = chrome.extension.getURL('js/extension/features/notes-counter-react.js');
+        notesCountReact.src = chrome.runtime.getURL('js/extension/features/notes-counter-react.js');
         notesCountReact.className = 'de-init';
 
         elems.push(notesCountReact);
       }
 
-      if ( result.prefs.quickSearch ) {
+      if (result.prefs.quickSearch) {
 
         // quick-search.js
         let quickSearch = document.createElement('script');
 
         quickSearch.type = 'text/javascript';
-        quickSearch.src = chrome.extension.getURL('js/extension/features/quick-search.js');
+        quickSearch.src = chrome.runtime.getURL('js/extension/features/quick-search.js');
         quickSearch.className = 'de-init';
 
         elems.push(quickSearch);
@@ -792,7 +723,7 @@ appendFragment([resourceLibrary]).then(() => {
         let quickSearchReact = document.createElement('script');
 
         quickSearchReact.type = 'text/javascript';
-        quickSearchReact.src = chrome.extension.getURL('js/extension/features/quick-search-react.js');
+        quickSearchReact.src = chrome.runtime.getURL('js/extension/features/quick-search-react.js');
         quickSearchReact.className = 'de-init';
 
         elems.push(quickSearchReact);
@@ -804,7 +735,7 @@ appendFragment([resourceLibrary]).then(() => {
         let inventoryRatings = document.createElement('script');
 
         inventoryRatings.type = 'text/javascript';
-        inventoryRatings.src = chrome.extension.getURL('js/extension/features/inventory-ratings.js');
+        inventoryRatings.src = chrome.runtime.getURL('js/extension/features/inventory-ratings.js');
         inventoryRatings.className = 'de-init';
 
         elems.push(inventoryRatings);
@@ -816,7 +747,7 @@ appendFragment([resourceLibrary]).then(() => {
         let inventoryScanner = document.createElement('script');
 
         inventoryScanner.type = 'text/javascript';
-        inventoryScanner.src = chrome.extension.getURL('js/extension/features/inventory-scanner.js');
+        inventoryScanner.src = chrome.runtime.getURL('js/extension/features/inventory-scanner.js');
         inventoryScanner.className = 'de-init';
 
         elems.push(inventoryScanner);
@@ -828,7 +759,7 @@ appendFragment([resourceLibrary]).then(() => {
         let randomItem = document.createElement('script');
 
         randomItem.type = 'text/javascript';
-        randomItem.src = chrome.extension.getURL('js/extension/features/random-item.js');
+        randomItem.src = chrome.runtime.getURL('js/extension/features/random-item.js');
         // randomItem.className = 'de-init';
 
         elems.push(randomItem);
@@ -836,18 +767,18 @@ appendFragment([resourceLibrary]).then(() => {
         let randomItemReact = document.createElement('script');
 
         randomItemReact.type = 'text/javascript';
-        randomItemReact.src = chrome.extension.getURL('js/extension/features/random-item-react.js');
+        randomItemReact.src = chrome.runtime.getURL('js/extension/features/random-item-react.js');
 
         elems.push(randomItemReact);
       }
 
-      if ( result.prefs.ratingPercent ) {
+      if (result.prefs.ratingPercent) {
 
         // rating-percent.js
         let ratingPercent = document.createElement('script');
 
         ratingPercent.type = 'text/javascript';
-        ratingPercent.src = chrome.extension.getURL('js/extension/features/rating-percent.js');
+        ratingPercent.src = chrome.runtime.getURL('js/extension/features/rating-percent.js');
         ratingPercent.className = 'de-init';
 
         elems.push(ratingPercent);
@@ -855,7 +786,7 @@ appendFragment([resourceLibrary]).then(() => {
         let ratingPercentReact = document.createElement('script');
 
         ratingPercentReact.type = 'text/javascript';
-        ratingPercentReact.src = chrome.extension.getURL('js/extension/features/rating-percent-react.js');
+        ratingPercentReact.src = chrome.runtime.getURL('js/extension/features/rating-percent-react.js');
         ratingPercentReact.className = 'de-init';
 
         elems.push(ratingPercentReact);
@@ -867,7 +798,7 @@ appendFragment([resourceLibrary]).then(() => {
 
         tracklist_css.rel = 'stylesheet';
         tracklist_css.type = 'text/css';
-        tracklist_css.href = chrome.extension.getURL('css/tracklist-readability.css');
+        tracklist_css.href = chrome.runtime.getURL('css/tracklist-readability.css');
         tracklist_css.id = 'tracklist_css';
 
         elems.push(tracklist_css);
@@ -876,7 +807,7 @@ appendFragment([resourceLibrary]).then(() => {
         let readability = document.createElement('script');
 
         readability.type = 'text/javascript';
-        readability.src = chrome.extension.getURL('js/extension/features/tracklist-readability.js');
+        readability.src = chrome.runtime.getURL('js/extension/features/tracklist-readability.js');
         readability.className = 'de-init';
 
         elems.push(readability);
@@ -884,19 +815,19 @@ appendFragment([resourceLibrary]).then(() => {
         let readabilityReact = document.createElement('script');
 
         readabilityReact.type = 'text/javascript';
-        readabilityReact.src = chrome.extension.getURL('js/extension/features/tracklist-readability-react.js');
+        readabilityReact.src = chrome.runtime.getURL('js/extension/features/tracklist-readability-react.js');
         readabilityReact.className = 'de-init';
 
         elems.push(readabilityReact);
       }
 
-      if ( result.prefs.relativeSoldDate ) {
+      if (result.prefs.relativeSoldDate) {
 
         // relative-sold-date.js
         let relativeSoldDate = document.createElement('script');
 
         relativeSoldDate.type = 'text/javascript';
-        relativeSoldDate.src = chrome.extension.getURL('js/extension/features/relative-sold-date.js');
+        relativeSoldDate.src = chrome.runtime.getURL('js/extension/features/relative-sold-date.js');
         relativeSoldDate.className = 'de-init';
 
         elems.push(relativeSoldDate);
@@ -904,7 +835,7 @@ appendFragment([resourceLibrary]).then(() => {
         let relativeSoldDateReact = document.createElement('script');
 
         relativeSoldDateReact.type = 'text/javascript';
-        relativeSoldDateReact.src = chrome.extension.getURL('js/extension/features/relative-sold-date-react.js');
+        relativeSoldDateReact.src = chrome.runtime.getURL('js/extension/features/relative-sold-date-react.js');
         relativeSoldDateReact.className = 'de-init';
 
         elems.push(relativeSoldDateReact);
@@ -916,7 +847,7 @@ appendFragment([resourceLibrary]).then(() => {
         let releaseDurations = document.createElement('script');
 
         releaseDurations.type = 'text/javascript';
-        releaseDurations.src = chrome.extension.getURL('js/extension/features/release-durations.js');
+        releaseDurations.src = chrome.runtime.getURL('js/extension/features/release-durations.js');
         releaseDurations.className = 'de-init';
 
         elems.push(releaseDurations);
@@ -924,108 +855,108 @@ appendFragment([resourceLibrary]).then(() => {
         let releaseDurationsReact = document.createElement('script');
 
         releaseDurationsReact.type = 'text/javascript';
-        releaseDurationsReact.src = chrome.extension.getURL('js/extension/features/release-durations-react.js');
+        releaseDurationsReact.src = chrome.runtime.getURL('js/extension/features/release-durations-react.js');
         releaseDurationsReact.className = 'de-init';
 
         elems.push(releaseDurationsReact);
       }
 
       // release-ratings
-      if ( result.prefs.releaseRatings ) {
+      if (result.prefs.releaseRatings) {
 
         let releaseRatings = document.createElement('script');
 
         releaseRatings.type = 'text/javascript';
-        releaseRatings.src = chrome.extension.getURL('js/extension/features/release-ratings.js');
+        releaseRatings.src = chrome.runtime.getURL('js/extension/features/release-ratings.js');
         releaseRatings.className = 'de-init';
 
         elems.push(releaseRatings);
       }
 
       // release-scanner
-      if ( result.prefs.releaseScanner ) {
+      if (result.prefs.releaseScanner) {
 
         let releaseScanner = document.createElement('script');
 
         releaseScanner.type = 'text/javascript';
-        releaseScanner.src = chrome.extension.getURL('js/extension/features/release-scanner.js');
+        releaseScanner.src = chrome.runtime.getURL('js/extension/features/release-scanner.js');
         releaseScanner.className = 'de-init';
 
         elems.push(releaseScanner);
       }
 
-      if ( result.prefs.removeFromWantlist ) {
+      if (result.prefs.removeFromWantlist) {
 
         // remove-from-wantlist.js
         let removeFromWantlist = document.createElement('script');
 
         removeFromWantlist.type = 'text/javascript';
-        removeFromWantlist.src = chrome.extension.getURL('js/extension/features/remove-from-wantlist.js');
+        removeFromWantlist.src = chrome.runtime.getURL('js/extension/features/remove-from-wantlist.js');
         removeFromWantlist.className = 'de-init';
 
         elems.push(removeFromWantlist);
       }
 
-      if ( result.prefs.sellerItemsInCart ) {
+      if (result.prefs.sellerItemsInCart) {
 
         let sellerItemsInCart = document.createElement('script');
 
         sellerItemsInCart.type = 'text/javascript';
-        sellerItemsInCart.src = chrome.extension.getURL('js/extension/features/show-sellers-in-cart.js');
+        sellerItemsInCart.src = chrome.runtime.getURL('js/extension/features/show-sellers-in-cart.js');
         sellerItemsInCart.className = 'de-init';
 
         elems.push(sellerItemsInCart);
       }
 
-      if ( result.prefs.sellerRep ) {
+      if (result.prefs.sellerRep) {
 
         // seller-rep.js
         let sellerRep = document.createElement('script');
 
         sellerRep.type = 'text/javascript';
-        sellerRep.src = chrome.extension.getURL('js/extension/features/seller-rep.js');
+        sellerRep.src = chrome.runtime.getURL('js/extension/features/seller-rep.js');
         sellerRep.className = 'de-init';
 
         elems.push(sellerRep);
       }
 
-      if ( result.prefs.sortButtons ) {
+      if (result.prefs.sortButtons) {
 
         let sortButton_css = document.createElement('link');
 
         sortButton_css.rel = 'stylesheet';
         sortButton_css.type = 'text/css';
-        sortButton_css.href = chrome.extension.getURL('css/sort-buttons.css');
+        sortButton_css.href = chrome.runtime.getURL('css/sort-buttons.css');
         sortButton_css.id = 'sortButton_css';
 
-        elems.push( sortButton_css );
+        elems.push(sortButton_css);
 
         // sort-explore-lists.js
         let sortExploreScript = document.createElement('script');
 
         sortExploreScript.type = 'text/javascript';
-        sortExploreScript.src = chrome.extension.getURL('js/extension/features/sort-explore-lists.js');
+        sortExploreScript.src = chrome.runtime.getURL('js/extension/features/sort-explore-lists.js');
         sortExploreScript.className = 'de-init';
 
-        elems.push( sortExploreScript );
+        elems.push(sortExploreScript);
 
         // sort-marketplace-lists.js
         let sortMarketplaceScript = document.createElement('script');
 
         sortMarketplaceScript.type = 'text/javascript';
-        sortMarketplaceScript.src = chrome.extension.getURL('js/extension/features/sort-marketplace-lists.js');
+        sortMarketplaceScript.src = chrome.runtime.getURL('js/extension/features/sort-marketplace-lists.js');
         sortMarketplaceScript.className = 'de-init';
 
-        elems.push( sortMarketplaceScript );
+        elems.push(sortMarketplaceScript);
 
         // sort-personal-lists.js
         let sortPersonalListsScript = document.createElement('script');
 
         sortPersonalListsScript.type = 'text/javascript';
-        sortPersonalListsScript.src = chrome.extension.getURL('js/extension/features/sort-personal-lists.js');
+        sortPersonalListsScript.src = chrome.runtime.getURL('js/extension/features/sort-personal-lists.js');
         sortPersonalListsScript.className = 'de-init';
 
-        elems.push( sortPersonalListsScript );
+        elems.push(sortPersonalListsScript);
       }
 
       if (result.prefs.suggestedPrices) {
@@ -1033,7 +964,7 @@ appendFragment([resourceLibrary]).then(() => {
         let suggestedPricesRelease = document.createElement('script');
 
         suggestedPricesRelease.type = 'text/javascript';
-        suggestedPricesRelease.src = chrome.extension.getURL('js/extension/features/suggested-prices-release-page.js');
+        suggestedPricesRelease.src = chrome.runtime.getURL('js/extension/features/suggested-prices-release-page.js');
         suggestedPricesRelease.className = 'de-init';
 
         elems.push(suggestedPricesRelease);
@@ -1042,7 +973,7 @@ appendFragment([resourceLibrary]).then(() => {
         let suggestedPricesSingle = document.createElement('script');
 
         suggestedPricesSingle.type = 'text/javascript';
-        suggestedPricesSingle.src = chrome.extension.getURL('js/extension/features/suggested-prices-single.js');
+        suggestedPricesSingle.src = chrome.runtime.getURL('js/extension/features/suggested-prices-single.js');
         suggestedPricesSingle.className = 'de-init';
 
         elems.push(suggestedPricesSingle);
@@ -1052,19 +983,19 @@ appendFragment([resourceLibrary]).then(() => {
 
         suggested.rel = 'stylesheet';
         suggested.type = 'text/css';
-        suggested.href = chrome.extension.getURL('css/suggested-prices.css');
+        suggested.href = chrome.runtime.getURL('css/suggested-prices.css');
         suggested.id = 'suggestedCss';
 
         elems.push(suggested);
       }
 
       // tweak-discriminators.js
-      if ( result.prefs.tweakDiscrims ) {
+      if (result.prefs.tweakDiscrims) {
 
         let tweakDiscrims = document.createElement('script');
 
         tweakDiscrims.type = 'text/javascript';
-        tweakDiscrims.src = chrome.extension.getURL('js/extension/features/tweak-discriminators.js');
+        tweakDiscrims.src = chrome.runtime.getURL('js/extension/features/tweak-discriminators.js');
         tweakDiscrims.className = 'de-init';
 
         elems.push(tweakDiscrims);
@@ -1072,7 +1003,7 @@ appendFragment([resourceLibrary]).then(() => {
         let tweakDiscrimsReact = document.createElement('script');
 
         tweakDiscrimsReact.type = 'text/javascript';
-        tweakDiscrimsReact.src = chrome.extension.getURL('js/extension/features/tweak-discriminators-react.js');
+        tweakDiscrimsReact.src = chrome.runtime.getURL('js/extension/features/tweak-discriminators-react.js');
         tweakDiscrimsReact.className = 'de-init';
 
         elems.push(tweakDiscrimsReact);
@@ -1082,7 +1013,7 @@ appendFragment([resourceLibrary]).then(() => {
       let unitTests = document.createElement('script');
 
       unitTests.type = 'text/javascript';
-      unitTests.src = chrome.extension.getURL('js/extension/dependencies/tests/unit-tests.js');
+      unitTests.src = chrome.runtime.getURL('js/extension/dependencies/tests/unit-tests.js');
       unitTests.className = 'de-init';
 
       elems.push(unitTests);
@@ -1091,7 +1022,7 @@ appendFragment([resourceLibrary]).then(() => {
       let comments = document.createElement('script');
 
       comments.type = 'text/javascript';
-      comments.src = chrome.extension.getURL('js/extension/features/highlight-comments.js');
+      comments.src = chrome.runtime.getURL('js/extension/features/highlight-comments.js');
       comments.className = 'de-init';
 
       elems.push(comments);
@@ -1100,254 +1031,151 @@ appendFragment([resourceLibrary]).then(() => {
       // Contextual Menu Options
       // ========================================================
 
-      // Add Discogs first ...
-      if (result.prefs.useDiscogs) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchDiscogs',
-          id: 'discogs',
-          method: 'create',
-          name: 'Discogs',
-          request: 'updateContextMenu'
-        });
+      const sendMessageData = {
+        method: 'create',
+        request: 'updateContextMenu'
       }
 
-      // Then the remaining stores in alphabetical order
       if (result.prefs.useAllDay) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchAllDay',
-          id: 'allday',
-          method: 'create',
-          name: 'All Day',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.allDay, sendMessageData));
       }
 
       if (result.prefs.useBandcamp) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchBandcamp',
-          id: 'bandcamp',
-          method: 'create',
-          name: 'Bandcamp',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.bandcamp, sendMessageData));
       }
 
       if (result.prefs.useBeatport) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchBeatport',
-          id: 'beatport',
-          method: 'create',
-          name: 'Beatport',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.beatport, sendMessageData));
       }
 
       if (result.prefs.useBoomkat) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchBoomkat',
-          id: 'boomkat',
-          method: 'create',
-          name: 'Boomkat',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.boomkat, sendMessageData));
       }
 
       if (result.prefs.useClone) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchClone',
-          id: 'clone',
-          method: 'create',
-          name: 'Clone',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.clone, sendMessageData));
       }
 
       if (result.prefs.useDeejay) {
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.deeJay, sendMessageData));
+      }
 
-        chrome.runtime.sendMessage({
-          fn: 'searchDeeJay',
-          id: 'deejay',
-          method: 'create',
-          name: 'DeeJay',
-          request: 'updateContextMenu'
-        });
+      if (result.prefs.useDiscogs) {
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.discogs, sendMessageData));
       }
 
       if (result.prefs.useEarcave) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchEarcave',
-          id: 'earcave',
-          method: 'create',
-          name: 'Earcave',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.earcave, sendMessageData));
       }
 
       if (result.prefs.useGramaphone) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchGramaphone',
-          id: 'gramaphone',
-          method: 'create',
-          name: 'Gramaphone',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.gramaphone, sendMessageData));
       }
 
       if (result.prefs.useHardwax) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchHardwax',
-          id: 'hardwax',
-          method: 'create',
-          name: 'Hardwax',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.hardwax, sendMessageData));
       }
 
       if (result.prefs.useJuno) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchJuno',
-          id: 'juno',
-          method: 'create',
-          name: 'Juno',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.juno, sendMessageData));
       }
 
       if (result.prefs.useOye) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchOye',
-          id: 'oye',
-          method: 'create',
-          name: 'Oye',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.oye, sendMessageData));
       }
 
       if (result.prefs.usePhonica) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchPhonica',
-          id: 'phonica',
-          method: 'create',
-          name: 'Phonica',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.phonica, sendMessageData));
       }
 
       if (result.prefs.useRateYourMusic) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchRateYourMusic',
-          id: 'rateyourmusic',
-          method: 'create',
-          name: 'Rate Your Music',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.rateYourMusic, sendMessageData));
       }
 
       if (result.prefs.useRedeye) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchRedeye',
-          id: 'redeye',
-          method: 'create',
-          name: 'Red Eye',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.redEye, sendMessageData));
       }
 
       if (result.prefs.useRushhour) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchRushhour',
-          id: 'rushhour',
-          method: 'create',
-          name: 'Rush Hour',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.rushHour, sendMessageData));
       }
-
       if (result.prefs.useSotu) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchSotu',
-          id: 'sotu',
-          method: 'create',
-          name: 'SOTU',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.sotu, sendMessageData));
       }
 
       if (result.prefs.useYoutube) {
-
-        chrome.runtime.sendMessage({
-          fn: 'searchYoutube',
-          id: 'youtube',
-          method: 'create',
-          name: 'YouTube',
-          request: 'updateContextMenu'
-        });
+        chrome.runtime.sendMessage(Object.assign(ContextMenuOption.youTube, sendMessageData));
       }
 
       return resolve(result);
     })
-    .then(() => {
-      // Get preferences from extension side and save to DOM side.
-      return new Promise(resolve => {
-        chrome.runtime.sendMessage({ request: 'userPreferences' }, response => {
+      .then(() => {
+        // Get preferences from extension side and save to DOM side.
+        return new Promise(resolve => {
+          chrome.runtime.sendMessage({ request: 'userPreferences' }, async response => {
+            let userPreferences = {
+              blockList: localStorage.getItem('blockList'),
+              countryList: localStorage.getItem('countryList'),
+              discriminators: localStorage.getItem('discriminators'),
+              favoriteList: localStorage.getItem('favoriteList'),
+              filterPrices: localStorage.getItem('filterPrices'),
+              inventoryRatings: localStorage.getItem('inventoryRatings'),
+              inventoryScanner: localStorage.getItem('inventoryScanner'),
+              linksInTabs: localStorage.getItem('linksInTabs'),
+              mediaCondition: localStorage.getItem('mediaCondition'),
+              readability: localStorage.getItem('readability'),
+              sellerRep: localStorage.getItem('sellerRep'),
+              sellerRepColor: localStorage.getItem('sellerRepColor'),
+              sellerRepFilter: localStorage.getItem('sellerRepFilter'),
+              sleeveCondition: localStorage.getItem('sleeveCondition'),
+              usDateFormat: localStorage.getItem('usDateFormat'),
+            };
 
-          let target = localStorage.getItem('userPreferences'),
-              source = response.userPreferences,
+            for (let p in userPreferences) {
+              userPreferences[p] = JSON.parse(userPreferences[p]);
+            }
+
+            let target = localStorage.getItem('userPreferences'),
+              source = userPreferences,
               currentFilterState = getCurrentFilterState(),
               userCurrency = prefs.userCurrency,
               newPrefs;
 
-          target = target ? JSON.parse(target) : response.userPreferences;
-          newPrefs = Object.assign(target, source, { currentFilterState }, { userCurrency });
+            target = target ? JSON.parse(target) : userPreferences;
+            newPrefs = Object.assign(target, source, { currentFilterState }, { userCurrency });
 
-          return resolve(newPrefs);
+            return resolve(newPrefs);
+          });
         });
-      });
-    })
-    .then(newPrefs => {
-      // Instantiate default options
-      return new Promise(resolve => {
-        if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
+      })
+      .then(newPrefs => {
+        // Instantiate default options
+        return new Promise(resolve => {
+          if (!Object.prototype.hasOwnProperty.call(newPrefs, 'options')) {
 
-          let options = {
-                colorize: false,
-                comments: false,
-                debug: false,
-                quicksearch: '',
-                threshold: 2,
-                unitTests: false
-              };
+            let options = {
+              colorize: false,
+              comments: false,
+              debug: false,
+              quicksearch: '',
+              threshold: 2,
+              unitTests: false
+            };
 
-          newPrefs.options = options;
-        }
-        localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
-        return resolve();
-      });
-    })
-    .then(() => appendFragment(elems))
-    .then(() => documentReady(window.document))
-    .then(() => {
-      // DOM clean up
-      document.querySelectorAll('.de-init').forEach(child => {
-        child.parentNode.removeChild(child);
-      });
-    })
-    .catch(err => console.error('Error injecting scripts', err));
+            newPrefs.options = options;
+          }
+          localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
+          return resolve();
+        });
+      })
+      .then(() => appendFragment(elems))
+      .then(() => documentReady(self.document))
+      .then(() => {
+        // DOM clean up
+        document.querySelectorAll('.de-init').forEach(child => {
+          child.parentNode.removeChild(child);
+        });
+      })
+      .catch(err => console.error('Error injecting scripts', err));
   });
 });

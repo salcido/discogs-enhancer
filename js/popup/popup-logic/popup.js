@@ -12,41 +12,38 @@
  */
 require('../../../css/popup/popup.scss');
 import * as absoluteDate from './features/absolute-date.js';
-import * as baoiFields from './features/baoi-fields.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as linksInTabs from './features/links-in-new-tabs.js';
-import * as darkTheme from './features/dark-theme.js';
 import * as filterMediaCondition from './features/filter-media-condition.js';
 import * as filterPrices from './features/filter-prices.js';
 import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
-import * as filterShippingCountry from './features/filter-shipping-country.js';
 import * as inventoryRatings from './features/inventory-ratings.js';
 import * as inventoryScanner from './features/inventory-scanner.js';
-import * as mediaHighlights from './features/media-condition-highlights.js';
-import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
 import * as suggestedPrices from './features/suggested-prices.js';
 import * as tweakDiscrims from './features/tweak-discriminators.js';
-import * as ytPlaylists from './features/youtube-playlists.js';
-import { acknowledgeUpdate,
-         optionsToggle,
-         searchFeatures,
-         applySave,
-         triggerSave,
-         checkForUpdate } from './utils';
+import { executeScript } from './features/execute-script.js'
+import {
+  acknowledgeUpdate,
+  optionsToggle,
+  searchFeatures,
+  applySave,
+  triggerSave,
+  checkForUpdate
+} from './utils';
 
 // ========================================================
 // Extend Element's prototype to easily add/remove multiple
 // classes from a target element.
 // ========================================================
-if ( !Element.prototype.removeClasses ) {
-  Element.prototype.removeClasses = function(...remove) {
+if (!Element.prototype.removeClasses) {
+  Element.prototype.removeClasses = function (...remove) {
     remove.forEach(cls => this.classList.remove(cls));
   };
 }
 
-if ( !Element.prototype.addClasses ) {
-  Element.prototype.addClasses = function(...add) {
+if (!Element.prototype.addClasses) {
+  Element.prototype.addClasses = function (...add) {
     add.forEach(cls => this.classList.add(cls));
   };
 }
@@ -70,72 +67,72 @@ function isDev() {
 window.addEventListener('load', () => {
 
   let
-      searchbox = document.getElementById('searchbox'),
-      toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
-      toggleAveragePrice = document.getElementById('toggleAveragePrice'),
-      toggleBaoiFields = document.getElementById('toggleBaoiFields'),
-      toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
-      toggleBlockSellers = document.getElementById('toggleBlockSellers'),
-      toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
-      toggleCollectionUi = document.getElementById('toggleCollectionUi'),
-      toggleCommentScanner = document.getElementById('toggleCommentScanner'),
-      toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
-      toggleConverter = document.getElementById('toggleConverter'),
-      toggleDarkTheme = document.getElementById('toggleDarkTheme'),
-      toggleDemandIndex = document.getElementById('toggleDemandIndex'),
-      toggleEditingNotepad = document.getElementById( 'toggleEditingNotepad' ),
-      toggleEverlastingCollection = document.getElementById('toggleEverlastingCollection'),
-      toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
-      toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
-      toggleFeedback = document.getElementById('toggleFeedback'),
-      toggleFilterMediaCondition = document.getElementById('toggleFilterMediaCondition'),
-      toggleFilterPrices = document.getElementById('toggleFilterPrices'),
-      toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
-      toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
-      toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
-      toggleForceDashboard = document.getElementById('toggleForceDashboard'),
-      toggleHighlights = document.getElementById('toggleHighlights'),
-      toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
-      toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
-      toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
-      toggleNotesCount = document.getElementById('toggleNotesCount'),
-      togglePrices = document.getElementById('togglePrices'),
-      toggleQuickSearch = document.getElementById('toggleQuickSearch'),
-      toggleRandomItem = document.getElementById('toggleRandomItem'),
-      toggleRatingPercent = document.getElementById('toggleRatingPercent'),
-      toggleReadability = document.getElementById('toggleReadability'),
-      toggleRelativeSoldDate = document.getElementById('toggleRelativeSoldDate'),
-      toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
-      toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),
-      toggleReleaseScanner = document.getElementById('toggleReleaseScanner'),
-      toggleRemoveFromWantlist = document.getElementById('toggleRemoveFromWantlist'),
-      toggleSellerItemsInCart = document.getElementById('toggleSellerItemsInCart'),
-      toggleSellerRep = document.getElementById('toggleSellerRep'),
-      toggleShortcuts = document.getElementById('toggleShortcuts'),
-      toggleSortBtns = document.getElementById('toggleSortBtns'),
-      toggleTweakDiscrims = document.getElementById('toggleTweakDiscrims'),
-      toggleYtPlaylists = document.getElementById('toggleYtPlaylists'),
-      userCurrency = document.getElementById('currency'),
+    searchbox = document.getElementById('searchbox'),
+    toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
+    toggleAveragePrice = document.getElementById('toggleAveragePrice'),
+    toggleBaoiFields = document.getElementById('toggleBaoiFields'),
+    toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
+    toggleBlockSellers = document.getElementById('toggleBlockSellers'),
+    toggleBlurryImageFix = document.getElementById('toggleBlurryImageFix'),
+    toggleCollectionUi = document.getElementById('toggleCollectionUi'),
+    toggleCommentScanner = document.getElementById('toggleCommentScanner'),
+    toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
+    toggleConverter = document.getElementById('toggleConverter'),
+    toggleDarkTheme = document.getElementById('toggleDarkTheme'),
+    toggleDemandIndex = document.getElementById('toggleDemandIndex'),
+    toggleEditingNotepad = document.getElementById('toggleEditingNotepad'),
+    toggleEverlastingCollection = document.getElementById('toggleEverlastingCollection'),
+    toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
+    toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
+    toggleFeedback = document.getElementById('toggleFeedback'),
+    toggleFilterMediaCondition = document.getElementById('toggleFilterMediaCondition'),
+    toggleFilterPrices = document.getElementById('toggleFilterPrices'),
+    toggleFilterShippingCountry = document.getElementById('toggleFilterShippingCountry'),
+    toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
+    toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
+    toggleForceDashboard = document.getElementById('toggleForceDashboard'),
+    toggleHighlights = document.getElementById('toggleHighlights'),
+    toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
+    toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
+    toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
+    toggleNotesCount = document.getElementById('toggleNotesCount'),
+    togglePrices = document.getElementById('togglePrices'),
+    toggleQuickSearch = document.getElementById('toggleQuickSearch'),
+    toggleRandomItem = document.getElementById('toggleRandomItem'),
+    toggleRatingPercent = document.getElementById('toggleRatingPercent'),
+    toggleReadability = document.getElementById('toggleReadability'),
+    toggleRelativeSoldDate = document.getElementById('toggleRelativeSoldDate'),
+    toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
+    toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),
+    toggleReleaseScanner = document.getElementById('toggleReleaseScanner'),
+    toggleRemoveFromWantlist = document.getElementById('toggleRemoveFromWantlist'),
+    toggleSellerItemsInCart = document.getElementById('toggleSellerItemsInCart'),
+    toggleSellerRep = document.getElementById('toggleSellerRep'),
+    toggleShortcuts = document.getElementById('toggleShortcuts'),
+    toggleSortBtns = document.getElementById('toggleSortBtns'),
+    toggleTweakDiscrims = document.getElementById('toggleTweakDiscrims'),
+    toggleYtPlaylists = document.getElementById('toggleYtPlaylists'),
+    userCurrency = document.getElementById('currency'),
 
-      // Contextual menus
-      toggleAllDay,
-      toggleBandcamp,
-      toggleBeatport,
-      toggleBoomkat,
-      toggleClone,
-      toggleDeeJay,
-      toggleDiscogs,
-      toggleEarcave,
-      toggleGramaphone,
-      toggleHardwax,
-      toggleJuno,
-      toggleOye,
-      togglePhonica,
-      toggleRateYourMusic,
-      toggleRedeye,
-      toggleRushhour,
-      toggleSotu,
-      toggleYoutube;
+    // Contextual menus
+    toggleAllDay,
+    toggleBandcamp,
+    toggleBeatport,
+    toggleBoomkat,
+    toggleClone,
+    toggleDeeJay,
+    toggleDiscogs,
+    toggleEarcave,
+    toggleGramaphone,
+    toggleHardwax,
+    toggleJuno,
+    toggleOye,
+    togglePhonica,
+    toggleRateYourMusic,
+    toggleRedeye,
+    toggleRushhour,
+    toggleSotu,
+    toggleYoutube;
 
   // ========================================================
   // UI EVENT LISTENERS
@@ -148,7 +145,7 @@ window.addEventListener('load', () => {
 
     let html = document.querySelector('html');
 
-    if ( toggleDarkTheme.checked ) {
+    if (toggleDarkTheme.checked) {
 
       return html.classList.remove('light');
     }
@@ -158,12 +155,12 @@ window.addEventListener('load', () => {
 
   // Open Learn page
   // ========================================================
-  document.getElementById('learn').addEventListener('click', function() {
+  document.getElementById('learn').addEventListener('click', function () {
 
-    chrome.tabs.create({url: '../html/learn.html'});
+    chrome.tabs.create({ url: '../html/learn.html' });
     acknowledgeUpdate();
 
-    if ( ga ) { ga('send', 'event', 'learn', 'learn clicked'); }
+    if (window.ga) { ga('send', 'event', 'learn', 'learn clicked'); }
   });
 
   // Help Bubble Clicks
@@ -171,44 +168,44 @@ window.addEventListener('load', () => {
   document.querySelectorAll('.help').forEach(bubble => {
     let id = bubble.classList[1];
     bubble.addEventListener('click', () => {
-      chrome.tabs.create({url: `../html/learn.html#${id}`});
+      chrome.tabs.create({ url: `../html/learn.html#${id}` });
     });
   });
 
   // Open Block Sellers Configuration page
   // ========================================================
-  document.getElementById('editList').addEventListener('click', function() {
-    chrome.tabs.create({url: '../html/block-sellers.html'});
+  document.getElementById('editList').addEventListener('click', function () {
+    chrome.tabs.create({ url: '../html/block-sellers.html' });
   });
 
   // Open Filter Shipping Countries Configuration page
   // ========================================================
-  document.getElementById('editShippingList').addEventListener('click', function() {
-    chrome.tabs.create({url: '../html/filter-shipping-country.html'});
+  document.getElementById('editShippingList').addEventListener('click', function () {
+    chrome.tabs.create({ url: '../html/filter-shipping-country.html' });
   });
 
   // Open Favorite Sellers Configuration page
   // ========================================================
-  document.getElementById('editFavList').addEventListener('click', function() {
-    chrome.tabs.create({url: '../html/favorite-sellers.html'});
+  document.getElementById('editFavList').addEventListener('click', function () {
+    chrome.tabs.create({ url: '../html/favorite-sellers.html' });
   });
 
   // Open Readability Configuration page
   // ========================================================
-  document.getElementById('editReadability').addEventListener('click', function() {
-    chrome.tabs.create({url: '../html/readability.html'});
+  document.getElementById('editReadability').addEventListener('click', function () {
+    chrome.tabs.create({ url: '../html/readability.html' });
   });
 
   // Contextual Menu Searching Options
   // ========================================================
-  document.querySelector('.toggle-group.menus').addEventListener('click', function() {
-    optionsToggle('#contextMenus', this, '.menus', 180 );
+  document.querySelector('.toggle-group.menus').addEventListener('click', function () {
+    optionsToggle('#contextMenus', this, '.menus', 180);
   });
 
   // Open Links In New tabs
   // ------------------------------------------------------
-  document.querySelector('.toggle-group.tabs').addEventListener('click', function() {
-    optionsToggle('#linksInTabs', this, '.tabs', 130 );
+  document.querySelector('.toggle-group.tabs').addEventListener('click', function () {
+    optionsToggle('#linksInTabs', this, '.tabs', 130);
   });
 
   // Absolute Date Feature
@@ -240,7 +237,7 @@ window.addEventListener('load', () => {
   searchbox.addEventListener('keydown', searchFeatures);
 
   // Clear search input
-  document.querySelector('.clear-search').addEventListener('mousedown', function() {
+  document.querySelector('.clear-search').addEventListener('mousedown', function () {
 
     searchbox.value = '';
     searchFeatures();
@@ -264,7 +261,10 @@ window.addEventListener('load', () => {
   // Adding A Feature: Step 5
   toggleAbsoluteDate.addEventListener('change', triggerSave);
   toggleAveragePrice.addEventListener('change', triggerSave);
-  toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
+  toggleBaoiFields.addEventListener('change', () => executeScript(event, () => {
+    const link = document.getElementById('baoiFieldsCss');
+    if (link) { link.disabled = !link.disabled; }
+  }));
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleBlurryImageFix.addEventListener('change', triggerSave);
@@ -272,7 +272,9 @@ window.addEventListener('load', () => {
   toggleCommentScanner.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
-  toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
+  toggleDarkTheme.addEventListener('change', () => executeScript(event, () => {
+    document.documentElement.classList.toggle('de-dark-theme');
+  }));
   toggleDemandIndex.addEventListener('change', triggerSave);
   toggleEditingNotepad.addEventListener('change', triggerSave);
   toggleEverlastingCollection.addEventListener('change', triggerSave);
@@ -281,14 +283,23 @@ window.addEventListener('load', () => {
   toggleFeedback.addEventListener('change', triggerSave);
   toggleFilterMediaCondition.addEventListener('change', filterMediaCondition.toggleHideConditions);
   toggleFilterPrices.addEventListener('change', filterPrices.validateFilterPrices);
-  toggleFilterShippingCountry.addEventListener('change', filterShippingCountry.toggleHideCountries);
+  toggleFilterShippingCountry.addEventListener('change', () => executeScript(event, () => {
+    let link = document.getElementById('filterShippingCountryCss');
+    if (link) { link.disabled = !link.disabled; }
+  }));
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterUnavailable.addEventListener('change', triggerSave);
   toggleForceDashboard.addEventListener('change', triggerSave);
-  toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
+  toggleHighlights.addEventListener('change', () => executeScript(event, () => {
+    let link = document.getElementById('mediaHighLightsCss');
+    if (link) { link.disabled = !link.disabled; }
+  }));
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
   toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
-  toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
+  toggleMinMaxColumns.addEventListener('change', () => executeScript(event, () => {
+    let link = document.getElementById('minMaxColumnsCss');
+    if (link) { link.disabled = !link.disabled; }
+  }));
   toggleNotesCount.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.validateAndSave);
   toggleQuickSearch.addEventListener('change', triggerSave);
@@ -305,23 +316,26 @@ window.addEventListener('load', () => {
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
   toggleTweakDiscrims.addEventListener('change', triggerSave);
-  toggleYtPlaylists.addEventListener('change', ytPlaylists.toggleYtPlaylists);
+  toggleYtPlaylists.addEventListener('change', () => executeScript(event, () => {
+    let link = document.getElementById('ytPlaylistsCss');
+    if (link) { link.disabled = !link.disabled; }
+  }));
   userCurrency.addEventListener('change', () => applySave(null, event));
 
   /**
    * Fetches known issues from discogs-enhancer.com/issues
    * @returns {Object} - Performance issue data: { content: <string>, version: <string> }
    */
-   async function getIssues() {
+  async function getIssues() {
     let url = 'https://discogs-enhancer.com/issues',
-        hasBlocklist = localStorage.getItem('blockList'),
-        blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
+      hasBlocklist = localStorage.getItem('blockList'),
+      blocklist = hasBlocklist ? JSON.parse(hasBlocklist) : null;
 
     if (__DEV__
-        && blocklist
-        && blocklist.list
-        && blocklist.list.includes('development')
-      ) {
+      && blocklist
+      && blocklist.list
+      && blocklist.list.includes('development')
+    ) {
       url = 'http://localhost:3000/issues';
     }
 
@@ -352,11 +366,11 @@ window.addEventListener('load', () => {
   function hasFeatureEnabled(features) {
     let featureEnabled = false;
 
-    for ( let [key] of Object.entries(prefs) ) {
+    for (let [key] of Object.entries(prefs)) {
 
-        if ( features.includes('any') || prefs[key] && features.includes(key) ) {
-          featureEnabled = true;
-        }
+      if (features.includes('any') || prefs[key] && features.includes(key)) {
+        featureEnabled = true;
+      }
     }
     return featureEnabled;
   }
@@ -368,18 +382,18 @@ window.addEventListener('load', () => {
   function showHeadsUp({ content = null, version = null, features = [] }) {
 
     let manifest = chrome.runtime.getManifest(),
-        thisVersion = manifest.version,
-        versionWithIssue = version,
-        showWarning = false;
+      thisVersion = manifest.version,
+      versionWithIssue = version,
+      showWarning = false;
 
     if (version) {
       showWarning = compareVersions(thisVersion, versionWithIssue);
     }
 
-    if ( content
-         && content.length
-         && showWarning
-         && hasFeatureEnabled(features) ) {
+    if (content
+      && content.length
+      && showWarning
+      && hasFeatureEnabled(features)) {
 
       let warning = document.querySelector('.issues');
 
@@ -518,16 +532,16 @@ window.addEventListener('load', () => {
     }, 0);
 
     // .mac class will remove scrollbars from the popup menu
-    if ( navigator.userAgent.includes('Mac OS X') ) {
+    if (navigator.userAgent.includes('Mac OS X')) {
       document.getElementsByTagName('html')[0].classList.add('mac');
     }
 
     // Check for #toggleDarkTheme then remove the class if needed
     let a = setInterval(() => {
 
-      if ( document.querySelector('#toggleDarkTheme') ) {
+      if (document.querySelector('#toggleDarkTheme')) {
 
-        if ( !toggleDarkTheme.checked ) {
+        if (!toggleDarkTheme.checked) {
           document.querySelector('html').classList.add('light');
         }
         clearInterval(a);

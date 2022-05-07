@@ -10,8 +10,8 @@ import { setEnabledStatus, optionsToggle } from '../utils';
 export function init() {
 
   // Expand and show the submenu
-  document.querySelector('.toggle-group.absolute').addEventListener('click', function() {
-    optionsToggle('#absolute', this, '.absolute', 110 );
+  document.querySelector('.toggle-group.absolute').addEventListener('click', function () {
+    optionsToggle('#absolute', this, '.absolute', 110);
   });
 
   // Save the Use US Date format preference
@@ -20,25 +20,27 @@ export function init() {
   });
 
   // Setup example US date format
-  let today  = new Date(),
-      options = { year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: 'numeric' },
-      dateString = today.toLocaleDateString('en-US', options);
+  let today = new Date(),
+    options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: 'numeric'
+    },
+    dateString = today.toLocaleDateString('en-US', options);
 
   document.querySelector('.date-example').textContent = `e.g.: Added ${dateString}`;
 
   // Set "enabled/disabled" status
-  document.getElementById('toggleAbsoluteDate').addEventListener('change', function() {
+  document.getElementById('toggleAbsoluteDate').addEventListener('change', function () {
 
     let self = document.querySelector('.toggle-group.absolute .status');
 
-    if ( this.checked ) {
-      setEnabledStatus( self, 'Enabled' );
+    if (this.checked) {
+      setEnabledStatus(self, 'Enabled');
     } else {
-      setEnabledStatus( self, 'Disabled' );
+      setEnabledStatus(self, 'Disabled');
     }
   });
 }
@@ -49,15 +51,13 @@ export function init() {
  * @method setAbsoluteDateStatus
  */
 export function setAbsoluteDateStatus() {
-
   let self = document.querySelector('.toggle-group.absolute .status');
 
   chrome.storage.sync.get('prefs', result => {
-
-    if ( result.prefs.absoluteDate ) {
-      setEnabledStatus( self, 'Enabled' );
+    if (result.prefs.absoluteDate) {
+      setEnabledStatus(self, 'Enabled');
     } else {
-      setEnabledStatus( self, 'Disabled' );
+      setEnabledStatus(self, 'Disabled');
     }
     // Setup US Date Format checkbox preference
     document.getElementById('usFormat').checked = JSON.parse(localStorage.getItem('usDateFormat'));

@@ -26,7 +26,6 @@ let setupAnalytics = function() {
       break;
   }
 };
-
 setupAnalytics();
 
 module.exports = {
@@ -41,7 +40,7 @@ module.exports = {
     [deps + 'update-exchange-rates']: `${deps}update-exchange-rates.js`,
     [deps + 'options']: `${deps}options.js`,
     [deps + 'resource-library']: `${deps}resource-library.js`,
-    [deps + 'runtime-messages']: `${deps}runtime-messages.js`,
+    ['./runtime-messages']: `${deps}runtime-messages.js`,
     [deps + 'tests/unit-tests']: `${deps}tests/unit-tests.js`,
     // features files
     // Adding A Feature: Step 3
@@ -51,7 +50,6 @@ module.exports = {
     [features + 'block-sellers']: `${features}block-sellers.js`,
     [features + 'blurry-image-fix']: `${features}blurry-image-fix.js`,
     [features + 'comment-scanner']: `${features}comment-scanner.js`,
-    /* [features + 'contextual-menu-search']: <-- Special case: transpiling breaks stuff so needs to be copied via CopyWebpackPlugin below */
     [features + 'confirm-before-removing-react']: `${features}confirm-before-removing-react.js`,
     [features + 'confirm-before-removing']: `${features}confirm-before-removing.js`,
     [features + 'currency-converter']: `${features}currency-converter.js`,
@@ -106,12 +104,6 @@ module.exports = {
     [features + 'text-format-shortcuts']: `${features}text-format-shortcuts.js`,
     [features + 'show-actual-dates-react']: `${features}show-actual-dates-react.js`,
     [features + 'show-actual-dates']: `${features}show-actual-dates.js`,
-    [features + 'toggle-baoi-fields']: `${features}toggle-baoi-fields.js`,
-    [features + 'toggle-dark-theme']: `${features}toggle-dark-theme.js`,
-    [features + 'toggle-filter-shipping-country-css']: `${features}toggle-filter-shipping-country-css.js`,
-    [features + 'toggle-highlights']: `${features}toggle-highlights.js`,
-    [features + 'toggle-min-max-columns']: `${features}toggle-min-max-columns.js`,
-    [features + 'toggle-youtube-playlists']: `${features}toggle-youtube-playlists.js`,
     [features + 'tracklist-readability-react']: `${features}tracklist-readability-react.js`,
     [features + 'tracklist-readability']: `${features}tracklist-readability.js`,
     [features + 'tweak-discriminators-react']: `${features}tweak-discriminators-react.js`,
@@ -122,6 +114,7 @@ module.exports = {
     [config + 'filter-shipping-country']: `${config}filter-shipping-country.js`,
     [config + 'learn']: `${config}learn.js`,
     [config + 'readability']: `${config}readability.js`,
+    './js/shared/external/ga': './js/shared/external/ga.js'
   },
   output: {
     filename: '[name].js',
@@ -186,9 +179,7 @@ module.exports = {
           ignore: ['**/*.scss']
         }
       },
-      { from: 'img', to: 'img' },
-      // contextual menu searching
-      { from: 'js/extension/features/contextual-menu-search.js', to: 'js/extension/features/contextual-menu-search.js' }
+      { from: 'img', to: 'img' }
     ]
   }),
  ]

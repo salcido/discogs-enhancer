@@ -109,7 +109,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  if ( ga ) {
+  if ( window.ga ) {
 
     let checked = event.target.checked;
 
@@ -164,7 +164,7 @@ export function checkForUpdate() {
       learn.classList.remove('button_green');
       learn.classList.add('button_orange');
 
-      chrome.browserAction.setBadgeText({text: ''});
+      chrome.action.setBadgeText({text: ''});
 
     } else {
 
@@ -376,7 +376,21 @@ export function setEnabledStatus(target, status) {
  * @param    {Object}    event [The event object]
  * @return   {undefined}
  */
-
 export function triggerSave(event) {
   applySave('refresh', event);
+}
+
+// ========================================================
+// getCurrentTab
+// ========================================================
+/**
+ * Gets current tab
+ *
+ * @method   getCurrentTab
+ * @return   {Promise<Tab[]>}
+ */
+export async function getCurrentTab() {
+  const queryOptions = { active: true, currentWindow: true };
+  const [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
 }

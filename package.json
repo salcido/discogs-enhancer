@@ -6,10 +6,13 @@
   "scripts": {
     "build": "webpack --progress",
     "build:dev": "NODE_ENV=development npm run build",
+    "build-windows:dev": "set NODE_ENV=development& npm run build",
     "build:production": "NODE_ENV=production npm run build",
+    "build-windows:production": "set NODE_ENV=production& npm run build",
     "bump": "node version-bump.js",
     "test": "mocha",
-    "watch": "NODE_ENV=development webpack --watch --progress"
+    "watch": "NODE_ENV=development webpack --watch --progress",
+    "watch-windows": "set NODE_ENV=development& webpack --watch --progress"
   },
   "repository": {
     "type": "git",

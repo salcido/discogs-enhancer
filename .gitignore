@@ -3,3 +3,5 @@ dist
 js/chart
 .vscode
 .DS_Store
+/.vs
+package-lock.json

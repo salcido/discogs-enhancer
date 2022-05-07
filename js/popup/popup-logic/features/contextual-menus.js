@@ -3,6 +3,7 @@
  */
 
 import { applySave } from '../utils';
+import { ContextMenuOption } from '../../../shared/constants.js'
 
 // ========================================================
 // createContextualMenuElements
@@ -16,115 +17,22 @@ import { applySave } from '../utils';
 export function createContextualMenuElements() {
 
   let contextMenus = document.getElementById('contextMenus'),
-      fragment = document.createDocumentFragment(),
-      menus = [
-          {
-            name: 'All Day',
-            fn: 'searchAllDay',
-            id: 'allday'
-          },
-          {
-            name: 'Bandcamp',
-            fn: 'searchBandcamp',
-            id: 'bandcamp'
-          },
-          {
-            name: 'Beatport',
-            fn: 'searchBeatport',
-            id: 'beatport'
-          },
-          {
-            name: 'Boomkat',
-            fn: 'searchBoomkat',
-            id: 'boomkat'
-          },
-          {
-            name: 'Clone',
-            fn: 'searchClone',
-            id: 'clone'
-          },
-          {
-            name: 'DeeJay',
-            fn: 'searchDeeJay',
-            id: 'deejay'
-          },
-          {
-            name: 'Discogs',
-            fn: 'searchDiscogs',
-            id: 'discogs'
-          },
-          {
-            name: 'Earcave',
-            fn: 'searchEarcave',
-            id: 'earcave'
-          },
-          {
-            name: 'Gramaphone',
-            fn: 'searchGramaphone',
-            id: 'gramaphone'
-          },
-          {
-            name: 'Hardwax',
-            fn: 'searchHardwax',
-            id: 'hardwax'
-          },
-          {
-            name: 'Juno',
-            fn: 'searchJuno',
-            id: 'juno'
-          },
-          {
-            name: 'Oye',
-            fn: 'searchOye',
-            id: 'oye'
-          },
-          {
-            name: 'Phonica',
-            fn: 'searchPhonica',
-            id: 'phonica'
-          },
-          {
-            name: 'RateYourMusic',
-            fn: 'searchRateYourMusic',
-            id: 'rateyourmusic'
-          },
-          {
-            name: 'Red Eye',
-            fn: 'searchRedeye',
-            id: 'redeye'
-          },
-          {
-            name: 'Rush Hour',
-            fn: 'searchRushhour',
-            id: 'rushhour'
-          },
-          {
-            name: 'SOTU',
-            fn: 'searchSotu',
-            id: 'sotu'
-          },
-          {
-            name: 'YouTube',
-            fn: 'searchYoutube',
-            id: 'youtube'
-          }
-        ];
+    fragment = document.createDocumentFragment();
 
-  // Create contextual menu elements
-  menus.forEach(menu => {
+  for (const option in ContextMenuOption) {
+    const menu = ContextMenuOption[option];
 
     let
-        boxwrap = document.createElement('div'),
-        input = document.createElement('input'),
-        label = document.createElement('label'),
-        span = document.createElement('span');
+      boxwrap = document.createElement('div'),
+      input = document.createElement('input'),
+      label = document.createElement('label'),
+      span = document.createElement('span');
 
     boxwrap.className = 'checkbox-wrap';
 
     input.type = 'checkbox';
     input.id = menu.id;
     input.dataset.name = menu.name;
-    input.dataset.fn = menu.fn;
 
     span.textContent = menu.name;
 
@@ -133,15 +41,16 @@ export function createContextualMenuElements() {
     label.appendChild(span);
     boxwrap.appendChild(label);
     fragment.appendChild(boxwrap);
-  });
+  }
 
   // Append all contextual menu elements
   contextMenus.appendChild(fragment);
 
-  // Attach eventListeners
-  menus.forEach(menu => {
+  for (const option in ContextMenuOption) {
+    const menu = ContextMenuOption[option];
+
     document.getElementById(menu.id).addEventListener('change', updateContextualMenu);
-  });
+  }
 }
 
 // ========================================================
@@ -158,7 +67,6 @@ function updateContextualMenu(event) {
   if (event.target.checked) {
 
     chrome.runtime.sendMessage({
-      fn: event.target.dataset.fn,
       id: event.target.id,
       method: 'create',
       name: event.target.dataset.name,
