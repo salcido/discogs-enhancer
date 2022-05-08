@@ -154,9 +154,8 @@ function documentReady(document) {
  * @return   {Promise}
  */
 function appendFragment(elems) {
-  let fragment = document.createDocumentFragment();
-
   return new Promise(resolve => {
+    let fragment = document.createDocumentFragment();
     elems.forEach(elm => fragment.appendChild(elm));
     (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
     return resolve();
