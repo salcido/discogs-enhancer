@@ -35,10 +35,10 @@
   },
   "minimum_chrome_version": "88",
   "permissions": [
-    "storage",
-    "contextMenus",
     "activeTab",
-    "scripting"
+    "contextMenus",
+    "scripting",
+    "storage"
   ],
   "icons": {
     "16": "img/icon_16.png",
