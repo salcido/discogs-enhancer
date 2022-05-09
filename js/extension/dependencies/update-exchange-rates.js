@@ -41,7 +41,7 @@ resourceLibrary.ready(() => {
   }
 
   /**
-   * Updates the exchange rates from Fixer.io
+   * Updates the exchange rates from discogs-enhancer.com
    * @return {object}
    */
   async function updateRates() {
