@@ -92,7 +92,7 @@ rl.ready(() => {
   // ========================================================
   // DOM manipulation
   // ========================================================
-  let mediaCondition = rl.getPreference('mediaCondition');
+  let { mediaCondition } = rl.getPreference('featureData');
 
   if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
        && rl.pageIsNot('sellerFeedback', 'settings') ) {

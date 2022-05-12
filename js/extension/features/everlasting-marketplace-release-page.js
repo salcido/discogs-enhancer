@@ -25,8 +25,7 @@ rl.ready(() => {
         paused = false,
         pjax = document.querySelector('#pjax_container'),
         pTotal,
-        mediaCondition = rl.getPreference('mediaCondition'),
-        sleeveCondition = rl.getPreference('sleeveCondition');
+        { mediaCondition, sleeveCondition } = rl.getPreference('featureData');
 
     let pauseBtn = `<a class="de-pause button button-blue">
                       <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause
@@ -249,7 +248,7 @@ rl.ready(() => {
                 <td class="item_description de-filter-stamp de-page-stamp">
                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
                 </td>
-                <td class="de-page-stamp de-marketplace-results z-1 back-to-top"><a href="#site_header" >Back to top</a></td>
+                <td class="de-page-stamp de-marketplace-results z-1 to-top"><a href="#site_header" >Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
                   <div class="de-select-wrap">
                     <span></span>

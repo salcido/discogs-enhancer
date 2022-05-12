@@ -13,11 +13,11 @@
 rl.ready(() => {
 
   let currentFilterState = rl.getPreference('currentFilterState'),
-      sleeveCondition = rl.getPreference('sleeveCondition') || { value: null, generic: false, noCover: false },
-      filterPrices = rl.getPreference('filterPrices') || { minimum: null, maximum: null },
+      { sleeveCondition } = rl.getPreference('featureData'),
+      { filterPrices } = rl.getPreference('featureData'),
       userCurrency = rl.getPreference('userCurrency'),
-      countryList = rl.getPreference('countryList') || { list: [], currency: false, include: false },
-      mediaCondition = rl.getPreference('mediaCondition') || null;
+      { countryList } = rl.getPreference('featureData'),
+      { mediaCondition } = rl.getPreference('featureData');
 
   let countryEnabled = currentFilterState.filterShippingCountry,
       currency = countryList && countryList.currency ? countryList.currency : null,
@@ -46,7 +46,7 @@ rl.ready(() => {
   }
 
   function priceFilter() {
-    let { minimum, maximum } = filterPrices,
+    let { minimum = 0, maximum = 100 } = filterPrices,
         currCode = {
             AUD: 'A$',
             BRL: 'R$',

@@ -8,12 +8,11 @@
  *
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasBlockList = localStorage.getItem('blockList'),
-      blockList = hasBlockList ? JSON.parse(hasBlockList) : setNewBlocklist(),
-      hasFavoriteList = localStorage.getItem('favoriteList'),
-      favoriteList = hasFavoriteList ? JSON.parse(hasFavoriteList) : { list:[] },
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      initialBlockList = featureData.blockList,
+      favoriteList = featureData.favoriteList,
       favoriteListError = 'is on your favorites list. You must remove them from your favorites list before adding them to the block list.',
       blockListError = 'is already on your block list.';
 
@@ -43,18 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     input = input.replace(/\s/g,'').trim();
 
     if ( input ) {
-      // ga(type, category, action, label)
-      if ( window.ga ) { window.ga('send', 'event', 'block seller', input); }
-
-      blockList.list.push(input);
-
-      blockList = JSON.stringify(blockList);
-
-      localStorage.setItem('blockList', blockList);
-
-      document.querySelector('.errors').textContent = '';
-
-      return location.reload();
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.blockList.list.push(input);
+        // Update chrome.storage
+        chrome.storage.sync.set({ featureData }).then(() => {
+          document.querySelector('.errors').textContent = '';
+          return location.reload();
+        });
+      })
     }
   }
 
@@ -80,24 +75,23 @@ document.addEventListener('DOMContentLoaded', () => {
    * each name as markup into the DOM
    * @returns {undefined}
    */
-  function insertSellersIntoDOM() {
-
+  function insertSellersIntoDOM(blockList) {
     blockList.list.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-    blockList.list.forEach(seller => {
 
+    blockList.list.forEach(seller => {
       let node = document.createElement('div'),
           sellers = document.getElementById('blocked-sellers');
 
-      node.className = 'seller';
+        node.className = 'seller';
 
-      node.innerHTML = `<div class="seller-name">
-                          <span class="name">
-                            ${seller}
-                          </span>
-                        </div>`;
+        node.innerHTML = `<div class="seller-name">
+                            <span class="name">
+                              ${seller}
+                            </span>
+                          </div>`;
 
-      sellers.appendChild(node);
-    });
+        sellers.appendChild(node);
+    })
   }
 
   /**
@@ -110,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Remove the sellers name from the list/localStorage
+   * Remove the sellers name from the list/chrome.storage
    * @param {object} event The event object
    * @returns {function}
    */
@@ -120,30 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     event.target.parentNode.classList.add('fadeOut');
 
-    blockList.list.forEach((seller, i) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      if ( targetName === seller ) {
+      featureData.blockList.list.forEach((seller, i) => {
 
-        blockList.list.splice(i, 1);
+        if ( targetName === seller ) {
 
-        blockList = JSON.stringify(blockList);
+          featureData.blockList.list.splice(i, 1);
+          chrome.storage.sync.set({ featureData });
+          initialBlockList = featureData.blockList;
 
-        localStorage.setItem('blockList', blockList);
-
-        return setTimeout(() => updatePageData(), 400);
-      }
-    });
-  }
-
-  /**
-   * Instantiates a new blocklist object
-   * @returns {object}
-   */
-  function setNewBlocklist() {
-
-    localStorage.setItem('blockList', '{"list":[], "hide": "tag"}');
-
-    return JSON.parse(localStorage.getItem('blockList'));
+          return setTimeout(() => updatePageData(), 400);
+        }
+      });
+    })
   }
 
   /**
@@ -163,25 +147,25 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {undefined}
    */
   function updatePageData() {
-
-    blockList = JSON.parse(localStorage.getItem('blockList'));
-    // remove all the sellers from the DOM
-    [...document.getElementsByClassName('seller')].forEach(s => s.remove());
-    // Add them back in with the newly updated blocklist data
-    insertSellersIntoDOM();
-    // reattach event listerns to sellers
-    addSellerEventListeners();
-    // update backup/restore output
-    document.querySelector('.backup-output').textContent = JSON.stringify(blockList.list);
-    // check for empty list
-    checkForEmptySellersList();
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      // remove all the sellers from the DOM
+      [...document.getElementsByClassName('seller')].forEach(s => s.remove());
+      // Add them back in with the newly updated blocklist data
+      insertSellersIntoDOM(featureData.blockList);
+      // reattach event listerns to sellers
+      addSellerEventListeners();
+      // update backup/restore output
+      document.querySelector('.backup-output').textContent = JSON.stringify(featureData.blockList.list);
+      // check for empty list
+      checkForEmptySellersList();
+    })
   }
 
   /**
    * Validates the input value from the restore section by
    * checking that it is first parseable and second an Array
    * with strings in each index.
-   * @param  {string} list The block list passed in from localStorage
+   * @param  {string} list The block list passed in from chrome.storage
    * @returns {boolean}
    */
   function validateBlocklist(list) {
@@ -214,14 +198,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let input = document.getElementById('seller-input').value.trim();
 
     if ( input
-         && !blockList.list.includes(input)
+         && !initialBlockList.list.includes(input)
          && !favoriteList.list.includes(input) ) {
 
       addSellerToList();
 
       return location.reload();
 
-    } else if ( blockList.list.includes(input) ) {
+    } else if ( initialBlockList.list.includes(input) ) {
 
       return showError(blockListError);
 
@@ -234,15 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Radiobutton listener
   document.getElementById('block-prefs').addEventListener('change', event => {
 
-    blockList = JSON.parse(localStorage.getItem('blockList'));
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    blockList.hide = event.target.value;
+      featureData.blockList.hide = event.target.value;
 
-    blockList = JSON.stringify(blockList);
-
-    localStorage.setItem('blockList', blockList);
-
-    return location.reload();
+      chrome.storage.sync.set({ featureData }).then(() => {
+        return location.reload();
+      })
+    })
   });
 
   // Restore functionality
@@ -253,13 +236,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if ( validateBlocklist(list) ) {
 
       let restore = {
-                      list: JSON.parse(list),
-                      hide: 'tag'
-                    };
+            list: JSON.parse(list),
+            hide: 'tag'
+          };
 
-      localStorage.setItem('blockList', JSON.stringify(restore));
-
-      return location.reload();
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.blockList = restore;
+        chrome.storage.sync.set({ featureData }).then(() => {
+          return location.reload();
+        })
+      })
 
     } else {
 
@@ -275,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enter key is pressed
     if ( e.which === 13
          && input
-         && !blockList.list.includes(input)
+         && !initialBlockList.list.includes(input)
          && !favoriteList.list.includes(input) ) {
 
       addSellerToList();
@@ -283,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return location.reload();
 
     // name is already on the list
-    } else if ( blockList.list.includes(input) ) {
+    } else if ( initialBlockList.list.includes(input) ) {
 
       return showError(blockListError);
 
@@ -303,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
 
   // Select the radio button on page load
-  switch ( blockList.hide ) {
+  switch ( initialBlockList.hide ) {
 
     case 'tag' :
       document.getElementById('tagSellers').checked = true;

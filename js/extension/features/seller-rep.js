@@ -21,8 +21,8 @@
 
 rl.ready(() => {
 
-  let threshold = rl.getPreference('sellerRep'),
-      filter = rl.getPreference('sellerRepFilter');
+  let featureData = rl.getPreference('featureData'),
+      { sellerRep: threshold, sellerRepFilter } = featureData;
 
   if ( !threshold ) return;
 
@@ -62,7 +62,7 @@ rl.ready(() => {
           icon.rel = 'tooltip';
           icon.title = `${name}'s seller reputation is below ${threshold}%`;
 
-          if (filter) {
+          if (sellerRepFilter) {
             seller_info[i].closest('tr.shortcut_navigable').classList.add('de-seller-rep-hide');
           }
 
@@ -77,7 +77,7 @@ rl.ready(() => {
     // CSS
     // ========================================================
 
-    let sellerRepColor = rl.getPreference('sellerRepColor') || 'darkorange',
+    let { sellerRepColor } = rl.getPreference('featureData'),
         color = sellerRepColor.match(/#*\w/g).join(''),
         rules = `
         .de-dark-theme .de-seller-rep ul li i,

@@ -2,7 +2,7 @@
  * inventory-ratings feature
  */
 
-import { applySave, setEnabledStatus, optionsToggle } from '../utils';
+import { applySave, setEnabledStatus, optionsToggle, sendEvent } from '../utils';
 
 /**
  * Sets up the event listeners for the Inventory Ratings UI
@@ -32,44 +32,50 @@ export function init() {
  * @method saveInventoryRatings
  * @return {undefined}
  */
-export function saveInventoryRatings() {
+export function saveInventoryRatings(event) {
 
-  let
-      input = document.getElementById('ratingsValue'),
-      inventoryValue = document.getElementsByClassName('inventory-value')[0],
-      self = document.querySelector('.inventory .status'),
-      toggle = document.getElementById('toggleInventoryRatings');
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    // enabled -and- has value entered
-    if ( input.value && toggle.checked ) {
+    let
+        input = document.getElementById('ratingsValue'),
+        inventoryValue = document.getElementsByClassName('inventory-value')[0],
+        self = document.querySelector('.inventory .status'),
+        toggle = document.getElementById('toggleInventoryRatings');
 
-    input.disabled = true;
-    toggle.disabled = false;
-    input.classList.remove('alert');
+      // enabled -and- has value entered
+      if ( input.value && toggle.checked ) {
 
-    localStorage.setItem('inventoryRatings', input.value);
+        input.disabled = true;
+        toggle.disabled = false;
+        input.classList.remove('alert');
 
-    input.value = localStorage.getItem('inventoryRatings');
+        featureData.minimumRating = JSON.parse(input.value)
+        chrome.storage.sync.set({ featureData });
 
-    // Displays rating as "- 4.45"
-    inventoryValue.innerHTML = `&#8209; ${input.value}`;
+        let { minimumRating } = featureData;
+        input.value = minimumRating;
 
-    setEnabledStatus( self, 'Enabled' );
-    applySave('refresh', event);
+        // Displays rating as "- 4.45"
+        inventoryValue.innerHTML = `&#8209; ${input.value}`;
 
-    } else if ( input.value && !toggle.checked ) {
+        setEnabledStatus( self, 'Enabled' );
+        applySave('refresh', event);
+        sendEvent('Inventory Ratings', input.value);
 
-    input.disabled = false;
-    inventoryValue.textContent = '';
+      } else if ( input.value && !toggle.checked ) {
 
-    setEnabledStatus( self, 'Disabled' );
-    applySave('refresh', event);
+        input.disabled = false;
+        inventoryValue.textContent = '';
 
-    } else if ( !input.value ) {
+        setEnabledStatus(self, 'Disabled');
+        applySave('refresh', event);
 
-    toggle.checked = false;
-    input.classList.add('alert');
-  }
+      } else if ( !input.value ) {
+
+        toggle.checked = false;
+        input.classList.add('alert');
+      }
+  })
 }
 
 /**
@@ -78,28 +84,27 @@ export function saveInventoryRatings() {
  * @method setInventoryRating
  * @return {undefined}
  */
-export function setInventoryRatings() {
+export async function setInventoryRatings() {
 
   let input = document.getElementById('ratingsValue'),
-      minimumValue = localStorage.getItem('inventoryRatings') || null,
+      { featureData } = await chrome.storage.sync.get(['featureData']),
+      { minimumRating } = featureData,
       ratingDisplay = document.querySelector('.inventory-value'),
       self = document.querySelector('.inventory .status'),
       toggle = document.getElementById('toggleInventoryRatings');
 
-  if ( minimumValue !== null ) { input.value = minimumValue; }
+  if ( minimumRating ) { input.value = minimumRating; }
 
   chrome.storage.sync.get('prefs', function(result) {
-    // Has value saved
-    if ( result.prefs.inventoryRatings && minimumValue !== null ) {
+
+    if ( result.prefs.inventoryRatings && minimumRating !== null ) {
 
       input.disabled = true;
-      input.value = minimumValue;
-
+      input.value = minimumRating;
       ratingDisplay.innerHTML = `&#8209; ${input.value}`;
       setEnabledStatus( self, 'Enabled' );
-    }
-    // Has no value saved
-    else if ( result.prefs.inventoryRatings && minimumValue === null ) {
+
+    } else if ( result.prefs.inventoryRatings && minimumRating === null ) {
 
       toggle.checked = false;
       setEnabledStatus( self, 'Disabled' );

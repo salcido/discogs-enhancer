@@ -2,7 +2,7 @@
  * Filter Media Condition feature
  */
 
-import { applySave, optionsToggle } from '../utils';
+import { applySave, optionsToggle, sendEvent } from '../utils';
 
 /**
  * These arrays corespond to the `.status` string [conditions] and
@@ -33,15 +33,16 @@ export function init() {
     optionsToggle('.hide-condition', this, '.condition', 100);
   });
 
-  // Save the Filter by Condition Select value to localStorage
-  document.getElementById('conditionValue').addEventListener('change', function () {
+  // Save the Filter by Condition Select value to chrome.storage
+  document.getElementById('conditionValue').addEventListener('change', async function () {
 
     let toggle = document.getElementById('toggleFilterMediaCondition'),
-        mediaCondition = localStorage.getItem('mediaCondition') || 7,
+        { featureData } = await chrome.storage.sync.get(['featureData']),
         status = document.querySelector('.toggle-group.condition .label .status');
 
-    mediaCondition = this.value;
-    localStorage.setItem('mediaCondition', String(mediaCondition));
+    featureData.mediaCondition = JSON.parse(this.value);
+    chrome.storage.sync.set({ featureData });
+    sendEvent('Filter Media Condition', conditions[this.value]);
 
     if (!toggle.checked) {
 
@@ -64,25 +65,27 @@ export function init() {
  * @return {undefined}
  */
 export function setupFilterByCondition(enabled) {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-  let select = document.getElementById('conditionValue'),
-      setting = Number(localStorage.getItem('mediaCondition')) || 7,
-      status = document.querySelector('.toggle-group.condition .label .status');
+    let mediaCondition = featureData.mediaCondition || 7,
+        select = document.getElementById('conditionValue'),
+        status = document.querySelector('.toggle-group.condition .label .status');
 
-  if ( enabled ) {
+    if ( enabled ) {
 
-    status.textContent = conditions[setting];
-    status.classList.add(colors[setting]);
+      status.textContent = conditions[mediaCondition];
+      status.classList.add(colors[mediaCondition]);
 
-  } else {
+    } else {
 
-    status.textContent = 'Disabled';
-    status.classList.add('disabled');
-  }
+      status.textContent = 'Disabled';
+      status.classList.add('disabled');
+    }
 
-  if ( setting ) {
-    select.value = setting;
-  }
+    if ( mediaCondition ) {
+      select.value = mediaCondition;
+    }
+  })
 }
 
 /**
@@ -92,20 +95,21 @@ export function setupFilterByCondition(enabled) {
  * @returns {undefined}
  */
 export function toggleHideConditions(event) {
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+    let mediaCondition = featureData.mediaCondition || 7,
+        status = document.querySelector('.toggle-group.condition .label .status');
 
-  let setting = Number(localStorage.getItem('mediaCondition')) || 7,
-      status = document.querySelector('.toggle-group.condition .label .status');
+    if ( !event.target.checked ) {
 
-  if ( !event.target.checked ) {
+      status.className = 'status hide disabled';
+      status.textContent = 'Disabled';
 
-    status.className = 'status hide disabled';
-    status.textContent = 'Disabled';
+    } else {
 
-  } else {
+      status.textContent = conditions[mediaCondition];
+      status.classList.add(colors[mediaCondition]);
+    }
 
-    status.textContent = conditions[setting];
-    status.classList.add(colors[setting]);
-  }
-
-  applySave('refresh', event);
+    applySave('refresh', event);
+  })
 }

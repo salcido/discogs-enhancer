@@ -375,7 +375,7 @@
       if ( mutation.type === 'childList' ) {
         mutation.addedNodes.forEach(n => {
           if ( n.classList
-              && (n.classList.contains('review_compose') || n.id === 'comment')
+              && (n.classList.contains('review_compose') || n.id === 'comment' || n.id === 'release-reviews')
               && !hasRun ) {
 
             hasRun = true;

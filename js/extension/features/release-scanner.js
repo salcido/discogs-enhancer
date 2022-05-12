@@ -57,8 +57,8 @@ rl.ready(() => {
                 ? Number(div.querySelector(`${mSelector} ul li a`).textContent)
                 : Number(div.querySelectorAll(`${rSelector} a`)[1].textContent);
         rating = id.includes('m')
-                ? div.querySelector(`${mSelector}:last-of-type ul li span`).textContent.split(' / ')[0]
-                : div.querySelectorAll(`${rSelector}:nth-child(3) span`)[0].textContent.split(' / ')[0];
+                ? div.querySelector(`${mSelector}:last-of-type ul li span:last-of-type`).textContent.split(' / ')[0]
+                : div.querySelectorAll(`${rSelector}:nth-child(3) span:last-of-type`)[0].textContent.split(' / ')[0];
         votes = id.includes('m')
                 ? div.querySelector(`${mSelector}:last-of-type ul li:last-of-type a`).textContent
                 : div.querySelectorAll(`${rSelector}:nth-child(4) a`)[0].textContent;

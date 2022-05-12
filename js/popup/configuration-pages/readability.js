@@ -8,10 +8,10 @@
  *
  */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async () => {
 
-  let hasConfig = localStorage.getItem('readability'),
-      config = hasConfig ? JSON.parse(hasConfig) : setDefaultConfig(),
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      initialConfig = featureData.readability,
       nth = document.getElementById('nth'),
       otherMedia = document.getElementById('toggleOtherMedia'),
       otherThreshold = document.getElementById('otherMediaThreshold'),
@@ -47,46 +47,23 @@ document.addEventListener('DOMContentLoaded', function () {
     return targetId.appendChild(fragment.cloneNode(true));
   }
 
-  /**
-   * Sets default values in the config object
-   *
-   * @method setDefaultConfig
-   * @return {object}
-   */
-  function setDefaultConfig() {
-
-    let defaults = {
-          indexTracks: false,
-          nth: 10,
-          otherMediaReadability: false,
-          otherMediaThreshold: 15,
-          size: 0.5,
-          vcReadability: true,
-          vcThreshold: 8
-        };
-
-    localStorage.setItem('readability', JSON.stringify(defaults));
-
-    return JSON.parse(localStorage.getItem('readability'));
-  }
-
   // ========================================================
   // DOM setup
   // ========================================================
 
   // Set values based on config
-  vc.checked = config.vcReadability;
-  otherMedia.checked = config.otherMediaReadability;
-  size.value = config.size;
+  vc.checked = initialConfig.vcReadability;
+  otherMedia.checked = initialConfig.otherMediaReadability;
+  size.value = initialConfig.size;
 
   addOptions(vcThreshold, 30);
-  vcThreshold.value = config.vcThreshold;
+  vcThreshold.value = initialConfig.vcThreshold;
 
   addOptions(otherThreshold, 30);
-  otherThreshold.value = config.otherMediaThreshold;
+  otherThreshold.value = initialConfig.otherMediaThreshold;
 
   addOptions(nth, 30);
-  nth.value = config.nth;
+  nth.value = initialConfig.nth;
 
   // ==============================================
   // UI functionality
@@ -94,19 +71,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Vinyl, cassette, box sets, etc ...
 
-  document.getElementById('toggleVCreleases').addEventListener('click', function() {
+  document.getElementById('toggleVCreleases').addEventListener('click', function(event) {
 
-    config.vcReadability = event.target.checked;
-
-    localStorage.setItem('readability', JSON.stringify(config));
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.readability.vcReadability = event.target.checked;
+      chrome.storage.sync.set({ featureData });
+    })
   });
 
   // Single CD, digital, etc ...
-  document.getElementById('toggleOtherMedia').addEventListener('click', function() {
+  document.getElementById('toggleOtherMedia').addEventListener('click', function(event) {
 
-    config.otherMediaReadability = event.target.checked;
-
-    localStorage.setItem('readability', JSON.stringify(config));
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.readability.otherMediaReadability = event.target.checked;
+      chrome.storage.sync.set({ featureData });
+    })
   });
 
   // Value changes
@@ -114,9 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     select.addEventListener('change', function(event) {
 
-      config[event.target.id] = event.target.value;
-
-      localStorage.setItem('readability', JSON.stringify(config));
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.readability[event.target.id] = JSON.parse(event.target.value);
+        chrome.storage.sync.set({ featureData });
+      })
     });
   });
 });

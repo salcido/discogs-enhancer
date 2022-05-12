@@ -138,9 +138,9 @@
      */
     callOtherMarketplaceFeatures: function() {
 
-      let blockList = rl.getPreference('blockList'),
-          favoriteList = rl.getPreference('favoriteList'),
-          sellerNames = rl.getPreference('sellerNames'),
+      let { blockList } = rl.getPreference('featureData'),
+          { favoriteList } = rl.getPreference('featureData'),
+          sellersInCart = rl.getPreference('sellersInCart'),
           marketplaceQuerySelector =  'td.seller_info ul li:first-child a';
 
       // apply Marketplace Highlights
@@ -155,6 +155,8 @@
       }
 
       // Hide/tag sellers in marketplace
+      if ( blockList && window.blockSellersPopover ) window.blockSellersPopover();
+
       if ( blockList && blockList.hide === 'global' && window.blockSellers ||
            blockList && blockList.hide === 'marketplace' && window.blockSellers ) {
 
@@ -175,7 +177,7 @@
 
       // Filter shipping country
       if ( window.filterCountries ) {
-        let countryList = rl.getPreference('countryList'),
+        let { countryList } = rl.getPreference('featureData'),
             include = countryList.include,
             useCurrency = countryList.currency;
         window.filterCountries(include, useCurrency);
@@ -188,7 +190,7 @@
       // Remove from wantlist
       if ( window.insertRemoveLinks ) window.insertRemoveLinks();
       // Seller Items in Cart
-      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
+      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellersInCart);
       // Filter Unavailable Items
       if ( window.filterUnavailable ) window.filterUnavailable();
       // Filter Prices
@@ -818,6 +820,11 @@
         if ( num.includes('?') ) {
           num = num.split('?')[0];
         }
+        // handle URLs with trailing /
+        // e.g.: https://developer.chrome.com/docs/extensions/mv3/intro/
+        if ( num === '' ) {
+          num = urlArr[urlArr.length - 2];
+        }
 
         return num;
       }
@@ -1069,7 +1076,8 @@
      */
     testFeedback: function() {
       let obj = this.getPreference('feedback'),
-          { buyer, seller } = obj;
+          username = this.username(),
+          { buyer, seller } = obj[username];
 
       buyer.gTotal -= 1;
       seller.gTotal -= 1;
@@ -1114,7 +1122,7 @@
 
     /**
      * Mutation Observer generally used to monitor anything that loads async
-     * within the new React-based release page.
+     * within the new React-based pages.
      * @param    {string} selector - the DOM selector string you're looking for
      * @returns   {Promise}
      */

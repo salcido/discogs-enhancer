@@ -2,7 +2,7 @@
  * Dark theme feature
  */
 
-import { applySave } from '../utils';
+import { applySave, getTabId } from '../utils';
 
 // ========================================================
 // useDarkTheme
@@ -13,8 +13,12 @@ import { applySave } from '../utils';
  * @param    {Object}     event [The event object]
  * @return   {undefined}
  */
-export function useDarkTheme(event) {
+export async function useDarkTheme(event) {
 
-  chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-dark-theme.js'},
-    function() { applySave(null, event); });
+  let tabId = await getTabId();
+
+  chrome.scripting.executeScript({
+    target: {tabId: tabId},
+    files: ['js/extension/features/toggle-dark-theme.js']
+  }, () => { applySave(null, event) });
 }

@@ -490,8 +490,11 @@
     opacity: 0.8;
   }
 
-  a.readmore_toggler {
-    background: #222222 !important;
+  div.readmore_wrapper {
+    background: #323334 !important;
+  }
+  #full-width-header div.readmore_wrapper {
+    background: #222 !important;
   }
 
   .profile a.readmore_toggler {
@@ -903,7 +906,6 @@
   .button {
     &.button-green {
       span {
-        background-color: #60c43f !important;
         border-color: #4ea332 !important;
         border-top-color: #52ab34 !important;
         border-bottom-color: #49972e !important;
@@ -3611,7 +3613,7 @@
         color: white !important;
       }
 
-      header {
+      div[class*="header_"] {
         border-color: #60c43f !important;
 
         h2 {
@@ -3684,7 +3686,7 @@
       border-radius: 3px;
       margin-top: 10px;
 
-      header {
+      div[class*="header_"] {
         border-color: #e7413f !important;
       }
     }
@@ -3719,7 +3721,7 @@
       margin-right: 0;
     }
 
-    div[class*="ratings_"] {
+    div[class*="left_"] {
       border-right: 1px solid #454545 !important;
     }
 

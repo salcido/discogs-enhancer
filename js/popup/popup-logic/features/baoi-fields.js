@@ -2,7 +2,7 @@
  * Media condition hightlights features
  */
 
-import { applySave } from '../utils';
+import { applySave, getTabId } from '../utils';
 
 // ========================================================
 // toggleBAOIfields
@@ -13,7 +13,12 @@ import { applySave } from '../utils';
  * @param    {object}         event [the event object]
  * @return   {undefined}
  */
-export function toggleBAOIfields(event) {
-  chrome.tabs.executeScript(null, {file: 'js/extension/features/toggle-baoi-fields.js'},
-    function() { applySave(null, event); });
+export async function toggleBAOIfields(event) {
+
+  let tabId = await getTabId();
+
+  chrome.scripting.executeScript({
+    target: {tabId: tabId},
+    files: ['js/extension/features/toggle-baoi-fields.js']
+  }, () => { applySave(null, event) });
 }

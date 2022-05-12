@@ -231,7 +231,7 @@ rl.ready(() => {
                 <td class="item_description de-filter-stamp de-page-stamp">
                   ${filterState}
                 </td>
-                <td class="de-page-stamp de-marketplace-results z-1 back-to-top"><a href="#site_header">Back to top</a></td>
+                <td class="de-page-stamp de-marketplace-results z-1 to-top"><a href="#site_header">Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
                   <div class="de-select-wrap">
                     <span></span>
@@ -256,8 +256,7 @@ rl.ready(() => {
         pageNum = initialPage,
         paused = false,
         pjax = document.querySelector('#pjax_container'),
-        mediaCondition = rl.getPreference('mediaCondition'),
-        sleeveCondition = rl.getPreference('sleeveCondition');
+        { mediaCondition, sleeveCondition } = rl.getPreference('featureData');
 
     let pauseBtn = `<a class="de-pause button">
                      <i class="icon icon-pause" title="Pause Everlasting Marketplace"></i> Pause

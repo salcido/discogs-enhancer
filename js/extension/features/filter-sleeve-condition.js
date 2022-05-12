@@ -23,7 +23,7 @@
 
 rl.ready(() => {
 
-    let sleeveCondition = rl.getPreference('sleeveCondition');
+    let { sleeveCondition } = rl.getPreference('featureData');
 
     /**
      * Find all instances of selected items in list and hide them
@@ -108,7 +108,8 @@ rl.ready(() => {
     // DOM manipulation
     // ========================================================
 
-    if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants') ) {
+    if ( rl.pageIs('allItems', 'seller', 'sellRelease', 'myWants')
+         && rl.pageIsNot('sellerFeedback') ) {
 
       rl.attachCss('filter-sleeve-condition', rules);
       // hide items when page first loads

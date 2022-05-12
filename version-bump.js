@@ -73,7 +73,7 @@ function abbrNum(number, decPlaces) {
  */
 function updateJSONfiles(version) {
 
-  let files = ['manifest.json', 'package.json'];
+  let files = ['manifest.json', 'package.json', 'package-lock.json'];
 
   files.forEach(file => {
 

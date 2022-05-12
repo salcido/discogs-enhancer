@@ -4,8 +4,6 @@
 body {
   font-family: 'Roboto', sans-serif;
   background: #313335;
-  margin-left: 4rem;
-  margin-top: 4rem;
 }
 
 h2 {
@@ -17,6 +15,7 @@ h2 {
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
   transition: all 0.3s ease-in;
+  text-align: center;
 }
 
 p {
@@ -64,13 +63,6 @@ label {
   box-shadow: 0 1px 1px 1px rgba(0,0,0,0.50);
 }
 
-.logo {
-  display: block;
-  max-width: 350px;
-  margin: 20px auto;
-  text-align: center;
-}
-
 .seller,
 .country {
   display: block;
@@ -80,7 +72,7 @@ label {
 .blocked-sellers,
 .blocked-country {
   margin-top: 6rem;
-  width: 50%;
+  /* width: 50%; */
 }
 
 .blocked-sellers .seller,
@@ -120,7 +112,7 @@ label {
 .seller-input,
 .country-input,
 .backup-wrap {
-  max-width: 600px;
+  /* max-width: 600px; */
   padding: 20px;
   background: #242424;
   border-radius: 10px;
@@ -207,6 +199,7 @@ label {
 
 .backup-output {
   margin-bottom: 50px;
+  user-select: all;
 }
 
 .backup-output,
@@ -263,4 +256,63 @@ label {
 .fadeOut {
   animation-name: fadeOut;
   animation-duration: 0.5s;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.hero {
+  align-content: center;
+  /* background: linear-gradient(to right, #3c1053, #ad5389); */
+  /* background: linear-gradient(to right, #267871, #136a8a); */
+  background: #242424;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 0 1rem;
+  position: relative;
+  text-align: center;
+  height: 73px;
+}
+
+.logo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 .6rem;
+  position: relative;
+  text-align: center;
+}
+
+.logo img {
+  width: 30px;
+  margin-top: 1.3rem;
+  opacity: .7;
+  /* filter: drop-shadow(0px 0px 6px #de76b6); */
+  /* filter: drop-shadow(0px 0px 25px #5ec5b8); */
+}
+
+h1 {
+  color: #8c8c8c;
+  font-family: 'Barlow', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 0;
+  text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  margin-top: 1rem;
+  text-shadow: 0px 1px 2px rgb(0 0 0 / 25%);
+  /* filter: drop-shadow(0px 0px 6px #fff); */
+  /* filter: drop-shadow(0px 0px 25px #5ec5b8); */
+}
+
+.about {
+  max-width: 600px;
+  margin-top: 3rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
 }

@@ -11,7 +11,13 @@
  * @return   {undefined}
  */
 export function acknowledgeUpdate() {
-  chrome.storage.sync.set({didUpdate: false}, function() { /*noop*/ });
+  chrome.storage.sync.set({ didUpdate: false }, function() { /*noop*/ });
+}
+
+export async function getTabId() {
+  let queryOptions = { active: true, currentWindow: true };
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  return tab.id;
 }
 
 // ========================================================
@@ -36,7 +42,6 @@ export function applySave(message, event, currencyTarget = 'currency') {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockBuyers: document.getElementById('toggleBlockBuyers').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
-        blurryImageFix: document.getElementById('toggleBlurryImageFix').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         commentScanner: document.getElementById('toggleCommentScanner').checked,
         confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,
@@ -98,8 +103,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useYoutube: document.getElementById('youtube').checked
       };
 
-  chrome.storage.sync.set({prefs: prefs}, function() {
-
+  chrome.storage.sync.set({prefs: prefs}).then(() => {
     // Make sure both user currency selects are in sync.
     // TODO: move this into a global single preference
     document.querySelectorAll('#currency, #filterPricesCurrency').forEach(select => {
@@ -109,14 +113,12 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  if ( ga ) {
+  if (event && event.target) {
 
-    let checked = event.target.checked;
+    let eType = event.target.id.includes('toggle') ? 'Feature' : 'Contextual Menu',
+        checked = event.target.checked;
 
-    if ( checked !== undefined ) {
-
-      ga('send', 'event', event.target.id, checked);
-    }
+    sendEvent(eType, event.target.id, checked);
   }
 }
 
@@ -164,7 +166,7 @@ export function checkForUpdate() {
       learn.classList.remove('button_green');
       learn.classList.add('button_orange');
 
-      chrome.browserAction.setBadgeText({text: ''});
+      chrome.action.setBadgeText({text: ''});
 
     } else {
 
@@ -379,4 +381,49 @@ export function setEnabledStatus(target, status) {
 
 export function triggerSave(event) {
   applySave('refresh', event);
+}
+
+/**
+ * Sends event objects to Google Analytics
+ * e.g.: enabled / disabled features, blocked sellers
+ * @param {String} category - The event category
+ * @param {String} action - The event action
+ * @param {String} label - The event label
+ */
+export async function sendEvent(category, action, label = '') {
+
+  let { uid = false } = await chrome.storage.sync.get(['uid']);
+
+  if (!uid) {
+    uid = Math.random().toString(16).slice(2);
+    await chrome.storage.sync.set({ uid });
+  }
+
+  async function postData(data = {}) {
+    let url = 'https://www.google-analytics.com/collect';
+
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: data
+    });
+  }
+
+  let gaParams = new URLSearchParams();
+
+  gaParams.append('v', 1); // protocol version
+  gaParams.append('tid', 'UA-75073435-1'); // web property ID
+  gaParams.append('aip', 1); // anonymize IP
+  gaParams.append('cid', uid);
+  gaParams.append('t', 'event');
+  gaParams.append('ec', category);
+  gaParams.append('ea', action);
+  gaParams.append('el', label);
+
+  await postData(gaParams);
 }

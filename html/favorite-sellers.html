@@ -7,14 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Discogs Enhancer is a Chrome extension that adds useful functionality to discogs.com">
   <title>Favorite Sellers</title>
-  <script async src="../js/extension/dependencies/analytics.js"></script>
   <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
   <link rel="stylesheet" href="../css/popup/popup-block-sellers.css" type="text/css" media="screen">
   <script src="../js/popup/configuration-pages/favorite-sellers.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:700|Barlow:400|Roboto:300,400,700" rel="stylesheet">
 </head>
 
 <body>
+  <div class="hero">
+    <div class="logo">
+      <img src="/img/welcome/45-rpm.png" alt="Discogs Enhancer Logo">
+    </div>
+    <h1>DISCOGS ENHANCER</h1>
+  </div>
   <div class="container">
     <div class="about">
 
@@ -22,9 +27,9 @@
         <h2 class="header">Favorite Seller Settings</h2>
       </div>
 
-      <p>1. Enter the seller's username exactly as it appears on Discogs.</p>
-      <p>2. Click "Favorite Seller" to add the seller to your favorites list.</p>
-      <p>
+      <p class="ml-1">1. Enter the seller's username exactly as it appears on Discogs.</p>
+      <p class="ml-1">2. Click "Favorite Seller" to add the seller to your favorites list.</p>
+      <p class="ml-1">
         <em>Please note:</em> &nbsp; you must refresh your Discogs page for changes to take effect.
       </p>
 
@@ -36,7 +41,7 @@
 
       <div id="blocked-sellers" class="blocked-sellers">
         <h2>Favorite Sellers List</h2>
-        <p>Click on a seller's name to remove the seller from the favorites list.</p>
+        <p class="ml-1">Click on a seller's name to remove the seller from the favorites list.</p>
         <!-- favorite sellers go here -->
       </div>
 

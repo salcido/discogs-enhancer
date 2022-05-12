@@ -46,6 +46,10 @@ h3 {
 
 a {
   color: #829FC4;
+  text-decoration: none;
+}
+
+a:hover {
   text-decoration: underline;
 }
 
@@ -119,6 +123,15 @@ select option {
 
 select option:hover {
   background: #242424;
+  color: #fafafa;
+}
+
+select option:checked {
+  color: #242424;
+}
+
+select option:checked:hover {
+  color: #fafafa;
 }
 
 .btn-green {

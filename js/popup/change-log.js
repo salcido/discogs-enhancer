@@ -1,6 +1,29 @@
 module.exports = {
   current: [
     {
+      version: '3.0.0',
+      features: [
+        {
+          name: 'Block Sellers Directly From The Marketplace',
+          description: 'You can now block a seller directly from the Marketplace by hovering over the seller\'s name and clicking the block button that appears! You still manage your blocked sellers from the "Edit List" link in the popup.',
+          link: '#blockSellers'
+        },
+      ],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'New in version 3.0 - All extension preferences will be synched across Chrome profiles. So if you are logged into Chrome across multiple computers, all your settings and blocked lists will be kept in sync.'
+        },
+        {
+          name: 'Enhancement',
+          description: 'New in version 3.0 - Feedback Notifications now supports multiple users! If you have multiple Discogs accounts or share a computer with another Discogs user, Feedback Notifications will track each account.'
+        },
+      ],
+      thanks: []
+    },
+  ],
+  previous: [
+    {
       version: '2.25.27',
       features: [
       ],
@@ -16,8 +39,6 @@ module.exports = {
       ],
       thanks: ['Shout out to Alan and Steven E. for the donations!!!']
     },
-  ],
-  previous: [
     {
       version: '2.25.26',
       features: [

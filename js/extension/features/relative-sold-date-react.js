@@ -71,7 +71,7 @@
     function addMouseListeners(rawDate, relative) {
 
       lastSold.style.display = 'inline-block';
-      lastSold.style.fontSize = 'inherit';
+      lastSold.style.fontSize = relative.length > 17 ? 'small' : 'inherit';
 
       lastSold.addEventListener('mouseover', () => {
         lastSold.textContent = rawDate;
@@ -97,8 +97,13 @@
       if (rawDate && relative) {
         lastSold.textContent = relative;
         lastSold.classList.add('de-last-sold');
-
+        lastSold.style.width = '120px';
+        lastSold.style.whiteSpace = 'nowrap';
         lastSold.closest('div[class*="content_"]').style.width = '400px';
+
+        lastSold.closest('ul').querySelectorAll('li span').forEach(elem => {
+          elem.style.width = '75px';
+        })
 
         addMouseListeners(rawDate, relative);
       }

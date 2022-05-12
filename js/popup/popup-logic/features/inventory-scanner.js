@@ -2,7 +2,7 @@
  * inventory-scanner feature
  */
 
-import { applySave, setEnabledStatus, optionsToggle } from '../utils';
+import { applySave, setEnabledStatus, optionsToggle, sendEvent } from '../utils';
 
 /**
  * Sets up the event listeners for the Inventory Scanner UI
@@ -46,14 +46,19 @@ export function saveInventoryThreshold() {
       if ( input.value > 99 ) { input.value = 99; }
       if ( input.value < 0 ) { input.value = 0; }
 
-      // Save the value to localStorage
-      localStorage.setItem('inventoryScanner', JSON.stringify({ threshold: input.value }));
+      // Save the value to chrome.storage
+      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        featureData.inventoryScanner = { threshold: JSON.parse(input.value) }
+        chrome.storage.sync.set({ featureData });
+      })
+
 
       // Displays rating as "- 25%"
       savedValue.innerHTML = `&#8209; ${input.value}%`;
 
       setEnabledStatus(self, 'Enabled');
       applySave('refresh', event);
+      sendEvent('Inventory Scanner', input.value);
 
     // disabled -and- has value entered
     } else if ( input.value && !toggle.checked ) {
@@ -77,15 +82,16 @@ export function saveInventoryThreshold() {
  * when the popup is rendered
  * @return {undefined}
  */
-export function setInventoryThreshold() {
+export async function setInventoryThreshold() {
 
   let input = document.getElementById('thresholdValue'),
       savedValue = document.querySelector('.saved-value'),
       self = document.querySelector('.inventory-scanner-wrap .status'),
       toggle = document.getElementById('toggleInventoryScanner'),
-      userPreference = JSON.parse(localStorage.getItem('inventoryScanner')),
-      hasThreshold = userPreference && userPreference.threshold,
-      threshold = hasThreshold ? userPreference.threshold : null;
+      { featureData } = await chrome.storage.sync.get(['featureData']),
+      { inventoryScanner } = featureData,
+      hasThreshold = inventoryScanner && inventoryScanner.threshold,
+      threshold = hasThreshold ? inventoryScanner.threshold : null;
 
   if ( threshold !== null ) { input.value = threshold; }
 

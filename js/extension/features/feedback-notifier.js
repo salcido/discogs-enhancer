@@ -31,7 +31,7 @@ rl.ready(() => {
    */
   function appendBadge(type) {
 
-    let obj = rl.getPreference('feedback')[type],
+    let obj = rl.getPreference('feedback')[user][type],
         existing = !obj.hasViewed,
         badge,
         id,
@@ -140,7 +140,7 @@ rl.ready(() => {
 
         type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
 
-        obj = rl.getPreference('feedback')[type];
+        obj = rl.getPreference('feedback')[user][type];
 
         clearNotification(type, obj);
 
@@ -162,7 +162,7 @@ rl.ready(() => {
 
         type = id === 'de-seller-feedback' ? 'seller' : 'buyer';
 
-        obj = rl.getPreference('feedback')[type];
+        obj = rl.getPreference('feedback')[user][type];
 
         switch (elem) {
 
@@ -210,7 +210,7 @@ rl.ready(() => {
     // Note: obj.gTotal is set during 'poll for changes' cycle
 
     /* save updated obj */
-    feedback[type] = obj;
+    feedback[user][type] = obj;
 
     return rl.setPreference('feedback', feedback);
   }
@@ -229,9 +229,14 @@ rl.ready(() => {
     }
 
     let div = await fetchBuyerSellerTotals(),
-        buyerTotal = getTotalCount(div, 'buyer'),
-        sellerTotal = getTotalCount(div, 'seller'),
-        response = { seller: sellerTotal, buyer: buyerTotal };
+        buyerTotal = getTotalCount(div, 'buyer') || 0,
+        sellerTotal = getTotalCount(div, 'seller') || 0,
+        response = {
+          [user]: {
+            seller: sellerTotal,
+            buyer: buyerTotal
+          }
+        };
 
     if ( debug ) { console.timeEnd('createBuyerSellerObjs'); }
 
@@ -319,7 +324,7 @@ rl.ready(() => {
     }
 
     let data = await fetchFeedbackData(type),
-        obj = feedback[type],
+        obj = feedback[user][type],
         pos = getTabCount(data, 0),
         neu = getTabCount(data, 1),
         neg = getTabCount(data, 2);
@@ -331,7 +336,7 @@ rl.ready(() => {
     obj.hasViewed = true;
 
     /* Save obj updates */
-    feedback[type] = obj;
+    feedback[user][type] = obj;
 
     /* Set timestamp when checked */
     feedback.lastChecked = timeStamp;
@@ -391,7 +396,7 @@ rl.ready(() => {
 
     feedback = rl.getPreference('feedback');
 
-    obj = feedback[type];
+    obj = feedback[user][type];
 
     if ( debug ) {
 
@@ -456,7 +461,7 @@ rl.ready(() => {
     obj.neuCount = neu;
     obj.negCount = neg;
 
-    feedback[type] = obj;
+    feedback[user][type] = obj;
 
     /* Set timestamp when checked */
     feedback.lastChecked = timeStamp;
@@ -486,7 +491,8 @@ rl.ready(() => {
 
     let div = await fetchBuyerSellerTotals(),
         buyerTotal = getTotalCount(div, 'buyer'),
-        sellerTotal = getTotalCount(div, 'seller');
+        sellerTotal = getTotalCount(div, 'seller'),
+        setDefaultTotal = false;
 
     /* Set timestamp when checked */
     feedback.lastChecked = timeStamp;
@@ -503,14 +509,14 @@ rl.ready(() => {
     }
 
     // Check Seller stats
-    if ( sellerTotal > feedback.seller.gTotal ) {
+    if ( sellerTotal > feedback[user].seller.gTotal ) {
 
       if ( debug ) {
 
         console.log(' ');
         console.log(' *** Changes in Seller stats detected *** ');
-        console.log('difference of: ', sellerTotal - feedback.seller.gTotal);
-        console.log(feedback.seller);
+        console.log('difference of: ', sellerTotal - feedback[user].seller.gTotal);
+        console.log(feedback[user].seller);
       }
 
       appendPreloader('seller_');
@@ -518,18 +524,33 @@ rl.ready(() => {
     }
 
     // Check buyer stats
-    if ( buyerTotal > feedback.buyer.gTotal ) {
+    if ( buyerTotal > feedback[user].buyer.gTotal ) {
 
       if ( debug ) {
 
         console.log(' ');
         console.log(' *** Changes in Buyer stats detected *** ');
-        console.log('difference of: ', buyerTotal - feedback.buyer.gTotal);
-        console.log(feedback.buyer);
+        console.log('difference of: ', buyerTotal - feedback[user].buyer.gTotal);
+        console.log(feedback[user].buyer);
       }
 
       appendPreloader('buyer_');
       getUpdates('buyer', buyerTotal);
+    }
+
+    // Ensure gTotal always exists
+    if (!feedback[user].buyer.gTotal) {
+      feedback[user].buyer.gTotal = 0;
+      setDefaultTotal = true;
+    }
+
+    if (!feedback[user].seller.gTotal) {
+      feedback[user].seller.gTotal = 0;
+      setDefaultTotal = true;
+    }
+
+    if (setDefaultTotal) {
+      rl.setPreference('feedback', feedback);
     }
   }
 
@@ -548,7 +569,7 @@ rl.ready(() => {
           neuDiff: 0,
           negCount: 0,
           negDiff: 0,
-          gTotal: obj.buyer,
+          gTotal: obj[user].buyer,
           hasViewed: true
         },
 
@@ -559,7 +580,7 @@ rl.ready(() => {
           neuDiff: 0,
           negCount: 0,
           negDiff: 0,
-          gTotal: obj.seller,
+          gTotal: obj[user].seller,
           hasViewed: true
         };
 
@@ -577,8 +598,12 @@ rl.ready(() => {
       console.time('resetStats');
     }
 
-    feedback.seller = sellerObj;
-    feedback.buyer = buyerObj;
+    if (!feedback[user]) {
+      feedback = Object.assign(feedback, obj)
+    }
+    // Object.create(?)
+    feedback[user].seller = sellerObj;
+    feedback[user].buyer = buyerObj;
 
     /* Save current state */
     rl.setPreference('feedback', feedback);
@@ -601,8 +626,10 @@ rl.ready(() => {
   if ( !rl.getPreference('feedback') ) {
 
     feedback = {
-      buyer: null,
-      seller: null,
+      [user]: {
+        buyer: null,
+        seller: null,
+      },
       lastChecked: timeStamp
     };
 
@@ -611,14 +638,14 @@ rl.ready(() => {
   }
 
   /* Create the `buyer` / `seller` objects; */
-  if ( !feedback.buyer || !feedback.seller ) {
+  if ( !feedback[user] || !feedback[user].buyer || !feedback[user].seller ) {
     return createBuyerSellerObjs();
   }
 
   /* Append notifictions if they are unread. */
-  if ( !feedback.seller.hasViewed ) { appendBadge('seller'); }
+  if ( !feedback[user].seller.hasViewed ) { appendBadge('seller'); }
 
-  if ( !feedback.buyer.hasViewed ) { appendBadge('buyer'); }
+  if ( !feedback[user].buyer.hasViewed ) { appendBadge('buyer'); }
 
   // ========================================================
   // Poll for changes

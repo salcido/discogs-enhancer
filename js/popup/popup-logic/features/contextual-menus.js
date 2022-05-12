@@ -2,7 +2,7 @@
  * Contextual Menus search feature
  */
 
-import { applySave } from '../utils';
+import { applySave, sendEvent } from '../utils';
 
 // ========================================================
 // createContextualMenuElements
@@ -20,92 +20,74 @@ export function createContextualMenuElements() {
       menus = [
           {
             name: 'All Day',
-            fn: 'searchAllDay',
             id: 'allday'
           },
           {
             name: 'Bandcamp',
-            fn: 'searchBandcamp',
             id: 'bandcamp'
           },
           {
             name: 'Beatport',
-            fn: 'searchBeatport',
             id: 'beatport'
           },
           {
             name: 'Boomkat',
-            fn: 'searchBoomkat',
             id: 'boomkat'
           },
           {
             name: 'Clone',
-            fn: 'searchClone',
             id: 'clone'
           },
           {
             name: 'DeeJay',
-            fn: 'searchDeeJay',
             id: 'deejay'
           },
           {
             name: 'Discogs',
-            fn: 'searchDiscogs',
             id: 'discogs'
           },
           {
             name: 'Earcave',
-            fn: 'searchEarcave',
             id: 'earcave'
           },
           {
             name: 'Gramaphone',
-            fn: 'searchGramaphone',
             id: 'gramaphone'
           },
           {
             name: 'Hardwax',
-            fn: 'searchHardwax',
             id: 'hardwax'
           },
           {
             name: 'Juno',
-            fn: 'searchJuno',
             id: 'juno'
           },
           {
             name: 'Oye',
-            fn: 'searchOye',
             id: 'oye'
           },
           {
             name: 'Phonica',
-            fn: 'searchPhonica',
             id: 'phonica'
           },
           {
             name: 'RateYourMusic',
-            fn: 'searchRateYourMusic',
             id: 'rateyourmusic'
           },
           {
             name: 'Red Eye',
-            fn: 'searchRedeye',
             id: 'redeye'
           },
           {
             name: 'Rush Hour',
-            fn: 'searchRushhour',
             id: 'rushhour'
           },
           {
             name: 'SOTU',
-            fn: 'searchSotu',
             id: 'sotu'
           },
           {
             name: 'YouTube',
-            fn: 'searchYoutube',
             id: 'youtube'
           }
         ];
@@ -124,7 +106,6 @@ export function createContextualMenuElements() {
     input.type = 'checkbox';
     input.id = menu.id;
     input.dataset.name = menu.name;
-    input.dataset.fn = menu.fn;
 
     span.textContent = menu.name;
 
@@ -154,27 +135,8 @@ export function createContextualMenuElements() {
  * @return   {undefined}
  */
 function updateContextualMenu(event) {
+  let port = chrome.runtime.connect();
 
-  if (event.target.checked) {
-
-    chrome.runtime.sendMessage({
-      fn: event.target.dataset.fn,
-      id: event.target.id,
-      method: 'create',
-      name: event.target.dataset.name,
-      request: 'updateContextMenu'
-    });
-
-    applySave(null, event);
-
-  } else {
-
-    chrome.runtime.sendMessage({
-      id: event.target.id,
-      method: 'remove',
-      request: 'updateContextMenu'
-    });
-
-    applySave(null, event);
-  }
+  port.postMessage({ request: 'updateContextMenu' });
+  applySave(null, event);
 }

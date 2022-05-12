@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc.textContent = feature.description + ' ';
       desc.classList = 'text';
 
-      link.textContent = 'Click here to read more about it';
+      link.textContent = 'Click here to read more about it.';
       link.classList = 'scroll-target';
       link.href = feature.link;
 

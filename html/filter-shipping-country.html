@@ -9,9 +9,15 @@
     <link rel="stylesheet" href="../css/popup/ui.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/popup/popup-block-sellers.css" type="text/css" media="screen">
     <script src="../js/popup/configuration-pages/filter-shipping-country.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:700|Barlow:400|Roboto:300,400,700" rel="stylesheet">
   </head>
   <body>
+    <div class="hero">
+      <div class="logo">
+        <img src="/img/welcome/45-rpm.png" alt="Discogs Enhancer Logo">
+      </div>
+      <h1>DISCOGS ENHANCER</h1>
+    </div>
     <div class="container">
       <div class="about">
 
@@ -19,9 +25,9 @@
           <h2 class="header">Filter Countries Settings</h2>
         </div>
 
-        <p>1. Enter the country name exactly as it appears on Discogs. Please enter one country at a time.</p>
-        <p>2. Click "Add Country" to add the country to the list.</p>
-        <p>
+        <p class="ml-1">1. Enter the country name exactly as it appears on Discogs. Please enter one country at a time.</p>
+        <p class="ml-1">2. Click "Add Country" to add the country to the list.</p>
+        <p class="ml-1">
           <em>Please note:</em> &nbsp; you must refresh your Discogs page for changes to take effect.
         </p>
 
@@ -29,7 +35,13 @@
           <input type="text" id="country-input" placeholder="Add shipping country">
           <a class="btn btn-green">Add Country</a>
           <p class="errors"></p>
+        </div>
 
+        <p class="ml-1">
+          Select the filtering method. This will be applied to all items in the Marketplace.
+        </p>
+
+        <div class="country-input">
           <form id="country-prefs">
             <div class="include-countries">
               <input type="radio" name="includeCountries" id="include" value="true"/>
@@ -55,7 +67,7 @@
 
         <div id="blocked-country" class="blocked-country">
           <h2>Filtered Countries List</h2>
-          <p>Click on a country name to remove it from the list.</p>
+          <p class="ml-1">Click on a country name to remove it from the list.</p>
           <!-- countries go here -->
         </div>
 

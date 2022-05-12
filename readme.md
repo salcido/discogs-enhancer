@@ -146,7 +146,6 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 
   #### UNAUTHENTICATED
   - [x] Block Sellers
-  - [x] Blurry Image Fix
   - [x] Favorite Sellers
   - [x] Filter Sleeve Condition
   - [x] Inventory Ratings
@@ -182,6 +181,8 @@ In order to add a togglable feature to the extension you'll need to update the f
 
 - Add a new property to the `prefs` object of `background.js`. It should be a `boolean` and have a unique name that easily identifies the feature. Make sure to add the property in the correct alphabetical position.
 
+### 2️⃣ user-preferences.js
+
 - Add a conditional check for the new `prefs` property under the `User Preferences` comment block. This should check the preference and create a DOM element that contains the necessary script files for the new feature.
 
 > Example:
@@ -199,7 +200,7 @@ In order to add a togglable feature to the extension you'll need to update the f
   }
 ```
 
-### 2️⃣ popup.html
+### 3️⃣ popup.html
 
 - Modify `popup.html` with the new preference menu option. Update the markup with a unique `id`, help-bubble text, and meta keywords. Make sure to add the markup in the correct alphabetical position.
 
@@ -231,17 +232,11 @@ In order to add a togglable feature to the extension you'll need to update the f
     </div>
   ```
 
-### 3️⃣ manifest.json and webpack.config.js
+### 4️⃣ manifest.json and webpack.config.js
 
-- Modify `manifest.json` and `webpack.config.js` with the paths to the new feature files.
+- Modify `webpack.config.js` with the paths to the new feature files.
 
 > Example:
-
-`manifest.json`
-
-```JSON
-  "js/extension/features/feature-name.js",
-```
 
 `webpack.config.js`
 
@@ -249,7 +244,7 @@ In order to add a togglable feature to the extension you'll need to update the f
   [features + 'feature-name']: `${features}feature-name.js`,
 ```
 
-### 4️⃣ utils.js
+### 5️⃣ utils.js
 
 - Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup and add the property in the correct alphabetical position.
 
@@ -266,14 +261,14 @@ export function applySave(message, event) {
 }
 ```
 
-### 5️⃣ popup.js
+### 6️⃣ popup.js
 
 Make the following changes to `popup.js`:
 - Update the `load` eventListener  with the new property.
 - Add a new `change` eventListener under the `Event listeners for toggles` comment block.
 - Update the `chrome.storage.sync.get` callback with the new property.
 
-### 6️⃣ learn.html
+### 7️⃣ learn.html
 
 Add the feature description to `learn.html`. Make sure to insert the new markup block in the correct alphabetical order.
 

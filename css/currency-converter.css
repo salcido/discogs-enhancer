@@ -11,7 +11,7 @@
   right: 0;
   transition: all 0.3s ease-in-out;
   width: 350px;
-  z-index: 20;
+  z-index: 100;
 }
 
 .currency-converter .de-ui-wrap,
@@ -98,7 +98,7 @@
 .de-dark-theme .currency-converter .toggle {
   padding: 12px 15px;
   position: absolute;
-  z-index: 21;
+  z-index: 101;
   top: -36px;
   right: -1px;
   background-color: white;

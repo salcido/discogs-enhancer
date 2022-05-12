@@ -2,14 +2,15 @@
  * Filter Prices feature
  */
 
-import { applySave, optionsToggle, fadeOut, setEnabledStatus } from '../utils';
+import { applySave, optionsToggle, fadeOut, setEnabledStatus, sendEvent } from '../utils';
 
 /**
  * Sets up the event listeners for the Filter Prices UI
  */
-export function init() {
+export async function init() {
 
-  let filterPrices = JSON.parse(localStorage.getItem('filterPrices')) || { minimum: null, maximum: null },
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      { filterPrices } = featureData,
       minimum = document.getElementById('minimum'),
       maximum = document.getElementById('maximum');
 
@@ -58,61 +59,77 @@ function setStatus() {
  * Displays the user's settings along side the feature title
  */
 function updateDisplayValues() {
-  let values = document.querySelector('.min-max-values'),
-      userCurrency = document.getElementById('filterPricesCurrency').value || 'USD',
-      filterPrices = JSON.parse(localStorage.getItem('filterPrices')) || { minimum: null, maximum: null },
-      { minimum, maximum } = filterPrices,
-      currCode = {
-        AUD: 'A$',
-        BRL: 'R$',
-        CAD: 'CA$',
-        CHF: 'CHF',
-        DKK: 'DKK',
-        EUR: '&euro;',
-        GBP: '&pound;',
-        JPY: '&yen;',
-        MXN: 'MX$',
-        NZD: 'NZ$',
-        SEK: 'SEK',
-        USD: '$',
-        ZAR: 'ZAR',
-    };
+  chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-  if (!document.getElementById('toggleFilterPrices').checked) {
-    values.innerHTML = '';
-    return;
-  }
+    let values = document.querySelector('.min-max-values'),
+        userCurrency = document.getElementById('filterPricesCurrency').value || 'USD',
+        { minimum, maximum } = featureData.filterPrices,
+        currCode = {
+          AUD: 'A$',
+          BRL: 'R$',
+          CAD: 'CA$',
+          CHF: 'CHF',
+          DKK: 'DKK',
+          EUR: '&euro;',
+          GBP: '&pound;',
+          JPY: '&yen;',
+          MXN: 'MX$',
+          NZD: 'NZ$',
+          SEK: 'SEK',
+          USD: '$',
+          ZAR: 'ZAR',
+      };
 
-  if (minimum && !maximum) {
-    values.innerHTML = `&#8209; Min: ${currCode[userCurrency]}${minimum}`;
-  } else if (maximum && !minimum) {
-    values.innerHTML = `&#8209; Max: ${currCode[userCurrency]}${maximum}`;
-  } else if (maximum && minimum) {
-    values.innerHTML = `&#8209; Min: ${currCode[userCurrency]}${minimum} / Max: ${currCode[userCurrency]}${maximum}`;
-  } else {
-    values.innerHTML = '';
-  }
+    if (!document.getElementById('toggleFilterPrices').checked) {
+      values.innerHTML = '';
+      return;
+    }
+
+    if (minimum && !maximum) {
+      values.innerHTML = `&#8209; Min: ${currCode[userCurrency]}${minimum}`;
+    } else if (maximum && !minimum) {
+      values.innerHTML = `&#8209; Max: ${currCode[userCurrency]}${maximum}`;
+    } else if (maximum && minimum) {
+      values.innerHTML = `&#8209; Min: ${currCode[userCurrency]}${minimum} / Max: ${currCode[userCurrency]}${maximum}`;
+    } else {
+      values.innerHTML = '';
+    }
+  })
 }
 
 /**
  * Sets the Min / Max values to localStorage and updates the display
  * on the popup
  */
-function setMinMaxValues() {
-  let filterPrices = JSON.parse(localStorage.getItem('filterPrices')) || { minimum: null, maximum: null },
+async function setMinMaxValues() {
+  let { featureData } = await chrome.storage.sync.get(['featureData']),
+      { filterPrices } = featureData,
+      { prefs } = await chrome.storage.sync.get(['prefs']),
       min = document.querySelector('#minimum'),
       max = document.querySelector('#maximum');
 
   min.addEventListener('change', event => {
     filterPrices.minimum = Math.abs(Number(event.target.value));
-    localStorage.setItem('filterPrices', JSON.stringify(filterPrices));
-    updateDisplayValues();
+
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.filterPrices = filterPrices;
+      chrome.storage.sync.set({ featureData }).then(() => {
+        updateDisplayValues();
+        sendEvent('Filter Prices', `Minimum: ${filterPrices.minimum}`, `Currency: ${prefs.userCurrency}`);
+      });
+    })
   });
 
   max.addEventListener('change', event => {
     filterPrices.maximum = Math.abs(Number(event.target.value));
-    localStorage.setItem('filterPrices', JSON.stringify(filterPrices));
-    updateDisplayValues();
+
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.filterPrices = filterPrices;
+      chrome.storage.sync.set({ featureData }).then(() => {
+        updateDisplayValues();
+        sendEvent('Filter Prices', `Maximum: ${filterPrices.maximum}`, `Currency: ${prefs.userCurrency}`);
+      });
+    })
   });
 }
 
