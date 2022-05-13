@@ -218,7 +218,7 @@ appendFragment([resourceLibrary])
   .then(() => migratePreferences())
   .then(() => {
 
-  let blockedUsers = ['.xxTIMEMACHINExx.', 'Efx.Libris'],
+  let blockedUsers = ['Efx.Libris'],
       user = window.getCookie('ck_username');
 
   if ( user && blockedUsers.includes(user) ) {
@@ -1145,17 +1145,24 @@ appendFragment([resourceLibrary])
 
           if (oldPrefs.newBlockedSellers.length > 0) {
 
-            let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)];
+            let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)],
+                sendEvents = true;
+
+            if (featureData.blockList.list.includes('development')) {
+              sendEvents = false;
+            }
 
             uniqueBlockedSellers.forEach(seller => {
               featureData.blockList.list.push(seller);
 
-              let port = chrome.runtime.connect();
-              port.postMessage({
-                request: 'trackEvent',
-                category: 'block seller',
-                action: seller
-              });
+              if (sendEvents) {
+                let port = chrome.runtime.connect();
+                port.postMessage({
+                  request: 'trackEvent',
+                  category: 'block seller',
+                  action: seller
+                });
+              }
             });
           }
 
