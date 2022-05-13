@@ -76,6 +76,9 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @returns {undefined}
    */
   function insertSellersIntoDOM(blockList) {
+    // Total count
+    document.querySelector('.block-count').textContent = `(${blockList.list.length})`;
+
     blockList.list.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
     blockList.list.forEach(seller => {
@@ -84,9 +87,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         node.className = 'seller';
 
-        node.innerHTML = `<div class="seller-name">
+        node.innerHTML = `<div class="seller-name" data-name=${seller}>
                             <span class="name">
-                              ${seller}
+                              <img src="../../../../img/x.svg" alt="Remove">
+                              <div>${seller}</div>
                             </span>
                           </div>`;
 
@@ -110,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
    */
   function removeSellerName(event) {
 
-    let targetName = event.target.innerHTML.trim();
+    let targetName = event.target.closest('.seller-name').dataset.name;
 
     event.target.parentNode.classList.add('fadeOut');
 
@@ -242,8 +246,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
         featureData.blockList = restore;
-        chrome.storage.sync.set({ featureData }).then(() => {
+        chrome.storage.sync.set({ featureData }).then((resolve, reject) => {
           return location.reload();
+        }).catch(err => {
+          if ( err.toString().includes('QUOTA_BYTES_PER_ITEM') ) {
+            document.querySelector('.quota-errors').classList.remove('hide');
+          }
         })
       })
 

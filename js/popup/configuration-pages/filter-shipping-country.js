@@ -82,9 +82,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       node.className = 'country';
 
-      node.innerHTML = `<div class="country-name">
+      node.innerHTML = `<div class="country-name" data-name=${country}>
                           <span class="name">
-                            ${country}
+                            <img src="../../../../img/x.svg" alt="Remove">
+                            <div>${country}</div>
                           </span>
                         </div>`;
 
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
    */
   function removeCountryName(event) {
 
-    let targetName = event.target.innerHTML.trim();
+    let targetName = event.target.closest('.country-name').dataset.name;
 
     event.target.parentNode.classList.add('fadeOut');
 
