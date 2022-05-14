@@ -112,7 +112,7 @@ label {
   /* transition: border-radius .3s; */
   align-items: center;
   background-color: red;
-  border: 3px solid white;
+  border: 3px solid red;
   cursor: pointer;
   display: flex;
   transform: scale(1.2);
