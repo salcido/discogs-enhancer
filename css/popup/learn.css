@@ -331,6 +331,7 @@ span.m {
   background: #202020;
   padding: 0.5rem;
   border-radius: 5px;
+  user-select: all;
 }
 
 .hide {
