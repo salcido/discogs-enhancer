@@ -6,17 +6,13 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ * -------------------------------------------------------------
  * Overview
- * ---------------------------------------------------------------------------
+ * -------------------------------------------------------------
  *
- * This feature will mark any seller who's reputation falls below a specified number.
+ * This feature will mark any seller who's reputation falls
+ * below a specified number.
  *
- * 1.) The URL is examined to see if the user is in the Marketplace.
- * 2.) localStorage is queried for a `threshold` item.
- * 3.) The seller's reputations are pushed into a `ratings` array and iterated over.
- * 4.) If the reputation value is below the specified threshold, the `de-seller-rep`
- * class is added to the seller's rating element in the DOM.
  */
 
 rl.ready(() => {

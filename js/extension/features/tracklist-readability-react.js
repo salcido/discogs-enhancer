@@ -139,7 +139,8 @@
      */
     function checkForSpacerErrors() {
 
-      if ( !document.querySelectorAll('.de-spacer').length ) {
+      if ( !document.querySelectorAll('.de-spacer').length
+           && document.querySelector('.de-spacer-trigger') ) {
         document.querySelector('.de-spacer-trigger').remove();
       }
     }

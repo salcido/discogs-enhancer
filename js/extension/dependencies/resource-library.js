@@ -138,8 +138,7 @@
      */
     callOtherMarketplaceFeatures: function() {
 
-      let { blockList } = rl.getPreference('featureData'),
-          { favoriteList } = rl.getPreference('featureData'),
+      let { blockList, favoriteList } = rl.getPreference('featureData'),
           sellersInCart = rl.getPreference('sellersInCart'),
           marketplaceQuerySelector =  'td.seller_info ul li:first-child a';
 

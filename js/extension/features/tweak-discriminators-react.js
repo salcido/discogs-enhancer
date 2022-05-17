@@ -55,10 +55,9 @@
   // ========================================================
   // DOM Setup
   // ========================================================
-  let defaults = { hide: false, superscript: true, unselectable: true, transparent: false },
-      { discriminators } = rl.getPreference('featureData') || defaults,
-      elemType,
+  let { discriminators } = rl.getPreference('featureData'),
       { hide, superscript, transparent, unselectable } = discriminators,
+      elemType,
       re = /(.+\s)(\(\d+\))$/gm;
 
   elemType = superscript ? 'sup' : 'span';

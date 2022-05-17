@@ -232,19 +232,7 @@ In order to add a togglable feature to the extension you'll need to update the f
     </div>
   ```
 
-### 4️⃣ manifest.json and webpack.config.js
-
-- Modify `webpack.config.js` with the paths to the new feature files.
-
-> Example:
-
-`webpack.config.js`
-
-```javascript
-  [features + 'feature-name']: `${features}feature-name.js`,
-```
-
-### 5️⃣ utils.js
+### 4️⃣ utils.js
 
 - Update the `applySave` method in `utils.js` with the same property name used in `background.js`. Be sure to reference the `id` set in the `popup.html` markup and add the property in the correct alphabetical position.
 
@@ -261,14 +249,14 @@ export function applySave(message, event) {
 }
 ```
 
-### 6️⃣ popup.js
+### 5️⃣ popup.js
 
 Make the following changes to `popup.js`:
 - Update the `load` eventListener  with the new property.
 - Add a new `change` eventListener under the `Event listeners for toggles` comment block.
 - Update the `chrome.storage.sync.get` callback with the new property.
 
-### 7️⃣ learn.html
+### 6️⃣ learn.html
 
 Add the feature description to `learn.html`. Make sure to insert the new markup block in the correct alphabetical order.
 

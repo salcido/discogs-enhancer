@@ -28,7 +28,11 @@
         <p class="ml-1">1. Enter the seller's username exactly as it appears on Discogs.</p>
         <p class="ml-1">2. Click "Block Seller" to add the seller to the blocked list.</p>
         <p class="ml-1">
-          <em>Please note:</em> &nbsp; you must refresh your Discogs page for changes to take effect.
+          <em>Please note:</em> &nbsp;
+          <ul>
+            <li>You must refresh your Discogs page for changes to take effect</li>
+            <li>The maximum number of sellers you can block is approximately 400.</li>
+          </ul>
         </p>
 
         <div class="seller-input">
@@ -64,7 +68,7 @@
         </div>
 
         <div id="blocked-sellers" class="blocked-sellers">
-          <h2>Blocked Sellers List</h2>
+          <h2>Blocked Sellers List <span class="block-count"></span></h2>
           <p class="ml-1">Click on a seller's name to remove the seller from the blocked list.</p>
           <!-- blocked sellers go here -->
         </div>
@@ -86,6 +90,9 @@
                 <input type="textarea" class="restore-input" placeholder="Paste list here">
                 <a class="btn btn-green">Restore</a>
 
+                <div class="quota-errors hide">
+                  <p>There are too many sellers on your blocked list. The maximum number is approximately 400. This maximum number can also be affected by the number of sellers on your favorites list and / or filtered countries.</p>
+                </div>
                 <div class="restore-errors hide">
                   <p>Invalid input. Please try again. It should look something like the following:</p>
                   <p class="restore-errors-output">["blocked", "sellers", "usernames", "go", "here"]</p>

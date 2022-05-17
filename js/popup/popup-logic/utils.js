@@ -113,7 +113,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
     notify(message);
   });
   // Google Analyitcs
-  if (event && event.target) {
+  if (__ANALYTICS__ && event && event.target) {
 
     let eType = event.target.id.includes('toggle') ? 'Feature' : 'Contextual Menu',
         checked = event.target.checked;

@@ -6,19 +6,13 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  * Overview
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  *
- * This feature will hide all items below a specifed condition in the Marketplace.
- *
- * The script is initiated with the code that follows the `DOM manipulation` comment block.
- *
- * 1.) The URL is examined to see if the user is in the Marketplace.
- * 2.) localStorage is queried for a `mediaCondition` item.
- * 3.) The value of `mediaCondition` is used to truncate the length of the `conditions` array which
- * is then iterated over and any remaining values in the array are used to remove items in
- * those conditions from the DOM.
+ * This feature will hide all items below a specifed
+ * condition in the Marketplace.The script is initiated with
+ * the code that follows the `DOM manipulation` comment block.
  */
 
 rl.ready(() => {

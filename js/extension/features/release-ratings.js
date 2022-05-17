@@ -16,11 +16,6 @@
  *
  * The script is initiated with the code that follows the `init / DOM Setup` comment block.
  *
- * 1.) `insertRatingsLink` injects the links and calls the `addUiListeners` function.
- * 2.) `addUiListeners` attaches click event listeners to each `Show release link` which
- * call `getReleaseRating`.
- * 3.) `getReleaseRating` feteches the relavant data from the release page and injects it into
- * the marketplace listing.
  */
 
 rl.ready(() => {

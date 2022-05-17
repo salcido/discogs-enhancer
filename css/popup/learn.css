@@ -331,6 +331,7 @@ span.m {
   background: #202020;
   padding: 0.5rem;
   border-radius: 5px;
+  user-select: all;
 }
 
 .hide {
@@ -431,7 +432,7 @@ h2.highlight {
 .content em,
 .content p b {
   font-weight: bold;
-  color: #ffe4a1;
+  color: #5bd14b;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }

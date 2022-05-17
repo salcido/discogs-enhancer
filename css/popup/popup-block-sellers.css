@@ -81,25 +81,57 @@ label {
   position: relative;
 }
 
+.blocked-sellers .seller span img,
+.blocked-country .country span img {
+  border-radius: 1rem;
+  height: 14px;
+  margin-right: .5rem;
+  opacity: .5;
+  padding: 0.15rem;
+  width: 14px;
+}
+
 .blocked-sellers .seller span,
 .blocked-country .country span {
-  display: block;
-  margin: 10px;
-  padding: 10px;
-  background-color: #242424;
-  border: 3px solid white;
-  color: white;
-  transition: all 0.1s;
   -webkit-font-smoothing: antialiased;
+  background-color: #242424;
+  border-radius: 10px;
+  border: 3px solid black;
+  color: white;
+  display: flex;
   font-size: 14px;
+  font-weight: 400;
+  margin: 8px 10px;
+  padding: 10px;
+  transition: all .15s;
 }
 
 .blocked-sellers .seller span:hover,
 .blocked-country .country span:hover {
-  display: inline-block;
+  /* border-radius: 0; */
+  /* transition: border-radius .3s; */
+  align-items: center;
   background-color: red;
+  border: 3px solid red;
   cursor: pointer;
+  display: flex;
   transform: scale(1.2);
+}
+
+.blocked-sellers .seller span:hover img,
+.blocked-country .country span:hover img {
+  animation: rotate .35s ease-out;
+  background: #b90000;
+  opacity: 1;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg)
+  }
 }
 
 .blocked-sellers .seller span a,
@@ -216,7 +248,8 @@ label {
   margin-top: 10px;
 }
 
-.restore-errors p {
+.restore-errors p,
+.quota-errors p {
   color: red;
 }
 

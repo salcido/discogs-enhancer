@@ -11,7 +11,7 @@ rl.ready(() => {
 
   if ( rl.pageIs('myWants', 'allItems', 'sellRelease', 'seller') ) {
 
-    let { filterPrices } = rl.getPreference('featureData') || { minimum: null, maximum: null },
+    let { filterPrices } = rl.getPreference('featureData'),
         minimum = filterPrices.minimum,
         maximum = filterPrices.maximum;
 
