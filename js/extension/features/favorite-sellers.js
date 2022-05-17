@@ -6,18 +6,14 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  * Overview
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  *
- * This feature will add a checkmark icon to specified users in the Marketplace.
+ * This feature will add a checkmark icon to specified users
+ * in the Marketplace. The script is initiated with the code
+ * that follows the `DOM manipulation` comment block.
  *
- * The script is initiated with the code that follows the `DOM manipulation` comment block.
- *
- * 1.) The URL is examined to see if the user is in the marketplace.
- * 2.) localStorage is queried for a `favoriteList` item.
- * 3.) If there is a `favoriteList` and a URL match the script will add the checkmark to
- * specified seller(s) via CSS class.
  */
 
 rl.ready(() => {

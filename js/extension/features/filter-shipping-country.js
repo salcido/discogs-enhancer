@@ -6,11 +6,12 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  * Overview
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  *
- * This feature will hide items that ship from specified countries in the Marketplace.
+ * This feature will hide items that ship from specified
+ * countries in the Marketplace.
  */
 
 rl.ready(() => {

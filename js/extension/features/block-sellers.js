@@ -6,18 +6,14 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  * Overview
- * ---------------------------------------------------------------------------
+ * ----------------------------------------------------------
  *
- * This feature will mark or hide specified users in the Marketplace.
+ * This feature will mark or hide specified users in the
+ * Marketplace. The script is initiated with the code that
+ * follows the `DOM manipulation` comment block.
  *
- * The script is initiated with the code that follows the `DOM manipulation` comment block.
- *
- * 1.) The URL is examined to see if the user is in the marketplace.
- * 2.) localStorage is queried for a `blockList` item.
- * 3.) If there is a `blockList` and a URL match the script will either mark or hide the
- * specified user(s) (depending on the string value of `blockList.hide`) via CSS class.
  */
 
 rl.ready(() => {

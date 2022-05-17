@@ -6,19 +6,14 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * ---------------------------------------------------------------------------
+ * -----------------------------------------------------------
  * Overview
- * ---------------------------------------------------------------------------
+ * -----------------------------------------------------------
  *
- * This feature will hide all items below a specifed condition in the Marketplace.
+ * This feature will hide all items below a specifed condition
+ * in the Marketplace. The script is initiated with the code
+ * that follows the `DOM manipulation` comment block.
  *
- * The script is initiated with the code that follows the `DOM manipulation` comment block.
- *
- * 1.) The URL is examined to see if the user is in the Marketplace.
- * 2.) localStorage is queried for an `sleeveCondition` item.
- * 3.) The value of `sleeveCondition` is used to truncate the length of the `conditions` array which
- * is then iterated over and any remaining values in the array are used to remove items in
- * those conditions from the DOM.
  */
 
 rl.ready(() => {
