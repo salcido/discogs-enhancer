@@ -1,7 +1,7 @@
 module.exports = {
   current: [
     {
-      version: '3.0.1',
+      version: '3.0.2',
       features: [
         {
           name: 'Block Sellers Directly From The Marketplace',
