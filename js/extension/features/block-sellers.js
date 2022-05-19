@@ -41,7 +41,7 @@ rl.ready(() => {
     if (!querySelector) throw new Error('No querySelector argument passed to blockSellers call.');
 
     if (querySelector === marketplaceQuerySelector) {
-      tag = 'li';
+      tag = 'li strong';
       clazz = '.shortcut_navigable';
     } else {
       tag = 'strong';

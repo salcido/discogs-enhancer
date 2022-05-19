@@ -63,7 +63,7 @@ rl.ready(() => {
           }
 
           seller_info[i].classList.add('de-seller-rep');
-          seller_info[i].querySelector('li:first-child')
+          seller_info[i].querySelector('li .seller_block:first-child')
                         .insertAdjacentElement('beforeend', icon);
         }
       });
@@ -87,7 +87,7 @@ rl.ready(() => {
           display: inline-block;
           height: 14px;
           width: 14px;
-          margin-top: 3px;
+          margin-top: 0px;
           margin-left: 3px;
           vertical-align: top;
         }
