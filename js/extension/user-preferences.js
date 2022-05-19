@@ -218,7 +218,7 @@ appendFragment([resourceLibrary])
   .then(() => migratePreferences())
   .then(() => {
 
-  let blockedUsers = ['Efx.Libris'],
+  let blockedUsers = ['Efx.Libris', 'ElectroDaddy'],
       user = window.getCookie('ck_username');
 
   if ( user && blockedUsers.includes(user) ) {

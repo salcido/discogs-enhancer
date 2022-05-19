@@ -45,7 +45,7 @@ rl.ready(() => {
           icon.title = `${seller} is on your Favorite Sellers list.`;
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
-          name.closest('li').insertAdjacentElement('beforeend', icon);
+          name.closest('li strong').insertAdjacentElement('beforeend', icon);
         }
       });
     });

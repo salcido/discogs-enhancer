@@ -72,7 +72,7 @@ rl.ready(() => {
           icon.dataset.placement = 'bottom';
           icon.rel = 'tooltip';
           icon.title = `There is at least one item from ${seller} in your cart.`;
-          name.closest('li').insertAdjacentElement('beforeend', icon);
+          name.closest('li strong').insertAdjacentElement('beforeend', icon);
         }
       });
     });
