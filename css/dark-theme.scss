@@ -3452,6 +3452,10 @@
       }
     }
 
+    div[class*="noItems_"] {
+      background: #292929 !important;
+    }
+
     div[class*="profile_"] {
 
       a[class*="headericon_"] {
