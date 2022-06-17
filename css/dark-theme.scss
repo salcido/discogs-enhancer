@@ -1483,6 +1483,10 @@
   .skittles .skittle.skittle_collection {
     background-color: #60c43f !important;
     color: white !important;
+
+    i[class^="icon"] {
+      color: white !important;
+    }
   }
 
   .skittle.skittle_collection {
@@ -1494,9 +1498,16 @@
     }
   }
 
-  #order_process .order_step .order-status-label.order-status-label-shipped {
+  span[class*="skittle_"] svg[class^="icon_"] path {
+    fill: white !important;
+  }
+
+  #order_process .order_step .order-status-label.order-status-label-shipped,
+  #order_process .order_step .order_status_icon.small_icon.in_progress,
+  #order_process .order_step .order_status_icon.small_icon.in_progress i {
     background-color: #60c43f !important;
     color: white !important;
+    border-color: #e3e3e3 !important;
   }
 
   .order-status-label {
@@ -1527,12 +1538,21 @@
   span.skittle.skittle_wantlist.needs_delegated_tooltip {
     background-color: #bf3a38 !important;
     color: white !important;
+
+    i[class^="icon"] {
+      color: white !important;
+    }
   }
 
   .skittle.skittle_inventory,
+  div[class*="header_"] a[class*="skittle_"],
   div[class*="skittles_"] span[class*="inventory_"] {
     background-color: #326fb2 !important;
     color: white !important;
+
+    i[class^="icon"] {
+      color: white !important;
+    }
   }
 
   /* NEW SKITTLES */
@@ -2984,6 +3004,10 @@
     background-color: #454545 !important;
   }
 
+  #paypal-button-container {
+    background: white !important;
+  }
+
   .checkout-divider > span {
     background: #323334 !important;
   }
@@ -3845,7 +3869,8 @@
       tr {
         border-bottom: 1px solid #454545 !important;
       }
-      span[class*="skittle_"][class*="collection_"] {
+      span[class*="skittle_"][class*="collection_"],
+      span[class*="skittle_"][class*="collection_"] span {
         background: #60c43f !important;
         color: white !important;
       }
@@ -3857,6 +3882,23 @@
         background: #326fb2 !important;
         color: white !important;
       }
+    }
+
+    // quick search skittles results
+    span[class*="skittle_"][class*="collection_"],
+    span[class*="skittle_"][class*="collection_"] span {
+      // background: #60c43f !important;
+      color: white !important;
+    }
+    span[class*="skittle_"][class*="wantlist_"],
+    span[class*="skittle_"][class*="wantlist_"] span {
+      // background: #bf3a38 !important;
+      color: white !important;
+    }
+    span[class*="skittle_"][class*="inventory_"],
+    span[class*="skittle_"][class*="inventory_"] span {
+      // background: #326fb2 !important;
+      color: white !important;
     }
 
     // add to list modal
@@ -4199,6 +4241,10 @@
             td[class*="row__Cell"] {
               svg path {
                 fill: #ccc !important;
+              }
+
+              span[class*="skittle_"] svg[class^="icon_"] path {
+                fill: white !important;
               }
 
               span[class*="row__Tag"] {

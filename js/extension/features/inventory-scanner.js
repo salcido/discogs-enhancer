@@ -160,7 +160,7 @@ rl.ready(() => {
     // ========================================================
     // CSS
     // ========================================================
-    let rules = `
+    let rules = /*css*/`
           td.green div {
             border-top: 8px solid #60C43F;
             border-right: 8px solid white;

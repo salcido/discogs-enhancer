@@ -234,7 +234,7 @@ rl.ready(() => {
   // ========================================================
   // CSS
   // ========================================================
-  let rules = `
+  let rules = /*css*/`
       .de-scan-badge {
         position: relative;
         cursor: pointer;

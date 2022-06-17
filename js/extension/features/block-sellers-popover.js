@@ -97,7 +97,7 @@ rl.ready(() => {
   // CSS
   // ========================================================
 
-  let rules = `
+  let rules = /*css*/`
     .popover-wrap {
       position: relative;
       display: inline-block;

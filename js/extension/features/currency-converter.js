@@ -315,7 +315,7 @@ rl.ready(() => {
   errors = document.querySelector('#errors');
 
   // css for new release page
-  let rules = `
+  let rules = /*css*/`
     .currency-converter #clear {
       border-radius: 3px;
       border-style: solid;

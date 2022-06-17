@@ -109,7 +109,7 @@ rl.ready(() => {
   // CSS
   // ========================================================
 
-  let rules = `
+  let rules = /*css*/`
     #dashboard_list_${existingId} .box_pad {
       position: relative;
       display: flex;
