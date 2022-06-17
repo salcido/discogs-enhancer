@@ -181,7 +181,7 @@ rl.ready(() => {
   // ========================================================
   // CSS
   // ========================================================
-  let rules = `
+  let rules = /*css*/`
       .de-show {
         display: table-row;
         border-left: 3px solid #c72020 !important;

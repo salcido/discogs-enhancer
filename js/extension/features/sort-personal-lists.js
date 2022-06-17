@@ -166,13 +166,6 @@ rl.ready(() => {
         }, 100);
       });
     });
-
-    // Select the most recently used list when adding to a list
-    let lastUsed = 'select#list > optgroup[label="Recently Used"] option';
-
-    rl.waitForElement(lastUsed).then(() => {
-      document.querySelector('select#list').value = document.querySelector(lastUsed).value
-    })
   } catch (err) {
     // just catch the error
   }

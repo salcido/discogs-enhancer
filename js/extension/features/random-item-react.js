@@ -31,7 +31,7 @@
   // CSS
   // ========================================================
 
-  let rules = `
+  let rules = /*css*/`
       .de-random-item {
         cursor: pointer;
         font-size: 14px;

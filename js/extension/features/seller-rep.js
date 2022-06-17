@@ -75,7 +75,7 @@ rl.ready(() => {
 
     let { sellerRepColor } = rl.getPreference('featureData'),
         color = sellerRepColor.match(/#*\w/g).join(''),
-        rules = `
+        rules = /*css*/`
         .de-dark-theme .de-seller-rep ul li i,
         .de-dark-theme .de-seller-rep ul li strong,
         .de-seller-rep ul li i,
