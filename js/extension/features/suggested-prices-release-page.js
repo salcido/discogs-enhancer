@@ -44,7 +44,7 @@ rl.ready(() => {
           response = await fetch(url, { credentials: 'include' }),
           data = await response.text(),
           div = document.createElement('div'),
-          selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
+          selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2):not(.sr-only)';
 
       document.querySelectorAll('.de-price').forEach(e => e.remove());
 
@@ -55,7 +55,7 @@ rl.ready(() => {
         return;
       }
 
-      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
+      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim().split('\n')[0]);
 
       priceContainer = [];
       prices = document.querySelectorAll('td.item_price span.price');
