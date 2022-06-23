@@ -9,7 +9,7 @@ module.exports = {
           description: 'Dark theme updates for the new Skittles icons.'
         },
       ],
-      thanks: ['Huge thanks to @cyclistmusic for the donation!'],
+      thanks: ['Huge thanks to sdsowlsa for the donation! I really apprecaite it.'],
     },
   ],
   previous: [
