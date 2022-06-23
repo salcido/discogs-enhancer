@@ -18,7 +18,7 @@ rl.ready(() => {
 
     target.forEach(t => {
 
-      switch (t.textContent.trim()) {
+      switch (t.textContent.trim().split('\n')[0]) {
         case 'Mint (M)':
           t.className = 'mint bold';
           break;
