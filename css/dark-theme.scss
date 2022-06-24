@@ -1496,6 +1496,9 @@
       background-color: #60c43f !important;
       color: white !important;
     }
+    i[class^="icon"] {
+      color: white !important;
+    }
   }
 
   span[class*="skittle_"] svg[class^="icon_"] path {
@@ -1531,6 +1534,10 @@
   .skittle.skittle_inventory span.count,
   span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
     color: white !important;
+
+    i[class^="icon"] {
+      color: white !important;
+    }
   }
 
   .skittle.skittle_wantlist,
