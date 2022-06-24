@@ -55,7 +55,14 @@ rl.ready(() => {
         return;
       }
 
-      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim().split('\n')[0]);
+      let itemMarkup = document.querySelector(selector).innerHTML;
+
+      if ( itemMarkup.includes('has-tooltip') ) {
+        items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim().split('\n')[0]);
+      } else {
+        items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
+      }
+
 
       priceContainer = [];
       prices = document.querySelectorAll('td.item_price span.price');
