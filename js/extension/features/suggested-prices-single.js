@@ -270,11 +270,17 @@ rl.ready(() => {
                        .querySelector('.item_description a.item_release_link').href,
             slash = href.lastIndexOf('/') + 1,
             len = href.length,
-            mediaCondition = link.closest('.shortcut_navigable')
-                            .querySelector('.item_description .item_condition .condition-label-desktop + span')
-                            .textContent.trim(),
+            selector = '.item_description .item_condition .condition-label-desktop + span',
+            itemMarkup = document.querySelector(selector).innerHTML,
+            mediaCondition,
             releaseId = href.substring(slash, len),
             price = link.closest('.shortcut_navigable').querySelector('.price').textContent;
+
+        if ( itemMarkup.includes('has-tooltip') ) {
+          mediaCondition = link.closest('.shortcut_navigable').querySelector(selector).textContent.trim().split('\n')[0];
+        } else {
+          mediaCondition = link.closest('.shortcut_navigable').querySelector(selector).textContent.trim();
+        }
 
         target = event.target.closest('.item_price');
         priceContainer = [{ price: price, mediaCondition: mediaCondition }];

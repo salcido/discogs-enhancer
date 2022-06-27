@@ -49,7 +49,7 @@ rl.ready(() => {
         let elems = document.querySelectorAll('td.item_description p.item_condition .condition-label-desktop:first-child + span');
 
         elems.forEach(el => {
-          if ( el.textContent.trim() === condition ) {
+          if ( el.textContent.includes(condition) ) {
             el.closest('.shortcut_navigable').classList.add('de-hide-media');
           }
         });
