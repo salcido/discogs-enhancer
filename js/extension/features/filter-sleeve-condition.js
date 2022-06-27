@@ -52,15 +52,15 @@ rl.ready(() => {
 
           elems.forEach(el => {
 
-            if ( el.textContent.trim() === condition ) {
+            if ( el.textContent.includes(condition) ) {
               el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
 
-            if ( sleeveCondition.generic && el.textContent.trim() === 'Generic' ) {
+            if ( sleeveCondition.generic && el.textContent.includes('Generic') ) {
               el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
 
-            if ( sleeveCondition.noCover && el.textContent.trim() === 'No Cover' ) {
+            if ( sleeveCondition.noCover && el.textContent.includes('No Cover') ) {
               el.closest('.shortcut_navigable').classList.add('de-hide-sleeve');
             }
           });
