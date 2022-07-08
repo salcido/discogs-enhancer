@@ -108,6 +108,10 @@
     &.credit-link span.credit_name {
       color: #829fc4 !important;
     }
+
+    .linked_username {
+      color: #829fc4 !important;
+    }
   }
 
   .right li a b,
@@ -128,6 +132,10 @@
       }
     }
     span.rating_count {
+      color: #829fc4 !important;
+    }
+
+    .linked_username {
       color: #829fc4 !important;
     }
   }
@@ -168,6 +176,9 @@
     }
     color: #a590d0 !important;
     /* OG: #7d65ae*/
+    .linked_username {
+      color: #a590d0 !important;
+    }
   }
 
   .right li a:visited b {
@@ -211,6 +222,9 @@
   a:hover {
     s,
     &:not(.button) {
+      color: #cae0fa !important;
+    }
+    .linked_username {
       color: #cae0fa !important;
     }
   }
@@ -1241,9 +1255,9 @@
     color: #e7413f !important;
   }
 
-  td.price_flag div {
-    border-top: 8px solid red !important;
-    border-right: 8px solid #323334 !important;
+  // price_flags in Inventory
+  .error-light-red {
+    color: red !important;
   }
 
   div.price_flag_inline {
