@@ -42,7 +42,7 @@ rl.ready(() => {
      */
     function appendSpinners() {
       flags.forEach(flag => {
-        if (flag.className !== 'price_flag') {
+        if (!flag.querySelector('span')) {
           flag.querySelector('div').className = 'icon icon-spinner icon-spin';
           flag.querySelector('div').style = 'font-size: xx-small;';
         }
@@ -112,20 +112,27 @@ rl.ready(() => {
 
         try {
 
-          flags[index].querySelector('div').className = '';
+          if ( flags[index].querySelector('div') ) {
 
-          let medianPrice = await fetchRelease(url),
-              offset = medianPrice * PERCENT_BELOW,
-              newMedian = medianPrice - offset;
+            flags[index].querySelector('div').className = '';
 
-          if (inventoryPrices[index] < newMedian) {
-            flags[index].classList.add('green');
+            let medianPrice = await fetchRelease(url),
+                offset = medianPrice * PERCENT_BELOW,
+                newMedian = medianPrice - offset;
+
+            if (inventoryPrices[index] < newMedian) {
+              flags[index].classList.add('green');
+            }
+
+            index++;
+            responses.push(medianPrice);
+          } else {
+            index++;
+            responses.push(null);
           }
 
-          index++;
-          responses.push(medianPrice);
-
         } catch (err) {
+          index++;
           responses.push(null);
         }
         await promiseDelay(delay);
@@ -180,7 +187,8 @@ rl.ready(() => {
     appendButton();
     modifyReleaseURLs();
 
-    document.querySelector('.de-scan-inventory').addEventListener('click', () => {
+    document.querySelector('.de-scan-inventory').addEventListener('click', (event) => {
+      event.preventDefault();
       scanReleases(releases, DELAY).then(res => res);
     });
 
