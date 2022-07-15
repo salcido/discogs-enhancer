@@ -250,7 +250,7 @@ rl.ready(() => {
 
     status.innerHTML = 'Fetching your friends...';
     div.innerHTML = data;
-    username = div.querySelectorAll('table.table_block td a.linked_username');
+    username = div.querySelectorAll('table.table_block td .user_thumbnail_with_username a');
 
     username.forEach(name => friends.push(name.textContent.trim()));
   }
@@ -320,6 +320,7 @@ rl.ready(() => {
 
     thumbnail.classList.remove('thumbnail_size_small');
     thumbnail.classList.add('thumbnail_size_tiny');
+    thumbnail.querySelector('img').parentElement.classList.remove('thumbnail_center');
     thumbnail.querySelector('img').src = thumbnail.querySelector('img').dataset.src;
     thumbnail = review.querySelector('a.thumbnail_link').outerHTML;
 
