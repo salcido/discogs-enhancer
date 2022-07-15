@@ -1732,7 +1732,8 @@
     }
   }
 
-  .cart_page .order_shipping_hint {
+  .cart_page .order_shipping_hint,
+  .cart_page .order_minimum {
     background: #dbedff !important;
     border: 1px solid #8ac4ff !important;
     color: #3a708b !important;
@@ -1741,6 +1742,10 @@
       text-decoration: underline !important;
       color: #3a708b !important;
     }
+  }
+
+  .cart_page .order_minimum .currency_abbr {
+    color: #3a708b !important;
   }
 
   .order_pay_now {
