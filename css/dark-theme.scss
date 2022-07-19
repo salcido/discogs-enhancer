@@ -3506,7 +3506,7 @@
       background: #292929 !important;
     }
 
-    div[class*="profile_"] {
+    nav[class*="profile_"] {
 
       a[class*="headericon_"] {
         font-size: 13px;
@@ -4121,6 +4121,37 @@
     // for sale count
     span[class*="forsale_"] span[class*="price_"] {
       color: #e7413f !important;
+    }
+
+    #shortcuts {
+      background: #323334 !important;
+
+      span[class*="key_"] {
+        background: #444 !important;
+      }
+    }
+
+    // Footer / Social Icons
+    #site_footer_wrap {
+      ul button {
+        color: #829fc4 !important;
+      }
+
+      ul li h2 button {
+        color: #ccc !important;
+      }
+    }
+
+    ul[class*="social_"] li span {
+      color: #829fc4 !important;
+
+      &:hover {
+        color: #c9e0f9 !important;
+      }
+    }
+
+    ul[class*="social_"] svg path {
+      color: #829fc4 !important;
     }
   }
 
