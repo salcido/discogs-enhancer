@@ -26,7 +26,7 @@ rl.ready(() => {
     rl.waitForElement(selector).then(() => {
       document.querySelector(selector).href = '/my';
       // Hide Dashboard Icon
-      let dashboardIcon = document.querySelector('div[class*="profile_"] a[href^="/my"]');
+      let dashboardIcon = document.querySelector('nav[class*="profile_"] a[href^="/my"]');
       dashboardIcon.style.display = 'none';
     });
   }
