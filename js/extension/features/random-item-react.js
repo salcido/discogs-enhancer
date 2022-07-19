@@ -107,10 +107,10 @@
   // ========================================================
 
   let user = rl.username(),
-      selector = 'header div[class^="profile_"]',
+      selector = 'header nav[class^="profile_"]',
       position = 'afterbegin',
       inline_css = 'padding-top: 1.2rem; margin-right: 1rem; margin-left: 1rem;',
-      icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
+      icon = `<li style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
                   rel="tooltip"
@@ -122,10 +122,10 @@
                   </span>
                 </a>
                 <div class="de-random-item-tooltip">Random Item</div>
-              </div>`;
+              </li>`;
 
     rl.waitForElement(selector + ' a').then(() => {
-      document.querySelector(selector).insertAdjacentHTML(position, icon);
+      document.querySelector(selector + ' ul').insertAdjacentHTML(position, icon);
 
       // show the tooltip
       document.querySelector('.de-random-item a').addEventListener('mouseover', () => {
