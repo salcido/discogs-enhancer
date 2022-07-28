@@ -1372,9 +1372,14 @@
   .doc_resources,
   table.cards tr,
   div.section h3,
-  table.subform_table tr,
+  div.subform_table div.align_right,
+  div.subform_table div.submission-form-section,
   .history_browser_facet_found {
     border-bottom: 1px solid #454545 !important;
+  }
+
+  div.submission-form-section ul li.image_preview {
+    border-bottom: none !important;
   }
 
   table.release_list_table.table_block thead tr,
@@ -1448,6 +1453,10 @@
     &.subform_table td {
       border-left: 1px dotted #454545 !important;
     }
+  }
+
+  table.subform_tracklist tr.subform_track  {
+    border-left: 1px solid #454545 !important;
   }
 
   .filtergroup {
@@ -1971,7 +1980,7 @@
   #releaselist_collection_stats_ranges,
   .releaselist_stats_range_wrap,
   .video_li,
-  table.subform_table,
+  div.subform_table,
   .item_actions,
   .history_browser_facet_found,
   .list-group-item,
@@ -2381,10 +2390,19 @@
     }
   }
 
-  table.subform_table tr {
+  div.subform_table tr {
     &.subnotes,
     &.collection {
       background: #1f1f1f !important;
+    }
+  }
+
+  table#subform_submit {
+    td.left {
+      background: #2f2f2f !important;
+    }
+    td.last {
+      background: #292929 !important;
     }
   }
 
@@ -2882,7 +2900,7 @@
     > ul
     > li
     > input,
-  .subform_react table.subform_table input {
+  .subform_react div.subform_table input {
     border: 1px solid #454545 !important;
   }
 
