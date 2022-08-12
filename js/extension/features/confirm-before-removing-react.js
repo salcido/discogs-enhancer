@@ -109,7 +109,7 @@ rl.ready(() => {
    */
   async function removeFromCollection(event) {
     let id = event.target.closest('div[class*="collection_"]').dataset.collectionId,
-        collectionBox = event.target.parentElement.parentElement,
+        collectionBox = event.target.closest('div[class*="collection_"]'),
         url = `/_rest/collection/${id}`,
         headers = { 'content-type': 'application/x-www-form-urlencoded' },
         initObj = {
