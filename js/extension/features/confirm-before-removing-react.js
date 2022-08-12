@@ -55,7 +55,7 @@ rl.ready(() => {
     timestamp.classList.add('flip-out');
 
     setTimeout(() => {
-      collectionBlock.insertAdjacentElement('afterbegin', span);
+      collectionBlock.querySelector('div[class*="header_"]').insertAdjacentElement('beforeend', span);
 
       removeLink.classList.add('hide');
       timestamp.classList.add('hide');
@@ -172,7 +172,7 @@ rl.ready(() => {
         a.textContent = removeText;
         a.classList = 'de-remove-block';
 
-        block.insertAdjacentElement('afterbegin', a);
+        block.querySelector('div[class*="header_"]').insertAdjacentElement('beforeend', a);
       });
       return resolve();
     });
@@ -185,7 +185,6 @@ rl.ready(() => {
       .de-remove-block {
         float: right;
         font-size: 11px;
-        padding-top: 4px;
         display: block;
         cursor: pointer;
       }
@@ -205,7 +204,6 @@ rl.ready(() => {
       .cw_block_remove {
         font-size: 12px;
         float: right;
-        padding-top: 2px;
         cursor: pointer;
       }
 
