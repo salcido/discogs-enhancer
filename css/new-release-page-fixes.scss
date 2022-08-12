@@ -81,10 +81,6 @@
     margin-top: 10px !important;
   }
 
-  // Remove unnecessary right margin on svg icons
-  button[class*="button_"] svg[class*="icon_"] {
-    margin-right: 0 !important;
-  }
   // make an exception for the share button icon
   div[class*="ratings_"] + div[class*="wrapper_"] button svg {
     margin-right: 2px !important;
