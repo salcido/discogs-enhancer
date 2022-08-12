@@ -3044,7 +3044,9 @@
 
   /* Credit Card Checkout Page */
 
-  .aside_left.aside_wide .box-card {
+  #payment_columns .box-card-header,
+  #payment_columns .box-card-content,
+  #payment_columns .box-card {
     background-color: #454545 !important;
   }
 
@@ -3434,7 +3436,8 @@
 
   // shipping rates modal
   .show-seller-terms,
-  .view-shipping-methods {
+  .view-shipping-methods,
+  .show-shipping-methods {
     color: #829fc4 !important;
   }
 
@@ -3669,6 +3672,12 @@
       }
     }
 
+    #release-videos {
+      div[class*="player_"] {
+        background: black !important;
+      }
+    }
+
     button[class*="grey_"][class*="disabled_"] {
       background-color: #cccccc !important;
       color: rgb(153, 153, 153) !important;
@@ -3797,9 +3806,9 @@
     }
 
     // remove unnecessary right margin on svg icons
-    button[class*="button_"] svg[class*="icon_"] {
-      margin-right: 0;
-    }
+    // button[class*="button_"] svg[class*="icon_"] {
+    //   margin-right: 0;
+    // }
 
     div[class*="left_"] {
       border-right: 1px solid #454545 !important;
