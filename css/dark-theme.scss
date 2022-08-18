@@ -1878,6 +1878,10 @@
     outline: none !important;
     box-shadow: none !important;
     color: #ffffff !important;
+
+    &::placeholder {
+      color: #757575 !important;
+    }
   }
 
   #site_search {
