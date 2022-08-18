@@ -41,8 +41,9 @@ rl.ready(() => {
    */
   function extractFormData(div, buyer) {
 
-    let fp_token = div.querySelector('#fp_token').value || null,
+    let fp_token = div.querySelector('#seller_buyers_form_fp_token').value || null,
         min_buyer_rating = div.querySelector('#min_buyer_rating').value || '',
+        min_order_total = div.querySelector('#min_order_total').value || '',
         blocked = div.querySelector('#blocked').value,
         list = blocked.match(/([-.\w]{3,50})/g) || [],
         newList = [];
@@ -55,6 +56,7 @@ rl.ready(() => {
     return {
       token: fp_token,
       mbr: min_buyer_rating,
+      mot: min_order_total,
       buyers: newList
     };
   }
@@ -67,7 +69,7 @@ rl.ready(() => {
   async function blockBuyer(buyer) {
 
     let params = await getBuyersForm(buyer),
-        query = `fpt_token=${params.fpt}&min_buyer_rating=${params.mbr}&blocked=${params.buyers}`,
+        query = `fpt_token=${params.fpt}&min_buyer_rating=${params.mbr}&min_order_total=${params.mot}&blocked=${params.buyers}`,
         url = '/settings/seller/update_buyer_criteria',
         headers = { 'content-type': 'application/x-www-form-urlencoded' },
         initObj = {
@@ -101,7 +103,7 @@ rl.ready(() => {
     header.insertAdjacentElement('beforeend', button);
     header.style.display = 'flex';
     header.style.justifyContent = 'space-between';
-    header.querySelector('h3.no_vertical').style.display = 'inline-block';
+    header.querySelector('h2.no_vertical').style.display = 'inline-block';
   }
 
   /**
