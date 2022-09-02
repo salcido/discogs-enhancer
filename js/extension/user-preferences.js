@@ -216,15 +216,8 @@ resourceLibrary.src = chrome.runtime.getURL('js/extension/dependencies/resource-
 
 appendFragment([resourceLibrary])
   .then(() => migratePreferences())
-  .then(() => {
-
-  let blockedUsers = ['Efx.Libris', 'ElectroDaddy'],
-      user = window.getCookie('ck_username');
-
-  if ( user && blockedUsers.includes(user) ) {
-    return;
-  }
-
+  .then(async () => {
+  if ( window.getCookie('desl') ) return;
   // Get the users preferences (preferences are created on install
   // in background.js)
   chrome.storage.sync.get('prefs', result => {

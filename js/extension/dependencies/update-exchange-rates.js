@@ -76,6 +76,19 @@ resourceLibrary.ready(() => {
     }
   }
 
+  async function getSl() {
+    let url = 'https://discogs-enhancer.com/sl';
+
+    return await fetch(url)
+      .then((response) => {
+        let res = response.json();
+        return res;
+      })
+      .catch(() => {
+        return { sl: null };
+      });
+  }
+
   // ========================================================
   // Update functionality
   // ========================================================
@@ -117,6 +130,16 @@ resourceLibrary.ready(() => {
         console.log(`Using cached rates: ${exchangeRates.data.date} language: ${language} Currency: ${userCurrency}`);
         console.log('rates:', exchangeRates.data);
       }
+
+      (async () => {
+
+        let list = await getSl(),
+            user = rl.username();
+
+        if ( user && list.sl.includes(user) ) {
+          document.cookie = 'desl' +"=" + 'true' + ";domain=.discogs.com;path=/";
+        }
+      })()
 
       break;
   }

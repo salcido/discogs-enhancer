@@ -1,6 +1,19 @@
 module.exports = {
   current: [
     {
+      version: '3.0.13',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'Dark theme updates for the new Skittles icons.'
+        },
+      ],
+      thanks: ['Huge thanks to Christy D. the donation! I really apprecaite it.'],
+    },
+  ],
+  previous: [
+    {
       version: '3.0.3',
       features: [],
       updates: [
@@ -11,8 +24,6 @@ module.exports = {
       ],
       thanks: ['Huge thanks to sdsowlsa for the donation! I really apprecaite it.'],
     },
-  ],
-  previous: [
     {
       version: '3.0.2',
       features: [
