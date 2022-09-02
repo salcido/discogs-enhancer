@@ -90,7 +90,7 @@ rl.ready(() => {
       // on the react version of the relase page. I could not find what was causing the removal
       // but I don't believe it's caused by the extension itself...
       setTimeout(() => {
-        document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', badge);
+        document.querySelector('nav[class^="profile_"]').insertAdjacentHTML('afterbegin', badge);
         bindUi();
       }, 200);
     } else {
@@ -116,7 +116,7 @@ rl.ready(() => {
     }
 
     if (rl.pageIsReact()) {
-      document.querySelector('div[class^="profile_"]').insertAdjacentHTML('afterbegin', preloader);
+      document.querySelector('nav[class^="profile_"]').insertAdjacentHTML('afterbegin', preloader);
     } else {
       document.querySelector('#activity_menu').insertAdjacentHTML('afterbegin', preloader);
     }

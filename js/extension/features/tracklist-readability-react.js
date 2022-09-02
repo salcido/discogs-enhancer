@@ -84,7 +84,7 @@
 
         // divider markup to be injected
         display = show ? '' : 'hide',
-        spacer = `<tr class="tracklist_track track_heading de-spacer index_3D8To ${display}" style="${size}">
+        spacer = `<tr class="tracklist_track track_heading de-spacer ${display}" style="${size}">
                     <td class="tracklist_track_pos"></td>
                     <td colspan="3" class="tracklist_track_title">&nbsp;</td>
                     ${duration}

@@ -24,8 +24,8 @@
   display: block;
 }
 
-div[class*="profile_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
-div[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
+nav[class*="profile_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
+nav[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
   padding: .2rem .4rem;
 }
 
@@ -38,11 +38,11 @@ div[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_co
   background: #CCCCCC !important;
 }
 
-div[class*="profile_"] a.de-seller-feedback {
+nav[class*="profile_"] a.de-seller-feedback {
   padding: 2rem 0rem;
 }
 
-div[class*="profile_"] a.de-buyer-feedback {
+nav[class*="profile_"] a.de-buyer-feedback {
   padding: 2rem 0rem;
 }
 
@@ -66,11 +66,11 @@ div[class*="profile_"] a.de-buyer-feedback {
   color: #333333 !important;
 }
 
-div[class*="profile_"] .de-badge {
+nav[class*="profile_"] .de-badge {
   margin: 1rem .5rem;
 }
 
-div[class*="profile_"] .feedback-chart {
+nav[class*="profile_"] .feedback-chart {
   margin-top: 1.5rem;
 }
 
