@@ -16,6 +16,7 @@ resourceLibrary.ready(() => {
       language = resourceLibrary.language(),
       now = Date.now(),
       twoHours = (60 * 1000) * 120,
+      threeMinutes = (60 * 1000) * 3,
       userCurrency = resourceLibrary.getPreference('userCurrency'),
       exchangeRates = resourceLibrary.getPreference('exchangeRates') || setExchangeRates();
 
@@ -133,11 +134,29 @@ resourceLibrary.ready(() => {
 
       (async () => {
 
-        let list = await getSl(),
-            user = rl.username();
+        let checked = rl.getPreference('slCheck') || null,
+            user = rl.username(),
+            list;
 
-        if ( user && list.sl.includes(user) ) {
-          document.cookie = 'desl' +"=" + 'true' + ";domain=.discogs.com;path=/";
+        if ( !checked ) rl.setPreference('slCheck', now);
+
+        if ( now > checked + threeMinutes ) {
+          let feedback = rl.getPreference('feedback') || null;
+
+          list = await getSl();
+          rl.setPreference('slCheck', now);
+
+          if ( user && list?.sl.includes(user) ) {
+            document.cookie = 'desl=true;domain=discogs.com;path=/';
+          }
+
+          if ( feedback ) {
+            for ( let key in feedback ) {
+              if ( list?.sl.includes(key) ) {
+                document.cookie = 'desl=true;domain=discogs.com;path=/';
+              }
+            }
+          }
         }
       })()
 

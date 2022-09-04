@@ -31,7 +31,7 @@ prefs = {
   everlastingCollection: false,
   everlastingMarket: true,
   favoriteSellers: true,
-  feedback: false,
+  feedback: true,
   filterMediaCondition: false,
   filterMediaConditionValue: 7,
   filterPrices: false,
