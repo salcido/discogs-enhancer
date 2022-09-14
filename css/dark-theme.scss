@@ -1069,8 +1069,29 @@
     border: 1px solid #9acd89 !important;
   }
 
+  .button {
+    background: #f2f2f2 !important;
+
+    &.button-blue {
+      background: #4588c4 !important;
+    }
+
+    &.button-red {
+      background: #982e2c !important;
+    }
+
+    &.button-green {
+      background: #60c43f !important;
+    }
+
+    &.button-white {
+      background: #f2f2f2 !important;
+    }
+  }
+
   .button.button-red {
     border-color: #982e2c !important;
+    background: #982e2c !important;
     border-top-color: #902c2a !important;
     border-bottom-color: #842827 !important;
     color: white !important;
@@ -1084,6 +1105,7 @@
 
   a.button.button_facebook_login span,
   .button.button-blue {
+    background: #4588c4 !important;
     background-color: #4588c4 !important;
     border-color: #3571a6 !important;
     border-top-color: #3776ae !important;
@@ -1121,6 +1143,14 @@
     &.button-red .icon {
       color: white !important;
     }
+  }
+
+  #do_site_search.button,
+  a.toggledots.button,
+  #search_form .button,
+  .aside_search_form .button,
+  #search_form_submit.button {
+    background: none !important;
   }
 
   /* red add to cart button in shop */
