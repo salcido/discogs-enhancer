@@ -4273,26 +4273,31 @@
       }
     }
 
-    div[class*="ui__List"] {
+    span[class*="tick_"] {
+      border: 1px solid #454545 !important;
+    }
+
+    span[class*="size_"] {
+      background: #454545 !important;
+    }
+
+    div[class*="box_"] {
       border: 1px solid #454545 !important;
       background: #292929 !important;
       box-shadow: none;
 
+      button.button_1Cxan,
       button:hover {
         background: black !important;
       }
 
-      div[class*="ui__Item"]:hover {
-        span[class*="ui__Tick"] {
+      div[class*="item_"]:hover {
+        span[class*="tick_"] {
           border: 1px solid #cccccc !important;
         }
       }
 
-      span[class*="ui__Tick"] {
-        border: 1px solid #454545 !important;
-      }
-
-      div[class*="ui__Size"] {
+      div[class*="size_"] {
         background: #454545 !important;
       }
     }
@@ -4301,7 +4306,7 @@
       background-color: #292929 !important;
     }
 
-    div[class*="dropdown__ListBox"] {
+    div[class*="list_"] {
       border: 1px solid #454545 !important;
       background: #292929 !important;
       box-shadow: none;
@@ -4314,11 +4319,11 @@
     section[class*="section_"] {
       div[class*="content_"] {
 
-        button[class*="chip__Button"] {
+        button[class*="ui__FilterChip"] {
           background: black !important;
         }
 
-        div[class*="progressbar__Bar"] {
+        div[class*="ui__ProgressContainer"] div[class*="bar_"] {
           background: #7e99bc !important;
         }
 
