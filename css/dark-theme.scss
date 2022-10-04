@@ -4254,13 +4254,21 @@
 
   // Master Release Version Finder
   div[class*="main_"] {
-
     button.aui-primary,
-    a[class*="tray__ShopButton"] {
+    // Shop This Version button
+    a[class*="shop_"] {
       background: black !important;
 
       &:hover {
         background: #333 !important;
+      }
+    }
+
+    #wantlist-button--menu {
+      background: #292929 !important;
+
+      button:hover {
+        background: black !important;
       }
     }
 
@@ -4302,7 +4310,7 @@
       }
     }
 
-    div[class*="ui__Well"] {
+    div[class*="well_"] {
       background-color: #292929 !important;
     }
 
@@ -4327,33 +4335,34 @@
           background: #7e99bc !important;
         }
 
-        table[class*="table__TableUI"] {
-          tr[class*="row__Header"] {
-            background: #454545 !important;
+        table {
+          tr[class*="row_"] {
+            background: #323334 !important;
           }
 
-          .fLqRRO {
+          div[class*="block_"] {
             border-left: 1px solid #222222 !important;
           }
-          .cCzWyy {
+          div[class*="block_"] {
             border-top: 1px solid #222222 !important;
             border-left: 1px solid #222222 !important;
           }
-          .eXUmLR {
+          div[class*="tray_"] {
             border-top: 1px solid #222222 !important;
+            background: #323334 !important;
           }
-          .hkeGTp {
+          div[class*="ratings_"] {
             border-top: 1px solid #222222 !important;
             border-bottom: 1px solid #222222 !important;
           }
-          .dcVLSH {
+          div[class*="footer_"] {
             border-top: 1px solid #222222 !important;
           }
-          .hupIQu:not(:first-child) {
+          div[class*="column_"]:not(:first-child) {
             border-left: 1px solid #222222 !important;
           }
 
-          tr[class*="row__TableRow"] {
+          tr[class*="row_"] {
             background: #323334 !important;
             border: 1px solid #454545 !important;
 
@@ -4361,7 +4370,7 @@
               background: #444 !important;
             }
 
-            td[class*="row__Cell"] {
+            td[class*="toggle__"] {
               svg path {
                 fill: #ccc !important;
               }
@@ -4385,10 +4394,6 @@
               }
             }
 
-            div[class*="row__Tray"] {
-              background: #292929 !important;
-            }
-
             div[class*="row__Tooltip"] {
               background: black !important;
             }
@@ -4407,18 +4412,20 @@
             }
           }
           // new submission
-          .jTZUDA {
+          span[class*="newsubmission_"] {
             background: #f2b90d !important;
+            color: #323334 !important;
           }
           .oXLEV {
             background-color: rgba(242, 185, 13, 0.2) !important;
           }
           // needs changes
-          .jZLKhj {
+          span[class*="needschanges_"] {
             background: red !important;
+            color: #323334 !important;
           }
           // Data correct
-          .gPTdwr {
+          span[class*="correct_"] {
             background-color: rgba(0, 128, 11, 0.3) !important;
           }
           // prices
