@@ -94,10 +94,13 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useGramaphone: document.getElementById('gramaphone').checked,
         useHardwax: document.getElementById('hardwax').checked,
         useJuno: document.getElementById('juno').checked,
+        useMeditations: document.getElementById('meditations').checked,
+        useNorman: document.getElementById('norman').checked,
         useOye: document.getElementById('oye').checked,
         usePhonica: document.getElementById('phonica').checked,
         useRateYourMusic: document.getElementById('rateyourmusic').checked,
         useRedeye: document.getElementById('redeye').checked,
+        useRubadub: document.getElementById('rubadub').checked,
         useRushhour: document.getElementById('rushhour').checked,
         useSotu: document.getElementById('sotu').checked,
         useYoutube: document.getElementById('youtube').checked

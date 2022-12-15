@@ -1,6 +1,19 @@
 module.exports = {
   current: [
     {
+      version: '3.0.18',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'New contextual menu options added! Meditations.jp, Norman Records, and Rubadub. Enjoy!'
+        },
+      ],
+      thanks: ['Thank you to the "Someone" who donated!'],
+    },
+  ],
+  previous: [
+    {
       version: '3.0.13',
       features: [],
       updates: [
@@ -11,8 +24,6 @@ module.exports = {
       ],
       thanks: ['Huge thanks to Christy D. the donation! I really apprecaite it.'],
     },
-  ],
-  previous: [
     {
       version: '3.0.3',
       features: [],
