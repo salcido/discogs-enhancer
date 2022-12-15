@@ -128,10 +128,13 @@ window.addEventListener('load', () => {
       toggleGramaphone,
       toggleHardwax,
       toggleJuno,
+      toggleMeditations,
+      toggleNorman,
       toggleOye,
       togglePhonica,
       toggleRateYourMusic,
       toggleRedeye,
+      toggleRubadub,
       toggleRushhour,
       toggleSotu,
       toggleYoutube;
@@ -198,7 +201,7 @@ window.addEventListener('load', () => {
   // Contextual Menu Searching Options
   // ========================================================
   document.querySelector('.toggle-group.menus').addEventListener('click', function() {
-    optionsToggle('#contextMenus', this, '.menus', 180 );
+    optionsToggle('#contextMenus', this, '.menus', 205 );
   });
 
   // Open Links In New tabs
@@ -418,10 +421,13 @@ window.addEventListener('load', () => {
     toggleGramaphone = document.getElementById('gramaphone');
     toggleHardwax = document.getElementById('hardwax');
     toggleJuno = document.getElementById('juno');
+    toggleMeditations = document.getElementById('meditations');
+    toggleNorman = document.getElementById('norman');
     toggleOye = document.getElementById('oye');
     togglePhonica = document.getElementById('phonica');
     toggleRateYourMusic = document.getElementById('rateyourmusic');
     toggleRedeye = document.getElementById('redeye');
+    toggleRubadub = document.getElementById('rubadub');
     toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
     toggleYoutube = document.getElementById('youtube');
@@ -487,10 +493,13 @@ window.addEventListener('load', () => {
       toggleGramaphone.checked = prefs.useGramaphone;
       toggleHardwax.checked = prefs.useHardwax;
       toggleJuno.checked = prefs.useJuno;
+      toggleMeditations.checked = prefs.useMeditations;
+      toggleNorman.checked = prefs.useNorman;
       toggleOye.checked = prefs.useOye;
       togglePhonica.checked = prefs.usePhonica;
       toggleRateYourMusic.checked = prefs.useRateYourMusic;
       toggleRedeye.checked = prefs.useRedeye;
+      toggleRubadub.checked = prefs.useRubadub;
       toggleRushhour.checked = prefs.useRushhour;
       toggleSotu.checked = prefs.useSotu;
       toggleYoutube.checked = prefs.useYoutube;
@@ -509,11 +518,11 @@ window.addEventListener('load', () => {
 
     setTimeout(() => {
       filterMediaCondition.setupFilterByCondition(toggleFilterMediaCondition.checked);
-    }, 0);
+    }, 100);
 
     setTimeout(() => {
       filterSleeveCondition.setupFilterSleeveCondition(toggleFilterSleeveCondition.checked);
-    }, 0);
+    }, 100);
 
     // .mac class will remove scrollbars from the popup menu
     if ( navigator.userAgent.includes('Mac OS X') ) {

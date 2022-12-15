@@ -74,10 +74,13 @@ prefs = {
   useGramaphone: false,
   useHardwax: false,
   useJuno: false,
+  useMediations: false,
+  useNorman: false,
   useOye: false,
   usePhonica: false,
   useRateYourMusic: false,
   useRedeye: false,
+  useRubadub: false,
   useRushhour: false,
   useSotu: false,
   useYoutube: false
@@ -216,10 +219,13 @@ function updateContextMenus() {
     if (prefs.useGramaphone) createContextMenu('Gramaphone');
     if (prefs.useHardwax) createContextMenu('Hardwax');
     if (prefs.useJuno) createContextMenu('Juno');
+    if (prefs.useMeditations) createContextMenu('Meditations');
+    if (prefs.useNorman) createContextMenu('Norman');
     if (prefs.useOye) createContextMenu('Oye');
     if (prefs.usePhonica) createContextMenu('Phonica');
     if (prefs.useRateYourMusic) createContextMenu('Rate Your Music');
     if (prefs.useRedeye) createContextMenu('Red Eye');
+    if (prefs.useRubadub) createContextMenu('Rubadub');
     if (prefs.useRushhour) createContextMenu('Rush Hour');
     if (prefs.useSotu) createContextMenu('SOTU');
     if (prefs.useYoutube) createContextMenu('YouTube');
@@ -328,6 +334,14 @@ chrome.contextMenus.onClicked.addListener((event) => {
       path = 'https://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=';
       break
 
+    case 'meditations':
+      path = 'https://meditations.jp/a/search?type=product&q=';
+      break
+
+    case 'norman':
+      path = 'https://www.normanrecords.com/cloudsearch/index.php?q=';
+      break
+
     case 'oye':
       path = 'https://oye-records.com/search?q=';
       break
@@ -343,7 +357,12 @@ chrome.contextMenus.onClicked.addListener((event) => {
 
     case 'redeye':
       path = 'https://www.redeyerecords.co.uk/search/?searchType=Artist&keywords=';
-      suffix = '&type=l'
+      suffix = '&type=l';
+      break
+
+    case 'rubadub':
+      path = 'https://rubadub.co.uk/search?type=product&options%5Bunavailable_products%5D=last&options%5Bprefix%5D=none&q=';
+      suffix = '*';
       break
 
     case 'rushhour':
@@ -360,7 +379,16 @@ chrome.contextMenus.onClicked.addListener((event) => {
   }
 
   let str = event.selectionText,
-  encodeStr = encodeURIComponent(str);
+      encodeStr = encodeURIComponent(str);
+
+  // Some shops can't handle encoded URIs
+  if ( path.includes('phonica') ) {
+    encodeStr = str.replace(/ /g, '-');
+  }
+
+  if ( path.includes('meditations') ) {
+    encodeStr = str.replace(/ /g, '+');
+  }
 
   chrome.tabs.create({ url: path + encodeStr + suffix });
 })

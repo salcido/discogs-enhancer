@@ -18,78 +18,27 @@ export function createContextualMenuElements() {
   let contextMenus = document.getElementById('contextMenus'),
       fragment = document.createDocumentFragment(),
       menus = [
-          {
-            name: 'All Day',
-            id: 'allday'
-          },
-          {
-            name: 'Bandcamp',
-            id: 'bandcamp'
-          },
-          {
-            name: 'Beatport',
-            id: 'beatport'
-          },
-          {
-            name: 'Boomkat',
-            id: 'boomkat'
-          },
-          {
-            name: 'Clone',
-            id: 'clone'
-          },
-          {
-            name: 'DeeJay',
-            id: 'deejay'
-          },
-          {
-            name: 'Discogs',
-            id: 'discogs'
-          },
-          {
-            name: 'Earcave',
-            id: 'earcave'
-          },
-          {
-            name: 'Gramaphone',
-            id: 'gramaphone'
-          },
-          {
-            name: 'Hardwax',
-            id: 'hardwax'
-          },
-          {
-            name: 'Juno',
-            id: 'juno'
-          },
-          {
-            name: 'Oye',
-            id: 'oye'
-          },
-          {
-            name: 'Phonica',
-            id: 'phonica'
-          },
-          {
-            name: 'RateYourMusic',
-            id: 'rateyourmusic'
-          },
-          {
-            name: 'Red Eye',
-            id: 'redeye'
-          },
-          {
-            name: 'Rush Hour',
-            id: 'rushhour'
-          },
-          {
-            name: 'SOTU',
-            id: 'sotu'
-          },
-          {
-            name: 'YouTube',
-            id: 'youtube'
-          }
+            'All Day',
+            'Bandcamp',
+            'Beatport',
+            'Boomkat',
+            'Clone',
+            'DeeJay',
+            'Discogs',
+            'Earcave',
+            'Gramaphone',
+            'Hardwax',
+            'Juno',
+            'Meditations',
+            'Norman',
+            'Oye',
+            'Phonica',
+            'RateYourMusic',
+            'Red Eye',
+            'Rubadub',
+            'Rush Hour',
+            'SOTU',
+            'YouTube',
         ];
 
   // Create contextual menu elements
@@ -99,15 +48,16 @@ export function createContextualMenuElements() {
         boxwrap = document.createElement('div'),
         input = document.createElement('input'),
         label = document.createElement('label'),
-        span = document.createElement('span');
+        span = document.createElement('span'),
+        menuId = menu.replace(/ /g, '').toLowerCase();
 
     boxwrap.className = 'checkbox-wrap';
 
     input.type = 'checkbox';
-    input.id = menu.id;
-    input.dataset.name = menu.name;
+    input.id = menuId
+    input.dataset.name = menu;
 
-    span.textContent = menu.name;
+    span.textContent = menu;
 
     // Assemble markup
     label.appendChild(input);
@@ -121,7 +71,8 @@ export function createContextualMenuElements() {
 
   // Attach eventListeners
   menus.forEach(menu => {
-    document.getElementById(menu.id).addEventListener('change', updateContextualMenu);
+    let menuId = menu.replace(/ /g, '').toLowerCase();
+    document.getElementById(menuId).addEventListener('change', updateContextualMenu);
   });
 }
 
