@@ -542,6 +542,7 @@
   }
 
   .facets_nav a .facet_name,
+  div[class^="more_"] p,
   .more_facets_text {
     color: #809bbe !important;
 
@@ -3544,6 +3545,13 @@
       }
     }
 
+    #Credits {
+      span[class*="fallback_"] {
+        border: 1px solid #454545 !important;
+        background: #292929 !important;
+      }
+    }
+
     // global line height value
     div[class*="content_"] {
       line-height: 18px;
@@ -4049,6 +4057,11 @@
       div[class*="dropdown_"] ul,
       div[class*="dropdown_"] ul li {
         background: black !important;
+
+        // report button
+        a:hover {
+          background: black !important;
+        }
       }
 
       // div[class*="dropdown_"] ul li button::hover {
@@ -4258,14 +4271,15 @@
     // Shop This Version button
     a[class*="shop_"] {
       background: black !important;
+    }
 
-      &:hover {
-        background: #333 !important;
-      }
+    #wantlist-button button[class*="_primary"] {
+      background: black !important;
     }
 
     #wantlist-button--menu {
       background: #292929 !important;
+      box-shadow: 0 5px 10px hsl(0deg 0% 1% / 40%) !important;
 
       button:hover {
         background: black !important;
@@ -4312,6 +4326,24 @@
 
     div[class*="well_"] {
       background-color: #292929 !important;
+
+      td[class*="cell_"] {
+        button[aria-checked=true] {
+          background-color: black !important;
+        }
+      }
+
+      td[class*="toggle_"] {
+        border-left: 1px solid #292929 !important;
+      }
+
+      div[class*="tray_"] button[class*="_secondary"] {
+        border: 1px solid black !important;
+
+        &:hover {
+          background: black !important;
+        }
+      }
     }
 
     div[class*="list_"] {
@@ -4327,11 +4359,11 @@
     section[class*="section_"] {
       div[class*="content_"] {
 
-        button[class*="ui__FilterChip"] {
+        button[class*="chip_"] {
           background: black !important;
         }
 
-        div[class*="ui__ProgressContainer"] div[class*="bar_"] {
+        div[class*="progress_"] div[class*="bar_"] {
           background: #7e99bc !important;
         }
 
