@@ -43,6 +43,6 @@
   },
   "dependencies": {
     "clipboardy": "^2.3.0",
-    "mocha": "^9.2.0"
+    "mocha": "^9.2.2"
   }
 }
