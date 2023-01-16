@@ -87,6 +87,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useBandcamp: document.getElementById('bandcamp').checked,
         useBeatport: document.getElementById('beatport').checked,
         useBoomkat: document.getElementById('boomkat').checked,
+        useCDandLP: document.getElementById('cdandlp').checked,
         useClone: document.getElementById('clone').checked,
         useDeejay: document.getElementById('deejay').checked,
         useDiscogs: document.getElementById('discogs').checked,

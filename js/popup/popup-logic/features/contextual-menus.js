@@ -22,6 +22,7 @@ export function createContextualMenuElements() {
             'Bandcamp',
             'Beatport',
             'Boomkat',
+            'CDandLP',
             'Clone',
             'DeeJay',
             'Discogs',
