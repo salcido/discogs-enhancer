@@ -121,6 +121,7 @@ window.addEventListener('load', () => {
       toggleBandcamp,
       toggleBeatport,
       toggleBoomkat,
+      toggleCDandLP,
       toggleClone,
       toggleDeeJay,
       toggleDiscogs,
@@ -414,6 +415,7 @@ window.addEventListener('load', () => {
     toggleBandcamp = document.getElementById('bandcamp');
     toggleBeatport = document.getElementById('beatport');
     toggleBoomkat = document.getElementById('boomkat');
+    toggleCDandLP = document.getElementById('cdandlp');
     toggleClone = document.getElementById('clone');
     toggleDeeJay = document.getElementById('deejay');
     toggleDiscogs = document.getElementById('discogs');
@@ -486,6 +488,7 @@ window.addEventListener('load', () => {
       toggleBandcamp.checked = prefs.useBandcamp;
       toggleBeatport.checked = prefs.useBeatport;
       toggleBoomkat.checked = prefs.useBoomkat;
+      toggleCDandLP.checked = prefs.useCDandLP;
       toggleClone.checked = prefs.useClone;
       toggleDeeJay.checked = prefs.useDeejay;
       toggleDiscogs.checked = prefs.useDiscogs;

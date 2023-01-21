@@ -67,6 +67,7 @@ prefs = {
   useBandcamp: false,
   useBeatport: false,
   useBoomkat: false,
+  useCDandLP: false,
   useClone: false,
   useDeejay: false,
   useDiscogs: true,
@@ -213,6 +214,7 @@ function updateContextMenus() {
     if (prefs.useBandcamp) createContextMenu('Bandcamp');
     if (prefs.useBeatport) createContextMenu('Beatport');
     if (prefs.useBoomkat) createContextMenu('Boomkat');
+    if (prefs.useCDandLP) createContextMenu('CDandLP');
     if (prefs.useClone) createContextMenu('Clone');
     if (prefs.useDeejay) createContextMenu('DeeJay');
     if (prefs.useEarcave) createContextMenu('Earcave');
@@ -305,6 +307,10 @@ chrome.contextMenus.onClicked.addListener((event) => {
 
     case 'boomkat':
       path = 'https://boomkat.com/products?q[keywords]='
+      break
+
+    case 'cdandlp':
+      path = 'https://www.cdandlp.com/search/?q='
       break
 
     case 'clone':
