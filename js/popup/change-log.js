@@ -1,19 +1,6 @@
 module.exports = {
   current: [
     {
-      version: '3.0.19',
-      features: [],
-      updates: [
-        {
-          name: 'Enhancement',
-          description: 'New contextual menu option added for CDandLP.'
-        },
-      ],
-      thanks: [],
-    },
-  ],
-  previous: [
-    {
       version: '3.0.18',
       features: [],
       updates: [
@@ -24,6 +11,8 @@ module.exports = {
       ],
       thanks: ['Thank you to the "Someone" who donated!'],
     },
+  ],
+  previous: [
     {
       version: '3.0.13',
       features: [],
