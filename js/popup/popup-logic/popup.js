@@ -202,7 +202,7 @@ window.addEventListener('load', () => {
   // Contextual Menu Searching Options
   // ========================================================
   document.querySelector('.toggle-group.menus').addEventListener('click', function() {
-    optionsToggle('#contextMenus', this, '.menus', 205 );
+    optionsToggle('#contextMenus', this, '.menus', 220 );
   });
 
   // Open Links In New tabs

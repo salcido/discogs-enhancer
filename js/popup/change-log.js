@@ -1,6 +1,19 @@
 module.exports = {
   current: [
     {
+      version: '3.0.19',
+      features: [],
+      updates: [
+        {
+          name: 'Enhancement',
+          description: 'cdandlp.com has been added to the Contextual Menu feature thanks to aknorw! Enjoy!'
+        },
+      ],
+      thanks: ['Massive thank you to aknorw for adding cdandlp.com to the Contextual Menu feature!'],
+    },
+  ],
+  previous: [
+    {
       version: '3.0.18',
       features: [],
       updates: [
@@ -11,8 +24,6 @@ module.exports = {
       ],
       thanks: ['Thank you to the "Someone" who donated!'],
     },
-  ],
-  previous: [
     {
       version: '3.0.13',
       features: [],
