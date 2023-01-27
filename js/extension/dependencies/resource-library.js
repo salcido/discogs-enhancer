@@ -1113,9 +1113,6 @@
 
       if (!name) return;
 
-      if ( name === 'matzubo' ) {
-        header.style.setProperty('background', '#3c6088', 'important');
-      }
       return name;
     },
 

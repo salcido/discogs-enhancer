@@ -114,7 +114,6 @@
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
                   rel="tooltip"
-                  title="Random Item"
                   data-placement="bottom"
                   arial-label="Random Item">
                   <span>

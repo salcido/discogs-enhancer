@@ -87,7 +87,6 @@
                 <a class="nav_group_control de-random-item needs_delegated_tooltip rotate-in"
                    href="/user/${user}/collection/random"
                    rel="tooltip"
-                   title="Random Item"
                    data-placement="bottom"
                    arial-label="Random Item">
                   <span style="position: relative">
