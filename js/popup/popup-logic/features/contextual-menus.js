@@ -17,6 +17,7 @@ export function createContextualMenuElements() {
 
   let contextMenus = document.getElementById('contextMenus'),
       fragment = document.createDocumentFragment(),
+      makeId = (str) => str.replace(/ /g, '').toLowerCase(),
       menus = [
             'All Day',
             'Bandcamp',
@@ -50,12 +51,12 @@ export function createContextualMenuElements() {
         input = document.createElement('input'),
         label = document.createElement('label'),
         span = document.createElement('span'),
-        menuId = menu.replace(/ /g, '').toLowerCase();
+        id = makeId(menu);
 
     boxwrap.className = 'checkbox-wrap';
 
     input.type = 'checkbox';
-    input.id = menuId
+    input.id = id;
     input.dataset.name = menu;
 
     span.textContent = menu;
@@ -72,8 +73,8 @@ export function createContextualMenuElements() {
 
   // Attach eventListeners
   menus.forEach(menu => {
-    let menuId = menu.replace(/ /g, '').toLowerCase();
-    document.getElementById(menuId).addEventListener('change', updateContextualMenu);
+    let id = makeId(menu);
+    document.getElementById(id).addEventListener('change', updateContextualMenu);
   });
 }
 
