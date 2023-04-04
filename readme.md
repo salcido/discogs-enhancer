@@ -4,16 +4,14 @@
 
 
 <p align="center">
-  <a href="https://travis-ci.com/salcido/discogs-enhancer">
-    <img src="https://img.shields.io/travis/salcido/discogs-enhancer/master?style=for-the-badge" alt="Build Status">
+  <img src="https://github.com/salcido/discogs-enhancer/actions/workflows/main.yml/badge.svg">
+  <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
+    <img src="https://img.shields.io/badge/Users-7.6k-brightgreen" alt="Chrome Web Store">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/users-6.5k-brightgreen?style=for-the-badge" alt="Chrome Web Store">
+    <img src="https://img.shields.io/badge/Rating-4.85%2F5-blue" alt="Chrome Web Store">
   </a>
-  <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/rating-4.85%2F5-blue?style=for-the-badge" alt="Chrome Web Store">
-  </a>
-  <img src="https://img.shields.io/badge/License-GPL%203.0-blue.svg?style=for-the-badge" alt="License GPL 3.0">
+  <img src="https://img.shields.io/badge/License-GPL%203.0-blue" alt="License GPL 3.0">
 </p>
 
 ***
