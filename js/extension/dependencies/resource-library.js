@@ -1107,9 +1107,7 @@
      * @returns {String}
      */
     username: function() {
-      let name = this.getCookie('ck_username') || null,
-          selector = this.pageIsReact() ? '.header_2TYJF' : '#site_header_wrap',
-          header = document.querySelector(selector);
+      let name = this.getCookie('ck_username') || null;
 
       if (!name) return;
 
