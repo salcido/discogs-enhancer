@@ -107,10 +107,11 @@
   // ========================================================
 
   let user = rl.username(),
-      selector = 'header nav[class^="profile_"]',
+      _header = document.querySelector('header[class*="_header_"]'),
+      selector = _header ? 'nav[class^="_user_"]' : 'header nav[class^="profile_"]',
       position = 'afterbegin',
       inline_css = 'padding-top: 1.2rem; margin-right: 1rem; margin-left: 1rem;',
-      icon = `<li style="position: relative; ${inline_css}" class="de-random-item rotate-in">
+      icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
                   rel="tooltip"
@@ -121,40 +122,42 @@
                   </span>
                 </a>
                 <div class="de-random-item-tooltip">Random Item</div>
-              </li>`;
+              </div>`;
 
-    rl.waitForElement(selector + ' a').then(() => {
-      document.querySelector(selector + ' ul').insertAdjacentHTML(position, icon);
-
-      // show the tooltip
-      document.querySelector('.de-random-item a').addEventListener('mouseover', () => {
-        document.querySelector('.de-random-item-tooltip').style.display = 'block';
-      });
-
-      // hide the tooltip
-      document.querySelector('.de-random-item a').addEventListener('mouseout', () => {
-        document.querySelector('.de-random-item-tooltip').style.display = 'none';
-      });
-
-      document.querySelector('.de-random-item').addEventListener('click', event => {
-        document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
-
-        event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
-
-        if (event.metaKey) {
-          return setTimeout(() => stopAnimation(), 250);
-        }
-        return setTimeout(() => stopAnimation(), 4000);
-      });
-
-      // Sometimes it's not appended to the DOM so this is my hacky way of
-      // fixing that until I figure out what the problem is
-      setTimeout(() => {
-        if (!document.querySelector('.de-random-item')) {
-          document.querySelector(selector).insertAdjacentHTML(position, icon);
-        }
-      }, 0);
+  function addListeners() {
+    // show the tooltip
+    document.querySelector('.de-random-item a').addEventListener('mouseover', () => {
+      document.querySelector('.de-random-item-tooltip').style.display = 'block';
     });
+
+    // hide the tooltip
+    document.querySelector('.de-random-item a').addEventListener('mouseout', () => {
+      document.querySelector('.de-random-item-tooltip').style.display = 'none';
+    });
+
+    document.querySelector('.de-random-item').addEventListener('click', event => {
+      document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
+
+      event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
+
+      if (event.metaKey) {
+        return setTimeout(() => stopAnimation(), 250);
+      }
+      return setTimeout(() => stopAnimation(), 4000);
+    });
+  }
+
+  rl.waitForElement(selector + ' a').then(() => {
+    if (_header) {
+      document.querySelector(selector).insertAdjacentHTML(position, icon);
+      addListeners();
+      return
+
+    } else {
+      document.querySelector(selector + ' ul').insertAdjacentHTML(position, icon);
+      addListeners();
+    }
+  });
 });
 /**
 // ========================================================
