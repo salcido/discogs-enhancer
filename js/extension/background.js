@@ -58,6 +58,7 @@ prefs = {
   sellerItemsInCart: false,
   sellerRep: false,
   sortButtons: true,
+  sortByTotalPrice: false,
   suggestedPrices: false,
   tweakDiscrims: false,
   userCurrency: 'USD',
