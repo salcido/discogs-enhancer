@@ -77,6 +77,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         sellerItemsInCart: document.getElementById('toggleSellerItemsInCart').checked,
         sellerRep: document.getElementById('toggleSellerRep').checked,
         sortButtons: document.getElementById('toggleSortBtns').checked,
+        sortByTotalPrice: document.getElementById('toggleSortByTotalPrice').checked,
         suggestedPrices: document.getElementById('togglePrices').checked,
         tweakDiscrims: document.getElementById('toggleTweakDiscrims').checked,
         userCurrency: document.getElementById(currencyTarget).value,

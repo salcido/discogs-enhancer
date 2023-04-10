@@ -29,6 +29,11 @@ nav[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_co
   padding: .2rem .4rem;
 }
 
+nav[class*="_user_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
+nav[class*="_user_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
+  padding: .2rem .4rem;
+}
+
 .de-seller-feedback .skittle.skittle_collection span.count:after {
   content: "S";
 }
@@ -43,6 +48,14 @@ nav[class*="profile_"] a.de-seller-feedback {
 }
 
 nav[class*="profile_"] a.de-buyer-feedback {
+  padding: 2rem 0rem;
+}
+
+nav[class*="_user_"] a.de-seller-feedback {
+  padding: 2rem 0rem;
+}
+
+nav[class*="_user_"] a.de-buyer-feedback {
   padding: 2rem 0rem;
 }
 
@@ -71,6 +84,14 @@ nav[class*="profile_"] .de-badge {
 }
 
 nav[class*="profile_"] .feedback-chart {
+  margin-top: 1.5rem;
+}
+
+nav[class*="_user_"] .de-badge {
+  margin: 1rem .5rem;
+}
+
+nav[class*="_user_"] .feedback-chart {
   margin-top: 1.5rem;
 }
 

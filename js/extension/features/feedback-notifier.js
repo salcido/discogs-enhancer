@@ -16,6 +16,7 @@ rl.ready(() => {
       feedback = rl.getPreference('feedback') || null,
       language = rl.language(),
       timeStamp = new Date().getTime(),
+      _header = document.querySelector('header[class*="_header_"]'),
       user = rl.username() || null,
       // user = 'recordsale-de', /* used for testing */
       waitTime = (1000 * 60) * 2; // 2 mins
@@ -90,7 +91,8 @@ rl.ready(() => {
       // on the react version of the relase page. I could not find what was causing the removal
       // but I don't believe it's caused by the extension itself...
       setTimeout(() => {
-        document.querySelector('nav[class^="profile_"]').insertAdjacentHTML('afterbegin', badge);
+        let selector = _header ? 'nav[class^="_user_"]' : 'nav[class^="profile_"]';
+        document.querySelector(selector).insertAdjacentHTML('afterbegin', badge);
         bindUi();
       }, 200);
     } else {
@@ -116,7 +118,8 @@ rl.ready(() => {
     }
 
     if (rl.pageIsReact()) {
-      document.querySelector('nav[class^="profile_"]').insertAdjacentHTML('afterbegin', preloader);
+      let selector = _header ? 'nav[class^="_user_"]' : 'nav[class^="profile_"]';
+      document.querySelector(selector).insertAdjacentHTML('afterbegin', preloader);
     } else {
       document.querySelector('#activity_menu').insertAdjacentHTML('afterbegin', preloader);
     }

@@ -1025,6 +1025,18 @@ appendFragment([resourceLibrary])
         elems.push( sortPersonalListsScript );
       }
 
+      if (prefs.sortByTotalPrice) {
+
+        let sortByTotalPriceScript = document.createElement('script');
+
+        sortByTotalPriceScript.type = 'text/javascript';
+        sortByTotalPriceScript.src = chrome.runtime.getURL('js/extension/features/sort-by-total-price.js');
+        sortByTotalPriceScript.id = 'sortbytotal'
+        // sortByTotalPriceScript.className = 'de-init';
+
+        elems.push( sortByTotalPriceScript );
+      }
+
       if (prefs.suggestedPrices) {
         // suggested-prices-release-page.js
         let suggestedPricesRelease = document.createElement('script');
