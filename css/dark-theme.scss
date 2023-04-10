@@ -140,6 +140,7 @@
     }
   }
 
+  button.report_item,
   span.marketplace_for_sale_count a strong,
   a .tracklist_track_title,
   .FacetGroup a span,
@@ -397,6 +398,7 @@
 
   blockquote,
   table.wantlist-card,
+  #report_abuse_form,
   #forum_search_results .search-result-snippet {
     background-color: #292929 !important;
     box-shadow: none !important;
@@ -1287,7 +1289,8 @@
   }
 
   // price_flags in Inventory
-  .error-light-red {
+  .error-light-red,
+  .report-item-abuse-note {
     color: red !important;
   }
 
@@ -3515,13 +3518,120 @@
   // NEW RELEASE PAGE STYLES
   // ==============================
 
+  // Nav Bar
+  div[id*="__header_root_"] header {
+    background: black !important;
+
+    // Tooltips
+    div[class*="_tooltip_"] {
+      background: black !important;
+    }
+
+    // Search button
+    button[type="submit"] {
+      background: #292929 !important;
+
+      svg[class*="_icon_"] path {
+        fill: grey !important;
+      }
+    }
+
+    // Search results
+    div[class*="_listbox_"] {
+      background: #292929 !important;
+
+      a {
+        color: #ccc !important;
+      }
+    }
+
+    // Explore / Marketplace / Community dropdowns
+    div[class*="_desktop"] div[class*="_content"] {
+      background: black !important;
+
+      a {
+        color: #ccc !important;
+      }
+    }
+
+    svg[class*="_spinner_"] {
+      fill: #ccc !important;
+    }
+
+    // Category buttons on search results
+    div[class*="_categories_"] {
+      label[class*="_category_"] {
+        background: #454545 !important;
+        color: white !important;
+      }
+
+      label[class*="_selected_"] {
+        background: #326fb2 !important;
+      }
+    }
+
+    // Search Results
+    div[class*="_suggestions_"] {
+      li[class*="_result_"] {
+        border-bottom: 1px solid #454545 !important;
+
+        span[class*="_link_"] {
+          color: #829fc4 !important;
+        }
+
+        &:hover {
+          background: #222 !important;
+        }
+      }
+
+      li[class*="_result_"][class*="_active_"] {
+        background: #222 !important;
+        outline: 2px solid #668cff !important;
+        border-radius: 4px;
+      }
+    }
+
+    div[class*="_listbox_"] li {
+      list-style: none;
+      color: #326fb2 !important;
+    }
+
+    // Skittles
+    div[class*="_skittle_"][class*="_collection_"] {
+      background: #60c43f !important;
+      color: white !important;
+
+      svg path {
+        fill: white !important;
+      }
+    }
+
+    div[class*="_skittle_"][class*="_wantlist_"] {
+      background: #bf3a38 !important;
+      color: white !important;
+
+      svg path {
+        fill: white !important;
+      }
+    }
+
+    div[class*="_skittle_"][class*="_inventory_"] {
+      background: #326fb2 !important;
+      color: white !important;
+
+      svg path {
+        fill: white !important;
+      }
+    }
+
+    .de-random-item-tooltip {
+      background: black !important;
+    }
+  }
+
   #app {
     a[class*="logo_"] svg g {
       fill: white !important;
-    }
-    // Nav Bar
-    div[class*="root_"] > div:first-child {
-        background-color: black !important;
     }
 
     // search bar focus state
