@@ -27,7 +27,7 @@ rl.ready(() => {
 
     let margin = superscript ? '0.1rem' : '0';
 
-    hide = hide ? 'none' : 'inherit';
+    hide = hide ? 'none' : 'inline-block';
     unselectable = unselectable ? 'none' : 'auto';
     transparent = transparent ? '0.5' : '1';
     superscript = superscript ? '0.9rem' : '20px';
@@ -42,6 +42,7 @@ rl.ready(() => {
       }
 
       .de-artist-discriminator {
+        display: ${hide};
         font-size: ${superscript};
         margin-left: ${margin};
         opacity: ${transparent};
@@ -86,7 +87,7 @@ rl.ready(() => {
 
     generateCss(hide, superscript, unselectable, transparent);
 
-    document.querySelectorAll('.profile h1.hide_mobile').forEach(s => {
+    document.querySelectorAll('.lr h1.hide_mobile').forEach(s => {
 
       let markup = `<span class="trim-me">$1</span><${elemType} class="de-artist-discriminator">$2</${elemType}>`;
 
