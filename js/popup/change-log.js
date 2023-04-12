@@ -1,6 +1,25 @@
 module.exports = {
   current: [
     {
+      version: '3.1.1',
+      features: [
+        {
+          name: 'Sort By Total Price',
+          description: 'Sorts a single page of items by total price in the Marketplace any time you click to sort by the Price column. This feature was created by Jon Uleis (jonuleis.com). Huge shout out to Jon for letting me include this feature in Discogs Enhancer!',
+          link: '#sortByTotalPrice'
+        },
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue where Suggested Prices would not show an error if you were not registered as a Seller.'
+        },
+      ],
+      thanks: ['Massive thank you to Jason F. for the donation! I really apprecaite it.'],
+    },
+  ],
+  previous: [
+    {
       version: '3.1.0',
       features: [
         {
@@ -17,8 +36,6 @@ module.exports = {
       ],
       thanks: ['Massive thank you to Ken B. for the donation! I really apprecaite it.'],
     },
-  ],
-  previous: [
     {
       version: '3.0.19',
       features: [],
