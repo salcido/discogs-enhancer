@@ -4267,7 +4267,7 @@
       border-bottom: 1px solid #454545 !important;
     }
 
-    div[class*="wrapper_"] {
+    div[class*="side_"] > div[class*="wrapper_"] {
       border-top: 1px solid #454545 !important;
     }
 
