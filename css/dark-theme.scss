@@ -4266,6 +4266,10 @@
       border-bottom: 1px solid #454545 !important;
     }
 
+    div[class*="wrapper_"] {
+      border-top: 1px solid #454545 !important;
+    }
+
     div[class*="content_"] {
       button[class*="link_"] {
         color: #829fc4 !important;
