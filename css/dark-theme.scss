@@ -141,6 +141,7 @@
   }
 
   button.report_item,
+  button.show-terms-link,
   span.marketplace_for_sale_count a strong,
   a .tracklist_track_title,
   .FacetGroup a span,
@@ -4264,6 +4265,10 @@
 
     section header {
       border-bottom: 1px solid #454545 !important;
+    }
+
+    div[class*="side_"] > div[class*="wrapper_"] {
+      border-top: 1px solid #454545 !important;
     }
 
     div[class*="content_"] {

@@ -43,6 +43,7 @@ rl.ready(() => {
       let url = `https://www.discogs.com/sell/post/${releaseId}`,
           response = await fetch(url, { credentials: 'include' }),
           data = await response.text(),
+          redirected = await response.redirected,
           div = document.createElement('div'),
           selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2):not(.sr-only)';
 
@@ -55,6 +56,17 @@ rl.ready(() => {
         return;
       }
 
+      // Not registered as a Seller
+      if (redirected) {
+        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
+
+        document.querySelectorAll('td.item_price').forEach(listing => {
+          listing.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
+        });
+
+        return
+      }
+
       let itemMarkup = document.querySelector(selector).innerHTML;
 
       if ( itemMarkup.includes('has-tooltip') ) {
@@ -63,14 +75,12 @@ rl.ready(() => {
         items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
       }
 
-
       priceContainer = [];
       prices = document.querySelectorAll('td.item_price span.price');
       div.innerHTML = data;
       nodeId = div.querySelector('#dsdata');
       priceKey = rl.prepareObj(nodeId.outerHTML);
 
-      checkForSellerPermissions(div);
       getPrices();
       window.appendPrices();
     };
@@ -185,28 +195,6 @@ rl.ready(() => {
       spanOuter.append(spanPrice);
 
       return spanOuter;
-    }
-
-    /**
-     * Make sure the user has Seller permissions
-     * @param {object} result The returned markup from Discogs
-     * @returns {undefined}
-     */
-    function checkForSellerPermissions(result) {
-
-      // User does not have seller setup
-      if ( result.querySelector('#seller-paypal-verification')
-           && !priceKey['post:suggestedPrices'] ) {
-
-        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
-
-        document.querySelectorAll('td.item_price').forEach(listing => {
-
-          listing.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
-        });
-
-        return;
-      }
     }
 
     /**

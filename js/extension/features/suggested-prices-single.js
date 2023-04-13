@@ -83,7 +83,15 @@ rl.ready(() => {
             response = await fetch(url, { credentials: 'include' });
 
         let data = await response.text(),
+            redirected = await response.redirected,
             div = document.createElement('div');
+
+        // Not registered as a Seller
+        if (redirected) {
+          document.querySelector('.de-price-preloader').remove();
+
+          return target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
+        }
 
         div.innerHTML = data;
         nodeId = div.querySelector('#dsdata');
@@ -93,23 +101,6 @@ rl.ready(() => {
 
       } catch (err) {
         handleError();
-      }
-    }
-
-    /**
-     * Make sure the user has Seller permissions
-     * @method checkForSellerPermissions
-     * @returns {undefined}
-     */
-    function checkForSellerPermissions(result) {
-
-      if ( result
-           && result.innerHTML
-           && result.querySelector('#seller-paypal-verification')
-           && !priceKey['post:suggestedPrices'] ) {
-
-        document.querySelector('.de-price-preloader').remove();
-        target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
       }
     }
 
@@ -288,7 +279,6 @@ rl.ready(() => {
         // Run the comparison process...
         getPrice(releaseId).then(div => {
           if (div && div.querySelector('#main_wrapper')) {
-            checkForSellerPermissions(div);
             generateComparison();
             appendPrice();
           } else {
