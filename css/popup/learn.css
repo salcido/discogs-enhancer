@@ -608,3 +608,9 @@ figcaption {
   font-style: italic;
   font-size: small;
 }
+
+.qr {
+  width: 250px;
+  display: block;
+  margin: 1rem auto 0 auto;
+}
