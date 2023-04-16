@@ -57,7 +57,7 @@ rl.ready(() => {
       }
 
       // Not registered as a Seller
-      if (redirected) {
+      if (redirected && response.url.includes('/settings/seller/')) {
         document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
 
         document.querySelectorAll('td.item_price').forEach(listing => {

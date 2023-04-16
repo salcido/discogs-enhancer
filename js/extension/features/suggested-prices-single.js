@@ -87,7 +87,7 @@ rl.ready(() => {
             div = document.createElement('div');
 
         // Not registered as a Seller
-        if (redirected) {
+        if (redirected && response.url.includes('/settings/seller/')) {
           document.querySelector('.de-price-preloader').remove();
 
           return target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
