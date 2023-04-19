@@ -41,7 +41,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
-    "clipboardy": "^2.3.0",
+    "clipboardy": "^3.0.0",
     "mocha": "^9.2.2"
   }
 }
