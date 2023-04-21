@@ -1,5 +1,6 @@
 .de-spacer,
 .de-spacer td {
+  background: #f1f1f1;
   transition: line-height 0.1s, padding 0.1s, border-top 0.1s;
   transition-timing-function: ease;
 }
