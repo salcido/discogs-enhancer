@@ -24,45 +24,49 @@ let
 // Feature preferece defaults
 // TODO: these can be removed after a few months once
 // users have been migrated.
+
+// Update: Chrome webstore says there are a number
+// of users who are still on versions 2.x so I'll keep this
+// around a bit longer.
 let defaults = {
-      blockList: { list:[], hide: 'tag' },
-      countryList: { list: [], currency: false, include: false },
-      discriminators: {
-          hide: false,
-          superscript: true,
-          unselectable: true,
-          transparent: false,
-        },
-      favoriteList: { list: [] },
-      filterPrices: { minimum: null, maximum: null },
-      inventoryScanner: { threshold: null },
-      linksInTabs: {
-          artists: false,
-          collection: false,
-          dashboard: false,
-          labels: false,
-          lists: false,
-          marketplace: false,
-          releases: false,
-          wantlist: false,
-        },
-      mediaCondition: 7,
-      minimumRating: null,
-      readability: {
-          indexTracks: false,
-          nth: 10,
-          otherMediaReadability: false,
-          otherMediaThreshold: 15,
-          size: 0.5,
-          vcReadability: true,
-          vcThreshold: 8
-        },
-      sellerRep: 75,
-      sellerRepColor: 'darkorange',
-      sellerRepFilter: false,
-      sleeveCondition: { value: 7, generic: false, noCover: false },
-      usDateFormat: false,
-    };
+  blockList: { list: [], hide: 'tag' },
+  countryList: { list: [], currency: false, include: false },
+  discriminators: {
+    hide: false,
+    superscript: true,
+    unselectable: true,
+    transparent: false,
+  },
+  favoriteList: { list: [] },
+  filterPrices: { minimum: null, maximum: null },
+  inventoryScanner: { threshold: null },
+  linksInTabs: {
+    artists: false,
+    collection: false,
+    dashboard: false,
+    labels: false,
+    lists: false,
+    marketplace: false,
+    releases: false,
+    wantlist: false,
+  },
+  mediaCondition: 7,
+  minimumRating: null,
+  readability: {
+    indexTracks: false,
+    nth: 10,
+    otherMediaReadability: false,
+    otherMediaThreshold: 15,
+    size: 0.5,
+    vcReadability: true,
+    vcThreshold: 8
+  },
+  sellerRep: 75,
+  sellerRepColor: 'darkorange',
+  sellerRepFilter: false,
+  sleeveCondition: { value: 7, generic: false, noCover: false },
+  usDateFormat: false,
+};
 
 // ========================================================
 // Functions
@@ -120,12 +124,12 @@ function migratePreferences() {
           };
 
       return Promise.all([
-          chrome.storage.sync.set({ featureData }),
-          chrome.storage.sync.set({ 'migrated': true })
-        ]).then(() => {
-          console.log('Discogs Enhancer: Feature Preferences migrated.');
-          return resolve();
-        })
+        chrome.storage.sync.set({ featureData }),
+        chrome.storage.sync.set({ 'migrated': true })
+      ]).then(() => {
+        console.log('Discogs Enhancer: Feature Preferences migrated.');
+        return resolve();
+      })
     });
   })
 }
@@ -154,40 +158,42 @@ function documentReady(document) {
  * @return   {Promise}
  */
 function appendFragment(elems) {
-  return new Promise(resolve => {
-    let fragment = document.createDocumentFragment();
-    elems.forEach(elm => fragment.appendChild(elm));
-    (document.head || document.documentElement).appendChild(fragment.cloneNode(true));
-    return resolve();
+  return new Promise((resolve, reject) => {
+    let fragment = document.createDocumentFragment(),
+        loadedScripts = 0;
+
+    elems.forEach(elm => {
+      elm.onload = () => {
+        loadedScripts++;
+        if (loadedScripts === elems.length) resolve();
+      };
+
+      elm.onerror = () => {
+        reject(new Error(`Discogs Enhancer: Failed to load ${elm.src}`));
+      };
+
+      fragment.appendChild(elm);
+    });
+
+    (document.head || document.documentElement).appendChild(fragment);
   });
 }
 
 /**
  * This tracks the filter preferences so that the current
- * filtering status can be appended to the DOM whilst
+ * Marketplace filtering status can be appended to the DOM whilst
  * using Everlasting Marketplace.
  * @returns {Object}
  */
 function getCurrentFilterState(prefs) {
-  let currentFilterState;
 
-  if (prefs) {
-    currentFilterState = {
-      everlastingMarket: prefs.everlastingMarket || false,
-      filterMediaCondition: prefs.filterMediaCondition || false,
-      filterPrices: prefs.filterPrices || false,
-      filterShippingCountry: prefs.filterShippingCountry || false,
-      filterSleeveCondition: prefs.filterSleeveCondition || false,
-    };
-  } else {
-    currentFilterState = {
-      everlastingMarket: false,
-      filterMediaCondition: false,
-      filterPrices: false,
-      filterShippingCountry: false,
-      filterSleeveCondition: false,
-    };
-  }
+  let currentFilterState = {
+    everlastingMarket: prefs?.everlastingMarket || false,
+    filterMediaCondition: prefs?.filterMediaCondition || false,
+    filterPrices: prefs?.filterPrices || false,
+    filterShippingCountry: prefs?.filterShippingCountry || false,
+    filterSleeveCondition: prefs?.filterSleeveCondition || false,
+  };
 
   return currentFilterState;
 }
@@ -197,14 +203,25 @@ function getCurrentFilterState(prefs) {
  * @param {string} name - The name of the cookie
  * @returns {string}
  */
-window.getCookie = function(name) {
-  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+window.getCookie = function (name) {
+  let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   if (match) return match[2];
 };
 
 // ========================================================
 //  Script Appension
 // ========================================================
+
+// Dark Theme CSS is automatically appened via manifest.json on 'document_start'
+document.documentElement.classList.add('de-dark-theme', 'de-enabled');
+
+// Get the user's preferences (preferences are created on install in background.js)
+chrome.storage.sync.get('prefs', result => {
+  prefs = result.prefs;
+  // Disable the Dark Theme
+  if (!prefs.darkTheme) document.documentElement.classList.remove('de-dark-theme');
+})
+
 // Resource Library
 // A singleton of shared methods for the extension.
 // Appended first so the methods are available to the
@@ -217,25 +234,18 @@ resourceLibrary.src = chrome.runtime.getURL('js/extension/dependencies/resource-
 appendFragment([resourceLibrary])
   .then(() => migratePreferences())
   .then(async () => {
-  if ( window.getCookie('desl') ) return;
-  // Get the users preferences (preferences are created on install
-  // in background.js)
-  chrome.storage.sync.get('prefs', result => {
+    if (window.getCookie('desl')) return;
 
-    prefs = result.prefs;
-
-    // Dark Theme
-    if ( prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
     // Don't use the dark theme on subdomains or specific pages
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
-    if ( !window.location.href.includes('www')
-         || window.location.href.includes('/order/prints?')
-         || window.location.href.includes('discogs.com/company')
-         || window.location.href.includes('/company/careers')
-         || window.location.href.includes('discogs.com/record-stores')
-         || window.location.href.includes('discogs.com/record-store-day')
-         || window.location.href.includes('/digs')) {
+    if (!window.location.href.includes('www')
+      || window.location.href.includes('/order/prints?')
+      || window.location.href.includes('discogs.com/company')
+      || window.location.href.includes('/company/careers')
+      || window.location.href.includes('discogs.com/record-stores')
+      || window.location.href.includes('discogs.com/record-store-day')
+      || window.location.href.includes('/digs')) {
 
       document.documentElement.classList.remove('de-dark-theme');
     }
@@ -313,7 +323,7 @@ appendFragment([resourceLibrary])
       baoi_css.rel = 'stylesheet';
       baoi_css.type = 'text/css';
       baoi_css.href = chrome.runtime.getURL('css/baoi-fields.css');
-      baoi_css.id = 'baoiFieldsCss',
+      baoi_css.id = 'baoiFieldsCss';
       baoi_css.disabled = !prefs.baoiFields;
 
       elems.push(baoi_css);
@@ -324,7 +334,7 @@ appendFragment([resourceLibrary])
       ytPlaylists_css.rel = 'stylesheet';
       ytPlaylists_css.type = 'text/css';
       ytPlaylists_css.href = chrome.runtime.getURL('css/large-youtube-playlists.css');
-      ytPlaylists_css.id = 'ytPlaylistsCss',
+      ytPlaylists_css.id = 'ytPlaylistsCss';
       ytPlaylists_css.disabled = !prefs.ytPlaylists;
 
       elems.push(ytPlaylists_css);
@@ -374,7 +384,7 @@ appendFragment([resourceLibrary])
 
       // Adding A Feature: Step 1
 
-      if ( prefs.absoluteDate ) {
+      if (prefs.absoluteDate) {
         // show-actual-dates.js
         let absoluteDate = document.createElement('script');
 
@@ -393,7 +403,7 @@ appendFragment([resourceLibrary])
         elems.push(absoluteDateReact);
       }
 
-      if ( prefs.averagePrice ) {
+      if (prefs.averagePrice) {
         // average-price.js
         let averagePrice = document.createElement('script');
 
@@ -404,7 +414,7 @@ appendFragment([resourceLibrary])
         elems.push(averagePrice);
       }
 
-      if ( prefs.blockBuyers ) {
+      if (prefs.blockBuyers) {
         // block-buyers.js
         let blockBuyers = document.createElement('script');
 
@@ -444,7 +454,7 @@ appendFragment([resourceLibrary])
         elems.push(blockSellers_css);
       }
 
-      if ( prefs.confirmBeforeRemoving ) {
+      if (prefs.confirmBeforeRemoving) {
 
         let confirmBeforeRemoving = document.createElement('script');
 
@@ -476,7 +486,7 @@ appendFragment([resourceLibrary])
       }
 
       // comment-scanner.js
-      if ( prefs.commentScanner ) {
+      if (prefs.commentScanner) {
 
         let commentScanner = document.createElement('script');
 
@@ -487,8 +497,8 @@ appendFragment([resourceLibrary])
         elems.push(commentScanner);
       }
 
-      if ( prefs.converter
-           && !window.location.href.includes('/order/prints?') ) {
+      if (prefs.converter
+        && !window.location.href.includes('/order/prints?')) {
 
         // currency-converter.css
         let converter_css = document.createElement('link');
@@ -532,7 +542,7 @@ appendFragment([resourceLibrary])
       }
 
       // demand-index.js
-      if ( prefs.demandIndex ) {
+      if (prefs.demandIndex) {
 
         let demandIndex = document.createElement('script');
 
@@ -560,19 +570,19 @@ appendFragment([resourceLibrary])
       }
 
       // editing notepad
-      if ( prefs.editingNotepad ) {
+      if (prefs.editingNotepad) {
 
-        let editingNotepad = document.createElement( 'script' );
+        let editingNotepad = document.createElement('script');
 
         editingNotepad.type = 'text/javascript';
-        editingNotepad.src = chrome.runtime.getURL( 'js/extension/features/editing-notepad.js' );
+        editingNotepad.src = chrome.runtime.getURL('js/extension/features/editing-notepad.js');
         editingNotepad.className = 'de-init';
 
-        elems.push( editingNotepad );
+        elems.push(editingNotepad);
       }
 
       // everlasting collection
-      if ( prefs.everlastingCollection ) {
+      if (prefs.everlastingCollection) {
 
         // everlasting-collection-notes.js
         let everlastingCollectionNotes = document.createElement('script');
@@ -666,7 +676,7 @@ appendFragment([resourceLibrary])
         elems.push(filterMediaCondition);
       }
 
-      if ( prefs.filterPrices ) {
+      if (prefs.filterPrices) {
 
         let filterPrices = document.createElement('script');
 
@@ -732,7 +742,7 @@ appendFragment([resourceLibrary])
       }
 
       // force-dashboard-link.js
-      if ( prefs.forceDashboard ) {
+      if (prefs.forceDashboard) {
 
         let forceDashboard = document.createElement('script');
 
@@ -775,7 +785,7 @@ appendFragment([resourceLibrary])
         elems.push(notesCountReact);
       }
 
-      if ( prefs.quickSearch ) {
+      if (prefs.quickSearch) {
 
         // quick-search.js
         let quickSearch = document.createElement('script');
@@ -838,7 +848,7 @@ appendFragment([resourceLibrary])
         elems.push(randomItemReact);
       }
 
-      if ( prefs.ratingPercent ) {
+      if (prefs.ratingPercent) {
 
         // rating-percent.js
         let ratingPercent = document.createElement('script');
@@ -887,7 +897,7 @@ appendFragment([resourceLibrary])
         elems.push(readabilityReact);
       }
 
-      if ( prefs.relativeSoldDate ) {
+      if (prefs.relativeSoldDate) {
 
         // relative-sold-date.js
         let relativeSoldDate = document.createElement('script');
@@ -928,7 +938,7 @@ appendFragment([resourceLibrary])
       }
 
       // release-ratings
-      if ( prefs.releaseRatings ) {
+      if (prefs.releaseRatings) {
 
         let releaseRatings = document.createElement('script');
 
@@ -940,7 +950,7 @@ appendFragment([resourceLibrary])
       }
 
       // release-scanner
-      if ( prefs.releaseScanner ) {
+      if (prefs.releaseScanner) {
 
         let releaseScanner = document.createElement('script');
 
@@ -951,7 +961,7 @@ appendFragment([resourceLibrary])
         elems.push(releaseScanner);
       }
 
-      if ( prefs.removeFromWantlist ) {
+      if (prefs.removeFromWantlist) {
 
         // remove-from-wantlist.js
         let removeFromWantlist = document.createElement('script');
@@ -963,7 +973,7 @@ appendFragment([resourceLibrary])
         elems.push(removeFromWantlist);
       }
 
-      if ( prefs.sellerItemsInCart ) {
+      if (prefs.sellerItemsInCart) {
 
         let sellerItemsInCart = document.createElement('script');
 
@@ -974,7 +984,7 @@ appendFragment([resourceLibrary])
         elems.push(sellerItemsInCart);
       }
 
-      if ( prefs.sellerRep ) {
+      if (prefs.sellerRep) {
 
         // seller-rep.js
         let sellerRep = document.createElement('script');
@@ -986,7 +996,7 @@ appendFragment([resourceLibrary])
         elems.push(sellerRep);
       }
 
-      if ( prefs.sortButtons ) {
+      if (prefs.sortButtons) {
 
         let sortButton_css = document.createElement('link');
 
@@ -995,7 +1005,7 @@ appendFragment([resourceLibrary])
         sortButton_css.href = chrome.runtime.getURL('css/sort-buttons.css');
         sortButton_css.id = 'sortButton_css';
 
-        elems.push( sortButton_css );
+        elems.push(sortButton_css);
 
         // sort-explore-lists.js
         let sortExploreScript = document.createElement('script');
@@ -1004,7 +1014,7 @@ appendFragment([resourceLibrary])
         sortExploreScript.src = chrome.runtime.getURL('js/extension/features/sort-explore-lists.js');
         sortExploreScript.className = 'de-init';
 
-        elems.push( sortExploreScript );
+        elems.push(sortExploreScript);
 
         // sort-marketplace-lists.js
         let sortMarketplaceScript = document.createElement('script');
@@ -1013,7 +1023,7 @@ appendFragment([resourceLibrary])
         sortMarketplaceScript.src = chrome.runtime.getURL('js/extension/features/sort-marketplace-lists.js');
         sortMarketplaceScript.className = 'de-init';
 
-        elems.push( sortMarketplaceScript );
+        elems.push(sortMarketplaceScript);
 
         // sort-personal-lists.js
         let sortPersonalListsScript = document.createElement('script');
@@ -1022,7 +1032,7 @@ appendFragment([resourceLibrary])
         sortPersonalListsScript.src = chrome.runtime.getURL('js/extension/features/sort-personal-lists.js');
         sortPersonalListsScript.className = 'de-init';
 
-        elems.push( sortPersonalListsScript );
+        elems.push(sortPersonalListsScript);
       }
 
       if (prefs.sortByTotalPrice) {
@@ -1034,7 +1044,7 @@ appendFragment([resourceLibrary])
         sortByTotalPriceScript.id = 'sortbytotal'
         // sortByTotalPriceScript.className = 'de-init';
 
-        elems.push( sortByTotalPriceScript );
+        elems.push(sortByTotalPriceScript);
       }
 
       if (prefs.suggestedPrices) {
@@ -1068,7 +1078,7 @@ appendFragment([resourceLibrary])
       }
 
       // tweak-discriminators.js
-      if ( prefs.tweakDiscrims ) {
+      if (prefs.tweakDiscrims) {
 
         let tweakDiscrims = document.createElement('script');
 
@@ -1107,105 +1117,102 @@ appendFragment([resourceLibrary])
 
       return resolve(prefs);
     })
-    .then((prefs) => {
-      chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
-        return new Promise(async resolve => {
+      .then((prefs) => {
+        chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+          return new Promise(async resolve => {
 
-          let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {},
-              currentFilterState = getCurrentFilterState(prefs),
-              userCurrency = prefs.userCurrency,
-              newPrefs;
+            let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {},
+                currentFilterState = getCurrentFilterState(prefs),
+                userCurrency = prefs.userCurrency,
+                newPrefs;
 
-          // Remove deprecated properties from preferences
-          // TODO: delete these eventually
+            // Remove deprecated properties from preferences
+            // TODO: delete these eventually
 
-          // Delete old feedback object if it does not contain a username
-          if (oldPrefs.feedback && oldPrefs.feedback.buyer
+            // Delete old feedback object if it does not contain a username
+            if (oldPrefs.feedback && oldPrefs.feedback.buyer
               || oldPrefs.feedback && oldPrefs.feedback.seller) {
-            delete oldPrefs.feedback;
-          }
-          // Delete old ls objects after migration
-          delete oldPrefs.inventoryRatings;
-          delete oldPrefs.sellerNames;
-          delete oldPrefs.blockList;
-          delete oldPrefs.countryList;
-          delete oldPrefs.discriminators;
-          delete oldPrefs.favoriteList;
-          delete oldPrefs.filterPrices;
-          delete oldPrefs.inventoryScanner;
-          delete oldPrefs.linksInTabs;
-          delete oldPrefs.mediaCondition;
-          delete oldPrefs.minimumRating;
-          delete oldPrefs.readability;
-          delete oldPrefs.sellerRep;
-          delete oldPrefs.sellerRepColor;
-          delete oldPrefs.sellerRepFilter;
-          delete oldPrefs.sleeveCondition;
-          delete oldPrefs.usDateFormat;
+              delete oldPrefs.feedback;
+            }
+            // Delete old ls objects after migration
+            delete oldPrefs.inventoryRatings;
+            delete oldPrefs.sellerNames;
+            delete oldPrefs.blockList;
+            delete oldPrefs.countryList;
+            delete oldPrefs.discriminators;
+            delete oldPrefs.favoriteList;
+            delete oldPrefs.filterPrices;
+            delete oldPrefs.inventoryScanner;
+            delete oldPrefs.linksInTabs;
+            delete oldPrefs.mediaCondition;
+            delete oldPrefs.minimumRating;
+            delete oldPrefs.readability;
+            delete oldPrefs.sellerRep;
+            delete oldPrefs.sellerRepColor;
+            delete oldPrefs.sellerRepFilter;
+            delete oldPrefs.sleeveCondition;
+            delete oldPrefs.usDateFormat;
 
-          // Get any newly blocked sellers and add them into chrome.storage
-          oldPrefs.newBlockedSellers = oldPrefs.newBlockedSellers
-                                        ? oldPrefs.newBlockedSellers
-                                        : [];
+            // Get any newly blocked sellers and add them into chrome.storage
+            oldPrefs.newBlockedSellers = oldPrefs.newBlockedSellers ?? [];
 
-          if (oldPrefs.newBlockedSellers.length > 0) {
+            if (oldPrefs.newBlockedSellers.length > 0) {
 
-            let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)],
-                sendEvents = true;
+              let uniqueBlockedSellers = [...new Set(oldPrefs.newBlockedSellers)],
+                  sendEvents = true;
 
-            if (featureData.blockList.list.includes('development')) {
-              sendEvents = false;
+              if (featureData.blockList.list.includes('development')) {
+                sendEvents = false;
+              }
+
+              uniqueBlockedSellers.forEach(seller => {
+                featureData.blockList.list.push(seller);
+
+                if (sendEvents) {
+                  let port = chrome.runtime.connect();
+                  port.postMessage({
+                    request: 'trackEvent',
+                    category: 'block seller',
+                    action: seller
+                  });
+                }
+              });
             }
 
-            uniqueBlockedSellers.forEach(seller => {
-              featureData.blockList.list.push(seller);
+            oldPrefs.newBlockedSellers = [];
 
-              if (sendEvents) {
-                let port = chrome.runtime.connect();
-                port.postMessage({
-                  request: 'trackEvent',
-                  category: 'block seller',
-                  action: seller
-                });
-              }
-            });
-          }
+            newPrefs = Object.assign(oldPrefs, { featureData }, { currentFilterState }, { userCurrency });
 
-          oldPrefs.newBlockedSellers = [];
+            // Instantiate default options
+            if (!Object.prototype.hasOwnProperty.call(newPrefs, 'options')) {
 
-          newPrefs = Object.assign(oldPrefs, { featureData }, { currentFilterState }, { userCurrency });
+              let options = {
+                colorize: false,
+                comments: false,
+                debug: false,
+                quicksearch: '',
+                threshold: 2,
+                unitTests: false
+              };
 
-          // Instantiate default options
-          if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
+              newPrefs.options = options;
+            }
 
-            let options = {
-                  colorize: false,
-                  comments: false,
-                  debug: false,
-                  quicksearch: '',
-                  threshold: 2,
-                  unitTests: false
-                };
+            localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
 
-            newPrefs.options = options;
-          }
+            await chrome.storage.sync.set({ featureData });
 
-          localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
-
-          await chrome.storage.sync.set({ featureData });
-
-          return resolve();
+            return resolve();
+          });
+        })
+      })
+      .then(() => appendFragment(elems))
+      .then(() => documentReady(window.document))
+      .then(() => {
+        // DOM clean up
+        document.querySelectorAll('.de-init').forEach(child => {
+          child.parentNode.removeChild(child);
         });
       })
-    })
-    .then(() => appendFragment(elems))
-    .then(() => documentReady(window.document))
-    .then(() => {
-      // DOM clean up
-      document.querySelectorAll('.de-init').forEach(child => {
-        child.parentNode.removeChild(child);
-      });
-    })
-    .catch(err => console.error('Discogs Enhancer: Error injecting scripts', err));
+      .catch(err => console.error('Discogs Enhancer: Error injecting scripts', err));
   });
-});
