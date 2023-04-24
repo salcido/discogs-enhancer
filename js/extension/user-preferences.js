@@ -213,13 +213,15 @@ window.getCookie = function (name) {
 // ========================================================
 
 // Dark Theme CSS is automatically appened via manifest.json on 'document_start'
-document.documentElement.classList.add('de-dark-theme', 'de-enabled', 'theme-navy');
+document.documentElement.classList.add('de-dark-theme', 'de-enabled');
 
 // Get the user's preferences (preferences are created on install in background.js)
 chrome.storage.sync.get('prefs', result => {
   prefs = result.prefs;
   // Disable the Dark Theme
   if (!prefs.darkTheme) document.documentElement.classList.remove('de-dark-theme');
+  // Set theme variant
+  if (prefs.darkThemeVariant) document.documentElement.classList.add(`theme-${prefs.darkThemeVariant}`);
 })
 
 // Resource Library

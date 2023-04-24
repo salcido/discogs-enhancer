@@ -71,6 +71,7 @@ window.addEventListener('load', () => {
 
   let
       searchbox = document.getElementById('searchbox'),
+      selectDarkTheme = document.getElementById('themeSelect'),
       toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
       toggleAveragePrice = document.getElementById('toggleAveragePrice'),
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
@@ -263,6 +264,7 @@ window.addEventListener('load', () => {
   // ========================================================
   //
   // Adding A Feature: Step 5
+  selectDarkTheme.addEventListener('change', darkTheme.setDarkTheme);
   toggleAbsoluteDate.addEventListener('change', triggerSave);
   toggleAveragePrice.addEventListener('change', triggerSave);
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
@@ -441,6 +443,7 @@ window.addEventListener('load', () => {
     // Adding A Feature: Step 5
     chrome.storage.sync.get('prefs', ({ prefs }) => {
       // Feature preferences
+      selectDarkTheme.value = prefs.darkThemeVariant || '',
       toggleAbsoluteDate.checked = prefs.absoluteDate;
       toggleAveragePrice.checked = prefs.averagePrice;
       toggleBaoiFields.checked = prefs.baoiFields;

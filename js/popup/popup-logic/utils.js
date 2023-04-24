@@ -47,6 +47,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
+        darkThemeVariant: document.getElementById('themeSelect').value,
         demandIndex: document.getElementById('toggleDemandIndex').checked,
         editingNotepad: document.getElementById( 'toggleEditingNotepad' ).checked,
         everlastingCollection: document.getElementById('toggleEverlastingCollection').checked,

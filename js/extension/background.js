@@ -26,6 +26,7 @@ prefs = {
   commentScanner: false,
   converter: true,
   darkTheme: false,
+  darkThemeVariant: '',
   demandIndex: false,
   editingNotepad: false,
   everlastingCollection: false,
