@@ -39,10 +39,37 @@
   /* Release In Collection / Wantlist Blocks */
   --in-collection-bg: #1c3814;
   --in-collection-border: #60c43f;
+  --in-collection-hover: #355235;
   --in-wantlist-bg: #561d1d;
   --in-wantlist-border: #e7413f;
   /* Marketplace Selected Filters (Facets) */
   --facet-selected: #72a3d8;
+  /* Marketplace have / want indicators */
+  --want-low-bg: #f0d0d0;
+  --want-high-bg: #e24242;
+  --have-low-bg: #b0d0b0;
+  --have-high-bg: #12cf12;
+  /* Release Sales Chart Tooltip */
+  --chart-bg: #f4c63d;
+  /* Release History Change Indicators */
+  --vote-helper-bg: #fff2cc;
+  --added: #aaffaa;
+  --removed: #ffaaaa;
+  --changed1: #ffff77;
+  --changed2: #dddd77;
+  --warning: #99ffff;
+  /* Artist Page Data Quality Chart */
+  --data-correct: #8ab87a;
+  --data-nmajc: #b8857a;
+  --data-nminc: #b8a87a;
+  --data-edit: #7a99b8;
+  /* Shipping Policy Editor */
+  --expander-icon: lightblue;
+  --policy-invalid-bg: #fee8d7;
+  --policy-invalid: #c7630e;
+  --policy-checked: #5fc33e;
+  --policy-indeterminate: #095afe;
+  --policy-error: #ba3837;
   /* Drag & Drop Image Uploader On Release Submission Form and Dashboard modules (dotted border) */
   --uploader-hover: #4dd2ff;
   /* Borders Disabled */
@@ -68,13 +95,50 @@
   /* Release Rating Stars */
   --star-rating: #f7d06c;
   --submission-form-error: #360d0d;
+  /* Order Status Badges */
+  --order-status-invoice-bg: #407fbf;
+  --order-status-invoice-border: #3973ac;
+  --order-status-payment-bg: #bf9f40;
+  --order-status-payment-border: #ac8f39;
+  --order-status-pending-bg: #f2ecd9;
+  --order-status-pending-text: #393013;
+  --order-status-shipped-bg: #60bf40;
+  --order-status-buyer-contact-bg: #4580b7;
+  /* Postive / Neutral / Negative Ratings */
+  --rating-positive-bg: #a8d388;
+  --rating-positive-text: #397326;
+  --rating-negative-bg: #ec9c9c;
+  --rating-negative-text: #733326;
+  --rating-negative-link: #822917;
+  --rating-neutral-bg: #cfcdc9;
+  --rating-netutral-text: #504e49;
+  /* Cart Page Order Minimum Notice */
+  --order-minimum-bg: #dbedff;
+  --order-minimum-border: #8ac4ff;
+  --order-minimum-text: #3a708b;
+  /* Cart Page Price Change Notice */
+  --price-change-bg: #f7d266;
+  /* Cart Page Selected Payment Method */
+  --selected-payment-method: rgba(50, 111, 178, 0.14);
+  /* Release History */
+  --history-highlight: #4a3f50;
+  --history-hover: #322b36;
+  /* API Documentation */
+  --api-strings: #718c00;
+  --api-numbers: #f5871f;
+  --api-comment: #8e908c;
+  --api-markup: #c82829;
+  --api-keyword: #8959a8;
+  /* Free Shipping Banner */
+  --free-shipping-text: #ecb10c;
+  --free-shipping-button: #3ea6c9;
+  /* Cookie Consent Modal */
+  --ot-settings: #1276ce;
+  --ot-show-settings: #7d91b0;
   /* Odds & Ends */
   --black: #000000;
   --white: #ffffff;
   --scroll-bar-thumb: #666666;
-  /* Release History */
-  --history-highlight: #4a3f50;
-  --history-hover: #322b36;
 }
 /*
 ////////////////////////////////////
@@ -179,7 +243,7 @@
   }
 
   ::-webkit-scrollbar-corner:not(.mac) {
-    background: rgb(25, 25, 25) !important;
+    background: var(--order-sidebar-bg) !important;
   }
 
   #quicklister {
@@ -340,6 +404,9 @@
 
   a:hover {
     s,
+    strong,
+    time,
+    p,
     &:not(.button) {
       color: var(--link-hover) !important;
     }
@@ -547,7 +614,9 @@
     border-bottom: 1px var(--borders) solid !important;
   }
 
-  .box-card .box-card-header {
+  .box-card .box-card-header,
+  .order-detail-row,
+  .toggle_section_control {
     border-bottom: 1px solid var(--borders) !important;
   }
 
@@ -632,7 +701,7 @@
     background: var(--main-bg-color) !important;
   }
   #full-width-header div.readmore_wrapper {
-    background: var(--search-results-active)!important;
+    background: var(--input-bg) !important;
   }
 
   .profile a.readmore_toggler {
@@ -655,8 +724,13 @@
     border: 2px solid var(--borders) !important;
   }
 
-  .order-success-header {
+  .order-success-header,
+  .order-refund-row.total {
     border-bottom: 2px solid var(--borders) !important;
+  }
+
+  .group-list-group-background {
+    background: var(--input-bg) !important;
   }
 
   /* TODO: might make this an option */
@@ -678,20 +752,20 @@
   #page_aside .selected_facets li a {
     background-color: var(--facet-selected) !important;
     border-radius: 2px !important;
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
     span {
       background-color: var(--facet-selected) !important;
       border-radius: 2px !important;
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
     i {
       background-color: var(--facet-selected) !important;
       border-radius: 2px !important;
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
       &:visited {
         background-color: var(--facet-selected) !important;
         border-radius: 2px !important;
-        color: var(--text-bold) !important;
+        color: var(--white) !important;
       }
     }
   }
@@ -1038,6 +1112,7 @@
   #site_header .button-green.button,
   .button.button-green,
   #login button,
+  a.register-btn,
   .inline_buttons.no_offer a.button.button-green,
   .bulk_actions_submit input {
     background-color: var(--button-green) !important;
@@ -1218,7 +1293,7 @@
     background: var(--button-blue) !important;
     background-color: var(--button-blue) !important;
     border-color: var(--button-blue-border) !important;
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
   }
 
   a {
@@ -1226,7 +1301,7 @@
     &.button-blue {
       background-color: var(--button-blue) !important;
       border-color: var(--button-blue-border) !important;
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -1832,13 +1907,13 @@
   /* blue invoiced */
 
   .order-status-label.order-status-label-invoice-sent {
-    background: #407fbf !important;
-    border-color: #3973ac !important;
+    background: var(--order-status-invoice-bg) !important;
+    border-color: var(--order-status-invoice-border) !important;
     color: var(--text-bold) !important;
     span,
     i {
-      background: #407fbf !important;
-      border-color: #3973ac !important;
+      background: var(--order-status-invoice-bg) !important;
+      border-color: var(--order-status-invoice-border) !important;
       color: var(--text-bold) !important;
     }
   }
@@ -1847,59 +1922,59 @@
 
   .order_status_icon {
     &.payment_received {
-      background: #bf9f40 !important;
+      background: var(--order-status-payment-bg) !important;
       border-color: var(--text-bold) !important;
-      color: #f9f5ec !important;
+      color: var(--white) !important;
       i,
       span {
-        background: #bf9f40 !important;
+        background: var(--order-status-payment-bg) !important;
         border-color: var(--text-bold) !important;
-        color: #f9f5ec !important;
+        color: var(--white) !important;
       }
     }
     &.shipped {
-      background: #60bf40 !important;
+      background: var(--order-status-shipped-bg) !important;
       border-color: var(--text-bold) !important;
     }
     &.buyer_contacted {
-      background: #4580b7 !important;
+      background: var(--order-status-buyer-contact-bg) !important;
       border-color: var(--text-bold) !important;
     }
     &.invoice_sent {
-      background: #407fbf !important;
+      background: var(--order-status-invoice-bg) !important;
       border-color: var(--text-bold) !important;
-      color: #ecf2f9 !important;
+      color: var(--white) !important;
     }
   }
 
   /* yellow payment recieved */
 
   .order-status-label.order-status-label-payment-received {
-    background: #bf9f40 !important;
-    border-color: #ac8f39 !important;
-    color: #f9f5ec !important;
+    background: var(--order-status-payment-bg) !important;
+    border-color: var(--order-status-payment-border) !important;
+    color: var(--white) !important;
     span,
     i {
-      background: #bf9f40 !important;
-      border-color: #ac8f39 !important;
-      color: #f9f5ec !important;
+      background: var(--order-status-payment-bg) !important;
+      border-color: var(--order-status-payment-border) !important;
+      color: var(--white) !important;
     }
   }
 
   .cart_page .order_shipping_hint,
   .cart_page .order_minimum {
-    background: #dbedff !important;
-    border: 1px solid #8ac4ff !important;
-    color: #3a708b !important;
+    background: var(--order-minimum-bg) !important;
+    border: 1px solid var(--order-minimum-border) !important;
+    color: var(--order-minimum-text) !important;
 
     &:hover {
       text-decoration: underline !important;
-      color: #3a708b !important;
+      color: var(--order-minimum-text) !important;
     }
   }
 
   .cart_page .order_minimum .currency_abbr {
-    color: #3a708b !important;
+    color: var(--order-minimum-text) !important;
   }
 
   .order_pay_now {
@@ -1927,26 +2002,26 @@
   }
 
   .order-status-label.order-status-label-payment-pending {
-    background: #f2ecd9 !important;
+    background: var(--order-status-pending-bg) !important;
     border-color: var(--text-bold) !important;
-    color: #393013 !important;
+    color: var(--order-status-pending-text) !important;
     i,
     span {
-      background: #f2ecd9 !important;
+      background: var(--order-status-pending-bg) !important;
       border-color: var(--text-bold) !important;
-      color: #393013 !important;
+      color: var(--order-status-pending-text) !important;
     }
   }
 
   .order_status_icon.payment_pending {
-    background: #f2ecd9 !important;
+    background: var(--order-status-pending-bg) !important;
     border-color: var(--text-bold) !important;
-    color: #393013 !important;
+    color: var(--order-status-pending-text) !important;
     i,
     span {
-      background: #f2ecd9 !important;
+      background: var(--order-status-pending-bg) !important;
       border-color: var(--text-bold) !important;
-      color: #393013 !important;
+      color: var(--order-status-pending-text) !important;
     }
   }
 
@@ -1964,14 +2039,14 @@
   }
 
   .pos_rating {
-    background: #a8d388 !important;
-    color: #397326 !important;
+    background: var(--rating-positive-bg) !important;
+    color: var(--rating-positive-text) !important;
     i {
-      background: #a8d388 !important;
-      color: #397326 !important;
+      background: var(--rating-positive-bg) !important;
+      color: var(--rating-positive-text) !important;
     }
     a {
-      color: #397326 !important;
+      color: var(--rating-positive-text) !important;
     }
   }
 
@@ -1983,14 +2058,14 @@
   }
 
   .neg_rating {
-    background: #ec9c9c !important;
-    color: #733326 !important;
+    background: var(--rating-negative-bg) !important;
+    color: var(--rating-negative-text) !important;
     i {
-      background: #ec9c9c !important;
-      color: #733326 !important;
+      background: var(--rating-negative-bg) !important;
+      color: var(--rating-negative-text) !important;
     }
     a {
-      color: #822917 !important;
+      color: var(--rating-negative-link) !important;
     }
   }
 
@@ -2002,11 +2077,11 @@
   }
 
   .neu_rating {
-    background: #cfcdc9 !important;
-    color: #504e49 !important;
+    background: var(--rating-neutral-bg) !important;
+    color: var(--rating-netutral-text) !important;
     i {
-      background: #cfcdc9 !important;
-      color: #504e49 !important;
+      background: var(--rating-neutral-bg) !important;
+      color: var(--rating-netutral-text) !important;
     }
   }
 
@@ -2072,18 +2147,18 @@
     }
     &.list tr.edit td.status,
     &.cw_releases tr.edit td.status {
-      background: #cfcdc9 !important;
+      background: var(--rating-neutral-bg) !important;
     }
   }
 
   div.search_result.needsvote div.flag {
-    background: #cfcdc9 !important;
+    background: var(--rating-neutral-bg) !important;
   }
 
   table {
     &.cards tr.edit td.status,
     &.release_list_table tr.edit td.status {
-      background: #cfcdc9 !important;
+      background: var(--rating-neutral-bg) !important;
     }
   }
 
@@ -2198,13 +2273,15 @@
     }
   }
 
+  /* Discogs API Documentation */
+
   .hljs-string,
   .hljs-value,
   .hljs-inheritance,
   .hljs-header,
   .ruby .hljs-symbol,
   .xml .hljs-cdata {
-    color: #718c00 !important;
+    color: var(--api-strings) !important;
   }
 
   .hljs-number,
@@ -2214,12 +2291,12 @@
   .hljs-literal,
   .hljs-params,
   .hljs-constant {
-    color: #f5871f !important;
+    color: var(--api-numbers) !important;
   }
 
   .hljs-comment,
   .hljs-title {
-    color: #8e908c !important;
+    color: var(--api-comment) !important;
   }
 
   .hljs-variable,
@@ -2227,32 +2304,32 @@
   .hljs-tag,
   .hljs-regexp,
   .ruby .hljs-constant {
-    color: #c82829 !important;
+    color: var(--api-markup) !important;
   }
 
   .xml {
     .hljs-tag .hljs-title,
     .hljs-pi,
     .hljs-doctype {
-      color: #c82829 !important;
+      color: var(--api-markup) !important;
     }
   }
 
   .html .hljs-doctype {
-    color: #c82829 !important;
+    color: var(--api-markup) !important;
   }
 
   .css {
     .hljs-id,
     .hljs-class,
     .hljs-pseudo {
-      color: #c82829 !important;
+      color: var(--api-markup) !important;
     }
   }
 
   .hljs-keyword,
   .javascript .hljs-function {
-    color: #8959a8 !important;
+    color: var(--api-keyword) !important;
   }
 
   .alert-message {
@@ -2449,16 +2526,16 @@
 
   /* Have / Want square bar graphs shown on each item in the Marketplace */
   .want_indicator {
-    background-color: #f0d0d0 !important;
+    background-color: var(--want-low-bg) !important;
     &.high_want {
-      background-color: #e24242 !important;
+      background-color: var(--want-high-bg) !important;
     }
   }
 
   .have_indicator {
-    background-color: #b0d0b0 !important;
+    background-color: var(--have-low-bg) !important;
     &.high_have {
-      background-color: #12cf12 !important;
+      background-color: var(--have-high-bg) !important;
     }
   }
 
@@ -2527,12 +2604,12 @@
   }
 
   .chart-tooltip {
-    background: #f4c63d !important;
+    background: var(--chart-bg) !important;
     color: var(--headers) !important;
     span {
       &.tooltip-label,
       &.tooltip-name {
-        background: #f4c63d !important;
+        background: var(--chart-bg) !important;
         color: var(--headers) !important;
       }
     }
@@ -2659,32 +2736,32 @@
   /* Release history edit tag bg color */
 
   .vote_info_helper {
-    background-color: #fff2cc !important;
+    background-color: var(--vote-helper-bg) !important;
     color: var(--row-even)   !important;
   }
 
   .hl_added {
-    background-color: #aaffaa !important;
+    background-color: var(--added) !important;
     color: var(--row-even)   !important;
   }
 
   .hl_removed {
-    background-color: #ffaaaa !important;
+    background-color: var(--removed) !important;
     color: var(--row-even)   !important;
   }
 
   .hl_changed1 {
-    background-color: #ffff77 !important;
+    background-color: var(--changed1) !important;
     color: var(--row-even)   !important;
   }
 
   .hl_changed2 {
-    background-color: #dddd77 !important;
+    background-color: var(--changed2) !important;
     color: var(--row-even)   !important;
   }
 
   .hl_warning {
-    background-color: #99ffff !important;
+    background-color: var(--warning) !important;
     color: var(--row-even)   !important;
   }
 
@@ -2695,6 +2772,9 @@
   /* input / textarea / checkbox focus states */
   textarea[name="comment"]:focus-within,
   input[name="query"]:focus-within,
+  input.countable:focus-within,
+  textarea:focus-within,
+  input#marketplace-search-input:focus-within,
   .submission-form-section input[type="text"]:focus-within,
   .submission-form-section textarea:focus-within,
   .subform_tracklist input[type="text"]:focus-within,
@@ -2740,7 +2820,7 @@
     float: right;
     font-size: 18px;
     font-weight: bold;
-    color: #aaaaaa;
+    color: var(--text-normal);
     &:hover,
     &:focus {
       color: black;
@@ -2763,12 +2843,12 @@
   }
 
   .currency-converter {
-    background-color: #333333 !important;
+    background-color: var(--main-bg-color) !important;
     border: 1px solid var(--scroll-bar-thumb) !important;
     color: var(--text-bold) !important;
     .toggle {
-      background-color: #333333 !important;
-      border-bottom: 1px solid #333333 !important;
+      background-color: var(--main-bg-color) !important;
+      border-bottom: 1px solid var(--main-bg-color) !important;
       color: var(--text-bold) !important;
     }
   }
@@ -2876,17 +2956,17 @@
 
   .data_quality {
     &.correct {
-      background: #8ab87a !important;
+      background: var(--data-correct) !important;
     }
     &.nmajc {
-      background: #b8857a !important;
+      background: var(--data-nmajc) !important;
     }
     &.nminc,
     &.new {
-      background: #b8a87a !important;
+      background: var(--data-nminc) !important;
     }
     &.edit {
-      background: #7a99b8 !important;
+      background: var(--data-edit) !important;
     }
   }
 
@@ -2930,7 +3010,7 @@
     background: var(--headers) !important;
   }
 
-  /* Beta Tracks UI */
+  /* Beta Tracks UI
 
   .tracks-beta-banner {
     background: #2b5c87 !important;
@@ -3009,6 +3089,7 @@
   .viewing-tracks .TracksApp .Releases header .columns {
     background: var(--main-bg-color) !important;
   }
+  */
 
   /* Dashboard friend comments */
 
@@ -3049,13 +3130,13 @@
   input {
     &[type="text"][disabled],
     &[type="password"][disabled] {
-      background: var(--row-even)   !important;
+      background: var(--row-even) !important;
     }
   }
 
   textarea[disabled],
   .fake-input[disabled] {
-    background: var(--row-even)   !important;
+    background: var(--row-even) !important;
   }
 
   /* Edit Release: free text field and cvar(--needs-changes)its inputs */
@@ -3340,7 +3421,7 @@
     }
     .expander {
       .expander-icon {
-        background-color: lightblue !important;
+        background-color: var(--expander-icon) !important;
         color: var(--black) !important;
       }
     }
@@ -3357,16 +3438,16 @@
     }
 
     .invalid_policy_icon {
-      color: #c7630e !important;
+      color: var(--policy-invalid) !important;
       i, div {
-        color: #c7630e !important;
+        color: var(--policy-invalid) !important;
       }
     }
 
     .invalid_method {
-      background: #fee8d7 !important;
+      background: var(--policy-invalid-bg) !important;
       i, div {
-        color: #c7630e !important;
+        color: var(--policy-invalid) !important;
       }
     }
 
@@ -3377,11 +3458,11 @@
     }
 
     input[type="checkbox"].styled-checkbox:checked {
-      background: #5fc33e !important;
+      background: var(--policy-checked) !important;
     }
 
     input[type="checkbox"].styled-checkbox:not(.switch):indeterminate {
-      background-color: #095afe !important;
+      background-color: var(--policy-indeterminate) !important;
     }
 
     .destinations li .expander-icon {
@@ -3390,7 +3471,7 @@
     }
 
     .saved_policy_icon {
-      border: 2px solid #5fc33e !important;
+      border: 2px solid var(--policy-checked) !important;
       color: var(--text-bold) !important;
 
       div {
@@ -3399,7 +3480,7 @@
     }
 
     .policy_errors {
-      border: 2px solid #ba3837 !important;
+      border: 2px solid var(--policy-error) !important;
       color: var(--text-bold) !important;
     }
   }
@@ -3415,12 +3496,12 @@
   .cart_page .item-changed-hint,
   .order_free_shipping {
     color: var(--main-bg-color) !important;
-    background: #f7d266 !important;
+    background: var(--price-change-bg) !important;
     padding: 0px 3px;
     border-radius: 3px;
     i {
       color: var(--main-bg-color) !important;
-      background: #f7d266 !important;
+      background: var(--price-change-bg) !important;
       padding: 0px 3px;
       border-radius: 3px;
     }
@@ -3435,7 +3516,7 @@
   .cart-payment-method {
     border-color: var(--borders) !important;
     &.selected-method {
-      background: rgba(50, 111, 178, 0.14) !important;
+      background: var(--selected-payment-method) !important;
       border-color: var(--skittle-inventory) !important;
     }
   }
@@ -3554,51 +3635,65 @@
     color: var(--button-green) !important;
   }
 
-  // cookie consent
-  #onetrust-consent-sdk #onetrust-banner-sdk {
+  // one trust cookie consent
+  #onetrust-consent-sdk {
     background-color: var(--black) !important;
 
     #onetrust-pc-btn-handler.cookie-setting-link {
-      background-color: #1276ce !important;
+      background-color: var(--ot-settings) !important;
       color: var(--text-bold) !important;
     }
 
     #onetrust-accept-btn-handler {
-      background-color: #68b631 !important;
+      background-color: var(--button-green) !important;
       color: var(--text-bold) !important;
-      border-color: #68b631 !important;
+      border-color: var(--button-green) !important;
     }
   }
   // Cookie settings
   #onetrust-pc-sdk {
     background: var(--headers) !important;
 
+    .ot-pc-logo img,
+    #close-pc-btn-handler {
+      filter: invert(1) !important;
+    }
     .always-active {
-      color: #287ce9 !important;
+      color: var(--ot-settings) !important;
     }
     .close-icon {
       color: var(--text-bold) !important;
     }
     .accordion-text .switch-label {
-      border: 1px solid #ddd !important;
-      background-color: #f2f1f1 !important;
+      border: 1px solid var(--button-disabled-text) !important;
+      background-color: var(--white) !important;
     }
     .switch-nob {
-      background: #7d7d7d !important;
-      border: 2px solid #7d7d7d !important;
+      background: var(--button-disabled-text) !important;
+      border: 2px solid var(--button-disabled-text) !important;
     }
+    .ot-tgl input:checked+.ot-switch .ot-switch-nob,
     .switch-inner:before {
-      background-color: #5BD14B !important;
+      background-color: var(--button-green) !important;
     }
-    button {
-      background-color: #68b631 !important;
-      border-color: #68b631 !important;
-      color: var(--text-bold) !important;
+    .ot-tgl input+.ot-switch .ot-switch-nob,
+    .ot-accordion-layout {
+      border: 2px solid var(--button-disabled-text) !important;
+    }
+    .ot-plus-minus span {
+      background: var(--white) !important;
+    }
+    .ot-btn-container {
+      border-top: 2px solid var(--button-disabled-text) !important;
+    }
+    .save-preference-btn-handler {
+      background: var(--black) !important;
     }
   }
+
   #ot-sdk-btn.ot-sdk-show-settings {
-    color: #7d91b0 !important;
-    border: 1px solid #7d91b0 !important;
+    color: var(--ot-show-settings) !important;
+    border: 1px solid var(--ot-show-settings) !important;
 
     &:hover {
       color: var(--link-hover) !important;
@@ -3628,10 +3723,10 @@
     background: var(--black) !important;
 
     div {
-      color: #ecb10c !important;
+      color: var(--free-shipping-text) !important;
 
       button {
-        color: #3ea6c9 !important;
+        color: var(--free-shipping-button) !important;
       }
     }
   }
@@ -3733,7 +3828,7 @@
 
       li[class*="_result_"][class*="_active_"] {
         background: var(--search-results-active)!important;
-        outline: 2px solid #668cff !important;
+        outline: 2px solid var(--input-focus-border) !important;
         border-radius: 4px;
       }
     }
@@ -3991,10 +4086,10 @@
 
     button[class*="grey_"][class*="disabled_"] {
       background-color: var(--text-normal)  !important;
-      color: rgb(153, 153, 153) !important;
+      color: var(--button-disabled-text) !important;
 
       svg[class*="icon_"] path {
-        color: rgb(153, 153, 153) !important;
+        color: var(--button-disabled-text) !important;
       }
     }
 
@@ -4034,7 +4129,7 @@
       }
 
       button[class*="wrapper_"]:hover {
-        background: #355235 !important;
+        background: var(--in-collection-hover) !important;
       }
 
       button[class*="remove_"] {
@@ -4045,26 +4140,28 @@
         }
       }
 
+      // notes save button
       button[class*="save_"] {
-        color: var(--text-bold) !important;
+        color: var(--white) !important;
 
         &:hover {
-          background-image: linear-gradient(var(--button-green), #59ba39) !important;
+          background: var(--button-green-border) !important;
         }
       }
 
+      // notes cancel button
       button[class*="grey_"] {
         color: var(--headers) !important;
 
         &:hover {
-          background-image: linear-gradient(var(--text-bold), var(--button-disabled)) !important;
+          background: var(--text-bold) !important;
         }
       }
 
       select[class*="dropdown_"] {
         color: var(--text-bold) !important;
         &:hover {
-          background: #355235 !important;
+          background: var(--in-collection-hover) !important;
         }
       }
 
@@ -4151,7 +4248,7 @@
       }
       div[class*="buttons_"] {
         button[class*="disabled_"]:disabled {
-          color: #8c8c8c !important;
+          color: var(--text-muted) !important;
         }
         button[class*="button_"] svg[class*="icon_"] {
           margin-right: .5rem;
@@ -4210,20 +4307,20 @@
     }
 
     div[class*="menu_"] div[class*="dropdown_"] a {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
 
     div[class*="menu_"] div[class*="dropdown_"][class*="active_"] {
       h4 a,
       ul li a {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
 
         &:hover {
-          color: var(--text-normal)  !important;
+          color: var(--text-normal) !important;
           text-decoration: underline;
         }
         &:visited {
-          color: var(--text-normal)  !important;
+          color: var(--text-normal) !important;
         }
       }
     }
@@ -4332,13 +4429,12 @@
           background: var(--black) !important;
         }
       }
+    }
 
-      // div[class*="dropdown_"] ul li button::hover {
-      //   border-bottom-color: var(--input-bg) !important;
-      //   &::after {
-      //     border-bottom-color: var(--input-bg) !important;
-      //   }
-      // }
+    div[class*="replies_"] {
+      button[class*="button_"][class*="red_"] {
+        color: var(--white) !important;
+      }
     }
 
     #release-marketplace {
@@ -4382,7 +4478,6 @@
 
     button[type="submit"][disabled] {
       background-color: var(--button-disabled) !important;
-      background-image: linear-gradient(var(--button-disabled), #eaeaea) !important;
       border-color: var(--border-disabled) !important;
       border-top-color: var(--border-disabled-top) !important;
       border-bottom-color: var(--border-disabled-bottom) !important;
@@ -4393,7 +4488,6 @@
       &:visited,
       &:focus {
         background-color: var(--button-disabled) !important;
-        background-image: linear-gradient(var(--button-disabled), #eaeaea) !important;
         border-color: var(--border-disabled) !important;
         border-top-color: var(--border-disabled-top) !important;
         border-bottom-color: var(--border-disabled-bottom) !important;
@@ -4491,7 +4585,7 @@
       color: var(--link) !important;
 
       &:hover {
-        color: #c9e0f9 !important;
+        color: var(--link-hover) !important;
       }
     }
 
@@ -4504,7 +4598,7 @@
   div[class*="panel_"] {
     border: 1px solid var(--borders) !important;
 
-    h3[class^="title_"] {
+    > div[class^="title_"] {
       background: var(--headers) !important;
     }
 
@@ -4512,9 +4606,14 @@
       color: var(--text-bold) !important;
       background-color: var(--button-green) !important;
 
-      &[class^="disabled_"] {
-        color: hsla(0,0%,100%,.6) !important;
+      &:disabled {
+        background: var(--button-disabled) !important;
+        color: var(--button-disabled-text) !important;
       }
+    }
+
+    button[class*="cancel_"] {
+      color: var(--white) !important;
     }
 
     li[class^="video_"] {
@@ -4550,7 +4649,7 @@
 
     #wantlist-button--menu {
       background: var(--input-bg) !important;
-      box-shadow: 0 5px 10px hsl(0deg 0% 1% / 40%) !important;
+      box-shadow: 0 5px 10px var(--box-shadow-b) !important;
 
       button:hover {
         background: var(--black) !important;
@@ -4644,25 +4743,25 @@
           }
 
           div[class*="block_"] {
-            border-left: 1px solid var(--search-results-active) !important;
+            border-left: 1px solid var(--input-bg) !important;
           }
           div[class*="block_"] {
-            border-top: 1px solid var(--search-results-active) !important;
-            border-left: 1px solid var(--search-results-active) !important;
+            border-top: 1px solid var(--input-bg) !important;
+            border-left: 1px solid var(--input-bg) !important;
           }
           div[class*="tray_"] {
-            border-top: 1px solid var(--search-results-active) !important;
+            border-top: 1px solid var(--input-bg) !important;
             background: var(--main-bg-color) !important;
           }
           div[class*="ratings_"] {
-            border-top: 1px solid var(--search-results-active) !important;
-            border-bottom: 1px solid var(--search-results-active) !important;
+            border-top: 1px solid var(--input-bg) !important;
+            border-bottom: 1px solid var(--input-bg) !important;
           }
           div[class*="footer_"] {
-            border-top: 1px solid var(--search-results-active) !important;
+            border-top: 1px solid var(--input-bg) !important;
           }
           div[class*="column_"]:not(:first-child) {
-            border-left: 1px solid var(--search-results-active) !important;
+            border-left: 1px solid var(--input-bg) !important;
           }
 
           tr[class*="row_"] {
@@ -4683,7 +4782,7 @@
               }
 
               span[class*="row__Tag"] {
-                background: #f5df2e !important;
+                background: var(--chart-bg) !important;
                 color: var(--black) !important;
               }
             }
@@ -4719,13 +4818,18 @@
             background: var(--new-submission) !important;
             color: var(--main-bg-color) !important;
           }
-          .oXLEV {
+          div[class*="footer_"] span[class*="newsubmission_"] {
             background-color: rgba(242, 185, 13, 0.2) !important;
+            color: var(--text-normal) !important;
           }
           // needs changes
           span[class*="needschanges_"] {
             background: var(--needs-changes) !important;
             color: var(--main-bg-color) !important;
+          }
+          div[class*="footer_"] span[class*="needschanges_"] {
+            background-color: rgba(242, 185, 13, 0.2) !important;
+            color: var(--text-normal) !important;
           }
           // Data correct
           span[class*="correct_"] {
@@ -4798,7 +4902,7 @@
     background: var(--search-results-active) !important;
 
     .switch_2cmFj.enabled_lxcoE {
-      background: #377d25 !important;
+      background: var(--rating-positive-text) !important;
     }
   }
 }
