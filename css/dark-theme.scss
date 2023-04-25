@@ -27,6 +27,7 @@
   --link: #829fc4;
   /* Collection / Inventory / Wantlist Skittles */
   --search-results-active: #222222;
+  --skittle-collection: #60c43f;
   --skittle-inventory: #326fb2;
   --skittle-wantlist: #bf3a38;
   /* Inputs */
@@ -1719,7 +1720,7 @@
   /* green shipped */
   div[class*="skittles_"] span[class*="collection_"],
   .skittles .skittle.skittle_collection {
-    background-color: var(--button-green) !important;
+    background-color: var(--skittle-collection) !important;
     color: var(--white) !important;
 
     i[class^="icon"] {
@@ -1728,10 +1729,10 @@
   }
 
   .skittle.skittle_collection {
-    background-color: var(--button-green) !important;
+    background-color: var(--skittle-collection) !important;
     color: var(--white) !important;
     span {
-      background-color: var(--button-green) !important;
+      background-color: var(--skittle-collection) !important;
       color: var(--white) !important;
     }
     i[class^="icon"] {
@@ -1773,10 +1774,10 @@
   span.skittle.skittle_wantlist span.count,
   .skittle.skittle_inventory span.count,
   span.skittle.skittle_wantlist.needs_delegated_tooltip span.count {
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
 
     i[class^="icon"] {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -1784,10 +1785,10 @@
   div[class*="skittles_"] span[class*="wantlist_"],
   span.skittle.skittle_wantlist.needs_delegated_tooltip {
     background-color: var(--skittle-wantlist) !important;
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
 
     i[class^="icon"] {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -1795,10 +1796,10 @@
   div[class*="header_"] a[class*="skittle_"],
   div[class*="skittles_"] span[class*="inventory_"] {
     background-color: var(--skittle-inventory) !important;
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
 
     i[class^="icon"] {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -3926,6 +3927,11 @@
 
       div[class*="content_"] {
         line-height: 12px;
+      }
+
+      // Discogs Logo in React Header
+      svg g {
+        fill: var(--white) !important;
       }
     }
 
