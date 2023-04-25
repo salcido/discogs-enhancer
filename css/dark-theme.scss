@@ -5017,4 +5017,38 @@
       background: var(--rating-positive-text) !important;
     }
   }
+
+  /* Support Discogs Enhancer Modal */
+  .de-donate-modal {
+    background: var(--main-bg-color) !important;
+    border: 1px solid var(--borders) !important;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+    .inner {
+      h3 {
+        color: var(--text-bold) !important;
+      }
+      button svg {
+        stroke: var(--text-bold) !important;
+      }
+
+      svg path {
+        fill: var(--text-bold) !important;
+      }
+    }
+
+    .disclaimer {
+      color: var(--text-muted) !important;
+    }
+
+    .donate-btn {
+      background: var(--black) !important;
+      color: var(--white) !important;
+
+      &:hover {
+        background: var(--button-green) !important;
+        color: var(--white) !important;
+      }
+    }
+  }
 }
