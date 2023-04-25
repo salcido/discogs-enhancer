@@ -93,6 +93,11 @@
   --alert-warning-bg: #f7eac5;
   --alert-warning-text: #816612;
   --alert-warning-highlight: #E56000;
+  /* Modified Cart Notice */
+  --modified-cart-bg: #f7eac5;
+  --modified-cart-htag: #000000;
+  --modified-cart-highlight: #E56000;
+  --modified-cart-text: #816612;
   /* Release Rating Stars */
   --star-rating: #f7d06c;
   --submission-form-error: #360d0d;
@@ -159,6 +164,12 @@
   --in-collection-bg: #12311a;
 
   --link: #7d9fcc;
+  --submission-form-error: #321d1f;
+  --modified-cart-bg: #232428;
+  --modified-cart-highlight: #adbeff;
+  --modified-cart-text: #adbeff;
+  --modified-cart-htag: #c5def7;
+  --modified-cart-remove-icon: #c5def7;
 }
 /*
 ////////////////////////////////////
@@ -175,11 +186,17 @@
   --row-even: #282e35;
   --input-bg: #1c2128;
 
-  --alert-warning-bg: #f7d77a;
+  --modified-cart-bg: #30394b;
+  --modified-cart-highlight: #adbeff;
+  --modified-cart-text: #adbeff;
+  --modified-cart-htag: #d9d9d9;
+  --modified-cart-remove-icon: #c5def7;
+
   --in-collection-bg: #12311a;
 
   --history-highlight: #484560;
   --history-hover: #353345;
+  --submission-form-error: #2e222b;
 
   --text-muted: #768390;
   --text-normal: #bdbdbd;
@@ -699,9 +716,19 @@
     opacity: 0.8;
   }
 
+  /* read more button on artist / label profiles */
   div.readmore_wrapper {
     background: var(--main-bg-color) !important;
+
+    button.readmore_toggler {
+      color: var(--text-muted) !important;
+
+      i.icon {
+        color: var(--text-muted) !important;
+      }
+    }
   }
+
   #full-width-header div.readmore_wrapper {
     background: var(--input-bg) !important;
   }
@@ -776,7 +803,7 @@
   .current_filter {
     background-color: var(--facet-selected) !important;
     border-radius: 2px !important;
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
   }
 
   .order_status_icon {
@@ -902,7 +929,8 @@
     border-right: 2px solid var(--borders) !important;
   }
 
-  table.table_block tbody tr.even {
+  table.table_block tbody tr.even,
+  table tbody tr.even {
     background-color: var(--row-even)   !important;
   }
 
@@ -1683,11 +1711,15 @@
     border-right: 1px dotted var(--borders) !important;
   }
 
+  /*
+    new releases added to the db when viewing text with covers / text only:
+    https://www.discogs.com/search/?sort=nfm
+  */
   .card .card_body .card_status {
-    color: var(--scroll-bar-thumb) !important;
+    color: var(--text-muted) !important;
     a,
     i {
-      color: var(--scroll-bar-thumb) !important;
+      color: var(--text-muted) !important;
     }
   }
 
@@ -2347,7 +2379,7 @@
     .icon.icon-times,
     &.alert-message-warning i {
       background: transparent !important;
-      color: var(--headers) !important;
+      color: var(--alert-warning-remove-icon) !important;
     }
     &.alert-message-info a:not(.button):hover {
       color: var(--link-visited) !important;
@@ -2417,6 +2449,53 @@
       }
     }
   }
+  /* Modified Cart - These items got away banner */
+  #modified-cart.alert-message-warning {
+    background: var(--modified-cart-bg) !important;
+    color: var(--modified-cart-text) !important;
+    border-left: 4px solid var(--modified-cart-highlight) !important;
+    box-shadow: 0 1px 5px var(--box-shadow-a) !important;
+
+    i,
+    a,
+    a strong,
+    a small {
+      color: var(--modified-cart-highlight) !important;
+    }
+
+    .skittle i.icon-wantlist {
+      color: var(--white) !important;
+    }
+
+    /* Add All To Wantlist / Dismiss All buttons */
+    .fright {
+      a.button-small,
+      a.button-small i {
+        color: var(--black) !important;
+      }
+      a.button-red,
+      a.button-red i {
+        color: var(--white) !important;
+      }
+    }
+
+    span {
+      &.alert-message-content {
+        h3,
+        h4 {
+          background: transparent !important;
+          color: var(--modified-cart-htag) !important;
+        }
+        ul li a {
+          strong,
+          small {
+            background: transparent !important;
+            color: var(--modified-cart-text) !important;
+          }
+        }
+      }
+    }
+  }
 
   span {
     &.alert-message-text {
@@ -2429,13 +2508,13 @@
     &.alert-message-content {
       h3,
       h4 {
-        background: var(--alert-warning-bg) !important;
+        background: transparent !important;
         color: var(--alert-warning-text) !important;
       }
       ul li a {
         strong,
         small {
-          background: var(--alert-warning-bg) !important;
+          background: transparent !important;
           color: var(--alert-warning-text) !important;
         }
       }
@@ -2776,6 +2855,8 @@
   input.search_table_field:focus-within,
   fieldset input[type="text"]:focus-within,
   input[type="password"]:focus-within,
+  input[type="checkbox"]:focus-within,
+  input[type="number"]:focus-within,
   input#marketplace-search-input:focus-within,
   .submission-form-section input[type="text"]:focus-within,
   .submission-form-section textarea:focus-within,
@@ -3251,7 +3332,7 @@
   .FacetGroup.active .selected {
     span,
     i {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -3508,6 +3589,11 @@
       border-radius: 3px;
     }
 
+    a,
+    a:hover {
+      color: var(--main-bg-color) !important;
+    }
+
     span {
       color: var(--main-bg-color) !important;
     }
@@ -3526,7 +3612,26 @@
   /* Converted currency in cart page */
 
   .currency_converted {
-    opacity: 0.7;
+    color: var(--text-muted) !important;
+
+    .currency_abbr {
+      color: var(--text-muted) !important;
+    }
+  }
+
+  .order_total.with-price td {
+    color: var(--text-bold) !important;
+
+    .currency_abbr {
+      color: var(--text-bold) !important;
+    }
+    .currency_converted {
+      color: var(--text-muted) !important;
+
+      .currency_abbr {
+        color: var(--text-muted) !important;
+      }
+    }
   }
 
   .cart_page .order_total td {
