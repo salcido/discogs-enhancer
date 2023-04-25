@@ -408,6 +408,7 @@
     strong,
     time,
     p,
+    span,
     &:not(.button) {
       color: var(--link-hover) !important;
     }
@@ -1282,10 +1283,10 @@
   .button.button-red {
     border-color: var(--button-red) !important;
     background: var(--button-red) !important;
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
     span {
       border-color: var(--button-red) !important;
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -2090,9 +2091,6 @@
   .form_block textarea,
   #review_compose.form_block textarea,
   textarea.thread-compose-message,
-  #pw_current,
-  #pw_new,
-  #pw_confirm_new,
   input[type="text"]:not(.image_copy_permalink_text) {
     background: var(--input-bg) !important;
     border: 1px solid var(--borders) !important;
@@ -2775,6 +2773,9 @@
   input[name="query"]:focus-within,
   input.countable:focus-within,
   textarea:focus-within,
+  input.search_table_field:focus-within,
+  fieldset input[type="text"]:focus-within,
+  input[type="password"]:focus-within,
   input#marketplace-search-input:focus-within,
   .submission-form-section input[type="text"]:focus-within,
   .submission-form-section textarea:focus-within,
@@ -2938,14 +2939,14 @@
     background: var(--skittle-wantlist) !important;
     border-color: var(--button-red) !important;
     span {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
   i {
     &.icon-facebook,
     &.icon-google-plus {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
