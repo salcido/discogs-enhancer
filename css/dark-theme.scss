@@ -185,6 +185,7 @@
 
   --row-even: #282e35;
   --input-bg: #1c2128;
+  --search-results-active: #22272e;
 
   --modified-cart-bg: #30394b;
   --modified-cart-highlight: #adbeff;
@@ -850,7 +851,7 @@
     color: var(--white) !important;
   }
 
-  /* white icons on colovar(--needs-changes) buttons */
+  /* white icons on colored buttons */
 
   #user_header .user_avatar {
     border: 3px solid var(--text-bold) !important;
@@ -862,15 +863,15 @@
 
   table.cards tr {
     &.sub_first.card.sub {
-      box-shadow: inset 0 10px 5px -8px var(--search-results-active) !important;
+      box-shadow: inset 0 10px 5px -8px var(--box-shadow-a) !important;
       td {
-        box-shadow: inset 0 10px 5px -8px var(--search-results-active) !important;
+        box-shadow: inset 0 10px 5px -8px var(--box-shadow-a) !important;
       }
     }
     &.sub_last.card.sub {
-      box-shadow: inset 0 -10px 5px -8px var(--search-results-active) !important;
+      box-shadow: inset 0 -10px 5px -8px var(--box-shadow-a) !important;
       td {
-        box-shadow: inset 0 -10px 5px -8px var(--search-results-active) !important;
+        box-shadow: inset 0 -10px 5px -8px var(--box-shadow-a) !important;
       }
     }
     &.sub {
@@ -3654,7 +3655,7 @@
 
   .country-list-info .country-list {
     background: var(--headers) !important;
-    filter: drop-shadow(0 2px 2px var(--search-results-active)) !important;
+    filter: drop-shadow(0 2px 2px var(--box-shadow-a)) !important;
   }
 
   /* inventory-ratings */
@@ -5011,7 +5012,7 @@
 
   // Opt In toggle
   .optin_3Ze0T {
-    background: var(--search-results-active) !important;
+    background: var(--box-shadow-a) !important;
 
     .switch_2cmFj.enabled_lxcoE {
       background: var(--rating-positive-text) !important;
@@ -5020,20 +5021,22 @@
 
   /* Support Discogs Enhancer Modal */
   .de-donate-modal {
-    background: var(--main-bg-color) !important;
-    border: 1px solid var(--borders) !important;
+    background: var(--input-bg) !important;
+    border: 2px solid var(--borders) !important;
+    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
     .inner {
       h3 {
         color: var(--text-bold) !important;
       }
-      button svg {
+      // x close button
+      .close-btn svg {
         stroke: var(--text-bold) !important;
       }
-
+      // Icon
       svg path {
-        fill: var(--text-bold) !important;
+        fill: var(--button-green) !important;
       }
     }
 
