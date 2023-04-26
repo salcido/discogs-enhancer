@@ -37,6 +37,8 @@
   --needs-changes: #ff0000;
   --new-submission: #f2b90d;
   --order-sidebar-bg: #1f1f1f;
+  /* Master Release Filter Chip Color */
+  --filter-chip: #2a4f96;
   /* Release In Collection / Wantlist Blocks */
   --in-collection-bg: #1c3814;
   --in-collection-border: #60c43f;
@@ -152,18 +154,15 @@
 ////////////////////////////////////
 */
 .theme-dimmed {
-  --site-header-bg: #171717;
+  --site-header-bg: #151515;
   --main-bg-color: #2B2E32;
-
   --headers: #383a3e;
   --borders: #3d3f45;
-
   --row-even: #27292c;
   --input-bg: #25262a;
-
   --in-collection-bg: #12311a;
-
   --link: #7d9fcc;
+  --filter-chip: #2a4f96;
   --submission-form-error: #321d1f;
   --modified-cart-bg: #232428;
   --modified-cart-highlight: #adbeff;
@@ -179,26 +178,21 @@
 .theme-nebula {
   --site-header-bg: #121519;
   --main-bg-color: #22272e;
-
   --headers: #31373e;
   --borders: #31373e;
-
   --row-even: #282e35;
   --input-bg: #1c2128;
   --search-results-active: #22272e;
-
   --modified-cart-bg: #30394b;
   --modified-cart-highlight: #adbeff;
   --modified-cart-text: #adbeff;
   --modified-cart-htag: #d9d9d9;
   --modified-cart-remove-icon: #c5def7;
-
   --in-collection-bg: #12311a;
-
+  --filter-chip: #2a4f96;
   --history-highlight: #3a4260;
   --history-hover: #353345;
   --submission-form-error: #2e222b;
-
   --text-muted: #768390;
   --text-normal: #bdbdbd;
   --text-bold: #d9d9d9;
@@ -3678,8 +3672,9 @@
   /* admin link in forums */
 
   h1 a:visited.text_label,
-  a:visited.text_label {
-    background-color: #98158b !important;
+  a:visited.text_label,
+  .admin_bar {
+    background-color: var(--history-highlight) !important;
   }
 
   /* Quick search external icon */
@@ -4791,11 +4786,6 @@
       background: var(--input-bg) !important;
       box-shadow: none;
 
-      button.button_1Cxan,
-      button:hover {
-        background: var(--row-even) !important;
-      }
-
       div[class*="item_"]:hover {
         span[class*="tick_"] {
           border: 1px solid var(--text-normal)  !important;
@@ -4803,6 +4793,23 @@
       }
 
       div[class*="size_"] {
+        background: var(--headers) !important;
+      }
+    }
+
+    div[class*="box_"][aria-controls*="version-"] {
+      // format / labels / country / year filter chips
+      button:not([aria-haspopup="listbox"]),
+      button:not([aria-haspopup="listbox"]):hover {
+        background: var(--filter-chip) !important;
+
+        div {
+          color: var(--text-bold) !important;
+        }
+      }
+
+      // square button with triangle that opens filter list menu when clicked
+      button[aria-haspopup="listbox"]:hover {
         background: var(--headers) !important;
       }
     }
@@ -4831,19 +4838,38 @@
 
     div[class*="list_"] {
       border: 1px solid var(--borders) !important;
-      background: var(--input-bg) !important;
+      background: var(--main-bg-color) !important;
       box-shadow: none;
+
+      div[class*="item_"][class*="highlighted_"] {
+        background: var(--input-bg) !important;
+      }
+
+      // selected checkbox background in Master Release filter lists
+      div[class*="item_"] span[class*="tick_"][class*="selected_"]{
+        background: var(--filter-chip) !important;
+        color: var(--text-bold) !important;
+
+        svg path {
+          fill: var(--text-bold) !important;
+        }
+      }
 
       button:hover {
         background: var(--black) !important;
       }
+
     }
 
     section[class*="section_"] {
       div[class*="content_"] {
 
         button[class*="chip_"] {
-          background: var(--black) !important;
+          background: var(--filter-chip) !important;
+
+          div {
+            color: var(--text-bold) !important;
+          }
         }
 
         div[class*="progress_"] div[class*="bar_"] {
