@@ -87,6 +87,8 @@
   --button-green-border: #4ea332;
   --button-green: #60c43f;
   --button-red: #982e2c;
+  --button-primary: #eeeeee;
+  --button-primary-hover: #ffffff;
   /* Alert banners */
   --alert-accept-bg: #d1f7c5;
   --alert-error-bg: #f7cdc5;
@@ -427,6 +429,11 @@
     .linked_username {
       color: var(--link-hover) !important;
     }
+  }
+
+  /* Super annyoing to style More Images link */
+  a[class*="link_"]:hover > p {
+    color: var(--link-hover) !important;
   }
 
   .footer a:hover i,
@@ -2854,6 +2861,7 @@
   input[type="password"]:focus-within,
   input[type="checkbox"]:focus-within,
   input[type="number"]:focus-within,
+  input#title:focus-within,
   input#marketplace-search-input:focus-within,
   .actions_with_tabs input[name="q"]:focus-within,
   .submission-form-section input[type="text"]:focus-within,
@@ -3179,6 +3187,11 @@
     &.odd.has-comments {
       background-color: #2a3a48 !important;
     }
+  }
+
+  /* Comment Scanner Overlay */
+  .de-comment-overlay {
+    background: var(--main-bg-color) !important;
   }
 
   /* Pay billing page */
@@ -4026,11 +4039,6 @@
       }
     }
 
-    // global line height value
-    div[class*="content_"] {
-      line-height: 18px;
-    }
-
     // header nav line height for hover states
     header[class*="header_"] {
       div[class*="content_"] {
@@ -4241,8 +4249,12 @@
         }
       }
 
-      button[class*="wrapper_"]:hover {
+      button[class*="wrapper_"]:hover,
+      div[class*="wrapper_"]:hover,
+      div[class*="wrapper_"]:focus-within {
         background: var(--in-collection-hover) !important;
+        outline: 2px solid var(--input-focus-border) !important;
+        border-radius: 4px;
       }
 
       button[class*="remove_"] {
@@ -4586,6 +4598,10 @@
     button[type="submit"][class*="green_"] {
       color: var(--text-bold) !important;
       background-color: var(--button-green) !important;
+
+      &:hover {
+        color: var(--white) !important;
+      }
     }
 
     button[type="submit"][disabled] {
@@ -4663,7 +4679,7 @@
       color: var(--headers) !important;
 
       &:hover {
-        background-color: var(--text-bold) !important;
+        background-color: var(--white) !important;
         background-image: none !important;
         color: var(--headers);
       }
@@ -4718,9 +4734,17 @@
       color: var(--text-bold) !important;
       background-color: var(--button-green) !important;
 
+      svg path {
+        fill: var(--text-bold) !important;
+      }
+
       &:disabled {
         background: var(--button-disabled) !important;
         color: var(--button-disabled-text) !important;
+
+        svg path {
+          fill: var(--button-disabled-text) !important;
+        }
       }
     }
 
@@ -4756,7 +4780,19 @@
     }
 
     #wantlist-button button[class*="_primary"] {
-      background: var(--black) !important;
+      background: var(--button-primary) !important;
+
+      &:hover {
+        background: var(--button-primary-hover) !important;
+      }
+
+      span {
+        color: var(--black) !important;
+      }
+
+      svg path {
+        fill: var(--black) !important;
+      }
     }
 
     #wantlist-button--menu {
