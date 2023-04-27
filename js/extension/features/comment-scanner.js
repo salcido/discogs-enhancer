@@ -144,11 +144,6 @@ rl.ready(() => {
       left: calc(50% - 160px);
     }
 
-    .de-dark-theme #dashboard_list_${existingId} .de-comment-overlay {
-      background: #333333f0 !important;
-      box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 70%) inset;
-    }
-
     .loader {
       text-align: center;
       margin: 1rem auto;
