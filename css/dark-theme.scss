@@ -5,7 +5,7 @@
 */
 :root {
   /* Main Discogs Header */
-  --site-header-bg: #000000;
+  --site-header-bg: #171717;
   /* Main Page color */
   --main-bg-color: #323334;
   /* Text Colors */
@@ -99,7 +99,7 @@
   --modified-cart-bg: #f7eac5;
   --modified-cart-htag: #000000;
   --modified-cart-highlight: #e56000;
-  --modified-cart-text: #816612;
+  --modified-cart-text: #2653D9;
   /* Release Rating Stars */
   --star-rating: #f7d06c;
   --submission-form-error: #360d0d;
@@ -150,10 +150,10 @@
 }
 /*
 ////////////////////////////////////
-// Dimmed Theme Overrides
+// Gravity Theme Overrides
 ////////////////////////////////////
 */
-.theme-dimmed {
+.theme-gravity {
   --site-header-bg: #151515;
   --main-bg-color: #2b2e32;
   --headers: #383a3e;
@@ -2363,11 +2363,12 @@
       background: var(--alert-info-bg) !important;
       color: var(--headers) !important;
       line-height: 20px !important;
+      border-left: 4px solid var(--button-blue) !important;
       i,
       div,
       .alert-message-content div {
         background: var(--alert-info-bg) !important;
-        color: var(--headers) !important;
+        color: var(--button-blue) !important;
         line-height: 20px !important;
       }
     }
@@ -2399,10 +2400,10 @@
       background: var(--alert-error-bg) !important;
       font-size: 14px !important;
       color: var(--alert-error-text) !important;
+      border-left: 4px solid var(--button-red) !important;
       line-height: 20px !important;
       i {
         background: var(--alert-error-bg) !important;
-        font-size: 14px !important;
         color: var(--alert-error-text) !important;
         line-height: 20px !important;
       }
@@ -2410,6 +2411,7 @@
     &.alert-message-accept {
       background: var(--alert-accept-bg) !important;
       color: var(--button-green) !important;
+      border-left: 4px solid var(--button-green) !important;
       i,
       span {
         background: var(--alert-accept-bg) !important;
@@ -2523,7 +2525,7 @@
       }
       strong,
       em {
-        color: var(--text-placeholder) !important;
+        color: var(--headers) !important;
         a {
           color: var(--headers) !important;
           &:hover {
@@ -2853,6 +2855,7 @@
   input[type="checkbox"]:focus-within,
   input[type="number"]:focus-within,
   input#marketplace-search-input:focus-within,
+  .actions_with_tabs input[name="q"]:focus-within,
   .submission-form-section input[type="text"]:focus-within,
   .submission-form-section textarea:focus-within,
   .subform_tracklist input[type="text"]:focus-within,
@@ -4806,6 +4809,10 @@
 
         div {
           color: var(--text-bold) !important;
+
+          svg path {
+            fill: var(--text-bold) !important;
+          }
         }
       }
 
@@ -4868,6 +4875,11 @@
 
           div {
             color: var(--text-bold) !important;
+
+            /* X remove chip icon */
+            svg path {
+              fill: var(--text-bold) !important;
+            }
           }
         }
 
