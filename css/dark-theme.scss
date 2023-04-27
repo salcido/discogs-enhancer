@@ -94,11 +94,11 @@
   --alert-info-bg: #c5def7;
   --alert-warning-bg: #f7eac5;
   --alert-warning-text: #816612;
-  --alert-warning-highlight: #E56000;
+  --alert-warning-highlight: #e56000;
   /* Modified Cart Notice */
   --modified-cart-bg: #f7eac5;
   --modified-cart-htag: #000000;
-  --modified-cart-highlight: #E56000;
+  --modified-cart-highlight: #e56000;
   --modified-cart-text: #816612;
   /* Release Rating Stars */
   --star-rating: #f7d06c;
@@ -155,7 +155,7 @@
 */
 .theme-dimmed {
   --site-header-bg: #151515;
-  --main-bg-color: #2B2E32;
+  --main-bg-color: #2b2e32;
   --headers: #383a3e;
   --borders: #3d3f45;
   --row-even: #27292c;
@@ -462,20 +462,20 @@
       background: var(--black) !important;
     }
     > a {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
     .nav_group_control {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
       i {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
     }
   }
 
   .site_nav_tray {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
     h4 {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
@@ -483,40 +483,40 @@
   .site_nav_tray a,
   .site_nav_submenu a:visited,
   .site_nav_tray a:visited {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
   }
 
   #site_navigation > li {
     > a:hover i,
     .nav_group_control:hover i {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
   #activity_menu > li {
     > a i,
     .nav_group_control i {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
   .activity_menu_total {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
   }
 
   #activity_menu > li {
     > a {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
       &:hover {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
     }
     .nav_group_control {
       &:hover,
       span {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
@@ -552,7 +552,7 @@
 
   ol#search_tabs li {
     label {
-      background-color: var(--row-even)   !important;
+      background-color: var(--row-even) !important;
     }
     input[type="radio"]:checked + label {
       background-color: var(--skittle-inventory) !important;
@@ -562,7 +562,7 @@
 
   li.ui-menu-item {
     a.ui-state-focus {
-      background: var(--search-results-active)!important;
+      background: var(--search-results-active) !important;
     }
   }
 
@@ -707,7 +707,7 @@
   /* "Edit" in empty notes fields */
 
   .notes_add {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
     opacity: 0.8;
   }
 
@@ -904,7 +904,7 @@
   }
 
   .has_files #uploader_messaging {
-    background-color: var(--row-even)   !important;
+    background-color: var(--row-even) !important;
   }
 
   .uploader:hover,
@@ -926,13 +926,13 @@
 
   table.table_block tbody tr.even,
   table tbody tr.even {
-    background-color: var(--row-even)   !important;
+    background-color: var(--row-even) !important;
   }
 
   .cart_page {
     .order_contents tr.even,
     .order_suggestions {
-      background-color: var(--row-even)   !important;
+      background-color: var(--row-even) !important;
     }
   }
 
@@ -940,14 +940,14 @@
     &.body_row.even,
     &.header,
     &.footer {
-      background-color: var(--row-even)   !important;
+      background-color: var(--row-even) !important;
     }
   }
 
   ol.as_table_block li {
     &.header,
     &.footer {
-      background-color: var(--row-even)   !important;
+      background-color: var(--row-even) !important;
     }
   }
 
@@ -1117,12 +1117,12 @@
 
   #list_details.editable .textedit:hover div,
   #list_details.editable .textedit:hover h1 {
-      background: var(--input-bg) !important;
+    background: var(--input-bg) !important;
   }
 
   a.inset_button[disabled] {
     background: var(--box-shadow-a) !important;
-    border-color: var(--row-even)   !important;
+    border-color: var(--row-even) !important;
     box-shadow: var(--box-shadow-a) 0 0 3px 1px inset !important;
   }
 
@@ -1464,7 +1464,8 @@
 
   .price {
     color: var(--in-wantlist-border) !important;
-    span, td {
+    span,
+    td {
       color: var(--in-wantlist-border) !important;
     }
   }
@@ -1558,7 +1559,6 @@
   .grid #image_uploader_list .image_info button:hover {
     background: var(--box-shadow-a) !important;
   }
-
 
   /* bottom line border rule */
 
@@ -1694,7 +1694,7 @@
     }
   }
 
-  table.subform_tracklist tr.subform_track  {
+  table.subform_tracklist tr.subform_track {
     border-left: 1px solid var(--borders) !important;
   }
 
@@ -2157,7 +2157,7 @@
   /* x icons on dashboard modules */
 
   ul.module_blocks .header i {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
   }
 
   div.search_result.needschanges div.flag {
@@ -2277,10 +2277,10 @@
   }
 
   a.list-group-item.heading {
-    background-color: var(--row-even)   !important;
+    background-color: var(--row-even) !important;
     color: var(--text-bold) !important;
     &:visited {
-      background-color: var(--row-even)   !important;
+      background-color: var(--row-even) !important;
       color: var(--text-bold) !important;
     }
   }
@@ -2288,7 +2288,7 @@
   code {
     background-color: var(--black) !important;
     font-size: 90% !important;
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
   }
 
   pre {
@@ -2423,12 +2423,12 @@
       background-color: var(--headers) !important;
     }
     &.alert-message-news .announcement-title {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
     a.alert-message-close-icon i {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
       &:visited {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
     }
     &.alert-message-warning {
@@ -2541,9 +2541,9 @@
 
   #page_aside span.alert-message-text,
   .alert-message-broadcast span.alert-message-text {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
     strong {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
@@ -2717,7 +2717,7 @@
 
   table#subform_submit {
     td.left {
-      background: var(--row-even)   !important;
+      background: var(--row-even) !important;
     }
     td.last {
       background: var(--input-bg) !important;
@@ -2728,43 +2728,43 @@
 
   .ref_guidelines_list .ref_guidelines_heading {
     a {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
       &:hover,
       &:visited,
       i,
       &:hover i,
       &:visited i {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
     }
     i {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
       &:hover,
       &:visited {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
     }
   }
 
   div.format.collapsible a.collapse i {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
     &:hover {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
   .subform_track_actions a i {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
     &:hover,
     &:visited {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
   span#layout_buttons a.inset_button i {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
     &:visited {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
   }
 
@@ -2810,32 +2810,32 @@
 
   .vote_info_helper {
     background-color: var(--vote-helper-bg) !important;
-    color: var(--row-even)   !important;
+    color: var(--row-even) !important;
   }
 
   .hl_added {
     background-color: var(--added) !important;
-    color: var(--row-even)   !important;
+    color: var(--row-even) !important;
   }
 
   .hl_removed {
     background-color: var(--removed) !important;
-    color: var(--row-even)   !important;
+    color: var(--row-even) !important;
   }
 
   .hl_changed1 {
     background-color: var(--changed1) !important;
-    color: var(--row-even)   !important;
+    color: var(--row-even) !important;
   }
 
   .hl_changed2 {
     background-color: var(--changed2) !important;
-    color: var(--row-even)   !important;
+    color: var(--row-even) !important;
   }
 
   .hl_warning {
     background-color: var(--warning) !important;
-    color: var(--row-even)   !important;
+    color: var(--row-even) !important;
   }
 
   #namecheckmsg {
@@ -3002,7 +3002,7 @@
   /* https://www.discogs.com/release/6265588-The-Rise-And-Fall-Of-Paramount-Records-1928-1932-Volume-2/history#latest */
 
   .data span.alert-message-text {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
   }
 
   /* Login Screen */
@@ -3182,7 +3182,7 @@
 
   .form-block legend,
   .box-header-row.box-header-row-first {
-    background: var(--row-even)   !important;
+    background: var(--row-even) !important;
     border-bottom: 1px solid var(--borders) !important;
     border-top: 1px solid var(--borders) !important;
   }
@@ -3299,7 +3299,7 @@
     }
     li {
       &:hover {
-        background: var(--row-even)   !important;
+        background: var(--row-even) !important;
       }
       border-top: none !important;
       border-left: none !important;
@@ -3467,7 +3467,7 @@
       }
       tr.range button {
         background: var(--borders) !important;
-        border: 1px solid var(--text-normal)  !important;
+        border: 1px solid var(--text-normal) !important;
       }
     }
     .policy_right {
@@ -3510,21 +3510,24 @@
 
     .valid_policy_icon {
       color: var(--button-green) !important;
-      i, div {
+      i,
+      div {
         color: var(--button-green) !important;
       }
     }
 
     .invalid_policy_icon {
       color: var(--policy-invalid) !important;
-      i, div {
+      i,
+      div {
         color: var(--policy-invalid) !important;
       }
     }
 
     .invalid_method {
       background: var(--policy-invalid-bg) !important;
-      i, div {
+      i,
+      div {
         color: var(--policy-invalid) !important;
       }
     }
@@ -3718,10 +3721,10 @@
 
   // text-format-shortcuts
   .quick-button {
-    color: var(--text-normal)  !important;
+    color: var(--text-normal) !important;
 
     i.icon-chain {
-      color: var(--text-normal)  !important;
+      color: var(--text-normal) !important;
     }
 
     &:hover,
@@ -3775,11 +3778,11 @@
       background: var(--button-disabled-text) !important;
       border: 2px solid var(--button-disabled-text) !important;
     }
-    .ot-tgl input:checked+.ot-switch .ot-switch-nob,
+    .ot-tgl input:checked + .ot-switch .ot-switch-nob,
     .switch-inner:before {
       background-color: var(--button-green) !important;
     }
-    .ot-tgl input+.ot-switch .ot-switch-nob,
+    .ot-tgl input + .ot-switch .ot-switch-nob,
     .ot-accordion-layout {
       border: 2px solid var(--button-disabled-text) !important;
     }
@@ -3834,7 +3837,8 @@
     }
   }
   // Search term highlights
-  ins, mark {
+  ins,
+  mark {
     background: var(--alert-info-bg) !important;
     color: var(--black) !important;
   }
@@ -3925,12 +3929,12 @@
         }
 
         &:hover {
-          background: var(--search-results-active)!important;
+          background: var(--search-results-active) !important;
         }
       }
 
       li[class*="_result_"][class*="_active_"] {
-        background: var(--search-results-active)!important;
+        background: var(--search-results-active) !important;
         outline: 2px solid var(--input-focus-border) !important;
         border-radius: 4px;
       }
@@ -4026,7 +4030,6 @@
 
     // header nav line height for hover states
     header[class*="header_"] {
-
       div[class*="content_"] {
         line-height: 12px;
       }
@@ -4042,11 +4045,10 @@
     }
 
     nav[class*="profile_"] {
-
       a[class*="headericon_"] {
         font-size: 13px;
         margin-right: 0;
-        padding-right: .75rem;
+        padding-right: 0.75rem;
 
         svg {
           vertical-align: middle;
@@ -4055,17 +4057,17 @@
       }
 
       div[class*="user_"] nav[class*="dropdown_"] li a[class*="link_"] {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
 
         &:hover {
-          color: var(--text-normal)  !important;
+          color: var(--text-normal) !important;
           text-decoration: underline;
         }
       }
 
       // cart icon text
       a[href="/sell/cart"] {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
       }
       // messages icon
       a[href="/messages"] {
@@ -4167,7 +4169,7 @@
 
     #release-header {
       h1 {
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
       }
     }
 
@@ -4193,7 +4195,7 @@
     }
 
     button[class*="grey_"][class*="disabled_"] {
-      background-color: var(--text-normal)  !important;
+      background-color: var(--text-normal) !important;
       color: var(--button-disabled-text) !important;
 
       svg[class*="icon_"] path {
@@ -4297,7 +4299,8 @@
     }
 
     div[class*="buttons_"] {
-      button, path {
+      button,
+      path {
         color: var(--headers) !important;
       }
     }
@@ -4309,7 +4312,6 @@
     div[class*="side_"]:nth-of-type(5) {
       // share icon
       button[class*="button_"] {
-
         &:hover {
           svg[class*="icon_"] path {
             color: var(--link-hover) !important;
@@ -4359,7 +4361,7 @@
           color: var(--text-muted) !important;
         }
         button[class*="button_"] svg[class*="icon_"] {
-          margin-right: .5rem;
+          margin-right: 0.5rem;
         }
       }
     }
@@ -4384,7 +4386,7 @@
           border-bottom: 1px solid var(--borders) !important;
 
           a[class*="active_"] {
-            background: var(--search-results-active)!important;
+            background: var(--search-results-active) !important;
           }
 
           a:visited span[class*="title_"] {
@@ -4400,7 +4402,7 @@
           }
 
           &:hover {
-            background: var(--search-results-active)!important;
+            background: var(--search-results-active) !important;
 
             span[class*="title_"] {
               color: var(--link-hover) !important;
@@ -4510,7 +4512,7 @@
       }
 
       div[class*="dropdown_"] button[class*="grey_"] {
-        color: var(--text-normal)  !important;
+        color: var(--text-normal) !important;
 
         svg[class*="icon_"] {
           margin-right: 5px;
@@ -4552,7 +4554,6 @@
         color: var(--text-bold) !important;
       }
     }
-
 
     // Recommendations
     #release-recommendations {
@@ -4788,7 +4789,7 @@
 
       div[class*="item_"]:hover {
         span[class*="tick_"] {
-          border: 1px solid var(--text-normal)  !important;
+          border: 1px solid var(--text-normal) !important;
         }
       }
 
@@ -4818,7 +4819,7 @@
       background-color: var(--input-bg) !important;
 
       td[class*="cell_"] {
-        button[aria-checked=true] {
+        button[aria-checked="true"] {
           background-color: var(--black) !important;
         }
       }
@@ -4846,7 +4847,7 @@
       }
 
       // selected checkbox background in Master Release filter lists
-      div[class*="item_"] span[class*="tick_"][class*="selected_"]{
+      div[class*="item_"] span[class*="tick_"][class*="selected_"] {
         background: var(--filter-chip) !important;
         color: var(--text-bold) !important;
 
@@ -4858,12 +4859,10 @@
       button:hover {
         background: var(--black) !important;
       }
-
     }
 
     section[class*="section_"] {
       div[class*="content_"] {
-
         button[class*="chip_"] {
           background: var(--filter-chip) !important;
 
@@ -4982,7 +4981,6 @@
 
         div[class*="ui__Filters"] {
           div[class*="ui__Wrapper"] {
-
             div[class*="ui__Box"] {
               border: 1px solid var(--borders) !important;
               background: var(--input-bg) !important;
@@ -5019,10 +5017,9 @@
 
               div[class*="ui__Item-"] {
                 &:hover {
-                  background: var(--search-results-active)!important;
+                  background: var(--search-results-active) !important;
                 }
               }
-
             }
           }
         }
