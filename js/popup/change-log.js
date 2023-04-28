@@ -1,6 +1,25 @@
 module.exports = {
   current: [
     {
+      version: '3.2.0',
+      features: [
+        {
+          name: 'More Dark Themes',
+          description: 'Three dark themes are now available! Meteor, Gravity, and Nebula. Check them out and let me know what you think!',
+          link: '#darkTheme'
+        },
+      ],
+      updates: [
+        {
+          name: 'Bug Fix',
+          description: 'Fixed an issue where the "Has x more items I want" links in the Marketplace might not show up when using the Filter By Country feature.'
+        },
+      ],
+      thanks: [],
+    },
+  ],
+  previous: [
+    {
       version: '3.1.1',
       features: [
         {
@@ -17,8 +36,6 @@ module.exports = {
       ],
       thanks: ['Massive thank you to Jason F. for the donation! I really apprecaite it.'],
     },
-  ],
-  previous: [
     {
       version: '3.1.0',
       features: [

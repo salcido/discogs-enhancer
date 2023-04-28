@@ -394,6 +394,15 @@ h2.highlight {
   font-weight: bold;
 }
 
+.themes li {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.themes li b {
+  font-style: normal;
+}
+
 
 .mint {
   color: #00B4DB !important;

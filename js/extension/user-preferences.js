@@ -220,6 +220,8 @@ chrome.storage.sync.get('prefs', result => {
   prefs = result.prefs;
   // Disable the Dark Theme
   if (!prefs.darkTheme) document.documentElement.classList.remove('de-dark-theme');
+  // Set theme variant
+  if (prefs.darkThemeVariant) document.documentElement.classList.add(`theme-${prefs.darkThemeVariant}`);
 })
 
 // Resource Library

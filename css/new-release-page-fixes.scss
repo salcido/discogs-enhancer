@@ -1,45 +1,4 @@
 #app {
-  // header nav line height for hover states
-  div[class*="header_"] {
-    div[class*="content_"] {
-      line-height: 12px !important;
-    }
-  }
-
-  div[class*="profile_"] {
-
-    // even out the spacing at the bottom of the profile menu
-    nav[class*="dropdown_"] {
-      padding-bottom: .3rem !important;
-    }
-
-    a[class*="headericon_"] {
-      font-size: 13px !important;
-      margin-right: 0 !important;
-      padding-right: .75rem !important;
-
-      svg {
-        vertical-align: middle !important;
-        padding-bottom: 4px !important;
-      }
-    }
-  }
-
-  // Credits
-  #Credits {
-    span[class*="fallback_"] {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  #release-header {
-    h1 {
-      margin-bottom: .5rem !important;
-    }
-  }
-
   #release-stats {
     div[class*="items_"] h4 {
       width: auto !important;
@@ -50,7 +9,8 @@
   }
 
   // in Collection box
-  div[class*="collection_"] {
+  div[class*="collection_"],
+  div[class*="wantlist_"] {
     font-size: 14px !important;
     margin: 10px 5px;
 
@@ -75,11 +35,6 @@
     }
   }
 
-  // In Wantlist box
-  div[class*="wantlist_"] {
-    margin-top: 10px !important;
-  }
-
   // make an exception for the share button icon
   div[class*="ratings_"] + div[class*="wrapper_"] button svg {
     margin-right: 2px !important;
@@ -94,7 +49,7 @@
     button[class*="remove_"] {
       height: auto !important;
       margin-top: -2px !important;
-      margin-left: .3em !important;
+      margin-left: 0.3em !important;
       svg {
         height: 1.2em !important;
         top: 0 !important;
@@ -110,7 +65,7 @@
 
     div[class*="buttons_"] {
       button[class*="button_"] svg[class*="icon_"] {
-        margin-right: .5rem !important;
+        margin-right: 0.5rem !important;
       }
     }
   }
@@ -130,13 +85,12 @@
   // reviews
   #release-reviews {
     div[class*="review_"] {
-
       div[class*="header_"] {
         // margin-bottom: .2rem !important;
       }
 
       div[class*="content_"]:first-of-type {
-        margin-left: .4rem !important;
+        margin-left: 0.4rem !important;
       }
 
       div[class*="content_"] {
@@ -145,13 +99,13 @@
           padding: 0;
         }
         div[class*="content_"] {
-          margin: .3rem 0 !important;
+          margin: 0.3rem 0 !important;
         }
       }
 
       div[class*="edited_"] {
-        margin-top: .1rem !important;
-        margin-bottom: .2rem !important;
+        margin-top: 0.1rem !important;
+        margin-bottom: 0.2rem !important;
         font-size: 12px !important;
         text-transform: lowercase;
       }
@@ -159,7 +113,7 @@
       span[class*="content_"] {
         display: block !important;
         margin-top: 0 !important;
-        margin-bottom: .3rem !important;
+        margin-bottom: 0.3rem !important;
         line-height: 1.3rem !important;
         max-width: 645px !important;
       }
@@ -176,12 +130,12 @@
 
       // review text block
       div[class*="markup_"] {
-        margin-top: .25rem;
+        margin-top: 0.25rem;
       }
 
       // reply / helpful buttons
       div[class*="markup_"] + div {
-        margin-top: .5rem;
+        margin-top: 0.5rem;
 
         button {
           margin-right: 1rem;
@@ -190,8 +144,8 @@
 
       // Star ratings on release and reviews
       span[class*="rating_"] {
-        margin-top: .2rem !important;
-          svg {
+        margin-top: 0.2rem !important;
+        svg {
           margin: 0 2px 0 0 !important;
         }
       }
@@ -205,7 +159,7 @@
 
   #site_footer_wrap > div[class*="content_"] {
     ul li {
-      padding-top: .5rem !important;
+      padding-top: 0.5rem !important;
     }
   }
 }
