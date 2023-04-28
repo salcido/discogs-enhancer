@@ -1,6 +1,6 @@
 /*
 ////////////////////////////////////
-// Classic Theme
+// Meteor Theme
 ////////////////////////////////////
 */
 :root {
@@ -10,7 +10,7 @@
   --main-bg-color: #323334;
   /* Text Colors */
   --text-bold: #ffffff;
-  --text-muted: #858585;
+  --text-muted: #9B9B9B;
   --text-normal: #cccccc;
   --text-placeholder: #757575;
   /* Table Row alteration color */
@@ -44,9 +44,11 @@
   --in-collection-border: #60c43f;
   --in-collection-hover: #355235;
   --in-wantlist-bg: #561d1d;
-  --in-wantlist-border: #e7413f;
+  --in-wantlist-border: #E63749;
   /* Marketplace Selected Filters (Facets) */
   --facet-selected: #72a3d8;
+  /* Marketplace Price color */
+  --price: #ff4d4d;
   /* Marketplace have / want indicators */
   --want-low-bg: #f0d0d0;
   --want-high-bg: #e24242;
@@ -162,8 +164,10 @@
   --borders: #3d3f45;
   --row-even: #27292c;
   --input-bg: #25262a;
-  --in-collection-bg: #12311a;
-  --link: #7d9fcc;
+  --in-collection-bg: #1b3923;
+  --in-collection-border: #4e9b35;
+  --price: #FF4242;
+  --text-muted: #959595;
   --filter-chip: #2a4f96;
   --submission-form-error: #321d1f;
   --modified-cart-bg: #232428;
@@ -191,11 +195,14 @@
   --modified-cart-htag: #d9d9d9;
   --modified-cart-remove-icon: #c5def7;
   --in-collection-bg: #12311a;
+  --in-collection-border: #4e9b35;
+  --price: #f15959;
+  --in-wantlist-border: #b1413f;
   --filter-chip: #2a4f96;
   --history-highlight: #3a4260;
   --history-hover: #353345;
   --submission-form-error: #2e222b;
-  --text-muted: #768390;
+  --text-muted: #848F9A;
   --text-normal: #bdbdbd;
   --text-bold: #d9d9d9;
   --link-visited: #a78fd6;
@@ -910,6 +917,16 @@
     border: 5px dashed var(--borders) !important;
   }
 
+  .browse-files-button {
+    background: var(--button-primary) !important;
+    color: var(--black) !important;
+  }
+
+  span#article-borders-1,
+  span#article-borders-2 {
+    border-bottom: 1px solid var(--borders) !important;
+  }
+
   .has_files #uploader_messaging {
     background-color: var(--row-even) !important;
   }
@@ -1470,11 +1487,38 @@
   }
 
   .price {
-    color: var(--in-wantlist-border) !important;
+    color: var(--price) !important;
     span,
     td {
-      color: var(--in-wantlist-border) !important;
+      color: var(--price) !important;
     }
+  }
+
+  .converted_price,
+  .converted_price span {
+    color: var(--text-muted) !important;
+
+    &.de-price,
+    &.de-price span {
+      color: var(--text-normal) !important;
+
+      &.red {
+        color: var(--price) !important;
+      }
+
+      &.green {
+        color: var(--skittle-collection) !important;
+      }
+    }
+  }
+
+  /* suggested price feature */
+  .red {
+    color: var(--price) !important;
+  }
+
+  .green {
+    color: var(--skittle-collection) !important;
   }
 
   .cart_page .order_summary_errors {
@@ -3080,16 +3124,16 @@
   /* Edit Release page */
 
   .format .format_current_desc_list span {
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
     background: var(--skittle-inventory) !important;
   }
 
   .facet-tag {
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
     background: var(--skittle-inventory) !important;
     span,
     i {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
       background: var(--skittle-inventory) !important;
     }
   }
@@ -3712,6 +3756,7 @@
   // Disabled image tag in Release History page
   .text_label_red {
     background: var(--skittle-wantlist) !important;
+    color: var(--white) !important;
   }
 
   .image_preview {
@@ -3751,7 +3796,7 @@
 
   // demand-index
   .de-demand-negative {
-    color: var(--in-wantlist-border) !important;
+    color: var(--price) !important;
   }
   .de-demand-positive {
     color: var(--button-green) !important;
@@ -4687,7 +4732,7 @@
 
     // for sale count
     span[class*="forsale_"] span[class*="price_"] {
-      color: var(--in-wantlist-border) !important;
+      color: var(--price) !important;
     }
 
     #shortcuts {
@@ -5023,7 +5068,7 @@
           }
           // prices
           .cWLZCm {
-            color: var(--in-wantlist-border) !important;
+            color: var(--price) !important;
           }
         }
 
