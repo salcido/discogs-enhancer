@@ -166,7 +166,7 @@
   --input-bg: #25262a;
   --in-collection-bg: #1b3923;
   --in-collection-border: #4e9b35;
-  --price: #FF4242;
+  --price: #ff5c5c;
   --text-muted: #959595;
   --filter-chip: #2a4f96;
   --submission-form-error: #321d1f;
@@ -457,6 +457,13 @@
     color: var(--link-hover) !important;
   }
 
+  /* Super annyoing to style social icons in footer */
+  #site_footer_wrap a:hover {
+    svg path {
+      fill: var(--link-hover) !important;
+    }
+  }
+
   a:hover > {
     sup.de-discriminator,
     span.de-discriminator,
@@ -589,6 +596,12 @@
     }
   }
 
+  li.ui-menu-item a:hover {
+    span.with-sublabel {
+      color: var(--link-hover) !important;
+    }
+  }
+
   #site_footer_wrap {
     background: var(--site-header-bg) !important;
   }
@@ -651,6 +664,10 @@
   .order-user-address,
   .user-shipping-address {
     border-left: 4px solid var(--text-muted) !important;
+  }
+
+  #merge_releases .merge_releases_column {
+    border-right: 1px solid var(--borders) !important;
   }
 
   table {
@@ -1534,7 +1551,7 @@
 
   a.report_item.mplabel.hide_mobile,
   .required {
-    color: var(--in-wantlist-border) !important;
+    color: var(--price) !important;
   }
 
   // price_flags in Inventory
@@ -1630,6 +1647,8 @@
   #list_details .listitem,
   .order-item-row,
   .pagination.top,
+  div.heading-box,
+  #collection tr.collection-row,
   .review {
     border-bottom: 1px solid var(--borders) !important;
   }
@@ -1670,6 +1689,10 @@
 
   div.submission-form-section ul li.image_preview {
     border-bottom: none !important;
+  }
+
+  div.submission-form-section i.icon-info-circle {
+    color: var(--uploader-hover) !important;
   }
 
   table.release_list_table.table_block thead tr,
@@ -2275,6 +2298,7 @@
   .release_stats_group_list,
   #object_preview,
   ul.module_blocks > li,
+  #deleteForm,
   .tab_menu {
     border: 1px solid var(--borders) !important;
   }
@@ -2907,10 +2931,12 @@
   input[type="number"]:focus-within,
   input#title:focus-within,
   input#marketplace-search-input:focus-within,
+  #tax-edit-content input[name*="seller-"]:focus-within,
   .actions_with_tabs input[name="q"]:focus-within,
   .submission-form-section input[type="text"]:focus-within,
   .submission-form-section textarea:focus-within,
   .subform_tracklist input[type="text"]:focus-within,
+  input[name="release_id"]:focus-within,
   .submission-form-section input[type="checkbox"]:focus-within {
     outline: 2px solid var(--input-focus-border) !important;
   }
@@ -3479,6 +3505,30 @@
   }
 
   /* Buyer/Seller Settings */
+
+  #tax-rules,
+  #seller-buyers-form,
+  #seller-shipping-policy,
+  #seller-currency-form,
+  #paypal-commerce-signup-form,
+  #seller-address-form {
+    i.icon-green {
+      color: var(--skittle-collection) !important;
+    }
+  }
+
+  #tax-edit-header {
+    border: 1px solid var(--borders) !important;
+    background: var(--headers) !important;
+  }
+
+  #tax-edit-content {
+    border-color: var(--borders) !important;
+
+    i.icon-red {
+      color: var(--price) !important;
+    }
+  }
 
   #seller-paypal-verification,
   #seller-address-form,
