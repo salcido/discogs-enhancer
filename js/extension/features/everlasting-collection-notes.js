@@ -107,7 +107,9 @@ function saveNotes(event) {
       folderId, // TODO: what is this value for?
       val = event.target.closest('.notes_field').querySelector('.notes_textarea').value,
       notes = event.target.closest('.notes_field').querySelector('.notes_textarea').value,
+      releaseId = event.target.closest('.notes_field').dataset.id,
       notesObj = {
+        release_id: releaseId,
         coll_id: colId,
         field_id: fieldId,
         folder_id: folderId || null,
@@ -130,7 +132,7 @@ rl.ready(() => {
       let target = event.target;
 
       // cancel button
-      if ( target.id === 'notes_edit_cancel' ) {
+      if ( target.className.includes('notes_edit_cancel') ) {
         return cancelNotes(event);
       }
       // edit/add notes
@@ -140,7 +142,7 @@ rl.ready(() => {
       // save notes
       if ( target.parentElement.previousElementSibling
            && target.parentElement.previousElementSibling.closest('.de-notes-show')
-           && target.id == 'notes_edit_save') {
+           && target.className.includes('notes_edit_save') ) {
         return saveNotes(event);
       }
     });
