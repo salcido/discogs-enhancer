@@ -24,9 +24,7 @@
   display: block;
 }
 
-.red,
-.de-dark-theme .red {
-  color: #BF3A38 !important;
+.red {
   font-weight: bold;
 }
 
