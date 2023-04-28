@@ -13,6 +13,7 @@ rl.ready(() => {
   if ( document.querySelector('#header_logo') ) {
     // normal release page
     document.querySelector('#header_logo').href = '/my';
+    document.querySelector('#header_logo').title = 'Go to Dashboard';
     // Hide Dashboard Icon
     let dashboardIcons = document.querySelectorAll('.icon-dashboard');
     dashboardIcons.forEach(icon => {
@@ -21,6 +22,7 @@ rl.ready(() => {
 
   } else if ( document.querySelector('header[class*="_header_"]') ) {
       document.querySelector('a[class*="_home_"]').href = '/my';
+      document.querySelector('a[class*="_home_"]').title = 'Go to Dashboard';
       // Hide Dashboard Icon
       let dashboardIcons = document.querySelectorAll('nav[class*="_user_"] a[href="/my"]');
       dashboardIcons.forEach(icon => {
@@ -32,6 +34,7 @@ rl.ready(() => {
 
       rl.waitForElement(selector).then(() => {
         document.querySelector(selector).href = '/my';
+        document.querySelector(selector).title = 'Go to Dashboard';
         // Hide Dashboard Icon
         let dashboardIcon = document.querySelector('nav[class*="profile_"] a[href^="/my"]');
         dashboardIcon.style.display = 'none';
