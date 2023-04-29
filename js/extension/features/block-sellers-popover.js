@@ -52,11 +52,11 @@ rl.ready(() => {
     document.querySelectorAll(sellerSelector).forEach((seller) => {
       if (!seller.closest('tr').classList.contains('blocked-seller')) {
         let wrappingDiv = document.createElement('div');
-        wrappingDiv.classList = "popover-wrap";
+        wrappingDiv.classList = 'popover-wrap';
 
         wrap(seller, wrappingDiv);
       }
-    })
+    });
 
     // Find all wrapped divs and inject the popover markup
     document.querySelectorAll('.popover-wrap').forEach((popover) => {
@@ -70,10 +70,10 @@ rl.ready(() => {
               </div>
             `;
 
-        popover.insertAdjacentHTML('beforeend', popoverMarkup)
+        popover.insertAdjacentHTML('beforeend', popoverMarkup);
       }
-    })
-  }
+    });
+  };
 
   // Attach event listeners to each popover
   document.body.addEventListener('click', (event) => {
@@ -81,8 +81,8 @@ rl.ready(() => {
       let sellerName = event.target.closest('.popover-wrap').querySelector('a').textContent,
           up = JSON.parse(localStorage.getItem('userPreferences'));
 
-      up.newBlockedSellers = up.newBlockedSellers ? up.newBlockedSellers : []
-      up.newBlockedSellers.push(sellerName)
+      up.newBlockedSellers = up.newBlockedSellers ? up.newBlockedSellers : [];
+      up.newBlockedSellers.push(sellerName);
 
       localStorage.setItem('userPreferences', JSON.stringify(up));
 
@@ -91,7 +91,7 @@ rl.ready(() => {
       event.target.disabled = true;
       event.target.closest('.popover-content').querySelector('.success').classList.remove('hide');
     }
-  })
+  });
 
   // ========================================================
   // CSS
@@ -116,9 +116,7 @@ rl.ready(() => {
       white-space: nowrap;
       transition: all 0s;
     }
-    .de-dark-theme .popover-content {
-      background: #222 !important;
-    }
+
     .popover-wrap:hover .popover-content {
       z-index: 10;
       opacity: 1;
@@ -151,5 +149,5 @@ rl.ready(() => {
   rl.attachCss('block-seller-popover', rules);
   rl.handlePaginationClicks(window.blockSellersPopover);
 
-  blockSellersPopover();
+  window.blockSellersPopover();
 });
