@@ -25,12 +25,12 @@
 }
 
 .red {
+  color: #BF3A38;
   font-weight: bold;
 }
 
-.green,
-.de-dark-theme .green {
-  color: #60C43F !important;
+.green {
+  color: #60C43F;
   font-weight: bold;
   transition: color 0.3s ease-in-out;
 }
