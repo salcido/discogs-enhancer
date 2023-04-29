@@ -39,8 +39,12 @@
         color: white;
       }
 
+      .de-random-item:hover {
+        background: black;
+      }
+
       .de-random-item svg {
-        fill: ${document.querySelector('.de-dark-theme') ? '#cccccc' : '#ffffff'};
+        fill: #ffffff;
       }
 
       .de-random-item span,
@@ -51,6 +55,7 @@
       .de-random-item-tooltip {
         background: #000;
         color: #fff;
+        display: none;
         font-size: 11px;
         height: 18px;
         left: 50%;
@@ -60,11 +65,10 @@
         pointer-events: none;
         position: absolute;
         text-align: center;
-        top: 59px;
+        top: 63px;
         transform: translateX(-50%);
         white-space: nowrap;
         width: auto;
-        display: none;
       }
 
       .de-random-item-tooltip::before {
@@ -110,8 +114,8 @@
       _header = document.querySelector('header[class*="_header_"]'),
       selector = _header ? 'nav[class^="_user_"]' : 'header nav[class^="profile_"]',
       position = 'afterbegin',
-      inline_css = 'padding-top: 1.2rem; margin-right: 1rem; margin-left: 1rem;',
-      icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
+      inline_css = 'padding-top: 1.2rem; padding-right: 1.2rem; padding-left: 1.2rem;',
+      icon = `<li style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
                   rel="tooltip"
@@ -122,21 +126,22 @@
                   </span>
                 </a>
                 <div class="de-random-item-tooltip">Random Item</div>
-              </div>`;
+              </li>`;
 
   function addListeners() {
     // show the tooltip
-    document.querySelector('.de-random-item a').addEventListener('mouseover', () => {
+    document.querySelector('.de-random-item').addEventListener('mouseover', () => {
       document.querySelector('.de-random-item-tooltip').style.display = 'block';
     });
 
     // hide the tooltip
-    document.querySelector('.de-random-item a').addEventListener('mouseout', () => {
+    document.querySelector('.de-random-item').addEventListener('mouseout', () => {
       document.querySelector('.de-random-item-tooltip').style.display = 'none';
     });
 
     document.querySelector('.de-random-item').addEventListener('click', event => {
       document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
+      document.querySelector('.de-random-item').style.background = 'transparent';
 
       event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
 
@@ -151,7 +156,7 @@
     if (_header) {
       document.querySelector(selector).insertAdjacentHTML(position, icon);
       addListeners();
-      return
+      return;
 
     } else {
       document.querySelector(selector + ' ul').insertAdjacentHTML(position, icon);
