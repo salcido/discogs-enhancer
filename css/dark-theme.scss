@@ -24,10 +24,12 @@
   /* Links */
   --link-hover: #cae0fa;
   --link-visited: #a590d0;
-  --link: #829fc4;
+  --link: #9ab4d5;
+  /* Main Menu Links */
+  --main-menu-link-hover: #386AFF;
   /* Collection / Inventory / Wantlist Skittles */
   --search-results-active: #222222;
-  --skittle-collection: #60c43f;
+  --skittle-collection: #3d8625;
   --skittle-inventory: #326fb2;
   --skittle-wantlist: #bf3a38;
   /* Inputs */
@@ -72,7 +74,6 @@
   --expander-icon: lightblue;
   --policy-invalid-bg: #fee8d7;
   --policy-invalid: #c7630e;
-  --policy-checked: #5fc33e;
   --policy-indeterminate: #095afe;
   --policy-error: #ba3837;
   /* Drag & Drop Image Uploader On Release Submission Form and Dashboard modules (dotted border) */
@@ -83,11 +84,12 @@
   --border-disabled: #dbdbdb;
   /* Buttons */
   --button-blue-border: #3e7fb8;
-  --button-blue: #4588c4;
+  --button-blue: #3770a2;
+  --button-blue-text: #eeeeee;
   --button-disabled-text: #999999;
   --button-disabled: #f2f2f2;
   --button-green-border: #4ea332;
-  --button-green: #60c43f;
+  --button-green: #3d8625;
   --button-red: #982e2c;
   --button-primary: #eeeeee;
   --button-primary-hover: #ffffff;
@@ -110,11 +112,13 @@
   /* Order Status Badges */
   --order-status-invoice-bg: #407fbf;
   --order-status-invoice-border: #3973ac;
-  --order-status-payment-bg: #bf9f40;
+  --order-status-payment-bg: #F2ECD9;
   --order-status-payment-border: #ac8f39;
+  --order-status-payment-text: #736026;
   --order-status-pending-bg: #f2ecd9;
   --order-status-pending-text: #393013;
-  --order-status-shipped-bg: #60bf40;
+  --order-status-shipped-bg: #3d8625;
+  --order-status-shipped-text: #ffffff;
   --order-status-buyer-contact-bg: #4580b7;
   /* Postive / Neutral / Negative Ratings */
   --rating-positive-bg: #a8d388;
@@ -151,6 +155,10 @@
   --black: #000000;
   --white: #ffffff;
   --scroll-bar-thumb: #666666;
+  --demand-positive: #60c93e;
+  --demand-negative: #ff6c6c;
+  --blocked-seller: #D64C4C;
+  --icon-green: #5EC93B;
 }
 /*
 ////////////////////////////////////
@@ -167,7 +175,9 @@
   --in-collection-bg: #1b3923;
   --in-collection-border: #4e9b35;
   --price: #ff5c5c;
+  --blocked-seller: #cd4946;
   --text-muted: #959595;
+  --link: #87a7d0;
   --filter-chip: #2a4f96;
   --submission-form-error: #321d1f;
   --modified-cart-bg: #232428;
@@ -205,7 +215,9 @@
   --text-muted: #848F9A;
   --text-normal: #bdbdbd;
   --text-bold: #d9d9d9;
+  --link: #83a2c8;
   --link-visited: #a78fd6;
+  --blocked-seller: #cd4946;
 }
 
 .de-dark-theme {
@@ -476,14 +488,18 @@
     color: var(--link-hover) !important;
   }
 
-  /* gray text links */
 
+  /* Main Header Navigation in Monolith */
   #site_navigation > li {
     &.opened {
       background: var(--black) !important;
     }
     > a {
       color: var(--text-normal) !important;
+    }
+
+    button.nav_group_control:focus-visible {
+      background: var(--black) !important;
     }
     .nav_group_control {
       color: var(--text-normal) !important;
@@ -505,6 +521,13 @@
   .site_nav_submenu a:visited,
   .site_nav_tray a:visited {
     color: var(--text-normal) !important;
+
+    &:hover {
+      color: var(--main-menu-link-hover) !important;
+      i.icon {
+        color: var(--main-menu-link-hover) !important;
+      }
+    }
   }
 
   #site_navigation > li {
@@ -537,6 +560,9 @@
       span {
         color: var(--text-normal) !important;
       }
+      &:focus-visible {
+        background: var(--black) !important;
+      }
       color: var(--text-normal) !important;
     }
   }
@@ -562,6 +588,10 @@
     &:visited {
       color: var(--text-bold) !important;
     }
+  }
+
+  #site_nav_submenu_account a:hover i {
+    color: var(--main-menu-link-hover) !important;
   }
 
   .ui-autocomplete a {
@@ -852,6 +882,7 @@
   .icon {
     &.icon-cogs,
     &.icon-list-alt,
+    &.icon-user,
     &.icon-font {
       color: var(--text-bold) !important;
     }
@@ -1329,6 +1360,7 @@
 
     &.button-blue {
       background: var(--button-blue) !important;
+      color: var(--button-blue-text) !important;
     }
 
     &.button-red {
@@ -1359,7 +1391,7 @@
     background: var(--button-blue) !important;
     background-color: var(--button-blue) !important;
     border-color: var(--button-blue-border) !important;
-    color: var(--white) !important;
+    color: var(--button-blue-text) !important;
   }
 
   a {
@@ -1367,7 +1399,7 @@
     &.button-blue {
       background-color: var(--button-blue) !important;
       border-color: var(--button-blue-border) !important;
-      color: var(--white) !important;
+      color: var(--button-blue-text) !important;
     }
   }
 
@@ -1376,11 +1408,12 @@
   .button.button-blue span {
     background-color: var(--button-blue) !important;
     border-color: var(--button-blue-border) !important;
-    color: var(--white) !important;
+    color: var(--button-blue-text) !important;
   }
 
   a.button.button_facebook_login.blue {
     background-color: var(--button-blue) !important;
+    color: var(--button-blue-text) !important;
   }
 
   .button {
@@ -1511,6 +1544,9 @@
     }
   }
 
+  /* DISCOGS ENHANCER SPECIFIC FEATURE STYLES */
+
+  /* Suggested Price Content */
   .converted_price,
   .converted_price span {
     color: var(--text-muted) !important;
@@ -1524,19 +1560,56 @@
       }
 
       &.green {
-        color: var(--skittle-collection) !important;
+        color: var(--icon-green) !important;
       }
     }
   }
 
-  /* suggested price feature */
   .red {
     color: var(--price) !important;
   }
 
   .green {
-    color: var(--skittle-collection) !important;
+    color: var(--icon-green) !important;
   }
+
+  /* Blocked Seller Add To Cart Buttons */
+  .blocked-seller a.button:not(#do_site_search).button-green.cart-button,
+  .blocked-seller .button.button-green,
+  .blocked-seller .button.button-green span {
+    background: var(--button-red) !important;
+    color: var(--white) !important;
+  }
+
+  /* Blocked Seller Names */
+  .blocked-seller .seller_info strong a {
+    color: var(--blocked-seller) !important;
+  }
+
+  /* Block Seller Popover Menu */
+  .popover-wrap .popover-content {
+    background: var(--input-bg) !important;
+  }
+
+  /* Inventory Scanner */
+  td.green div {
+    border-top: 8px solid var(--icon-green) !important;
+    border-right: 8px solid var(--main-bg-color) !important;
+    width: 1px;
+  }
+
+  /* Random Item Icon */
+  .de-random-item svg {
+    fill: var(--text-normal) !important;
+  }
+
+  /* Comment Scanner */
+  .dashboard_module .footer button.reset-ui {
+    color: var(--link) !important;
+  }
+
+
+  /* Cart Page / Checkout */
 
   .cart_page .order_summary_errors {
     color: var(--in-wantlist-border) !important;
@@ -1851,23 +1924,23 @@
   .order-page-header .order-status-label.order-status-label-in-progress i,
   #order_process .order_step .order_status_icon.small_icon.in_progress,
   #order_process .order_step .order_status_icon.small_icon.in_progress i {
-    background-color: var(--button-green) !important;
+    background-color: var(--order-status-shipped-bg) !important;
     color: var(--white) !important;
     border-color: var(--text-bold) !important;
   }
 
   .order-status-label {
     &.order-status-label-shipped {
-      background-color: var(--button-green) !important;
+      background-color: var(--order-status-shipped-bg) !important;
       color: var(--white) !important;
       span,
       i {
-        background-color: var(--button-green) !important;
+        background-color: var(--order-status-shipped-bg) !important;
         color: var(--white) !important;
       }
     }
     &.order-status-label-new-order {
-      background-color: var(--button-green) !important;
+      background-color: var(--order-status-shipped-bg) !important;
       color: var(--white) !important;
     }
   }
@@ -1983,7 +2056,7 @@
   #order_process .order_step .order-status-label.order-status-label-shipped {
     span,
     i {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -1999,12 +2072,12 @@
     &.buyer_contacted i,
     &.cancelled i,
     &.invoice_sent i {
-      color: var(--text-bold) !important;
+      color: var(--white) !important;
     }
   }
 
   .order_step.active_step span {
-    color: var(--text-bold) !important;
+    color: var(--white) !important;
   }
 
   /* blue invoiced */
@@ -2027,17 +2100,18 @@
     &.payment_received {
       background: var(--order-status-payment-bg) !important;
       border-color: var(--text-bold) !important;
-      color: var(--white) !important;
+      color: var(--order-status-payment-text) !important;
       i,
       span {
         background: var(--order-status-payment-bg) !important;
         border-color: var(--text-bold) !important;
-        color: var(--white) !important;
+        color: var(--order-status-payment-text) !important;
       }
     }
     &.shipped {
       background: var(--order-status-shipped-bg) !important;
-      border-color: var(--text-bold) !important;
+      border-color: var(--order-status-shipped-text) !important;
+      color: var(--order-status-shipped-text) !important;
     }
     &.buyer_contacted {
       background: var(--order-status-buyer-contact-bg) !important;
@@ -2055,12 +2129,12 @@
   .order-status-label.order-status-label-payment-received {
     background: var(--order-status-payment-bg) !important;
     border-color: var(--order-status-payment-border) !important;
-    color: var(--white) !important;
+    color: var(--order-status-payment-text) !important;
     span,
     i {
       background: var(--order-status-payment-bg) !important;
       border-color: var(--order-status-payment-border) !important;
-      color: var(--white) !important;
+      color: var(--order-status-payment-text) !important;
     }
   }
 
@@ -2937,6 +3011,7 @@
   .submission-form-section textarea:focus-within,
   .subform_tracklist input[type="text"]:focus-within,
   input[name="release_id"]:focus-within,
+  input[name="offer_price"]:focus-within,
   .submission-form-section input[type="checkbox"]:focus-within {
     outline: 2px solid var(--input-focus-border) !important;
   }
@@ -3064,6 +3139,10 @@
     background: var(--submission-form-error) !important;
   }
 
+  .subform_errors_grouping {
+    border-top: 1px solid var(--borders) !important;
+  }
+
   /* Edit Master Release Page */
   .master_edit table.subform_table {
     tr.thead {
@@ -3135,14 +3214,23 @@
     border: var(--borders) !important;
   }
 
+  div.offer_form fieldset {
+    border: 1px solid var(--borders) !important;
+  }
+
+  .optional-label {
+    color: var(--text-muted) !important;
+  }
+
+
   /* Offers page: accepted offer notification */
 
   .page-loading-bar.page-loading-bar-has-message {
     background: var(--button-blue) !important;
     .loading-message span {
-      color: var(--text-bold) !important;
+      color: var(--button-blue-text) !important;
       a {
-        color: var(--text-bold) !important;
+        color: var(--button-blue-text) !important;
       }
     }
   }
@@ -3513,7 +3601,7 @@
   #paypal-commerce-signup-form,
   #seller-address-form {
     i.icon-green {
-      color: var(--skittle-collection) !important;
+      color: var(--icon-green) !important;
     }
   }
 
@@ -3649,7 +3737,7 @@
     }
 
     input[type="checkbox"].styled-checkbox:checked {
-      background: var(--policy-checked) !important;
+      background: var(--icon-green) !important;
     }
 
     input[type="checkbox"].styled-checkbox:not(.switch):indeterminate {
@@ -3662,7 +3750,7 @@
     }
 
     .saved_policy_icon {
-      border: 2px solid var(--policy-checked) !important;
+      border: 2px solid var(--icon-green) !important;
       color: var(--text-bold) !important;
 
       div {
@@ -3846,10 +3934,10 @@
 
   // demand-index
   .de-demand-negative {
-    color: var(--price) !important;
+    color: var(--demand-negative) !important;
   }
   .de-demand-positive {
-    color: var(--button-green) !important;
+    color: var(--demand-positive) !important;
   }
 
   // one trust cookie consent
@@ -4183,8 +4271,7 @@
 
     // tooltips
     div[class*="tooltip_"],
-    div[class*="active_"],
-    nav[class*="dropdown_"] {
+    div[class*="active_"] {
       background: var(--black) !important;
 
       a {
@@ -4214,6 +4301,14 @@
       }
     }
 
+    // Tab active states on the main nav in React page
+    // TODO: tabbing to user profile
+    nav[class*="wrapper_"] div[class*="dropdown_"] button[class*="nav_"]:focus,
+    nav[class*="profile_"] ul li a:focus {
+      background: var(--black) !important;
+    }
+
+    // User Profile Avatar Menu on React Release Page
     div[class*="user_"] ul[class*="dropdown_"] {
       background: var(--black) !important;
       a {
@@ -4222,7 +4317,11 @@
           color: var(--text-normal) !important;
         }
         &:hover {
-          color: var(--text-normal) !important;
+          color: var(--main-menu-link-hover) !important;
+
+          svg path {
+            fill: var(--main-menu-link-hover) !important;
+          }
         }
       }
     }
@@ -4535,8 +4634,9 @@
       ul li a {
         color: var(--text-normal) !important;
 
-        &:hover {
-          color: var(--text-normal) !important;
+        &:hover,
+        &:visited:hover {
+          color: var(--main-menu-link-hover) !important;
           text-decoration: underline;
         }
         &:visited {
@@ -4759,12 +4859,12 @@
     // blue Buy button
     a[class*="blue_"],
     button[class*="blue_"] {
-      color: var(--text-bold) !important;
+      color: var(--button-blue-text) !important;
 
       &:hover {
         background-color: var(--button-blue) !important;
         border-color: var(--button-blue-border) !important;
-        color: var(--text-bold) !important;
+        color: var(--button-blue-text) !important;
       }
     }
 
