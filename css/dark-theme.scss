@@ -2763,6 +2763,10 @@
     }
   }
 
+  .unavailable {
+    background: var(--input-bg) !important;
+  }
+
   .community_number {
     color: var(--main-bg-color) !important;
     text-shadow: none !important;
