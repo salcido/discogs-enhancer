@@ -192,7 +192,7 @@ rl.ready(() => {
       spanPct.textContent = `${plusmn} ${Math.abs(perc)}% ${qt}`;
       spanPct.className = _class;
 
-      spanSug.textContent = 'than suggested:';
+      spanSug.textContent = qt.length ? 'than suggested:' : 'of suggested:';
       spanSug.className = 'd-block';
 
       spanPrice.textContent = printPri;

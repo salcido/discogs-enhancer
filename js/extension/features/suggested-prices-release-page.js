@@ -64,7 +64,7 @@ rl.ready(() => {
           listing.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
         });
 
-        return
+        return;
       }
 
       let itemMarkup = document.querySelector(selector).innerHTML;
@@ -185,7 +185,7 @@ rl.ready(() => {
       spanPct.textContent = `${plusmn} ${Math.abs(percentage)}% ${qt}`;
       spanPct.className = _class;
 
-      spanSug.textContent = 'than suggested:';
+      spanSug.textContent = qt.length ? 'than suggested:' : 'of suggested:';
       spanSug.className = 'd-block';
 
       spanPrice.textContent = printPrice;

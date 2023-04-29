@@ -172,12 +172,6 @@ rl.ready(() => {
             border-top: 8px solid #60C43F;
             border-right: 8px solid white;
             width: 1px;
-          }
-
-          .de-dark-theme td.green div {
-            border-top: 8px solid #00ff5a !important;
-            border-right: 8px solid rgb(50, 51, 52) !important;
-            width: 1px;
           }`;
 
     // ========================================================

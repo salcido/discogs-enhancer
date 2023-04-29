@@ -165,14 +165,6 @@ rl.ready(() => {
       color: #08c;
     }
 
-    .de-dark-theme .reset-ui {
-      color: #839fc4 !important;
-    }
-
-    .de-dark-theme .reset-ui:hover {
-      color: #cae0f9 !important;
-    }
-
     .hidden {
       visibility: hidden;
       display: block;

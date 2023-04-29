@@ -4,8 +4,7 @@
 
 .blocked-seller .seller_info strong a,
 .wantlist-card.blocked-seller a,
-.wantlist-card.blocked-seller a strong,
-.de-dark-theme .blocked-seller .seller_info strong a {
+.wantlist-card.blocked-seller a strong {
   color: #BF3A38 !important;
 }
 
@@ -18,10 +17,7 @@
 
 /* override green styles with red ones */
 .blocked-seller a.button.button-green.cart-button,
-.de-dark-theme .blocked-seller a.button:not(#do_site_search).button-green.cart-button,
 .blocked-seller .button.button-green span,
-.de-dark-theme .blocked-seller .button.button-green,
-.de-dark-theme .blocked-seller .button.button-green span,
 .blocked-seller a.wantlist-button {
   background: #982E2C !important;
   background-image: linear-gradient(#BF3A38, #B33635) !important;
