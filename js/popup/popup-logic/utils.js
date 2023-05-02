@@ -48,6 +48,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
         darkThemeVariant: document.getElementById('themeSelect').value,
+        darkThemeSystemPref: document.getElementById('automaticTheme').checked,
         demandIndex: document.getElementById('toggleDemandIndex').checked,
         editingNotepad: document.getElementById( 'toggleEditingNotepad' ).checked,
         everlastingCollection: document.getElementById('toggleEverlastingCollection').checked,
@@ -123,6 +124,16 @@ export function applySave(message, event, currencyTarget = 'currency') {
 
     let eType = event.target.id.includes('toggle') ? 'Feature' : 'Contextual Menu',
         checked = event.target.checked;
+
+    if (event.target.id === 'themeSelect') {
+      eType = 'Dark Theme';
+      checked = event.target.value;
+    }
+
+    if (event?.target?.id === 'automaticTheme') {
+      eType = 'Dark Theme';
+      checked = event.target.checked;
+    }
 
     sendEvent(eType, event.target.id, checked);
   }
