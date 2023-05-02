@@ -4888,6 +4888,13 @@
     div[class*="content_"] {
       button[class*="link_"] {
         color: var(--link) !important;
+        // share link on release pages
+        span {
+          color: var(--link) !important;
+          svg path {
+            fill: var(--link) !important;
+          }
+        }
 
         &:hover {
           color: var(--link-hover) !important;
