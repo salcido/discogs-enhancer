@@ -53,7 +53,7 @@
 
       .de-random-item svg {
         position: absolute;
-        top: 22px;
+        top: 23px;
         left: -10px;
         fill: #ffffff;
       }
