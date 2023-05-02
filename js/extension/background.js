@@ -15,7 +15,7 @@
 // ========================================================
 // Default preferences upon installing
 // ========================================================
-prefs = {
+let prefs = {
   absoluteDate: false,
   averagePrice: false,
   baoiFields: false,
@@ -27,6 +27,7 @@ prefs = {
   converter: true,
   darkTheme: false,
   darkThemeVariant: '',
+  darkThemeSystemPref: false,
   demandIndex: false,
   editingNotepad: false,
   everlastingCollection: false,
@@ -178,7 +179,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
   // Instantiate Contextual Menu Options
   updateContextMenus();
-})
+});
 
 // ========================================================
 // Contextual Menus
@@ -233,7 +234,7 @@ function updateContextMenus() {
     if (prefs.useRushhour) createContextMenu('Rush Hour');
     if (prefs.useSotu) createContextMenu('SOTU');
     if (prefs.useYoutube) createContextMenu('YouTube');
-  })
+  });
 }
 
 // ========================================================
@@ -284,7 +285,7 @@ chrome.runtime.onConnect.addListener(function(port) {
       await postData(gaParams);
     }
   });
-})
+});
 
 // ========================================================
 // Contextual Menu Event Listeners
@@ -292,98 +293,98 @@ chrome.runtime.onConnect.addListener(function(port) {
 chrome.contextMenus.onClicked.addListener((event) => {
 
   let path,
-      suffix = ''
+      suffix = '';
 
   switch (event.menuItemId) {
     case 'allday':
-      path = 'https://www.alldayrecords.com/search?type=product&q='
-      break
+      path = 'https://www.alldayrecords.com/search?type=product&q=';
+      break;
 
     case 'bandcamp':
-      path = 'https://bandcamp.com/search?q='
-      break
+      path = 'https://bandcamp.com/search?q=';
+      break;
 
     case 'beatport':
-      path = 'https://www.beatport.com/search?q='
-      break
+      path = 'https://www.beatport.com/search?q=';
+      break;
 
     case 'boomkat':
-      path = 'https://boomkat.com/products?q[keywords]='
-      break
+      path = 'https://boomkat.com/products?q[keywords]=';
+      break;
 
     case 'cdandlp':
-      path = 'https://www.cdandlp.com/search/?q='
-      break
+      path = 'https://www.cdandlp.com/search/?q=';
+      break;
 
     case 'clone':
-      path = 'https://clone.nl/search/?instock=1&query='
-      break
+      path = 'https://clone.nl/search/?instock=1&query=';
+      break;
 
     case 'deejay':
-      path = 'http://www.deejay.de/'
-      break
+      path = 'http://www.deejay.de/';
+      break;
 
     case 'discogs':
       path = 'http://www.discogs.com/search?q=';
-      break
+      break;
 
     case 'earcave':
       path = 'https://earcave.com/search?type=product&q=';
-      break
+      break;
     case 'gramaphone':
       path = 'https://gramaphonerecords.com/search?q=';
-      break
+      break;
 
     case 'hardwax':
       path = 'https://hardwax.com/?search=';
-      break
+      break;
 
     case 'juno':
       path = 'https://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=';
-      break
+      break;
 
     case 'meditations':
       path = 'https://meditations.jp/a/search?type=product&q=';
-      break
+      break;
 
     case 'norman':
       path = 'https://www.normanrecords.com/cloudsearch/index.php?q=';
-      break
+      break;
 
     case 'oye':
       path = 'https://oye-records.com/search?q=';
-      break
+      break;
 
     case 'phonica':
       path = 'http://www.phonicarecords.com/search/';
-      break
+      break;
 
     case 'rateyourmusic':
       path = 'https://rateyourmusic.com/search?searchterm=';
       suffix = '&type=l';
-      break
+      break;
 
     case 'redeye':
       path = 'https://www.redeyerecords.co.uk/search/?searchType=Artist&keywords=';
       suffix = '&type=l';
-      break
+      break;
 
     case 'rubadub':
       path = 'https://rubadub.co.uk/search?type=product&options%5Bunavailable_products%5D=last&options%5Bprefix%5D=none&q=';
       suffix = '*';
-      break
+      break;
 
     case 'rushhour':
       path = 'http://www.rushhour.nl/search?sort_by=&query=';
-      break
+      break;
 
     case 'sotu':
       path = 'https://soundsoftheuniverse.com/search/?q=';
-      break
+      break;
 
     case 'youtube':
       path = 'https://www.youtube.com/results?search_query=';
-      break
+      break;
   }
 
   let str = event.selectionText,
@@ -399,4 +400,4 @@ chrome.contextMenus.onClicked.addListener((event) => {
   }
 
   chrome.tabs.create({ url: path + encodeStr + suffix });
-})
+});
