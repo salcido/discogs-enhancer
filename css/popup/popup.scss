@@ -130,6 +130,7 @@ a.button {
 
 select {
   font-size: 14px;
+  border-radius: 4px;
 }
 
 select option {
@@ -684,6 +685,42 @@ input[type="checkbox"]:focus {
   margin-left: 9px;
   margin-top: 1rem;
   z-index: 10;
+  outline: none;
+  // background: #313335;
+  // color: #5bd14b;
+  // border: 1px solid #5bd14b;
+  font-size: .85rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.automatic-theme {
+  align-items: center;
+  color: var(--text-color);
+  display: inline-flex;
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  margin-left: .85rem;
+  position: absolute;
+  top: 14px;
+  // background: #272727;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  // box-shadow: 0px 10px 5px -6px rgba(0,0,0,0.3) inset;
+  // border-bottom: 1px solid #434343;
+  // border-left: 1px solid #3d3d3d;
+  // border-right: 1px solid #3d3d3d;
+  // border: 1px solid #606060;
+}
+
+#automaticTheme {
+  accent-color: #5bd14b;
+  margin-left: 0rem;
+}
+
+.automatic-label {
+  width: 40px;
+  text-transform: uppercase;
 }
 
 .status,

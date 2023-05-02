@@ -10,7 +10,7 @@
   --main-bg-color: #323334;
   /* Text Colors */
   --text-bold: #ffffff;
-  --text-muted: #9B9B9B;
+  --text-muted: #9b9b9b;
   --text-normal: #cccccc;
   --text-placeholder: #757575;
   /* Table Row alteration color */
@@ -26,7 +26,7 @@
   --link-visited: #a590d0;
   --link: #9ab4d5;
   /* Main Menu Links */
-  --main-menu-link-hover: #386AFF;
+  --main-menu-link-hover: #386aff;
   /* Collection / Inventory / Wantlist Skittles */
   --search-results-active: #222222;
   --skittle-collection: #3d8625;
@@ -46,7 +46,7 @@
   --in-collection-border: #60c43f;
   --in-collection-hover: #355235;
   --in-wantlist-bg: #561d1d;
-  --in-wantlist-border: #E63749;
+  --in-wantlist-border: #e63749;
   /* Marketplace Selected Filters (Facets) */
   --facet-selected: #72a3d8;
   /* Marketplace Price color */
@@ -105,14 +105,14 @@
   --modified-cart-bg: #f7eac5;
   --modified-cart-htag: #000000;
   --modified-cart-highlight: #e56000;
-  --modified-cart-text: #2653D9;
+  --modified-cart-text: #2653d9;
   /* Release Rating Stars */
   --star-rating: #f7d06c;
   --submission-form-error: #360d0d;
   /* Order Status Badges */
   --order-status-invoice-bg: #407fbf;
   --order-status-invoice-border: #3973ac;
-  --order-status-payment-bg: #F2ECD9;
+  --order-status-payment-bg: #f2ecd9;
   --order-status-payment-border: #ac8f39;
   --order-status-payment-text: #736026;
   --order-status-pending-bg: #f2ecd9;
@@ -120,6 +120,7 @@
   --order-status-shipped-bg: #3d8625;
   --order-status-shipped-text: #ffffff;
   --order-status-buyer-contact-bg: #4580b7;
+  --additional-instructions: #360d0d;
   /* Postive / Neutral / Negative Ratings */
   --rating-positive-bg: #a8d388;
   --rating-positive-text: #397326;
@@ -157,8 +158,8 @@
   --scroll-bar-thumb: #666666;
   --demand-positive: #60c93e;
   --demand-negative: #ff6c6c;
-  --blocked-seller: #D64C4C;
-  --icon-green: #5EC93B;
+  --blocked-seller: #d64c4c;
+  --icon-green: #5ec93b;
 }
 /*
 ////////////////////////////////////
@@ -180,6 +181,7 @@
   --link: #87a7d0;
   --filter-chip: #2a4f96;
   --submission-form-error: #321d1f;
+  --additional-instructions: #360d0d;
   --modified-cart-bg: #232428;
   --modified-cart-highlight: #adbeff;
   --modified-cart-text: #adbeff;
@@ -211,8 +213,9 @@
   --filter-chip: #2a4f96;
   --history-highlight: #3a4260;
   --history-hover: #353345;
-  --submission-form-error: #2e222b;
-  --text-muted: #848F9A;
+  --submission-form-error: #131921;
+  --additional-instructions: #48487c;
+  --text-muted: #848f9a;
   --text-normal: #bdbdbd;
   --text-bold: #d9d9d9;
   --link: #83a2c8;
@@ -488,7 +491,6 @@
     color: var(--link-hover) !important;
   }
 
-
   /* Main Header Navigation in Monolith */
   #site_navigation > li {
     &.opened {
@@ -632,7 +634,8 @@
     }
   }
 
-  #site_footer_wrap {
+  #site_footer_wrap,
+  tr.deh-header {
     background: var(--site-header-bg) !important;
   }
 
@@ -1608,7 +1611,6 @@
     color: var(--link) !important;
   }
 
-
   /* Cart Page / Checkout */
 
   .cart_page .order_summary_errors {
@@ -1711,6 +1713,8 @@
   #youtube_tracklist,
   .react-modal-header,
   #messages_list .messagelist tr,
+  #payment_columns .box-card-header,
+  #payment_columns tr.item-details-row,
   table.marketplace-table-react td {
     border-bottom: 1px solid var(--main-bg-color) !important;
   }
@@ -1764,7 +1768,8 @@
     border-bottom: none !important;
   }
 
-  div.submission-form-section i.icon-info-circle {
+  div.submission-form-section i.icon-info-circle,
+  #payment_columns #payment_aside i.icon-info-circle {
     color: var(--uploader-hover) !important;
   }
 
@@ -2395,8 +2400,14 @@
   .list-group-item,
   .panel-default,
   .offers_box,
+  .messageContents table#deh-wrapper table[role="presentation"] table,
   .search_group {
     border: 1px solid var(--borders) !important;
+  }
+
+  // Official Discogs system communication messages header
+  .messageContents table#deh-wrapper tr.deh-header table[role="presentation"] {
+    border: none !important;
   }
 
   ul.module_blocks > li {
@@ -2527,7 +2538,7 @@
       color: var(--alert-warning-remove-icon) !important;
     }
     &.alert-message-info a:not(.button):hover {
-      color: var(--link-visited) !important;
+      color: var(--headers) !important;
     }
   }
 
@@ -2650,6 +2661,12 @@
         background: var(--alert-warning-bg) !important;
         color: var(--alert-warning-text) !important;
       }
+
+      a,
+      a:visited,
+      a:hover {
+        color: var(--headers) !important;
+      }
     }
     &.alert-message-content {
       h3,
@@ -2686,6 +2703,10 @@
         color: var(--headers) !important;
       }
     }
+  }
+
+  div.alert-message-content a.alert-message-close-icon i.icon-times {
+    color: var(--headers) !important;
   }
 
   /* front page announcements */
@@ -3226,7 +3247,6 @@
     color: var(--text-muted) !important;
   }
 
-
   /* Offers page: accepted offer notification */
 
   .page-loading-bar.page-loading-bar-has-message {
@@ -3594,6 +3614,24 @@
 
   .messageHeader {
     border-bottom: 2px solid var(--borders) !important;
+  }
+
+  /* Message Actions Dropdown */
+  .message-filter-block {
+    .dropdown-button-options {
+      border: 2px solid var(--borders) !important;
+
+      li:hover {
+        background: var(--headers) !important;
+      }
+      button {
+        color: var(--link) !important;
+
+        &:hover {
+          color: var(--link-hover) !important;
+        }
+      }
+    }
   }
 
   /* Buyer/Seller Settings */
@@ -4047,7 +4085,19 @@
   }
   // Additional Instructions on order page
   .additional-instructions {
-    background: var(--submission-form-error) !important;
+    background: var(--additional-instructions) !important;
+    h3,
+    p {
+      color: var(--text-bold) !important;
+    }
+    color: var(--text-bold) !important;
+  }
+
+  // Add padding so that the :focus-within outline is shown correctly
+  .order-messaging-form .new-message-container {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    padding-top: 2px !important;
   }
 
   // Image Upload Consent Form
@@ -4228,10 +4278,6 @@
 
     // header nav line height for hover states
     header[class*="header_"] {
-      div[class*="content_"] {
-        line-height: 12px;
-      }
-
       // Discogs Logo in React Header
       svg g {
         fill: var(--white) !important;
@@ -4243,17 +4289,6 @@
     }
 
     nav[class*="profile_"] {
-      a[class*="headericon_"] {
-        font-size: 13px;
-        margin-right: 0;
-        padding-right: 0.75rem;
-
-        svg {
-          vertical-align: middle;
-          padding-bottom: 4px;
-        }
-      }
-
       div[class*="user_"] nav[class*="dropdown_"] li a[class*="link_"] {
         color: var(--text-normal) !important;
 
@@ -4853,6 +4888,13 @@
     div[class*="content_"] {
       button[class*="link_"] {
         color: var(--link) !important;
+        // share link on release pages
+        span {
+          color: var(--link) !important;
+          svg path {
+            fill: var(--link) !important;
+          }
+        }
 
         &:hover {
           color: var(--link-hover) !important;
@@ -4975,7 +5017,8 @@
     button.aui-primary,
     // Shop This Version button
     a[class*="shop_"] {
-      background: var(--black) !important;
+      background: var(--button-primary) !important;
+      color: var(--black) !important;
     }
 
     #wantlist-button button[class*="_primary"] {
@@ -5071,10 +5114,14 @@
       }
 
       div[class*="tray_"] button[class*="_secondary"] {
-        border: 1px solid var(--black) !important;
+        border: 1px solid var(--text-bold) !important;
 
         &:hover {
-          background: var(--black) !important;
+          background: var(--button-primary) !important;
+          color: var(--black) !important;
+          span {
+            color: var(--black) !important;
+          }
         }
       }
     }

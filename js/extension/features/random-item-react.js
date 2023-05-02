@@ -114,7 +114,7 @@
       _header = document.querySelector('header[class*="_header_"]'),
       selector = _header ? 'nav[class^="_user_"]' : 'header nav[class^="profile_"]',
       position = 'afterbegin',
-      inline_css = 'padding-top: 1.2rem; padding-right: 1.2rem; padding-left: 1.2rem;',
+      inline_css = 'padding-top: 1.25rem; padding-right: 1.2rem; padding-left: 1.2rem;',
       icon = `<li style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
@@ -143,7 +143,13 @@
       document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
       document.querySelector('.de-random-item').style.background = 'transparent';
 
-      event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
+      // Call the random item endpoint if the user clicks the surrounding div instead
+      if (event.target.classList.contains('de-random-item')) {
+        window.location = `/user/${user}/collection/random`;
+        event.target.classList.replace('rotate-in', 'rotate-out');
+      } else {
+        event.target.parentElement.classList.replace('rotate-in', 'rotate-out');
+      }
 
       if (event.metaKey) {
         return setTimeout(() => stopAnimation(), 250);

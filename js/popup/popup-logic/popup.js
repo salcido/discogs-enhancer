@@ -70,6 +70,7 @@ function isDev() {
 window.addEventListener('load', () => {
 
   let
+      automaticDarkTheme = document.getElementById('automaticTheme'),
       searchbox = document.getElementById('searchbox'),
       selectDarkTheme = document.getElementById('themeSelect'),
       toggleAbsoluteDate = document.getElementById('toggleAbsoluteDate'),
@@ -264,6 +265,7 @@ window.addEventListener('load', () => {
   // ========================================================
   //
   // Adding A Feature: Step 5
+  automaticDarkTheme.addEventListener('change', triggerSave);
   selectDarkTheme.addEventListener('change', darkTheme.setDarkTheme);
   toggleAbsoluteDate.addEventListener('change', triggerSave);
   toggleAveragePrice.addEventListener('change', triggerSave);
@@ -336,7 +338,7 @@ window.addEventListener('load', () => {
         .catch(() => {
           return { content: null, version: null };
         });
-    })
+    });
   }
 
   /**
@@ -443,6 +445,7 @@ window.addEventListener('load', () => {
     // Adding A Feature: Step 5
     chrome.storage.sync.get('prefs', ({ prefs }) => {
       // Feature preferences
+      automaticDarkTheme.checked = prefs.darkThemeSystemPref,
       selectDarkTheme.value = prefs.darkThemeVariant || '',
       toggleAbsoluteDate.checked = prefs.absoluteDate;
       toggleAveragePrice.checked = prefs.averagePrice;
@@ -545,10 +548,24 @@ window.addEventListener('load', () => {
 
         if ( !toggleDarkTheme.checked ) {
           document.querySelector('html').classList.add('light');
+          document.querySelector('.automatic-theme').style.display = 'none';
+          document.querySelector('#themeSelect').style.display = 'none';
         }
         clearInterval(a);
       }
     }, 13);
+
+    // Hide the automatic-theme checkbox if Dark Theme is disabled
+    toggleDarkTheme.addEventListener('change', event => {
+
+      if (event.target.checked) {
+        document.querySelector('.automatic-theme').style.display = 'inline-flex';
+        document.querySelector('#themeSelect').style.display = 'inline-block';
+      } else {
+        document.querySelector('.automatic-theme').style.display = 'none';
+        document.querySelector('#themeSelect').style.display = 'none';
+      }
+    });
 
     isDev();
 

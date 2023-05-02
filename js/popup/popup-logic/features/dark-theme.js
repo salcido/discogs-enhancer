@@ -7,8 +7,21 @@ import { applySave, getTabId } from '../utils';
 // ========================================================
 // useDarkTheme
 // ========================================================
+
 /**
- * Toggles the dark theme
+ * Toggles the Dark Theme on / off on Discogs.com
+ * @param {boolean} enabled - Whether the feature is enabled
+ */
+function toggleTheme(enabled) {
+  if (enabled) {
+    document.documentElement.classList.add('de-dark-theme');
+  } else {
+    document.documentElement.classList.remove('de-dark-theme');
+  }
+}
+
+/**
+ * Enables / Disables the dark theme
  * @method   useDarkTheme
  * @param    {Object}     event [The event object]
  * @return   {undefined}
@@ -19,8 +32,9 @@ export async function useDarkTheme(event) {
 
   chrome.scripting.executeScript({
     target: {tabId: tabId},
-    files: ['js/extension/features/toggle-dark-theme.js']
-  }, () => { applySave(null, event) });
+    func: toggleTheme,
+    args: [event.target.checked],
+  }, () => { applySave(null, event); });
 }
 
 /**
@@ -29,7 +43,7 @@ export async function useDarkTheme(event) {
  * @param {string} name - The name of the theme to apply
  */
 function selectTheme(name) {
-  let prefix = "theme-",
+  let prefix = 'theme-',
       classes = document.documentElement.className.split(' ').filter(c => !c.startsWith(prefix));
 
   document.documentElement.className = classes.join(' ').trim();
@@ -45,11 +59,11 @@ function selectTheme(name) {
 export async function setDarkTheme(event) {
 
   let tabId = await getTabId(),
-      select = document.getElementById('themeSelect')
+      select = document.getElementById('themeSelect');
 
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     func: selectTheme,
     args: [select.value]
-  }, () => { applySave(null, event) });
+  }, () => { applySave(null, event); });
 }

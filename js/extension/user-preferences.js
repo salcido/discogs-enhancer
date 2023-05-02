@@ -14,8 +14,8 @@
  */
 
 let
+    donate,
     elems = [],
-    featureData = {},
     filterMonitor,
     hashes,
     prefs = {},
@@ -129,9 +129,9 @@ function migratePreferences() {
       ]).then(() => {
         console.log('Discogs Enhancer: Feature Preferences migrated.');
         return resolve();
-      })
+      });
     });
-  })
+  });
 }
 
 /**
@@ -218,11 +218,22 @@ document.documentElement.classList.add('de-dark-theme', 'de-enabled');
 // Get the user's preferences (preferences are created on install in background.js)
 chrome.storage.sync.get('prefs', result => {
   prefs = result.prefs;
-  // Disable the Dark Theme
-  if (!prefs.darkTheme) document.documentElement.classList.remove('de-dark-theme');
+  let autoDarkTheme = prefs.darkThemeSystemPref;
+
+  let prefersDarkColorScheme = window.matchMedia('(prefers-color-scheme:dark)');
+  // Disable the Dark Theme / match system preference
+  if (!prefs.darkTheme) {
+    document.documentElement.classList.remove('de-dark-theme');
+  }
+
+  if (prefs.darkTheme && autoDarkTheme && !prefersDarkColorScheme.matches) {
+    document.documentElement.classList.remove('de-dark-theme');
+  }
   // Set theme variant
-  if (prefs.darkThemeVariant) document.documentElement.classList.add(`theme-${prefs.darkThemeVariant}`);
-})
+  if (prefs.darkThemeVariant) {
+    document.documentElement.classList.add(`theme-${prefs.darkThemeVariant}`);
+  }
+});
 
 // Resource Library
 // A singleton of shared methods for the extension.
@@ -300,6 +311,14 @@ appendFragment([resourceLibrary])
       newReleasePageFixes.id = 'newReleasePageFixes';
 
       elems.push(newReleasePageFixes);
+
+      // Donate Modal
+      donate = document.createElement('script');
+      donate.type = 'text/javascript';
+      donate.className = 'de-init';
+      donate.src = chrome.runtime.getURL('js/extension/features/donate-modal.js');
+
+      elems.push(donate);
 
       // - Toggleable CSS files -
       // --------------------------------------------------------
@@ -541,6 +560,18 @@ appendFragment([resourceLibrary])
         options.className = 'de-init';
 
         elems.push(options);
+      }
+
+      // Dark Theme System Preference Listener
+      if (prefs.darkTheme && prefs.darkThemeSystemPref) {
+
+        let themeListener = document.createElement('script');
+
+        themeListener.type = 'text/javascript';
+        themeListener.className = 'de-init';
+        themeListener.src = chrome.runtime.getURL('js/extension/features/dark-theme-listener.js');
+
+        elems.push(themeListener);
       }
 
       // demand-index.js
@@ -1043,7 +1074,7 @@ appendFragment([resourceLibrary])
 
         sortByTotalPriceScript.type = 'text/javascript';
         sortByTotalPriceScript.src = chrome.runtime.getURL('js/extension/features/sort-by-total-price.js');
-        sortByTotalPriceScript.id = 'sortbytotal'
+        sortByTotalPriceScript.id = 'sortbytotal';
         // sortByTotalPriceScript.className = 'de-init';
 
         elems.push(sortByTotalPriceScript);
@@ -1206,7 +1237,7 @@ appendFragment([resourceLibrary])
 
             return resolve();
           });
-        })
+        });
       })
       .then(() => appendFragment(elems))
       .then(() => documentReady(window.document))

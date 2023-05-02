@@ -7,7 +7,7 @@ body {
 
 h1 {
   color: #f2f2f2;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   text-transform: uppercase;
   font-size: 40px;
   font-weight: 700;
@@ -21,7 +21,7 @@ h3 {
 }
 
 a {
-  color: #829FC4;
+  color: #829fc4;
   text-decoration: none;
 }
 
@@ -66,12 +66,12 @@ summary {
   overflow: scroll;
   padding-left: 1rem;
   padding-right: 1rem;
-  position:fixed;
+  position: fixed;
   overflow-x: auto;
 }
 
 .sidebar::-webkit-scrollbar {
-  width: 0 !important
+  width: 0 !important;
 }
 
 /* I need a fixed position nav but I want to
@@ -126,7 +126,7 @@ select {
 }
 
 .sidebar select.expanded {
-  background:#242424;
+  background: #242424;
   border: 1px solid #424242;
   outline: none;
 }
@@ -154,7 +154,7 @@ select {
 }
 
 .clear-search svg {
-  stroke:#999;
+  stroke: #999;
   height: 20px;
   transition: stroke 0.15s ease-in;
 }
@@ -242,7 +242,7 @@ select {
 .info-wrap span.issue {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: #F2994A;
+  color: #f2994a;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -258,7 +258,7 @@ select {
 .info-wrap span.feature {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: #59C231;
+  color: #59c231;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -267,7 +267,7 @@ select {
 .info-wrap span.previous-updates {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: #56CCF2;
+  color: #56ccf2;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -291,24 +291,24 @@ span.m {
 }
 
 .coffee {
-  background: #FF813F;
+  background: #ff813f;
   border-radius: 4px;
-  border: 1px solid #FF813F;
+  border: 1px solid #ff813f;
   color: white;
   display: inline-block;
-  font-family: 'Cookie', cursive;
+  font-family: "Cookie", cursive;
   font-size: 22px;
   letter-spacing: 0.6px;
   line-height: 36px;
   margin: 0.5rem;
   padding: 5px 15px;
   text-decoration: none;
-  transition: box-shadow .4s ease,background-color .4s ease,color .4s ease;
+  transition: box-shadow 0.4s ease, background-color 0.4s ease, color 0.4s ease;
 }
 
 .coffee:hover {
   background: #ff7924;
-  box-shadow: 0 4px 16px 0 rgba(0,0,0,.45);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.45);
   text-decoration: none;
 }
 
@@ -355,8 +355,9 @@ span.m {
   margin: 1rem auto;
 }
 
-.content h2, h3 {
-  font-family: 'Raleway', sans-serif;
+.content h2,
+h3 {
+  font-family: "Raleway", sans-serif;
   letter-spacing: 0.2rem;
   margin-bottom: 1rem;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -370,8 +371,12 @@ h2.highlight {
 }
 
 @keyframes signal {
-  from {color: #F6BF48; }
-  to {color: #fafafa; }
+  from {
+    color: #f6bf48;
+  }
+  to {
+    color: #fafafa;
+  }
 }
 
 .feature-block {
@@ -403,39 +408,38 @@ h2.highlight {
   font-style: normal;
 }
 
-
 .mint {
-  color: #00B4DB !important;
+  color: #00b4db !important;
 }
 
 .near-mint,
 .donor {
-  color: #00DBB4 !important;
+  color: #00dbb4 !important;
 }
 
 .very-good-plus {
-  color: #00DB1F !important;
+  color: #00db1f !important;
 }
 
 .very-good {
-  color: #85AB11 !important;
+  color: #85ab11 !important;
 }
 
 .good-plus,
 .contributor {
-  color: #F6BF48 !important;
+  color: #f6bf48 !important;
 }
 
 .good {
-  color: #D87307 !important;
+  color: #d87307 !important;
 }
 
 .fair {
-  color: #E54803 !important;
+  color: #e54803 !important;
 }
 
 .poor {
-  color: #FF0000 !important;
+  color: #ff0000 !important;
 }
 
 .content em,
@@ -533,7 +537,7 @@ ul.thanks {
 }
 
 .thanks li.donor::after {
-  content: '\02605';
+  content: "\02605";
   display: inline-block;
   margin-left: 0.2rem;
   color: #fff;
@@ -544,7 +548,7 @@ ul.thanks {
 }
 
 .thanks li.contributor::after {
-  content: '\272A';
+  content: "\272A";
   display: inline-block;
   margin-left: 0.2rem;
   color: #fff;
@@ -561,14 +565,14 @@ ul.thanks {
 .copyright,
 .copyright a {
   font-size: 11px;
-  color: #CCCCCC;
+  color: #cccccc;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
 }
 
 .copyright a:hover {
-  color: #CCCCCC;
+  color: #cccccc;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
@@ -622,4 +626,16 @@ figcaption {
   width: 250px;
   display: block;
   margin: 1rem auto 0 auto;
+}
+
+.qr-instructions {
+  color: #8d8d8d;
+  display: block;
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.dotted {
+  border: 2px dotted #808080;
 }
