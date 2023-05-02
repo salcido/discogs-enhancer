@@ -23,7 +23,7 @@ export function init() {
       featureData.sellerRepFilter = event.target.checked;
       chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
-      })
+      });
     });
   });
 }
@@ -64,7 +64,7 @@ export function saveSellerRep() {
         applySave('refresh', event);
         sendEvent('Seller Reputation', percent, `Hide: ${sellerRepFilter}`);
       });
-    })
+    });
 
 
   } else if ( input.value && !toggle.checked ) {
@@ -131,7 +131,7 @@ export function setSellerRep() {
         setEnabledStatus( self, 'Disabled' );
       }
     });
-  })
+  });
 }
 
 // ========================================================
