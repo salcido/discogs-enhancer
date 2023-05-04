@@ -72,9 +72,11 @@ let prefs = {
   useBoomkat: false,
   useCDandLP: false,
   useClone: false,
+  useDecks: false,
   useDeejay: false,
   useDiscogs: true,
   useEarcave: false,
+  useEbay: false,
   useGramaphone: false,
   useHardwax: false,
   useJuno: false,
@@ -219,8 +221,10 @@ function updateContextMenus() {
     if (prefs.useBoomkat) createContextMenu('Boomkat');
     if (prefs.useCDandLP) createContextMenu('CDandLP');
     if (prefs.useClone) createContextMenu('Clone');
+    if (prefs.useDecks) createContextMenu('Decks');
     if (prefs.useDeejay) createContextMenu('DeeJay');
     if (prefs.useEarcave) createContextMenu('Earcave');
+    if (prefs.useEbay) createContextMenu('eBay');
     if (prefs.useGramaphone) createContextMenu('Gramaphone');
     if (prefs.useHardwax) createContextMenu('Hardwax');
     if (prefs.useJuno) createContextMenu('Juno');
@@ -260,7 +264,7 @@ chrome.runtime.onConnect.addListener(function(port) {
       async function postData(data = {}) {
         let url = 'https://www.google-analytics.com/collect';
 
-        const response = await fetch(url, {
+        await fetch(url, {
           method: 'POST',
           mode: 'no-cors',
           cache: 'no-cache',
@@ -320,6 +324,10 @@ chrome.contextMenus.onClicked.addListener((event) => {
       path = 'https://clone.nl/search/?instock=1&query=';
       break;
 
+    case 'decks':
+      path = 'https://www.decks.de/decks/workfloor/search_db.php?such=';
+      break;
+
     case 'deejay':
       path = 'http://www.deejay.de/';
       break;
@@ -331,6 +339,11 @@ chrome.contextMenus.onClicked.addListener((event) => {
     case 'earcave':
       path = 'https://earcave.com/search?type=product&q=';
       break;
+
+    case 'ebay':
+      path = 'https://www.ebay.com/sch/i.html?&_nkw=';
+      break;
+
     case 'gramaphone':
       path = 'https://gramaphonerecords.com/search?q=';
       break;

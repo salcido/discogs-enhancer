@@ -2601,6 +2601,9 @@
       i,
       a,
       a strong,
+      span,
+      span strong,
+      span strong span,
       a small {
         color: var(--alert-warning-highlight) !important;
       }
@@ -3592,6 +3595,10 @@
     background: var(--main-bg-color) !important;
   }
 
+  .payment_page div.payment-overlay .bg {
+    background: var(--box-shadow-a) !important;
+  }
+
   /* Review Preview box border */
 
   #review_compose.form-block div.review_preview {
@@ -4119,6 +4126,32 @@
     background: var(--black) !important;
   }
 
+  // Marketplace Buy / Sell buttons
+  div[class*="content_"] div[class*="buttons_"] {
+    // Buy Primary
+    a[class*="_anchor"][class*="_primary"] {
+      background: var(--button-primary) !important;
+      color: var(--black) !important;
+
+      &:hover {
+        background: var(--button-primary-hover) !important;
+      }
+    }
+    // Sell Secondary
+    a[class*="_anchor"][class*="_secondary"] {
+      border: 1px solid var(--text-bold) !important;
+      color: var(--text-bold) !important;
+
+      &:hover {
+        background: var(--button-primary) !important;
+        color: var(--black) !important;
+        span {
+          color: var(--black) !important;
+        }
+      }
+    }
+  }
+
   // Nav Bar
   div[id*="__header_root_"] header {
     background: var(--site-header-bg) !important;
@@ -4267,6 +4300,11 @@
           }
         }
       }
+    }
+
+    // username icon in reviews
+    span.username_shortcode i.icon-user {
+      filter: invert(.85);
     }
 
     #Credits {
