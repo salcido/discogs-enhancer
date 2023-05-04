@@ -277,10 +277,19 @@ input[type="checkbox"]:focus {
   clear: both;
   overflow: hidden;
   margin-top: 55px;
+  columns: 3;
+  margin-left: 25px;
+}
+
+.context-menus {
+  margin-top: 50px;
+  margin-right: 10px;
+  margin-left: 25px;
+  z-index: 10;
 }
 
 .checkbox-wrap {
-  float: left;
+  // float: left;
   width: 110px;
   color: var(--text-color);
   font-size: .75rem;
@@ -669,11 +678,6 @@ input[type="checkbox"]:focus {
     display: block;
     margin-left: 46px;
   }
-}
-
-#contextMenus {
-  margin-left: 30px;
-  z-index: 10;
 }
 
 #linksInTabs {
