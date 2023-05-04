@@ -15,7 +15,6 @@ export function acknowledgeUpdate() {
 }
 
 export async function getTabId() {
-  let queryOptions = { active: true, currentWindow: true };
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   return tab.id;
 }
@@ -92,9 +91,11 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useBoomkat: document.getElementById('boomkat').checked,
         useCDandLP: document.getElementById('cdandlp').checked,
         useClone: document.getElementById('clone').checked,
+        useDecks: document.getElementById('decks').checked,
         useDeejay: document.getElementById('deejay').checked,
         useDiscogs: document.getElementById('discogs').checked,
         useEarcave: document.getElementById('earcave').checked,
+        useEbay: document.getElementById('ebay').checked,
         useGramaphone: document.getElementById('gramaphone').checked,
         useHardwax: document.getElementById('hardwax').checked,
         useJuno: document.getElementById('juno').checked,
@@ -419,7 +420,7 @@ export async function sendEvent(category, action, label = '') {
   async function postData(data = {}) {
     let url = 'https://www.google-analytics.com/collect';
 
-    const response = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       mode: 'no-cors',
       cache: 'no-cache',

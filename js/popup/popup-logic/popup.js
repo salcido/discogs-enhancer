@@ -126,9 +126,11 @@ window.addEventListener('load', () => {
       toggleBoomkat,
       toggleCDandLP,
       toggleClone,
+      toggleDecks,
       toggleDeeJay,
       toggleDiscogs,
       toggleEarcave,
+      toggleEbay,
       toggleGramaphone,
       toggleHardwax,
       toggleJuno,
@@ -423,9 +425,11 @@ window.addEventListener('load', () => {
     toggleBoomkat = document.getElementById('boomkat');
     toggleCDandLP = document.getElementById('cdandlp');
     toggleClone = document.getElementById('clone');
+    toggleDecks = document.getElementById('decks');
     toggleDeeJay = document.getElementById('deejay');
     toggleDiscogs = document.getElementById('discogs');
     toggleEarcave = document.getElementById('earcave');
+    toggleEbay = document.getElementById('ebay');
     toggleGramaphone = document.getElementById('gramaphone');
     toggleHardwax = document.getElementById('hardwax');
     toggleJuno = document.getElementById('juno');
@@ -499,9 +503,11 @@ window.addEventListener('load', () => {
       toggleBoomkat.checked = prefs.useBoomkat;
       toggleCDandLP.checked = prefs.useCDandLP;
       toggleClone.checked = prefs.useClone;
+      toggleDecks.checked = prefs.useDecks;
       toggleDeeJay.checked = prefs.useDeejay;
       toggleDiscogs.checked = prefs.useDiscogs;
       toggleEarcave.checked = prefs.useEarcave;
+      toggleEbay.checked = prefs.useEbay;
       toggleGramaphone.checked = prefs.useGramaphone;
       toggleHardwax.checked = prefs.useHardwax;
       toggleJuno.checked = prefs.useJuno;
