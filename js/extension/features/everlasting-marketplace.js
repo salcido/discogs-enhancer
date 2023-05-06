@@ -283,13 +283,13 @@ rl.ready(() => {
     // Add page stamp and filters (if any)
     setTimeout(() => {
       document.querySelector('.mpitems tbody').insertAdjacentHTML('afterBegin', pageStamp(pageHist[0]));
+
+      addPauseListener();
+      addResumeListener();
+      addSelectListener();
     }, 0);
     // Open in new tabs
     document.querySelectorAll('.item_release_link').forEach(a => { a.target = '_blank'; });
-
-    addPauseListener();
-    addResumeListener();
-    addSelectListener();
 
     // ========================================================
     // Scrolling Functionality
@@ -297,7 +297,7 @@ rl.ready(() => {
 
     window.addEventListener('scroll', () => {
 
-      let kurtLoder = document.querySelector('#de-next'); // also former MTV anchor
+      let kurtLoder = document.querySelector('#de-next');
 
       if ( rl.isOnScreen(kurtLoder)
             && !hasLoaded
