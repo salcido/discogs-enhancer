@@ -91,8 +91,10 @@
   --button-green-border: #4ea332;
   --button-green: #3d8625;
   --button-red: #982e2c;
-  --button-primary: #eeeeee;
-  --button-primary-hover: #ffffff;
+  --button-secondary: #eeeeee;
+  --button-secondary-hover: #ffffff;
+  --button-mr-wantlist: #eeeeee;
+  --button-mr-wantlist-hover: #ffffff;
   /* Alert banners */
   --alert-accept-bg: #d1f7c5;
   --alert-error-bg: #f7cdc5;
@@ -299,6 +301,30 @@
         }
       }
     }
+
+    #resultsPane {
+      .prepareListing.selected {
+        background: var(--history-hover) !important;
+      }
+    }
+
+    #postPane {
+      ul.listing-container li strong {
+        color: var(--text-bold) !important;
+      }
+
+      table.post_table,
+      table#mpItems {
+        tr th {
+          color: var(--text-bold) !important;
+        }
+      }
+
+      #mpItems tbody > tr:nth-child(even) {
+        background-color: var(--row-even) !important;
+      }
+    }
+
     #resultsPane .inner_pane::-webkit-scrollbar-thumb:not(.mac),
     #resultsPaneDefault .inner_pane::-webkit-scrollbar-thumb:not(.mac),
     .releasePreview::-webkit-scrollbar-thumb:not(.mac),
@@ -308,6 +334,11 @@
       border: 2px solid var(--borders) !important;
       border-radius: 8px !important;
     }
+  }
+
+  // quicklister image gallery modal
+  div[id*="image_gallery_modal_"] {
+    background: var(--box-shadow-b) !important;
   }
 
   body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb:not(.mac) {
@@ -336,6 +367,22 @@
 
     .linked_username {
       color: var(--link) !important;
+    }
+  }
+
+  .button-as-link {
+    color: var(--link) !important;
+
+    i.icon {
+      color: var(--link) !important;
+    }
+
+    &:hover {
+      color: var(--link-hover) !important;
+    }
+
+    .details-icon {
+      -webkit-text-stroke: 2px var(--link) !important;
     }
   }
 
@@ -969,7 +1016,7 @@
   }
 
   .browse-files-button {
-    background: var(--button-primary) !important;
+    background: var(--button-mr-wantlist) !important;
     color: var(--black) !important;
   }
 
@@ -3463,10 +3510,10 @@
 
   .text_label_staff {
     background-color: var(--skittle-inventory) !important;
-    color: var(--text-normal) !important;
+    color: var(--text-bold) !important;
     &:visited {
       background-color: var(--skittle-inventory) !important;
-      color: var(--text-normal) !important;
+      color: var(--text-bold) !important;
     }
   }
 
@@ -4130,23 +4177,31 @@
   div[class*="content_"] div[class*="buttons_"] {
     // Buy Primary
     a[class*="_anchor"][class*="_primary"] {
-      background: var(--button-primary) !important;
+      background: var(--button-blue) !important;
+      color: var(--button-blue-text) !important;
+    }
+    // Sell Secondary, Add to Collection / Wantlist
+    a[class*="_anchor"][class*="_secondary"],
+    button[class*="_button"][class*="_secondary"] {
+      background: var(--button-secondary) !important;
       color: var(--black) !important;
 
-      &:hover {
-        background: var(--button-primary-hover) !important;
+      svg path,
+      div[class*="_buttonContent"] svg path {
+        fill: var(--black) !important;
       }
-    }
-    // Sell Secondary
-    a[class*="_anchor"][class*="_secondary"] {
-      border: 1px solid var(--text-bold) !important;
-      color: var(--text-bold) !important;
 
       &:hover {
-        background: var(--button-primary) !important;
+        background: var(--button-secondary-hover) !important;
         color: var(--black) !important;
+
         span {
           color: var(--black) !important;
+        }
+
+        svg path,
+        div[class*="_buttonContent"] svg path {
+          fill: var(--black) !important;
         }
       }
     }
@@ -4304,7 +4359,7 @@
 
     // username icon in reviews
     span.username_shortcode i.icon-user {
-      filter: invert(.85);
+      filter: invert(0.85);
     }
 
     #Credits {
@@ -5055,15 +5110,15 @@
     button.aui-primary,
     // Shop This Version button
     a[class*="shop_"] {
-      background: var(--button-primary) !important;
+      background: var(--button-mr-wantlist) !important;
       color: var(--black) !important;
     }
 
     #wantlist-button button[class*="_primary"] {
-      background: var(--button-primary) !important;
+      background: var(--button-mr-wantlist) !important;
 
       &:hover {
-        background: var(--button-primary-hover) !important;
+        background: var(--button-mr-wantlist-hover) !important;
       }
 
       span {
@@ -5084,7 +5139,7 @@
       }
     }
 
-    button.aui-secondary {
+    button[class*="_secondary"] {
       border: 1px solid var(--borders) !important;
       background: var(--input-bg) !important;
 
@@ -5151,14 +5206,17 @@
         border-left: 1px solid var(--input-bg) !important;
       }
 
+      // add to collection / wantlist / list buttons
       div[class*="tray_"] button[class*="_secondary"] {
-        border: 1px solid var(--text-bold) !important;
+
+        color: var(--headers) !important;
 
         &:hover {
-          background: var(--button-primary) !important;
-          color: var(--black) !important;
+          background-color: var(--headers) !important;
+          color: var(--text-bold) !important;
+
           span {
-            color: var(--black) !important;
+            color: var(--text-bold) !important;
           }
         }
       }
