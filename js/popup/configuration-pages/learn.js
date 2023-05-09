@@ -8,9 +8,9 @@
  *
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
 
-  let log = require('../change-log'),
+  let changeLog = require('../change-log'),
       clearSearch = document.querySelector('.clear-search'),
       debounce = null,
       select = document.getElementById('nav-select'),
@@ -41,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkForURLHash() {
 
     if ( location.hash ) {
-      document.querySelector(`${location.hash}`).scrollIntoView();
       // (-80px to adjust for space up top)
-      setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+      setTimeout(() => window.scrollTo({ top: window.scrollY - 80, behavior: 'auto'}), 13);
     }
   }
 
@@ -130,16 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {undefined}
    */
   function getThanks() {
-    let { thanks } = log.current[0],
+    let { thanks } = changeLog.current[0],
+        header = document.createElement('div'),
         fragment = document.createDocumentFragment();
 
-    thanks.forEach(thank => {
-      let li = document.createElement('li');
-      li.innerHTML = thank;
-      fragment.appendChild(li);
-    });
+    header.textContent = 'Thank You:';
+    header.className = 'update';
 
-    document.querySelector('.update-list').append(fragment);
+    thanks.forEach(thank => {
+      let span = document.createElement('span');
+      span.innerHTML = thank;
+      fragment.appendChild(span);
+    });
+    document.querySelector('.thank-yous').append(header);
+    document.querySelector('.thank-yous').append(fragment);
   }
 
   /**
@@ -147,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {undefined}
    */
   function getCurrentFeatures() {
-    let features = getFeatures(log.current[0]);
+    let features = getFeatures(changeLog.current[0]);
     document.querySelector('.new-features').append(features);
   }
 
@@ -156,32 +159,56 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {undefined}
    */
   function getCurrentUpdates() {
-    let updates = getUpdates(log.current[0]);
+    let updates = getUpdates(changeLog.current[0]);
     document.querySelector('.update-list').append(updates);
   }
 
   /**
+   * Parses a string for URLs and wraps them with anchor tags.
+   * @param {String} str - The string to parse
+   * @returns {String}
+   */
+  function parseHyperlinks(str) {
+
+    let urlStr = '(https?:\\/\\/)?' // protocol
+      + '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' // domain name
+      + '((\\d{1,3}\\.){3}\\d{1,3}))' // OR ip (v4) address
+      + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' // port and path
+      + '(\\?[;&a-z\\d%_.~+=-]*)?' // query string
+      + '(\\#[-a-z\\d_]*)?';
+
+    return str.replaceAll(new RegExp(urlStr, 'gim'), '<a target="_blank" rel="noreferrer" href="$&">$&</a>');
+  }
+
+  /**
    * Creates and appends `details` elements containing
-   * previous update information
+   * previous update information from GitHub.
    * @returns {undefined}
    */
-  function getPreviousFeaturesAndUpdates() {
+  async function getVersionHistory() {
 
-    let fragment = document.createDocumentFragment();
+    let response = await fetch('https://api.github.com/repos/salcido/discogs-enhancer/releases'),
+        versions = await response.json(),
+        fragment = document.createDocumentFragment();
 
-    log.previous.forEach(entry => {
+    versions.forEach((version, index) => {
 
-      let features = getFeatures(entry),
-          updates = getUpdates(entry),
-          ul = document.createElement('ul'),
+      let tag = version.tag_name,
+          body = version.body,
+          links = parseHyperlinks(body),
+          html = links
+                  .replaceAll('## What\'s Changed', '<span class="update">What\'s Changed</span>')
+                  .replaceAll('`', '"')
+                  .replaceAll('**Full Changelog**:', '<span class="changelog">Full Changelog:</span>'),
+          p = document.createElement('p'),
           details = document.createElement('details'),
-          summary = document.createElement('summary');
+          summary = document.createElement('summary'),
+          styles = '"color: gray; font-size: small; font-style: italic;"';
 
-      summary.textContent = entry.version;
+      summary.innerHTML = index === 0 ? (`${tag} <span style=${styles}> - Current Version</span>`) : tag;
       details.append(summary);
-      details.append(features);
-      ul.append(updates);
-      details.append(ul);
+      p.innerHTML = html;
+      details.append(p);
       fragment.append(details);
     });
 
@@ -404,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function scrollTargetListeners() {
     document.querySelectorAll('.scroll-target').forEach(f => {
       f.addEventListener('click', () => {
-        setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+        setTimeout(() => window.scrollTo({ top: window.scrollY - 80, behavior: 'auto'}), 13);
       });
     });
   }
@@ -424,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if ( location.hash ) {
       // (-80px to adjust for space up top)
-      setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 80), 0);
+      setTimeout(() => window.scrollTo({ top: window.scrollY - 80, behavior: 'auto'}), 13);
     }
   });
 
@@ -476,13 +503,29 @@ document.addEventListener('DOMContentLoaded', () => {
   getVersionAndYear();
   populateNavigation([...document.querySelectorAll('.feature-block')]);
 
-  setTimeout(() => {
+  setTimeout(async () => {
     search.focus();
     checkForURLHash();
     getCurrentFeatures();
     getCurrentUpdates();
     getThanks();
-    getPreviousFeaturesAndUpdates();
     scrollTargetListeners();
+
+    try {
+      await getVersionHistory();
+
+    } catch(err) {
+
+      let heading = 'Error:',
+          text = 'Could not get version history from GitHub.',
+          markup = `
+              <h4 style="font-style:italic;">
+                <span style="color: red;">${heading}</span>
+                ${text}
+              </h4>
+          `;
+
+      document.querySelector('.news-item.previous').innerHTML = markup;
+    }
   }, 200);
 });
