@@ -37,6 +37,7 @@
         font-size: 14px;
         margin-top: 2px;
         color: white;
+        list-style-type: none;
       }
 
       .de-random-item:hover {
@@ -114,7 +115,7 @@
       _header = document.querySelector('header[class*="_header_"]'),
       selector = _header ? 'nav[class^="_user_"]' : 'header nav[class^="profile_"]',
       position = 'afterbegin',
-      inline_css = 'padding-top: 1.25rem; padding-right: 1.2rem; padding-left: 1.2rem;',
+      inline_css = 'padding-top: 1.25rem; padding-right: 1.4rem; padding-left: 1.2rem;',
       icon = `<li style="position: relative; ${inline_css}" class="de-random-item rotate-in">
                 <a class="nav_group_control needs_delegated_tooltip"
                   href="/user/${user}/collection/random"
