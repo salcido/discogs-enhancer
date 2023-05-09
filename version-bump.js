@@ -15,56 +15,18 @@
  * and `package.json` files as well as update the badges
  * within the `readme.md` file.
  *
- * Run it in the terminal like `npm run bump <version number> <updateBadges>`
- * where `<version number>` is a semver string like `x.x.x` and `<updateBadges>`
- * is either `true` (which will gather new badge data) or omitted completely.
+ * Run it in the terminal like `npm run bump <version number>`
  *
  */
 
 const fs = require('fs');
-const puppeteer = require('puppeteer');
 
 // new version number {string}
 const newVersion = process.argv[2];
-// Whether to update the badge data in the readme.md file {boolean}
-const updateBadges = process.argv[3] && process.argv[3] === 'true' ? true : null;
-// URL to get new badge data from
-const url = 'https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn';
-
-let users;
 
 // ========================================================
 // Functions (Alphabetical)
 // ========================================================
-/**
- * Converts a number to an abbreviation (e.g.: 1,000 -> 1k)
- * @param {Number} number The number of users to convert
- * @param {Number} decPlaces The number of decimal places
- * @returns {Number} - The converted number
- */
-function abbrNum(number, decPlaces) {
-
-  let abbrev = [ 'k', 'm', 'b', 't' ];
-
-  decPlaces = Math.pow(10,decPlaces);
-
-  for (let i=abbrev.length - 1; i>=0; i--) {
-
-    let size = Math.pow(10, (i + 1) * 3);
-
-    if (size <= number) {
-      number = Math.round(number * decPlaces / size) / decPlaces;
-
-      if ( (number === 1000) && (i < abbrev.length - 1) ) {
-        number = 1;
-        i++;
-      }
-      number += abbrev[i];
-      break;
-    }
-  }
-  return number;
-}
 /**
  * Updates the manifest and package json files
  * with a new version string
@@ -86,25 +48,6 @@ function updateJSONfiles(version) {
 
     console.log(`✅  Updated ${file} to ${version}.`);
   });
-}
-
-/**
- * Updates the readme markdown file with
- * new badge stats.
- * @returns {undefined}
- */
-function updateBadgeData() {
-
-  let readme = fs.readFileSync('readme.md', 'utf8'),
-      strUsers = /\d\.*\dk/g;
-
-  users = abbrNum(users, 1);
-
-  readme = readme.replace(strUsers, `${users}`);
-
-  fs.writeFileSync('readme.md', readme);
-
-  console.log(`✅  Updated badges with new data: Users: ${users}`);
 }
 
 /**
@@ -132,25 +75,4 @@ function validateVersion(version) {
 if ( validateVersion(newVersion) ) {
 
   updateJSONfiles(newVersion);
-
-  // If true was passed update the badges
-  if ( updateBadges ) {
-
-    console.log('🕐  Getting new badge data...');
-
-    puppeteer.launch().then(async browser => {
-
-      let page = await browser.newPage(),
-          regex = /\d+/g,
-          userData;
-
-      await page.goto(url);
-      await page.waitFor('.KnRoYd-N-nd');
-
-      userData = await page.evaluate(() => document.querySelector('.e-f-ih').textContent);
-      users = userData.match(regex).reduce((a, n) => a + n);
-      browser.close();
-      updateBadgeData();
-    });
-  }
 }
