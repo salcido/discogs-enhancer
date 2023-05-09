@@ -215,7 +215,7 @@
   --filter-chip: #2a4f96;
   --history-highlight: #3a4260;
   --history-hover: #353345;
-  --submission-form-error: #131921;
+  --submission-form-error: #2e0000;
   --additional-instructions: #48487c;
   --text-muted: #848f9a;
   --text-normal: #bdbdbd;
@@ -500,7 +500,7 @@
     }
   }
 
-  /* Super annyoing to style More Images link */
+  /* (Super annoying to style) More Images link */
   a[class*="link_"]:hover > p {
     color: var(--link-hover) !important;
   }
@@ -3455,14 +3455,17 @@
 
   input {
     &[type="text"][disabled],
+    &[type="number"][disabled],
     &[type="password"][disabled] {
       background: var(--row-even) !important;
+      color: var(--text-muted) !important;
     }
   }
 
   textarea[disabled],
   .fake-input[disabled] {
     background: var(--row-even) !important;
+    color: var(--text-muted) !important;
   }
 
   /* Edit Release: free text field and cvar(--needs-changes)its inputs */
