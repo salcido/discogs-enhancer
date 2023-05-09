@@ -36,8 +36,8 @@
       <div class="nav">
         <!-- Note: when adding tabs make sure the tab's name class (ie: "updates" or "donate") matches the coresponding .tab-content class in order to make sure the content is properly shown/hidden when clicking tab elements. -->
         <a href="" class="tabs updates selected">Updates</a>
-        <a href="" class="tabs help">Help</a>
         <a href="" class="tabs donate">Donate</a>
+        <a href="" class="tabs help">Help</a>
         <a href="" class="tabs source-code">Open Source</a>
         <a href="" class="tabs about">About</a>
       </div>
@@ -49,40 +49,46 @@
             <!-- new features appended here -->
           </div>
           <div class="news-item">
-            <p><span class="update">Updates in this version:</span></p>
+            <p><span class="update">Updates:</span></p>
             <ul class="update-list">
               <!-- new updates appended here -->
             </ul>
+            <div class="news-item thank-yous">
+              <!-- Thank yous appended here -->
+            </div>
           </div>
           <div class="news-item previous">
-            <p><span class="previous-updates">Previous versions:</span></p>
+            <p><span class="previous-updates">Version History:</span></p>
             <!-- previous updates appended here -->
           </div>
         </div>
         <!-- help -->
         <div class="help hide tab-content">
-          <p><span class="m">Having issues with this extension?</span> Try the <a href="#troubleshooting" class="scroll-target">Troubleshooting</a> section or email me: <b class="white">discogs.enhancer@gmail.com</b>. You can also <a href="https://www.discogs.com/messages/compose?to=mattsalcido" target="_blank">message me on Discogs</a> or join the <a href="https://www.discogs.com/group/9136" target="_blank">Discogs Enhancer group</a>.</p>
+          <p><span class="m">Having issues with this extension?</span> Try the <a href="#troubleshooting" class="scroll-target">Troubleshooting</a> section or email me: <b class="white">discogs.enhancer@gmail.com</b>.</p>
+          <p>You can also <a href="https://www.discogs.com/messages/compose?to=mattsalcido" target="_blank">message me on Discogs</a> or join the <a href="https://www.discogs.com/group/9136" target="_blank">Discogs Enhancer group</a>.</p>
         </div>
         <!-- donate -->
         <div class="donate hide tab-content">
-          <p><span class="m">If you like this extension you can help by sharing <br> <a href="https://www.discogs-enhancer.com">discogs-enhancer.com</a> on Facebook, Twitter, Reddit, etc!</span></p>
-          <p><span class="m">You can also donate to help pay for server costs, coffee, beer, etc :) </span></p>
+          <!-- <h3><span class="m">DONATE</span></h3> -->
+          <p>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API costs $7.20 a month / $86.40 a year via <a href="https://www.digitalocean.com/pricing/">Digital Ocean</a>. Even the smallest contribution helps pay for the server!</p>
+          <p>You'll also get your name listed in the <a href="#thanks" class="scroll-target">Thank You</a> section with a rad star (<span style="color: #fff;">&#9733;</span>) next to it!</p>
           <div class="donation-wrap">
             <div class="donate">
               <h3></h3>
-              <a class="coffee" href="https://www.buymeacoffee.com/salcido"><img src="../img/learn/coffee.png"/>Buy me a coffee</a>
+              <a class="paypal" href="https://www.paypal.com/donate/?business=SQ4MHRDMMJQHQ&no_recurring=0&item_name=Discogs+Enhancer&currency_code=USD" target="_blank"><img src="../img/learn/pp-logo.png" class="pp" /></a>
+              <a class="coffee" href="https://www.buymeacoffee.com/salcido" target="_blank"><img src="../img/learn/coffee.png"/>Buy me a coffee</a>
               <a href="https://www.paypal.com/donate/?business=SQ4MHRDMMJQHQ&no_recurring=0&item_name=Discogs+Enhancer&currency_code=USD" target="_blank"><img src="../img/learn/pp_qr.gif" class="qr" /></a>
               <span class="qr-instructions">Click or scan with your phone</span>
             </div>
+
             <!-- <hr>
             <div class="donate">
               <h3>Ethereum</h3>
               <pre class="eth-address">0x136EA4cbc6e2e98924b9cAc02738b7112673Cd47</pre>
             </div> -->
           </div>
-          <p><span class="m">Why donate?</span></p>
-          <p>Discogs Enhancer uses a custom foreign exchange rate API for currency conversions and price comparisons. Hosting for the API costs $7.20 a month via <a href="https://www.digitalocean.com/pricing/">Digital Ocean</a>. Even the smallest contribution helps pay for the server!</p>
-          <p>You'll also get your name listed in the <a href="#thanks" class="scroll-target">Thank You</a> section with a rad star (<span style="color: #fff;">&#9733;</span>) next to it!</p>
+          <p><span class="m">Share Discogs Enhancer</span></p>
+          <p><span class="m">If you like this extension you can help by sharing <br> <a href="https://www.discogs-enhancer.com">discogs-enhancer.com</a> on Facebook, Twitter, Reddit, etc!</span></p>
         </div>
         <!-- Source Code -->
         <div class="source-code hide tab-content">
@@ -902,12 +908,10 @@
       <!-- troubleshooting -->
       <h2 id="troubleshooting">Troubleshooting</h2>
 
-      <p>If you are seeing odd behavior, <b>try restarting Chrome</b>. Sometimes things get wonky after Chrome updates the extension.</p>
-
-      <p>You can also try <b>turning the feature off and on again</b>, then refreshing your page.</p>
+      <p>If you are seeing odd behavior, try <b>turning the feature off and on again</b>, then refresh the page.</p>
 
       <p>If that does not fix your issue, make sure <a href="https://support.google.com/chrome/answer/95414">Chrome is up to date</a>.</p>
-      <p>You can also try uninstalling Discogs Enhancer and reinstalling it from the Chrome store again. If you tried all these things and it's still not working please email me at: <b>discogs.enhancer@gmail.com</b> and let me know. You have likely found a bug!</p>
+      <p>If you tried these things and it's still not working please email me at: <b>discogs.enhancer@gmail.com</b> and let me know. You have likely found a bug!</p>
 
       <p><em>Note:</em> When submitting a bug please let me know which features you have disabled so I can better reproduce the issue. Thank you!</p>
     </div>
