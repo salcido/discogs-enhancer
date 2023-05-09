@@ -3,6 +3,7 @@ body {
   align-items: start;
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 h1 {
@@ -46,16 +47,41 @@ hr {
 
 details {
   border: 1px solid #424242;
+  background: #292929;
   border-radius: 5px;
-  padding: 0.5rem;
   margin-bottom: 1rem;
-  background: #333;
   outline: none;
+}
+
+details:hover {
+  background: #333;
+}
+
+details p {
+  white-space: pre-line;
+  margin: auto 1rem 2rem 1rem;
+}
+
+details span.update {
+  margin: 1.75rem auto -.75rem auto;
+  display: block;
+  color: orange;
+}
+
+details span.changelog {
+  margin: 0 auto .75rem auto;
+  display: block;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
 }
 
 summary {
   cursor: pointer;
+  padding: 0.5rem;
   outline: none;
+  list-style-type: none;
+  font-weight: bold;
 }
 
 .sidebar {
@@ -272,6 +298,19 @@ select {
   text-transform: uppercase;
 }
 
+.info-wrap div.thank-yous {
+  margin-top: 2rem;
+}
+
+.info-wrap div.thank-yous div.update {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: #00dbb4;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
 span.m {
   color: #fafafa;
   display: block;
@@ -281,7 +320,7 @@ span.m {
 }
 
 .donate h3 {
-  margin-bottom: 0.1rem;
+  margin-top: 3rem;
 }
 
 .donation-wrap {
@@ -296,11 +335,12 @@ span.m {
   border: 1px solid #ff813f;
   color: white;
   display: inline-block;
-  font-family: "Cookie", cursive;
-  font-size: 22px;
+  font-family: "Barlow";
+  text-transform: uppercase;
+  font-size: 21px;
   letter-spacing: 0.6px;
   line-height: 36px;
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0 0.5rem;
   padding: 5px 15px;
   text-decoration: none;
   transition: box-shadow 0.4s ease, background-color 0.4s ease, color 0.4s ease;
@@ -620,6 +660,29 @@ figcaption {
   text-align: center;
   font-style: italic;
   font-size: small;
+}
+
+.paypal {
+  background: #ffc439;
+  border-radius: 4px;
+  color: #000;
+  display: inline-flex;
+  font-family: Helvetica;
+  font-size: .875rem;
+  font-weight: 700;
+  justify-content: center;
+  margin: 0.5rem auto;
+  padding: .25rem 1rem;
+  width: 216px;
+  transition: background-color 0.4s ease;
+}
+
+.paypal:hover {
+  background: #ffde91;
+}
+
+.pp {
+  width: 100px;
 }
 
 .qr {
