@@ -255,6 +255,7 @@ appendFragment([resourceLibrary])
     if (!window.location.href.includes('www')
       || window.location.href.includes('/order/prints?')
       || window.location.href.includes('discogs.com/company')
+      || window.location.href.includes('discogs.com/selling')
       || window.location.href.includes('/company/careers')
       || window.location.href.includes('discogs.com/record-stores')
       || window.location.href.includes('discogs.com/record-store-day')
@@ -1027,6 +1028,17 @@ appendFragment([resourceLibrary])
         sellerRep.className = 'de-init';
 
         elems.push(sellerRep);
+      }
+
+      if (prefs.shoppingSpreeMode) {
+        // shopping-spree-mode.js
+        let shoppingSpree = document.createElement('script');
+
+        shoppingSpree.type = 'text/javascript';
+        shoppingSpree.src = chrome.runtime.getURL('js/extension/features/shopping-spree-mode.js');
+        shoppingSpree.className = 'de-init';
+
+        elems.push(shoppingSpree);
       }
 
       if (prefs.sortButtons) {

@@ -59,6 +59,7 @@ let prefs = {
   removeFromWantlist: false,
   sellerItemsInCart: false,
   sellerRep: false,
+  shoppingSpreeMode: false,
   sortButtons: true,
   sortByTotalPrice: false,
   suggestedPrices: false,
