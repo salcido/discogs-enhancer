@@ -35,6 +35,12 @@ a.secret {
   text-decoration: none;
 }
 
+.update-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0rem;
+}
+
 b {
   font-weight: 700;
   letter-spacing: 0.03rem;
@@ -298,8 +304,14 @@ select {
   text-transform: uppercase;
 }
 
+.updates-content > p {
+  margin-bottom: 0;
+}
+
+.updates-content,
+.news-item.previous,
 .info-wrap div.thank-yous {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .info-wrap div.thank-yous div.update {
@@ -308,7 +320,7 @@ select {
   color: #00dbb4;
   font-weight: bold;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: .25rem;
 }
 
 span.m {
