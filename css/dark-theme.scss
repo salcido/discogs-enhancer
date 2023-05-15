@@ -85,6 +85,7 @@
   /* Buttons */
   --button-blue-border: #3e7fb8;
   --button-blue: #3770a2;
+  --button-blue-hover: #437caf;
   --button-blue-text: #eeeeee;
   --button-disabled-text: #999999;
   --button-disabled: #f2f2f2;
@@ -568,6 +569,8 @@
   .site_nav_submenu a,
   .site_nav_tray a,
   .site_nav_submenu a:visited,
+  nav[class*="_main"] ul[class*="_group"] li a[role="menuitem"],
+  nav[class*="_user"] ul[class*="_group"] li a[role="menuitem"],
   .site_nav_tray a:visited {
     color: var(--text-normal) !important;
 
@@ -575,6 +578,9 @@
       color: var(--main-menu-link-hover) !important;
       i.icon {
         color: var(--main-menu-link-hover) !important;
+      }
+      svg path {
+        fill: var(--main-menu-link-hover) !important;
       }
     }
   }
@@ -2740,6 +2746,7 @@
         color: var(--headers) !important;
       }
       strong,
+      strong b,
       em {
         color: var(--headers) !important;
         a {
@@ -4182,6 +4189,10 @@
     a[class*="_anchor"][class*="_primary"] {
       background: var(--button-blue) !important;
       color: var(--button-blue-text) !important;
+
+      &:hover {
+        background: var(--button-blue-hover) !important;
+      }
     }
     // Sell Secondary, Add to Collection / Wantlist
     a[class*="_anchor"][class*="_secondary"],
@@ -5020,6 +5031,12 @@
         background-image: none !important;
         color: var(--headers);
       }
+    }
+
+    // Permalink button in image gallery
+    button[class*="grey_"][class*="permabutton_"] {
+      color: var(--headers) !important;
+      background: var(--button-mr-wantlist) !important;
     }
 
     // for sale count

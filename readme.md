@@ -6,7 +6,7 @@
 <p align="center">
   <img src="https://github.com/salcido/discogs-enhancer/actions/workflows/main.yml/badge.svg">
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/Users-7.6k-brightgreen" alt="Chrome Web Store">
+    <img src="https://img.shields.io/badge/Users-7.8k-brightgreen" alt="Chrome Web Store">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/Rating-4.85%2F5-blue" alt="Chrome Web Store">

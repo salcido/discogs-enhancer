@@ -205,7 +205,7 @@
           summary = document.createElement('summary'),
           styles = '"color: gray; font-size: small; font-style: italic;"';
 
-      summary.innerHTML = index === 0 ? (`${tag} <span style=${styles}> - Current Version</span>`) : tag;
+      summary.innerHTML = index === 0 ? (`${tag} <span style=${styles}> - Latest Version</span>`) : tag;
       details.append(summary);
       p.innerHTML = html;
       details.append(p);

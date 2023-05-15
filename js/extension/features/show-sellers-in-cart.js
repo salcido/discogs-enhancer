@@ -102,13 +102,13 @@ rl.ready(() => {
 
   // Marketplace wantlists, all items, release pages
   if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
-  fetchSellersFromCart()
+    fetchSellersFromCart()
       .then(data => captureSellerNames(data))
       .then(sellersInCart => {
         rl.attachCss('items-in-cart', rules);
         if ( sellersInCart
-             && sellersInCart.names
-             && sellersInCart.names.length ) {
+            && sellersInCart.names
+            && sellersInCart.names.length ) {
           window.sellerItemsInCart(sellersInCart);
           rl.handlePaginationClicks(window.sellerItemsInCart, sellersInCart);
         }

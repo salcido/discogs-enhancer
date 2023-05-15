@@ -112,6 +112,7 @@ window.addEventListener('load', () => {
       toggleRemoveFromWantlist = document.getElementById('toggleRemoveFromWantlist'),
       toggleSellerItemsInCart = document.getElementById('toggleSellerItemsInCart'),
       toggleSellerRep = document.getElementById('toggleSellerRep'),
+      toggleShoppingSpree = document.getElementById('toggleShoppingSpree'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
       toggleSortByTotalPrice = document.getElementById('toggleSortByTotalPrice'),
@@ -308,6 +309,7 @@ window.addEventListener('load', () => {
   toggleRemoveFromWantlist.addEventListener('change', triggerSave);
   toggleSellerItemsInCart.addEventListener('change', triggerSave);
   toggleSellerRep.addEventListener('change', sellerRep.saveSellerRep);
+  toggleShoppingSpree.addEventListener('change', triggerSave);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
   toggleSortByTotalPrice.addEventListener('change', triggerSave);
@@ -490,6 +492,7 @@ window.addEventListener('load', () => {
       toggleRemoveFromWantlist.checked = prefs.removeFromWantlist;
       toggleSellerItemsInCart.checked = prefs.sellerItemsInCart;
       toggleSellerRep.checked = prefs.sellerRep;
+      toggleShoppingSpree.checked = prefs.shoppingSpreeMode,
       toggleShortcuts.checked = prefs.formatShortcuts;
       toggleSortBtns.checked = prefs.sortButtons;
       toggleSortByTotalPrice.checked = prefs.sortByTotalPrice;

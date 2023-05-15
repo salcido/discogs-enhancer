@@ -33,7 +33,7 @@
   // Individual release pages
   // ------------------------------------------------------
   if ( rl.pageIs('release')
-       && rl.pageIsNot('reviews', 'videos', 'edit', 'stats', 'update') ) {
+       && rl.pageIsNot('reviews', 'videos', 'edit', 'stats', 'update', 'addRelease') ) {
     // Match patterns:
     // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) For Sale | Discogs
     re = /(?:.(?!\(.+\).+\| Discogs))+$/g;

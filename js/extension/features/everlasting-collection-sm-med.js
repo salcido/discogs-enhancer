@@ -22,7 +22,7 @@ rl.ready(() => {
         initialPage = (new URL(document.location)).searchParams.get('page') || 1,
         pageNum = initialPage,
         max = document.querySelector('.pagination.bottom li a.pagination_next')
-                      .parentElement.previousElementSibling.textContent.trim();
+                      ?.parentElement?.previousElementSibling?.textContent.trim() || 1;
 
     // ========================================================
     // Functions (Alphabetical)
