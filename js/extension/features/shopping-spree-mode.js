@@ -102,12 +102,27 @@ rl.ready(() => {
             let cartTotal = document.getElementById('cart_items_total'),
                 namesData = rl.getPreference('sellersInCart'),
                 names = namesData?.names || [],
-                currentCartTotal = Number(cartTotal.textContent.trim()),
+                currentCartTotal = Number(cartTotal?.textContent?.trim()) || 0,
                 newCartTotal = currentCartTotal + 1;
 
             showInCartStatus(addToCartButton);
 
-            cartTotal.textContent = newCartTotal;
+            if (cartTotal) {
+
+              cartTotal.textContent = newCartTotal;
+
+            } else {
+
+              let cartTotalElem = document.createElement('span');
+
+              cartTotalElem.classList = 'activity_menu_total';
+              cartTotalElem.id = 'cart_items_total';
+              cartTotalElem.setAttribute('aria-hidden', true);
+              cartTotalElem.textContent = '1';
+
+              cartLink.insertAdjacentElement('beforeend', cartTotalElem);
+            }
+
             cartLink.setAttribute('data-original-title', `${newCartTotal} ${tooltipTranslations[language]}`);
             // Update the sellersInCart data to work with
             // the `Show Sellers In Cart` feature
