@@ -5137,6 +5137,10 @@
     #wantlist-button button[class*="_primary"] {
       background: var(--button-mr-wantlist) !important;
 
+      div[class*="_buttonContent"] {
+        color: var(--black) !important;
+      }
+
       &:hover {
         background: var(--button-mr-wantlist-hover) !important;
       }
