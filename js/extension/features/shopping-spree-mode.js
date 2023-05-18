@@ -68,6 +68,22 @@ rl.ready(() => {
     link.innerHTML = markup;
     link.style.pointerEvents = 'auto';
   }
+  /**
+   * Creates the 'cart_items_total' span element when a user has an empty cart.
+   * e.g.: <span id="cart_items_total" class="activity_menu_total" aria-hidden="true">1</span>
+   * @returns {HTMLSpanElement}
+   */
+  function createCartTotalElem() {
+
+    let cartTotalElem = document.createElement('span');
+
+    cartTotalElem.classList = 'activity_menu_total';
+    cartTotalElem.id = 'cart_items_total';
+    cartTotalElem.setAttribute('aria-hidden', true);
+    cartTotalElem.textContent = '1';
+
+    return cartTotalElem;
+  }
 
   // ========================================================
   // Init / DOM Setup
@@ -100,26 +116,18 @@ rl.ready(() => {
           if (res.ok) {
 
             let cartTotal = document.getElementById('cart_items_total'),
-                namesData = rl.getPreference('sellersInCart'),
-                names = namesData?.names || [],
                 currentCartTotal = Number(cartTotal?.textContent?.trim()) || 0,
                 newCartTotal = currentCartTotal + 1;
 
             showInCartStatus(addToCartButton);
 
             if (cartTotal) {
-
+              // User has cart with items
               cartTotal.textContent = newCartTotal;
 
             } else {
-
-              let cartTotalElem = document.createElement('span');
-
-              cartTotalElem.classList = 'activity_menu_total';
-              cartTotalElem.id = 'cart_items_total';
-              cartTotalElem.setAttribute('aria-hidden', true);
-              cartTotalElem.textContent = '1';
-
+              // User has an empty cart
+              let cartTotalElem = createCartTotalElem();
               cartLink.insertAdjacentElement('beforeend', cartTotalElem);
             }
 
@@ -127,6 +135,9 @@ rl.ready(() => {
             // Update the sellersInCart data to work with
             // the `Show Sellers In Cart` feature
             if (window.sellerItemsInCart) {
+
+              let namesData = rl.getPreference('sellersInCart'),
+                  names = namesData?.names || [];
 
               names.push(sellerName);
 
