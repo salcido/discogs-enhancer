@@ -1,9 +1,9 @@
 /* Longer BAOI fields */
-td[data-ref-overview="barcode"] fieldset {
+.drag-drop-list[data-key="barcodes"] fieldset {
   width: 100%;
 }
 
-td[data-ref-overview="barcode"] input {
+.drag-drop-list[data-key="barcodes"] input {
   width: 100%;
   margin: .5rem 0;
 }
