@@ -3705,8 +3705,11 @@
   #seller-shipping-policy,
   #seller-currency-form,
   #paypal-commerce-signup-form,
+  #buyer-address-form,
+  #billing-address-form,
   #seller-address-form {
-    i.icon-green {
+    i.icon-green,
+    i.icon-green-important {
       color: var(--icon-green) !important;
     }
   }
