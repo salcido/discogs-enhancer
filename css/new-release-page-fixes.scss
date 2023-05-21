@@ -163,3 +163,15 @@
     }
   }
 }
+
+/* Monolith Fixes */
+/* Stars align on release stats page (A dark theme exclusive!) */
+/* https://www.discogs.com/release/stats/3432706 */
+.release_stats_group_list ul li {
+  display: flex;
+  justify-content: space-between;
+}
+.release_stats_group {
+  width: auto;
+  min-width: 25%;
+}
