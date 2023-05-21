@@ -1,16 +1,19 @@
 /* Longer BAOI fields */
 .drag-drop-list[data-key="barcodes"] fieldset {
   width: 100%;
+  display: flex;
 }
 
-.drag-drop-list[data-key="barcodes"] input {
-  width: 100%;
-  margin: .5rem 0;
+.drag-drop-list[data-key="barcodes"] .drag_drop_content {
+  display: flex;
+}
+ /* Invisible and disabled buttons that block the clickable surface of the "Add description" button */
+.drag-drop-list[data-key="barcodes"] .drag_drop_field_row_buttons button.drag_drop_field_row_move_button {
+  width: 0;
 }
 
-/* Don't change the size of the description fields
-td[data-ref-overview="barcode"] fieldset input:first-of-type {
-  width: 100%;
-  margin: .5rem 0;
+.drag-drop-list[data-key="barcodes"] input:first-of-type {
+  flex-grow: 1;
+  margin: 0 .5rem 0 0;
 }
-*/
+
