@@ -4193,6 +4193,10 @@
       background: var(--button-blue) !important;
       color: var(--button-blue-text) !important;
 
+      div[class*="_buttonContent"] {
+        color: var(--button-blue-text) !important;
+      }
+
       &:hover {
         background: var(--button-blue-hover) !important;
       }
@@ -4202,6 +4206,10 @@
     button[class*="_button"][class*="_secondary"] {
       background: var(--button-secondary) !important;
       color: var(--black) !important;
+
+      div[class*="_buttonContent"] {
+        color: var(--black) !important;
+      }
 
       svg path,
       div[class*="_buttonContent"] svg path {
