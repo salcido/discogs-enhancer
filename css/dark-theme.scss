@@ -105,9 +105,9 @@
   --alert-warning-text: #816612;
   --alert-warning-highlight: #e56000;
   /* Modified Cart Notice */
-  --modified-cart-bg: #f7eac5;
-  --modified-cart-htag: #000000;
-  --modified-cart-highlight: #e56000;
+  --modified-cart-bg: #273a4e;
+  --modified-cart-htag: #ffffff;
+  --modified-cart-highlight: #9ab4d5;
   --modified-cart-text: #2653d9;
   /* Release Rating Stars */
   --star-rating: #f7d06c;
@@ -2594,7 +2594,7 @@
       color: var(--headers) !important;
     }
   }
-
+  .alert-message-announcement.alert-message .alert-message-text a,
   .alert-message-announcement.alert-message .icon.icon-times {
     background: none !important;
     color: var(--text-normal) !important;
@@ -2662,6 +2662,7 @@
       }
     }
   }
+
   /* Modified Cart - These items got away banner */
   #modified-cart.alert-message-warning {
     background: var(--modified-cart-bg) !important;
@@ -2672,8 +2673,13 @@
     i,
     a,
     a strong,
+    span.modified-cart-release-title strong,
     a small {
       color: var(--modified-cart-highlight) !important;
+    }
+
+    span.modified-cart-release-title:hover {
+      text-decoration: none !important;
     }
 
     .skittle i.icon-wantlist {
@@ -2819,6 +2825,7 @@
       border-top: 0 !important;
     }
   }
+
 
   /* background bar graph on release stats sidebar */
 
