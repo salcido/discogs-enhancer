@@ -27,30 +27,31 @@ rl.ready(() => {
 
   /**
    * Generates the confirm box markup that gets appened to the DOM
+   * @param: id - the release ID to remove
    * @returns {object} HTML
    */
-  function createConfirmBox() {
+  function createConfirmBox(id) {
 
     let confirmBox = document.createElement('div'),
         areYouSure = document.createElement('div'),
         yes = document.createElement('a'),
         no = document.createElement('a'),
         slash = document.createElement('div'),
-        inblk_mr = 'display: inline-block; margin-right: 5px;';
+        inline_block = 'display: inline-block; margin-right: 5px;';
 
     areYouSure.textContent = 'Remove From Wantlist?';
-    areYouSure.style = inblk_mr;
+    areYouSure.style = inline_block;
 
     yes.textContent = 'Yes';
-    yes.style = inblk_mr;
+    yes.style = inline_block;
     yes.className = 'de-remove-yes';
-    yes.dataset.id = event.target.dataset.id;
+    yes.dataset.id = id;
 
     slash.textContent = ' / ';
-    slash.style = inblk_mr;
+    slash.style = inline_block;
 
     no.textContent = 'No';
-    no.style = inblk_mr;
+    no.style = inline_block;
     no.className = 'de-remove-no';
 
     confirmBox.appendChild(areYouSure);
@@ -143,7 +144,7 @@ rl.ready(() => {
   // ========================================================
   // CSS
   // ========================================================
-  let rules = `
+  let rules = /*css*/`
       .shortcut_navigable {
         transition: opacity 0.3s;
         transition-timing-function: ease;
@@ -176,7 +177,7 @@ rl.ready(() => {
       if ( target.classList.contains('de-remove-wantlist') ) {
         event.preventDefault();
         event.target.style.display = 'none';
-        parent.append(createConfirmBox());
+        parent.append(createConfirmBox(event.target.dataset.id));
       }
       // Yes, remove this
       if ( target.classList.contains('de-remove-yes') ) {

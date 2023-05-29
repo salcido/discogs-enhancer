@@ -94,7 +94,7 @@ rl.ready(() => {
         let selector = _header ? 'nav[class^="_user_"]' : 'nav[class^="profile_"]';
         document.querySelector(selector).insertAdjacentHTML('afterbegin', badge);
         bindUi();
-      }, 200);
+      }, 1000);
     } else {
       document.querySelector('#activity_menu').insertAdjacentHTML('afterbegin', badge);
     }
@@ -602,7 +602,7 @@ rl.ready(() => {
     }
 
     if (!feedback[user]) {
-      feedback = Object.assign(feedback, obj)
+      feedback = Object.assign(feedback, obj);
     }
     // Object.create(?)
     feedback[user].seller = sellerObj;

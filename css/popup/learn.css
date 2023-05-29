@@ -331,6 +331,10 @@ span.m {
   margin-bottom: 16px;
 }
 
+.donate.tab-content {
+  margin-bottom: 8rem;
+}
+
 .donate h3 {
   margin-top: 3rem;
 }
@@ -701,6 +705,10 @@ figcaption {
   width: 250px;
   display: block;
   margin: 1rem auto 0 auto;
+}
+
+.qr img {
+  width: 250px;
 }
 
 .qr-instructions {
