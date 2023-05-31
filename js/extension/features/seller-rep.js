@@ -100,12 +100,15 @@ rl.ready(() => {
           opacity: 1;
         }
 
-        .de-seller-rep-hide {
-          display: none;
-        }
-
+        .de-seller-rep-hide,
         .de-new-seller-hide {
-          display: none;
+          clip: rect(0 0 0 0);
+          clip-path: inset(50%);
+          height: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+          width: 1px;
         }
         `;
     // ========================================================
