@@ -7,7 +7,7 @@ import { applySave, optionsToggle, setEnabledStatus, sendEvent } from '../utils'
 export function init() {
 
   document.querySelector('.toggle-group.seller-rep').addEventListener('click', function () {
-    optionsToggle('.hide-percentage', this, '.seller-rep', 230);
+    optionsToggle('.hide-percentage', this, '.seller-rep', 270);
   });
 
   // Swatches
@@ -21,6 +21,16 @@ export function init() {
   document.getElementById('filter-seller-rep').addEventListener('change', (event) => {
     chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       featureData.sellerRepFilter = event.target.checked;
+      chrome.storage.sync.set({ featureData }).then(() => {
+        applySave('refresh', event);
+      });
+    });
+  });
+
+  // New Sellers checkbox
+  document.getElementById('hide-new-sellers').addEventListener('change', (event) => {
+    chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+      featureData.sellerRepFilterNewSellers = event.target.checked;
       chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
       });
@@ -94,8 +104,9 @@ export function saveSellerRep() {
 export function setSellerRep() {
   chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-    let checkbox = document.getElementById('filter-seller-rep'),
-        { sellerRepFilter, sellerRep: percent, sellerRepColor } = featureData,
+    let filterSellerRepCheckbox = document.getElementById('filter-seller-rep'),
+        hideNewSellersCheckbox = document.getElementById('hide-new-sellers'),
+        { sellerRepFilter, sellerRepFilterNewSellers, sellerRep: percent, sellerRepColor } = featureData,
         input = document.getElementById('percent'),
         color = sellerRepColor.match(/\w/g).join(''),
         repValue = document.getElementsByClassName('rep-value')[0],
@@ -106,7 +117,11 @@ export function setSellerRep() {
     if ( percent !== null ) { input.value = percent; }
 
     if (sellerRepFilter) {
-      checkbox.checked = true;
+      filterSellerRepCheckbox.checked = true;
+    }
+
+    if (sellerRepFilterNewSellers) {
+      hideNewSellersCheckbox.checked = true;
     }
 
     swatch.className += ' selected';

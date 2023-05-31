@@ -23,7 +23,6 @@ let prefs = {
   blockSellers: true,
   confirmBeforeRemoving: false,
   collectionUi: false,
-  commentScanner: false,
   converter: true,
   darkTheme: false,
   darkThemeVariant: '',
@@ -134,6 +133,7 @@ let featureDefaults = {
       sellerRep: 99,
       sellerRepColor: 'darkorange',
       sellerRepFilter: false,
+      sellerRepFilterNewSellers: false,
       sleeveCondition: { value: 7, generic: false, noCover: false },
       usDateFormat: false,
     };
