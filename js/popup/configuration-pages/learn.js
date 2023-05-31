@@ -100,6 +100,41 @@
   }
 
   /**
+   * Appends removed features markup to the Learn page.
+   * @param {Array} target - The type of feature to get
+   * @returns {HTMLElement}
+   */
+  function getRemovedFeatures(target) {
+
+    let fragment = document.createDocumentFragment(),
+        { removedFeatures } = target;
+
+      removedFeatures.forEach(feature => {
+      let p = document.createElement('p'),
+          feat = document.createElement('span'),
+          title = document.createElement('span'),
+          desc = document.createElement('span');
+
+      feat.textContent = 'Removed Feature:';
+      feat.className = 'removed-feature';
+
+      title.textContent = feature.name;
+      title.classList = 'item-title';
+      title.style = 'margin-bottom: 10px; display: block;';
+
+      desc.textContent = feature.description + ' ';
+      desc.classList = 'text';
+
+      p.append(feat);
+      p.append(title);
+      p.append(desc);
+      fragment.appendChild(p);
+    });
+
+    return fragment;
+  }
+
+  /**
    * Appends updates to the Learn page
    * @returns {undefined}
    */
@@ -136,13 +171,15 @@
     header.textContent = 'Thank You:';
     header.className = 'update';
 
-    thanks.forEach(thank => {
-      let span = document.createElement('span');
-      span.innerHTML = thank;
-      fragment.appendChild(span);
-    });
-    document.querySelector('.thank-yous').append(header);
-    document.querySelector('.thank-yous').append(fragment);
+    if (thanks.length) {
+      thanks.forEach(thank => {
+        let span = document.createElement('span');
+        span.innerHTML = thank;
+        fragment.appendChild(span);
+      });
+      document.querySelector('.thank-yous').append(header);
+      document.querySelector('.thank-yous').append(fragment);
+    }
   }
 
   /**
@@ -150,8 +187,10 @@
    * @returns {undefined}
    */
   function getCurrentFeatures() {
-    let features = getFeatures(changeLog.current[0]);
+    let features = getFeatures(changeLog.current[0]),
+        removedFeatures = getRemovedFeatures(changeLog.current[0]);
     document.querySelector('.new-features').append(features);
+    document.querySelector('.new-features').append(removedFeatures);
   }
 
   /**

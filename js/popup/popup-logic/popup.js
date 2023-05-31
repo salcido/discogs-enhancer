@@ -79,7 +79,6 @@ window.addEventListener('load', () => {
       toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
-      toggleCommentScanner = document.getElementById('toggleCommentScanner'),
       toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
@@ -276,7 +275,6 @@ window.addEventListener('load', () => {
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
-  toggleCommentScanner.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
@@ -459,7 +457,6 @@ window.addEventListener('load', () => {
       toggleBlockBuyers.checked = prefs.blockBuyers;
       toggleBlockSellers.checked = prefs.blockSellers;
       toggleCollectionUi.checked = prefs.collectionUi;
-      toggleCommentScanner.checked = prefs.commentScanner;
       toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;
       toggleConverter.checked = prefs.converter;
       toggleDarkTheme.checked = prefs.darkTheme;

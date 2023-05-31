@@ -507,18 +507,6 @@ appendFragment([resourceLibrary])
         elems.push(collectionUi);
       }
 
-      // comment-scanner.js
-      if (prefs.commentScanner) {
-
-        let commentScanner = document.createElement('script');
-
-        commentScanner.type = 'text/javascript';
-        commentScanner.src = chrome.runtime.getURL('js/extension/features/comment-scanner.js');
-        commentScanner.className = 'de-init';
-
-        elems.push(commentScanner);
-      }
-
       if (prefs.converter
         && !window.location.href.includes('/order/prints?')) {
 
