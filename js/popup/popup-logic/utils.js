@@ -42,7 +42,6 @@ export function applySave(message, event, currencyTarget = 'currency') {
         blockBuyers: document.getElementById('toggleBlockBuyers').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
-        commentScanner: document.getElementById('toggleCommentScanner').checked,
         confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,
