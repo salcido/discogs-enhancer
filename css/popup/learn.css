@@ -295,6 +295,14 @@ select {
   text-transform: uppercase;
 }
 
+.info-wrap span.removed-feature {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: #ff0000;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .info-wrap span.update,
 .info-wrap span.previous-updates {
   -moz-osx-font-smoothing: grayscale;
