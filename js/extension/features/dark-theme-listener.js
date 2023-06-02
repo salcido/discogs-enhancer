@@ -17,4 +17,11 @@
       document.documentElement.classList.remove('de-dark-theme');
     }
   });
+
+  rl.ready(() => {
+    rl.waitForElement('#audio-iframe').then(() => {
+      let ogSrc = document.querySelector('#audio-iframe').src;
+      document.querySelector('#audio-iframe').src = ogSrc + 'theme=dark';
+    });
+  });
 })();
