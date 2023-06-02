@@ -551,6 +551,18 @@ appendFragment([resourceLibrary])
         elems.push(options);
       }
 
+      // Dark Theme Apple Music Widget
+      if (prefs.darkTheme) {
+
+        let amTheme = document.createElement('script');
+
+        amTheme.type = 'text/javascript';
+        amTheme.className = 'de-init';
+        amTheme.src = chrome.runtime.getURL('js/extension/features/dark-theme-apple-music.js');
+
+        elems.push(amTheme);
+      }
+
       // Dark Theme System Preference Listener
       if (prefs.darkTheme && prefs.darkThemeSystemPref) {
 
