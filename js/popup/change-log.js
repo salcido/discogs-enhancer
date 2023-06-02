@@ -14,7 +14,7 @@ module.exports = {
           description: 'The Tag Seller Rating feature now lets you hide new sellers in the Marketplace. Expand the feature menu and click the Hide New Sellers checkbox to enable it.'
         },
       ],
-      thanks: [],
+      thanks: ['Massive thank you to contium for the kind donation!'],
     },
   ],
   previous: []
