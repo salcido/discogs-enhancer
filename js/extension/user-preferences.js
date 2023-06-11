@@ -931,6 +931,16 @@ appendFragment([resourceLibrary])
         elems.push(readabilityReact);
       }
 
+      if (prefs.recordReleaseVisit) {
+        let recordReleaseVisit = document.createElement('script');
+
+        recordReleaseVisit.type = 'text/javascript';
+        recordReleaseVisit.src = chrome.runtime.getURL('js/extension/features/record-release-visit.js');
+        recordReleaseVisit.className = 'de-init';
+
+        elems.push(recordReleaseVisit);
+      }
+
       if (prefs.relativeSoldDate) {
 
         // relative-sold-date.js

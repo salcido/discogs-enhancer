@@ -104,6 +104,7 @@ window.addEventListener('load', () => {
       toggleRandomItem = document.getElementById('toggleRandomItem'),
       toggleRatingPercent = document.getElementById('toggleRatingPercent'),
       toggleReadability = document.getElementById('toggleReadability'),
+      toggleRecordReleaseVisit = document.getElementById('toggleRecordReleaseVisit'),
       toggleRelativeSoldDate = document.getElementById('toggleRelativeSoldDate'),
       toggleReleaseDurations = document.getElementById('toggleReleaseDurations'),
       toggleReleaseRatings = document.getElementById('toggleReleaseRatings'),

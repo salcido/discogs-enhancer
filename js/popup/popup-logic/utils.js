@@ -69,6 +69,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         randomItem: document.getElementById('toggleRandomItem').checked,
         ratingPercent: document.getElementById('toggleRatingPercent').checked,
         readability: document.getElementById('toggleReadability').checked,
+        recordReleaseVisit: document.getElementById('toggleRecordReleaseVisit').checked,
         relativeSoldDate: document.getElementById('toggleRelativeSoldDate').checked,
         releaseDurations: document.getElementById('toggleReleaseDurations').checked,
         releaseRatings: document.getElementById('toggleReleaseRatings').checked,
