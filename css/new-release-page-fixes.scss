@@ -2,7 +2,12 @@
   // reduce large padding on Release Header table
   #page div[class*="info_"] table[class*="table_"] tr th,
   #page div[class*="info_"] table[class*="table_"] tr td {
-    padding-bottom: 4px !important;
+    padding-bottom: 3px !important;
+  }
+
+  // decrease the height of the add to collection / wantlist buttons
+  div[class*="buttons_"] button[class*="_dense"][class*="_secondary"] {
+    height: 34px;
   }
 
   #release-stats {
@@ -91,9 +96,6 @@
   // reviews
   #release-reviews {
     div[class*="review_"] {
-      div[class*="header_"] {
-        // margin-bottom: .2rem !important;
-      }
 
       div[class*="content_"]:first-of-type {
         margin-left: 0.4rem !important;

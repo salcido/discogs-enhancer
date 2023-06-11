@@ -507,18 +507,6 @@ appendFragment([resourceLibrary])
         elems.push(collectionUi);
       }
 
-      // comment-scanner.js
-      if (prefs.commentScanner) {
-
-        let commentScanner = document.createElement('script');
-
-        commentScanner.type = 'text/javascript';
-        commentScanner.src = chrome.runtime.getURL('js/extension/features/comment-scanner.js');
-        commentScanner.className = 'de-init';
-
-        elems.push(commentScanner);
-      }
-
       if (prefs.converter
         && !window.location.href.includes('/order/prints?')) {
 
@@ -561,6 +549,18 @@ appendFragment([resourceLibrary])
         options.className = 'de-init';
 
         elems.push(options);
+      }
+
+      // Dark Theme Apple Music Widget
+      if (prefs.darkTheme) {
+
+        let amTheme = document.createElement('script');
+
+        amTheme.type = 'text/javascript';
+        amTheme.className = 'de-init';
+        amTheme.src = chrome.runtime.getURL('js/extension/features/dark-theme-apple-music.js');
+
+        elems.push(amTheme);
       }
 
       // Dark Theme System Preference Listener

@@ -1,25 +1,20 @@
 module.exports = {
   current: [
     {
-      version: '3.3.0',
-      features: [
+      features: [],
+      removedFeatures: [
         {
-          name: 'Shopping Spree Mode 🎉',
-          description: 'When Shopping Spree Mode is enabled you can add items to your cart without leaving the Marketplace. Go wild!',
-          link: '#shoppingSpree'
+          name: 'Comment Scanner',
+          description: 'Unfortunately Discogs has killed the /reviews page which was the foundation for the Comment Scanner feature so the Comment Scanner has been removed as a result.',
         },
       ],
       updates: [
         {
           name: 'Enhancement',
-          description: 'eBay (US) and Decks.de have been added to the Contextual Menu options.'
-        },
-        {
-          name: 'Enhancement',
-          description: 'You can now sync the dark theme to your operating system\'s preference by clicking the Sync checkbox when the dark theme is enabled!'
+          description: 'The Tag Seller Rating feature now lets you hide new sellers in the Marketplace. Expand the feature menu and click the Hide New Sellers checkbox to enable it.'
         },
       ],
-      thanks: ['Huge thank you to Joe McCormick and the anonymous donor for the donations!'],
+      thanks: ['Massive thank you to contium for the kind donation!'],
     },
   ],
   previous: []

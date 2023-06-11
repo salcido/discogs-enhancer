@@ -18,7 +18,7 @@
 rl.ready(() => {
 
   let featureData = rl.getPreference('featureData'),
-      { sellerRep: threshold, sellerRepFilter } = featureData;
+      { sellerRep: threshold, sellerRepFilter, sellerRepFilterNewSellers } = featureData;
 
   if ( !threshold ) return;
 
@@ -28,7 +28,7 @@ rl.ready(() => {
     // Functions
     // ========================================================
     /**
-     * Finds all the seller's reputation scores in the DOM and
+     * Finds all the seller's ratings in the DOM and
      * adds a `de-seller-rep` class to them if necessary. Also
      * injects the seller-rep icon into the DOM.
      * @method sellersRep
@@ -37,15 +37,18 @@ rl.ready(() => {
     window.sellersRep = function sellersRep() {
 
       let ratingVals = [...document.getElementsByClassName('seller_info')],
-          ratings = ratingVals.map(val => Number( val.textContent.match(/\d+\.+\d/g) ) );
+          ratings = ratingVals.map(val => Number( val.textContent.match(/\d+\.+\d/g) ));
 
       // Tag any sellers below threshold
       ratings.forEach((rating, i) => {
 
         let seller_info = document.getElementsByClassName('seller_info');
 
-        // if you want to tag new sellers as well change this to:
-        // if ( rating < threshold ) {
+        // Hide new sellers
+        if (sellerRepFilterNewSellers && rating === 0) {
+          seller_info[i].closest('tr.shortcut_navigable').classList.add('de-new-seller-hide');
+        }
+
         if ( rating
              && rating < threshold
              && !seller_info[i].querySelector('.de-seller-rep-icon')) {
@@ -58,6 +61,7 @@ rl.ready(() => {
           icon.rel = 'tooltip';
           icon.title = `${name}'s seller reputation is below ${threshold}%`;
 
+          // Hide sellers when below minimum
           if (sellerRepFilter) {
             seller_info[i].closest('tr.shortcut_navigable').classList.add('de-seller-rep-hide');
           }
@@ -96,8 +100,15 @@ rl.ready(() => {
           opacity: 1;
         }
 
-        .de-seller-rep-hide {
-          display: none;
+        .de-seller-rep-hide,
+        .de-new-seller-hide {
+          clip: rect(0 0 0 0);
+          clip-path: inset(50%);
+          height: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+          width: 1px;
         }
         `;
     // ========================================================
