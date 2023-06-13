@@ -2686,6 +2686,11 @@
       text-decoration: none !important;
     }
 
+    ul.modified-cart-release-actions span.skittle i,
+    ul.modified-cart-release-actions span.skittle span {
+      color: var(--white) !important;
+    }
+
     .skittle i.icon-wantlist {
       color: var(--white) !important;
     }
