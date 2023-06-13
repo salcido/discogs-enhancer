@@ -140,7 +140,7 @@ rl.ready(() => {
                   </span>
                 </div>
               </div>`;
-    document.querySelector('#site_header_wrap').insertAdjacentHTML('beforeend', banner);
+    document.querySelector('div[id*="__header_"]').insertAdjacentHTML('beforeend', banner);
   }
 
   /**
@@ -156,7 +156,7 @@ rl.ready(() => {
                       </span>
                     </div>
                   </div>`;
-    document.querySelector('#site_header_wrap').insertAdjacentHTML('beforeend', banner);
+    document.querySelector('div[id*="__header_"]').insertAdjacentHTML('beforeend', banner);
   }
 
   // ========================================================
