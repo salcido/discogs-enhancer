@@ -1173,7 +1173,7 @@ appendFragment([resourceLibrary])
       return resolve(prefs);
     })
       .then((prefs) => {
-        chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
+        chrome.storage.sync.get(['featureData', 'username']).then(({ featureData, username }) => {
           return new Promise(async resolve => {
 
             let oldPrefs = JSON.parse(localStorage.getItem('userPreferences')) || {},
@@ -1235,6 +1235,11 @@ appendFragment([resourceLibrary])
             }
 
             oldPrefs.newBlockedSellers = [];
+
+            // Add username to preferences
+            if (username) {
+              oldPrefs.username = username;
+            }
 
             newPrefs = Object.assign(oldPrefs, { featureData }, { currentFilterState }, { userCurrency });
 

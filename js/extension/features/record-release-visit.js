@@ -15,20 +15,30 @@
  */
 
 rl.ready(() => {
-  console.log('record-release-visit.js');
-  console.log('=======================');
-
-  if ( rl.pageIsNot('release') ) return;
-
-  // printChromeStorage();
-  // ========================================================
-  // CSS
-  // ========================================================
-  // let rules = /*css*/``;
-
-  // ========================================================
-  // DOM Setup
-  // ========================================================
-  // rl.attachCss('release-visits', rules);
-  // document.querySelector(selector).appendChild(li);
+  if (rl.pageIsNot('release')) return;
+  // Get the user from preferences
+  const username = rl.getPreference('user');
+  // Get the href and releaseId
+  const href = window.location.href,
+    releaseId = href.split('/release/')[1].split('-')[0];
+  // Define the function to record the visit
+  async function recordReleaseVisit() {
+    try {
+      let url = `https://api.ozma.works/release_visit`;
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          username,
+          release_id: releaseId,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+    } catch (err) {
+      console.log('Error recording release visit', err);
+    }
+  }
+  // Record the visit
+  recordReleaseVisit();
 });
