@@ -1,18 +1,16 @@
 // Settings that we want to fetch
-const settings = ['host', 'port', 'user'];
+const settings = ['username'];
 
 // Fetch and populate the settings
-chrome.storage.sync.get(settings, function (items) {
+chrome.storage.sync.get(['username'], function (items) {
     if (!Object.keys(items).length) {
-        console.error('Error getting items with the following keys', settings);
+        console.error('Error getting username', settings);
         return;
     }
     console.log('Successfully fetched settings', items);
     // Assign the stored values to the input field
-    for (const setting of settings) {
-        if (items[setting]) {
-            document.getElementById(setting).value = items[setting];
-        }
+    if (items.username) {
+        document.getElementById('username').value = items.username;
     }
 });
 
@@ -21,11 +19,9 @@ document
     .getElementById('settings')
     .addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the form from submitting
-        const values = settings.reduce((obj, setting) => {
-            obj[setting] = document.getElementById(setting).value;
-            return obj;
-        }, {});
-        chrome.storage.sync.set(values, function () {
+        chrome.storage.sync.set({
+            username: document.getElementById('username').value,
+        }, function () {
             console.log('Successfully saved settings');
         });
     });

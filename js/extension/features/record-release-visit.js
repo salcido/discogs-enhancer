@@ -17,7 +17,7 @@
 rl.ready(() => {
   if (rl.pageIsNot('release')) return;
   // Get the user from preferences
-  const username = rl.getPreference('user');
+  const username = rl.getPreference('username');
   // Get the href and releaseId
   const href = window.location.href,
     releaseId = href.split('/release/')[1].split('-')[0];
