@@ -2,12 +2,7 @@ module.exports = {
   current: [
     {
       features: [],
-      removedFeatures: [
-        {
-          name: 'Comment Scanner',
-          description: 'Unfortunately Discogs has killed the /reviews page which was the foundation for the Comment Scanner feature so the Comment Scanner has been removed as a result.',
-        },
-      ],
+      removedFeatures: [],
       updates: [
         {
           name: 'Enhancement',
