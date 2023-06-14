@@ -1,10 +1,20 @@
-#de-seller-feedback .skittle,
-#de-buyer-feedback .skittle {
-  height: 20px;
-  width: 20px;
-  padding: 0;
+#de-seller-feedback .badge,
+#de-buyer-feedback .badge {
   border-radius: 500px;
+  border: 1px solid transparent;
+  color: white;
+  display: inline-block;
   font-size: 12px;
+  font-weight: bold;
+  height: 20px;
+  line-height: 14px;
+  margin-bottom: 1px;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-shadow: rgba(0,0,0,0.5) 0px 0px 1px;
+  top: -1px;
+  width: 20px;
 }
 
 #de-seller-feedback .count,
@@ -24,31 +34,13 @@
   display: block;
 }
 
-nav[class*="profile_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
-nav[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
-  padding: .2rem .4rem;
-}
-
-nav[class*="_user_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
-nav[class*="_user_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
-  padding: .2rem .4rem;
-}
-
-.de-seller-feedback .skittle.skittle_collection span.count:after {
+.de-seller-feedback .badge span.count:after {
   content: "S";
 }
 
-.de-seller-feedback:hover .skittle.skittle_collection,
-.de-seller-feedback:hover .skittle.skittle_collection span.count {
+.de-seller-feedback:hover .badge,
+.de-seller-feedback:hover .badge span.count {
   background: #CCCCCC !important;
-}
-
-nav[class*="profile_"] a.de-seller-feedback {
-  padding: 2rem 0rem;
-}
-
-nav[class*="profile_"] a.de-buyer-feedback {
-  padding: 2rem 0rem;
 }
 
 nav[class*="_user_"] a.de-seller-feedback {
@@ -59,32 +51,24 @@ nav[class*="_user_"] a.de-buyer-feedback {
   padding: 2rem 0rem;
 }
 
-.de-buyer-feedback .skittle.skittle_collection,
-.de-buyer-feedback .skittle.skittle_collection span.count {
+.de-buyer-feedback .badge,
+.de-buyer-feedback .badge span.count {
   background: #FF6A23 !important;
 }
 
-.de-buyer-feedback .skittle.skittle_collection span.count:after {
+.de-buyer-feedback .badge span.count:after {
   content: "B";
 }
 
-.de-buyer-feedback:hover .skittle.skittle_collection,
-.de-buyer-feedback:hover .skittle.skittle_collection span.count {
+.de-buyer-feedback:hover .badge,
+.de-buyer-feedback:hover .badge span.count {
   background: #CCCCCC !important;
 }
 
-.de-seller-feedback:hover .skittle.skittle_collection span.count:after,
-.de-buyer-feedback:hover .skittle.skittle_collection span.count:after {
+.de-seller-feedback:hover .badge span.count:after,
+.de-buyer-feedback:hover .badge span.count:after {
   content: "X";
   color: #333333 !important;
-}
-
-nav[class*="profile_"] .de-badge {
-  margin: 1rem .5rem;
-}
-
-nav[class*="profile_"] .feedback-chart {
-  margin-top: 1.5rem;
 }
 
 nav[class*="_user_"] .de-badge {
@@ -92,7 +76,7 @@ nav[class*="_user_"] .de-badge {
 }
 
 nav[class*="_user_"] .feedback-chart {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 
@@ -146,17 +130,17 @@ ul.feedback-chart h3 {
   line-height: 12px;
 }
 
-#de-seller-feedback .skittle {
+#de-seller-feedback .badge {
   background: #69C34B !important;
 }
 
-#de-buyer-feedback .skittle {
+#de-buyer-feedback .badge {
   background: #4e7ddc !important;
 }
 
 
-#de-seller-feedback:hover .skittle,
-#de-buyer-feedback:hover .skittle {
+#de-seller-feedback:hover .badge,
+#de-buyer-feedback:hover .badge {
   background: #CCCCCC !important;
 }
 

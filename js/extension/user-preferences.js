@@ -865,21 +865,12 @@ appendFragment([resourceLibrary])
 
       if (prefs.randomItem) {
 
-        // random-item.js
-        let randomItem = document.createElement('script');
+        let randomItemNewHeader = document.createElement('script');
 
-        randomItem.type = 'text/javascript';
-        randomItem.src = chrome.runtime.getURL('js/extension/features/random-item.js');
-        // randomItem.className = 'de-init';
+        randomItemNewHeader.type = 'text/javascript';
+        randomItemNewHeader.src = chrome.runtime.getURL('js/extension/features/random-item-new-header.js');
 
-        elems.push(randomItem);
-
-        let randomItemReact = document.createElement('script');
-
-        randomItemReact.type = 'text/javascript';
-        randomItemReact.src = chrome.runtime.getURL('js/extension/features/random-item-react.js');
-
-        elems.push(randomItemReact);
+        elems.push(randomItemNewHeader);
       }
 
       if (prefs.ratingPercent) {

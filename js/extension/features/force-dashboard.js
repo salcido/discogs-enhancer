@@ -9,35 +9,26 @@
  */
 
 rl.ready(() => {
-
-  if ( document.querySelector('#header_logo') ) {
-    // normal release page
-    document.querySelector('#header_logo').href = '/my';
-    document.querySelector('#header_logo').title = 'Go to Dashboard';
+  rl.waitForElement('div[id*="__header"] a[class*="_home"]').then(() => {
+    document.querySelector('a[class*="_home"]').href = '/my';
+    document.querySelector('a[class*="_home"]').title = 'Go to Dashboard';
     // Hide Dashboard Icon
-    let dashboardIcons = document.querySelectorAll('.icon-dashboard');
-    dashboardIcons.forEach(icon => {
-      icon.closest('li').style.display = 'none';
-    });
+    let dashboardIcons = document.querySelectorAll('nav[class*="_user_"] a[href="/my"]');
 
-  } else if ( document.querySelector('header[class*="_header_"]') ) {
-      document.querySelector('a[class*="_home_"]').href = '/my';
-      document.querySelector('a[class*="_home_"]').title = 'Go to Dashboard';
-      // Hide Dashboard Icon
-      let dashboardIcons = document.querySelectorAll('nav[class*="_user_"] a[href="/my"]');
-      dashboardIcons.forEach(icon => {
-        icon.style.display = 'none';
-      });
-  } else {
-      // React release page
-      let selector = 'a[class*="logo_"]';
+    dashboardIcons.forEach(icon => { icon.style.display = 'none'; });
 
-      rl.waitForElement(selector).then(() => {
-        document.querySelector(selector).href = '/my';
-        document.querySelector(selector).title = 'Go to Dashboard';
-        // Hide Dashboard Icon
-        let dashboardIcon = document.querySelector('nav[class*="profile_"] a[href^="/my"]');
-        dashboardIcon.style.display = 'none';
-      });
-    }
+    /**
+     * Currently the new header can crash when the markup is modified.
+     * I haven't figured out what's causing it yet so this is a quick fix
+     * to inject the correct logo path if the crash happens.
+     */
+    setTimeout(() => {
+      let logo = document.querySelector('img[class*="_logo"]'),
+          src = logo.src;
+
+      if (!src.includes('.svg')) {
+        logo.src = 'https://www.discogs.com/service/header/public/assets/assets/logo.83221bf3.svg';
+      }
+    }, 1000);
+  });
 });

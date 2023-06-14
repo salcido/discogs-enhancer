@@ -51,7 +51,7 @@
 
       notice.textContent = message;
 
-      document.getElementById('site_headers_super_wrap').appendChild(notice);
+      document.querySelector('div[id*="__header_"]').appendChild(notice);
       document.getElementById('deAlertNotice').addEventListener('click', function() { this.remove(); });
 
       setTimeout(() => {

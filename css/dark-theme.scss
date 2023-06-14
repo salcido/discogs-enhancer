@@ -2620,6 +2620,10 @@
         color: var(--alert-error-text) !important;
         line-height: 20px !important;
       }
+
+      span {
+        color: var(--alert-error-text) !important;
+      }
     }
     &.alert-message-accept {
       background: var(--alert-accept-bg) !important;
@@ -2680,6 +2684,11 @@
 
     span.modified-cart-release-title:hover {
       text-decoration: none !important;
+    }
+
+    ul.modified-cart-release-actions span.skittle i,
+    ul.modified-cart-release-actions span.skittle span {
+      color: var(--white) !important;
     }
 
     .skittle i.icon-wantlist {
@@ -2764,6 +2773,15 @@
       }
       ul li {
         color: var(--headers) !important;
+      }
+    }
+  }
+
+  div.alert-message-announcement span {
+    &.alert-message-text {
+      p {
+        background: none !important;
+        color: var(--text-normal) !important;
       }
     }
   }
@@ -3714,6 +3732,7 @@
   #paypal-commerce-signup-form,
   #buyer-address-form,
   #billing-address-form,
+  #seller-policy-agreement-signed,
   #seller-address-form {
     i.icon-green,
     i.icon-green-important {
@@ -4242,6 +4261,17 @@
   // Nav Bar
   div[id*="__header_root_"] header {
     background: var(--site-header-bg) !important;
+
+    // mobile layout / Hamburger menu
+    nav {
+      button[class*="_bars"][class*="_isOpen"] {
+        background: var(--black) !important;
+      }
+
+      div[class*="_dropdownWrap"] {
+        background: var(--black) !important;
+    }
+  }
 
     // Tooltips
     div[class*="_tooltip_"] {
@@ -5508,5 +5538,25 @@
         color: var(--white) !important;
       }
     }
+  }
+
+  // Homepage
+  #gs_homepage_hero {
+    h2,
+    h2 span,
+    #brand-hype span {
+      color: var(--text-bold) !important;
+      background-color: rgba(0,0,0,0.5) !important;
+    }
+  }
+
+  #newsletter-form,
+  .mobile-apps,
+  .trending-releases-full-width {
+    background: var(--black) !important;
+  }
+
+  .brand-description a {
+    color: var(--uploader-hover) !important;
   }
 }

@@ -248,7 +248,7 @@ rl.ready(() => {
                 <td class="item_description de-filter-stamp de-page-stamp">
                  ${pTotal} results &mdash; ${window.setFilterStateText(mc, sc)}
                 </td>
-                <td class="de-page-stamp de-marketplace-results z-1 to-top"><a href="#site_header" >Back to top</a></td>
+                <td class="de-page-stamp de-marketplace-results z-1 to-top"><a href="#main_wrapper" >Back to top</a></td>
                 <td class="de-page-stamp de-marketplace-results">
                   <div class="de-select-wrap">
                     <span></span>

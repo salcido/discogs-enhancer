@@ -15,7 +15,8 @@
 
  rl.ready(() => {
 
-  if (rl.pageIsReact()) return;
+  let newHeader = document.querySelector('div[id*="__header"]');
+  if (rl.pageIsReact() || newHeader) return;
   // ========================================================
   // Function
   // ========================================================
