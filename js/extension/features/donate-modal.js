@@ -244,6 +244,8 @@ rl.ready(() => {
   rl.attachCss('donate-styles', styles);
   document.body.insertAdjacentHTML('beforeend', modal);
 
-  checkDateAndShowModal();
+  if (!window.location.href.includes('support.discogs.com')) {
+    checkDateAndShowModal();
+  }
 });
 
