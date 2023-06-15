@@ -688,6 +688,14 @@ appendFragment([resourceLibrary])
 
         elems.push(feedback);
 
+        let feedbackNew = document.createElement('script');
+
+        feedbackNew.type = 'text/javascript';
+        feedbackNew.src = chrome.runtime.getURL('js/extension/features/feedback-notifier-new.js');
+        feedbackNew.className = 'de-init';
+
+        elems.push(feedbackNew);
+
         // feedback-notifier.css
         let feedback_css = document.createElement('link');
 
@@ -865,6 +873,23 @@ appendFragment([resourceLibrary])
 
       if (prefs.randomItem) {
 
+        // random-item.js
+        let randomItem = document.createElement('script');
+
+        randomItem.type = 'text/javascript';
+        randomItem.src = chrome.runtime.getURL('js/extension/features/random-item.js');
+
+        elems.push(randomItem);
+
+        // random item react
+        let randomItemReact = document.createElement('script');
+
+        randomItemReact.type = 'text/javascript';
+        randomItemReact.src = chrome.runtime.getURL('js/extension/features/random-item-react.js');
+
+        elems.push(randomItemReact);
+
+        // new random item
         let randomItemNewHeader = document.createElement('script');
 
         randomItemNewHeader.type = 'text/javascript';
@@ -1030,6 +1055,15 @@ appendFragment([resourceLibrary])
         shoppingSpree.className = 'de-init';
 
         elems.push(shoppingSpree);
+
+        // shopping-spree-mode-new.js
+        let shoppingSpreeNew = document.createElement('script');
+
+        shoppingSpreeNew.type = 'text/javascript';
+        shoppingSpreeNew.src = chrome.runtime.getURL('js/extension/features/shopping-spree-mode-new.js');
+        shoppingSpreeNew.className = 'de-init';
+
+        elems.push(shoppingSpreeNew);
       }
 
       if (prefs.sortButtons) {
