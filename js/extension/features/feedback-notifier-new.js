@@ -10,7 +10,7 @@
  * and append badges to the navbar when any new feedback has been
  * detected.
  */
- rl.ready(() => {
+rl.ready(() => {
 
   let newHeader = document.querySelector('div[id*="__header"]'),
       debug = rl.options.debug(),
@@ -21,7 +21,7 @@
       user = rl.username() || null,
       // user = 'recordsale-de', /* used for testing */
       waitTime = (1000 * 60) * 2; // 2 mins
-  if (!user || newHeader) return;
+  if (!user || !newHeader) return;
   // ========================================================
   // Functions (Alphabetical)
   // ========================================================
@@ -58,10 +58,10 @@
     neu = (neu > 0 ? neu : '');
     neg = (neg > 0 ? neg : '');
 
-    badge = `<li class="de-badge" style="position: relative; list-style-type: none;">
+    badge = `<div class="de-badge" style="position: relative; padding-top: .3rem;">
               <span id="${id}">
-                <a class="nav_group_control ${id}">
-                  <span class="skittle skittle_collection badge" style="cursor: pointer; pointer-events: none;">
+                <a class="${id}">
+                  <span class="badge" style="cursor: pointer; pointer-events: none;">
                     <span class="count" style="color: white !important;"></span>
                   </span>
                 </a>
@@ -80,14 +80,14 @@
                   </li>
                 </ul>
               </span>
-            </li>`;
+            </div>`;
 
     /* Remove preloader */
     if ( document.querySelector(`.${type}_feedbackLoader`) ) {
       document.querySelector(`.${type}_feedbackLoader`).remove();
     }
 
-    if (rl.pageIsReact()) {
+    if (_header) {
       // Quick-n-dirty fix to solve an issue where the badges are immediately removed
       // on the react version of the relase page. I could not find what was causing the removal
       // but I don't believe it's caused by the extension itself...
@@ -111,14 +111,14 @@
   function appendPreloader(type) {
 
     let preloader = `<li style="position: relative;" class="${type}feedbackLoader">
-                        <i class="icon icon-spinner icon-spin nav_group_control"></i>
+                        <i class="icon icon-spinner icon-spin"></i>
                      </li>`;
     // remove previous badge if it exists
     if (document.querySelector(`#de-${type}-feedback`)) {
       document.querySelector(`#de-${type}-feedback`).parentElement.remove();
     }
 
-    if (rl.pageIsReact()) {
+    if (_header) {
       let selector = _header ? 'nav[class^="_user_"]' : 'nav[class^="profile_"]';
       document.querySelector(selector).insertAdjacentHTML('afterbegin', preloader);
     } else {
@@ -142,7 +142,7 @@
             type,
             obj;
 
-        type = elemClass === 'nav_group_control de-buyer-feedback' ? 'buyer' : 'seller';
+        type = elemClass === 'de-buyer-feedback' ? 'buyer' : 'seller';
 
         obj = rl.getPreference('feedback')[user][type];
 

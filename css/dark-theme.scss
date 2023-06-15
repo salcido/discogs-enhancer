@@ -163,6 +163,7 @@
   --demand-negative: #ff6c6c;
   --blocked-seller: #d64c4c;
   --icon-green: #5ec93b;
+  --icon-disabled: #666666;
 }
 /*
 ////////////////////////////////////
@@ -4975,6 +4976,33 @@
         button {
           svg path {
             color: var(--link) !important;
+          }
+        }
+      }
+
+      // Release Recommendations
+      figure[class*="_card"] {
+        border-color: var(--borders) !important;
+      }
+      figcaption {
+        div[class*="_concatenatedLinks"] span a {
+          color: var(--text-muted) !important;
+        }
+        div[class*="_released"] span {
+          color: var(--text-muted) !important;
+        }
+        div[class*="_format"] {
+          border-top: 1px solid var(--borders) !important;
+        }
+        div[class*="_format"] svg path {
+          fill: var(--text-muted) !important;
+        }
+      }
+      div[class*="_paginationButtons"] {
+        button[disabled] {
+          cursor: default;
+          svg path {
+            fill: var(--icon-disabled) !important;
           }
         }
       }

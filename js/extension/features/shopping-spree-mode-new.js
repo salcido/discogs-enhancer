@@ -14,7 +14,7 @@
  * Marketplace such that the user remains on the page
  * and the item is added via fetch request in the background.
  */
- rl.ready(() => {
+rl.ready(() => {
 
   let language = rl.language(),
       translations = {
@@ -68,36 +68,20 @@
     link.innerHTML = markup;
     link.style.pointerEvents = 'auto';
   }
-  /**
-   * Creates the 'cart_items_total' span element when a user has an empty cart.
-   * e.g.: <span id="cart_items_total" class="activity_menu_total" aria-hidden="true">1</span>
-   * @returns {HTMLSpanElement}
-   */
-  function createCartTotalElem() {
-
-    let cartTotalElem = document.createElement('span');
-
-    cartTotalElem.classList = 'activity_menu_total';
-    cartTotalElem.id = 'cart_items_total';
-    cartTotalElem.setAttribute('aria-hidden', true);
-    cartTotalElem.textContent = '1';
-
-    return cartTotalElem;
-  }
 
   // ========================================================
   // Init / DOM Setup
   // ========================================================
   let newHeader = document.querySelector('div[id*="__header"]');
 
-  if ( rl.pageIs('myWants', 'allItems', 'seller', 'sellRelease') && !newHeader) {
+  if ( rl.pageIs('myWants', 'allItems', 'seller', 'sellRelease') && newHeader ) {
 
     document.body.addEventListener('click', (event) => {
 
       if ( event.target.classList.contains('cart-button') ) {
 
         let addToCartButton = event.target,
-            cartLink = document.getElementById('cart_link'),
+            cartLink = document.querySelector('nav[class*="_user"] a[href^="/sell/cart"]'),
             sellerName = addToCartButton
                           .closest('tr.shortcut_navigable')
                           .querySelector('td.seller_info div.seller_block strong a')
@@ -116,23 +100,22 @@
 
           if (res.ok) {
 
-            let cartTotal = document.getElementById('cart_items_total'),
+            let selector = 'nav[class*="_user"] a[href^="/sell/cart"]',
+                cartTotal = document.querySelector(selector),
+                cartIcon = cartTotal.querySelector('svg').cloneNode(true),
                 currentCartTotal = Number(cartTotal?.textContent?.trim()) || 0,
                 newCartTotal = currentCartTotal + 1;
 
             showInCartStatus(addToCartButton);
 
-            if (cartTotal) {
-              // User has cart with items
-              cartTotal.textContent = newCartTotal;
-
-            } else {
-              // User has an empty cart
-              let cartTotalElem = createCartTotalElem();
-              cartLink.insertAdjacentElement('beforeend', cartTotalElem);
-            }
-
-            cartLink.setAttribute('data-original-title', `${newCartTotal} ${tooltipTranslations[language]}`);
+            let totalText = document.createTextNode(newCartTotal),
+                toolTipId = document.querySelector(selector).getAttribute('aria-describedby');
+            // Update total in header
+            cartTotal.textContent = '';
+            cartTotal.appendChild(cartIcon);
+            cartTotal.appendChild(totalText);
+            // Update tooltip
+            document.getElementById(toolTipId).textContent = `${newCartTotal} ${tooltipTranslations[language]}`;
             // Update the sellersInCart data to work with
             // the `Show Sellers In Cart` feature
             if (window.sellerItemsInCart) {
