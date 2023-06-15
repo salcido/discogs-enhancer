@@ -50,8 +50,12 @@
                      'cursor: pointer;';
 
       notice.textContent = message;
+      //TODO: delete this when the header shit is settled
+      let selector = document.querySelector('#site_headers_super_wrap')
+                      ? '#site_headers_super_wrap'
+                      : 'div[id*="__header_"]';
 
-      document.querySelector('div[id*="__header_"]').appendChild(notice);
+      document.querySelector(selector).appendChild(notice);
       document.getElementById('deAlertNotice').addEventListener('click', function() { this.remove(); });
 
       setTimeout(() => {

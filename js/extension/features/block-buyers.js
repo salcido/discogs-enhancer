@@ -126,6 +126,10 @@ rl.ready(() => {
    * @returns {undefined}
    */
   function successMsg(buyer) {
+    //TODO: delete this when the header shit is settled
+    let selector = document.querySelector('#site_header_wrap')
+                    ? '#site_header_wrap'
+                    : 'div[id*="__header_"]';
     let banner,
         btn = document.querySelector('.de-block-buyer');
 
@@ -140,7 +144,7 @@ rl.ready(() => {
                   </span>
                 </div>
               </div>`;
-    document.querySelector('div[id*="__header_"]').insertAdjacentHTML('beforeend', banner);
+    document.querySelector(selector).insertAdjacentHTML('beforeend', banner);
   }
 
   /**
@@ -148,6 +152,11 @@ rl.ready(() => {
    * @returns {undefined}
    */
   function errorMsg() {
+    //TODO: delete this when the header shit is settled
+    let selector = document.querySelector('#site_header_wrap')
+                    ? '#site_header_wrap'
+                    : 'div[id*="__header_"]';
+
     let banner = `<div class="alert-message alert-message-js alert-message-error alert-message-top">
                     <div class="alert-message-content" style="max-width: none;">
                       <i class="icon icon-exclamation-triangle alert-message-icon"></i>
@@ -156,7 +165,7 @@ rl.ready(() => {
                       </span>
                     </div>
                   </div>`;
-    document.querySelector('div[id*="__header_"]').insertAdjacentHTML('beforeend', banner);
+    document.querySelector(selector).insertAdjacentHTML('beforeend', banner);
   }
 
   // ========================================================
