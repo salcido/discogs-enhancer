@@ -4983,6 +4983,7 @@
       // Release Recommendations
       figure[class*="_card"] {
         border-color: var(--borders) !important;
+        box-shadow: 0 4px 8px -2px var(--box-shadow-a);
       }
       figcaption {
         div[class*="_concatenatedLinks"] span a {
