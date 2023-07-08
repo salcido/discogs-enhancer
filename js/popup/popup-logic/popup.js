@@ -143,6 +143,7 @@ window.addEventListener('load', () => {
       toggleRubadub,
       toggleRushhour,
       toggleSotu,
+      toggleTraxsource,
       toggleYoutube;
 
   // ========================================================
@@ -207,7 +208,7 @@ window.addEventListener('load', () => {
   // Contextual Menu Searching Options
   // ========================================================
   document.querySelector('.toggle-group.menus').addEventListener('click', function() {
-    optionsToggle('#contextMenus', this, '.menus', 220 );
+    optionsToggle('#contextMenus', this, '.menus', 235 );
   });
 
   // Open Links In New tabs
@@ -442,6 +443,7 @@ window.addEventListener('load', () => {
     toggleRubadub = document.getElementById('rubadub');
     toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
+    toggleTraxsource = document.getElementById('traxsource');
     toggleYoutube = document.getElementById('youtube');
 
     // Get the user's saved preferences and set the toggles accordingly
@@ -520,6 +522,7 @@ window.addEventListener('load', () => {
       toggleRubadub.checked = prefs.useRubadub;
       toggleRushhour.checked = prefs.useRushhour;
       toggleSotu.checked = prefs.useSotu;
+      toggleTraxsource.checked = prefs.useTraxsource;
       toggleYoutube.checked = prefs.useYoutube;
       // Store prefs to reference with showHeadsup()
       cachedPrefs = prefs;
