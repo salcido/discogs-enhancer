@@ -6,6 +6,10 @@ module.exports = {
       updates: [
         {
           name: 'Enhancement',
+          description: 'Traxsource has been added to the Contextual Menu options.'
+        },
+        {
+          name: 'Enhancement',
           description: 'The Tag Seller Rating feature now lets you hide new sellers in the Marketplace. Expand the feature menu and click the Hide New Sellers checkbox to enable it.'
         },
       ],

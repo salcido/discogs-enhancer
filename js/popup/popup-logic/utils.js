@@ -108,6 +108,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         useRubadub: document.getElementById('rubadub').checked,
         useRushhour: document.getElementById('rushhour').checked,
         useSotu: document.getElementById('sotu').checked,
+        useTraxsource: document.getElementById('traxsource').checked,
         useYoutube: document.getElementById('youtube').checked
       };
 
