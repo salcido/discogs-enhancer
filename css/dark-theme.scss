@@ -16,8 +16,9 @@
   /* Table Row alteration color */
   --row-even: #2f2f2f;
   /* Box Shadows */
-  --box-shadow-a: rgba(0, 0, 0, 0.5);
-  --box-shadow-b: rgba(0, 0, 0, 0.8);
+  --box-shadow-light: rgba(0, 0, 0, 0.25);
+  --box-shadow-med: rgba(0, 0, 0, 0.5);
+  --box-shadow-dark: rgba(0, 0, 0, 0.8);
   /* Table Headers / Borders */
   --headers: #454545;
   --borders: #454545;
@@ -264,7 +265,7 @@
   }
 
   .is_not_mobile .notes_field:hover {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
   }
 
   #youtube_tracklist {
@@ -340,7 +341,7 @@
 
   // quicklister image gallery modal
   div[id*="image_gallery_modal_"] {
-    background: var(--box-shadow-b) !important;
+    background: var(--box-shadow-dark) !important;
   }
 
   body.mac .force_vertical_scrollbar::-webkit-scrollbar-thumb:not(.mac) {
@@ -976,15 +977,15 @@
 
   table.cards tr {
     &.sub_first.card.sub {
-      box-shadow: inset 0 10px 5px -8px var(--box-shadow-a) !important;
+      box-shadow: inset 0 10px 5px -8px var(--box-shadow-med) !important;
       td {
-        box-shadow: inset 0 10px 5px -8px var(--box-shadow-a) !important;
+        box-shadow: inset 0 10px 5px -8px var(--box-shadow-med) !important;
       }
     }
     &.sub_last.card.sub {
-      box-shadow: inset 0 -10px 5px -8px var(--box-shadow-a) !important;
+      box-shadow: inset 0 -10px 5px -8px var(--box-shadow-med) !important;
       td {
-        box-shadow: inset 0 -10px 5px -8px var(--box-shadow-a) !important;
+        box-shadow: inset 0 -10px 5px -8px var(--box-shadow-med) !important;
       }
     }
     &.sub {
@@ -1134,13 +1135,13 @@
       background: var(--main-bg-color) !important;
     }
     #full-width-header-bar {
-      background-color: var(--box-shadow-b) !important;
+      background-color: var(--box-shadow-dark) !important;
       color: var(--text-bold) !important;
     }
   }
 
   #user_header #full-width-header-bar {
-    background-color: var(--box-shadow-b) !important;
+    background-color: var(--box-shadow-dark) !important;
     color: var(--text-bold) !important;
   }
 
@@ -1250,9 +1251,9 @@
   }
 
   a.inset_button[disabled] {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
     border-color: var(--row-even) !important;
-    box-shadow: var(--box-shadow-a) 0 0 3px 1px inset !important;
+    box-shadow: var(--box-shadow-med) 0 0 3px 1px inset !important;
   }
 
   .tag-list a {
@@ -1749,12 +1750,12 @@
   }
 
   .grid #image_uploader_list li:hover .image_info {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
   }
 
   .grid #image_uploader_list .image_info a:hover,
   .grid #image_uploader_list .image_info button:hover {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
   }
 
   /* bottom line border rule */
@@ -2485,7 +2486,7 @@
   }
 
   .group-list-group-content {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
     border-right: 7px solid var(--main-bg-color) !important;
     border-bottom: 7px solid var(--main-bg-color) !important;
   }
@@ -2673,7 +2674,7 @@
     background: var(--modified-cart-bg) !important;
     color: var(--modified-cart-text) !important;
     border-left: 4px solid var(--modified-cart-highlight) !important;
-    box-shadow: 0 1px 5px var(--box-shadow-a) !important;
+    box-shadow: 0 1px 5px var(--box-shadow-med) !important;
 
     i,
     a,
@@ -2897,7 +2898,7 @@
   #image_gallery_modal,
   #image_gallery_modal_1,
   .full-width-header-cover {
-    background-color: var(--box-shadow-a) !important;
+    background-color: var(--box-shadow-med) !important;
   }
 
   div.react-modal,
@@ -3145,7 +3146,7 @@
     z-index: 1000;
     top: 0;
     left: 0;
-    background-color: var(--box-shadow-a) !important;
+    background-color: var(--box-shadow-med) !important;
   }
 
   .options-modal-content {
@@ -3155,7 +3156,7 @@
     background-color: var(--order-sidebar-bg) !important;
     border: 1px solid var(--borders) !important;
     border-radius: 5px;
-    box-shadow: 0 1px 5px var(--box-shadow-a) !important;
+    box-shadow: 0 1px 5px var(--box-shadow-med) !important;
   }
 
   .options-close {
@@ -3679,7 +3680,7 @@
   }
 
   .payment_page div.payment-overlay .bg {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
   }
 
   /* Review Preview box border */
@@ -3986,7 +3987,7 @@
 
   .country-list-info .country-list {
     background: var(--headers) !important;
-    filter: drop-shadow(0 2px 2px var(--box-shadow-a)) !important;
+    filter: drop-shadow(0 2px 2px var(--box-shadow-med)) !important;
   }
 
   /* inventory-ratings */
@@ -4983,7 +4984,7 @@
       // Release Recommendations
       figure[class*="_card"] {
         border-color: var(--borders) !important;
-        box-shadow: 0 4px 8px -2px var(--box-shadow-a);
+        box-shadow: 0 4px 8px -2px var(--box-shadow-light);
       }
       figcaption {
         div[class*="_concatenatedLinks"] span a {
@@ -5233,7 +5234,7 @@
 
     #wantlist-button--menu {
       background: var(--input-bg) !important;
-      box-shadow: 0 5px 10px var(--box-shadow-b) !important;
+      box-shadow: 0 5px 10px var(--box-shadow-dark) !important;
 
       button:hover {
         background: var(--black) !important;
@@ -5526,7 +5527,7 @@
 
   // Opt In toggle
   .optin_3Ze0T {
-    background: var(--box-shadow-a) !important;
+    background: var(--box-shadow-med) !important;
 
     .switch_2cmFj.enabled_lxcoE {
       background: var(--rating-positive-text) !important;
