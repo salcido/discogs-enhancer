@@ -5589,4 +5589,129 @@
   .brand-description a {
     color: var(--uploader-hover) !important;
   }
+
+  /* New Artist Page */
+  div[class*="info_"] table {
+
+    tr td div span[class*="active_"] {
+      background: var(--link) !important;
+      color: var(--main-bg-color) !important;
+    }
+  }
+
+  div[class*="tabsContainer_"] {
+    button[role="radio"][aria-checked="true"] {
+      background: var(--black) !important;
+    }
+
+    button[role="radio"][aria-checked="false"] {
+      background: var(--headers) !important;
+    }
+    border-bottom: 1px solid var(--borders) !important;
+  }
+
+  div[class*="creditsFacetsContainer_"],
+  div[class*="facetsContainer_"] {
+    button:hover,
+    button[class*="superFacets_"][class*="expanded_"] {
+      background: var(--headers) !important;
+    }
+
+    button[class*="superFacets_"] p[class*="superFacetCount_"] {
+      background: var(--headers) !important;
+      mix-blend-mode: normal;
+    }
+
+    span[class*="subFacetTotalCounts_"] {
+      background: var(--headers) !important;
+    }
+
+    button[class*="facetSelected_"] span[class*="subFacetTotalCounts_"] {
+      background: var(--black) !important;
+    }
+  }
+
+  div[class*="rowHeading_"] {
+    background: var(--headers) !important;
+  }
+
+  div[class*="filterBarContainerDesktop_"] {
+
+    div[class*="filterButtonContainerWhite_"] {
+      button {
+        background: var(--headers) !important;
+      }
+    }
+
+    div[class*="viewContainer_"] {
+      button[aria-checked="true"] {
+        background: var(--headers) !important;
+      }
+    }
+
+    div[class*="selectContainer_"] {
+      border: 1px solid var(--borders) !important;
+
+      select {
+        color: var(--text-normal) !important;
+      }
+    }
+  }
+
+  table[class*="releases_"] {
+    tr {
+      border-bottom: 1px solid var(--borders) !important;
+
+      button[class*="versionsButton_"] {
+        background: var(--headers) !important;
+      }
+    }
+
+    div[class*="versions_"] {
+      background: var(--input-bg) !important;
+    }
+
+    span[class*="skittle_"][class*="collection_"] {
+        background: var(--button-green) !important;
+        color: var(--text-bold) !important;
+    }
+    span[class*="skittle_"][class*="wantlist_"] {
+        background: var(--skittle-wantlist) !important;
+        color: var(--text-bold) !important;
+    }
+  }
+
+  div[class*="paginationContainer_"] {
+    button {
+      background: var(--headers) !important;
+    }
+  }
+
+  ul[aria-modal="true"] {
+    li {
+      background: var(--headers) !important;
+
+      div[role="button"] {
+        color: var(--link) !important;
+
+        &:hover {
+          color: var(--link-hover) !important;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  div[class*="linkContainer_"] {
+    span {
+      background: var(--headers) !important;
+    }
+  }
+
+  div[class*="ArtistButtons_"] {
+    a[class*="_button_"] {
+      background: var(--black) !important;
+      color: var(--text-normal) !important;
+    }
+  }
 }
