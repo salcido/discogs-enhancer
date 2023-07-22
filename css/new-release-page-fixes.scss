@@ -10,6 +10,11 @@
     height: 34px;
   }
 
+  // Remove bolded table headers
+  div[class*="info_"] tr th[scope="row"] {
+    font-weight: normal !important;
+  }
+
   #release-stats {
     div[class*="items_"] h4 {
       width: auto !important;
