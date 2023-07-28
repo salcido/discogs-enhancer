@@ -5714,4 +5714,59 @@
       color: var(--text-normal) !important;
     }
   }
+
+  div[class*="artistVersionFinder_"] {
+    background: var(--headers) !important;
+
+    div[class*="chips_"] {
+      button[class*="button_"] {
+        background: var(--black) !important;
+      }
+      button[class*="clearAllButton_"] {
+        color: var(--link) !important;
+      }
+    }
+
+    div[class*="dropdownsContainer_"] {
+
+      button[class*="button_"]:hover {
+        background: var(--borders) !important;
+      }
+
+      div[class*="box_"] {
+        background: var(--input-bg) !important;
+
+        input[class*="input_"] {
+          border: none !important;
+        }
+      }
+
+      div[class*="list_"] {
+        background: var(--input-bg) !important;
+        box-shadow: 0 5px 10px var(--box-shadow-med) !important;
+
+        div[class*="itemContent_"] {
+          span[class*="tick_"] {
+            border: 1px solid var(--borders) !important;
+
+            &[class*="selected_"] {
+              background: var(--input-focus-border) !important;
+            }
+          }
+        }
+
+        span[class*="size_"] {
+          background: var(--headers) !important;
+        }
+      }
+    }
+
+    div[class*="searchBarContainer_"] {
+      background: var(--input-bg) !important;
+
+      form label input {
+        border: none !important;
+      }
+    }
+  }
 }
