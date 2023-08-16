@@ -6,7 +6,7 @@ module.exports = {
       updates: [
         {
           name: 'Enhancement',
-          description: 'Traxsource has been added to the Contextual Menu options.'
+          description: 'Soundcloud has been added to the Contextual Menu options.'
         },
         {
           name: 'Enhancement',

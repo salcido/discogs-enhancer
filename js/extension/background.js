@@ -89,6 +89,7 @@ let prefs = {
   useRubadub: false,
   useRushhour: false,
   useSotu: false,
+  useSoundcloud: false,
   useTraxsource: false,
   useYoutube: false
 };
@@ -239,6 +240,7 @@ function updateContextMenus() {
     if (prefs.useRubadub) createContextMenu('Rubadub');
     if (prefs.useRushhour) createContextMenu('Rush Hour');
     if (prefs.useSotu) createContextMenu('SOTU');
+    if (prefs.useSoundcloud) createContextMenu('Soundcloud');
     if (prefs.useTraxsource) createContextMenu('Traxsource');
     if (prefs.useYoutube) createContextMenu('YouTube');
   });
@@ -396,6 +398,10 @@ chrome.contextMenus.onClicked.addListener((event) => {
 
     case 'sotu':
       path = 'https://soundsoftheuniverse.com/search/?q=';
+      break;
+
+    case 'soundcloud':
+      path = 'https://soundcloud.com/search?q=';
       break;
 
     case 'traxsource':

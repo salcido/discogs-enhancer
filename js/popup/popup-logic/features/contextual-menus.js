@@ -42,6 +42,7 @@ export function createContextualMenuElements() {
             'Rubadub',
             'Rush Hour',
             'SOTU',
+            'Soundcloud',
             'Traxsource',
             'YouTube',
         ];

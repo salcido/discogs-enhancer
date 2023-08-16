@@ -143,6 +143,7 @@ window.addEventListener('load', () => {
       toggleRubadub,
       toggleRushhour,
       toggleSotu,
+      toggleSoundcloud,
       toggleTraxsource,
       toggleYoutube;
 
@@ -443,6 +444,7 @@ window.addEventListener('load', () => {
     toggleRubadub = document.getElementById('rubadub');
     toggleRushhour = document.getElementById('rushhour');
     toggleSotu = document.getElementById('sotu');
+    toggleSoundcloud = document.getElementById('soundcloud');
     toggleTraxsource = document.getElementById('traxsource');
     toggleYoutube = document.getElementById('youtube');
 
@@ -522,6 +524,7 @@ window.addEventListener('load', () => {
       toggleRubadub.checked = prefs.useRubadub;
       toggleRushhour.checked = prefs.useRushhour;
       toggleSotu.checked = prefs.useSotu;
+      toggleSoundcloud.checked = prefs.useSoundcloud;
       toggleTraxsource.checked = prefs.useTraxsource;
       toggleYoutube.checked = prefs.useYoutube;
       // Store prefs to reference with showHeadsup()
