@@ -226,11 +226,11 @@ rl.ready(() => {
     const today = new Date();
     const solstices = getSolsticeDates(today.getFullYear());
     const isOnOrAfterSummerSolstice = isDateOnOrAfterSolstice(today, solstices.summerSolstice);
-    const isOnOrAfterWinterSolstice = isDateOnOrAfterSolstice(today, solstices.winterSolstice);
+    // const isOnOrAfterWinterSolstice = isDateOnOrAfterSolstice(today, solstices.winterSolstice);
     const dismissedData = localStorage.getItem('donateModalDismissed');
     const dismissed = dismissedData && JSON.parse(dismissedData);
 
-    if ((isOnOrAfterSummerSolstice || isOnOrAfterWinterSolstice) && (!dismissed || dismissed.year !== today.getFullYear() || dismissed.solstice !== getUpcomingSolstice(today).getTime())) {
+    if (isOnOrAfterSummerSolstice && (!dismissed || dismissed.year !== today.getFullYear() || dismissed.solstice !== getUpcomingSolstice(today).getTime())) {
       setTimeout(() => {
         showModal();
       }, 1500);

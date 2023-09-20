@@ -2,7 +2,7 @@
  * Filter Sleeve Condition feature
  */
 
-import { applySave, optionsToggle, sendEvent } from '../utils';
+import { applySave, optionsToggle } from '../utils';
 
 /**
  * These arrays corespond to the `.status` string [conditions] and
@@ -52,10 +52,9 @@ export function init() {
 
         status.textContent = conditions[this.value];
         status.classList.add(colors[this.value]);
-        sendEvent('Filter Sleeve Condition', conditions[this.value]);
         applySave('refresh', event);
-      })
-    })
+      });
+    });
   });
 
   // Checkbox listeners
@@ -64,8 +63,8 @@ export function init() {
       featureData.sleeveCondition.generic = this.checked;
       chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
-      })
-    })
+      });
+    });
   });
 
   document.getElementById('no-cover').addEventListener('change', function (event) {
@@ -73,8 +72,8 @@ export function init() {
       featureData.sleeveCondition.noCover = this.checked;
       chrome.storage.sync.set({ featureData }).then(() => {
         applySave('refresh', event);
-      })
-    })
+      });
+    });
   });
 }
 
@@ -108,7 +107,7 @@ export function setupFilterSleeveCondition(enabled) {
     select.value = sleeveCondition.value;
     generic.checked = sleeveCondition.generic;
     noCover.checked = sleeveCondition.noCover;
-  })
+  });
 }
 
 /**
@@ -134,9 +133,9 @@ export function toggleSleeveConditions(event) {
       status.classList.add(colors[sleeveCondition.value]);
       chrome.storage.sync.set({ featureData }).then(() => {
         return applySave('refresh', event);
-      })
+      });
     }
 
     applySave('refresh', event);
-  })
+  });
 }

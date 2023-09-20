@@ -256,43 +256,6 @@ chrome.runtime.onConnect.addListener(function(port) {
       chrome.contextMenus.removeAll();
       updateContextMenus();
     }
-
-    if (msg.request === 'trackEvent') {
-
-      let { uid = false } = await chrome.storage.sync.get(['uid']);
-
-      if (!uid) {
-        uid = Math.random().toString(16).slice(2);
-        await chrome.storage.sync.set({ uid });
-      }
-
-      async function postData(data = {}) {
-        let url = 'https://www.google-analytics.com/collect';
-
-        await fetch(url, {
-          method: 'POST',
-          mode: 'no-cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          redirect: 'follow',
-          referrerPolicy: 'no-referrer',
-          body: data
-        });
-      }
-
-      let gaParams = new URLSearchParams();
-      // https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
-      gaParams.append('v', 1); // protocol version
-      gaParams.append('tid', 'UA-75073435-1'); // web property ID
-      gaParams.append('aip', 1); // anonymize IP
-      gaParams.append('cid', uid);
-      gaParams.append('t', 'event');
-      gaParams.append('ec', msg.category);
-      gaParams.append('ea', msg.action);
-
-      await postData(gaParams);
-    }
   });
 });
 

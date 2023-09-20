@@ -2,7 +2,7 @@
  * inventory-scanner feature
  */
 
-import { applySave, setEnabledStatus, optionsToggle, sendEvent } from '../utils';
+import { applySave, setEnabledStatus, optionsToggle } from '../utils';
 
 /**
  * Sets up the event listeners for the Inventory Scanner UI
@@ -48,9 +48,9 @@ export function saveInventoryThreshold() {
 
       // Save the value to chrome.storage
       chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
-        featureData.inventoryScanner = { threshold: JSON.parse(input.value) }
+        featureData.inventoryScanner = { threshold: JSON.parse(input.value) };
         chrome.storage.sync.set({ featureData });
-      })
+      });
 
 
       // Displays rating as "- 25%"
@@ -58,7 +58,6 @@ export function saveInventoryThreshold() {
 
       setEnabledStatus(self, 'Enabled');
       applySave('refresh', event);
-      sendEvent('Inventory Scanner', input.value);
 
     // disabled -and- has value entered
     } else if ( input.value && !toggle.checked ) {

@@ -2,7 +2,7 @@
  * Seller Reputation feature
  */
 
-import { applySave, optionsToggle, setEnabledStatus, sendEvent } from '../utils';
+import { applySave, optionsToggle, setEnabledStatus } from '../utils';
 
 export function init() {
 
@@ -62,7 +62,6 @@ export function saveSellerRep() {
 
     chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
 
-      let { sellerRepFilter, sellerRep: percent } = featureData;
       featureData.sellerRep = JSON.parse(input.value);
 
       input.value = featureData.sellerRep;
@@ -72,7 +71,6 @@ export function saveSellerRep() {
       chrome.storage.sync.set({ featureData }).then(() => {
         setEnabledStatus( self, 'Enabled' );
         applySave('refresh', event);
-        sendEvent('Seller Reputation', percent, `Hide: ${sellerRepFilter}`);
       });
     });
 
