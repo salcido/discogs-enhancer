@@ -4215,6 +4215,15 @@
   }
 
   // Marketplace Buy / Sell buttons
+  div[class*="content_"] button[class*="_primary"] {
+    background: var(--button-blue) !important;
+    div {
+      color: var(--button-blue-text) !important;
+    }
+    &:disabled div {
+      color: var(--text-muted) !important;
+    }
+  }
   div[class*="content_"] div[class*="buttons_"] {
     // Buy Primary
     a[class*="_anchor"][class*="_primary"] {
@@ -5007,6 +5016,10 @@
             fill: var(--icon-disabled) !important;
           }
         }
+      }
+
+      div[class*="_wantlistButton"] button {
+        background: var(--black) !important;
       }
     }
 
