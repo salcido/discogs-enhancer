@@ -20,5 +20,5 @@ export async function toggleBAOIfields(event) {
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     files: ['js/extension/features/toggle-baoi-fields.js']
-  }, () => { applySave(null, event) });
+  }, () => { applySave(null, event); });
 }

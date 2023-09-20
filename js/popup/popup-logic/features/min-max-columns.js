@@ -20,5 +20,5 @@ export async function toggleColumns(event) {
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     files: ['js/extension/features/toggle-min-max-columns.js']
-  }, () => { applySave(null, event) });
+  }, () => { applySave(null, event); });
 }

@@ -20,5 +20,5 @@ export async function toggleYtPlaylists(event) {
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     files: ['js/extension/features/toggle-youtube-playlists.js']
-  }, () => { applySave(null, event) });
+  }, () => { applySave(null, event); });
 }
