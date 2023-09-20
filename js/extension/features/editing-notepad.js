@@ -364,7 +364,7 @@ rl.ready( () => {
           const link = document.createElement( 'a' );
           link.href = paste.trim();
           link.text = paste;
-          link.target = "_blank";
+          link.target = '_blank';
           link.rel = 'noopener noreferrer';
           link.classList.add( notepadLinkClass );
 

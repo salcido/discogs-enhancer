@@ -2,7 +2,7 @@
  * inventory-ratings feature
  */
 
-import { applySave, setEnabledStatus, optionsToggle, sendEvent } from '../utils';
+import { applySave, setEnabledStatus, optionsToggle } from '../utils';
 
 /**
  * Sets up the event listeners for the Inventory Ratings UI
@@ -49,7 +49,7 @@ export function saveInventoryRatings(event) {
         toggle.disabled = false;
         input.classList.remove('alert');
 
-        featureData.minimumRating = JSON.parse(input.value)
+        featureData.minimumRating = JSON.parse(input.value);
         chrome.storage.sync.set({ featureData });
 
         let { minimumRating } = featureData;
@@ -60,7 +60,6 @@ export function saveInventoryRatings(event) {
 
         setEnabledStatus( self, 'Enabled' );
         applySave('refresh', event);
-        sendEvent('Inventory Ratings', input.value);
 
       } else if ( input.value && !toggle.checked ) {
 
@@ -75,7 +74,7 @@ export function saveInventoryRatings(event) {
         toggle.checked = false;
         input.classList.add('alert');
       }
-  })
+  });
 }
 
 /**

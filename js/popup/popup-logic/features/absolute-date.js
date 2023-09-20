@@ -19,7 +19,7 @@ export function init() {
     chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       featureData.usDateFormat = this.checked;
       chrome.storage.sync.set({ featureData });
-    })
+    });
   });
 
   // Setup example US date format
@@ -65,6 +65,6 @@ export function setAbsoluteDateStatus() {
     // Setup US Date Format checkbox preference
     chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
       document.getElementById('usFormat').checked = JSON.parse(featureData.usDateFormat);
-    })
+    });
   });
 }

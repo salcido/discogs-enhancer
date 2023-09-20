@@ -101,5 +101,5 @@
     document.querySelector('.de-quick-search').addEventListener('click', () => {
       window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
     });
-  })
+  });
 });

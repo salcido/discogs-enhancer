@@ -122,24 +122,6 @@ export function applySave(message, event, currencyTarget = 'currency') {
 
     notify(message);
   });
-  // Google Analyitcs
-  if (__ANALYTICS__ && event && event.target) {
-
-    let eType = event.target.id.includes('toggle') ? 'Feature' : 'Contextual Menu',
-        checked = event.target.checked;
-
-    if (event.target.id === 'themeSelect') {
-      eType = 'Dark Theme';
-      checked = event.target.value;
-    }
-
-    if (event?.target?.id === 'automaticTheme') {
-      eType = 'Dark Theme';
-      checked = event.target.checked;
-    }
-
-    sendEvent(eType, event.target.id, checked);
-  }
 }
 
 // ========================================================
@@ -401,49 +383,4 @@ export function setEnabledStatus(target, status) {
 
 export function triggerSave(event) {
   applySave('refresh', event);
-}
-
-/**
- * Sends event objects to Google Analytics
- * e.g.: enabled / disabled features, blocked sellers
- * @param {String} category - The event category
- * @param {String} action - The event action
- * @param {String} label - The event label
- */
-export async function sendEvent(category, action, label = '') {
-
-  let { uid = false } = await chrome.storage.sync.get(['uid']);
-
-  if (!uid) {
-    uid = Math.random().toString(16).slice(2);
-    await chrome.storage.sync.set({ uid });
-  }
-
-  async function postData(data = {}) {
-    let url = 'https://www.google-analytics.com/collect';
-
-    await fetch(url, {
-      method: 'POST',
-      mode: 'no-cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: data
-    });
-  }
-
-  let gaParams = new URLSearchParams();
-
-  gaParams.append('v', 1); // protocol version
-  gaParams.append('tid', 'UA-75073435-1'); // web property ID
-  gaParams.append('aip', 1); // anonymize IP
-  gaParams.append('cid', uid);
-  gaParams.append('t', 'event');
-  gaParams.append('ec', category);
-  gaParams.append('ea', action);
-  gaParams.append('el', label);
-
-  await postData(gaParams);
 }

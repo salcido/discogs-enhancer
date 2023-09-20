@@ -11,10 +11,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
 
   let { featureData } = await chrome.storage.sync.get(['featureData']),
-      blockList = featureData.blockList,
-      initialFavoriteList = featureData.favoriteList,
-      blocklistError = 'is on your block list. You must remove them from your block list before adding them as a favorite.',
-      favoriteListError = 'is already on your favorites list.';
+        blockList = featureData.blockList,
+        initialFavoriteList = featureData.favoriteList,
+        blocklistError = 'is on your block list. You must remove them from your block list before adding them as a favorite.',
+        favoriteListError = 'is already on your favorites list.';
 
   // ========================================================
   // Functions (Alphabetical)
@@ -42,8 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     input = input.replace(/\s/g, '').trim();
 
     if ( input ) {
-      // ga(type, category, action, label)
-      // if ( window.ga ) { window.ga('send', 'event', 'favorite seller', input); }
 
       chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
         featureData.favoriteList.list.push(input);
@@ -52,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           document.querySelector('.errors').textContent = '';
           return location.reload();
         });
-      })
+      });
     }
   }
 
@@ -126,12 +124,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
           featureData.favoriteList.list.splice(i, 1);
           chrome.storage.sync.set({ featureData });
-          initialFavoriteList = featureData.favoriteList
+          initialFavoriteList = featureData.favoriteList;
 
           return setTimeout(() => updatePageData(), 400);
         }
       });
-    })
+    });
   }
 
   /**
@@ -163,7 +161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.backup-output').textContent = JSON.stringify(featureData.favoriteList.list);
       // check for empty list
       checkForEmptySellersList();
-    })
+    });
   }
 
   /**
@@ -236,8 +234,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         featureData.favoriteList = restore;
         chrome.storage.sync.set({ featureData }).then(() => {
           return location.reload();
-        })
-      })
+        });
+      });
 
     } else {
 

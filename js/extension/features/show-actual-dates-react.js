@@ -16,7 +16,7 @@
     rl.waitForElement('div[class*="collection_"]').then(() => {
 
       let { featureData } = rl.getItem('userPreferences'),
-          usDateFormat = featureData.usDateFormat
+          usDateFormat = featureData.usDateFormat,
           copies = document.querySelectorAll('div[class*="collection_"]'),
           language = rl.language(),
           monthList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];

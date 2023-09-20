@@ -2,18 +2,7 @@
  * Contextual Menus search feature
  */
 
-import { applySave, sendEvent } from '../utils';
-
-const defaults = {
-  artists: false,
-  collection: false,
-  dashboard: false,
-  labels: false,
-  lists: false,
-  marketplace: false,
-  releases: false,
-  wantlist: false,
-};
+import { applySave } from '../utils';
 
 // ========================================================
 // createLinkTabElements
@@ -109,7 +98,6 @@ function updateLinkPreference(event) {
 
     chrome.storage.sync.set({ featureData }).then(() => {
       applySave('refresh', event);
-      sendEvent('Links In New Tabs', id, event.target.checked);
     });
   });
 }

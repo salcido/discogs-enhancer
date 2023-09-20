@@ -103,7 +103,7 @@
 
         lastSold.closest('ul').querySelectorAll('li span').forEach(elem => {
           elem.style.width = '75px';
-        })
+        });
 
         addMouseListeners(rawDate, relative);
       }

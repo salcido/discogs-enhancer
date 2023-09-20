@@ -19,8 +19,9 @@
 
 rl.ready(() => {
 
-  let marketplace = rl.pageIs('myWants');
-
+  let regex = /\/seller\/(.+)\/mywants/gi, // Seller has my wants page
+      marketplace = rl.pageIs('myWants'), // Marketplace Items I Want page
+      sellerHasWants = regex.test(window.location.href);
   // ========================================================
   // Functions
   // ========================================================
@@ -114,7 +115,7 @@ rl.ready(() => {
   // attached to window object so it can be called by Everlasting Marketplace
   window.insertRemoveLinks = function insertRemoveLinks() {
 
-    if ( marketplace ) {
+    if ( marketplace || sellerHasWants ) {
 
       let releases = document.querySelectorAll('.item_release_link');
 
@@ -159,7 +160,7 @@ rl.ready(() => {
   // DOM Setup
   // ========================================================
 
-  if ( marketplace ) {
+  if ( marketplace || sellerHasWants ) {
     rl.attachCss('remove-from-wantlist', rules);
     window.insertRemoveLinks();
 

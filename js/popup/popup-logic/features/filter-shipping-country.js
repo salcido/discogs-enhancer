@@ -21,5 +21,5 @@ export async function toggleHideCountries(event) {
   chrome.scripting.executeScript({
     target: {tabId: tabId},
     files: ['js/extension/features/toggle-filter-shipping-country-css.js']
-  }, () => { applySave(null, event) });
+  }, () => { applySave(null, event); });
 }
