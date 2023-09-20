@@ -46,14 +46,14 @@ rl.ready(() => {
       mpSellers = '.shortcut_navigable .seller_info li strong a',
       mpThumbs = '.item_picture a',
       // Releases
-      relCompanies = '#release-companies a';
-      relVersions = '#release-other-versions a';
-      relRecommends = '#release-recommendations ul[class*="cards_"] a';
-      relLists = '.de-release #curated-lists a';
-      relContribs = '#release-contributors a';
-      relTracklist = '#release-tracklist tr a';
-      relLastSold = '#release-stats ul li a[href*="/sell/history/"]';
-      relOtherVers = '.de-release .title a, .de-release .label a';
+      relCompanies = '#release-companies a',
+      relVersions = '#release-other-versions a',
+      relRecommends = '#release-recommendations ul[class*="cards_"] a',
+      relLists = '.de-release #curated-lists a',
+      relContribs = '#release-contributors a',
+      relTracklist = '#release-tracklist tr a',
+      relLastSold = '#release-stats ul li a[href*="/sell/history/"]',
+      relOtherVers = '.de-release .title a, .de-release .label a',
       // Wantlist
       wantThumbs = '[class^="wantlist_"] .image a',
       wantTitles = '[class^="wantlist_"] .artist_title a',
@@ -139,7 +139,7 @@ rl.ready(() => {
               window.modifyLinks();
             });
           }, 200);
-        })
+        });
       }
     }
   }

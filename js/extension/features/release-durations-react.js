@@ -53,7 +53,7 @@
 
         function collectTrackTimes(source) {
 
-          let a = []
+          let a = [];
 
           source.forEach(time => {
 
@@ -61,9 +61,9 @@
 
             if (duration && duration !== '') {
 
-              a.push(time.querySelector('td[class*="duration_"]'))
+              a.push(time.querySelector('td[class*="duration_"]'));
             }
-          })
+          });
 
           return a;
         }
