@@ -731,8 +731,10 @@
       'label': '/label/',
       'lists': '/lists/',
       'master': '/master/',
+      'messages': '/messages/view/',
       'myWants': '/sell/mywants',
       'order': '/sell/order/',
+      'orders': '/sell/orders',
       'purchases': '/sell/purchases',
       'release': '/release/',
       'reviews': '/reviews',
@@ -746,7 +748,7 @@
       'stats': '/stats/',
       'update': '/update',
       'videos': '/videos/',
-      'messages': '/messages/view/',
+      'wantlist': '/mywantlist',
     },
 
     /**
