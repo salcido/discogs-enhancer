@@ -94,6 +94,7 @@ window.addEventListener('load', () => {
       toggleFilterSleeveCondition = document.getElementById('toggleFilterSleeveCondition'),
       toggleFilterUnavailable = document.getElementById('toggleFilterUnavailable'),
       toggleForceDashboard = document.getElementById('toggleForceDashboard'),
+      toggleFullWidth = document.getElementById('toggleFullWidth'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
       toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
@@ -292,6 +293,7 @@ window.addEventListener('load', () => {
   toggleFilterSleeveCondition.addEventListener('change', filterSleeveCondition.toggleSleeveConditions);
   toggleFilterUnavailable.addEventListener('change', triggerSave);
   toggleForceDashboard.addEventListener('change', triggerSave);
+  toggleFullWidth.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
   toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
@@ -476,6 +478,7 @@ window.addEventListener('load', () => {
       toggleFilterSleeveCondition.checked = prefs.filterSleeveCondition;
       toggleFilterUnavailable.checked = prefs.filterUnavailable;
       toggleForceDashboard.checked = prefs.forceDashboard;
+      toggleFullWidth.checked = prefs.fullWidthPages;
       toggleHighlights.checked = prefs.highlightMedia;
       toggleInventoryRatings.checked = prefs.inventoryRatings;
       toggleInventoryScanner.checked = prefs.inventoryScanner;

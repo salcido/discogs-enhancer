@@ -6,7 +6,7 @@
 <p align="center">
   <img src="https://github.com/salcido/discogs-enhancer/actions/workflows/main.yml/badge.svg">
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/Users-8.3k-brightgreen" alt="Chrome Web Store">
+    <img src="https://img.shields.io/badge/Users-8.4k-brightgreen" alt="Chrome Web Store">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/Rating-4.85%2F5-blue" alt="Chrome Web Store">
@@ -187,12 +187,12 @@ In order to add a togglable feature to the extension you'll need to update the f
 > Example:
 
 ```javascript
-  if ( result.prefs.featureName ) {
+  if ( prefs.featureName ) {
 
     let featureName = document.createElement('script');
 
     featureName.type = 'text/javascript';
-    featureName.src = chrome.extension.getURL('js/extension/features/feature-name.js');
+    featureName.src = chrome.runtime.getURL('js/extension/features/feature-name.js');
     featureName.className = 'de-init';
 
     elems.push(featureName);

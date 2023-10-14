@@ -42,6 +42,7 @@ let prefs = {
   filterUnavailable: false,
   forceDashboard: false,
   formatShortcuts: true,
+  fullWidthPages: false,
   hideMinMaxColumns: false,
   highlightMedia: true,
   inventoryRatings: false,

@@ -1,7 +1,11 @@
 module.exports = {
   current: [
     {
-      features: [],
+      features: [{
+        name: 'Full Width Pages',
+        description: 'Makes the Collection, Wantlist, Orders, and Inventory pages expand to the width of the browser. I threw this together real quick so please let me know if there are other pages that should be included. Also if you can think of a better name than "Full Width Pages"!',
+        link: '#fullWidthPages',
+      }],
       removedFeatures: [],
       updates: [
         {

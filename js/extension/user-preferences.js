@@ -807,6 +807,17 @@ appendFragment([resourceLibrary])
         elems.push(unavailable);
       }
 
+      if ( prefs.fullWidthPages ) {
+
+        let fullWidthPages = document.createElement('script');
+
+        fullWidthPages.type = 'text/javascript';
+        fullWidthPages.src = chrome.runtime.getURL('js/extension/features/full-width-pages.js');
+        fullWidthPages.className = 'de-init';
+
+        elems.push(fullWidthPages);
+      }
+
       if (prefs.notesCount) {
 
         // notes-counter.js

@@ -60,6 +60,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         filterUnavailable: document.getElementById('toggleFilterUnavailable').checked,
         forceDashboard: document.getElementById('toggleForceDashboard').checked,
         formatShortcuts: document.getElementById('toggleShortcuts').checked,
+        fullWidthPages: document.getElementById('toggleFullWidth').checked,
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         inventoryRatings: document.getElementById('toggleInventoryRatings').checked,
