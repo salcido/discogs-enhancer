@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Full Width Pages',
-        description: 'Makes the Collection, Wantlist, Orders, and Inventory pages expand to the width of the browser. I threw this together real quick so please let me know if there are other pages that should be included. Also if you can think of a better name than "Full Width Pages"!',
-        link: '#fullWidthPages',
+        name: 'Compact Artist Pages',
+        description: 'Reduces the overall white space around the release images and the filter side bar on Artist pages. You can toggle this feature on/off and see the effects without having to refresh the page.',
+        link: '#compactArtist',
       }],
       removedFeatures: [],
       updates: [
