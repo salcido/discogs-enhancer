@@ -9,7 +9,7 @@
  */
 
  rl.ready(() => {
-  if ( rl.pageIs('collection', 'wantlist', 'order', 'orders', 'inventory') ) {
+  if ( rl.pageIs('collection', 'wantlist', 'order', 'orders', 'inventory', 'purchases') ) {
     document.querySelector('body').classList.add('no_width_limit');
   }
 });

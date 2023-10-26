@@ -1,0 +1,63 @@
+// Smaller padding on facets
+div[class*="creditsFacetsContainer_"],
+div[class*="facetsContainer_"] {
+  button[class*="facets_"] {
+    p[class*="facet"] {
+      padding: 10px 8px 10px 32px !important;
+    }
+    p[class*="subFacets_"] {
+      padding-bottom: 0 !important;
+    }
+  }
+
+  // Smaller font sizes on facets
+  button[class*="superFacets_"] {
+    p:first-of-type {
+      font-size: 16px !important;
+    }
+  }
+  button[class*="facets_"] {
+    p[class*="facet_"] {
+      font-size: 14px !important;
+    }
+  }
+}
+
+
+// Smaller images / padding on release rows
+table[class*="releases_"] {
+  tr[class*="textWithCoversRow_"] {
+    td {
+      padding: .25em !important;
+    }
+    img,
+    div[class*="fallback_"] {
+      width: 50px !important;
+      height: 50px !important;
+    }
+  }
+  tr[class*="textOnlyRow_"] {
+    td {
+      padding: .25em !important;
+    }
+
+    button[class*="versionsButton_"] {
+      margin-top: 4px !important;
+      margin-bottom: 4px !important;
+    }
+  }
+}
+
+div[class*="releasesGrid_"] {
+  tr[class*="textWithCoversRow_"] {
+    grid-template-columns: 70px 2fr 1fr 1fr .7fr .3fr .5fr .5fr !important;
+
+    button[class*="versionsButton_"] {
+      margin-top: 4px !important;
+      margin-bottom: 4px !important;
+    }
+  }
+  div[class*="textWithCovers_"] {
+    gap: 4px !important;
+  }
+}

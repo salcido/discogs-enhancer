@@ -5639,6 +5639,10 @@
       background: var(--headers) !important;
     }
 
+    button[class*="facetSelected_"] {
+      background: var(--headers) !important;
+    }
+
     button[class*="facetSelected_"] span[class*="subFacetTotalCounts_"] {
       background: var(--black) !important;
     }
@@ -5677,6 +5681,21 @@
 
       button[class*="versionsButton_"] {
         background: var(--headers) !important;
+      }
+
+      td[class*="versionsTextWithCoversRow_"] {
+        border-bottom: 1px solid var(--borders) !important;
+      }
+
+      &[class*="versions_"] {
+        background: var(--box-shadow-light) !important;
+      }
+    }
+
+    td[class*="actionstd_"],
+    span[class*="actionstd_"] {
+      ul li:hover {
+        background: var(--row-even) !important;
       }
     }
 

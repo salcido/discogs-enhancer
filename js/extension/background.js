@@ -23,6 +23,7 @@ let prefs = {
   blockSellers: true,
   confirmBeforeRemoving: false,
   collectionUi: false,
+  compactArtist: false,
   converter: true,
   darkTheme: false,
   darkThemeVariant: '',

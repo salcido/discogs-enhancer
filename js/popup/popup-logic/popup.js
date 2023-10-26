@@ -13,6 +13,7 @@
 require('../../../css/popup/popup.scss');
 import * as absoluteDate from './features/absolute-date.js';
 import * as baoiFields from './features/baoi-fields.js';
+import * as compactArtist from './features/compact-artist.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as linksInTabs from './features/links-in-new-tabs.js';
 import * as darkTheme from './features/dark-theme.js';
@@ -78,6 +79,7 @@ window.addEventListener('load', () => {
       toggleBaoiFields = document.getElementById('toggleBaoiFields'),
       toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
+      toggleCompactArtist = document.getElementById('toggleCompactArtist'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleConverter = document.getElementById('toggleConverter'),
@@ -277,6 +279,7 @@ window.addEventListener('load', () => {
   toggleBaoiFields.addEventListener('change', baoiFields.toggleBAOIfields);
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
+  toggleCompactArtist.addEventListener('change', compactArtist.toggleCompactArtist);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
@@ -463,6 +466,7 @@ window.addEventListener('load', () => {
       toggleBlockBuyers.checked = prefs.blockBuyers;
       toggleBlockSellers.checked = prefs.blockSellers;
       toggleCollectionUi.checked = prefs.collectionUi;
+      toggleCompactArtist.checked = prefs.compactArtist;
       toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;
       toggleConverter.checked = prefs.converter;
       toggleDarkTheme.checked = prefs.darkTheme;

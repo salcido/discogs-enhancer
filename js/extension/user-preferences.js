@@ -339,6 +339,17 @@ appendFragment([resourceLibrary])
 
       elems.push(minMax_css);
 
+      // compact-artist.scss
+      let compact_artist_css = document.createElement('link');
+
+      compact_artist_css.rel = 'stylesheet';
+      compact_artist_css.type = 'text/css';
+      compact_artist_css.href = chrome.runtime.getURL('css/compact-artist.css');
+      compact_artist_css.id = 'compactArtistCss';
+      compact_artist_css.disabled = !prefs.compactArtist;
+
+      elems.push(compact_artist_css);
+
       // baoi-fields.css
       let baoi_css = document.createElement('link');
 

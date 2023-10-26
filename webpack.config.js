@@ -91,6 +91,12 @@ module.exports = {
           return result.css.toString();
         }
       },
+      { from: 'css/compact-artist.scss', to: 'css/compact-artist.css',
+        transform(content, path) {
+          let result = sass.renderSync({ file: path });
+          return result.css.toString();
+        }
+      },
       {
         from: 'css',
         to: 'css',
