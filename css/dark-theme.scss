@@ -360,6 +360,7 @@
     i,
     s,
     b,
+    span,
     strong {
       color: var(--link) !important;
     }
@@ -5606,7 +5607,8 @@
   /* New Artist Page */
   div[class*="info_"] table {
 
-    tr td div span[class*="active_"] {
+    tr td div span[class*="active_"],
+    tr td div a[class*="active_"] {
       background: var(--link) !important;
       color: var(--main-bg-color) !important;
     }
@@ -5695,7 +5697,7 @@
     td[class*="actionstd_"],
     span[class*="actionstd_"] {
       ul li:hover {
-        background: var(--row-even) !important;
+        background: var(--headers) !important;
       }
     }
 
@@ -5721,7 +5723,7 @@
 
   ul[aria-modal="true"] {
     li {
-      background: var(--headers) !important;
+      background: var(--row-even) !important;
 
       div[role="button"] {
         color: var(--link) !important;
@@ -5736,7 +5738,10 @@
 
   div[class*="linkContainer_"] {
     span {
-      background: var(--headers) !important;
+      background: var(--row-even) !important;
+      &:hover {
+        background: var(--headers) !important;
+      }
     }
   }
 
