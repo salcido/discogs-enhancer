@@ -3,10 +3,12 @@ div[class*="creditsFacetsContainer_"],
 div[class*="facetsContainer_"] {
   button[class*="facets_"] {
     p[class*="facet"] {
-      padding: 10px 8px 10px 32px !important;
+      padding: 4px 8px 4px 32px !important;
+      color: #2653d9;
     }
     p[class*="subFacets_"] {
       padding-bottom: 0 !important;
+      color: #2653d9;
     }
   }
 
@@ -15,10 +17,36 @@ div[class*="facetsContainer_"] {
     p:first-of-type {
       font-size: 16px !important;
     }
+    height: 34px !important;
   }
   button[class*="facets_"] {
     p[class*="facet_"] {
       font-size: 14px !important;
+    }
+    span[class*="subFacetTotalCountsSelected_"] p {
+      color: black;
+    }
+    p[class*="superFacet_"] {
+      color: #2653d9;
+    }
+    p[class*="subFacets_"] {
+      margin-top: .25rem;
+      margin-bottom: .25rem;
+      font-size: 14px;
+      color: #2653d9;
+    }
+  }
+
+  span[class*="subFacetTotalCounts_"],
+  p[class*="superFacetCount_"] {
+    background: none !important;
+  }
+
+  p[class*="superFacetCount_"] {
+    font-weight: bold;
+
+    &[class*="superFacetCountExpanded_"] {
+      color: black;
     }
   }
 }
@@ -59,5 +87,32 @@ div[class*="releasesGrid_"] {
   }
   div[class*="textWithCovers_"] {
     gap: 4px !important;
+  }
+}
+
+div[class*="releasesPath_"] span h2:last-child {
+  padding-left: 0;
+}
+
+div[class*="releasesPath_"] svg {
+  padding-left: 4px;
+}
+
+// DARK THEME OVERRIDES //
+
+.de-dark-theme {
+  p[class*="facet"],
+  p[class*="subFacets_"] {
+    color: var(--link) !important;
+  }
+  div[class*="facetsContainer_"] {
+    p[class*="superFacetCount_"],
+    button[class*="superFacets_"] p[class*="superFacetCount_"],
+    button[class*="facetSelected_"] span[class*="subFacetTotalCounts_"],
+    span[class*="subFacetTotalCounts_"],
+    span[class*="subFacetTotalCountsSelected_"],
+    p[class*="superFacetCount_"] {
+      background: none !important;
+    }
   }
 }

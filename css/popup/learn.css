@@ -419,6 +419,10 @@ span.m {
   margin: 1rem auto;
 }
 
+.content img.mt-3 {
+  margin-top: 3rem;
+}
+
 .content h2,
 h3 {
   font-family: "Raleway", sans-serif;
