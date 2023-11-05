@@ -10,11 +10,7 @@ module.exports = {
       updates: [
         {
           name: 'Enhancement',
-          description: 'Soundcloud has been added to the Contextual Menu options.'
-        },
-        {
-          name: 'Enhancement',
-          description: 'The Tag Seller Rating feature now lets you hide new sellers in the Marketplace. Expand the feature menu and click the Hide New Sellers checkbox to enable it.'
+          description: 'Release Scanner has been updated to work with the new Artist Page. Let me know if you find any issues with it.'
         },
       ],
       thanks: ['Massive thank you to Lewis B. and Britany for the kind donations!'],

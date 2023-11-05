@@ -255,9 +255,9 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  if ( rl.pageIs('history') ) return;
+  if ( rl.pageIs('artist', 'history') ) return;
 
-  if ( rl.pageIs('artist', 'label') ) {
+  if ( rl.pageIs('label') ) {
 
     let selector = 'div[class*="marketplace_box_buttons_count_"]';
 
