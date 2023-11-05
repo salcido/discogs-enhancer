@@ -1113,7 +1113,7 @@
      * @returns {String}
      */
     username: function() {
-      let name = this.getCookie('ck_username') || null;
+      let name = this.getCookie('ck_username') || window.dsdata().username || null;
 
       if (!name) return;
 

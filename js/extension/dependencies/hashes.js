@@ -95,12 +95,12 @@ function fetchData(type, hash, releaseId) {
 
         if (type === RELEASE_TYPE) {
           // TODO: just return release and have feature grab review count
-          let releaseData = res.data.release.reviews.totalCount;
+          let releaseData = res.data.release?.reviews?.totalCount || 0;
           return resolve(releaseData);
         }
 
         if (type === MASTER_TYPE) {
-          let masterData = res.data.masterRelease.reviews.totalCount;
+          let masterData = res.data.masterRelease?.reviews?.totalCount || 0;
           return resolve(masterData);
         }
     }).catch(err => console.log(`Discogs Enhancer could not fetchData for ${type}`, err));

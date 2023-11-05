@@ -105,14 +105,20 @@ div[class*="releasesPath_"] svg {
   p[class*="subFacets_"] {
     color: var(--link) !important;
   }
+  div[class*="creditsFacetsContainer_"],
   div[class*="facetsContainer_"] {
-    p[class*="superFacetCount_"],
-    button[class*="superFacets_"] p[class*="superFacetCount_"],
     button[class*="facetSelected_"] span[class*="subFacetTotalCounts_"],
     span[class*="subFacetTotalCounts_"],
-    span[class*="subFacetTotalCountsSelected_"],
-    p[class*="superFacetCount_"] {
+    span[class*="subFacetTotalCounts_"] p,
+    span[class*="subFacetTotalCountsSelected_"]{
       background: none !important;
+      color: var(--text-muted) !important;
+    }
+  }
+  div[class*="facetsContainer_"]{
+    button[class*="superFacets_"] p[class*="superFacetCount_"] {
+      background: none !important;
+      color: var(--text-normal) !important;
     }
   }
 }

@@ -121,7 +121,7 @@
   // DOM Setup
   // ========================================================
 
-  let releasePage = (rl.pageIs('master') || rl.pageIs('release')),
+  let releasePage = (rl.pageIs('master') || rl.pageIs('release') || rl.pageIs('artist')),
       shouldRun = rl.pageIsNot('stats') && rl.pageIsNot('history') && rl.pageIsNot('edit'),
       paddingTop = releasePage && shouldRun ? '1.35rem;' : '1.5rem;',
       user = rl.username(),

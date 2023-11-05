@@ -1031,6 +1031,14 @@ appendFragment([resourceLibrary])
         releaseScanner.className = 'de-init';
 
         elems.push(releaseScanner);
+
+        let releaseScannerArtist = document.createElement('script');
+
+        releaseScannerArtist.type = 'text/javascript';
+        releaseScannerArtist.src = chrome.runtime.getURL('js/extension/features/release-scanner-artist.js');
+        releaseScannerArtist.className = 'de-init';
+
+        elems.push(releaseScannerArtist);
       }
 
       if (prefs.removeFromWantlist) {
