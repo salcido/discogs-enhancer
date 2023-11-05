@@ -5612,6 +5612,11 @@
       background: var(--link) !important;
       color: var(--main-bg-color) !important;
     }
+
+    button[class*="showMoreInfoContainer_"],
+    svg path {
+      color: var(--link) !important;
+    }
   }
 
   div[class*="tabsContainer_"] {
