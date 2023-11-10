@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Compact Artist Pages',
-        description: 'Reduces the overall white space around the release images and the filter side bar on Artist pages. You can toggle this feature on/off and see the effects without having to refresh the page.',
-        link: '#compactArtist',
+        name: 'Collection Box Fix',
+        description: 'Threw together a quick feature that moves the "In Collection" box back to it\'s original location on the Release Page.',
+        link: '#collectionBoxFix',
       }],
       removedFeatures: [],
       updates: [
