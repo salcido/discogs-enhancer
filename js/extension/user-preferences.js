@@ -506,6 +506,18 @@ appendFragment([resourceLibrary])
         elems.push(confirmBeforeRemovingReact);
       }
 
+      if (prefs.collectionBoxFix) {
+
+        // collection-box-fix.js
+        let collectionBoxFix = document.createElement('script');
+
+        collectionBoxFix.type = 'text/javascript';
+        collectionBoxFix.src = chrome.runtime.getURL('js/extension/features/collection-box-fix.js');
+        collectionBoxFix.className = 'de-init';
+
+        elems.push(collectionBoxFix);
+      }
+
       if (prefs.collectionUi) {
 
         // better-collection-ui.js

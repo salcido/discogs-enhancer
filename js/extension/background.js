@@ -22,6 +22,7 @@ let prefs = {
   blockBuyers: false,
   blockSellers: true,
   confirmBeforeRemoving: false,
+  collectionBoxFix: false,
   collectionUi: false,
   compactArtist: false,
   converter: true,

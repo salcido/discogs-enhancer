@@ -80,6 +80,7 @@ window.addEventListener('load', () => {
       toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCompactArtist = document.getElementById('toggleCompactArtist'),
+      toggleCollectionBoxFix = document.getElementById('toggleCollectionBoxFix'),
       toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleConverter = document.getElementById('toggleConverter'),
@@ -280,6 +281,7 @@ window.addEventListener('load', () => {
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCompactArtist.addEventListener('change', compactArtist.toggleCompactArtist);
+  toggleCollectionBoxFix.addEventListener('change', triggerSave);
   toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
@@ -465,6 +467,7 @@ window.addEventListener('load', () => {
       toggleBaoiFields.checked = prefs.baoiFields;
       toggleBlockBuyers.checked = prefs.blockBuyers;
       toggleBlockSellers.checked = prefs.blockSellers;
+      toggleCollectionBoxFix.checked = prefs.collectionBoxFix;
       toggleCollectionUi.checked = prefs.collectionUi;
       toggleCompactArtist.checked = prefs.compactArtist;
       toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;

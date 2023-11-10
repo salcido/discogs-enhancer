@@ -13,7 +13,7 @@ module.exports = {
           description: 'Release Scanner has been updated to work with the new Artist Page. Let me know if you find any issues with it.'
         },
       ],
-      thanks: ['Massive thank you to Lewis B. and Britany for the kind donations!'],
+      thanks: ['Massive thank you to Thomas L. and Noah S. for the kind donations!'],
     },
   ],
   previous: []

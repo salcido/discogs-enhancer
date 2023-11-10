@@ -41,6 +41,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         baoiFields: document.getElementById('toggleBaoiFields').checked,
         blockBuyers: document.getElementById('toggleBlockBuyers').checked,
         blockSellers: document.getElementById('toggleBlockSellers').checked,
+        collectionBoxFix: document.getElementById('toggleCollectionBoxFix').checked,
         collectionUi: document.getElementById('toggleCollectionUi').checked,
         compactArtist: document.getElementById('toggleCompactArtist').checked,
         confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,
