@@ -403,7 +403,7 @@
 
   if ( rl.pageIs('artist') ) {
 
-    let artistButtonsDiv = 'div[class*="ArtistButtons_"]';
+    let artistButtonsDiv = 'div[class*="artistButtons_"]';
 
     if ( document.querySelector(artistButtonsDiv) ) {
 
