@@ -68,15 +68,19 @@
 
     generateCss(hide, superscript, unselectable, transparent);
 
-    document.querySelectorAll('div[class^="main_"] h1 a').forEach(s => {
+    rl.waitForElement('div[class*="root_"] div[class*="content_"] h1[class*="title_"] span a').then(() => {
 
-      let markup = `<span class="trim-me">$1</span><${elemType} class="de-discriminator">$2</${elemType}>`;
+      document.querySelectorAll('div[class^="main_"] h1 a').forEach(s => {
 
-      s.innerHTML = s.textContent.replace(re, markup);
+        let markup = `<span class="trim-me">$1</span><${elemType} class="de-discriminator">$2</${elemType}>`;
 
-      if ( superscript ) {
-        document.querySelectorAll('.trim-me').forEach(t => { t.textContent = t.textContent.trim(); });
-      }
+        s.innerHTML = s.textContent.replace(re, markup);
+
+        if ( superscript ) {
+          document.querySelectorAll('.trim-me').forEach(t => { t.textContent = t.textContent.trim(); });
+        }
+
+      });
     });
   }
 
