@@ -370,28 +370,10 @@
       return rl.getPreference('readabilityDividers');
     }
 
-    /**
-     * Returns a set of defaults if none are present in localStorage.
-     *
-     * @method useDefaults
-     * @return {object}
-     */
-
-    function useDefaults() {
-
-      return { indexTracks: false,
-               nth: 10,
-               otherMediaReadability: false,
-               otherMediaThreshold: 15,
-               size: 0.5,
-               vcReadability: true,
-               vcThreshold: 8 };
-    }
-
     // ========================================================
     // Init / DOM Setup
     // ========================================================
-    rl.waitForElement('td[class*="trackPos_"]').then(() => {
+    rl.waitForElement('tr span[class*="trackTitle_"]').then(() => {
 
 
     if ( noHeadings && !hasIndexTracks ) {
