@@ -2030,6 +2030,7 @@
 
   .skittle.skittle_inventory,
   div[class*="header_"] a[class*="skittle_"],
+  td[class*="skittles_"] span[class*="inventory_"],
   div[class*="skittles_"] span[class*="inventory_"] {
     background-color: var(--skittle-inventory) !important;
     color: var(--white) !important;
