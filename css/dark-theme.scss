@@ -5619,6 +5619,10 @@
     }
   }
 
+  div[class*="discographyGrid_"] thead {
+    background: var(--headers) !important;
+  }
+
   div[class*="tabsContainer_"] {
     button[role="radio"][aria-checked="true"] {
       background: var(--black) !important;
