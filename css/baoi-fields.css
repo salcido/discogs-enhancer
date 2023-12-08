@@ -17,3 +17,6 @@
   margin: 0 .5rem 0 0;
 }
 
+input[id*="artist-credits-anv"] {
+  min-width: 275px;
+}
