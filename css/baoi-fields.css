@@ -17,6 +17,12 @@
   margin: 0 .5rem 0 0;
 }
 
-input[id*="artist-credits-anv"] {
+/* Large name fields in Credits section */
+input[id*="artist-credits-anv"],
+input[class*="credit-artist-name-input"] {
   min-width: 275px;
+}
+.drag-drop-list .lookup-field.credit-lookup {
+  min-width: 275px;
+  margin-right: 5px !important;
 }
