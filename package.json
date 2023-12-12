@@ -28,7 +28,7 @@
     "babel-loader": "^9.1.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
-    "copy-webpack-plugin": "^10.2.4",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.39.0",
     "eslint-plugin-import": "^2.24.2",
