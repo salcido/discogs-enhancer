@@ -4362,6 +4362,7 @@
     }
 
     // Skittles
+    span[class*="skittle_"][class*="_collection_"],
     div[class*="_skittle_"][class*="_collection_"] {
       background: var(--button-green) !important;
       color: var(--text-bold) !important;
@@ -4371,6 +4372,7 @@
       }
     }
 
+    span[class*="skittle_"][class*="_wantlist_"],
     div[class*="_skittle_"][class*="_wantlist_"] {
       background: var(--skittle-wantlist) !important;
       color: var(--text-bold) !important;
@@ -4380,6 +4382,7 @@
       }
     }
 
+    span[class*="skittle_"][class*="_inventory_"],
     div[class*="_skittle_"][class*="_inventory_"] {
       background: var(--skittle-inventory) !important;
       color: var(--text-bold) !important;
@@ -5814,6 +5817,73 @@
       form label input {
         border: none !important;
       }
+    }
+  }
+
+  // New Label Page
+
+  div[class*="_arrows_"] a {
+    border: 1px solid var(--headers) !important;
+    background: var(--headers) !important;
+    &[class*="_disabled_"] {
+      background: none !important;
+    }
+  }
+
+  h2[class*="labelReleasesHeader_"] {
+    background: var(--headers) !important;
+  }
+
+  div[class*="views_"] button {
+    border: 2px solid var(--borders) !important;
+
+    &[aria-checked="true"] {
+      background-color: var(--black) !important;
+      border: 2px solid var(--black) !important;
+    }
+  }
+
+  tr[class*="sortRow_"] {
+    border-bottom: 1px solid var(--borders) !important;
+  }
+
+  table[class*="labelReleasesTable_"] tr {
+    border-top: 1px solid var(--borders) !important;
+  }
+
+  table tr[class*="sortRow_"]:first-of-type {
+    border-top: 0 !important;
+  }
+
+  button[class*="versionsButton_"] {
+    background: var(--headers) !important;
+  }
+
+  // Skittles
+  span[class*="skittle_"][class*="collection_"] {
+    background: var(--button-green) !important;
+    color: var(--text-bold) !important;
+
+    svg path {
+      fill: var(--text-bold) !important;
+    }
+  }
+
+  span[class*="skittle_"][class*="wantlist_"] {
+    background: var(--skittle-wantlist) !important;
+    color: var(--text-bold) !important;
+
+    svg path {
+      fill: var(--text-bold) !important;
+    }
+  }
+
+  span[class*="skittle_"][class*="inventory_"] {
+    background: var(--skittle-inventory) !important;
+    color: var(--text-bold) !important;
+
+    svg path {
+      fill: var(--text-bold) !important;
     }
   }
 }
