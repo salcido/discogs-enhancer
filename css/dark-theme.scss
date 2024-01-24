@@ -5886,4 +5886,26 @@
       fill: var(--text-bold) !important;
     }
   }
+
+  // Notifications
+  div.rnf-notification-feed-popover {
+    select {
+      color: var(--text-bold) !important;
+    }
+    div.rnf-notification-feed__container {
+      background: var(--site-header-bg) !important;
+    }
+    button.rnf-mark-all-as-read:disabled {
+      color: var(--text-placeholder) !important;
+
+      svg path {
+        stroke: var(--text-placeholder) !important;
+      }
+    }
+  }
+
+  nav#theme-nav {
+    background: var(--headers) !important;
+  }
+
 }
