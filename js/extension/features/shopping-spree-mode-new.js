@@ -101,19 +101,20 @@ rl.ready(() => {
           if (res.ok) {
 
             let selector = 'nav[class*="_user"] a[href^="/sell/cart"]',
-                cartTotal = document.querySelector(selector),
-                cartIcon = cartTotal.querySelector('svg').cloneNode(true),
+                cartTotal = document.querySelector(selector + ' .rnf-unseen-badge__count'),
                 currentCartTotal = Number(cartTotal?.textContent?.trim()) || 0,
                 newCartTotal = currentCartTotal + 1;
 
+            if (!cartTotal) {
+              document.querySelector(selector + ' div').className = 'rnf-unseen-badge';
+              document.querySelector(selector + ' div span').className = 'rnf-unseen-badge__count';
+            }
+
             showInCartStatus(addToCartButton);
 
-            let totalText = document.createTextNode(newCartTotal),
-                toolTipId = document.querySelector(selector).getAttribute('aria-describedby');
+            let toolTipId = document.querySelector(selector).getAttribute('aria-describedby');
             // Update total in header
-            cartTotal.textContent = '';
-            cartTotal.appendChild(cartIcon);
-            cartTotal.appendChild(totalText);
+            document.querySelector(selector + ' .rnf-unseen-badge__count').textContent = newCartTotal;
             // Update tooltip
             document.getElementById(toolTipId).textContent = `${newCartTotal} ${tooltipTranslations[language]}`;
             // Update the sellersInCart data to work with
