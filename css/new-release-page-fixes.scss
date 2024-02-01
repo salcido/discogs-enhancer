@@ -2,7 +2,7 @@
   // reduce large padding on Release Header table
   #page div[class*="info_"] table[class*="table_"] tr th,
   #page div[class*="info_"] table[class*="table_"] tr td {
-    padding-bottom: 3px !important;
+    padding-bottom: 0px !important;
   }
 
   // decrease the height of the add to collection / wantlist buttons
