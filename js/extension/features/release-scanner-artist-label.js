@@ -177,7 +177,7 @@
    */
   function openInNewTabs() {
 
-    let anchors = document.querySelectorAll('table[class*="releases_"] tr a');
+    let anchors = document.querySelectorAll('table[class*="labelReleasesTable_"] tr a');
 
     anchors.forEach(a => {
       a.setAttribute('target', '_blank');
@@ -253,7 +253,7 @@
     document.querySelector('.reset-scanner-wrap').classList.add('hide');
     document.querySelectorAll('.de-scan-badge-wrap').forEach(badge => badge.remove());
 
-    skittles = document.querySelectorAll('td[class*="skittles_"]');
+    skittles = document.querySelectorAll('tr[class*="text"] td[class*="skittles_"]');
   }
 
   // ========================================================
@@ -401,14 +401,14 @@
   // ========================================================
   if ( rl.pageIs('history') ) return;
 
-  if ( rl.pageIs('artist') ) {
+  if ( rl.pageIs('artist') || rl.pageIs('label') ) {
 
-    let artistButtonsDiv = 'div[class*="artistButtons_"]';
+    let buttonDiv = 'div[class*="buttons_"]';
 
-    if ( document.querySelector(artistButtonsDiv) ) {
+    if ( document.querySelector(buttonDiv) ) {
 
       // 'td[class*="skittles_"]' needs to exist before the skittles var can have a value
-      rl.waitForElement('td[class*="skittles_"]').then(() => {
+      rl.waitForElement('tr[class*="text"] td[class*="skittles_"]').then(() => {
 
         let scanText = 'Scan Releases',
             resetText = 'Reset Scanner',
@@ -417,11 +417,11 @@
                         <button class="reset-scanner">${resetText}</button>
                       </div>`;
 
-        skittles = document.querySelectorAll('td[class*="skittles_"]');
+        skittles = document.querySelectorAll('tr[class*="text"] td[class*="skittles_"]');
 
         rl.attachCss('scan-badges', rules);
 
-        document.querySelector(artistButtonsDiv).insertAdjacentHTML('beforeend', buttonMarkup);
+        document.querySelector(buttonDiv).insertAdjacentHTML('afterend', buttonMarkup);
 
         // Event Listeners
         // ------------------------------------------------------
