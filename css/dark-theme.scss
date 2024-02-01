@@ -5136,7 +5136,7 @@
     }
 
     // for sale count
-    span[class*="forsale_"] span[class*="price_"] {
+    span[class*="forSale_"] span[class*="price_"] {
       color: var(--price) !important;
     }
 
@@ -5669,7 +5669,14 @@
 
   div[class*="filterBarContainerDesktop_"] {
 
+    // Filters hidden
     div[class*="filterButtonContainerWhite_"] {
+      button {
+        border: 1px solid var(--headers) !important;
+      }
+    }
+    // Filters visible
+    div[class*="filterButtonContainer_"] {
       button {
         background: var(--headers) !important;
       }
@@ -5910,6 +5917,7 @@
 
   div.rnf-unseen-badge {
     background: var(--skittle-wantlist) !important;
+    outline: 2px solid var(--site-header-bg) !important;
 
     span.rnf-unseen-badge__count {
       color: var(--white) !important;
