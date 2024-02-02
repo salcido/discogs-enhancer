@@ -244,16 +244,19 @@
    */
   function resetScanner() {
 
-    releases = [...document.querySelectorAll('td[class^="title_"] a')]
-                .filter(r => r.href.includes('/release/') ||  r.href.includes('/master/'))
-                .map(r => r.href);
+    rl.waitForElement('tr[class*="text"] td[class*="skittles_"]').then(() => {
 
-    document.querySelector('.de-scan-releases').textContent = 'Scan Releases';
-    document.querySelector('.de-scan-releases').disabled = false;
-    document.querySelector('.reset-scanner-wrap').classList.add('hide');
-    document.querySelectorAll('.de-scan-badge-wrap').forEach(badge => badge.remove());
+      releases = [...document.querySelectorAll('td[class^="title_"] a')]
+        .filter(r => r.href.includes('/release/') ||  r.href.includes('/master/'))
+        .map(r => r.href);
 
-    skittles = document.querySelectorAll('tr[class*="text"] td[class*="skittles_"]');
+      document.querySelector('.de-scan-releases').textContent = 'Scan Releases';
+      document.querySelector('.de-scan-releases').disabled = false;
+      document.querySelector('.reset-scanner-wrap').classList.add('hide');
+      document.querySelectorAll('.de-scan-badge-wrap').forEach(badge => badge.remove());
+
+      skittles = document.querySelectorAll('tr[class*="text"] td[class*="skittles_"]');
+    });
   }
 
   // ========================================================
@@ -440,7 +443,7 @@
         document.querySelector('button.reset-scanner').addEventListener('click', () => resetScanner());
 
         // Artist Page UI click event listener
-        let buttonSelectors = 'div[class*="innerContainer_"] button, div[class*="facetsContainer_"] button, div[class*="paginationContainer_"] button';
+        let buttonSelectors = 'div[class*="innerContainer_"] button, div[class*="facetsContainer_"] button, div[class*="paginationContainer_"] button, div[class*="searchBarContainer_"] button, div[class*="itemContent_"]';
 
         [...document.querySelectorAll(buttonSelectors)].forEach(button => {
           button.addEventListener('click', () => {
