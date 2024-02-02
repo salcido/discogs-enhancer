@@ -5136,7 +5136,7 @@
     }
 
     // for sale count
-    span[class*="forSale_"] span[class*="price_"] {
+    [class*="forSale_"] [class*="price_"] {
       color: var(--price) !important;
     }
 
