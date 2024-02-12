@@ -51,6 +51,38 @@ div[class*="facetsContainer_"] {
   }
 }
 
+// artist filters
+[class*="dropdownsContainer_"] {
+  [class*="wrapper_"] {
+    label {
+      display: none;
+    }
+
+    [role="combobox"] {
+      height: 38px;
+      font-size: 14px;
+
+      [class*="button_"] {
+        height: 36px;
+      }
+
+      [class*="input_"] {
+        padding: .25rem;
+      }
+    }
+
+    [role="listbox"] {
+      top: 40px;
+    }
+  }
+}
+
+[class*="searchBarContainer_"] {
+  input {
+    font-size: 14px;
+  }
+}
+
 
 // Smaller images / padding on release rows
 table[class*="releases_"] {
@@ -61,7 +93,7 @@ table[class*="releases_"] {
     img,
     div[class*="fallback_"] {
       width: 50px !important;
-      height: 50px !important;
+      height: auto !important;
     }
   }
   tr[class*="textOnlyRow_"] {
@@ -86,8 +118,12 @@ table[class*="labelReleasesTable_"] {
     img,
     div[class*="fallback_"] {
       width: 50px !important;
-      height: 50px !important;
+      height: auto !important;
     }
+  }
+  // Additional padding on MR versions when using text only view
+  tr[class*="versionsTextOnlyRow_"] {
+    padding-left: 2rem;
   }
 }
 
