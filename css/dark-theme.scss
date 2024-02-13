@@ -41,7 +41,7 @@
   --new-submission: #f2b90d;
   --order-sidebar-bg: #1f1f1f;
   /* Master Release Filter Chip Color */
-  --filter-chip: #2a4f96;
+  --filter-chip: #000;
   /* Release In Collection / Wantlist Blocks */
   --in-collection-bg: #1c3814;
   --in-collection-border: #60c43f;
@@ -184,7 +184,7 @@
   --blocked-seller: #cd4946;
   --text-muted: #959595;
   --link: #87a7d0;
-  --filter-chip: #2a4f96;
+  --filter-chip: #000;
   --submission-form-error: #321d1f;
   --additional-instructions: #360d0d;
   --modified-cart-bg: #232428;
@@ -215,7 +215,7 @@
   --in-collection-border: #4e9b35;
   --price: #f15959;
   --in-wantlist-border: #b1413f;
-  --filter-chip: #2a4f96;
+  --filter-chip: #000;
   --history-highlight: #3a4260;
   --history-hover: #353345;
   --submission-form-error: #2e0000;
@@ -5705,8 +5705,10 @@
         background: var(--headers) !important;
       }
 
-      td[class*="versionsTextWithCoversRow_"] {
+      &[class*="versionsTextWithCoversRow_"],
+      &[class*="versionsTextOnlyRow_"] {
         border-bottom: 1px solid var(--borders) !important;
+        background: var(--input-bg) !important;
       }
 
       &[class*="versions_"] {
@@ -5772,16 +5774,20 @@
     }
   }
 
-  div[class*="artistVersionFinder_"] {
+  div[class*="facetFilter_"] {
     background: var(--headers) !important;
 
     div[class*="chips_"] {
       button[class*="button_"] {
-        background: var(--black) !important;
+        background: var(--filter-chip) !important;
       }
       button[class*="clearAllButton_"] {
         color: var(--link) !important;
       }
+    }
+
+    [class*="bar_"] {
+      background: var(--link) !important;
     }
 
     div[class*="dropdownsContainer_"] {
@@ -5837,6 +5843,36 @@
     }
   }
 
+  // progress bar
+  [class*="wrapper_"] [class*="bar_"] {
+    background: var(--link) !important;
+  }
+
+  [class*="searchBarContainer_"] {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--borders) !important;
+
+    form label input[type="text"] {
+      border: none !important;
+    }
+  }
+
+  [class*="addLabelReleaseButton_"] {
+    border: 1px solid var(--borders) !important;
+  }
+
+  [class*="filterButtonContainer_"] {
+    button {
+      background: var(--borders) !important;
+    }
+  }
+
+  [class*="filterButtonContainerWhite_"] {
+    button[aria-expanded="false"] {
+      border: 1px solid var(--borders) !important;
+    }
+  }
+
   h2[class*="labelReleasesHeader_"] {
     background: var(--headers) !important;
   }
@@ -5845,8 +5881,8 @@
     border: 2px solid var(--borders) !important;
 
     &[aria-checked="true"] {
-      background-color: var(--black) !important;
-      border: 2px solid var(--black) !important;
+      background-color: var(--borders) !important;
+      border: 2px solid var(--borders) !important;
     }
   }
 
@@ -5856,6 +5892,17 @@
 
   table[class*="labelReleasesTable_"] tr {
     border-top: 1px solid var(--borders) !important;
+
+    &[class*="versionsTextWithCoversRow_"],
+    &[class*="versionsTextOnlyRow_"] {
+      background: var(--input-bg) !important;
+    }
+
+    td[class*="actionstd_"] {
+      button ul li:hover {
+        background: var(--headers) !important;
+      }
+    }
   }
 
   table tr[class*="sortRow_"]:first-of-type {
