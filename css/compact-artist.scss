@@ -51,6 +51,28 @@ div[class*="facetsContainer_"] {
   }
 }
 
+[class*="facetFilter_"] {
+  padding: 0px 12px 12px;
+  gap: 6px;
+
+  [class*="chips_"] {
+    gap: 6px;
+    padding-bottom: 4px;
+    height: 20px;
+
+    [class*="button_"] {
+
+      [class*="icon_"] {
+        line-height: 21px;
+      }
+    }
+  }
+
+  [class*="wrapper_"][role="progressbar"] {
+    height: 0.2rem;
+  }
+}
+
 // artist filters
 [class*="dropdownsContainer_"] {
   [class*="wrapper_"] {
