@@ -6,3 +6,8 @@
   max-height: 300px !important;
 }
 
+ul[class*="videos_"] button img {
+  width: 60px;
+  aspect-ratio: auto 60 / 45;
+  height: 45px;
+}

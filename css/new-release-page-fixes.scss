@@ -177,8 +177,18 @@
   }
 }
 
+/* New Label Page */
+/* Hide disabled pagination */
+div[class*="_arrows_"] a {
+  &[class*="_disabled_"] {
+    background: none !important;
+    visibility: hidden;
+  }
+}
+
+
 /* Monolith Fixes */
-/* Stars align on release stats page (A dark theme exclusive!) */
+/* Stars align on release stats page */
 /* https://www.discogs.com/release/stats/3432706 */
 .release_stats_group_list ul li {
   display: flex;
