@@ -4455,10 +4455,6 @@
       }
     }
 
-    div[class*="noItems_"] {
-      background: var(--input-bg) !important;
-    }
-
     nav[class*="profile_"] {
       div[class*="user_"] nav[class*="dropdown_"] li a[class*="link_"] {
         color: var(--text-normal) !important;
@@ -5838,9 +5834,6 @@
   div[class*="_arrows_"] a {
     border: 1px solid var(--headers) !important;
     background: var(--headers) !important;
-    &[class*="_disabled_"] {
-      background: none !important;
-    }
   }
 
   // progress bar
@@ -5858,7 +5851,19 @@
   }
 
   [class*="addLabelReleaseButton_"] {
-    border: 1px solid var(--borders) !important;
+    background: var(--button-green) !important;
+
+    [class*="link_"] {
+      color: var(--white) !important;
+
+      &:hover {
+        color: var(--white) !important;
+      }
+
+      svg path {
+        fill: var(--white) !important;
+      }
+    }
   }
 
   [class*="filterButtonContainer_"] {
@@ -5968,6 +5973,39 @@
 
     span.rnf-unseen-badge__count {
       color: var(--white) !important;
+    }
+  }
+
+
+  // List Explorer
+  [class*="listExplorerHeroContent_"] {
+    background-color: var(--box-shadow-dark) !important;
+
+    [class*="_link"] {
+      background: var(--button-green) !important;
+      color: var(--text-bold) !important;
+    }
+  }
+
+  [class*="listOfListsTable_"] {
+    thead {
+      background: var(--headers) !important;
+    }
+  }
+
+  [class*="listOfListsTable_"] {
+    tr:nth-child(2n) {
+      background-color: var(--row-even) !important;
+    }
+  }
+
+  [class*="paginationAndShow_"] {
+    [class*="selectContainer_"] {
+      border: 1px solid var(--borders) !important;
+
+      select {
+        color: var(--text-bold) !important;
+      }
     }
   }
 
