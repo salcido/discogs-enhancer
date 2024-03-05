@@ -11,9 +11,13 @@ rl.ready(() => {
 
   if ( rl.pageIs('release') ) {
 
-    rl.waitForElement('div[class*="wrapper_"] div[class*="buttons_"]').then(() => {
+    let collectionAndWantlistButtons = 'div[class*="wrapper_"] div[class*="buttons_"]';
 
-      let collectionButtons = document.querySelector('div[class*="wrapper_"] div[class*="buttons_"]');
+    rl.waitForElement(collectionAndWantlistButtons).then(() => {
+
+      /* Quick and dirty fix to prevent this from running before the sidebar is ready */
+      setTimeout(() => {
+        let collectionButtons = document.querySelector(collectionAndWantlistButtons);
 
         let cBox = collectionButtons.closest('div[class*="side_"'),
             info = document.getElementById('release-actions').closest('div[class*="side_"');
@@ -21,9 +25,7 @@ rl.ready(() => {
         cBox.querySelector('br').remove();
 
         info.insertAdjacentElement('afterend', cBox);
+      }, 100);
     });
   }
 });
-
-
-document.querySelectorAll('div[class*="wrapper_"] div[class*="buttons_"]');
