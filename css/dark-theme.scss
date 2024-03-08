@@ -5993,9 +5993,79 @@
     }
   }
 
-  [class*="listOfListsTable_"] {
+  [class*="listOfListsTable_"],
+  [class*="listTable_"] {
     tr:nth-child(2n) {
       background-color: var(--row-even) !important;
+    }
+  }
+
+  /**
+    User Lists
+  */
+  [class*="listTable_"] thead tr {
+    background-color: var(--row-even) !important;
+  }
+
+  [class*="listContainer_"] {
+    [class*="listItem_"] {
+      border-bottom: 1px solid var(--borders) !important;
+    }
+  }
+
+  [class*="selectContainer_"] {
+    border: 1px solid var(--borders) !important;
+    select {
+      color: var(--text-bold) !important;
+    }
+  }
+
+  [class*="curatedListActions_"] {
+    button[class*="switchContainer_"] {
+      [class*="switch_"] {
+        background: var(--icon-disabled) !important;
+
+        &[class*="enabled_"] {
+          background: var(--icon-green) !important;
+        }
+      }
+    }
+
+    [class*="actionButtons_"] {
+      button {
+        background: var(--button-green) !important;
+
+        [class*="_buttonContent_"] {
+          color: var(--white) !important;
+          svg path {
+            fill: var(--white) !important;
+          }
+        }
+      }
+    }
+    [class*="bottomMargin_"] {
+      button[class*="_secondary"] {
+        background: var(--button-red) !important;
+
+        [class*="_buttonContent_"] {
+          color: var(--white) !important;
+          svg path {
+            fill: var(--white) !important;
+          }
+        }
+      }
+    }
+  }
+
+  [class*="textedit_"] {
+    [class*="buttons_"] {
+      [class*="_mpPrimary_"] {
+        background: var(--button-green) !important;
+
+        [class*="_buttonContent_"] {
+          color: var(--white) !important;
+        }
+      }
     }
   }
 
