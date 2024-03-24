@@ -6042,6 +6042,14 @@
           }
         }
       }
+      a[class*="_secondary"] {
+        background: var(--button-red) !important;
+        color: var(--white) !important;
+
+        svg path {
+          fill: var(--white) !important;
+        }
+      }
     }
     [class*="bottomMargin_"] {
       button[class*="_secondary"] {
@@ -6075,6 +6083,43 @@
 
       select {
         color: var(--text-bold) !important;
+      }
+    }
+  }
+
+  [class*="blackLine_"] {
+    background: var(--black) !important;
+  }
+  [class*="userActionsContainer_"] {
+    [class*="_button"] {
+      background: var(--button-disabled) !important;
+      color: var(--headers) !important;
+
+      svg path {
+        fill: var(--headers) !important;
+      }
+
+      &:visited,
+      &:hover {
+        color: var(--headers) !important;
+      }
+    }
+  }
+
+  [class*="userProfileLinks_"] {
+    ul li {
+      border-left: 1px solid var(--borders) !important;
+      &:hover {
+        border-top-color: var(--text-bold) !important;
+      }
+
+      a {
+        color: var(--text-bold) !important;
+
+        &:visited,
+        &:hover {
+          color: var(--text-bold) !important;
+        }
       }
     }
   }
