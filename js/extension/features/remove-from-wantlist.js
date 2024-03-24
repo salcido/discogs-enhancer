@@ -75,13 +75,29 @@ rl.ready(() => {
 
     try {
 
+      let data = {
+            operationName:'RemoveReleasesFromWantlist',
+            variables:{
+              input: {
+                releaseDiscogsIds:[Number(id)]
+              }
+            },
+            extensions: {
+              persistedQuery: {
+                version: 1,
+                sha256Hash: 'ab4a277f4c5d9da56ba17d4b88643c51a1935f500813133c55fe5a340625d06f'
+              }
+            }
+          };
+
       let releases = document.querySelectorAll('.item_description .item_release_link'),
           headers = { 'content-type': 'application/x-www-form-urlencoded' },
-          url = `https://www.discogs.com/_rest/wantlist/${id}`,
+          url = 'https://www.discogs.com/service/catalog/api/graphql',
           initObj = {
             credentials: 'include',
             headers: headers,
-            method: 'DELETE'
+            method: 'POST',
+            body: JSON.stringify(data)
           },
           response = await fetch(url, initObj);
 
