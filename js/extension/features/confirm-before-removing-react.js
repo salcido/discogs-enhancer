@@ -109,13 +109,28 @@ rl.ready(() => {
    */
   async function removeFromCollection(event) {
     let id = event.target.closest('div[class*="collection_"]').dataset.collectionId,
+        data = {
+          operationName: 'RemoveReleaseFromCollection',
+            variables: {
+              input: {
+                discogsId: Number(id)
+              }
+            },
+            extensions: {
+              persistedQuery: {
+                version: 1,
+                sha256Hash: '93242d935addda589c5114a57e09b404213bdd55737fb6bdc2b91a6c3fe7337c'
+              }
+            }
+        },
         collectionBox = event.target.closest('div[class*="collection_"]'),
-        url = `/_rest/collection/${id}`,
+        url = 'https://www.discogs.com/service/catalog/api/graphql',
         headers = { 'content-type': 'application/x-www-form-urlencoded' },
         initObj = {
           credentials: 'include',
           headers: headers,
-          method: 'DELETE'
+          method: 'POST',
+          body: JSON.stringify(data)
         },
         response = await fetch(url, initObj);
 
