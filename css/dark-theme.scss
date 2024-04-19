@@ -448,7 +448,7 @@
   /* Visited Links */
 
   a:visited {
-    s {
+    s, span {
       color: var(--link-visited) !important;
     }
     color: var(--link-visited) !important;
@@ -579,6 +579,7 @@
 
     &:hover {
       color: var(--main-menu-link-hover) !important;
+
       i.icon {
         color: var(--main-menu-link-hover) !important;
       }
@@ -4216,6 +4217,13 @@
     background: var(--black) !important;
   }
 
+  [class*="_mpPrimary"] {
+    background: var(--button-green) !important;
+    div {
+      color: var(--white) !important;
+    }
+  }
+
   // Marketplace Buy / Sell buttons
   div[class*="content_"] button[class*="_primary"] {
     background: var(--button-blue) !important;
@@ -4226,6 +4234,7 @@
       color: var(--text-muted) !important;
     }
   }
+
   div[class*="content_"] div[class*="buttons_"] {
     // Buy Primary
     a[class*="_anchor"][class*="_primary"] {
@@ -4266,6 +4275,15 @@
         svg path,
         div[class*="_buttonContent"] svg path {
           fill: var(--black) !important;
+        }
+      }
+
+      &:disabled {
+        color: var(--button-disabled-text) !important;
+        background: var(--button-disabled) !important;
+
+        [class*="_buttonContent"] {
+          color: var(--button-disabled-text) !important;
         }
       }
     }
@@ -5098,6 +5116,12 @@
         &:hover {
           color: var(--link-hover) !important;
         }
+      }
+
+      // Edit / Report comment menu
+      [role="menuitem"] button[class*="link_"] {
+        color: var(--link !important);
+        background: var(--main-bg-color) !important;
       }
     }
 
@@ -6007,6 +6031,19 @@
     background-color: var(--row-even) !important;
   }
 
+  button[class*="_warning"] {
+    background: var(--button-red) !important;
+    color: var(--white) !important;
+
+    div {
+      color: var(--white) !important;
+    }
+
+    svg path {
+      fill: var(--white) !important;
+    }
+  }
+
   [class*="listContainer_"] {
     [class*="listItem_"] {
       border-bottom: 1px solid var(--borders) !important;
@@ -6121,6 +6158,247 @@
           color: var(--text-bold) !important;
         }
       }
+    }
+  }
+
+  /* Collection */
+  [class*="collectionListContainer_"] {
+    [class*="searchContainer_"] {
+      input::placeholder {
+        color: var(--text-placeholder) !important;
+      }
+
+      svg path {
+        fill: var(--text-placeholder) !important;
+      }
+    }
+  }
+  [class*="_secondary"] {
+    border: 1px solid var(--borders) !important;
+    background: var(--input-bg) !important;
+    color: var(--text-normal) !important;
+
+    &:hover {
+      color: var(--white) !important;
+      background: var(--black) !important;
+
+      div {
+        color: var(--white) !important;
+      }
+
+      svg path {
+        fill: var(--white) !important;
+      }
+    }
+
+    svg path {
+      fill: var(--text-normal) !important;
+    }
+
+    &:visited {
+      color: var(--text-normal) !important;
+    }
+  }
+  [class*="listControlContainer_"] {
+
+    [class*="_arrows_"] svg path {
+      fill: var(--text-bold) !important;
+    }
+
+    [class*="collectionControls_"] {
+      [class*="selectContainer_"] {
+        select {
+          color: var(--text-bold) !important;
+          background: none !important;
+        }
+      }
+    }
+  }
+
+  nav[class*="_pager"] {
+    [class*="_arrows_"] svg path {
+      fill: var(--text-bold) !important;
+    }
+  }
+
+  nav[class*="horizontalLinks_"] {
+    border-bottom: 1px solid var(--borders) !important;
+  }
+
+  [class*="MuiDataGrid-withBorderColor"] {
+    border-color: var(--borders) !important;
+  }
+
+
+  [class*="manageFoldersContainer_"] {
+    background-color: var(--row-even) !important;
+
+    table tr:nth-child(2n) {
+      background-color: var(--main-bg-color) !important;
+    }
+
+    table thead {
+      background: var(--headers) !important;
+    }
+
+    button[class*="_secondary"] {
+      border: 1px solid var(--borders) !important;
+      background: var(--input-bg) !important;
+      div {
+        color: var(--text-normal) !important;
+      }
+
+
+      &:hover {
+        background: var(--black) !important;
+        div {
+          color: var(--white) !important;
+        }
+      }
+    }
+  }
+
+  [class*="collectionNotesTable_"] {
+
+    [class*="tableHeader_"] {
+      background: var(--headers) !important;
+    }
+
+    tr {
+      border-top: 1px solid var(--borders) !important;
+    }
+
+    tr:nth-child(2n) {
+      background-color: var(--row-even) !important;
+    }
+
+    [class*="dataRows_"] button:disabled {
+      svg path {
+        fill: var(--text-placeholder) !important;
+      }
+    }
+
+    button[class*="_secondary"] {
+      border: 1px solid var(--borders) !important;
+      background: var(--input-bg) !important;
+
+      div {
+        color: var(--text-normal) !important;
+      }
+
+      &:hover {
+        background: var(--black) !important;
+        div {
+          color: var(--white) !important;
+        }
+      }
+
+      &:disabled {
+
+        div {
+          color: var(--text-placeholder) !important;
+
+          svg path {
+            fill: var(--text-placeholder) !important;
+          }
+        }
+      }
+    }
+
+  }
+
+  // IMS
+  [class*="MuiDataGrid-main"] {
+    border: 1px solid var(--borders) !important;
+
+    [class*="MuiDataGrid-columnHeaders"] {
+      background: var(--headers) !important;
+    }
+
+    .odd {
+      background: var(--row-even) !important;
+    }
+
+    [class*="_expiredChip"] {
+      background: var(--alert-warning-bg) !important;
+
+      [class*="MuiChip-label"] {
+        color: var(--black) !important;
+      }
+    }
+
+    [class*="_draftChip"] {
+      background: var(--alert-error-bg) !important;
+
+      [class*="MuiChip-label"] {
+        color: var(--black) !important;
+      }
+    }
+  }
+
+  // secondary amped buttons
+  [class*="_button"][class*="_secondary"] {
+    background: var(--button-secondary) !important;
+    color: var(--black) !important;
+
+    [class*="_buttonContent"] {
+      color: var(--black) !important;
+    }
+
+    svg path,
+    [class*="_buttonContent"] svg path {
+      fill: var(--black) !important;
+    }
+
+    &:hover {
+      background: var(--button-secondary-hover) !important;
+      color: var(--black) !important;
+
+      span {
+        color: var(--black) !important;
+      }
+
+      svg path,
+      [class*="_buttonContent"] svg path {
+        fill: var(--black) !important;
+      }
+    }
+
+    &:disabled {
+      color: var(--button-disabled-text) !important;
+      background: var(--headers) !important;
+
+      [class*="_buttonContent"] {
+        color: var(--button-disabled-text) !important;
+      }
+    }
+  }
+
+  [class*="_arrows"] {
+    a[class*="_link"][class*="_button"] {
+      svg path {
+        fill: var(--black) !important;
+      }
+    }
+  }
+
+  // edit item modal
+  [class*="MuiModal-backdrop"] {
+    background: var(--box-shadow-med) !important;
+  }
+
+  [class*="MuiModal-root"] {
+
+    [class*="MuiPaper-elevation"] {
+      background: var(--main-bg-color) !important;
+    }
+
+    [class*="_column"] {
+      border: 1px solid var(--borders) !important;
+    }
+
+    [class*="MuiOutlinedInput"] {
+      border: 1px solid var(--borders) !important;
     }
   }
 
