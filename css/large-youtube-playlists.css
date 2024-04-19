@@ -6,6 +6,11 @@
   max-height: 300px !important;
 }
 
+#release-videos ul[class*="videos_"] [class*="media_"] {
+  top: 24px !important;
+  left: 32px !important;
+}
+
 ul[class*="videos_"] button img {
   width: 60px;
   aspect-ratio: auto 60 / 45;
