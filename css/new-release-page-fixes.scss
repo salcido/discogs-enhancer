@@ -57,6 +57,9 @@
   }
 
   // Star ratings
+  [class*="ratings_"] {
+    gap: 0 !important;
+  }
   div[class*="ratings_"] svg {
     margin: 0 2px 0 0 !important;
   }
