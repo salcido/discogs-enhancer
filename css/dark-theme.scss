@@ -5350,9 +5350,10 @@
       div[class*="tray_"] button[class*="_secondary"] {
 
         color: var(--headers) !important;
+        background: var(--button-secondary) !important;
 
         &:hover {
-          background-color: var(--headers) !important;
+          background-color: var(--button-secondary-hover) !important;
           color: var(--text-bold) !important;
 
           span {
@@ -6078,6 +6079,17 @@
             fill: var(--white) !important;
           }
         }
+
+        &:hover {
+          background: var(--button-green) !important;
+
+          [class*="_buttonContent_"] {
+            color: var(--white) !important;
+            svg path {
+              fill: var(--white) !important;
+            }
+          }
+        }
       }
       a[class*="_secondary"] {
         background: var(--button-red) !important;
@@ -6308,6 +6320,43 @@
   }
 
   // IMS
+  [class*="_sellerNavigationContainer"] :is(ul) :is(li) {
+    border-bottom: 1px solid var(--borders) !important;
+
+    &[class*="_sellerNavigationActive"] {
+      border-top: 1px solid var(--borders) !important;
+      border-right: 1px solid var(--borders) !important;
+      border-left: 1px solid var(--borders) !important;
+      border-bottom: 1px solid var(--main-bg-color) !important;
+    }
+  }
+
+  [class*="_primary"] {
+    background: var(--button-blue) !important;
+    div {
+      color: var(--button-blue-text) !important;
+    }
+    &:disabled div {
+      color: var(--text-muted) !important;
+    }
+  }
+
+  [class*="_stickyFooter_"] {
+    background-color: var(--input-bg) !important;
+  }
+  .MuiOutlinedInput-notchedOutline,
+  [class*="_versionInfoContainer"] {
+    border: 1px solid var(--borders) !important;
+  }
+
+  .Mui-selected {
+    background: var(--history-highlight) !important;
+  }
+
+  .MuiMenuItem-root.MuiMenuItem-gutters:hover {
+    background: var(--row-even) !important;
+  }
+
   [class*="MuiDataGrid-main"] {
     border: 1px solid var(--borders) !important;
 
@@ -6317,6 +6366,15 @@
 
     .odd {
       background: var(--row-even) !important;
+    }
+
+    .MuiDataGrid-row:hover {
+      background: var(--history-highlight) !important;
+    }
+
+    .Mui-checked svg path,
+    .MuiCheckbox-indeterminate svg path {
+      color: var(--policy-indeterminate) !important;
     }
 
     [class*="_expiredChip"] {
