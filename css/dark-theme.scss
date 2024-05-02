@@ -4095,6 +4095,11 @@
       border-color: var(--button-green) !important;
     }
   }
+
+  .ot-sdk-container {
+    background: var(--input-bg) !important;
+  }
+
   // Cookie settings
   #onetrust-pc-sdk {
     background: var(--headers) !important;
@@ -5282,6 +5287,11 @@
     button[class*="_secondary"] {
       border: 1px solid var(--borders) !important;
       background: var(--input-bg) !important;
+      color: var(--text-bold) !important;
+
+      div[class*="_buttonContent"] {
+        color: var(--text-bold) !important;
+      }
 
       &:hover {
         background: var(--black) !important;
@@ -5349,11 +5359,12 @@
       // add to collection / wantlist / list buttons
       div[class*="tray_"] button[class*="_secondary"] {
 
-        color: var(--headers) !important;
-        background: var(--button-secondary) !important;
+        border: 1px solid var(--borders) !important;
+        background: var(--input-bg) !important;
+        color: var(--text-bold) !important;
 
         &:hover {
-          background-color: var(--button-secondary-hover) !important;
+          background-color: var(--borders) !important;
           color: var(--text-bold) !important;
 
           span {
@@ -6331,7 +6342,20 @@
     }
   }
 
-  [class*="_primary"] {
+  // ims toast notifications
+  [class*="_ampedtoast_"] {
+    &[class*="_success_"] {
+      background: var(--in-collection-bg) !important;
+    }
+    &[class*="_failure_"] {
+      background: var(--in-wantlist-bg) !important;
+    }
+    [class*="_close"] svg path {
+      fill: var(--text-bold) !important;
+    }
+  }
+
+  button[class*="_primary_"] {
     background: var(--button-blue) !important;
     div {
       color: var(--button-blue-text) !important;
@@ -6349,8 +6373,8 @@
     border: 1px solid var(--borders) !important;
   }
 
-  .Mui-selected {
-    background: var(--history-highlight) !important;
+  .MuiDataGrid-row.Mui-selected {
+    background-color: var(--modified-cart-bg) !important;
   }
 
   .MuiMenuItem-root.MuiMenuItem-gutters:hover {
@@ -6364,7 +6388,7 @@
       background: var(--headers) !important;
     }
 
-    .odd {
+    .odd:not(.Mui-selected) {
       background: var(--row-even) !important;
     }
 
