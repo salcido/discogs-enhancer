@@ -23,6 +23,14 @@
           a.href = a.href.replace('/label/', '/label//');
       }
     });
+
+    if (window.location.href.includes('/artist/') && !window.location.href.includes('/artist//')) {
+      window.location.href = window.location.href.replace('/artist/', '/artist//');
+    }
+
+    if (window.location.href.includes('/label/') && !window.location.href.includes('/label//')) {
+      window.location.href = window.location.href.replace('/label/', '/label//');
+    }
   }
 
   document.querySelectorAll('button.mr_toggler').forEach(toggle => {
