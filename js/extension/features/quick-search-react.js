@@ -99,7 +99,7 @@
 
     // Click handler
     document.querySelector('.de-quick-search').addEventListener('click', () => {
-      window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
+      window.open('https://www.google.com/search?udm=14&q=' + encodeURIComponent(query) + additionalText);
     });
   });
 });

@@ -90,7 +90,7 @@
 
   // Handle click events
   releaseTitle.nextElementSibling.addEventListener('click', () => {
-    window.open('https://www.google.com/search?q=' + encodeURIComponent(query) + additionalText);
+    window.open('https://www.google.com/search?udm=14&q=' + encodeURIComponent(query) + additionalText);
   });
 
   rl.attachCss('quick-search', rules);
