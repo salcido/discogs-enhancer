@@ -42,5 +42,6 @@
   });
 
   modifyArtistLabelLinks();
+  rl.handlePaginationClicks(modifyArtistLabelLinks);
   observer.observe(document.querySelector('[class*="_suggestions_"] ul'), { childList: true });
 });
