@@ -861,6 +861,17 @@ appendFragment([resourceLibrary])
         elems.push(notesCountReact);
       }
 
+      if ( prefs.oldArtistLabelPages ) {
+
+        let oldArtistLabelPages = document.createElement('script');
+
+        oldArtistLabelPages.type = 'text/javascript';
+        oldArtistLabelPages.src = chrome.runtime.getURL('js/extension/features/old-artist-label-pages.js');
+        oldArtistLabelPages.className = 'de-init';
+
+        elems.push(oldArtistLabelPages);
+      }
+
       if (prefs.quickSearch) {
 
         // quick-search.js

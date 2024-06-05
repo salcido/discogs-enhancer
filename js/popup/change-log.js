@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Collection Box Location',
-        description: 'Threw together a quick feature that moves the "In Collection" and "In Wantlist" boxes back to their original locations on the Release Page.',
-        link: '#collectionBoxFix',
+        name: 'Old Artist & Label Pages',
+        description: 'What is sure to be a short lived feature, you can now use the old artist and label pages. Enjoy it while it lasts!',
+        link: '#oldArtistLabelPages',
       }],
       removedFeatures: [],
       updates: [
@@ -13,7 +13,7 @@ module.exports = {
           description: 'Release Scanner has been updated to work with the new Artist and Label Pages. Let me know if you find any issues with it.'
         },
       ],
-      thanks: ['Massive thank you to Dan L. for their generous donation!'],
+      thanks: ['Massive thank you to DennisV94 for their generous donation!'],
     },
   ],
   previous: []
