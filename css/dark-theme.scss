@@ -4994,6 +4994,26 @@
       }
     }
 
+    // Recommendation Cards
+    figure[class*="_card"] {
+      border-color: var(--borders) !important;
+      box-shadow: 0 4px 8px -2px var(--box-shadow-light);
+    }
+    figcaption {
+      div[class*="_concatenatedLinks"] span a {
+        color: var(--text-muted) !important;
+      }
+      div[class*="_released"] span {
+        color: var(--text-muted) !important;
+      }
+      div[class*="_format"] {
+        border-top: 1px solid var(--borders) !important;
+      }
+      div[class*="_format"] svg path {
+        fill: var(--text-muted) !important;
+      }
+    }
+
     // Recommendations
     #release-recommendations {
       // Gradient overlays
@@ -5015,24 +5035,6 @@
       }
 
       // Release Recommendations
-      figure[class*="_card"] {
-        border-color: var(--borders) !important;
-        box-shadow: 0 4px 8px -2px var(--box-shadow-light);
-      }
-      figcaption {
-        div[class*="_concatenatedLinks"] span a {
-          color: var(--text-muted) !important;
-        }
-        div[class*="_released"] span {
-          color: var(--text-muted) !important;
-        }
-        div[class*="_format"] {
-          border-top: 1px solid var(--borders) !important;
-        }
-        div[class*="_format"] svg path {
-          fill: var(--text-muted) !important;
-        }
-      }
       div[class*="_paginationButtons"] {
         button[disabled] {
           cursor: default;
@@ -6185,6 +6187,10 @@
   }
 
   /* Collection */
+  label[for*="-condition-"] {
+    color: var(--text-muted) !important;
+  }
+
   [class*="collectionListContainer_"] {
     [class*="searchContainer_"] {
       input::placeholder {
@@ -6399,6 +6405,14 @@
     .Mui-checked svg path,
     .MuiCheckbox-indeterminate svg path {
       color: var(--policy-indeterminate) !important;
+    }
+
+    [class*="_forSaleChip"] {
+      background: var(--alert-accept-bg) !important;
+
+      [class*="MuiChip-label"] {
+        color: var(--black) !important;
+      }
     }
 
     [class*="_expiredChip"] {
