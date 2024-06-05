@@ -50,6 +50,7 @@ let prefs = {
   inventoryRatings: false,
   inventoryScanner: false,
   notesCount: true,
+  oldArtistLabelPages: false,
   quickSearch: false,
   randomItem: false,
   ratingPercent: false,
