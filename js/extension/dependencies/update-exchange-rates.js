@@ -158,7 +158,7 @@ resourceLibrary.ready(() => {
             }
           }
         }
-      })()
+      })();
 
       break;
   }
