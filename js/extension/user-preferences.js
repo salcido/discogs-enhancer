@@ -321,6 +321,14 @@ appendFragment([resourceLibrary])
 
       elems.push(donate);
 
+      let oldArtistLabelPages = document.createElement('script');
+
+      oldArtistLabelPages.type = 'text/javascript';
+      oldArtistLabelPages.src = chrome.runtime.getURL('js/extension/features/old-artist-label-pages.js');
+      oldArtistLabelPages.className = 'de-init';
+
+      elems.push(oldArtistLabelPages);
+
       // - Toggleable CSS files -
       // --------------------------------------------------------
       // These are always appended and enabled/disabled via
@@ -859,17 +867,6 @@ appendFragment([resourceLibrary])
         notesCountReact.className = 'de-init';
 
         elems.push(notesCountReact);
-      }
-
-      if ( prefs.oldArtistLabelPages ) {
-
-        let oldArtistLabelPages = document.createElement('script');
-
-        oldArtistLabelPages.type = 'text/javascript';
-        oldArtistLabelPages.src = chrome.runtime.getURL('js/extension/features/old-artist-label-pages.js');
-        oldArtistLabelPages.className = 'de-init';
-
-        elems.push(oldArtistLabelPages);
       }
 
       if (prefs.quickSearch) {

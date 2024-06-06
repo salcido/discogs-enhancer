@@ -103,7 +103,6 @@ window.addEventListener('load', () => {
       toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
-      toggleOldArtistLabelPages = document.getElementById('toggleOldArtistLabelPages'),
       togglePrices = document.getElementById('togglePrices'),
       toggleQuickSearch = document.getElementById('toggleQuickSearch'),
       toggleRandomItem = document.getElementById('toggleRandomItem'),
@@ -305,7 +304,6 @@ window.addEventListener('load', () => {
   toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
-  toggleOldArtistLabelPages.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.validateAndSave);
   toggleQuickSearch.addEventListener('change', triggerSave);
   toggleRandomItem.addEventListener('change', triggerSave);
@@ -493,7 +491,6 @@ window.addEventListener('load', () => {
       toggleInventoryScanner.checked = prefs.inventoryScanner;
       toggleMinMaxColumns.checked = prefs.hideMinMaxColumns;
       toggleNotesCount.checked = prefs.notesCount;
-      toggleOldArtistLabelPages.checked = prefs.oldArtistLabelPages;
       togglePrices.checked = prefs.suggestedPrices;
       toggleQuickSearch.checked = prefs.quickSearch;
       toggleRandomItem.checked = prefs.randomItem;
