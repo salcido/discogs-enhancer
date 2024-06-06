@@ -34,6 +34,10 @@ resourceLibrary.ready(() => {
                       <label for="unittests">Unit Tests</label>
                     </li>
                     <li>
+                      <input id="oldpages" name="oldpages" type="checkbox" value="oldpages" />
+                      <label for="oldpages">Old Artist And Label Pages</label>
+                    </li>
+                    <li>
                       <label for="threshold" id="thresholdLabel">Threshold:</label>
                       <input id="threshold" name="threshold" type="number" value="" max="10" min="0"/>
                     </li>

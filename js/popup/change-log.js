@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Old Artist & Label Pages',
-        description: 'What is sure to be a short lived feature, you can now use the old artist and label pages. Enjoy it while it lasts!',
-        link: '#oldArtistLabelPages',
+        name: 'Collection Box Location',
+        description: 'Threw together a quick feature that moves the "In Collection" and "In Wantlist" boxes back to their original locations on the Release Page.',
+        link: '#collectionBoxFix',
       }],
       removedFeatures: [],
       updates: [

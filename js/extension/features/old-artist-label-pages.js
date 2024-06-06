@@ -14,6 +14,8 @@
 
  rl.ready(() => {
 
+  let oldpages = resourceLibrary.options.oldpages();
+
   function modifyArtistLabelLinks() {
     document.querySelectorAll('a').forEach(a => {
       if (a.href.includes('/artist/') && !a.href.includes('/artist//')) {
@@ -49,7 +51,9 @@
     }
   });
 
-  modifyArtistLabelLinks();
-  rl.handlePaginationClicks(modifyArtistLabelLinks);
-  observer.observe(document.querySelector('[class*="_suggestions_"] ul'), { childList: true });
+  if (oldpages) {
+    modifyArtistLabelLinks();
+    rl.handlePaginationClicks(modifyArtistLabelLinks);
+    observer.observe(document.querySelector('[class*="_suggestions_"] ul'), { childList: true });
+  }
 });

@@ -585,6 +585,12 @@
         return comments;
       },
 
+      oldpages: function() {
+        let hasOptions = resourceLibrary.getPreference('options'),
+            oldpages = hasOptions ? hasOptions.oldpages : false;
+        return oldpages;
+      },
+
       /**
        * Gets current options state
        * @returns {undefined}
@@ -595,6 +601,7 @@
             { colorize,
               comments,
               debug,
+              oldpages,
               quicksearch,
               threshold,
               unitTests } = options;
@@ -604,6 +611,8 @@
         if (comments) { document.getElementById('comments').checked = true; }
 
         if (debug) { document.getElementById('debug').checked = true; }
+
+        if (oldpages) { document.getElementById('oldpages').checked = true; }
 
         if (quicksearch) { document.getElementById('quicksearch').value = quicksearch; }
 
@@ -622,6 +631,7 @@
             colorize = document.getElementById('colorize').checked,
             comments = document.getElementById('comments').checked,
             debug = document.getElementById('debug').checked,
+            oldpages = document.getElementById('oldpages').checked,
             quicksearch = document.getElementById('quicksearch').value,
             threshold = document.getElementById('threshold').value,
             unitTests = document.getElementById('unittests').checked;
@@ -635,6 +645,7 @@
         options.colorize = colorize;
         options.comments = comments;
         options.debug = debug;
+        options.oldpages = oldpages;
         options.quicksearch = quicksearch;
         options.threshold = threshold;
         options.unitTests = unitTests;
