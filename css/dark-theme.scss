@@ -5101,7 +5101,7 @@
       border: 1px solid var(--borders) !important;
     }
 
-    section header {
+    section:not(#collection-stats) header {
       border-bottom: 1px solid var(--borders) !important;
     }
 
@@ -5773,7 +5773,12 @@
 
   div[class*="paginationContainer_"] {
     button {
-      background: var(--headers) !important;
+      &[class*="currentPage_"] {
+        background: var(--headers) !important;
+      }
+      &:hover:not(:disabled) {
+        background: var(--headers) !important;
+      }
     }
   }
 
@@ -6068,6 +6073,7 @@
     border: 1px solid var(--borders) !important;
     select {
       color: var(--text-bold) !important;
+      background: none;
     }
   }
 
