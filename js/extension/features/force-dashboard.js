@@ -29,19 +29,6 @@
       let dashboardIcons = document.querySelectorAll('nav[class*="_user_"] a[href="/my"]');
 
       dashboardIcons.forEach(icon => { icon.style.display = 'none'; });
-      /**
-       * Currently the new header can crash when the markup is modified.
-       * I haven't figured out what's causing it yet so this is a quick fix
-       * to inject the correct logo path if the crash happens.
-       */
-      setTimeout(() => {
-        let logo = document.querySelector('img[class*="_logo"]'),
-            src = logo.src;
-
-        if (!src.includes('.svg')) {
-          logo.src = 'https://www.discogs.com/service/header/public/assets/assets/logo.83221bf3.svg';
-        }
-      }, 1000);
     });
   } else {
       // React release page
