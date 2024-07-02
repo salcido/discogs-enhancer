@@ -29,7 +29,7 @@ rl.ready(() => {
 
   const mainMessage = 'Your kind donation can help cover the <b>$86.40</b> yearly server costs and support the thousands of hours put into its development. Every little bit counts, and I appreciate your generosity!';
 
-  const disclaimer = 'This message is shown twice a year';
+  const disclaimer = 'This message is shown once a year';
 
   const url = 'https://www.paypal.com/donate/?business=SQ4MHRDMMJQHQ&no_recurring=0&item_name=Thank+you+for+supporting+Discogs+Enhancer!&currency_code=USD';
 

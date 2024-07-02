@@ -4295,6 +4295,10 @@
   }
 
   // Nav Bar
+  [class*="_logo_"] svg {
+    fill: var(--white) !important;
+  }
+
   div[id*="__header_root_"] header {
     background: var(--site-header-bg) !important;
 
@@ -4467,14 +4471,6 @@
       span[class*="fallback_"] {
         border: 1px solid var(--borders) !important;
         background: var(--input-bg) !important;
-      }
-    }
-
-    // header nav line height for hover states
-    header[class*="header_"] {
-      // Discogs Logo in React Header
-      svg g {
-        fill: var(--white) !important;
       }
     }
 
@@ -6003,6 +5999,20 @@
       svg path {
         stroke: var(--text-placeholder) !important;
       }
+    }
+    .rnf-tooltip--light {
+      background: var(--black) !important;
+    }
+    .rnf-notification-cell__content .notification-content i.general::before {
+      filter: invert(1) !important;
+    }
+
+    .rnf-notification-cell__content .notification-content   a.button {
+      color: var(--black) !important;
+    }
+    .rnf-notification-cell__unread-dot {
+      border: 1px solid var(--button-blue-border) !important;
+      background-color: var(--button-blue)  !important;
     }
   }
 
