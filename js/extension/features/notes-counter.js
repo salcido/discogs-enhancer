@@ -114,7 +114,7 @@ rl.ready(() => {
           && focus.classList
           && focus.classList.contains('notes_textarea') ) {
 
-      let notesCount = focus.parentElement.querySelector('.de-notes-count');
+      let notesCount = focus?.parentElement?.querySelector('.de-notes-count');
 
       // update count value
       count = focus.value.length;

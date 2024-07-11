@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Collection Box Location',
-        description: 'Threw together a quick feature that moves the "In Collection" and "In Wantlist" boxes back to their original locations on the Release Page.',
-        link: '#collectionBoxFix',
+        name: 'Quick Search Tracklists',
+        description: 'Allows you to search Google for the artist + trackname by clicking on the track title on a Master Release or Release page. I tested this against my own collection and it seems to work well but please get in touch if you find any issues with it: discogs.enhancer@gmail.com',
+        link: '#quick-search-tracklists',
       }],
       removedFeatures: [],
       updates: [
