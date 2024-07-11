@@ -889,6 +889,18 @@ appendFragment([resourceLibrary])
         elems.push(quickSearchReact);
       }
 
+      if (prefs.quickSearchTracklists) {
+
+        // quick-search.js
+        let quickSearchTracklists = document.createElement('script');
+
+        quickSearchTracklists.type = 'text/javascript';
+        quickSearchTracklists.src = chrome.runtime.getURL('js/extension/features/quick-search-tracklists.js');
+        quickSearchTracklists.className = 'de-init';
+
+        elems.push(quickSearchTracklists);
+      }
+
       if (prefs.inventoryRatings) {
 
         // inventory-ratings.js

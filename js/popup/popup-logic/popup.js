@@ -105,6 +105,7 @@ window.addEventListener('load', () => {
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
       toggleQuickSearch = document.getElementById('toggleQuickSearch'),
+      toggleQuickSearchTracklists = document.getElementById('toggleQuickSearchTracklists'),
       toggleRandomItem = document.getElementById('toggleRandomItem'),
       toggleRatingPercent = document.getElementById('toggleRatingPercent'),
       toggleReadability = document.getElementById('toggleReadability'),
@@ -306,6 +307,7 @@ window.addEventListener('load', () => {
   toggleNotesCount.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.validateAndSave);
   toggleQuickSearch.addEventListener('change', triggerSave);
+  toggleQuickSearchTracklists.addEventListener('change', triggerSave);
   toggleRandomItem.addEventListener('change', triggerSave);
   toggleRatingPercent.addEventListener('change', triggerSave);
   toggleReadability.addEventListener('change', triggerSave);
@@ -493,6 +495,7 @@ window.addEventListener('load', () => {
       toggleNotesCount.checked = prefs.notesCount;
       togglePrices.checked = prefs.suggestedPrices;
       toggleQuickSearch.checked = prefs.quickSearch;
+      toggleQuickSearchTracklists.checked = prefs.quickSearchTracklists;
       toggleRandomItem.checked = prefs.randomItem;
       toggleRatingPercent.checked = prefs.ratingPercent;
       toggleReadability.checked = prefs.readability;

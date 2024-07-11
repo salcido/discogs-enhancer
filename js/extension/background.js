@@ -51,6 +51,7 @@ let prefs = {
   inventoryScanner: false,
   notesCount: true,
   quickSearch: false,
+  quickSearchTracklists: false,
   randomItem: false,
   ratingPercent: false,
   readability: false,

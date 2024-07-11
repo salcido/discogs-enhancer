@@ -69,6 +69,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         inventoryScanner: document.getElementById('toggleInventoryScanner').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         quickSearch: document.getElementById('toggleQuickSearch').checked,
+        quickSearchTracklists: document.getElementById('toggleQuickSearchTracklists').checked,
         randomItem: document.getElementById('toggleRandomItem').checked,
         ratingPercent: document.getElementById('toggleRatingPercent').checked,
         readability: document.getElementById('toggleReadability').checked,
