@@ -6000,6 +6000,9 @@
         stroke: var(--text-placeholder) !important;
       }
     }
+    .rnf-notification-cell:hover {
+      background: var(--main-bg-color) !important;
+    }
     .rnf-tooltip--light {
       background: var(--black) !important;
     }
@@ -6007,9 +6010,26 @@
       filter: invert(1) !important;
     }
 
-    .rnf-notification-cell__content .notification-content   a.button {
-      color: var(--black) !important;
+    .rnf-notification-cell__content .notification-content div p a,
+    .rnf-notification-cell__content .notification-content tr a {
+      color: var(--link) !important;
+
+      &:hover {
+        color: var(--link-hover) !important;
+      }
+
+      &:visited {
+        color: var(--link-visited) !important;
+      }
     }
+
+    .rnf-notification-cell__content .notification-content a.button {
+      color: var(--black) !important;
+      &:visited {
+        color: var(--black) !important;
+      }
+    }
+
     .rnf-notification-cell__unread-dot {
       border: 1px solid var(--button-blue-border) !important;
       background-color: var(--button-blue)  !important;
