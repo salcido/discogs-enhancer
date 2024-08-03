@@ -6372,7 +6372,53 @@
 
   }
 
-  // IMS
+  // Inventory
+  [class*="MuiPaper-root"] {
+    border: 1px solid var(--headers) !important;
+  }
+
+  [class*="MuiChip-filled"] {
+    background: var(--filter-chip) !important;
+  }
+
+  [id*="mui-component-select-"] {
+    background: var(--input-bg) !important;
+  }
+
+  [class*="MuiPickersLayout-root"] {
+    background: var(--main-bg-color) !important;
+
+    [class*="Mui-selected"] {
+      background: var(--filter-chip) !important;
+    }
+
+    [class*="MuiPickersDay-dayWithMargin"]:hover,
+    [class*="MuiPickersYear-yearButton"]:hover {
+      background: var(--borders) !important;
+    }
+
+    [class*="Mui-selected"][class*="MuiPickersDay-dayWithMargin"]:hover {
+      background: var(--filter-chip) !important;
+    }
+
+    [class*="MuiPickersDay-today"] {
+      border: 1px solid var(--borders) !important;
+    }
+  }
+
+  [class*="MuiPickersDay-dayWithMargin"][class*="Mui-disabled"] {
+    color: var(--text-muted) !important;
+    opacity: .6;
+  }
+
+  [class*="_ghost_"]:hover {
+    background: var(--borders) !important;
+  }
+
+  [class*="MuiMultiSectionDigitalClock-root"] {
+    border-left: 1px solid var(--borders) !important;
+  }
+
   [class*="_sellerNavigationContainer"] :is(ul) :is(li) {
     border-bottom: 1px solid var(--borders) !important;
 
@@ -6384,7 +6430,7 @@
     }
   }
 
-  // ims toast notifications
+  // inventory toast notifications
   [class*="_ampedtoast_"] {
     &[class*="_success_"] {
       background: var(--in-collection-bg) !important;
