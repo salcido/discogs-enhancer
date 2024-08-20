@@ -6103,7 +6103,6 @@
     border: 1px solid var(--borders) !important;
     select {
       color: var(--text-bold) !important;
-      background: none;
     }
   }
 
@@ -6223,8 +6222,21 @@
   }
 
   /* Collection */
-  label[for*="-condition-"] {
-    color: var(--text-muted) !important;
+  // new submission
+  [class*="newsubmission_"] {
+    background: var(--new-submission) !important;
+    color: var(--main-bg-color) !important;
+  }
+  // new submission
+  [class*="reviewchanges_"] {
+    background: var(--icon-disabled) !important;
+    color: var(--main-bg-color) !important;
+  }
+
+  // needs changes
+  [class*="needschanges_"] {
+    background: var(--needs-changes) !important;
+    color: var(--main-bg-color) !important;
   }
 
   [class*="collectionListContainer_"] {
@@ -6274,7 +6286,6 @@
       [class*="selectContainer_"] {
         select {
           color: var(--text-bold) !important;
-          background: none !important;
         }
       }
     }
@@ -6431,7 +6442,8 @@
   }
 
   // inventory toast notifications
-  [class*="_ampedtoast_"] {
+
+ _  [class*="_ampedtoast_"] {
     &[class*="_success_"] {
       background: var(--in-collection-bg) !important;
     }
