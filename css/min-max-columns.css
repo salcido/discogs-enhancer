@@ -15,6 +15,9 @@ table.release-table tr th:nth-child(4),
 table.release-table tr th:nth-child(5),
 td[data-header="Min"],
 td[data-header="Med"],
-td[data-header="Max"] {
-  display: none;
+td[data-header="Max"],
+[data-field="minimumvalue"],
+[data-field="medianvalue"],
+[data-field="maximumvalue"] {
+  display: none !important;
 }
