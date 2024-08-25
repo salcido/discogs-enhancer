@@ -6221,7 +6221,7 @@
     }
   }
 
-  /* Collection */
+  /* New Collection */
   // new submission
   [class*="newsubmission_"] {
     background: var(--new-submission) !important;
@@ -6232,12 +6232,23 @@
     background: var(--icon-disabled) !important;
     color: var(--main-bg-color) !important;
   }
-
   // needs changes
   [class*="needschanges_"] {
     background: var(--needs-changes) !important;
     color: var(--main-bg-color) !important;
   }
+
+  button[class*="folderActionBtn_"] {
+    color: var(--link) !important;
+  }
+
+  [class*="itemCondition_"],
+  [class*="collectionStatsSubtitle_"],
+  [class*="collectionValueHeading_"] {
+    color: var(--text-muted) !important;
+  }
+
+
 
   [class*="collectionListContainer_"] {
     [class*="searchContainer_"] {
@@ -6390,6 +6401,11 @@
 
   [class*="MuiChip-filled"] {
     background: var(--filter-chip) !important;
+  }
+
+  div[class*="MuiSelect-select"][class*="Mui-disabled"] {
+      color: var(--button-disabled-text) !important;
+      -webkit-text-fill-color: auto var(--button-disabled-text) !important;
   }
 
   [id*="mui-component-select-"] {
