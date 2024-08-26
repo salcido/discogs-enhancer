@@ -24,21 +24,31 @@ rl.ready(() => {
     page.classList.add('de-label');
   }
 
+  // TODO: Remove selectors that worked on old pages (Release, Lists, Labels, Artist, Collection)
+  // TODO: DRY Refactor
   let { linksInTabs } = rl.getPreference('featureData'),
       // Artist
       artThumbs = '#artist .card .image a',
       artTitles = '#artist .card .title a',
       artLabels = '#artist .card .label a',
       artLists = '.de-artist #list a',
+      artLinks = '.de-artist [class*="textWithCoversRow_"] td a[class*="link_"]',
+      artMRToggles = '.de-artist [class*="versionsTextWithCoversRow_"] td a[class*="link_"]',
       // Collection
       colThumbs = '#collection .collection-image-wrapper a',
       colThumbsLg = '#collection .card_large a',
       colTitle = '#collection .release_list_table .collection-release-title-cell a',
+      // colNew = '[class*="itemContainer_"] a',
       // Labels
       labThumbs = '#label .card .image a',
       labArtist = '#label .card .artist a',
       labTitle = '#label .card .title a',
       labLists = '.de-label #list a',
+      labLinks = '.de-label [class*="textWithCoversRow_"] td a[class*="link_"]',
+      labMRToggles = '.de-label [class*="versionsTextWithCoversRow_"] td a[class*="link_"]',
+      // Lists
+      listsOld = '#listitems .listitem_title.hide_mobile a, #listitems .marketplace_for_sale_count a',
+      listsNew = '[class*="itemContainer_"] a',
       // Marketplace
       mpItems = '.item_description a.item_description_title',
       mpLabels = '.item_description .hide_mobile.label_and_cat a',
@@ -63,11 +73,11 @@ rl.ready(() => {
       enabled = false;
 
   let sections = {
-    artists: [artThumbs, artTitles, artLabels, artLists],
+    artists: [artThumbs, artTitles, artLabels, artLists, artLinks, artMRToggles],
     collection: [colThumbs, colThumbsLg, colTitle],
     dashboard: '.module_blocks a',
-    labels: [labThumbs, labArtist, labTitle, labLists],
-    lists: '#listitems .listitem_title.hide_mobile a, #listitems .marketplace_for_sale_count a',
+    labels: [labThumbs, labArtist, labTitle, labLists, labLinks, labMRToggles],
+    lists: [listsOld, listsNew],
     marketplace: [mpItems, mpReleases, mpLabels, mpSellers, mpThumbs],
     releases: [
       relOtherVers,
@@ -108,8 +118,13 @@ rl.ready(() => {
     }
 
     if (enabled) {
-      // Modify links on page load
-      window.modifyLinks();
+      // Don't modify the header
+      rl.waitForElement('header[class*="_header_"] a').then(() => {
+        document.querySelector('a[class*="_button_"][class*="_home_"]').classList.add('de-ignore');
+        document.querySelectorAll('header[class*="_header_"] a').forEach(a => a.classList.add('de-ignore'));
+        window.modifyLinks();
+      });
+
       rl.handlePaginationClicks(window.modifyLinks);
 
       // Modify links on MR toggle
@@ -120,15 +135,41 @@ rl.ready(() => {
             });
         });
       });
+      // React MR toggles
+      rl.waitForElement('[class*="versionsButton_"]').then(() => {
+        setTimeout(() => {
+          document.querySelectorAll('[class*="versionsButton_"]').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+              rl.waitForElement('[class*="versionsTextWithCoversRow_"] [class*="title_"] a').then(() => {
+                window.modifyLinks();
+              });
+            });
+          });
+        }, 200);
+      });
 
-      if ( rl.pageIs('master', 'release') ) {
+      if ( linksInTabs.releases && rl.pageIs('master', 'release') ) {
         if (reactVersion) {
-          // Guessing that recommendations are one of the last things to render on the page
-          // Maybe there is a better way to tell when all requests have finished?
+
+          rl.waitForElement('#release-actions').then(() => {
+            document.querySelectorAll('#release-actions a').forEach(a => a.classList.add('de-ignore'));
+          });
+
+          rl.waitForElement('#release-videos a').then(() => {
+            document.querySelectorAll('#release-videos a').forEach(a => a.classList.add('de-ignore'));
+          });
+
           rl.waitForElement('#release-recommendations ul li a').then(() => {
             window.modifyLinks();
           });
         }
+        // document.body.addEventListener('mouseover', (event) => {
+        //   if ( event.target.tagName === 'A'
+        //        && !event.target.className.startsWith('de-')
+        //        && ![...event.target.classList].includes('de-ignore') ) {
+        //     event.target.setAttribute('target', '_blank');
+        //   }
+        // });
       }
 
       // Dashboard modules load async so wait for calls to finish
@@ -141,6 +182,62 @@ rl.ready(() => {
           }, 200);
         });
       }
+      // New label page loads async so wait for calls to finish
+      if ( linksInTabs.labels && rl.pageIs('label') ) {
+
+        document.body.addEventListener('mouseover', (event) => {
+          if ( event.target.tagName === 'A'
+               && ![...event.target.classList].includes('de-ignore')
+               // NOTE: event.target.role == 'option' refers to search result links in the nav
+               && !event.target.role == 'option') {
+            event.target.setAttribute('target', '_blank');
+          }
+        });
+      }
+      // New artist page loads async so wait for calls to finish
+      if ( linksInTabs.artists && rl.pageIs('artist') ) {
+        document.body.addEventListener('mouseover', (event) => {
+          if ( event.target.tagName === 'A'
+               && ![...event.target.classList].includes('de-ignore')
+               && !event.target.role == 'option') {
+            event.target.setAttribute('target', '_blank');
+          }
+        });
+      }
+      // New lists page loads async so wait for calls to finish
+      if ( linksInTabs.lists && rl.pageIs('lists') ) {
+        document.body.addEventListener('mouseover', (event) => {
+          if ( event.target.tagName === 'A'
+               && ![...event.target.classList].includes('de-ignore')
+               && !event.target.role == 'option') {
+            event.target.setAttribute('target', '_blank');
+          }
+        });
+      }
+      // New collection page loads async so wait for calls to finish
+      if ( linksInTabs.collection && rl.pageIs('collection') ) {
+        // Don't modify nav links at top of page
+        // Old Collection
+        document.querySelectorAll('#page_content [class*="tabs-wrap"] a').forEach(link => link.classList.add('de-ignore'));
+        // New Collection
+        rl.waitForElement('[class*="horizontalLinks_"]').then(() => {
+          document.querySelectorAll('[class*="horizontalLinks_"] a').forEach(link => link.classList.add('de-ignore'));
+        });
+        // Don't modify random item
+        rl.waitForElement('[class*="randomItem_"]').then(() => {
+          document.querySelector('[class*="randomItem_"]').classList.add('de-ignore');
+        });
+
+        document.body.addEventListener('mouseover', (event) => {
+          if ( event.target.tagName === 'A'
+               && !event.target.className.startsWith('de-')
+               && ![...event.target.classList].includes('de-ignore')
+               && !event.target.role == 'option') {
+            event.target.setAttribute('target', '_blank');
+          }
+        });
+      }
+
     }
   }
 });

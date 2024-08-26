@@ -81,6 +81,14 @@
         margin-right: 0.5rem !important;
       }
     }
+
+    // Show credits toggle font-size
+    button[class*="toggle_"] {
+      svg,
+      span[class*="MuiTypography-labelSmall"] {
+        font-size: 12px;
+      }
+    }
   }
 
   // image zoom buttons

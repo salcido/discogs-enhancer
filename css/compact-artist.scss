@@ -133,7 +133,7 @@ table[class*="releases_"] {
 table[class*="releases_"],
 table[class*="labelReleasesTable_"] {
   tr[class*="textWithCoversRow_"] {
-    grid-template-columns: 72px 2fr 1fr 1fr .7fr .3fr .5fr .5fr;
+    grid-template-columns: 72px 2fr 1fr 1fr .7fr .3fr .5fr .5fr !important;
     td {
       padding: .25em !important;
     }
@@ -152,7 +152,7 @@ table[class*="labelReleasesTable_"] {
 table[class*="releases_"],
 div[class*="releasesGrid_"] {
   tr[class*="textWithCoversRow_"] {
-    grid-template-columns: 70px 2fr 1fr 1fr .7fr .3fr .5fr .5fr !important;
+    grid-template-columns: 70px 2fr 1fr 0fr .25fr 0fr 0fr .2fr !important;
 
     button[class*="versionsButton_"] {
       margin-top: 4px !important;

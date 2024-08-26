@@ -105,7 +105,7 @@
 
         // title of show/hide dividers link
         let text = show ? 'Hide' : 'Show',
-            styles = 'style="font-size: 12px; width: 115px; text-align: right; margin-top: .2rem; cursor: pointer; border: none; background: none;"',
+            styles = 'style="font-size: 12px; width: 115px; text-align: right; cursor: pointer; border: none; background: none;"',
             trigger = `<button class="de-spacer-trigger" ${styles}>${text} Dividers</button>`;
 
         document.querySelector('#release-tracklist header[class*="header_"]').insertAdjacentHTML('beforeend',trigger);
