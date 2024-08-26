@@ -25,6 +25,7 @@ rl.ready(() => {
   }
 
   // TODO: Remove selectors that worked on old pages (Release, Lists, Labels, Artist, Collection)
+  // TODO: DRY Refactor
   let { linksInTabs } = rl.getPreference('featureData'),
       // Artist
       artThumbs = '#artist .card .image a',
@@ -183,8 +184,12 @@ rl.ready(() => {
       }
       // New label page loads async so wait for calls to finish
       if ( linksInTabs.labels && rl.pageIs('label') ) {
+
         document.body.addEventListener('mouseover', (event) => {
-          if (event.target.tagName === 'A' && ![...event.target.classList].includes('de-ignore') ) {
+          if ( event.target.tagName === 'A'
+               && ![...event.target.classList].includes('de-ignore')
+               // NOTE: event.target.role == 'option' refers to search result links in the nav
+               && !event.target.role == 'option') {
             event.target.setAttribute('target', '_blank');
           }
         });
@@ -192,7 +197,9 @@ rl.ready(() => {
       // New artist page loads async so wait for calls to finish
       if ( linksInTabs.artists && rl.pageIs('artist') ) {
         document.body.addEventListener('mouseover', (event) => {
-          if (event.target.tagName === 'A' && ![...event.target.classList].includes('de-ignore') ) {
+          if ( event.target.tagName === 'A'
+               && ![...event.target.classList].includes('de-ignore')
+               && !event.target.role == 'option') {
             event.target.setAttribute('target', '_blank');
           }
         });
@@ -200,7 +207,9 @@ rl.ready(() => {
       // New lists page loads async so wait for calls to finish
       if ( linksInTabs.lists && rl.pageIs('lists') ) {
         document.body.addEventListener('mouseover', (event) => {
-          if (event.target.tagName === 'A' && ![...event.target.classList].includes('de-ignore')) {
+          if ( event.target.tagName === 'A'
+               && ![...event.target.classList].includes('de-ignore')
+               && !event.target.role == 'option') {
             event.target.setAttribute('target', '_blank');
           }
         });
@@ -222,7 +231,8 @@ rl.ready(() => {
         document.body.addEventListener('mouseover', (event) => {
           if ( event.target.tagName === 'A'
                && !event.target.className.startsWith('de-')
-               && ![...event.target.classList].includes('de-ignore') ) {
+               && ![...event.target.classList].includes('de-ignore')
+               && !event.target.role == 'option') {
             event.target.setAttribute('target', '_blank');
           }
         });
