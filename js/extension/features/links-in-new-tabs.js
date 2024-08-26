@@ -147,26 +147,28 @@ rl.ready(() => {
         }, 200);
       });
 
-      if ( rl.pageIs('master', 'release') ) {
+      if ( linksInTabs.releases && rl.pageIs('master', 'release') ) {
         if (reactVersion) {
+
           rl.waitForElement('#release-actions').then(() => {
             document.querySelectorAll('#release-actions a').forEach(a => a.classList.add('de-ignore'));
           });
 
-          // Guessing that recommendations are one of the last things to render on the page
-          // Maybe there is a better way to tell when all requests have finished?
+          rl.waitForElement('#release-videos a').then(() => {
+            document.querySelectorAll('#release-videos a').forEach(a => a.classList.add('de-ignore'));
+          });
+
           rl.waitForElement('#release-recommendations ul li a').then(() => {
             window.modifyLinks();
           });
         }
-
-        document.body.addEventListener('mouseover', (event) => {
-          if ( event.target.tagName === 'A'
-               && !event.target.className.startsWith('de-')
-               && ![...event.target.classList].includes('de-ignore') ) {
-            event.target.setAttribute('target', '_blank');
-          }
-        });
+        // document.body.addEventListener('mouseover', (event) => {
+        //   if ( event.target.tagName === 'A'
+        //        && !event.target.className.startsWith('de-')
+        //        && ![...event.target.classList].includes('de-ignore') ) {
+        //     event.target.setAttribute('target', '_blank');
+        //   }
+        // });
       }
 
       // Dashboard modules load async so wait for calls to finish
