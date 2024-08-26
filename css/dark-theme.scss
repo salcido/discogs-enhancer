@@ -6405,7 +6405,7 @@
 
   div[class*="MuiSelect-select"][class*="Mui-disabled"] {
       color: var(--button-disabled-text) !important;
-      -webkit-text-fill-color: auto var(--button-disabled-text) !important;
+      -webkit-text-fill-color: auto !important;
   }
 
   [id*="mui-component-select-"] {
@@ -6459,7 +6459,7 @@
 
   // inventory toast notifications
 
- _  [class*="_ampedtoast_"] {
+  [class*="_ampedtoast_"] {
     &[class*="_success_"] {
       background: var(--in-collection-bg) !important;
     }
