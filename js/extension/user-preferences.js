@@ -539,6 +539,7 @@ appendFragment([resourceLibrary])
       }
 
       if (prefs.converter
+        && !window.location.href.includes('wantlister')
         && !window.location.href.includes('/order/prints?')) {
 
         // currency-converter.css

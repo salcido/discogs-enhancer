@@ -392,5 +392,9 @@ chrome.contextMenus.onClicked.addListener((event) => {
     encodeStr = str.replace(/ /g, '+');
   }
 
+  if ( path.includes('juno') ) {
+    encodeStr = str.replace('–', '');
+  }
+
   chrome.tabs.create({ url: path + encodeStr + suffix });
 });
