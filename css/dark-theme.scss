@@ -6000,6 +6000,15 @@
         stroke: var(--text-placeholder) !important;
       }
     }
+
+    .payload-name {
+      color: var(--black) !important;
+    }
+
+    .notification-content .feed-items-wrapper {
+      background: var(--white) !important;
+    }
+
     .rnf-notification-cell:hover {
       background: var(--main-bg-color) !important;
     }
@@ -6011,6 +6020,7 @@
     }
 
     .rnf-notification-cell__content .notification-content div p a,
+    .rnf-notification-cell__content .notification-content ul li a,
     .rnf-notification-cell__content .notification-content tr a {
       color: var(--link) !important;
 
