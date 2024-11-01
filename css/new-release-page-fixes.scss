@@ -54,9 +54,6 @@
   [class*="ratings_"] {
     gap: 0 !important;
   }
-  div[class*="ratings_"] svg {
-    margin: 0 2px 0 0 !important;
-  }
 
   div[class*="ratings_"] {
     button[class*="remove_"] {
@@ -202,4 +199,18 @@ div[class*="_arrows_"] a {
 .release_stats_group {
   width: auto;
   min-width: 25%;
+}
+// Align Add To cart / make offer / details links in Marketplace
+.item_add_to_cart_desktop .hide_mobile {
+  margin: 0 auto;
+  text-align: center;
+}
+// Fix visited state coloring on wantlister link
+a.wantlister span,
+a.wantlister:visited span {
+  color: black !important;
+  text-shadow: none;
+}
+a.wantlister i {
+  display: none;
 }
