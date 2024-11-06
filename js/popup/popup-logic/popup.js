@@ -81,13 +81,11 @@ window.addEventListener('load', () => {
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCompactArtist = document.getElementById('toggleCompactArtist'),
       toggleCollectionBoxFix = document.getElementById('toggleCollectionBoxFix'),
-      toggleCollectionUi = document.getElementById('toggleCollectionUi'),
       toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleDemandIndex = document.getElementById('toggleDemandIndex'),
       toggleEditingNotepad = document.getElementById( 'toggleEditingNotepad' ),
-      toggleEverlastingCollection = document.getElementById('toggleEverlastingCollection'),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
       toggleFeedback = document.getElementById('toggleFeedback'),
@@ -283,13 +281,11 @@ window.addEventListener('load', () => {
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCompactArtist.addEventListener('change', compactArtist.toggleCompactArtist);
   toggleCollectionBoxFix.addEventListener('change', triggerSave);
-  toggleCollectionUi.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleDemandIndex.addEventListener('change', triggerSave);
   toggleEditingNotepad.addEventListener('change', triggerSave);
-  toggleEverlastingCollection.addEventListener('change', triggerSave);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFavoriteSellers.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
@@ -470,14 +466,12 @@ window.addEventListener('load', () => {
       toggleBlockBuyers.checked = prefs.blockBuyers;
       toggleBlockSellers.checked = prefs.blockSellers;
       toggleCollectionBoxFix.checked = prefs.collectionBoxFix;
-      toggleCollectionUi.checked = prefs.collectionUi;
       toggleCompactArtist.checked = prefs.compactArtist;
       toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;
       toggleConverter.checked = prefs.converter;
       toggleDarkTheme.checked = prefs.darkTheme;
       toggleDemandIndex.checked = prefs.demandIndex;
       toggleEditingNotepad.checked = prefs.editingNotepad;
-      toggleEverlastingCollection.checked = prefs.everlastingCollection;
       toggleEverlastingMarket.checked = prefs.everlastingMarket;
       toggleFavoriteSellers.checked = prefs.favoriteSellers;
       toggleFeedback.checked = prefs.feedback;

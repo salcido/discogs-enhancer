@@ -6258,7 +6258,35 @@
     color: var(--text-muted) !important;
   }
 
+  figure[class*="card_"] {
+    border-color: var(--borders) !important;
+    box-shadow: 0 4px 8px -2px var(--box-shadow-light);
+  }
+  figcaption {
+    div[class*="_concatenatedLinks"] span a {
+      color: var(--text-muted) !important;
+    }
+    div[class*="_released"] span {
+      color: var(--text-muted) !important;
+    }
+    div[class*="_format"] {
+      border-top: 1px solid var(--borders) !important;
+    }
+    div[class*="_format"] svg path {
+      fill: var(--text-muted) !important;
+    }
+  }
 
+  div[class*="searchBarContainer_"] {
+    border: none !important;
+    background: none !important;
+  }
+
+  [class*="searchInputContainer_"] {
+    [class*="_button"] {
+      background: var(--filter-chip) !important;
+    }
+  }
 
   [class*="collectionListContainer_"] {
     [class*="searchContainer_"] {

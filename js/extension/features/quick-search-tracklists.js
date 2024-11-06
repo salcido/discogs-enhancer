@@ -34,7 +34,7 @@
       if ( event?.target?.classList.length
            && event?.target?.classList[0]?.includes('trackTitle_')) {
 
-             let artist = event.target.parentElement.previousElementSibling,
+             let artist = event.target.parentElement.parentElement.previousElementSibling,
                  artistText = artist?.textContent?.replace('–', '').replaceAll('*', ''),
                  trackTitle = event.target.textContent;
         // Only fire if track title span is clicked on
@@ -74,7 +74,7 @@
            && event?.target?.classList[0]?.includes('trackTitle_')
            && event.target.tagName === 'SPAN') {
              // Get artist name from document title to avoid including descriminators
-             let artist = document.title.split(' –')[0],
+             let artist = document.title.split(' – ')[0],
                  searchString = encodeURIComponent(`${artist} - ${event.target.textContent}`);
 
              window.open('https://www.google.com/search?udm=14&q=' + searchString);
@@ -83,7 +83,7 @@
       if ( event?.target.tagName === 'SPAN'
            && event?.target?.parentElement?.classList[0]?.includes('trackTitleNoArtist_')) {
              // Get artist name from document title to avoid including descriminators
-             let artist = document.title.split(' -')[0],
+             let artist = document.title.split(' – ')[0],
                  searchString = encodeURIComponent(`${artist} - ${event.target.textContent}`);
 
              window.open('https://www.google.com/search?udm=14&q=' + searchString);

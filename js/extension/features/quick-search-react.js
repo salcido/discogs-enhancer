@@ -36,7 +36,7 @@
     // Match patterns:
     // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) - Discogs
     // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) For Sale | Discogs
-    re = /(?:.(?!\(.+\).+\- Discogs))+$/g;
+    re = /– [^–]*$/g;
     shouldRun = true;
   }
 

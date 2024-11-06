@@ -526,18 +526,6 @@ appendFragment([resourceLibrary])
         elems.push(collectionBoxFix);
       }
 
-      if (prefs.collectionUi) {
-
-        // better-collection-ui.js
-        let collectionUi = document.createElement('script');
-
-        collectionUi.type = 'text/javascript';
-        collectionUi.src = chrome.runtime.getURL('js/extension/features/better-collection-ui.js');
-        collectionUi.className = 'de-init';
-
-        elems.push(collectionUi);
-      }
-
       if (prefs.converter
         && !window.location.href.includes('wantlister')
         && !window.location.href.includes('/order/prints?')) {
@@ -645,37 +633,6 @@ appendFragment([resourceLibrary])
         editingNotepad.className = 'de-init';
 
         elems.push(editingNotepad);
-      }
-
-      // everlasting collection
-      if (prefs.everlastingCollection) {
-
-        // everlasting-collection-notes.js
-        let everlastingCollectionNotes = document.createElement('script');
-
-        everlastingCollectionNotes.type = 'text/javascript';
-        everlastingCollectionNotes.src = chrome.runtime.getURL('js/extension/features/everlasting-collection-notes.js');
-        everlastingCollectionNotes.className = 'de-init';
-
-        elems.push(everlastingCollectionNotes);
-
-        // everlasting-collection-ratings.js
-        let everlastingCollectionRatings = document.createElement('script');
-
-        everlastingCollectionRatings.type = 'text/javascript';
-        everlastingCollectionRatings.src = chrome.runtime.getURL('js/extension/features/everlasting-collection-ratings.js');
-        everlastingCollectionRatings.className = 'de-init';
-
-        elems.push(everlastingCollectionRatings);
-
-        // everlasting-collection-sm-med.js
-        let everlastingCollection = document.createElement('script');
-
-        everlastingCollection.type = 'text/javascript';
-        everlastingCollection.src = chrome.runtime.getURL('js/extension/features/everlasting-collection-sm-med.js');
-        everlastingCollection.className = 'de-init';
-
-        elems.push(everlastingCollection);
       }
 
       // everlasting marketplace

@@ -43,7 +43,6 @@ Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can blo
 * Scan Artist/Label releases for comments
 * Scan your seller inventory for items priced below the median Marketplace value
 * Tweak Artist/Label Discriminators
-* Everlasting Collection
 * Everlasting Marketplace
 * Buyer/Seller feedback notifications
 * Seller inventory ratings
@@ -128,9 +127,7 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
   <p>
 
   #### AUTHENTICATED
-  - [ ] Better Collection UI
   - [ ] Block Buyers _(Requires user w/ sales history)_
-  - [ ] Everlasting Collection
   - [ ] Feedback Notifications _(Requires user w/ Buyer/Seller feedback)_
   - [x] Hide Min/Med/Max columns
   - [x] Larger BAOI Fields
