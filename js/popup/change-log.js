@@ -1,19 +1,22 @@
 module.exports = {
   current: [
     {
-      features: [{
-        name: 'Quick Search Tracklists',
-        description: 'Allows you to search Google for the artist + trackname by clicking on the track title on a Master Release or Release page. I tested this against my own collection and it seems to work well but please get in touch if you find any issues with it: discogs.enhancer@gmail.com',
-        link: '#quick-search-tracklists',
+      features: [],
+      removedFeatures: [{
+        name: 'Everlasting Collection',
+        description: 'Everlasting Collection has been removed since it\'s incompatible with the new Collection page.',
+      },
+      {
+        name: 'Improved Collection UI',
+        description: 'Improved Collection UI has been removed since it\'s incompatible with the new Collection page.',
       }],
-      removedFeatures: [],
       updates: [
         {
           name: 'Bug Fix',
-          description: 'Release Scanner has been updated to work with the new Artist and Label Pages. Let me know if you find any issues with it.'
+          description: 'Quick Search has been updated to work with the new changes Discogs rolled out this week.'
         },
       ],
-      thanks: ['Huge thank you to Joe B, Rob P. and Semen I. for their donations!'],
+      thanks: ['Huge thank you to Joe B, Rob P. Bart, and Semen I. for their donations!'],
     },
   ],
   previous: []
