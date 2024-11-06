@@ -23,7 +23,6 @@ let prefs = {
   blockSellers: true,
   confirmBeforeRemoving: false,
   collectionBoxFix: false,
-  collectionUi: false,
   compactArtist: false,
   converter: true,
   darkTheme: false,
@@ -31,7 +30,6 @@ let prefs = {
   darkThemeSystemPref: false,
   demandIndex: false,
   editingNotepad: false,
-  everlastingCollection: false,
   everlastingMarket: true,
   favoriteSellers: true,
   feedback: true,
@@ -293,7 +291,7 @@ chrome.contextMenus.onClicked.addListener((event) => {
       break;
 
     case 'clone':
-      path = 'https://clone.nl/search/?instock=1&query=';
+      path = 'https://clone.nl/all/search?query=';
       break;
 
     case 'decks':
@@ -321,7 +319,7 @@ chrome.contextMenus.onClicked.addListener((event) => {
       break;
 
     case 'hardwax':
-      path = 'https://hardwax.com/?search=';
+      path = 'https://hardwax.com/?find=';
       break;
 
     case 'juno':
@@ -355,8 +353,7 @@ chrome.contextMenus.onClicked.addListener((event) => {
       break;
 
     case 'rubadub':
-      path = 'https://rubadub.co.uk/search?type=product&options%5Bunavailable_products%5D=last&options%5Bprefix%5D=none&q=';
-      suffix = '*';
+      path = 'https://rubadub.co.uk/search?q=';
       break;
 
     case 'rushhour':
@@ -364,7 +361,8 @@ chrome.contextMenus.onClicked.addListener((event) => {
       break;
 
     case 'sotu':
-      path = 'https://soundsoftheuniverse.com/search/?q=';
+      path = 'https://soundsoftheuniverse.com/search/';
+      suffix = '/';
       break;
 
     case 'soundcloud':
@@ -392,9 +390,14 @@ chrome.contextMenus.onClicked.addListener((event) => {
     encodeStr = str.replace(/ /g, '+');
   }
 
+  if ( path.includes('sotu') ) {
+    encodeStr = str.replace(/ /g, '+');
+  }
+
   if ( path.includes('juno') ) {
     encodeStr = str.replace('–', '');
   }
+
 
   chrome.tabs.create({ url: path + encodeStr + suffix });
 });
