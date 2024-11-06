@@ -35,9 +35,7 @@ rl.ready(() => {
       artLinks = '.de-artist [class*="textWithCoversRow_"] td a[class*="link_"]',
       artMRToggles = '.de-artist [class*="versionsTextWithCoversRow_"] td a[class*="link_"]',
       // Collection
-      colThumbs = '#collection .collection-image-wrapper a',
-      colThumbsLg = '#collection .card_large a',
-      colTitle = '#collection .release_list_table .collection-release-title-cell a',
+      colTitles = '[class*="collectionContainer_"] [class*="itemContainer_"] a',
       // colNew = '[class*="itemContainer_"] a',
       // Labels
       labThumbs = '#label .card .image a',
@@ -74,7 +72,7 @@ rl.ready(() => {
 
   let sections = {
     artists: [artThumbs, artTitles, artLabels, artLists, artLinks, artMRToggles],
-    collection: [colThumbs, colThumbsLg, colTitle],
+    collection: [colTitles],
     dashboard: '.module_blocks a',
     labels: [labThumbs, labArtist, labTitle, labLists, labLinks, labMRToggles],
     lists: [listsOld, listsNew],
@@ -97,7 +95,8 @@ rl.ready(() => {
    */
    window.modifyLinks = function modifyLinks() {
     if (selectors.length) {
-      document.querySelectorAll(selectors.join(',')).forEach(a => {
+      let selectorString = selectors.join(',');
+      document.querySelectorAll(selectorString).forEach(a => {
         a.setAttribute('target', '_blank');
       });
     }
@@ -217,8 +216,6 @@ rl.ready(() => {
       // New collection page loads async so wait for calls to finish
       if ( linksInTabs.collection && rl.pageIs('collection') ) {
         // Don't modify nav links at top of page
-        // Old Collection
-        document.querySelectorAll('#page_content [class*="tabs-wrap"] a').forEach(link => link.classList.add('de-ignore'));
         // New Collection
         rl.waitForElement('[class*="horizontalLinks_"]').then(() => {
           document.querySelectorAll('[class*="horizontalLinks_"] a').forEach(link => link.classList.add('de-ignore'));
@@ -231,8 +228,8 @@ rl.ready(() => {
         document.body.addEventListener('mouseover', (event) => {
           if ( event.target.tagName === 'A'
                && !event.target.className.startsWith('de-')
-               && ![...event.target.classList].includes('de-ignore')
-               && !event.target.role == 'option') {
+               && ![...event.target.classList].includes('de-ignore') ) {
+
             event.target.setAttribute('target', '_blank');
           }
         });
