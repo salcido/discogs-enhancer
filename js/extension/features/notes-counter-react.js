@@ -122,12 +122,14 @@
             && focus.classList
             && focus.classList.contains('notes_textarea') ) {
 
-        let notesCount = focus?.parentElement?.querySelector('.de-notes-count');
+        let notesCount = focus?.parentElement?.querySelector('.de-notes-count') || null;
 
         // update count value
         count = focus.value.length;
 
-        notesCount.textContent = `${count} / 255`;
+        if (notesCount) {
+          notesCount.textContent = `${count} / 255`;
+        }
 
         // warn when count total approaches limit
         return count > 240
