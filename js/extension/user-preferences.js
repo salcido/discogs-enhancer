@@ -495,6 +495,17 @@ appendFragment([resourceLibrary])
         elems.push(blockSellers_css);
       }
 
+      if (prefs.compactCollection) {
+
+        let compactCollection = document.createElement('script');
+
+        compactCollection.type = 'text/javascript';
+        compactCollection.src = chrome.runtime.getURL('js/extension/features/compact-collection-header.js');
+        compactCollection.className = 'de-init';
+
+        elems.push(compactCollection);
+      }
+
       if (prefs.confirmBeforeRemoving) {
 
         let confirmBeforeRemoving = document.createElement('script');

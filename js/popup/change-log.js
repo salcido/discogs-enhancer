@@ -1,7 +1,11 @@
 module.exports = {
   current: [
     {
-      features: [],
+      features: [{
+        name: 'Compact Collection Header',
+        description: 'Reduces the white space, font sizes, and rearranges UI elements on the Collection header in order to mimic the old Collection page.',
+        link: '#compactCollection'
+      }],
       removedFeatures: [{
         name: 'Everlasting Collection',
         description: 'Everlasting Collection has been removed since it\'s incompatible with the new Collection page.',
