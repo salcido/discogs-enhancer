@@ -65,7 +65,6 @@ export function applySave(message, event, currencyTarget = 'currency') {
         hideMinMaxColumns: document.getElementById('toggleMinMaxColumns').checked,
         highlightMedia: document.getElementById('toggleHighlights').checked,
         inventoryRatings: document.getElementById('toggleInventoryRatings').checked,
-        inventoryScanner: document.getElementById('toggleInventoryScanner').checked,
         notesCount: document.getElementById('toggleNotesCount').checked,
         quickSearch: document.getElementById('toggleQuickSearch').checked,
         quickSearchTracklists: document.getElementById('toggleQuickSearchTracklists').checked,

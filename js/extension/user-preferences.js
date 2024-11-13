@@ -39,7 +39,6 @@ let defaults = {
   },
   favoriteList: { list: [] },
   filterPrices: { minimum: null, maximum: null },
-  inventoryScanner: { threshold: null },
   linksInTabs: {
     artists: false,
     collection: false,
@@ -94,7 +93,6 @@ function migratePreferences() {
           discriminators = up.discriminators || defaults.discriminators,
           favoriteList = up.favoriteList || defaults.favoriteList,
           filterPrices = up.filterPrices || defaults.filterPrices,
-          inventoryScanner = up.inventoryScanner || defaults.inventoryScanner,
           linksInTabs = up.linksInTabs || defaults.linksInTabs,
           mediaCondition = up.mediaCondition || defaults.mediaCondition,
           minimumRating = up.inventoryRatings || defaults.minimumRating,
@@ -111,7 +109,6 @@ function migratePreferences() {
             discriminators,
             favoriteList,
             filterPrices,
-            inventoryScanner,
             linksInTabs,
             mediaCondition,
             minimumRating,
@@ -882,18 +879,6 @@ appendFragment([resourceLibrary])
         elems.push(inventoryRatings);
       }
 
-      if (prefs.inventoryScanner) {
-
-        // inventory-scanner.js
-        let inventoryScanner = document.createElement('script');
-
-        inventoryScanner.type = 'text/javascript';
-        inventoryScanner.src = chrome.runtime.getURL('js/extension/features/inventory-scanner.js');
-        inventoryScanner.className = 'de-init';
-
-        elems.push(inventoryScanner);
-      }
-
       if (prefs.randomItem) {
 
         // random-item.js
@@ -1243,7 +1228,6 @@ appendFragment([resourceLibrary])
             delete oldPrefs.discriminators;
             delete oldPrefs.favoriteList;
             delete oldPrefs.filterPrices;
-            delete oldPrefs.inventoryScanner;
             delete oldPrefs.linksInTabs;
             delete oldPrefs.mediaCondition;
             delete oldPrefs.minimumRating;

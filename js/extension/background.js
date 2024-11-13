@@ -47,7 +47,6 @@ let prefs = {
   hideMinMaxColumns: false,
   highlightMedia: true,
   inventoryRatings: false,
-  inventoryScanner: false,
   notesCount: true,
   quickSearch: false,
   quickSearchTracklists: false,
@@ -113,7 +112,6 @@ let featureDefaults = {
         },
       favoriteList: { list: [] },
       filterPrices: { minimum: 0, maximum: 100 },
-      inventoryScanner: { threshold: 20 },
       linksInTabs: {
           artists: false,
           collection: false,

@@ -22,7 +22,6 @@ import * as filterPrices from './features/filter-prices.js';
 import * as filterSleeveCondition from './features/filter-sleeve-condition.js';
 import * as filterShippingCountry from './features/filter-shipping-country.js';
 import * as inventoryRatings from './features/inventory-ratings.js';
-import * as inventoryScanner from './features/inventory-scanner.js';
 import * as mediaHighlights from './features/media-condition-highlights.js';
 import * as minMaxColumns from './features/min-max-columns.js';
 import * as sellerRep from './features/seller-rep.js';
@@ -99,7 +98,6 @@ window.addEventListener('load', () => {
       toggleFullWidth = document.getElementById('toggleFullWidth'),
       toggleHighlights = document.getElementById('toggleHighlights'),
       toggleInventoryRatings = document.getElementById('toggleInventoryRatings'),
-      toggleInventoryScanner = document.getElementById('toggleInventoryScanner'),
       toggleMinMaxColumns = document.getElementById('toggleMinMaxColumns'),
       toggleNotesCount = document.getElementById('toggleNotesCount'),
       togglePrices = document.getElementById('togglePrices'),
@@ -242,10 +240,6 @@ window.addEventListener('load', () => {
   // ========================================================
   inventoryRatings.init();
 
-  // Inventory Ratings Options
-  // ========================================================
-  inventoryScanner.init();
-
   // Search Functionality
   // ========================================================
   searchbox.addEventListener('keydown', searchFeatures);
@@ -300,7 +294,6 @@ window.addEventListener('load', () => {
   toggleFullWidth.addEventListener('change', triggerSave);
   toggleHighlights.addEventListener('change', mediaHighlights.toggleMediaHighlights);
   toggleInventoryRatings.addEventListener('change', inventoryRatings.saveInventoryRatings);
-  toggleInventoryScanner.addEventListener('change', inventoryScanner.saveInventoryThreshold);
   toggleMinMaxColumns.addEventListener('change', minMaxColumns.toggleColumns);
   toggleNotesCount.addEventListener('change', triggerSave);
   togglePrices.addEventListener('change', suggestedPrices.validateAndSave);
@@ -487,7 +480,6 @@ window.addEventListener('load', () => {
       toggleFullWidth.checked = prefs.fullWidthPages;
       toggleHighlights.checked = prefs.highlightMedia;
       toggleInventoryRatings.checked = prefs.inventoryRatings;
-      toggleInventoryScanner.checked = prefs.inventoryScanner;
       toggleMinMaxColumns.checked = prefs.hideMinMaxColumns;
       toggleNotesCount.checked = prefs.notesCount;
       togglePrices.checked = prefs.suggestedPrices;
@@ -548,7 +540,6 @@ window.addEventListener('load', () => {
     sellerRep.setSellerRep();
     absoluteDate.setAbsoluteDateStatus();
     inventoryRatings.setInventoryRatings();
-    inventoryScanner.setInventoryThreshold();
 
     setTimeout(() => {
       filterMediaCondition.setupFilterByCondition(toggleFilterMediaCondition.checked);
