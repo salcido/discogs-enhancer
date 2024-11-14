@@ -6,7 +6,7 @@
 <p align="center">
   <img src="https://github.com/salcido/discogs-enhancer/actions/workflows/main.yml/badge.svg">
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
-    <img src="https://img.shields.io/badge/Users-9.3k-brightgreen" alt="Chrome Web Store">
+    <img src="https://img.shields.io/badge/Users-10k-brightgreen" alt="Chrome Web Store">
   </a>
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/Rating-4.85%2F5-blue" alt="Chrome Web Store">
@@ -179,7 +179,7 @@ In order to add a togglable feature to the extension you'll need to update the f
 
 ### 2️⃣ user-preferences.js
 
-- Add a conditional check for the new `prefs` property under the `User Preferences` comment block. This should check the preference and create a DOM element that contains the necessary script files for the new feature.
+- Add a conditional check for the new `prefs` property under the `Preference-dependent scripts` comment block. This should check the preference and create a DOM element that contains the necessary script files for the new feature.
 
 > Example:
 

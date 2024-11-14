@@ -6368,16 +6368,16 @@
 
     button[class*="_secondary"] {
       border: 1px solid var(--borders) !important;
-      background: var(--input-bg) !important;
+      background: var(--button-secondary) !important;
       div {
         color: var(--text-normal) !important;
       }
 
 
       &:hover {
-        background: var(--black) !important;
+        background: var(--button-secondary-hover) !important;
         div {
-          color: var(--white) !important;
+          color: var(--black) !important;
         }
       }
     }
@@ -6405,16 +6405,16 @@
 
     button[class*="_secondary"] {
       border: 1px solid var(--borders) !important;
-      background: var(--input-bg) !important;
-
+      background: var(--button-secondary) !important;
       div {
         color: var(--text-normal) !important;
       }
 
+
       &:hover {
-        background: var(--black) !important;
+        background: var(--button-secondary-hover) !important;
         div {
-          color: var(--white) !important;
+          color: var(--black) !important;
         }
       }
 
@@ -6528,7 +6528,7 @@
   }
 
   .MuiDataGrid-row.Mui-selected {
-    background-color: var(--modified-cart-bg) !important;
+    background-color: var(--history-hover) !important;
   }
 
   .MuiMenuItem-root.MuiMenuItem-gutters:hover {
@@ -6547,7 +6547,7 @@
     }
 
     .MuiDataGrid-row:hover {
-      background: var(--history-highlight) !important;
+      background: var(--input-bg) !important;
     }
 
     .Mui-checked svg path,
