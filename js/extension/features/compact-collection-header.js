@@ -12,7 +12,7 @@ rl.ready(() => {
           margin-right: 2rem;
         }
 
-        [class*="content_"] {
+        #app [class*="content_"] {
           margin-top: 1rem;
         }
         [class*="itemTitle_"] {
@@ -21,11 +21,14 @@ rl.ready(() => {
         [class*="itemData_"] {
           line-height: 16px;
         }
-        [class*="viewAndShow_"]{
+        [class*="viewAndShow_"] {
           width: 250px !important;
         }
         [class*="horizontalLinks_"] ul {
           padding: 0 .5rem;
+        }
+        .MuiDataGrid-cell {
+          padding: 5px !important;
         }
 
         [class*="format_item_"],
@@ -39,6 +42,7 @@ rl.ready(() => {
           font-size: 13px !important;
         }
     `;
+
     rl.attachCss('collection-page', rules);
 
     let collectionItems = 'div[class*="MuiDataGrid-cell--withRenderer"]';
@@ -51,6 +55,7 @@ rl.ready(() => {
 
         // Don't run when viewing someone else's collection
         if (!bulkActionsRow) return;
+
         // Relocate Layout buttons
         bulkActionsRow.insertAdjacentElement('beforeend', layoutBtns);
         document.querySelector('[class*="pagerAndViewContainer_"]').style.display = 'none';
