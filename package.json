@@ -1,6 +1,6 @@
 {
   "name": "discogs-enhancer",
-  "version": "3.8.0",
+  "version": "3.8.1",
   "description": "A Chrome extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {
@@ -41,7 +41,6 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
-    "clipboardy": "^3.0.0",
-    "mocha": "^9.2.2"
+    "clipboardy": "^3.0.0"
   }
 }
