@@ -2,7 +2,7 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Compact Collection Header',
+        name: 'Compact Collection Page',
         description: 'Reduces the white space, font sizes, and rearranges UI elements on the Collection header in order to mimic the old Collection page.',
         link: '#compactCollection'
       }],
