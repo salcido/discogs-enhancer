@@ -165,6 +165,10 @@
   --blocked-seller: #d64c4c;
   --icon-green: #5ec93b;
   --icon-disabled: #666666;
+  /* Collection */
+  --collection-row-hover: #292929;
+  --collection-row-hover-selected: #222932;
+  --collection-row-selected: #212e3d;
 }
 /*
 ////////////////////////////////////
@@ -192,6 +196,9 @@
   --modified-cart-text: #adbeff;
   --modified-cart-htag: #c5def7;
   --modified-cart-remove-icon: #c5def7;
+  --collection-row-hover: #25262a;
+  --collection-row-hover-selected: #172130;
+  --collection-row-selected: #1d2b40;
 }
 /*
 ////////////////////////////////////
@@ -226,6 +233,9 @@
   --link: #83a2c8;
   --link-visited: #a78fd6;
   --blocked-seller: #cd4946;
+  --collection-row-hover: #1c2128;
+  --collection-row-hover-selected: #172130;
+  --collection-row-selected: #1d2b40;
 }
 
 .de-dark-theme {
@@ -6258,6 +6268,14 @@
     color: var(--text-muted) !important;
   }
 
+  .MuiDataGrid-columnSeparator {
+    display: none !important;
+  }
+
+  .MuiTooltip-popper > div {
+    background: var(--black) !important;
+  }
+
   figure[class*="card_"] {
     border-color: var(--borders) !important;
     box-shadow: 0 4px 8px -2px var(--box-shadow-light);
@@ -6546,8 +6564,18 @@
       background: var(--row-even) !important;
     }
 
-    .MuiDataGrid-row:hover {
-      background: var(--input-bg) !important;
+    .MuiDataGrid-row {
+      &:hover {
+        background: var(--collection-row-hover) !important;
+
+        &.Mui-selected {
+          background: var(--collection-row-hover-selected) !important;
+        }
+      }
+
+      &.Mui-selected {
+        background: var(--collection-row-selected) !important;
+      }
     }
 
     .Mui-checked svg path,
