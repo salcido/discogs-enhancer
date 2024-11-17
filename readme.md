@@ -96,76 +96,12 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 * Watch for changes:
   * `npm run watch`
 
-#### Testing
-
-* Run `unauthenticated` functional tests:
-
-  * `npm test`
-
-
-* Run `authenticated` functional tests:
-  > Note: If you want to run authenticated tests you'll need an account to log in with and run them with one of the commands below. When running the `authenticated` tests, the `unauthenticated` tests will also be run.
-
-  * `env USERNAME=<username> env PASSWORD=<password> npm test`
-    * This will try to log you in automatically using Discogs authentication.
-  * `env USEOAUTH=true npm test`
-    * This will pop up the login page to allow you to manually login via supported OAuth providers; Google, Facebook, or Apple.
-
-
 #### Building
 * Export the extension to `dist` directory:
   * `npm run build:production`
   * Go to `chrome://extensions` in a new Chrome tab
   * Click "Developer Mode" in the upper-right corner
   * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
-
-***
-
-## Functional Tests
-<details>
-  <summary>Test Checklist (33/37)</summary>
-  <p>
-
-  #### AUTHENTICATED
-  - [ ] Block Buyers _(Requires user w/ sales history)_
-  - [ ] Feedback Notifications _(Requires user w/ Buyer/Seller feedback)_
-  - [x] Hide Min/Med/Max columns
-  - [x] Larger BAOI Fields
-  - [x] Notes Counter
-  - [x] Random Item
-  - [x] Remove From Wantlist Shortcuts
-  - [x] Seller Items In Cart
-  - [x] Show Actual Add Date
-  - [x] Show Average Prices
-  - [x] Suggested Prices
-  - [x] Text Format Shortcuts
-
-  #### UNAUTHENTICATED
-  - [x] Block Sellers
-  - [x] Favorite Sellers
-  - [x] Filter Sleeve Condition
-  - [x] Inventory Ratings
-  - [x] Seller Rep
-  - [x] Currency Converter
-  - [x] Dark Theme
-  - [x] Everlasting Marketplace
-  - [x] Filter Media Condition
-  - [x] Filter Shipping Country
-  - [x] Large YouTube playlists
-  - [x] Lists In New Tabs
-  - [x] Marketplace Condition Highlights
-  - [x] Quick Search
-  - [x] Rating Percentage
-  - [x] Relative Last Sold Dates
-  - [x] Release Durations
-  - [x] Release Ratings
-  - [x] Release Scanner
-  - [x] Sort Buttons
-  - [x] Tracklist Readability
-  - [x] Tweak Discriminators
-
-  </p>
-</details>
 
 ***
 
