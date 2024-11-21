@@ -5088,6 +5088,16 @@
       }
     }
 
+    [class*="ctaButtonContainer_"] [class*="ctaButton"] {
+      color: var(--text-bold) !important;
+      border: 1px solid var(--borders) !important;
+      background: var(--input-bg) !important;
+
+      &:hover {
+        background: var(--black) !important;
+      }
+    }
+
     // reviews
 
     #release-reviews {
