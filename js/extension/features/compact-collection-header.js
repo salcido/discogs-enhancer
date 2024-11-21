@@ -31,6 +31,10 @@ rl.ready(() => {
           padding: 5px !important;
         }
 
+        [class*="albumArtContainer_"] img {
+          border-radius: 0 !important;
+        }
+
         [class*="format_item_"],
         [class*="released_"],
         [class*="folderActionBtn_"],
