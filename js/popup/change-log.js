@@ -1,18 +1,10 @@
 module.exports = {
   current: [
     {
-      features: [{
-        name: 'Compact Collection Page',
-        description: 'Reduces the white space, font sizes, and rearranges UI elements on the Collection header in order to mimic the old Collection page.',
-        link: '#compactCollection'
-      }],
+      features: [],
       removedFeatures: [{
-        name: 'Everlasting Collection',
-        description: 'Everlasting Collection has been removed since it\'s incompatible with the new Collection page.',
-      },
-      {
-        name: 'Improved Collection UI',
-        description: 'Improved Collection UI has been removed since it\'s incompatible with the new Collection page.',
+        name: 'Compact Collection Page',
+        description: 'This feature is no longer needed since Discogs has fixed the Collection page layout!',
       }],
       updates: [
         {
