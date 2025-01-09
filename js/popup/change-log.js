@@ -12,7 +12,7 @@ module.exports = {
           description: 'Quick Search has been updated to work with the new changes Discogs rolled out this week.'
         },
       ],
-      thanks: ['Huge thank you to VegetableVillage, Joe B, Rob P. Bart, and Semen I. for their donations!'],
+      thanks: ['Huge thank you to Timespan for their donation!'],
     },
   ],
   previous: []
