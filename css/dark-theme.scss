@@ -1707,6 +1707,10 @@
     border-right: 8px solid var(--borders) !important;
   }
 
+  .pp-error {
+    background: var(--alert-error-text) !important;
+  }
+
   /* weird chrome textarea override */
 
   #review_compose.form_block textarea,
@@ -6290,8 +6294,16 @@
     color: var(--text-muted) !important;
   }
 
-  .MuiDataGrid-columnSeparator {
-    display: none !important;
+  // .MuiDataGrid-columnSeparator .MuiDataGrid-iconSeparator {
+  //   visibility: hidden !important;
+
+  //   &:hover {
+  //     visibility: visible !important;
+  //   }
+  // }
+
+  .MuiDataGrid-withBorderColor {
+    color: var(--borders) !important;
   }
 
   .MuiTooltip-popper > div {
