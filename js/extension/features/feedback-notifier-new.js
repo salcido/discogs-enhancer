@@ -17,7 +17,8 @@ rl.ready(() => {
       feedback = rl.getPreference('feedback') || null,
       language = rl.language(),
       timeStamp = new Date().getTime(),
-      _header = document.querySelector('header[class*="_header_"]'),
+      host = document.querySelector('[id^=__header_root_]'),
+      _header = host && host.shadowRoot ? host.shadowRoot.querySelector('div[class^="_amped_"] header') : document,
       user = rl.username() || null,
       // user = 'recordsale-de', /* used for testing */
       waitTime = (1000 * 60) * 2; // 2 mins
@@ -83,8 +84,8 @@ rl.ready(() => {
             </div>`;
 
     /* Remove preloader */
-    if ( document.querySelector(`.${type}_feedbackLoader`) ) {
-      document.querySelector(`.${type}_feedbackLoader`).remove();
+    if ( _header.querySelector(`.${type}_feedbackLoader`) ) {
+      _header.querySelector(`.${type}_feedbackLoader`).remove();
     }
 
     if (_header) {
@@ -93,7 +94,7 @@ rl.ready(() => {
       // but I don't believe it's caused by the extension itself...
       setTimeout(() => {
         let selector = _header ? 'nav[class^="_user_"]' : 'nav[class^="profile_"]';
-        document.querySelector(selector).insertAdjacentHTML('afterbegin', badge);
+        _header.querySelector(selector).insertAdjacentHTML('afterbegin', badge);
         bindUi();
       }, 1000);
     } else {
@@ -114,13 +115,13 @@ rl.ready(() => {
                         <i class="icon icon-spinner icon-spin"></i>
                      </li>`;
     // remove previous badge if it exists
-    if (document.querySelector(`#de-${type}-feedback`)) {
-      document.querySelector(`#de-${type}-feedback`).parentElement.remove();
+    if (_header.querySelector(`#de-${type}-feedback`)) {
+      _header.querySelector(`#de-${type}-feedback`).parentElement.remove();
     }
 
     if (_header) {
       let selector = _header ? 'nav[class^="_user_"]' : 'nav[class^="profile_"]';
-      document.querySelector(selector).insertAdjacentHTML('afterbegin', preloader);
+      _header.querySelector(selector).insertAdjacentHTML('afterbegin', preloader);
     } else {
       document.querySelector('#activity_menu').insertAdjacentHTML('afterbegin', preloader);
     }
@@ -134,7 +135,7 @@ rl.ready(() => {
     // --------------------------------------------------------
     // Clear notifications and save "viewed" states
     // --------------------------------------------------------
-    [...document.querySelectorAll('.de-buyer-feedback, .de-seller-feedback')].forEach(elem => {
+    [..._header.querySelectorAll('.de-buyer-feedback, .de-seller-feedback')].forEach(elem => {
 
       elem.addEventListener('click', ({ target }) => {
 
@@ -154,7 +155,7 @@ rl.ready(() => {
     // --------------------------------------------------------
     // Menu interactions
     // --------------------------------------------------------
-    [...document.querySelectorAll('.pos-reviews, .neu-reviews, .neg-reviews')].forEach(elem => {
+    [..._header.querySelectorAll('.pos-reviews, .neu-reviews, .neg-reviews')].forEach(elem => {
 
       elem.addEventListener('click', ({ target }) => {
 
@@ -664,4 +665,221 @@ rl.ready(() => {
 
     pollForChanges();
   }
+
+  let rules = `
+      #de-seller-feedback .badge,
+      #de-buyer-feedback .badge {
+        border-radius: 500px;
+        border: 1px solid transparent;
+        color: white;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: bold;
+        height: 20px;
+        line-height: 14px;
+        margin-bottom: 1px;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        text-shadow: rgba(0,0,0,0.5) 0px 0px 1px;
+        top: -1px;
+        width: 20px;
+      }
+
+      #de-seller-feedback .count,
+      #de-buyer-feedback .count {
+        display: inline-block;
+        margin-top: 4px;
+        background: none !important;
+        color: white !important;
+        pointer-events: none;
+      }
+
+      #de-seller-feedback:hover .feedback-chart.seller {
+        display: block;
+      }
+
+      #de-buyer-feedback:hover .feedback-chart.buyer {
+        display: block;
+      }
+
+      /* DELETE IN THE FUTURE */
+      nav[class*="profile_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
+      nav[class*="profile_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
+        padding: .2rem .4rem;
+      }
+
+      nav[class*="_user_"] #de-seller-feedback .de-seller-feedback .skittle.skittle_collection,
+      nav[class*="_user_"] #de-buyer-feedback .de-buyer-feedback .skittle.skittle_collection {
+        padding: .2rem .4rem;
+      }
+      /* END DELETE IN THE FUTURE */
+
+      .de-seller-feedback .badge span.count:after {
+        content: "S";
+      }
+
+      .de-seller-feedback:hover .badge,
+      .de-seller-feedback:hover .badge span.count {
+        background: #CCCCCC !important;
+      }
+
+      nav[class*="_user_"] a.de-seller-feedback {
+        padding: 2rem 0rem;
+      }
+
+      nav[class*="_user_"] a.de-buyer-feedback {
+        padding: 2rem 0rem;
+      }
+
+      /* DELETE IN THE FUTURE */
+
+      nav[class*="profile_"] a.de-seller-feedback {
+        padding: 2rem 0rem;
+      }
+
+      nav[class*="profile_"] a.de-buyer-feedback {
+        padding: 2rem 0rem;
+      }
+
+      nav[class*="profile_"] .de-badge {
+        margin: 1rem .5rem;
+      }
+
+      nav[class*="profile_"] .feedback-chart {
+        margin-top: 1.5rem;
+      }
+
+      /* END DELETE IN THE FUTURE */
+
+      .de-buyer-feedback .badge,
+      .de-buyer-feedback .badge span.count {
+        background: #FF6A23 !important;
+      }
+
+      .de-buyer-feedback .badge span.count:after {
+        content: "B";
+      }
+
+      .de-buyer-feedback:hover .badge,
+      .de-buyer-feedback:hover .badge span.count {
+        background: #CCCCCC !important;
+      }
+
+      .de-seller-feedback:hover .badge span.count:after,
+      .de-buyer-feedback:hover .badge span.count:after {
+        content: "X";
+        color: #333333 !important;
+      }
+
+      nav[class*="_user_"] .de-badge {
+        margin: 1rem .5rem;
+      }
+
+      nav[class*="_user_"] .feedback-chart {
+        margin-top: 1rem;
+      }
+
+
+      ul.feedback-chart {
+        display: none;
+        width: 110px;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: -37px;
+        background-color: black !important;
+        border-right: 1px solid black !important;
+        border-bottom: 1px solid black !important;
+        border-left: 1px solid black !important;
+      }
+
+      ul.feedback-chart li {
+        list-style-type: none;
+        padding-left: 10px;
+        border-bottom: 1px solid #333333 !important;
+      }
+
+      ul.feedback-chart li:hover {
+        background-color: #333333 !important;
+        cursor: pointer;
+      }
+
+      ul li.last {
+        border-bottom: none !important;
+      }
+
+      ul.feedback-chart h2 {
+        display: inline-block;
+        width: 30px;
+        margin: 0 auto;
+        font-family: sans-serif;
+        font-size: 16px;
+        color: white !important;
+        text-align: right;
+
+        vertical-align: middle;
+      }
+
+      ul.feedback-chart h3 {
+        display: inline-block;
+        width: 60px;
+        margin: 10px 0;
+        font-family: sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 12px;
+      }
+
+      #de-seller-feedback .badge {
+        background: #69C34B !important;
+      }
+
+      #de-buyer-feedback .badge {
+        background: #4e7ddc !important;
+      }
+
+
+      #de-seller-feedback:hover .badge,
+      #de-buyer-feedback:hover .badge {
+        background: #CCCCCC !important;
+      }
+
+      ul.feedback-chart .pos {
+        color: #69C34B !important;
+        pointer-events: none;
+      }
+
+      ul.feedback-chart .neu {
+        color: #CCCCCC !important;
+        pointer-events: none;
+      }
+
+      ul.feedback-chart .neg {
+        color: #E04526 !important;
+        pointer-events: none;
+      }
+
+      ul.feedback-chart .pos-count {
+        pointer-events: none;
+      }
+
+      ul.feedback-chart .neu-count {
+        pointer-events: none;
+      }
+
+      ul.feedback-chart .neg-count {
+        pointer-events: none;
+      }`;
+
+let css = document.createElement('style'),
+    fragment = document.createDocumentFragment();
+
+    css.id = 'feedback-notifier';
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+    css.textContent = rules;
+
+    fragment.appendChild(css);
+    host.shadowRoot.appendChild(fragment.cloneNode(true));
 });
