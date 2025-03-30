@@ -13,17 +13,29 @@ import { applySave, getTabId } from '../utils';
  * @param {boolean} enabled - Whether the feature is enabled
  */
 function toggleTheme(enabled) {
+
+  let host = document.querySelector('[id^=__header_root_]');
+
   if (enabled) {
     document.documentElement.classList.add('de-dark-theme');
+
+    if (host && host.shadowRoot) {
+      host.shadowRoot.querySelector('div').classList.add('de-dark-theme');
+    }
+
   } else {
     document.documentElement.classList.remove('de-dark-theme');
+
+    if (host && host.shadowRoot) {
+      host.shadowRoot.querySelector('div').classList.remove('de-dark-theme');
+    }
   }
 }
 
 /**
  * Enables / Disables the dark theme
  * @method   useDarkTheme
- * @param    {Object}     event [The event object]
+ * @param    {Object} event [The event object]
  * @return   {undefined}
  */
 export async function useDarkTheme(event) {
@@ -53,7 +65,7 @@ function selectTheme(name) {
 /**
  * Sets a specific dark theme
  * @method   setDarkTheme
- * @param    {Object}  event [The event object]
+ * @param    {Object} event [The event object]
  * @return   {undefined}
  */
 export async function setDarkTheme(event) {
