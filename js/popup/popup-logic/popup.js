@@ -396,6 +396,10 @@ window.addEventListener('load', () => {
 
       warning.querySelector('.content').textContent = content;
       warning.style.display = 'block';
+      chrome.action.setBadgeText({text:'⚠'});
+      chrome.action.setBadgeBackgroundColor({color: 'orange'});
+    } else {
+      chrome.action.setBadgeText({text:''});
     }
   }
 

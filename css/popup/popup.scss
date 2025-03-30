@@ -903,14 +903,16 @@ span.clear-search {
 // /issues API endpoint
 .issues {
   margin-bottom: 1rem;
-  padding: .5rem .5rem .1rem .5rem;
+  padding: .5rem .5rem .5rem .5rem;
   display: none;
   border-radius: 5px;
+  background: orange;
+  border-radius: 4px;
 
   .wrap {
     background: var(--select-bg);
     border-radius: 5px;
-    border: 1px solid var(--help-icon);
+    border: 1px solid orange;
 
     h2 {
       margin-bottom: .3rem;

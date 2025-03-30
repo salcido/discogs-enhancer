@@ -300,6 +300,15 @@ appendFragment([resourceLibrary])
 
       elems.push(linksInTabs);
 
+      // New Header #shadow-root fix
+      let shadowrootfix = document.createElement('script');
+
+      shadowrootfix.type = 'text/javascript';
+      shadowrootfix.src = chrome.runtime.getURL('js/extension/dependencies/shadow-root.js');
+      shadowrootfix.className = 'de-init';
+
+      elems.push(shadowrootfix);
+
       // New Release Page Fixes
       let newReleasePageFixes = document.createElement('link');
 

@@ -109,7 +109,7 @@
   --modified-cart-bg: #273a4e;
   --modified-cart-htag: #ffffff;
   --modified-cart-highlight: #9ab4d5;
-  --modified-cart-text: #2653d9;
+  --modified-cart-text: #9ab4d5;
   /* Release Rating Stars */
   --star-rating: #f7d06c;
   --submission-form-error: #360d0d;
@@ -1501,82 +1501,6 @@
     background: none !important;
   }
 
-  /* I think these might be related to the old shop.discogs.com?
-
-  a.btn-default {
-    background-color: #ebebeb !important;
-    border-color: #adadad !important;
-    color: var(--row-even)   !important;
-    i,
-    &:hover,
-    &:focus,
-    &:active,
-    &.active {
-      background-color: #ebebeb !important;
-      border-color: #adadad !important;
-      color: var(--row-even)   !important;
-    }
-  }
-
-  .open .dropdown-toggle.btn-default {
-    background-color: #ebebeb !important;
-    border-color: #adadad !important;
-    color: var(--row-even)   !important;
-  }
-
-  .btn-primary {
-    background-color: #428bca !important;
-    border-color: #357ebd !important;
-    color: var(--text-bold) !important;
-    &:visited {
-      background-color: #428bca !important;
-      border-color: #357ebd !important;
-      color: var(--text-bold) !important;
-    }
-  }
-
-  .btn-success {
-    background-color: #5cb85c !important;
-    border-color: #4cae4c !important;
-    color: var(--text-bold) !important;
-    &:visited {
-      background-color: #5cb85c !important;
-      border-color: #4cae4c !important;
-      color: var(--text-bold) !important;
-    }
-  }
-
-  .btn-danger {
-    background-color: #d9534f !important;
-    border-color: #d43f3a !important;
-    color: var(--text-bold) !important;
-    &:visited {
-      background-color: #d9534f !important;
-      border-color: #d43f3a !important;
-      color: var(--text-bold) !important;
-    }
-  }
-
-  .btn-warning {
-    background-color: #ed9c28 !important;
-    border-color: #d58512 !important;
-    color: var(--text-bold) !important;
-    &:hover,
-    &:focus,
-    &.active {
-      background-color: #ed9c28 !important;
-      border-color: #d58512 !important;
-      color: var(--text-bold) !important;
-    }
-  }
-
-  .open .dropdown-toggle.btn-warning {
-    background-color: #ed9c28 !important;
-    border-color: #d58512 !important;
-    color: var(--text-bold) !important;
-  }
-  */
-
   button {
     &.button.button-white {
       background-color: var(--text-bold) !important;
@@ -2054,81 +1978,6 @@
       color: var(--white) !important;
     }
   }
-
-  /* NEW SKITTLES
-
-  .show-new-skittles {
-    .skittles .skittle.skittle_collection,
-    .skittle.skittle_collection,
-    .skittles .skittle.skittle_collection span.count {
-      background-color: transparent !important;
-      color: #3fc4b2 !important;
-    }
-    .skittle {
-      &.skittle_collection {
-        .icon.icon-collection,
-        span {
-          background-color: transparent !important;
-          color: #3fc4b2 !important;
-        }
-      }
-      &.skittle_inventory {
-        background-color: transparent !important;
-        color: var(--link-visited) !important;
-      }
-    }
-    a.skittle.skittle_inventory i,
-    .skittle.skittle_inventory span.count,
-    a.skittle.skittle_inventory span.count:visited {
-      background-color: transparent !important;
-      color: var(--link-visited) !important;
-    }
-    .card_actions {
-      top: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.85) !important;
-    }
-  }
-  */
-
-  /* inventory
-
-  #manual_update_collection_or_wantlist .show-new-skittles .card_actions {
-    background: transparent !important;
-  }
-  */
-
-  /* wantlist
-
-  .show-new-skittles {
-    span.skittle.skittle_wantlist {
-      span.count,
-      &.needs_delegated_tooltip span.count {
-        background-color: transparent !important;
-        color: #f37519 !important;
-      }
-    }
-    .skittle.skittle_wantlist {
-      background-color: transparent !important;
-      color: #f37519 !important;
-      > * {
-        background-color: transparent !important;
-        color: #f37519 !important;
-      }
-    }
-    span.skittle.skittle_wantlist.needs_delegated_tooltip {
-      background-color: transparent !important;
-      color: #f37519 !important;
-    }
-  }
-
-  .icon {
-    &.icon-li.icon-check.icon-green,
-    &.icon-check.icon-green {
-      color: #3fc4b2 !important;
-    }
-  }
-   */
 
   #order_process .order_step .order-status-label.order-status-label-shipped {
     span,
@@ -3382,87 +3231,6 @@
     background: var(--headers) !important;
   }
 
-  /* Beta Tracks UI
-
-  .tracks-beta-banner {
-    background: #2b5c87 !important;
-  }
-
-  .collection-beta-banner {
-    background: #2b5c87 !important;
-    .open-survey-modal {
-      background: #3b7eb9 !important;
-      color: var(--text-normal) !important;
-    }
-  }
-
-  .tracks-beta-banner .open-survey-modal {
-    background: #3b7eb9 !important;
-    color: var(--text-normal) !important;
-  }
-
-  .collection-beta-banner .open-survey-modal i,
-  .tracks-beta-banner .open-survey-modal i {
-    color: var(--text-normal) !important;
-  }
-
-  .FacetGroup {
-    .facet_count,
-    a:hover .facet_count {
-      color: var(--text-normal) !important;
-    }
-  }
-
-  #discography_header {
-    border-bottom: 1px solid var(--borders) !important;
-  }
-
-  .TracksTable {
-    header,
-    .row {
-      border-bottom: 1px solid var(--borders) !important;
-    }
-  }
-
-  .CompositionApp {
-    h3,
-    .TrackOverview .TrackTitle {
-      border-bottom: 1px solid var(--borders) !important;
-    }
-  }
-
-  .TracksTable header {
-    background: #343434 !important;
-  }
-
-  .viewing-tracks .TracksApp .CompositionDetails {
-    background: var(--input-bg) !important;
-  }
-
-  .TracksApp .table-header .container,
-  .viewing-tracks .TracksApp .CompositionDetails .Releases {
-    background: var(--main-bg-color) !important;
-  }
-
-  .TracksTable .row.expanded {
-    &:after,
-    &:before {
-      background: var(--headers) !important;
-    }
-  }
-
-  .CommunityStats .label,
-  .track-title .CountLabel,
-  .CompositionDetails footer {
-    color: var(--text-muted) !important;
-  }
-
-  .TracksApp > header .container,
-  .viewing-tracks .TracksApp .Releases header .columns {
-    background: var(--main-bg-color) !important;
-  }
-  */
-
   /* Dashboard friend comments */
 
   table.table_block tbody tr {
@@ -4309,6 +4077,21 @@
   }
 
   // Nav Bar
+  // #shadow-root bullshit
+  ::part(header) {
+    background: var(--site-header-bg) !important;
+  }
+
+  ::part(query) {
+    background: var(--input-bg) !important;
+    color: var(--white) !important;
+  }
+
+  ::part(search) {
+    background: var(--input-bg) !important;
+    color: var(--white) !important;
+  }
+
   [class*="_logo_"] svg {
     fill: var(--white) !important;
   }
@@ -6705,6 +6488,56 @@
 
     [class*="MuiOutlinedInput"] {
       border: 1px solid var(--borders) !important;
+    }
+  }
+
+  // Ship Engine / shipstation / shipping labels
+  #se-elements-root div[class^="lmnt-"] {
+    background: var(--main-bg-color) !important;
+    .lmnt-136pske {
+      background: var(--input-bg) !important;
+    }
+    button.btn {
+      background: var(--button-blue) !important;
+      color: var(--button-blue-text) !important;
+    }
+    button.btn[disabled] {
+      background: var(--button-disabled) !important;
+      color: var(--button-disabled-text) !important;
+    }
+
+    span[class^="css-"] {
+      border-color: var(--borders) !important;
+    }
+    .css-10la4r0 small {
+      color: var(--price) !important;
+    }
+    .css-1z0w04a {
+      border: 1px solid var(--price) !important;
+    }
+    span[data-id="ICON-ALERT"] svg path {
+      fill: var(--price) !important;
+    }
+    span[data-id="ICON-INFO_FILLED"] svg path {
+      fill: var(--button-blue) !important;
+    }
+    div[role="menu"] {
+      background: var(--site-header-bg) !important;
+    }
+    .css-1lqi19 {
+      background: var(--input-bg) !important;
+    }
+    .css-1ypnmor {
+      background: var(--alert-error-text) !important;
+    }
+    .css-aitr6t {
+      color: var(--white) !important;
+    }
+    .css-nl077w::after {
+      background-color: var(--button-blue-border) !important;
+    }
+    #icon-tooltip {
+      background: var(--site-header-bg) !important;
     }
   }
 
