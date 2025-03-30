@@ -100,7 +100,7 @@
       }
 
       .rotate-out {
-        animation: rotateOut .2s infinite;
+        animation: rotateOut .2s 25;
       }
 
       @keyframes rotateIn {
@@ -115,7 +115,25 @@
       }
       `;
 
-  rl.attachCss('random-item', rules);
+      let host = document.querySelector('[id^=__header_root_]');
+
+      if ( host && host.shadowRoot ) {
+
+        let css = document.createElement('style'),
+            fragment = document.createDocumentFragment();
+
+        css.id = 'random-item';
+        css.rel = 'stylesheet';
+        css.type = 'text/css';
+        css.textContent = rules;
+
+        fragment.appendChild(css);
+        host.shadowRoot.appendChild(fragment.cloneNode(true));
+
+      } else {
+        rl.attachCss('random-item', rules);
+      }
+
 
   // ========================================================
   // DOM Setup
@@ -125,7 +143,8 @@
       shouldRun = rl.pageIsNot('stats') && rl.pageIsNot('history') && rl.pageIsNot('edit'),
       paddingTop = releasePage && shouldRun ? '1.35rem;' : '1.5rem;',
       user = rl.username(),
-      selector = 'nav[class^="_user_"]',
+      _header = host ? host.shadowRoot.querySelector('div[class^="_amped_"] header') : document,
+      selector = host ? '[id^=__header_root_]' : 'nav[class^="_user_"] a',
       position = 'afterbegin',
       inline_css = `padding-top: ${paddingTop} padding-right: 1.4rem; padding-left: 1.2rem;`,
       icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
@@ -141,23 +160,23 @@
 
   function addListeners() {
     // show the tooltip
-    document.querySelector('.de-random-item').addEventListener('mouseover', () => {
-      document.querySelector('.de-random-item-tooltip').classList.add('visible');
+    _header.querySelector('.de-random-item').addEventListener('mouseover', () => {
+      _header.querySelector('.de-random-item-tooltip').classList.add('visible');
     });
 
     // hide the tooltip
-    document.querySelector('.de-random-item').addEventListener('mouseout', () => {
-      document.querySelector('.de-random-item-tooltip').classList.remove('visible');
+    _header.querySelector('.de-random-item').addEventListener('mouseout', () => {
+      _header.querySelector('.de-random-item-tooltip').classList.remove('visible');
     });
 
-    document.querySelector('.de-random-item').addEventListener('click', event => {
-      document.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
-      document.querySelector('.de-random-item').style.background = 'transparent';
+    _header.querySelector('.de-random-item').addEventListener('click', event => {
+      _header.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
+      _header.querySelector('.de-random-item').style.background = 'transparent';
 
       // Call the random item endpoint if the user clicks the surrounding div instead
       if (event.target.classList.contains('de-random-item')) {
         window.location = `/user/${user}/collection/random`;
-        document.querySelectorAll('.rotate-in').forEach(elem => elem.classList.replace('rotate-in', 'rotate-out'));
+        _header.querySelectorAll('.rotate-in').forEach(elem => elem.classList.replace('rotate-in', 'rotate-out'));
       }
 
       if (event.metaKey) {
@@ -167,9 +186,9 @@
     });
   }
 
-  rl.waitForElement(selector + ' a').then(() => {
+  rl.waitForElement(selector).then(() => {
     setTimeout(() => {
-      document.querySelector(selector).insertAdjacentHTML(position, icon);
+      _header.querySelector('nav[class^="_user_"]').insertAdjacentHTML(position, icon);
       addListeners();
       return;
     }, 150);
