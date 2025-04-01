@@ -26,7 +26,15 @@
    * @returns {undefined}
    */
   function stopAnimation() {
-    document.querySelector('.de-random-item').classList.replace('rotate-out', 'rotate-in');
+
+    let randomItemBtn = _header.querySelector('.de-random-item');
+
+    if ( randomItemBtn
+          && randomItemBtn.classList
+          && randomItemBtn.classList.contains('rotate-out') ) {
+
+      randomItemBtn.classList.replace('rotate-out', 'rotate-in');
+    }
   }
 
   // ========================================================
