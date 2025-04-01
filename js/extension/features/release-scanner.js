@@ -40,7 +40,11 @@ rl.ready(() => {
           votes,
           moreWants;
 
-      div.innerHTML = data;
+      if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+        div.setHTMLUnsafe(data);
+      } else {
+        div.innerHTML = data;
+      }
 
       if (div.querySelector('#app')) {
         // react

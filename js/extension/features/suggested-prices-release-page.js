@@ -77,7 +77,11 @@ rl.ready(() => {
 
       priceContainer = [];
       prices = document.querySelectorAll('td.item_price span.price');
-      div.innerHTML = data;
+      if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+        div.setHTMLUnsafe(data);
+      } else {
+        div.innerHTML = data;
+      }
       nodeId = div.querySelector('#dsdata');
       priceKey = rl.prepareObj(nodeId.outerHTML);
 

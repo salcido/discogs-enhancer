@@ -123,7 +123,11 @@ rl.ready(() => {
             noItems = '<h1 class="de-no-results">No more items for sale found</h1>',
             tbody = '#pjax_container tbody:last-child';
 
-        div.innerHTML = data;
+        if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+          div.setHTMLUnsafe(data);
+        } else {
+          div.innerHTML = data;
+        }
 
         markup = div.querySelector(tbody) ? div.querySelector(tbody).innerHTML : null;
 

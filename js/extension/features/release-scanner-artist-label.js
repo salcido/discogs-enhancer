@@ -68,7 +68,11 @@
           votes,
           moreWants;
 
-      div.innerHTML = data;
+      if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+        div.setHTMLUnsafe(data);
+      } else {
+        div.innerHTML = data;
+      }
 
       let mSelector = 'div[class*="side_3"] div[class*="items_"]',
           rSelector = '#app #release-stats ul li';
