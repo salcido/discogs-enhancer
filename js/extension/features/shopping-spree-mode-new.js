@@ -81,7 +81,9 @@ rl.ready(() => {
       if ( event.target.classList.contains('cart-button') ) {
 
         let addToCartButton = event.target,
-            cartLink = document.querySelector('nav[class*="_user"] a[href^="/sell/cart"]'),
+            host = document.querySelector('[id^=__header_root_]'),
+            _header = host && host.shadowRoot ? host.shadowRoot.querySelector('div[class^="_amped_"] header') : document,
+            cartLink = _header.querySelector('nav[class*="_user"] a[href^="/sell/cart"]'),
             sellerName = addToCartButton
                           .closest('tr.shortcut_navigable')
                           .querySelector('td.seller_info div.seller_block strong a')
@@ -91,7 +93,7 @@ rl.ready(() => {
         // The `In Cart` tooltip text cannot be updated until the user triggers
         // it for the first time. This creates a focus event so the tooltip
         // can be updated correctly.
-        cartLink.focus({ preventScroll: true });
+        // cartLink.focus({ preventScroll: true });
         cartLink.blur();
 
         showFetchingStatus(addToCartButton);
@@ -101,22 +103,23 @@ rl.ready(() => {
           if (res.ok) {
 
             let selector = 'nav[class*="_user"] a[href^="/sell/cart"]',
-                cartTotal = document.querySelector(selector + ' .rnf-unseen-badge__count'),
+                cartTotal = _header.querySelector(selector + ' .rnf-unseen-badge__count'),
                 currentCartTotal = Number(cartTotal?.textContent?.trim()) || 0,
                 newCartTotal = currentCartTotal + 1;
 
             if (!cartTotal) {
-              document.querySelector(selector + ' div').className = 'rnf-unseen-badge';
-              document.querySelector(selector + ' div span').className = 'rnf-unseen-badge__count';
+              _header.querySelector(selector + ' div').className = 'rnf-unseen-badge';
+              _header.querySelector(selector + ' div span').className = 'rnf-unseen-badge__count';
             }
 
             showInCartStatus(addToCartButton);
 
-            let toolTipId = document.querySelector(selector).getAttribute('aria-describedby');
+            // let toolTipId = _header.querySelector(selector).getAttribute('aria-describedby');
+            // console.log('id', toolTipId);
             // Update total in header
-            document.querySelector(selector + ' .rnf-unseen-badge__count').textContent = newCartTotal;
+            _header.querySelector(selector + ' .rnf-unseen-badge__count').textContent = newCartTotal;
             // Update tooltip
-            document.getElementById(toolTipId).textContent = `${newCartTotal} ${tooltipTranslations[language]}`;
+            // _header.querySelector('#' + toolTipId).textContent = `${newCartTotal} ${tooltipTranslations[language]}`;
             // Update the sellersInCart data to work with
             // the `Show Sellers In Cart` feature
             if (window.sellerItemsInCart) {
