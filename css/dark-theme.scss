@@ -273,6 +273,22 @@
   select[size] {
     background-color: var(--row-even) !important;
   }
+  // Collection Select elements
+  div[class^="customSelect"] {
+    select[class^="selectDropdown_"] {
+      background-color: var(--main-bg-color) !important;
+      color: var(--text-normal) !important;
+      border: 1px solid var(--borders) !important;
+
+      &:hover {
+        background-color: var(--borders) !important;
+      }
+    }
+    &:after {
+      background-color: transparent !important;
+      filter:invert(.5);
+    }
+  }
 
   .is_not_mobile .notes_field:hover {
     background: var(--box-shadow-med) !important;
@@ -4084,7 +4100,7 @@
 
   ::part(query) {
     background: var(--input-bg) !important;
-    color: var(--white) !important;
+    color: var(--text-normal) !important;
   }
 
   ::part(search) {
@@ -4595,6 +4611,15 @@
           margin-right: 0.5rem;
         }
       }
+      // Track / subtrack in-line credits
+      div[class*="credits_"][class*="expanded_"] .MuiTypography-labelXSmall span,
+      .MuiTypography-labelXSmall div[class*="credits_"][class*="expanded_"] span {
+        color: var(--text-muted) !important;
+
+        span {
+          color: var(--text-muted) !important;
+        }
+      }
     }
 
     // search dropdown
@@ -4715,6 +4740,10 @@
 
       &:last-of-type {
         border-bottom: none !important;
+      }
+
+      div[class^="edited_"] {
+        color: var(--text-muted) !important;
       }
 
       button[class*="grey_"] {
@@ -5930,6 +5959,12 @@
 
   [class*="selectContainer_"] {
     border: 1px solid var(--borders) !important;
+    background-color: var(--main-bg-color) !important;
+
+    &:hover {
+      background-color: var(--borders) !important;
+    }
+
     select {
       color: var(--text-bold) !important;
     }
