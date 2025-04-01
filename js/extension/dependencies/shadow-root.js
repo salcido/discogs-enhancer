@@ -50,7 +50,7 @@
           .de-dark-theme button[type=submit],
           .de-dark-theme input {
             background: var(--input-bg) !important;
-            color: var(--text-normal) !important;
+            color: var(--text-bold) !important;
           }
           .de-dark-theme a[class*="_advanced_"] {
             background: var(--input-bg) !important;
@@ -94,8 +94,11 @@
             border-bottom: 1px solid var(--borders) !important;
           }
           .de-dark-theme div[class*=_suggestions_] li[class*=_result_] [class*="_suheadingSubtitle_"],
-          .de-dark-theme div[class*=_suggestions_] li[class*=_result_] [class*="_formatMasterCategory"],
-          .de-dark-theme div[class*=_suggestions_] li[class*=_result_] [class*="_formatCategory"] {
+          .de-dark-theme div[class*=_suggestions_] li[class*=_result_] [class*="_formatCategory"],
+          .de-dark-theme div[class*=_suggestions_] li[class*=_result_] [class*="_formatMasterCategory"] {
+            color: var(--text-normal) !important;
+          }
+          .de-dark-theme div[class*=_suggestions_] li[class*=_result_] [class*="_formatCategoryDetails"] {
             color: var(--text-muted) !important;
           }
           .de-dark-theme div[class*=_suggestions_] li[class*=_result_] span[class*=_link_] {
@@ -151,6 +154,14 @@
           .de-dark-theme nav[class*=_user] a:visited {
             color: var(--text-normal) !important;
           }
+          .de-dark-theme nav[class*="_main_"] button:hover {
+            color: var(--white) !important;
+            background: var(--site-header-bg) !important;
+          }
+          .de-dark-theme nav[class*="_main_"] div[class^="_open"] button,
+          .de-dark-theme nav[class*="_main_"] div[class^="_open"] button:hover {
+            background: var(--black) !important;
+          }
           .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem],
           .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem] {
             color: var(--text-normal) !important;
@@ -166,6 +177,32 @@
           .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem]:hover svg path,
           .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem]:hover svg path {
             fill: var(--main-menu-link-hover) !important;
+          }
+          .de-dark-theme #_rht_toaster div[class^="go"] div {
+            background: var(--site-header-bg) !important;
+          }
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content a.button {
+            color: var(--button-blue-text) !important;
+            background: var(--button-blue) !important;
+            border: none !important;
+          }
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content div p a,
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content ul li a,
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content tr a {
+            color: var(--link) !important;
+          }
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content div p a:hover,
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content ul li a:hover,
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content tr a:hover {
+            color: var(--link-hover) !important;
+          }
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content div p a:visited,
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content ul li a:visited,
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content tr a:visited {
+            color: var(--link-visited) !important;
+          }
+          .de-dark-theme #_rht_toaster div[class^="go"] .notification-content i.general::before {
+            filter: invert(1) contrast(2) !important;
           }
           .de-dark-theme div.rnf-notification-feed-popover__inner {
             border: 1px solid var(--borders) !important;
@@ -264,27 +301,32 @@
 
     let host = document.querySelector('[id^=__header_root_]');
 
-    if ( host && host.shadowRoot ) {
+    const checkForShadowRoot = function() {
 
-      const checkForShadowRoot = function() {
+      if ( host && host.shadowRoot ) {
 
-          clearInterval(handle);
+        clearInterval(handle);
 
-          let css = document.createElement('style'),
-              fragment = document.createDocumentFragment();
+        let css = document.createElement('style'),
+            fragment = document.createDocumentFragment(),
+            html = document.querySelector('.de-enabled');
 
-          css.id = 'nav-dark-theme';
-          css.rel = 'stylesheet';
-          css.type = 'text/css';
-          css.textContent = darkTheme;
+        css.id = 'nav-dark-theme';
+        css.rel = 'stylesheet';
+        css.type = 'text/css';
+        css.textContent = darkTheme;
 
-          fragment.appendChild(css);
-          host.shadowRoot.appendChild(fragment.cloneNode(true));
+        fragment.appendChild(css);
+        host.shadowRoot.appendChild(fragment.cloneNode(true));
+
+        if ( html.classList.contains('de-dark-theme') ) {
           host.shadowRoot.querySelector('div').classList.add('de-dark-theme');
+        } else {
+          host.shadowRoot.querySelector('div').classList.remove('de-dark-theme');
+        }
+      }
+    };
 
-      };
-
-      const handle = setInterval(checkForShadowRoot, 20);
-    }
+    const handle = setInterval(checkForShadowRoot, 20);
   });
 });
