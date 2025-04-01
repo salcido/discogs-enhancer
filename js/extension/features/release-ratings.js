@@ -71,7 +71,11 @@ rl.ready(() => {
           href = `/release/stats/${id}`,
           rating;
 
-      div.innerHTML = data;
+      if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+        div.setHTMLUnsafe(data);
+      } else {
+        div.innerHTML = data;
+      }
       rating = div.querySelector(selector).textContent;
 
       parent.querySelector('.preloader').remove();

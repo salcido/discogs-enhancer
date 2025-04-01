@@ -33,7 +33,11 @@ rl.ready(() => {
           div = document.createElement('div'),
           li = document.createElement('li');
 
-      div.innerHTML = data;
+      if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+        div.setHTMLUnsafe(data);
+      } else {
+        div.innerHTML = data;
+      }
       li.innerHTML = `<span class="de-average-price">Average:</span> <span style="font-weight: bold;">${div.querySelector('#page_content ul li:nth-child(2)').textContent.trim().split(' ')[0]}</span>`;
 
       return document.querySelector(selector).append(li);

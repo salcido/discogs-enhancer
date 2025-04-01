@@ -93,7 +93,11 @@ rl.ready(() => {
           return target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
         }
 
-        div.innerHTML = data;
+        if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+          div.setHTMLUnsafe(data);
+        } else {
+          div.innerHTML = data;
+        }
         nodeId = div.querySelector('#dsdata');
         priceKey = rl.prepareObj(nodeId.outerHTML);
 

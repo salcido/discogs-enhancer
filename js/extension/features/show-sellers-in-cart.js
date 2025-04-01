@@ -46,7 +46,11 @@ rl.ready(() => {
         data = await response.text(),
         div = document.createElement('div');
 
-    div.innerHTML = data;
+    if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
+      div.setHTMLUnsafe(data);
+    } else {
+      div.innerHTML = data;
+    }
     return div;
   }
 
