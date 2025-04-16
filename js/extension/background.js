@@ -399,3 +399,98 @@ chrome.contextMenus.onClicked.addListener((event) => {
 
   chrome.tabs.create({ url: path + encodeStr + suffix });
 });
+
+/**
+ * Iterates over the features array and looks for any enabled
+ * features that are contained within it.
+ * @param {Array} features - An array of feature names returned from /issues endpoint
+ * @returns {Boolean}
+ */
+async function hasFeatureEnabled(features) {
+
+  let featureEnabled = false,
+      { prefs } = await chrome.storage.sync.get('prefs');
+
+  for ( let [key] of Object.entries(prefs) ) {
+    if ( features.includes('any') || prefs[key] && features.includes(key) ) {
+      featureEnabled = true;
+    }
+  }
+
+  return featureEnabled;
+}
+
+/**
+ * Compares version numbers and returns a boolean
+ * which is used to display a note about any known site issues.
+ * @param {String} vA - Current version - a version string (1.0.0)
+ * @param {String} vB - Version with issue - a version string (1.0.1)
+ * @returns {boolean}
+ */
+function compareVersions(vA, vB) {
+  return vA.localeCompare(vB, undefined, { numeric: true }) <= 0;
+}
+
+/**
+ * Fetches known issues from discogs-enhancer.com/issues
+ * @returns {Object} - Performance issue data: { content: <string>, version: <string>, features: <array>, url: string }
+ */
+function getIssues() {
+  return chrome.storage.sync.get(['featureData']).then(async ({ featureData }) => {
+
+    let url = 'https://discogs-enhancer.com/issues',
+        { blockList } = featureData;
+
+    if (blockList
+        && blockList.list
+        && blockList.list.includes('development')
+      ) {
+      url = 'http://localhost:3000/issues';
+    }
+
+    return fetch(url)
+      .then(async response => {
+
+        let res = await response.json(),
+            { didUpdate } = await chrome.storage.sync.get('didUpdate'),
+            manifest = chrome.runtime.getManifest(),
+            thisVersion = manifest.version,
+            versionWithIssue = res.version;
+
+        if ( res.content
+              && res.content.length
+              && didUpdate === false
+              && compareVersions(thisVersion, versionWithIssue)
+              && await hasFeatureEnabled(res.features) ) {
+
+          chrome.action.setBadgeText({ text: '⚠' });
+          chrome.action.setBadgeBackgroundColor({ color: 'orange' });
+
+        } else if ( didUpdate === false ) {
+          chrome.action.setBadgeText({ text:'' });
+        }
+      })
+      .catch(() => {
+        return { content: null, version: null, features: [], url: null };
+      });
+  });
+}
+
+/**
+ * Calls getIssues() when features are toggled which will show or hide
+ * the alert icon on the extension in the browser's toolbar depending
+ * on the features contained in the response from the issues API endpoint
+ */
+chrome.storage.onChanged.addListener(() => {
+  getIssues();
+});
+
+/* Ping the issues endpoint every 10 minutes
+chrome.alarms.create('checkForIssues', { periodInMinutes: 10 });
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'checkForIssues') {
+    getIssues();
+  }
+});
+*/
