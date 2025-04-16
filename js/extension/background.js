@@ -484,13 +484,3 @@ function getIssues() {
 chrome.storage.onChanged.addListener(() => {
   getIssues();
 });
-
-/* Ping the issues endpoint every 10 minutes
-chrome.alarms.create('checkForIssues', { periodInMinutes: 10 });
-
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'checkForIssues') {
-    getIssues();
-  }
-});
-*/
