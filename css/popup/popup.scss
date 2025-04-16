@@ -16,6 +16,7 @@ html {
   --select-bg: #333;
   --select-border: #424242;
   --text-color: #cccccc;
+  --url: #9ab4d5;
   --white: #FFFFFF;
 }
 
@@ -34,6 +35,7 @@ html.light {
   --select-bg: #fafafa;
   --select-border: #ccc;
   --text-color: dimgray;
+  --url: #006af0;
   --white: #222222;
 }
 
@@ -932,6 +934,12 @@ span.clear-search {
       text-transform: none;
       font-weight: bold;
       user-select: auto;
+    }
+
+    p.link {
+      a, a:visited {
+        color: var(--url);
+      }
     }
   }
 }
