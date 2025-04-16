@@ -338,7 +338,7 @@ window.addEventListener('load', () => {
           return res;
         })
         .catch(() => {
-          return { content: null, version: null };
+          return { content: null, version: null, features: [], url: null };
         });
     });
   }
@@ -376,7 +376,7 @@ window.addEventListener('load', () => {
    * Whether to display the warning message in the popup
    * @param {Object} - The response object from discogs-enhancer.com/issues endpoint
    */
-  function showHeadsUp({ content = null, version = null, features = [] }) {
+  function showHeadsUp({ content = null, version = null, features = [], url = '' }) {
 
     let manifest = chrome.runtime.getManifest(),
         thisVersion = manifest.version,
@@ -395,6 +395,14 @@ window.addEventListener('load', () => {
       let warning = document.querySelector('.issues');
 
       warning.querySelector('.content').textContent = content;
+
+      if ( url.length && url.startsWith('https://www.discogs.com') ) {
+
+        warning.querySelector('.link .url').href = url;
+        warning.querySelector('.link .url').textContent = url;
+        warning.querySelector('.link').classList.remove('hide');
+      }
+
       warning.style.display = 'block';
       chrome.action.setBadgeText({text:'⚠'});
       chrome.action.setBadgeBackgroundColor({color: 'orange'});
