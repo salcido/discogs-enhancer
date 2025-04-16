@@ -206,8 +206,8 @@ div[class*="_arrows_"] a {
   text-align: center;
 }
 // Fix visited state coloring on wantlister link
-a.wantlister span,
-a.wantlister:visited span {
+.de-dark-theme a.wantlister span,
+.de-dark-theme a.wantlister:visited span {
   color: black !important;
   text-shadow: none;
 }

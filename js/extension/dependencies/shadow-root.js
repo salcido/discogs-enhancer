@@ -210,10 +210,12 @@
           .de-dark-theme div.rnf-feed-provider .rnf-notification-cell {
             border-bottom: 1px solid var(--borders) !important;
           }
-          .de-dark-theme div.notification-content p {
+          .de-dark-theme div.notification-content p,
+          .de-dark-theme div.notification-content table tr td {
             color: var(--text-bold) !important;
           }
-          .de-dark-theme div.notification-content blockquote {
+          .de-dark-theme div.notification-content blockquote,
+          .de-dark-theme div.notification-content ul {
             color: var(--text-normal) !important;
             border: none !important;
             border-left: 4px solid var(--borders) !important;

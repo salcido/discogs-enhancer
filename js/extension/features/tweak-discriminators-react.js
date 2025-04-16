@@ -90,15 +90,18 @@
 
     generateCss(hide, superscript, unselectable, transparent);
 
-    document.querySelectorAll('.profile h1.hide_mobile').forEach(s => {
+    rl.waitForElement('[class*="main_"] h1[class*="title_"]').then(() => {
 
-      let markup = `<span class="trim-me">$1</span><${elemType} class="de-artist-discriminator">$2</${elemType}>`;
+      document.querySelectorAll('[class*="main_"] h1[class*="title_"]').forEach(s => {
 
-      s.innerHTML = s.textContent.replace(re, markup);
+        let markup = `<span class="trim-me">$1</span><${elemType} class="de-artist-discriminator">$2</${elemType}>`;
 
-      if ( superscript ) {
-        document.querySelectorAll('.trim-me').forEach(t => { t.textContent = t.textContent.trim(); });
-      }
+        s.innerHTML = s.textContent.replace(re, markup);
+
+        if ( superscript ) {
+          document.querySelectorAll('.trim-me').forEach(t => { t.textContent = t.textContent.trim(); });
+        }
+      });
     });
   }
 });

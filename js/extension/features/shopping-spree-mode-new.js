@@ -93,7 +93,7 @@ rl.ready(() => {
         // The `In Cart` tooltip text cannot be updated until the user triggers
         // it for the first time. This creates a focus event so the tooltip
         // can be updated correctly.
-        // cartLink.focus({ preventScroll: true });
+        cartLink.focus({ preventScroll: true });
         cartLink.blur();
 
         showFetchingStatus(addToCartButton);
@@ -114,12 +114,11 @@ rl.ready(() => {
 
             showInCartStatus(addToCartButton);
 
-            // let toolTipId = _header.querySelector(selector).getAttribute('aria-describedby');
-            // console.log('id', toolTipId);
+            let toolTipId = _header.querySelector(selector).getAttribute('aria-describedby');
             // Update total in header
             _header.querySelector(selector + ' .rnf-unseen-badge__count').textContent = newCartTotal;
             // Update tooltip
-            // _header.querySelector('#' + toolTipId).textContent = `${newCartTotal} ${tooltipTranslations[language]}`;
+            _header.querySelector(`[id*="${toolTipId}"]`).textContent = `${newCartTotal} ${tooltipTranslations[language]}`;
             // Update the sellersInCart data to work with
             // the `Show Sellers In Cart` feature
             if (window.sellerItemsInCart) {
