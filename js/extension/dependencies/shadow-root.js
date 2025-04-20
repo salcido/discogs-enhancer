@@ -38,6 +38,8 @@
           .de-dark-theme header[class*=_title_] {
             background: var(--black) !important;
           }
+          .de-dark-theme div[class*="_wrapper"] button[class*="_dropdown"]:hover,
+          .de-dark-theme div[class*="_wrapper"][class*="_open"] button[class*="_dropdown"]:hover,
           .de-dark-theme div[class*=_dropdownWrap] {
             background: var(--black) !important;
           }
@@ -154,6 +156,9 @@
           .de-dark-theme nav[class*=_user] a:visited {
             color: var(--text-normal) !important;
           }
+          .de-dark-theme nav[class*=_user] a[class*="_register_"] {
+            color: var(--black) !important;
+          }
           .de-dark-theme nav[class*="_main_"] button:hover {
             color: var(--white) !important;
             background: var(--site-header-bg) !important;
@@ -210,6 +215,30 @@
           .de-dark-theme div.rnf-feed-provider .rnf-notification-cell {
             border-bottom: 1px solid var(--borders) !important;
           }
+          .de-dark-theme div.rnf-feed-provider .rnf-notification-cell div.payload-name {
+            filter: invert(1);
+          }
+          .de-dark-theme div.notification-content div.notification-header strong {
+            color: var(--text-bold) !important;
+          }
+          .de-dark-theme div.notification-content div.feed-item {
+            background: var(--input-bg) !important;
+            border-bottom: 1px solid var(--borders) !important;
+          }
+          .de-dark-theme div.notification-content div.feed-item .image-wrapper {
+            border: none !important;
+          }
+          .de-dark-theme div.notification-content div.feed-item div.item-details div span {
+            background: var(--input-bg) !important;
+          }
+          .de-dark-theme div.notification-content div.feed-item div.item-details div div a {
+            color: var(--white) !important;
+            background: var(--skittle-collection) !important;
+            border-radius: 50px;
+          }
+          .de-dark-theme div.notification-content div.feed-item div.item-details span a {
+            filter: invert(1);
+          }
           .de-dark-theme div.notification-content p,
           .de-dark-theme div.notification-content table tr td {
             color: var(--text-bold) !important;
@@ -247,7 +276,7 @@
             color: var(--black) !important;
           }
           .de-dark-theme div.rnf-notification-feed-popover .notification-content .feed-items-wrapper {
-            background: var(--white) !important;
+            background: var(--input-bg) !important;
           }
           .de-dark-theme div.rnf-notification-feed-popover .rnf-notification-cell {
             background: var(--input-bg) !important;

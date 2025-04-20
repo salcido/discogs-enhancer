@@ -18,11 +18,11 @@ rl.ready(() => {
 
       try {
 
-        document.querySelector('td[bgcolor="#ffaaaa"]').setAttribute('style', 'color: #ffaaaa !important');
+        document.querySelector('td[bgcolor="#ffaaaa"]').setAttribute('style', 'background: #ffaaaa !important; color: #000 !important');
 
-        document.querySelector('td[bgcolor="#ffff77"]').setAttribute('style', 'color: #ffff77 !important');
+        document.querySelector('td[bgcolor="#ffff77"]').setAttribute('style', 'background: #ffff77 !important; color: #000 !important');
 
-        document.querySelector('td[bgcolor="#aaffaa"]').setAttribute('style', 'color: #aaffaa !important');
+        document.querySelector('td[bgcolor="#aaffaa"]').setAttribute('style', 'background: #aaffaa !important; color: #000 !important');
 
       } catch (err) { /* just catch the error */ }
     }, 200);

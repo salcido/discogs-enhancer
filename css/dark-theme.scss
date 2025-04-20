@@ -237,6 +237,46 @@
   --collection-row-hover-selected: #172130;
   --collection-row-selected: #1d2b40;
 }
+/*
+////////////////////////////////////
+// Umbra Theme Overrides
+////////////////////////////////////
+*/
+.theme-umbra {
+  --site-header-bg: #000;
+  --main-bg-color: #121519;
+  --headers: #1e2227;
+  --borders: #282a2d;
+  --row-even: #181b20;
+  --input-bg: #101115;
+  --search-results-active: #22272e;
+  --modified-cart-bg: #30394b;
+  --modified-cart-highlight: #adbeff;
+  --modified-cart-text: #adbeff;
+  --modified-cart-htag: #d9d9d9;
+  --modified-cart-remove-icon: #c5def7;
+  --in-collection-bg: #072a07;
+  --in-collection-border: #1c5d1c;
+  --price: #f15959;
+  --in-wantlist-border: #b1413f;
+  --filter-chip: #000;
+  --history-highlight: #26313d;
+  --history-hover: #212932;
+  --submission-form-error: #2b1818;
+  --additional-instructions: #48487c;
+  --text-muted: #848f9a;
+  --text-normal: #bcbcbc;
+  --text-bold: #d1d1d1;
+  --link: #83a2c8;
+  --link-visited: #a78fd6;
+  --blocked-seller: #cd4946;
+  --collection-row-hover: #1c2128;
+  --collection-row-hover-selected: #172130;
+  --collection-row-selected: #1d2b40;
+  --button-secondary: #e8e8e8;
+  --order-sidebar-bg: #000000;
+}
+
 
 .de-dark-theme {
   *:not(select) {
@@ -3332,6 +3372,11 @@
     box-shadow: none !important;
   }
 
+  /* Edit Release: required fields error */
+  #subform .invalid {
+    border: 1px solid var(--policy-error) !important;
+  }
+
   /* Edit Release: BAOI fields */
 
   #subform > table:nth-child(2) > tbody > tr:nth-child(4) > td > div > ul > li > div > fieldset > input[type="text"] {
@@ -4435,6 +4480,13 @@
       div[class*="player_"] {
         background: var(--black) !important;
       }
+      span[class*="duration_"] {
+        background: var(--black) !important;
+      }
+    }
+
+    time[class*="duration_"] {
+      background: var(--black) !important;
     }
 
     button[class*="grey_"][class*="disabled_"] {
@@ -4614,10 +4666,10 @@
       // Track / subtrack in-line credits
       div[class*="credits_"][class*="expanded_"] .MuiTypography-labelXSmall span,
       .MuiTypography-labelXSmall div[class*="credits_"][class*="expanded_"] span {
-        color: var(--text-muted) !important;
+        color: var(--button-disabled-text) !important;
 
         span {
-          color: var(--text-muted) !important;
+          color: var(--button-disabled-text) !important;
         }
       }
     }
@@ -5596,6 +5648,13 @@
       ul li:hover {
         background: var(--headers) !important;
       }
+      button ul li a {
+        color: var(--text-normal) !important;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
 
     div[class*="versions_"] {
@@ -5614,11 +5673,16 @@
 
   div[class*="paginationContainer_"] {
     button {
+      border: 1px solid var(--headers) !important;
+
       &[class*="currentPage_"] {
         background: var(--headers) !important;
       }
       &:hover:not(:disabled) {
         background: var(--headers) !important;
+      }
+      &:disabled {
+        color: var(--text-muted) !important;
       }
     }
   }
@@ -5794,11 +5858,25 @@
       button ul li:hover {
         background: var(--headers) !important;
       }
+
+      button ul li a {
+        color: var(--text-normal) !important;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 
   table tr[class*="sortRow_"]:first-of-type {
     border-top: 0 !important;
+  }
+
+  table tr[class*="sortRow_"] {
+    th span[role="button"] {
+      color: var(--link) !important;
+    }
   }
 
   button[class*="versionsButton_"] {
@@ -6311,9 +6389,8 @@
     background: var(--filter-chip) !important;
   }
 
-  div[class*="MuiSelect-select"][class*="Mui-disabled"] {
-      color: var(--button-disabled-text) !important;
-      -webkit-text-fill-color: auto !important;
+  div.MuiSelect-select.Mui-disabled {
+      filter: invert(1);
   }
 
   [id*="mui-component-select-"] {
@@ -6341,13 +6418,39 @@
     }
   }
 
+  #priceRangeMin,
+  #priceRangeMax,
+  #price,
+  #quantity,
+  #weightGrams,
+  #privateComments,
+  #publicComments,
+  #location,
+  #formatQuantity {
+    border: 1px solid var(--borders) !important;
+
+    &:hover {
+      background: var(--input-bg) !important;
+    }
+  }
+
+  .MuiPickersLayout-actionBar button {
+    color: var(--link) !important;
+  }
+
   [class*="MuiPickersDay-dayWithMargin"][class*="Mui-disabled"] {
     color: var(--text-muted) !important;
     opacity: .6;
   }
 
-  [class*="_ghost_"]:hover {
-    background: var(--borders) !important;
+  [class*="_ghost_"] {
+    div {
+      color: var(--link) !important;
+    }
+
+    &:hover {
+      background: var(--borders) !important;
+    }
   }
 
   [class*="MuiMultiSectionDigitalClock-root"] {
@@ -6438,13 +6541,23 @@
     [class*="_forSaleChip"] {
       background: var(--alert-accept-bg) !important;
 
+      svg path {
+        fill: var(--button-green-border) !important;
+        stroke: var(--button-green-border) !important;
+      }
+
       [class*="MuiChip-label"] {
         color: var(--black) !important;
       }
     }
 
     [class*="_expiredChip"] {
-      background: var(--alert-warning-bg) !important;
+      background: var(--text-normal) !important;
+
+      svg path {
+        fill: var(--black) !important;
+        stroke: var(--black) !important;
+      }
 
       [class*="MuiChip-label"] {
         color: var(--black) !important;
@@ -6453,6 +6566,11 @@
 
     [class*="_draftChip"] {
       background: var(--alert-error-bg) !important;
+
+      svg path {
+        stroke: var(--blocked-seller) !important;
+        fill: var(--blocked-seller) !important;
+      }
 
       [class*="MuiChip-label"] {
         color: var(--black) !important;
@@ -6465,7 +6583,8 @@
     background: var(--button-secondary) !important;
     color: var(--black) !important;
 
-    [class*="_buttonContent"] {
+    [class*="_buttonContent"],
+    [class*="_buttonContent"] span {
       color: var(--black) !important;
     }
 
@@ -6492,7 +6611,8 @@
       color: var(--button-disabled-text) !important;
       background: var(--headers) !important;
 
-      [class*="_buttonContent"] {
+      [class*="_buttonContent"],
+      [class*="_buttonContent"] span {
         color: var(--button-disabled-text) !important;
       }
     }
