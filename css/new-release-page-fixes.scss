@@ -214,3 +214,7 @@ div[class*="_arrows_"] a {
 a.wantlister i {
   display: none;
 }
+// Fix extra large font size on orders page
+#page.order-page {
+  font-size: 14px;
+}
