@@ -3,7 +3,7 @@ module.exports = {
     {
       features: [{
         name: 'Umbra Dark Theme',
-        description: 'Introducing "Umbra", an even darker Dark Theme! In keeping with the celestial theme, "Umbra" means: The completely dark central portion of the shadow cast by the earth, moon, or other body during an eclipse.',
+        description: 'Introducing the new "Umbra" Dark Theme! In keeping with the celestial names, "Umbra" means: The completely dark central portion of the shadow cast by the earth, moon, or other body during an eclipse.',
         link: '#darkTheme'
       }],
       removedFeatures: [],
