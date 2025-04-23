@@ -47,7 +47,7 @@
             background: var(--black) !important;
           }
           .de-dark-theme button[type=submit] svg path {
-            fill: var(--text-muted) !important;
+            fill: var(--text-normal) !important;
           }
           .de-dark-theme button[type=submit],
           .de-dark-theme input {

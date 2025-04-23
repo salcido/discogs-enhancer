@@ -124,7 +124,14 @@ rl.ready(() => {
       // Set up comparions values
       actual = priceContainer[0].convertedPrice;
 
-      suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
+      if ( priceContainer[0].mediaCondition.includes('\n') ) {
+
+        suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition.split('\n')[0]];
+
+      } else {
+
+        suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
+      }
 
       difference = suggested - actual;
 
