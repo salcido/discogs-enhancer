@@ -275,6 +275,11 @@
   --collection-row-selected: #1d2b40;
   --button-secondary: #e8e8e8;
   --order-sidebar-bg: #000000;
+  --button-disabled-text: #8a8a8a;
+  --alert-info-bg: #98b4d1;
+  --alert-warning-bg: #d8ccab;
+  --alert-error-bg: #d4ada8;
+  --alert-accept-bg: #b8ddad;
 }
 
 
@@ -352,6 +357,11 @@
 
   ::-webkit-scrollbar-corner:not(.mac) {
     background: var(--order-sidebar-bg) !important;
+  }
+
+  // Astronaut page Logo
+  header.header figure.logo img {
+    filter: invert(1);
   }
 
   #quicklister {
@@ -3553,6 +3563,14 @@
     border-bottom: 2px solid var(--borders) !important;
   }
 
+  #preview.messages_view {
+    border: 1px solid var(--borders) !important;
+  }
+
+  #reply_form {
+    border-bottom: 2px solid var(--borders) !important;
+  }
+
   /* Message Actions Dropdown */
   .message-filter-block {
     .dropdown-button-options {
@@ -4079,7 +4097,7 @@
       color: var(--button-blue-text) !important;
     }
     &:disabled div {
-      color: var(--text-muted) !important;
+      color: var(--button-disabled-text) !important;
     }
   }
 
@@ -4937,20 +4955,16 @@
     }
 
     button[type="submit"][disabled] {
-      background-color: var(--button-disabled) !important;
-      border-color: var(--border-disabled) !important;
-      border-top-color: var(--border-disabled-top) !important;
-      border-bottom-color: var(--border-disabled-bottom) !important;
+      background-color: var(--headers) !important;
+      border-color: var(--borders) !important;
       color: var(--button-disabled-text) !important;
       cursor: pointer !important;
       &:hover,
       &:active,
       &:visited,
       &:focus {
-        background-color: var(--button-disabled) !important;
-        border-color: var(--border-disabled) !important;
-        border-top-color: var(--border-disabled-top) !important;
-        border-bottom-color: var(--border-disabled-bottom) !important;
+        background-color: var(--borders) !important;
+        border-color: var(--borders) !important;
         color: var(--button-disabled-text) !important;
         cursor: pointer !important;
       }
@@ -5146,19 +5160,25 @@
     button.aui-primary,
     // Shop This Version button
     a[class*="shop_"] {
-      background: var(--button-mr-wantlist) !important;
-      color: var(--black) !important;
+      background: var(--headers) !important;
+      color: var(--text-bold) !important;
+      border: 1px solid var(--borders) !important;
+
+      &:hover {
+        background: var(--input-bg) !important;
+      }
     }
 
     #wantlist-button button[class*="_primary"] {
-      background: var(--button-mr-wantlist) !important;
+      background: var(--headers) !important;
+      border: 1px solid var(--borders) !important;
 
       div[class*="_buttonContent"] {
-        color: var(--black) !important;
+        color: var(--text-bold) !important;
       }
 
       &:hover {
-        background: var(--button-mr-wantlist-hover) !important;
+        background: var(--input-bg) !important;
       }
 
       span {
@@ -5166,7 +5186,7 @@
       }
 
       svg path {
-        fill: var(--black) !important;
+        fill: var(--text-bold) !important;
       }
     }
 
@@ -5175,7 +5195,7 @@
       box-shadow: 0 5px 10px var(--box-shadow-dark) !important;
 
       button:hover {
-        background: var(--black) !important;
+        background: var(--borders) !important;
       }
     }
 
@@ -5249,6 +5269,10 @@
 
       td[class*="toggle_"] {
         border-left: 1px solid var(--input-bg) !important;
+
+        button svg path {
+          fill: var(--text-normal) !important;
+        }
       }
 
       // add to collection / wantlist / list buttons
@@ -6312,6 +6336,19 @@
 
     table thead {
       background: var(--headers) !important;
+    }
+
+    [class*="manageFoldersContainerHeader__topSection"] {
+      background: var(--main-bg-color) !important;
+    }
+
+    li[class*="folderItemDetail_"] {
+      border-top: 1px solid var(--borders) !important;
+      background: var(--main-bg-color) !important;
+
+      button:disabled [class*="_buttonContent_"] svg path {
+        fill: var(--button-disabled-text) !important;
+      }
     }
 
     button[class*="_secondary"] {
