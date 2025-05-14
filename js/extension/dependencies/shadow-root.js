@@ -38,6 +38,9 @@
           .de-dark-theme header[class*=_title_] {
             background: var(--black) !important;
           }
+          .de-dark-theme div[class*="_wrapper"] button[class*="_dropdown"] {
+            background: var(--site-header-bg) !important;
+          }
           .de-dark-theme div[class*="_wrapper"] button[class*="_dropdown"]:hover,
           .de-dark-theme div[class*="_wrapper"][class*="_open"] button[class*="_dropdown"]:hover,
           .de-dark-theme div[class*=_dropdownWrap] {
@@ -211,6 +214,9 @@
           }
           .de-dark-theme div.rnf-notification-feed-popover__inner {
             border: 1px solid var(--borders) !important;
+          }
+          .de-dark-theme div.rnf-notification-feed-popover__inner h2.rnf-empty-feed__header {
+            color: var(--text-bold) !important;
           }
           .de-dark-theme div.rnf-feed-provider .rnf-notification-cell {
             border-bottom: 1px solid var(--borders) !important;

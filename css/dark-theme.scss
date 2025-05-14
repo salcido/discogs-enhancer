@@ -250,7 +250,7 @@
   --row-even: #181b20;
   --input-bg: #101115;
   --search-results-active: #22272e;
-  --modified-cart-bg: #30394b;
+  --modified-cart-bg: #292e37;
   --modified-cart-highlight: #adbeff;
   --modified-cart-text: #adbeff;
   --modified-cart-htag: #d9d9d9;
@@ -258,7 +258,7 @@
   --in-collection-bg: #072a07;
   --in-collection-border: #1c5d1c;
   --price: #f15959;
-  --in-wantlist-border: #b1413f;
+  --in-wantlist-border: #883231;
   --filter-chip: #000;
   --history-highlight: #26313d;
   --history-hover: #212932;
@@ -2034,6 +2034,7 @@
   }
 
   .skittle.skittle_inventory,
+  [class*="mpData_"] h2 a[class*="skittle_"],
   div[class*="header_"] a[class*="skittle_"],
   td[class*="skittles_"] span[class*="inventory_"],
   div[class*="skittles_"] span[class*="inventory_"] {
