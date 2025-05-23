@@ -26,6 +26,9 @@
           .de-dark-theme .rnf-unseen-badge {
             outline: 2px solid var(--site-header-bg) !important;
           }
+          .de-dark-theme img[class*="_avatar_"] {
+            border: 1px solid var(--text-normal) !important;
+          }
           .de-dark-theme form[class*="_search"] {
             border-radius: 4px;
           }
@@ -182,9 +185,16 @@
           .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem]:hover i.icon {
             color: var(--main-menu-link-hover) !important;
           }
+          .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem] svg path,
+          .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem] svg path {
+            fill: var(--text-normal) !important;
+          }
           .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem]:hover svg path,
           .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem]:hover svg path {
             fill: var(--main-menu-link-hover) !important;
+          }
+          .de-dark-theme nav[class*=_user] ul[class*=_group] li[class*="_user-greeting_"] {
+            color: var(--text-normal) !important;
           }
           .de-dark-theme #_rht_toaster div[class^="go"] div {
             background: var(--site-header-bg) !important;
