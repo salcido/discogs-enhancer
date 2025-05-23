@@ -2518,6 +2518,14 @@
         background: var(--alert-info-bg) !important;
         color: var(--button-blue) !important;
         line-height: 20px !important;
+
+        .alert-message-text {
+          color: var(--headers) !important;
+
+          b {
+            color: var(--headers) !important;
+          }
+        }
       }
     }
     .icon.icon-times,
@@ -4888,21 +4896,25 @@
     }
 
     // Recommendation Cards
-    figure[class*="_card"] {
+    figure[class*="card"] {
       border-color: var(--borders) !important;
       box-shadow: 0 4px 8px -2px var(--box-shadow-light);
+
+      [class*="_fallback_"]::after {
+        border: 1px solid var(--borders) !important;
+      }
     }
     figcaption {
       div[class*="_concatenatedLinks"] span a {
         color: var(--text-muted) !important;
       }
-      div[class*="_released"] span {
+      div[class*="released"] [class*="dateAndCountry_"] {
         color: var(--text-muted) !important;
       }
-      div[class*="_format"] {
+      div[class*="format"] {
         border-top: 1px solid var(--borders) !important;
       }
-      div[class*="_format"] svg path {
+      div[class*="format"] svg path {
         fill: var(--text-muted) !important;
       }
     }
@@ -5550,6 +5562,10 @@
     }
   }
 
+  #gs_homepage_hero {
+    background: var(--black) !important;
+  }
+
   #newsletter-form,
   .mobile-apps,
   .trending-releases-full-width {
@@ -5558,6 +5574,26 @@
 
   .brand-description a {
     color: var(--uploader-hover) !important;
+  }
+
+  h2.release-header {
+    background: var(--site-header-bg) !important;
+  }
+
+  .release-details {
+    border: 1px solid var(--borders) !important;
+  }
+
+  .marketplace.dark-text a {
+    border: 1px solid var(--borders) !important;
+  }
+
+  .swiper-pagination-bullet {
+    background: var(--text-muted) !important;
+
+    &.swiper-pagination-bullet-active {
+      background: var(--text-normal) !important;
+    }
   }
 
   /* New Artist Page */
@@ -6057,6 +6093,16 @@
   [class*="listContainer_"] {
     [class*="listItem_"] {
       border-bottom: 1px solid var(--borders) !important;
+
+      [class*="actionsDropdown_"] {
+        ul[role="menu"] {
+          li {
+            button:hover {
+              background: var(--borders) !important;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -6464,6 +6510,7 @@
   #privateComments,
   #publicComments,
   #location,
+  #amount,
   #formatQuantity {
     border: 1px solid var(--borders) !important;
 
@@ -6673,10 +6720,6 @@
 
     [class*="MuiPaper-elevation"] {
       background: var(--main-bg-color) !important;
-    }
-
-    [class*="_column"] {
-      border: 1px solid var(--borders) !important;
     }
 
     [class*="MuiOutlinedInput"] {
