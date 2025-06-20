@@ -4166,7 +4166,9 @@
 
   // Nav Bar
   // #shadow-root bullshit
-  ::part(header) {
+  ::part(header),
+  ::part(button),
+  ::part(wrap) {
     background: var(--site-header-bg) !important;
   }
 

@@ -20,6 +20,9 @@
           .de-dark-theme #notification-feed {
             background: var(--site-header-bg) !important;
           }
+          .de-dark-theme header > [class*="_wrap"] {
+            background: var(--site-header-bg) !important;
+          }
           .de-dark-theme #notification-feed:hover {
             background: var(--black) !important;
           }
@@ -31,6 +34,9 @@
           }
           .de-dark-theme form[class*="_search"] {
             border-radius: 4px;
+          }
+          .de-dark-theme form[class*="_search"]:focus-within {
+             outline: 2px solid var(--input-focus-border) !important;
           }
           .de-dark-theme [class*=_logo_] svg {
             fill: var(--white) !important;
@@ -177,21 +183,9 @@
           .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem] {
             color: var(--text-normal) !important;
           }
-          .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem]:hover,
-          .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem]:hover {
-            color: var(--main-menu-link-hover) !important;
-          }
-          .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem]:hover i.icon,
-          .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem]:hover i.icon {
-            color: var(--main-menu-link-hover) !important;
-          }
           .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem] svg path,
           .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem] svg path {
             fill: var(--text-normal) !important;
-          }
-          .de-dark-theme nav[class*=_main] ul[class*=_group] li a[role=menuitem]:hover svg path,
-          .de-dark-theme nav[class*=_user] ul[class*=_group] li a[role=menuitem]:hover svg path {
-            fill: var(--main-menu-link-hover) !important;
           }
           .de-dark-theme nav[class*=_user] ul[class*=_group] li[class*="_user-greeting_"] {
             color: var(--text-normal) !important;
@@ -275,6 +269,12 @@
           .de-dark-theme header.rnf-notification-feed__header {
             background: var(--site-header-bg) !important;
             border-bottom: 1px solid var(--borders) !important;
+          }
+          .de-dark-theme header[class*="_header"] div[class*="_bottom_"] {
+            border-top: 1px solid var(--borders) !important;
+          }
+          .de-dark-theme header[class*="_header"] div[class*="_bottom_"] nav[class*="_secondary_"] button {
+            color: var(--text-normal) !important;
           }
           .de-dark-theme div.rnf-notification-feed-popover select {
             color: var(--text-bold) !important;
