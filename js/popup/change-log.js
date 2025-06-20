@@ -13,7 +13,7 @@ module.exports = {
           description: 'More Dark Theme updates to fix the coloring issues in the Nav bar.'
         },
       ],
-      thanks: ['Massive thank you to everyone who donated this year! I really appreacite it :)'],
+      thanks: ['Massive thank you to everyone who donated this year! I really appreciate it :)'],
     },
   ],
   previous: []
