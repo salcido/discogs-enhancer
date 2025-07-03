@@ -16,6 +16,7 @@ import * as baoiFields from './features/baoi-fields.js';
 import * as compactArtist from './features/compact-artist.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as linksInTabs from './features/links-in-new-tabs.js';
+import * as navbarShortcuts from './features/navbar-shortcuts.js';
 import * as darkTheme from './features/dark-theme.js';
 import * as filterMediaCondition from './features/filter-media-condition.js';
 import * as filterPrices from './features/filter-prices.js';
@@ -211,6 +212,12 @@ window.addEventListener('load', () => {
   // ========================================================
   document.querySelector('.toggle-group.menus').addEventListener('click', function() {
     optionsToggle('#contextMenus', this, '.menus', 235 );
+  });
+
+  // Navbar Shortcuts
+  // ------------------------------------------------------
+  document.querySelector('.toggle-group.navbarShortcuts').addEventListener('click', function() {
+    optionsToggle('#navbarShortcuts', this, '.navbarShortcuts', 120);
   });
 
   // Open Links In New tabs
@@ -429,6 +436,7 @@ window.addEventListener('load', () => {
 
     contextualMenus.createContextualMenuElements();
     linksInTabs.createLinkTabElements();
+    navbarShortcuts.createShortcutElements();
 
     // Assign contextual menu elements to vars
     toggleAllDay = document.getElementById('allday');
