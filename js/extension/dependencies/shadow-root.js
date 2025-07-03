@@ -71,6 +71,12 @@
             color: var(--text-normal) !important;
             border-top: none;
           }
+          .de-dark-theme .de-shortcut-item a:visited {
+            color: var(--text-normal) !important;
+          }
+          .de-dark-theme .de-shortcut-item a svg[class*="_icon_"] path {
+            fill: var(--text-normal) !important;
+          }
           .de-dark-theme .de-random-item span svg path,
           .de-dark-theme svg[class*=_icon_] path {
             fill: var(--text-normal) !important;
@@ -167,6 +173,13 @@
           .de-dark-theme nav[class*=_user] a,
           .de-dark-theme nav[class*=_user] a:visited {
             color: var(--text-normal) !important;
+          }
+          .de-dark-theme nav[class*=_user] a:hover {
+            background: var(--black) !important;
+          }
+
+          .de-dark-theme nav[class*=_user] ul[class*="_user-dropdown_"] a:hover {
+            background: var(--input-bg) !important;
           }
           .de-dark-theme nav[class*=_user] a[class*="_register_"] {
             color: var(--black) !important;
@@ -269,9 +282,6 @@
           .de-dark-theme header.rnf-notification-feed__header {
             background: var(--site-header-bg) !important;
             border-bottom: 1px solid var(--borders) !important;
-          }
-          .de-dark-theme header[class*="_header"] div[class*="_bottom_"] {
-            border-top: 1px solid var(--borders) !important;
           }
           .de-dark-theme header[class*="_header"] div[class*="_bottom_"] nav[class*="_secondary_"] button {
             color: var(--text-normal) !important;
