@@ -50,6 +50,10 @@
       }
 
       .de-random-item:hover {
+        background: #31312f;
+      }
+
+      .de-dark-theme .de-random-item:hover {
         background: black;
       }
 
@@ -69,7 +73,7 @@
         display: block;
         font-size: 16px;
         height: 18px;
-        left: -56%;
+        left: 50%;
         line-height: 18px;
         margin: auto;
         opacity: 0;
@@ -78,7 +82,7 @@
         position: absolute;
         text-align: center;
         top: 65px;
-        transform: scale(.9);
+        transform: translateX(-50%) scale(.9);
         transition: opacity .2s,transform 1s;
         white-space: nowrap;
         width: auto;
@@ -86,7 +90,7 @@
 
       .de-random-item-tooltip.visible {
         transition: opacity .35s, transform .3s;
-        transform: scale(1);
+        transform: translateX(-50%) scale(1);
         opacity: 1;
       }
 
