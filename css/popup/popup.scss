@@ -275,7 +275,8 @@ input[type="checkbox"]:focus {
 }
 
 .context-menus,
-.links-in-tabs {
+.links-in-tabs,
+.navbar-shortcuts {
   clear: both;
   overflow: hidden;
   margin-top: 55px;
@@ -682,7 +683,8 @@ input[type="checkbox"]:focus {
   }
 }
 
-#linksInTabs {
+#linksInTabs,
+#navbarShortcuts {
   margin-left: 30px;
   z-index: 10;
 }

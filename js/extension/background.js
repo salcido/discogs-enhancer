@@ -123,6 +123,14 @@ let featureDefaults = {
         },
       mediaCondition: 7,
       minimumRating: 4.5,
+      navbarShortcuts: {
+        collection: false,
+        inventory: false,
+        itemsIWant: false,
+        orders: false,
+        purchases: false,
+        subsAndDrafts: false,
+      },
       readability: {
           indexTracks: false,
           nth: 10,

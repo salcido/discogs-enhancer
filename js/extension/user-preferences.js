@@ -51,6 +51,14 @@ let defaults = {
   },
   mediaCondition: 7,
   minimumRating: null,
+  navbarShortcuts: {
+    collection: false,
+    inventory: false,
+    itemsIWant: false,
+    orders: false,
+    purchases: false,
+    subsAndDrafts: false,
+  },
   readability: {
     indexTracks: false,
     nth: 10,
@@ -94,6 +102,7 @@ function migratePreferences() {
           favoriteList = up.favoriteList || defaults.favoriteList,
           filterPrices = up.filterPrices || defaults.filterPrices,
           linksInTabs = up.linksInTabs || defaults.linksInTabs,
+          navbarShortcuts = up.navbarShortcuts || defaults.navbarShortcuts,
           mediaCondition = up.mediaCondition || defaults.mediaCondition,
           minimumRating = up.inventoryRatings || defaults.minimumRating,
           readability = up.readability || defaults.readability,
@@ -110,6 +119,7 @@ function migratePreferences() {
             favoriteList,
             filterPrices,
             linksInTabs,
+            navbarShortcuts,
             mediaCondition,
             minimumRating,
             readability,
@@ -299,6 +309,15 @@ appendFragment([resourceLibrary])
       linksInTabs.className = 'de-init';
 
       elems.push(linksInTabs);
+
+      // Nav bar shortcuts
+      let navbarShortcuts = document.createElement('script');
+
+      navbarShortcuts.type = 'text/javascript';
+      navbarShortcuts.src = chrome.runtime.getURL('js/extension/features/navbar-shortcuts.js');
+      navbarShortcuts.className = 'de-init';
+
+      elems.push(navbarShortcuts);
 
       // New Header #shadow-root fix
       let shadowrootfix = document.createElement('script');

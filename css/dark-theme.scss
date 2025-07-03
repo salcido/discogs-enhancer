@@ -4306,10 +4306,6 @@
       }
     }
 
-    .de-random-item-tooltip {
-      background: var(--black) !important;
-    }
-
     nav[class*="_user"] {
       a,
       a:visited {
@@ -5898,10 +5894,17 @@
 
   div[class*="views_"] button {
     border: 2px solid var(--borders) !important;
+    background-color: var(--input-bg) !important;
 
     &[aria-checked="true"] {
       background-color: var(--borders) !important;
       border: 2px solid var(--borders) !important;
+
+      svg {
+        path {
+          fill: var(--text-normal) !important;
+        }
+      }
     }
   }
 
@@ -6110,7 +6113,7 @@
 
   [class*="selectContainer_"] {
     border: 1px solid var(--borders) !important;
-    background-color: var(--main-bg-color) !important;
+    background-color: var(--input-bg) !important;
 
     &:hover {
       background-color: var(--borders) !important;
@@ -6263,13 +6266,11 @@
     color: var(--text-muted) !important;
   }
 
-  // .MuiDataGrid-columnSeparator .MuiDataGrid-iconSeparator {
-  //   visibility: hidden !important;
-
-  //   &:hover {
-  //     visibility: visible !important;
-  //   }
-  // }
+  // fixes annoying bug where layout shifts on row hover
+  // when there are long notes saved
+  .MuiDataGrid-row:hover button.text-field-button div.textFieldWithData {
+    margin-left: 0 !important;
+  }
 
   .MuiDataGrid-withBorderColor {
     color: var(--borders) !important;
@@ -6375,7 +6376,65 @@
     border-color: var(--borders) !important;
   }
 
+  // Manage Custom Fields
+  [class*="manageFieldsContainer_"] {
+    button {
+      &.Mui-disabled {
+        opacity: .25;
+      }
+    }
 
+    [class*="saveChangesContainer_"] {
+      background: var(--input-bg) !important;
+
+      button[class*="_primary_"] {
+        [class*="_buttonContent"] span {
+          color: var(--white) !important;
+        }
+      }
+    }
+
+    [class*="customDropdown_"] {
+      select {
+        background-color: var(--input-bg) !important;
+        color: var(--text-normal) !important;
+        border: 1px solid var(--borders) !important;
+      }
+    }
+
+    [class*="manageFieldsContainerHeader__topSection"] {
+      background: var(--main-bg-color) !important;
+      border-bottom: 1px solid var(--borders) !important;
+    }
+
+    [class*="collectionFieldRow_"] {
+      border-bottom: 1px solid var(--borders) !important;
+
+      input[class*="hasError_"],
+      textarea[class*="hasError_"] {
+        border: 1px solid var(--policy-error) !important;
+      }
+
+      p[class*="errorMessage_"],
+      p.MuiTypography-labelXSmallError {
+        color: var(--policy-error) !important;
+      }
+
+      [class*="collectionFieldRow__item"],
+      [class*="collectionFieldRow__public"],
+      [class*="collectionFieldRow__fieldPosition_"] {
+        border-bottom: none !important;
+      }
+
+      [class*="customCheckbox_"] {
+        border: 1px solid var(--borders) !important;
+        background: var(--input-bg) !important;
+      }
+    }
+
+  }
+
+  // Manage Custom Folders
   [class*="manageFoldersContainer_"] {
     background-color: var(--row-even) !important;
 
@@ -6389,6 +6448,7 @@
 
     [class*="manageFoldersContainerHeader__topSection"] {
       background: var(--main-bg-color) !important;
+      border-bottom: 1px solid var(--borders) !important;
     }
 
     li[class*="folderItemDetail_"] {
@@ -6776,6 +6836,78 @@
     }
     #icon-tooltip {
       background: var(--site-header-bg) !important;
+    }
+  }
+
+  // Edit Master Release UI
+  /////////////////////////////////////
+  [class*="createMRBox_"] {
+    border: 1px solid var(--borders) !important;
+
+    h2 {
+      background: var(--headers) !important;
+    }
+
+    [class*="releaseStaging_"] {
+      background: var(--input-bg) !important;
+
+      &[class*="error_"] {
+        border: 1px solid var(--in-wantlist-border) !important;
+        background: var(--in-wantlist-bg) !important;
+      }
+
+      [class*="versionsContainer_"] {
+        &[class*="removed_"] {
+          [class*="selectedRelease_"] {
+            border: 1px solid var(--in-wantlist-border) !important;
+            background: var(--in-wantlist-bg) !important;
+          }
+        }
+        &[class*="added_"] {
+          [class*="selectedRelease_"] {
+            border: 1px solid var(--in-collection-border) !important;
+            background: var(--in-collection-bg) !important;
+          }
+        }
+      }
+    }
+
+    [class*="footer_"] {
+      background: var(--headers) !important;
+    }
+  }
+  // Modal
+  [class*="selectedReleases_"] {
+    [class*="modalOverview_"] {
+      [class*="changes_"] {
+        span[class*="added_"] {
+          color: var(--demand-positive) !important;
+        }
+
+        span[class*="removed_"] {
+          color: var(--price) !important;
+        }
+      }
+    }
+  }
+  // Selected row colors
+  div[class*="discographyGrid_"] {
+    [class*="versionsTextWithCoversRow_"],
+    [class*="textWithCoversRow_"] {
+      &[class*="checked_"] {
+        background: var(--collection-row-selected) !important;
+      }
+    }
+  }
+  // Error / success message popovers
+  [class*="tabsContainer_"] {
+    [role="presentation"] {
+      &[class*="error_"] {
+        background: var(--in-wantlist-bg) !important;
+      }
+      &[class*="success_"] {
+        background: var(--in-collection-bg) !important;
+      }
     }
   }
 
