@@ -178,7 +178,8 @@
             background: var(--black) !important;
           }
 
-          .de-dark-theme nav[class*=_user] ul[class*="_user-dropdown_"] a:hover {
+          .de-dark-theme nav[class*=_user] ul[class*="_user-dropdown_"] a:hover,
+          .de-dark-theme nav[class*="_secondary_"] ul li a[role="menuitem"]:hover  {
             background: var(--input-bg) !important;
           }
           .de-dark-theme nav[class*=_user] a[class*="_register_"] {
