@@ -34,9 +34,14 @@
           }
           .de-dark-theme form[class*="_search"] {
             border-radius: 4px;
+            background: transparent;
+          }
+          .de-dark-theme form[class*="_search"]:not(:focus-within) {
+            border-radius: 20px;
           }
           .de-dark-theme form[class*="_search"]:focus-within {
              outline: 2px solid var(--input-focus-border) !important;
+             border-radius: 20px;
           }
           .de-dark-theme [class*=_logo_] svg {
             fill: var(--white) !important;
@@ -78,7 +83,8 @@
             fill: var(--text-normal) !important;
           }
           .de-dark-theme .de-random-item span svg path,
-          .de-dark-theme svg[class*=_icon_] path {
+          .de-dark-theme svg[class*=_icon_] path,
+          .de-dark-theme nav[class*="_user_"] div a svg path {
             fill: var(--text-normal) !important;
           }
           .de-dark-theme div[class*=_listbox_] {
@@ -174,7 +180,8 @@
           .de-dark-theme nav[class*=_user] a:visited {
             color: var(--text-normal) !important;
           }
-          .de-dark-theme nav[class*=_user] a:hover {
+          .de-dark-theme nav[class*=_user] a:hover,
+          .de-dark-theme .de-shortcut-item:hover {
             background: var(--black) !important;
           }
 
@@ -362,6 +369,9 @@
     const checkForShadowRoot = function() {
 
       if ( host && host.shadowRoot ) {
+
+        let _header = host.shadowRoot.querySelector('div[class^="_amped_"] header');
+        _header.querySelector('nav[class^="_secondary_"]').insertAdjacentHTML('beforeend', '<div class="de-icons-container" style="display: flex; margin-right: 107px;"></div>');
 
         clearInterval(handle);
 

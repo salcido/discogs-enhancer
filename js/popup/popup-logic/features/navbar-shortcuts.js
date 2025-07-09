@@ -13,11 +13,15 @@
  export async function createShortcutElements() {
 
     const defaults = {
-      collection: false,
+      forum: false,
+      groups: false,
       inventory: false,
       itemsIWant: false,
+      listAnItem: false,
       orders: false,
+      profile: false,
       purchases: false,
+      storefront: false,
       subsAndDrafts: false,
     };
 
@@ -27,8 +31,12 @@
        { navbarShortcuts = defaults } = featureData,
        menus = [
            {
-             name: 'Collection',
-             value: 'collection',
+            name: 'Forum',
+            value: 'forum',
+           },
+           {
+            name: 'Groups',
+            value: 'groups',
            },
            {
             name: 'Inventory',
@@ -39,12 +47,24 @@
              value: 'itemsIWant',
            },
            {
+             name: 'List An Item',
+             value: 'listAnItem',
+           },
+           {
             name: 'Orders',
             value: 'orders',
            },
            {
+            name: 'Profile',
+            value: 'profile'
+           },
+           {
              name: 'Purchases',
              value: 'purchases',
+           },
+           {
+            name: 'My Storefront',
+            value: 'storefront',
            },
            {
              name: 'Subs & Drafts',
@@ -95,11 +115,15 @@
 
     if (!featureData.navbarShortcuts) {
       featureData.navbarShortcuts = {
-        collection: false,
+        forum: false,
+        groups: false,
         inventory: false,
         itemsIWant: false,
+        listAnItem: false,
         orders: false,
+        profile: false,
         purchases: false,
+        storefront: false,
         subsAndDrafts: false,
       };
     }

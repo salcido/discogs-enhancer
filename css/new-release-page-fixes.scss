@@ -218,3 +218,7 @@ a.wantlister i {
 #page.order-page {
   font-size: 14px;
 }
+// Remove weird margin on Inventory page
+body {
+  margin: 0;
+}

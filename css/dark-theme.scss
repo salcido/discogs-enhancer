@@ -4172,9 +4172,18 @@
     background: var(--site-header-bg) !important;
   }
 
+  ::part(header) {
+    margin-top: -1px;
+  }
+
+  ::part(wrap) {
+    border-top: 1px solid var(--borders) !important;
+  }
+
   ::part(query) {
     background: var(--input-bg) !important;
     color: var(--text-normal) !important;
+    border-radius: 20px 0 0 20px;
   }
 
   ::part(search) {
@@ -4607,6 +4616,14 @@
           overflow: auto;
           word-break: break-word;
         }
+      }
+    }
+
+    button.notes_edit_save {
+      color: var(--white) !important;
+      border: 1px solid var(--button-green-border) !important;
+      &:hover {
+        background: var(--button-green) !important;
       }
     }
 
