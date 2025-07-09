@@ -3,7 +3,7 @@
   "name": "Discogs Enhancer",
   "short_name": "Discogs Enhancer",
   "description": "Enhance your Discogs experience with dark themes, seller tools, price comparisons, currency conversion, powerful filters, and more!",
-  "version": "3.10.0",
+  "version": "3.10.1",
   "author": "Matthew Salcido",
   "homepage_url": "https://www.discogs-enhancer.com",
   "action": {
