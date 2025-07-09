@@ -733,25 +733,25 @@ rl.ready(() => {
       }
 
       nav[class*="_user_"] a.de-seller-feedback {
-        padding: 2rem 0rem;
+        padding: 2rem .75rem;
       }
 
       nav[class*="_user_"] a.de-buyer-feedback {
-        padding: 2rem 0rem;
+        padding: 2rem .75rem;
       }
 
       /* DELETE IN THE FUTURE */
 
       nav[class*="profile_"] a.de-seller-feedback {
-        padding: 2rem 0rem;
+        padding: 2rem .5rem;
       }
 
       nav[class*="profile_"] a.de-buyer-feedback {
-        padding: 2rem 0rem;
+        padding: 2rem .5rem;
       }
 
       nav[class*="profile_"] .de-badge {
-        margin: 1rem .5rem;
+        margin: 1rem 1rem;
       }
 
       nav[class*="profile_"] .feedback-chart {
@@ -781,7 +781,7 @@ rl.ready(() => {
       }
 
       nav[class*="_user_"] .de-badge {
-        margin: 1rem .5rem;
+        margin: 1rem 0rem;
       }
 
       nav[class*="_user_"] .feedback-chart {
