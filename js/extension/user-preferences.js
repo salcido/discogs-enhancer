@@ -52,11 +52,15 @@ let defaults = {
   mediaCondition: 7,
   minimumRating: null,
   navbarShortcuts: {
-    collection: false,
+    forum: false,
+    groups: false,
     inventory: false,
     itemsIWant: false,
+    listAnItem: false,
     orders: false,
+    profile: false,
     purchases: false,
+    storefront: false,
     subsAndDrafts: false,
   },
   readability: {

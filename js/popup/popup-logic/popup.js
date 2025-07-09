@@ -217,7 +217,7 @@ window.addEventListener('load', () => {
   // Navbar Shortcuts
   // ------------------------------------------------------
   document.querySelector('.toggle-group.navbarShortcuts').addEventListener('click', function() {
-    optionsToggle('#navbarShortcuts', this, '.navbarShortcuts', 120);
+    optionsToggle('#navbarShortcuts', this, '.navbarShortcuts', 150);
   });
 
   // Open Links In New tabs
