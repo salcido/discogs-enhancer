@@ -84,7 +84,8 @@
           }
           .de-dark-theme .de-random-item span svg path,
           .de-dark-theme svg[class*=_icon_] path,
-          .de-dark-theme nav[class*="_user_"] div a svg path {
+          .de-dark-theme nav[class*="_user_"] div a svg path,
+          .de-dark-theme nav[class*="_user_"] div button svg path {
             fill: var(--text-normal) !important;
           }
           .de-dark-theme div[class*=_listbox_] {
@@ -294,6 +295,9 @@
           .de-dark-theme header[class*="_header"] div[class*="_bottom_"] nav[class*="_secondary_"] button {
             color: var(--text-normal) !important;
           }
+          .de-dark-theme header[class*="_header"] div[class*="_bottom_"] nav[class*="_secondary_"] button span svg path {
+            fill: var(--text-normal) !important;
+          }
           .de-dark-theme div.rnf-notification-feed-popover select {
             color: var(--text-bold) !important;
           }
@@ -369,9 +373,6 @@
     const checkForShadowRoot = function() {
 
       if ( host && host.shadowRoot ) {
-
-        let _header = host.shadowRoot.querySelector('div[class^="_amped_"] header');
-        _header.querySelector('nav[class^="_secondary_"]').insertAdjacentHTML('beforeend', '<div class="de-icons-container" style="display: flex; margin-right: 107px;"></div>');
 
         clearInterval(handle);
 
