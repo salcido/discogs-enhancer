@@ -13,13 +13,12 @@
  */
 
  rl.ready(() => {
-  // Don't run on React Release page
-  if ( rl.pageIsReact() ) return;
+
+  if ( !rl.pageIsReact() ) return;
 
   let additionalText = rl.options.quicksearch(),
       re,
-      shouldRun = false,
-      title = document.title;
+      shouldRun = false;
 
   // Master release pages
   // ------------------------------------------------------
@@ -33,10 +32,11 @@
   // Individual release pages
   // ------------------------------------------------------
   if ( rl.pageIs('release')
-       && rl.pageIsNot('reviews', 'videos', 'edit', 'stats', 'update', 'addRelease') ) {
+       && rl.pageIsNot('reviews', 'videos', 'edit', 'stats', 'update') ) {
     // Match patterns:
+    // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) - Discogs
     // Tissu - Unmanned Vehicle (Vinyl, UK, 2015) For Sale | Discogs
-    re = /(?:.(?!\(.+\).+\| Discogs))+$/g;
+    re = /– [^–]*$/g;
     shouldRun = true;
   }
 
@@ -78,20 +78,28 @@
   // ========================================================
   // DOM Setup
   // ========================================================
-  let i = document.createElement('i'),
-      query = title.replace(re, ''),
-      releaseTitle = document.querySelector('#profile_title span');
+  rl.waitForElement('h1[class*="title_"]').then(() => {
 
-  // DOM manipulation
-  i.classList = 'icon icon-external-link de-external';
-  releaseTitle.nextElementSibling.classList = 'de-quick-search';
-  releaseTitle.nextElementSibling.insertAdjacentElement('afterend', i);
-  releaseTitle.nextElementSibling.textContent = releaseTitle.nextElementSibling.textContent.trim();
+    let i = document.createElement('i'),
+        query = document.title.replace(re, ''),
+        releaseTitle = document.querySelector('h1[class*="title_"]');
 
-  // Handle click events
-  releaseTitle.nextElementSibling.addEventListener('click', () => {
-    window.open('https://www.google.com/search?udm=14&q=' + encodeURIComponent(query) + additionalText);
+    // DOM manipulation
+    i.classList = 'icon icon-external-link de-external';
+
+    let regex = /(\– .+)+$/g,
+    titleText = releaseTitle.innerHTML.match(regex);
+
+    let newReleaseMarkup = releaseTitle.innerHTML.toString().replace(regex, `<span class="de-quick-search">${titleText[0]}</span>`);
+
+    releaseTitle.innerHTML = newReleaseMarkup;
+    releaseTitle.insertAdjacentElement('beforeend', i);
+
+    rl.attachCss('quick-search', rules);
+
+    // Click handler
+    document.querySelector('.de-quick-search').addEventListener('click', () => {
+      window.open('https://www.google.com/search?udm=14&q=' + encodeURIComponent(query) + additionalText);
+    });
   });
-
-  rl.attachCss('quick-search', rules);
 });

@@ -16,7 +16,8 @@
  rl.ready(() => {
 
   let newHeader = document.querySelector('div[id*="__header"]');
-  if (rl.pageIsReact() || newHeader) return;
+
+  if (!newHeader) return;
   // ========================================================
   // Function
   // ========================================================
@@ -25,7 +26,15 @@
    * @returns {undefined}
    */
   function stopAnimation() {
-    document.querySelector('.de-random-item').classList.replace('rotate-out', 'rotate-in');
+
+    let randomItemBtn = _header.querySelector('.de-random-item');
+
+    if ( randomItemBtn
+          && randomItemBtn.classList
+          && randomItemBtn.classList.contains('rotate-out') ) {
+
+      randomItemBtn.classList.replace('rotate-out', 'rotate-in');
+    }
   }
 
   // ========================================================
@@ -36,26 +45,19 @@
       .de-random-item {
         cursor: pointer;
         font-size: 14px;
-        padding: 0 30px !important;
         color: white;
+        list-style-type: none;
       }
 
       .de-random-item:hover {
+        background: #31312f;
+      }
+
+      .de-dark-theme .de-random-item:hover {
         background: black;
       }
 
-      .de-random-item .tooltip {
-        opacity: 0;
-      }
-
-      .de-random-item:hover .tooltip {
-        opacity: 1;
-      }
-
       .de-random-item svg {
-        position: absolute;
-        top: 23px;
-        left: -10px;
         fill: #ffffff;
       }
 
@@ -64,10 +66,45 @@
         pointer-events: none;
       }
 
-      .de-random-item .tooltip {
+      .de-random-item-tooltip {
+        background: #000;
+        border-radius: 4px;
+        color: #fff;
+        display: block;
+        font-size: 16px;
+        height: 18px;
+        left: 50%;
+        line-height: 18px;
+        margin: auto;
+        opacity: 0;
+        padding: 0.5rem 1rem;
+        pointer-events: none;
         position: absolute;
-        top: 63px;
-        left: -17px;
+        text-align: center;
+        top: 65px;
+        transform: translateX(-50%) scale(.9);
+        transition: opacity .2s,transform 1s;
+        white-space: nowrap;
+        width: auto;
+      }
+
+      .de-random-item-tooltip.visible {
+        transition: opacity .35s, transform .3s;
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+
+      .de-random-item-tooltip::before {
+        border-color: transparent transparent #000;
+        border-style: solid;
+        border-width: 0 5px 5px;
+        content: "";
+        height: 0;
+        left: 50%;
+        margin-left: -5px;
+        position: absolute;
+        top: -5px;
+        width: 0;
       }
 
       .rotate-in {
@@ -75,13 +112,7 @@
       }
 
       .rotate-out {
-        animation: rotateOut .4s infinite;
-        background-color: none !important;
-      }
-
-      .rotate-out:hover {
-        background-color: none !important;
-        background: none !important;
+        animation: rotateOut .2s 25;
       }
 
       @keyframes rotateIn {
@@ -91,49 +122,86 @@
 
       @keyframes rotateOut {
         0% { transform: rotateX(0deg); }
-        25% { transform: rotateX(90deg); }
-        50% { transform: rotateX(0deg); }
-        75% { transform: rotateX(90deg); }
-        100% { transform: rotateX(135deg); }
+        50% { transform: rotateX(90deg); }
+        100% { transform: rotateX(180deg); }
       }
       `;
+
+      let host = document.querySelector('[id^=__header_root_]');
+
+      if ( host && host.shadowRoot ) {
+
+        let css = document.createElement('style'),
+            fragment = document.createDocumentFragment();
+
+        css.id = 'random-item';
+        css.rel = 'stylesheet';
+        css.type = 'text/css';
+        css.textContent = rules;
+
+        fragment.appendChild(css);
+        host.shadowRoot.appendChild(fragment.cloneNode(true));
+
+      } else {
+        rl.attachCss('random-item', rules);
+      }
+
 
   // ========================================================
   // DOM Setup
   // ========================================================
-  let user = rl.username(),
-      icon = `<li style="position: relative;">
-                <a class="nav_group_control de-random-item has-tooltip rotate-in"
-                   href="/user/${user}/collection/random"
-                   rel="tooltip"
-                   data-placement="bottom"
-                   arial-label="Random Item">
-                  <span style="position: relative">
-                   <svg width="20" height="17" viewBox="0 0 15 12" xmlns="http://www.w3.org/2000/svg"><path d="M14.9998 9.45703L11.85 12V10.3044H11.3198C9.64588 10.3044 8.41328 9.59801 7.39572 8.66267C7.78817 8.22752 8.14397 7.78952 8.47497 7.37975C8.55101 7.28523 8.62656 7.19195 8.70195 7.09867C9.45476 7.83191 10.2645 8.32656 11.32 8.32656H11.8502V6.9135L14.9998 9.45703V9.45703ZM0 3.80524H1.56967C2.56507 3.80524 3.34176 4.24592 4.05831 4.90998C4.17623 4.76739 4.29547 4.61885 4.41583 4.47054C4.70881 4.1072 5.01853 3.72463 5.35412 3.34308C4.36327 2.47094 3.16781 1.82692 1.56971 1.82692H0V3.80524V3.80524ZM11.85 0V1.68576H11.3198C8.54949 1.68576 6.9876 3.61988 5.60929 5.32689C4.36954 6.8596 3.29919 8.1851 1.56967 8.1851H0V10.1632H1.56967C4.34043 10.1632 5.90228 8.23008 7.28063 6.52348C8.51994 4.98893 9.59049 3.66362 11.3198 3.66362H11.85V5.08692L15 2.54316L11.85 0V0Z"/></svg>
+
+  let releasePage = (rl.pageIs('master') || rl.pageIs('release') || rl.pageIs('artist') || rl.pageIs('label')),
+      shouldRun = rl.pageIsNot('stats') && rl.pageIsNot('history') && rl.pageIsNot('edit'),
+      paddingTop = releasePage && shouldRun ? '1.35rem;' : '1.5rem;',
+      user = rl.username(),
+      _header = host.shadowRoot.querySelector('div[class^="_amped_"] header'),
+      inline_css = `padding-top: ${paddingTop} padding-right: 1.4rem; padding-left: 1.2rem;`,
+      icon = `<div style="position: relative; ${inline_css}" class="de-random-item rotate-in">
+                <a class="de-random-item rotate-in"
+                  href="/user/${user}/collection/random"
+                  arial-label="Random Item">
+                  <span>
+                  <svg width="20" height="17" alt="Random Item" viewBox="0 0 15 12" xmlns="http://www.w3.org/2000/svg"><path d="M14.9998 9.45703L11.85 12V10.3044H11.3198C9.64588 10.3044 8.41328 9.59801 7.39572 8.66267C7.78817 8.22752 8.14397 7.78952 8.47497 7.37975C8.55101 7.28523 8.62656 7.19195 8.70195 7.09867C9.45476 7.83191 10.2645 8.32656 11.32 8.32656H11.8502V6.9135L14.9998 9.45703V9.45703ZM0 3.80524H1.56967C2.56507 3.80524 3.34176 4.24592 4.05831 4.90998C4.17623 4.76739 4.29547 4.61885 4.41583 4.47054C4.70881 4.1072 5.01853 3.72463 5.35412 3.34308C4.36327 2.47094 3.16781 1.82692 1.56971 1.82692H0V3.80524V3.80524ZM11.85 0V1.68576H11.3198C8.54949 1.68576 6.9876 3.61988 5.60929 5.32689C4.36954 6.8596 3.29919 8.1851 1.56967 8.1851H0V10.1632H1.56967C4.34043 10.1632 5.90228 8.23008 7.28063 6.52348C8.51994 4.98893 9.59049 3.66362 11.3198 3.66362H11.85V5.08692L15 2.54316L11.85 0V0Z"/></svg>
                   </span>
-                  <span class="tooltip" role="tooltip">
-                    <span class="tooltip-inner">
-                      Random Item
-                    </span>
-                </span>
                 </a>
-              </li>`;
+                <div class="de-random-item-tooltip">Random Item</div>
+              </div>`;
 
+  function addListeners() {
+    // show the tooltip
+    _header.querySelector('.de-random-item').addEventListener('mouseover', () => {
+      _header.querySelector('.de-random-item-tooltip').classList.add('visible');
+    });
 
-  if ( user && !rl.pageIsReact() ) {
+    // hide the tooltip
+    _header.querySelector('.de-random-item').addEventListener('mouseout', () => {
+      _header.querySelector('.de-random-item-tooltip').classList.remove('visible');
+    });
 
-    rl.attachCss('random-item', rules);
-    document.getElementById('activity_menu').insertAdjacentHTML('afterbegin', icon);
+    _header.querySelector('.de-random-item').addEventListener('click', event => {
+      _header.querySelector('.de-random-item-tooltip').style.visibility = 'hidden';
+      _header.querySelector('.de-random-item').style.background = 'transparent';
 
-    document.querySelector('.de-random-item').addEventListener('click', event => {
-      event.target.classList.replace('rotate-in', 'rotate-out');
-      event.target.querySelector('.tooltip').style.opacity = 0;
+      // Call the random item endpoint if the user clicks the surrounding div instead
+      if (event.target.classList.contains('de-random-item')) {
+        window.location = `/user/${user}/collection/random`;
+        _header.querySelectorAll('.rotate-in').forEach(elem => elem.classList.replace('rotate-in', 'rotate-out'));
+      }
+
       if (event.metaKey) {
         return setTimeout(() => stopAnimation(), 250);
       }
       return setTimeout(() => stopAnimation(), 4000);
     });
   }
+
+  rl.waitForElement('[class*="_listbox_"]', host.shadowRoot).then(() => {
+    setTimeout(() => {
+      _header.querySelector('nav[class^="_user_"]').insertAdjacentHTML('afterbegin', icon);
+      addListeners();
+    }, 100);
+  });
 });
 /**
 // ========================================================

@@ -18,11 +18,12 @@
 
   const host = document.querySelector('[id^=__header_root_]');
   const username = rl.username();
+  const itemsIWant = rl.options.itemsIWant();
 
   const FORUM_URL = '/forum';
   const GROUPS_URL = '/group';
   const INVENTORY_URL = '/sell/manage';
-  const ITEMSIWANT_URL = '/sell/mywants';
+  const ITEMSIWANT_URL = `/sell/mywants${itemsIWant}`;
   const LISTANITEM_URL = '/sell';
   const ORDERS_URL = '/sell/orders';
   const PROFILE_URL = `/user/${username}`;
@@ -194,7 +195,6 @@
 
   let { navbarShortcuts } = rl.getPreference('featureData'),
       _header = host ? host.shadowRoot.querySelector('div[class^="_amped_"] header') : document,
-      selector = host ? '[id^=__header_root_]' : 'nav[class^="_user_"] a',
       icon_map = {
         'forum_icon': FORUM_ICON,
         'forum_url': FORUM_URL,
@@ -260,13 +260,17 @@
     return result;
   }
 
-  rl.waitForElement(selector).then(() => {
+  rl.waitForElement('[class*="_listbox_"]', host.shadowRoot).then(() => {
     // Collection shortcut has been added by Discogs
     // so don't render it. Janky af, sorry
-    const deprecatedShortcuts = ['collection'];
+    let deprecatedShortcuts = ['collection'];
     navbarShortcuts = removeKeys(navbarShortcuts, deprecatedShortcuts);
 
     setTimeout(() => {
+      // Insert container div to hold shortcut icons
+      let iconsContainer = '<div class="de-icons-container" style="display: flex; margin-right: 107px;"></div>';
+      _header.querySelector('nav[class^="_secondary_"]').insertAdjacentHTML('beforeend', iconsContainer);
+
       _header.querySelector('.de-icons-container').insertAdjacentHTML('beforeend', '<div class="shortcuts"></div>');
 
       for ( let [key, value] of Object.entries(navbarShortcuts) ) {
