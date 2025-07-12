@@ -533,14 +533,6 @@ appendFragment([resourceLibrary])
         confirmBeforeRemoving.className = 'de-init';
 
         elems.push(confirmBeforeRemoving);
-
-        let confirmBeforeRemovingReact = document.createElement('script');
-
-        confirmBeforeRemovingReact.type = 'text/javascript';
-        confirmBeforeRemovingReact.src = chrome.runtime.getURL('js/extension/features/confirm-before-removing-react.js');
-        confirmBeforeRemovingReact.className = 'de-init';
-
-        elems.push(confirmBeforeRemovingReact);
       }
 
       if (prefs.collectionBoxFix) {
@@ -705,23 +697,6 @@ appendFragment([resourceLibrary])
         feedback.className = 'de-init';
 
         elems.push(feedback);
-
-        let feedbackNew = document.createElement('script');
-
-        feedbackNew.type = 'text/javascript';
-        feedbackNew.src = chrome.runtime.getURL('js/extension/features/feedback-notifier-new.js');
-        feedbackNew.className = 'de-init';
-
-        elems.push(feedbackNew);
-
-        // feedback-notifier.css
-        let feedback_css = document.createElement('link');
-
-        feedback_css.rel = 'stylesheet';
-        feedback_css.type = 'text/css';
-        feedback_css.href = chrome.runtime.getURL('css/feedback-notifier.css');
-
-        elems.push(feedback_css);
       }
 
       if (prefs.filterMediaCondition) {
@@ -866,14 +841,6 @@ appendFragment([resourceLibrary])
         quickSearch.className = 'de-init';
 
         elems.push(quickSearch);
-
-        let quickSearchReact = document.createElement('script');
-
-        quickSearchReact.type = 'text/javascript';
-        quickSearchReact.src = chrome.runtime.getURL('js/extension/features/quick-search-react.js');
-        quickSearchReact.className = 'de-init';
-
-        elems.push(quickSearchReact);
       }
 
       if (prefs.quickSearchTracklists) {
@@ -909,22 +876,6 @@ appendFragment([resourceLibrary])
         randomItem.src = chrome.runtime.getURL('js/extension/features/random-item.js');
 
         elems.push(randomItem);
-
-        // random item react
-        let randomItemReact = document.createElement('script');
-
-        randomItemReact.type = 'text/javascript';
-        randomItemReact.src = chrome.runtime.getURL('js/extension/features/random-item-react.js');
-
-        elems.push(randomItemReact);
-
-        // new random item
-        let randomItemNewHeader = document.createElement('script');
-
-        randomItemNewHeader.type = 'text/javascript';
-        randomItemNewHeader.src = chrome.runtime.getURL('js/extension/features/random-item-new-header.js');
-
-        elems.push(randomItemNewHeader);
       }
 
       if (prefs.ratingPercent) {
@@ -1131,15 +1082,6 @@ appendFragment([resourceLibrary])
         sortMarketplaceScript.className = 'de-init';
 
         elems.push(sortMarketplaceScript);
-
-        // sort-personal-lists.js
-        let sortPersonalListsScript = document.createElement('script');
-
-        sortPersonalListsScript.type = 'text/javascript';
-        sortPersonalListsScript.src = chrome.runtime.getURL('js/extension/features/sort-personal-lists.js');
-        sortPersonalListsScript.className = 'de-init';
-
-        elems.push(sortPersonalListsScript);
       }
 
       if (prefs.sortByTotalPrice) {

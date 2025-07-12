@@ -43,7 +43,11 @@ resourceLibrary.ready(() => {
                     </li>
                     <li>
                       <label for="quicksearch" id="quickSearchLabel">Quick Search:</label>
-                      <input id="quicksearch" name="quicksearch" />
+                      <input id="quicksearch" name="quicksearch" placeholder="Additional Keywords" />
+                    </li>
+                    <li>
+                      <label for="itemsIWant" id="itemsIWantLabel">Items I Want:</label>
+                      <input id="itemsIWant" name="itemsIWant" placeholder="URL Params"/>
                     </li>
                   </ul>
                   <a href="#" class="options-save button button-green" id="saveOptions">Save options &amp; refresh</a>

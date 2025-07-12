@@ -601,6 +601,7 @@
             { colorize,
               comments,
               debug,
+              itemsIWant,
               oldpages,
               quicksearch,
               threshold,
@@ -611,6 +612,8 @@
         if (comments) { document.getElementById('comments').checked = true; }
 
         if (debug) { document.getElementById('debug').checked = true; }
+
+        if (itemsIWant) { document.getElementById('itemsIWant').value = itemsIWant; }
 
         if (oldpages) { document.getElementById('oldpages').checked = true; }
 
@@ -631,6 +634,7 @@
             colorize = document.getElementById('colorize').checked,
             comments = document.getElementById('comments').checked,
             debug = document.getElementById('debug').checked,
+            itemsIWant = document.getElementById('itemsIWant').value,
             oldpages = document.getElementById('oldpages').checked,
             quicksearch = document.getElementById('quicksearch').value,
             threshold = document.getElementById('threshold').value,
@@ -645,6 +649,7 @@
         options.colorize = colorize;
         options.comments = comments;
         options.debug = debug;
+        options.itemsIWant = itemsIWant;
         options.oldpages = oldpages;
         options.quicksearch = quicksearch;
         options.threshold = threshold;
@@ -655,6 +660,16 @@
         resourceLibrary.appendNotice('Options have been successfully saved.', 'limeGreen');
 
         return location.reload();
+      },
+
+      /**
+       * An additional string appended to the Items I Want shortcut
+       * @returns {String}
+       */
+      itemsIWant: function() {
+        let hasOptions = resourceLibrary.getPreference('options'),
+            itemsIWant = hasOptions ? hasOptions.itemsIWant : '';
+        return itemsIWant;
       },
 
       /**
@@ -1012,23 +1027,24 @@
      * Sets up a MutationObserver to look for specific
      * DOM elements to be rendered.
      * @param {String} selector - querySelector string
+     * @param {String} target - Document or shadowRoot
      * @returns {Promise}
      */
-    setObserver: function(selector) {
+    setObserver: function(selector, target = document) {
       return new Promise(resolve => {
-        if ( document.querySelector(selector) ) {
-          return resolve(document.querySelector(selector));
+        if ( target.querySelector(selector) ) {
+          return resolve(target.querySelector(selector));
         }
 
         let observer = new MutationObserver(() => {
-          if ( document.querySelector(selector) ) {
+          if ( target.querySelector(selector) ) {
 
             observer.disconnect();
-            return resolve(document.querySelector(selector));
+            return resolve(target.querySelector(selector));
           }
         });
 
-        observer.observe(document.body, {
+        observer.observe(target.body, {
           childList: true,
           subtree: true
         });
@@ -1143,14 +1159,15 @@
      * Mutation Observer generally used to monitor anything that loads async
      * within the new React-based pages.
      * @param    {string} selector - the DOM selector string you're looking for
+     * @param    {string} target - either Document or shadowRoot
      * @returns   {Promise}
      */
-      waitForElement: function(selector) {
+      waitForElement: function(selector, target) {
         return new Promise((resolve) => {
           let int = setInterval(() => {
             if (document.hasFocus()) {
               clearInterval(int);
-              return resolve(this.setObserver(selector));
+              return resolve(this.setObserver(selector, target));
             }
           }, 100);
         });

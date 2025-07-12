@@ -6,12 +6,13 @@
  * @website: http://www.msalcido.com
  * @github: https://github.com/salcido
  *
- * This will propmt the user to confirm that they would
+ * This will prompt the user to confirm that they would
  * like to remove the item from their collection before
  * the request to remove it is sent.
  */
 
 rl.ready(() => {
+
   // ========================================================
   // Functions
   // ========================================================
@@ -46,25 +47,24 @@ rl.ready(() => {
   function showConfirmPrompt(event) {
 
     let span = createConfirmPrompt(),
-        collectionBlock = event.target.closest('.cw_block.cw_block_collection'),
+        collectionBlock = event.target.closest('div[class*="collection_"]'),
         removeLink = event.target,
-        timestamp = collectionBlock.querySelector('.cw_block_timestamp span') ||
-                    collectionBlock.querySelector('.cw_block_timestamp');
+        timestamp = collectionBlock.querySelector('span[class*="added_"]');
 
-    removeLink.classList.add('rotate-out');
-    timestamp.classList.add('rotate-out');
+    removeLink.classList.add('flip-out');
+    timestamp.classList.add('flip-out');
 
     setTimeout(() => {
-      collectionBlock.insertAdjacentElement('afterbegin', span);
+      collectionBlock.querySelector('div[class*="header_"]').insertAdjacentElement('beforeend', span);
 
       removeLink.classList.add('hide');
       timestamp.classList.add('hide');
 
-      removeLink.classList.remove('rotate-out');
+      removeLink.classList.remove('flip-out');
 
       collectionBlock.querySelector('.de-remove-no').addEventListener('click', event => {
         hideConfirmPrompt(event);
-        timestamp.classList.remove('rotate-out');
+        timestamp.classList.remove('flip-out');
       });
 
       collectionBlock.querySelector('.de-remove-yes').addEventListener('click', event => {
@@ -90,7 +90,7 @@ rl.ready(() => {
     slash.textContent = ' / ';
     no.textContent = 'No';
 
-    span.className = 'cw_block_remove rotate-in';
+    span.className = 'cw_block_remove flip-in';
     yes.className = 'de-remove-yes';
     no.className = 'de-remove-no';
 
@@ -108,20 +108,36 @@ rl.ready(() => {
    * @returns {undefined}
    */
   async function removeFromCollection(event) {
-    let block = event.target.closest('.cw_block_collection'),
-        url = `/_rest/collection/${block.dataset.id}`,
+    let id = event.target.closest('div[class*="collection_"]').dataset.collectionId,
+        data = {
+          operationName: 'RemoveReleaseFromCollection',
+            variables: {
+              input: {
+                discogsId: Number(id)
+              }
+            },
+            extensions: {
+              persistedQuery: {
+                version: 1,
+                sha256Hash: '93242d935addda589c5114a57e09b404213bdd55737fb6bdc2b91a6c3fe7337c'
+              }
+            }
+        },
+        collectionBox = event.target.closest('div[class*="collection_"]'),
+        url = 'https://www.discogs.com/service/catalog/api/graphql',
         headers = { 'content-type': 'application/x-www-form-urlencoded' },
         initObj = {
           credentials: 'include',
           headers: headers,
-          method: 'DELETE'
+          method: 'POST',
+          body: JSON.stringify(data)
         },
         response = await fetch(url, initObj);
 
-    event.target.closest('.cw_block_remove.rotate-in').innerHTML = 'Removing...';
+    event.target.closest('.cw_block_remove.flip-in').innerHTML = 'Removing...';
 
     if ( response.ok ) {
-      block.remove();
+      collectionBox.remove();
     }
   }
 
@@ -131,22 +147,22 @@ rl.ready(() => {
    */
   function hideConfirmPrompt(event) {
 
-    let collectionBlock = event.target.closest('.cw_block.cw_block_collection'),
-        prompt = collectionBlock.querySelector('.cw_block_remove.rotate-in'),
+    let collectionBlock = event.target.closest('div[class*="collection_"]'),
+        prompt = collectionBlock.querySelector('.cw_block_remove.flip-in'),
         removeLink = collectionBlock.querySelector('.de-remove-block'),
-        timestamp = collectionBlock.querySelector('.cw_block_timestamp span');
+        timestamp = collectionBlock.querySelector('span[class*="added_"]');
 
-    prompt.classList.add('rotate-out');
+    prompt.classList.add('flip-out');
 
     setTimeout(() => {
       prompt.remove();
       removeLink.classList.remove('hide');
-      removeLink.classList.add('rotate-in');
+      removeLink.classList.add('flip-in');
     }, 100);
 
     setTimeout(() => {
       timestamp.classList.remove('hide');
-      timestamp.classList.add('rotate-in');
+      timestamp.classList.add('flip-in');
     }, 150);
   }
 
@@ -160,18 +176,18 @@ rl.ready(() => {
   function deleteOriginalRemoveLink() {
     return new Promise(resolve => {
 
-      let removeText = document.querySelector('.cw_block_remove.remove_from_collection').textContent;
+      let removeText = document.querySelector('div[class*="collection_"] button[class*="remove_"]').textContent;
 
-      document.querySelectorAll('.cw_block_remove.remove_from_collection').forEach(rem => {
+      document.querySelectorAll('div[class*="collection_"] button[class*="remove_"]').forEach(rem => {
         rem.remove();
       });
 
-      document.querySelectorAll('.cw_block.cw_block_collection').forEach(block => {
+      document.querySelectorAll('div[class*="collection_"]').forEach(block => {
         let a = document.createElement('a');
         a.textContent = removeText;
         a.classList = 'de-remove-block';
 
-        block.insertAdjacentElement('afterbegin', a);
+        block.querySelector('div[class*="header_"]').insertAdjacentElement('beforeend', a);
       });
       return resolve();
     });
@@ -184,20 +200,26 @@ rl.ready(() => {
       .de-remove-block {
         float: right;
         font-size: 11px;
-        padding-top: 2px;
         display: block;
+        cursor: pointer;
       }
 
       .hide {
         display: none !important;
       }
 
-      .rotate-in {
+      .flip-in {
         animation: rotateIn .1s ease-out;
       }
 
-      .rotate-out {
+      .flip-out {
         animation: rotateOut .1s ease-out;
+      }
+
+      .cw_block_remove {
+        font-size: 12px;
+        float: right;
+        cursor: pointer;
       }
 
       @keyframes rotateOut {
@@ -214,10 +236,26 @@ rl.ready(() => {
   // ========================================================
   // DOM Setup
   // ========================================================
-  if ( rl.pageIs('release')
-       && document.querySelector('.cw_block.cw_block_collection') ) {
+  if ( rl.pageIs('release') && rl.pageIsReact() ) {
 
-    rl.attachCss('random-item', rules);
-    deleteOriginalRemoveLink().then(addUIListeners);
+    rl.waitForElement('div[class*="collection_"]').then(() => {
+
+      rl.attachCss('random-item', rules);
+      // Find the collection ID and attach it to each collection box
+      // Wrapped in a setTimeout so that hashes.js can update any hashes before
+      // this executes
+      setTimeout(async () => {
+        let regex = /(\d+)/g,
+            releaseId = document.querySelector('#release-actions button[class*="id_"]').textContent.match(regex),
+            ids = await window.getUserData(releaseId),
+            itemsInCollection = document.querySelectorAll('div[class*="collection_"]');
+
+        ids.forEach((id, i) => {
+          itemsInCollection[i].dataset.collectionId = id.node.discogsId;
+        });
+
+        deleteOriginalRemoveLink().then(addUIListeners);
+      }, 250);
+    });
   }
 });
