@@ -1,5 +1,7 @@
 node_modules
 dist
+chrome-dist
+firefox-dist
 js/chart
 .vscode
 .DS_Store
