@@ -1224,6 +1224,7 @@ appendFragment([resourceLibrary])
                 colorize: false,
                 comments: false,
                 debug: false,
+                itemsIWant: '',
                 quicksearch: '',
                 threshold: 2,
                 unitTests: false

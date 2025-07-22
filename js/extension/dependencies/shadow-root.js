@@ -32,16 +32,33 @@
           .de-dark-theme img[class*="_avatar_"] {
             border: 1px solid var(--text-normal) !important;
           }
+          .de-dark-theme [class*="_formWrapper_"] form {
+            background: var(--input-bg) !important;
+            outline: 1px solid var(--input-bg) !important;
+          }
+          .de-dark-theme [class*="_formWrapper_"] form input,
+          .de-dark-theme [class*="_formWrapper_"] form input:focus {
+            height: 38px;
+          }
+          .de-dark-theme [class*="_formWrapper_"][class*="_open_"] {
+            background: var(--input-bg) !important;
+            border: 6px solid var(--input-bg) !important;
+            outline: none;
+          }
           .de-dark-theme form[class*="_search"] {
             border-radius: 4px;
-            background: transparent;
+          }
+          .de-dark-theme form[class*="_search"]:hover {
+            box-shadow: none !important;
           }
           .de-dark-theme form[class*="_search"]:not(:focus-within) {
             border-radius: 20px;
           }
           .de-dark-theme form[class*="_search"]:focus-within {
-             outline: 2px solid var(--input-focus-border) !important;
-             border-radius: 20px;
+            border-radius: 20px;
+          }
+          .de-dark-theme [class*="_formWrapper_"][class*="_open_"] form[class*="_search"]:focus-within {
+            outline: 2px solid var(--site-header-bg) !important;
           }
           .de-dark-theme [class*=_logo_] svg {
             fill: var(--white) !important;
@@ -90,7 +107,8 @@
           }
           .de-dark-theme div[class*=_listbox_] {
             background: var(--input-bg) !important;
-            border: 1px solid var(--borders) !important;
+            border: 0 1px 1px 1px solid var(--borders) !important;
+            margin-left: 1px;
           }
           .de-dark-theme div[class*=_listbox_] a {
             color: var(--text-normal) !important;
@@ -106,16 +124,17 @@
           .de-dark-theme svg[class*=_spinner_] {
             fill: var(--text-normal) !important;
           }
+          .de-dark-theme div[class*=_categories_] {
+            border-bottom: 1px solid var(--borders) !important;
+          }
           .de-dark-theme div[class*=_categories_] label[class*=_category_] {
-            background: var(--headers) !important;
-            color: var(--text-bold) !important;
-            border: 1px solid var(--borders) !important;
-            border-right: 1px solid var(--site-header-bg) !important;
+            background: none !important;
+            color: var(--text-muted) !important;
           }
           .de-dark-theme div[class*=_categories_] label[class*=_selected_] {
-            background: var(--skittle-inventory) !important;
-            border-right: 1px solid var(--site-header-bg) !important;
-            border-left: none !important;
+            background: none !important;
+            box-shadow: 0 4px 0 -1px var(--text-normal) !important;
+            color: var(--white)!important;
           }
           .de-dark-theme div[class*=_suggestions_] li[class*=_result_] {
             border-bottom: 1px solid var(--borders) !important;

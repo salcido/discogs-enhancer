@@ -18,7 +18,7 @@
 
   const host = document.querySelector('[id^=__header_root_]');
   const username = rl.username();
-  const itemsIWant = rl.options.itemsIWant();
+  const itemsIWant = rl.options.itemsIWant ? rl.options.itemsIWant() : '';
 
   const FORUM_URL = '/forum';
   const GROUPS_URL = '/group';
