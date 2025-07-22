@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       node.className = 'seller';
 
-      node.innerHTML = `<div class="seller-name" data-name=${seller}>
+      node.innerHTML = `<div class="seller-name" data-name="${seller}">
                           <span class="name">
                             <img src="../../../../img/x.svg" alt="Remove">
                             <div>${seller}</div>
@@ -278,6 +278,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // DOM setup
   // ========================================================
 
+  // Reset values on refresh
+  document.getElementById('seller-input').value = '';
+  document.querySelector('.restore-input').value = '';
   // Focus on input
   document.getElementById('seller-input').focus();
   updatePageData();

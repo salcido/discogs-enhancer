@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector('.errors').textContent = '';
 
         return location.reload();
-      })
+      });
     }
   }
 
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       node.className = 'country';
 
-      node.innerHTML = `<div class="country-name" data-name=${country}>
+      node.innerHTML = `<div class="country-name" data-name="${country}">
                           <span class="name">
                             <img src="../../../../img/x.svg" alt="Remove">
                             <div>${country}</div>
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return setTimeout(() => updatePageData(), 400);
         }
       });
-    })
+    });
   }
 
   /**
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.backup-output').textContent = JSON.stringify(featureData.countryList.list);
       // check for empty list
       checkForEmptyCountryList();
-    })
+    });
   }
 
   /**
@@ -217,8 +217,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       chrome.storage.sync.set({ featureData }).then(() => {
         return location.reload();
-      })
-    })
+      });
+    });
   });
 
   // Checkbox listener
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       chrome.storage.sync.set({ featureData }).then(() => {
         return location.reload();
       });
-    })
+    });
   });
 
   // Restore functionality
@@ -248,8 +248,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         chrome.storage.sync.set({ featureData }).then(() => {
           return location.reload();
-        })
-      })
+        });
+      });
 
     } else {
 
@@ -299,6 +299,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('currency').checked = true;
   }
 
+  // Reset values on refresh
+  document.getElementById('country-input').value = '';
+  document.querySelector('.restore-input').value = '';
   // Focus on input
   document.getElementById('country-input').focus();
   updatePageData();
