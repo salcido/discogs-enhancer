@@ -8,6 +8,8 @@
     "globals": {
         "__ANALYTICS__": true,
         "__DEV__": true,
+        "__CHROME__": true,
+        "__FIREFOX__": true,
         "$": false,
         "chrome": false,
         "ga": false,
