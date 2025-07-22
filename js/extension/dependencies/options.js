@@ -62,7 +62,7 @@ resourceLibrary.ready(() => {
         save = document.querySelector('.options-save');
 
     // Alt + Ctrl + 7
-    if ( event.altKey && event.ctrlKey && event.which === 55 ) {
+    if ( event.altKey && event.ctrlKey && (event.which === 55 || event.key === '¶') ) {
 
       if ( !visible ) {
 

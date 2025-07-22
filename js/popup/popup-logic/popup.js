@@ -599,6 +599,16 @@ window.addEventListener('load', () => {
 
     isDev();
 
+    let rateURL = '';
+
+    if (__CHROME__) {
+      rateURL = 'https://chromewebstore.google.com/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn/reviews';
+    } else if (__FIREFOX__) {
+      rateURL = 'https://addons.mozilla.org/en-US/firefox/addon/discogs-enhancer/';
+    }
+
+    document.getElementById('rate').href = rateURL;
+
     // Set the focus on the search box
     setTimeout(() => { searchbox.focus(); }, 300);
 
