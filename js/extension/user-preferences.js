@@ -1233,6 +1233,10 @@ appendFragment([resourceLibrary])
               newPrefs.options = options;
             }
 
+            if (!Object.prototype.hasOwnProperty.call(newPrefs.options, 'itemsIWant')) {
+              newPrefs.options.itemsIWant = '';
+            }
+
             localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
 
             await chrome.storage.sync.set({ featureData });
