@@ -1,6 +1,6 @@
 {
   "name": "discogs-enhancer",
-  "version": "3.10.3",
+  "version": "3.10.4",
   "description": "A web extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {
