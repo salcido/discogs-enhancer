@@ -268,6 +268,12 @@ window.addEventListener('load', () => {
   // ========================================================
   tweakDiscrims.init();
 
+  // Open Utility Backup / Restore page
+  // ========================================================
+  document.getElementById('backup-restore').addEventListener('click', function() {
+    chrome.tabs.create({url: '../html/backup-restore.html'});
+  });
+
   // ========================================================
   // Event listeners for toggles
   // ========================================================

@@ -78,6 +78,7 @@ module.exports = () => {
     entry: {
       './js/popup/popup-logic/popup': './js/popup/popup-logic/popup.js',
       // popup configs
+      [config + 'backup-restore']: `${config}backup-restore.js`,
       [config + 'blocked-sellers']: `${config}blocked-sellers.js`,
       [config + 'favorite-sellers']: `${config}favorite-sellers.js`,
       [config + 'filter-shipping-country']: `${config}filter-shipping-country.js`,

@@ -145,6 +145,7 @@ select option {
 }
 
 #editList,
+#backup-restore,
 #editShippingList,
 #editFavList,
 #editReadability,
@@ -158,11 +159,16 @@ select option {
   font-size: .75rem;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .rep-value {
   display: inline-block;
 }
 
 #editList:hover,
+#backup-restore:hover,
 #editReadability:hover {
   color: var(--white);
 }
@@ -210,7 +216,6 @@ select option {
   color: #809BBE;
   transition: all 0.3s ease;
 }
-
 
 .label {
   float: left;
