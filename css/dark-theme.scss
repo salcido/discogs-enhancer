@@ -4212,6 +4212,7 @@
   ::part(search) {
     background: var(--input-bg) !important;
     color: var(--white) !important;
+    height: auto;
   }
 
   [class*="_logo_"] svg {
