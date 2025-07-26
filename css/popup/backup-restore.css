@@ -149,11 +149,6 @@ a {
   text-decoration: underline;
 }
 
-b {
-  letter-spacing: 0.04rem;
-  color: #fafafa;
-}
-
 p {
   font-size: 16px;
   font-weight: normal;
@@ -166,13 +161,17 @@ p {
 
 p b {
   font-weight: bold;
-  color: #ffe4a1;
+  color: #7ce554;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
 
 .intro {
   margin-bottom: 4rem;
+}
+
+.intro b {
+  color: #fff;
 }
 
 .content {
