@@ -35,7 +35,12 @@ const newVersion = process.argv[2];
  */
 function updateJSONfiles(version) {
 
-  let files = ['./chrome-dist/manifest.json', './firefox-dist/manifest.json','package.json', 'package-lock.json'];
+  let files = [
+    './chrome-dist/manifest.json',
+    './firefox-dist/manifest.json',
+    'package.json',
+    'package-lock.json'
+  ];
 
   files.forEach(file => {
 
