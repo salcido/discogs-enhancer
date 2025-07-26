@@ -1,0 +1,57 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/popup/backup-restore.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Barlow:400|Roboto:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+    <script src="../js/popup/configuration-pages/backup-restore.js"></script>
+    <title>Utility: Backup / Restore</title>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="logo">
+        <img src="/img/welcome/45-rpm.png" alt="Discogs Enhancer Logo">
+      </div>
+      <h1>DISCOGS ENHANCER</h1>
+    </div>
+    <div class="content">
+
+      <h1 class="quick-start mb-2">BACKUP / RESTORE UTILITY</h1>
+
+      <p class="intro">Use this interface to backup your current configuration or migrate your configuration between browsers. <b>Please use caution when backing up and restoring your data. Malformed data can break the extension.</b></p>
+
+      <div class="segment">
+        <h2>Backup Preferences</h2>
+        <p>Click the <b>Copy Preferences</b> button to copy your current preference configuration to your clipboard. <i>If you are planning on saving this data in a text document, please make sure it is Plain Text.</i></p>
+        <div class="backup-error"></div>
+        <button class="copy-prefs button button-green">Copy Preferences</button>
+      </div>
+
+      <div class="segment">
+        <h2>Restore Preferences</h2>
+        <p>Paste your saved preferences into the textbox below and click <b>Save Preferences</b>.</p>
+        <div class="restore-error"></div>
+        <div>
+          <input type="text" name="paste-prefs" id="restore" placeholder="Paste preferences here" />
+        </div>
+        <p class="de-group">
+          <a href="https://www.discogs.com/group/9136" class="link" target="_blank">
+            If you have issues with restoring, click here to post in the Discogs Enhancer group and I'll help you sort things out.
+          </a>
+        </p>
+        <button class="save-prefs button button-green">Save Preferences</button>
+      </div>
+
+      <div class="copyright-wrap">
+        <div class="copyright love">Made with <span class="mint">l</span><span class="very-good-plus">o</span><span class="good">v</span><span class="poor">e</span> in Portland, Oregon</div>
+
+        <div class="copyright">
+          <a href="http://www.msalcido.com" class="no-underline">© msalcido.com</a>
+        </div>
+      </div>
+    </div> <!-- end .content -->
+  </body>
+</html>
+

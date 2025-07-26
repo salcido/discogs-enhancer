@@ -18,7 +18,10 @@ export async function toggleColumns(event) {
   let tabId = await getTabId();
 
   chrome.scripting.executeScript({
-    target: {tabId: tabId},
-    files: ['js/extension/features/toggle-min-max-columns.js']
+    target: { tabId: tabId },
+    func: () => {
+      let link = document.getElementById('minMaxColumnsCss');
+      if ( link ) { link.disabled = !link.disabled; }
+    },
   }, () => { applySave(null, event); });
 }

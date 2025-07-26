@@ -18,7 +18,10 @@ export async function toggleMediaHighlights(event) {
   let tabId = await getTabId();
 
   chrome.scripting.executeScript({
-    target: {tabId: tabId},
-    files: ['js/extension/features/toggle-highlights.js']
+    target: { tabId: tabId },
+    func: () => {
+      let link = document.getElementById('mediaHighLightsCss');
+      if ( link ) { link.disabled = !link.disabled; }
+    },
   }, () => { applySave(null, event); });
 }

@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Navigation Bar Shortcuts',
-        description: 'Introducing the new Navbar Shortcuts feature! Add configurable shortcut links to the navbar for pages you use frequently. Current list includes: Forum, Groups, Inventory, Items I Want, List An Item For Sale, Orders, Profile, Purchases, My Storefront, and Submissions & Drafts.',
-        link: '#navbarShortcuts'
+        name: 'Utility: Backup / Restore',
+        description: 'Introducing a new utility feature for backing up and restoring your Discogs Enhancer configuration. This will allow you to migrate your preferences to separate browsers or restore a specific configuration.',
+        link: '#backupRestore'
       }],
       removedFeatures: [],
       updates: [

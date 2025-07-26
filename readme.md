@@ -18,16 +18,16 @@
 
 #### Project Overview
 
-100% vanilla JS Chrome extension for Discogs.com.
+100% vanilla JS Chrome / Firefox (coming soon!) extension for Discogs.com.
 
 <https://www.discogs-enhancer.com>
 
 #### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
 
-## A Web Extension for Chrome
+## A Web Extension for Chrome and Firefox
 
-Discogs Enhancer adds extra features to both Discogs.com and Chrome. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose the features you want to use.
+Discogs Enhancer adds extra features to both Discogs.com and Chrome / Firefox. You can block sellers, use a dark theme, see price comparisons, get feedback notifications, convert foreign currencies, search Discogs and other online record shops with any highlighted text, improve tracklist readability, customize lots of Marketplace aspects, and more! Every feature is optional so you can choose the features you want to use.
 
 ### Features
 
@@ -94,14 +94,22 @@ Discogs Enhancer gets a near perfect score with [Google's Lighthouse](https://de
 #### Running / Development
 
 * Watch for changes:
-  * `npm run watch`
+  * `npm run watch:chrome` - watches for changes and builds to `chrome-dist`
+  * `npm run watch:firefox` - watches for changes and builds to `firefox-dist`
+  * `npm run watch` - watches for changes and builds to both `chrome-dist` and `firefox-dist`
 
-#### Building
-* Export the extension to `dist` directory:
-  * `npm run build:production`
+#### Building Chrome
+* Export the extension to `chrome-dist` directory:
+  * `npm run build:chrome`
   * Go to `chrome://extensions` in a new Chrome tab
   * Click "Developer Mode" in the upper-right corner
-  * Click "Load Unpacked" and choose the exported `dist` folder and you're done!
+  * Click "Load Unpacked" and choose the exported `chrome-dist` folder and you're done!
+
+#### Building Firefox
+* Export the extension to `firefox-dist` directory:
+  * `npm run build:firefox`
+  * Go to `about:debugging#/runtime/this-firefox` in a new Firefox tab
+  * Click "Load Temporary Add-On" and choose the `manifest.json` file in the exported `firefox-dist` folder and you're done!
 
 ***
 
@@ -207,7 +215,7 @@ Add the feature description to `learn.html`. Make sure to insert the new markup 
 
 ### 📦 Build The Extension
 
-Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build`. Once the build is finished, load the extension in Chrome by going to `chrome://extensions`. Make sure `Developer Mode` is checked, then click 'Load unpacked' and choose the newly exported `dist` folder. You should now be able to enable the feature from the popup menu.
+Since changes have been made to `webpack`, the extension will need to be rebuilt by running `npm run build:chrome` or `npm run build:firefox`. Once the build is finished, load the extension in Chrome/Firefox by following the `Running / Development` instructions above.
 
 ***
 

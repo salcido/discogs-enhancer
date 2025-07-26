@@ -54,11 +54,15 @@
           .de-dark-theme form[class*="_search"]:not(:focus-within) {
             border-radius: 20px;
           }
-          .de-dark-theme form[class*="_search"]:focus-within {
+          .de-dark-theme [class*="_formWrapper_"] form[class*="_search"]:focus-within {
             border-radius: 20px;
+            outline: 2px solid var(--input-focus-border) !important;
           }
-          .de-dark-theme [class*="_formWrapper_"][class*="_open_"] form[class*="_search"]:focus-within {
-            outline: 2px solid var(--site-header-bg) !important;
+          .de-dark-theme form[class*="_search"] button[class*="_clearButton_"] svg path {
+            fill: var(--text-normal) !important;
+          }
+          .de-dark-theme form[class*="_search"] button[class*="_clearButton_"]:after {
+            background-color: var(--borders) !important;
           }
           .de-dark-theme [class*=_logo_] svg {
             fill: var(--white) !important;

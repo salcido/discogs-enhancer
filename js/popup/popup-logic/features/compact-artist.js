@@ -18,7 +18,10 @@
    let tabId = await getTabId();
 
    chrome.scripting.executeScript({
-     target: {tabId: tabId},
-     files: ['js/extension/features/toggle-compact-artist.js']
+     target: { tabId: tabId },
+     func: () => {
+      let link = document.getElementById('compactArtistCss');
+      if ( link ) { link.disabled = !link.disabled; }
+     }
    }, () => { applySave(null, event); });
  }

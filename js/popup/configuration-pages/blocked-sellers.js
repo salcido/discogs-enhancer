@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           document.querySelector('.errors').textContent = '';
           return location.reload();
         });
-      })
+      });
     }
   }
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         node.className = 'seller';
 
-        node.innerHTML = `<div class="seller-name" data-name=${seller}>
+        node.innerHTML = `<div class="seller-name" data-name="${seller}">
                             <span class="name">
                               <img src="../../../../img/x.svg" alt="Remove">
                               <div>${seller}</div>
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                           </div>`;
 
         sellers.appendChild(node);
-    })
+    });
   }
 
   /**
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return setTimeout(() => updatePageData(), 400);
         }
       });
-    })
+    });
   }
 
   /**
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.backup-output').textContent = JSON.stringify(featureData.blockList.list);
       // check for empty list
       checkForEmptySellersList();
-    })
+    });
   }
 
   /**
@@ -228,8 +228,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       chrome.storage.sync.set({ featureData }).then(() => {
         return location.reload();
-      })
-    })
+      });
+    });
   });
 
   // Restore functionality
@@ -246,14 +246,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       chrome.storage.sync.get(['featureData']).then(({ featureData }) => {
         featureData.blockList = restore;
-        chrome.storage.sync.set({ featureData }).then((resolve, reject) => {
+        chrome.storage.sync.set({ featureData }).then(() => {
           return location.reload();
         }).catch(err => {
           if ( err.toString().includes('QUOTA_BYTES_PER_ITEM') ) {
             document.querySelector('.quota-errors').classList.remove('hide');
           }
-        })
-      })
+        });
+      });
 
     } else {
 
@@ -312,6 +312,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       break;
   }
 
+  // Reset values on refresh
+  document.getElementById('seller-input').value = '';
+  document.querySelector('.restore-input').value = '';
   // Focus on input
   document.getElementById('seller-input').focus();
   updatePageData();

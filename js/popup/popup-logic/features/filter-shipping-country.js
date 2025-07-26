@@ -20,6 +20,9 @@ export async function toggleHideCountries(event) {
 
   chrome.scripting.executeScript({
     target: {tabId: tabId},
-    files: ['js/extension/features/toggle-filter-shipping-country-css.js']
+    func: () => {
+      let link = document.getElementById('filterShippingCountryCss');
+      if ( link ) { link.disabled = !link.disabled; }
+    }
   }, () => { applySave(null, event); });
 }

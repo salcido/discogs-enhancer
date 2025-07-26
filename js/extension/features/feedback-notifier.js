@@ -674,7 +674,11 @@ rl.ready(() => {
     pollForChanges();
   }
 
-  let rules = `
+  let rules = /*css*/`
+      #de-buyer-feedback,
+      #de-seller-feedback {
+        display: flex;
+      }
       #de-seller-feedback .badge,
       #de-buyer-feedback .badge {
         border-radius: 500px;
@@ -732,12 +736,9 @@ rl.ready(() => {
         background: #CCCCCC !important;
       }
 
-      nav[class*="_user_"] a.de-seller-feedback {
-        padding: 2rem .75rem;
-      }
-
+      nav[class*="_user_"] a.de-seller-feedback,
       nav[class*="_user_"] a.de-buyer-feedback {
-        padding: 2rem .75rem;
+        padding: 1rem;
       }
 
       /* DELETE IN THE FUTURE */
@@ -781,13 +782,15 @@ rl.ready(() => {
       }
 
       nav[class*="_user_"] .de-badge {
-        margin: 1rem 0rem;
+        margin: 0;
+        display: flex;
+        align-content: center;
+        justify-content: center;
       }
 
       nav[class*="_user_"] .feedback-chart {
         margin-top: 1rem;
       }
-
 
       ul.feedback-chart {
         display: none;
@@ -796,6 +799,7 @@ rl.ready(() => {
         padding: 0;
         position: absolute;
         left: -37px;
+        top: 45px;
         background-color: black !important;
         border-right: 1px solid black !important;
         border-bottom: 1px solid black !important;

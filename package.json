@@ -1,15 +1,15 @@
 {
   "name": "discogs-enhancer",
-  "version": "3.10.4",
+  "version": "3.11.0",
   "description": "A web extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress",
-    "build:dev": "NODE_ENV=development npm run build",
-    "build:production": "NODE_ENV=production npm run build",
-    "bump": "node version-bump.js",
-    "test": "mocha",
-    "watch": "NODE_ENV=development webpack --watch --progress"
+    "build:chrome": "NODE_ENV=production PLATFORM=chrome webpack --progress",
+    "build:firefox": "NODE_ENV=production PLATFORM=firefox webpack --progress",
+    "watch:chrome": "NODE_ENV=development PLATFORM=chrome webpack --watch --progress",
+    "watch:firefox": "NODE_ENV=development PLATFORM=firefox webpack --watch --progress",
+    "watch": "npm-run-all --parallel watch:chrome watch:firefox",
+    "bump": "node version-bump.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "css-loader": "^6.7.3",
     "eslint": "^8.39.0",
     "eslint-plugin-import": "^2.24.2",
+    "npm-run-all": "^4.1.5",
     "puppeteer": "^2.1.1",
     "sass": "^1.62.0",
     "sass-loader": "^8.0.2",

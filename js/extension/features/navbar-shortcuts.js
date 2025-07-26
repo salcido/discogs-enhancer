@@ -268,7 +268,7 @@
 
     setTimeout(() => {
       // Insert container div to hold shortcut icons
-      let iconsContainer = '<div class="de-icons-container" style="display: flex; margin-right: 107px;"></div>';
+      let iconsContainer = '<div class="de-icons-container" style="display: flex; margin-right: 89px;"></div>';
       _header.querySelector('nav[class^="_secondary_"]').insertAdjacentHTML('beforeend', iconsContainer);
 
       _header.querySelector('.de-icons-container').insertAdjacentHTML('beforeend', '<div class="shortcuts"></div>');
