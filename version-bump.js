@@ -20,6 +20,7 @@
  */
 
 const fs = require('fs');
+const path = require('path');
 
 // new version number {string}
 const newVersion = process.argv[2];
@@ -35,21 +36,22 @@ const newVersion = process.argv[2];
  */
 function updateJSONfiles(version) {
 
-  let files = [
-    './chrome-dist/manifest.json',
-    './firefox-dist/manifest.json',
-    'package.json',
-    'package-lock.json'
-  ];
+  let files = ['package.json', 'package-lock.json'];
 
-  files.forEach(file => {
+  files.forEach((file) => {
 
-    let data = JSON.parse(fs.readFileSync(file));
+    let filePath = path.resolve(__dirname, file);
+
+    if (!fs.existsSync(filePath)) {
+      console.warn(`⚠️  Skipped ${file}, not found.`);
+      return;
+    }
+
+    let data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
     data.version = version;
-    fs.writeFileSync(file, JSON.stringify(data, null, 2));
-    // add new line to end of file
-    fs.appendFileSync(file, '\n');
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n');
 
     console.log(`✅  Updated ${file} to ${version}.`);
   });

@@ -1,3 +1,5 @@
+const pkg = require('./package.json');
+
 module.exports = (env) => {
   const firefox = env === 'firefox';
   return {
@@ -5,7 +7,7 @@ module.exports = (env) => {
     name: 'Discogs Enhancer',
     short_name: 'Discogs Enhancer',
     description: 'Enhance your Discogs experience with dark themes, seller tools, price comparisons, currency conversion, powerful filters, and more!',
-    version: '3.10.2',
+    version: pkg.version,
     author: 'Matthew Salcido',
     homepage_url: 'https://www.discogs-enhancer.com',
     action: {
@@ -58,7 +60,6 @@ module.exports = (env) => {
       browser_specific_settings: {
         gecko: {
           id: '{190dbc44-5dee-4ad4-86e9-a38d7a2d1c61}',
-          strict_min_version: '101.0'
         },
       },
       host_permissions: [
