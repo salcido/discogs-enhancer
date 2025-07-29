@@ -6,6 +6,7 @@
   "scripts": {
     "build:chrome": "NODE_ENV=production PLATFORM=chrome webpack --progress",
     "build:firefox": "NODE_ENV=production PLATFORM=firefox webpack --progress",
+    "build": "npm-run-all build:chrome build:firefox",
     "watch:chrome": "NODE_ENV=development PLATFORM=chrome webpack --watch --progress",
     "watch:firefox": "NODE_ENV=development PLATFORM=firefox webpack --watch --progress",
     "watch": "npm-run-all --parallel watch:chrome watch:firefox",
