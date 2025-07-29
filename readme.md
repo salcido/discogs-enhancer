@@ -18,12 +18,15 @@
 
 #### Project Overview
 
-100% vanilla JS Chrome / Firefox (coming soon!) extension for Discogs.com.
+100% vanilla JS Chrome / Firefox extension for Discogs.com.
 
 <https://www.discogs-enhancer.com>
 
 #### Chrome Webstore Link
 <https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn>
+
+#### Firefox Add-on Link
+<https://addons.mozilla.org/en-US/firefox/addon/discogs-enhancer/>
 
 ## A Web Extension for Chrome and Firefox
 
