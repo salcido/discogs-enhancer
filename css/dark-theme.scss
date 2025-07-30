@@ -4,6 +4,7 @@
 ////////////////////////////////////
 */
 :root {
+  --logo: #ffffff;
   /* Main Discogs Header */
   --site-header-bg: #171717;
   /* Main Page color */
@@ -169,6 +170,15 @@
   --collection-row-hover: #292929;
   --collection-row-hover-selected: #222932;
   --collection-row-selected: #212e3d;
+  /* Media Conditions */
+  --mint: #00b4db;
+  --near-mint: #00dbb4;
+  --very-good-plus: #00db1f;
+  --very-good: #85ab11;
+  --good-plus: #f6bf48;
+  --good: #d87307;
+  --fair: #e54803;
+  --poor: #ff0000;
 }
 /*
 ////////////////////////////////////
@@ -229,7 +239,7 @@
   --additional-instructions: #48487c;
   --text-muted: #848f9a;
   --text-normal: #bdbdbd;
-  --text-bold: #d9d9d9;
+  --text-bold: #eeeeee;
   --link: #83a2c8;
   --link-visited: #a78fd6;
   --blocked-seller: #cd4946;
@@ -243,6 +253,7 @@
 ////////////////////////////////////
 */
 .theme-umbra {
+  --logo: #d1d1d1;
   --site-header-bg: #000;
   --main-bg-color: #121519;
   --headers: #1e2227;
@@ -265,7 +276,7 @@
   --submission-form-error: #2b1818;
   --additional-instructions: #48487c;
   --text-muted: #848f9a;
-  --text-normal: #bcbcbc;
+  --text-normal: #A8A8A8;
   --text-bold: #d1d1d1;
   --link: #83a2c8;
   --link-visited: #a78fd6;
@@ -6935,7 +6946,8 @@
   div[class*="discographyGrid_"] {
     [class*="versionsTextWithCoversRow_"],
     [class*="textWithCoversRow_"] {
-      &[class*="checked_"] {
+      &[class*="checked_"],
+      &[class*="createChecked_"] {
         background: var(--collection-row-selected) !important;
       }
     }
@@ -6952,4 +6964,295 @@
     }
   }
 
+  // Create Master Release UI
+  [class*="createMRBox_"] [class*="versions_"] [class*="selectedReleaseWrap_"] {
+    label[class*="versionsWrapper_"] {
+      border: 1px solid var(--borders) !important;
+    }
+    input[type=radio]:checked + label {
+      border: 1px solid var(--input-focus-border) !important;
+      background-color: var(--collection-row-selected) !important;
+    }
+    [class*="keyReleaseIndicator_"] {
+      color: var(--input-focus-border) !important;
+    }
+  }
+
+  [class*="contributorActions_"] {
+    [class*="linkContainer_"] {
+      button {
+        color: var(--link) !important;
+      }
+    }
+  }
+
+  /////////////
+  .text-brand-textDisabled01 {
+    opacity: .35;
+  }
+
+  .text-brand-textPrimaryInverted {
+    color: var(--text-bold) !important;
+
+    &:visited {
+      color: var(--text-bold) !important;
+    }
+  }
+
+  .text-brand-iconDisabled02 {
+    color: var(--text-muted) !important;
+  }
+
+  .text-black,
+  .text-black span {
+    color: var(--text-bold) !important;
+  }
+
+  .text-brand-red600 {
+    color: var(--blocked-seller) !important;
+  }
+
+  .text-brand-textLink,
+  button.text-brand-textLink span {
+    color: var(--link) !important;
+
+    &:hover {
+      color: var(--link-hover) !important;
+    }
+
+    svg path {
+      fill: var(--link) !important;
+    }
+  }
+
+  .bg-brand-primaryMain {
+    background: var(--headers) !important;
+
+    &:hover:not(:disabled) {
+      background: var(--headers) !important;
+    }
+    &:disabled {
+      color: var(--text-muted) !important;
+    }
+  }
+
+  .bg-brand-secondaryMain {
+    background: var(--button-secondary) !important;
+    &.text-brand-black {
+      color: var(--black) !important;
+    }
+  }
+
+  a.bg-brand-secondaryMain {
+    &:hover,
+    &:visited {
+      color: var(--black) !important;
+    }
+  }
+
+  .bg-background {
+    background: var(--main-bg-color) !important;
+  }
+
+  .bg-brand-background01 {
+    background: var(--main-bg-color) !important;
+  }
+
+  .bg-brand-background02 {
+    background: var(--headers) !important;
+  }
+
+  .hover\:bg-brand-backgroundInformative {
+    &:hover {
+      background: var(--collection-row-selected) !important;
+    }
+  }
+
+  .bg-brand-backgroundTertiary {
+    background: var(--borders) !important;
+  }
+
+  .bg-brand-interactive {
+    background: var(--input-focus-border) !important;
+  }
+
+  .bg-brand-white {
+    background: var(--main-bg-color) !important;
+  }
+
+  .bg-brand-blue200 {
+    background: var(--have-high-bg) !important;
+  }
+
+  .bg-brand-green200 {
+    background: var(--want-high-bg) !important;
+  }
+
+  .bg-brand-green700 {
+    background: var(--button-green) !important;
+    color: var(--text-bold) !important;
+
+    &:hover,
+    &:visited {
+      color: var(--text-bold) !important;
+    }
+  }
+
+  .bg-brand-buttonDisabled {
+    background: var(--borders) !important;
+
+    svg path {
+      fill: var(--text-muted) !important;
+    }
+  }
+
+  .bg-brand-pill {
+    background: var(--button-disabled-text) !important;
+
+    .text-brand-black {
+      color: var(--black) !important;
+    }
+  }
+
+  .data-\[state\=active\]\:text-brand-black[data-state=active] {
+    color: var(--text-normal) !important;
+  }
+
+  .border-brand-border01 {
+    border-color: var(--borders) !important;
+  }
+
+  .border-brand-interactive {
+    border-color: var(--input-focus-border) !important;
+  }
+
+  .border-brand-secondaryDark {
+    border-color: var(--borders) !important;
+  }
+
+  .border-brand-red600 {
+    border-color: var(--blocked-seller) !important;
+
+    svg path {
+      fill: var(--blocked-seller) !important;
+    }
+  }
+
+  a.border-brand-green700,
+  .border-brand-green700 {
+    border-color: var(--button-green-border) !important;
+    color: var(--button-green-border) !important;
+    &:hover,
+    &:visited {
+      color: var(--button-green-border) !important;
+    }
+  }
+
+  [class*="bg-[#2653D9]"] {
+    background-color: var(--input-focus-border) !important;
+  }
+
+  [class*="border-[#e5e5e5]"] {
+    border-color: var(--borders) !important;
+  }
+
+  [class*="bg-[#ffffff]"] {
+    background: var(--main-bg-color) !important;
+  }
+
+  [class*="border-b-[#ffffff]"] {
+    border-bottom-color: var(--main-bg-color) !important;
+  }
+
+  .border-brand-green800 {
+    border-color: var(--button-green-border) !important;
+  }
+
+  .text-brand-interactive {
+    color: var(--input-focus-border) !important;
+  }
+
+  .text-brand-textSecondary,
+  .text-brand-textSecondary p,
+  .text-brand-textSecondary span {
+    color: var(--text-muted) !important;
+  }
+
+  .text-brand-pill-x {
+    path {
+      fill: var(--borders) !important;
+    }
+    &:hover {
+      path {
+        fill: var(--black) !important;
+      }
+    }
+  }
+
+  .text-brand-black {
+    color: var(--text-bold) !important;
+  }
+
+  .brand-button-primary {
+    background: var(--button-blue) !important;
+    color: var(--text-bold) !important;
+  }
+
+  .brand-button-secondary {
+    background: var(--button-secondary) !important;
+    color: var(--black) !important;
+  }
+
+  .brand-button-disabled {
+    background: var(--borders) !important;
+    color: var(--text-muted) !important;
+  }
+
+  .border-r {
+    border-right: 1px solid var(--borders) !important;
+  }
+
+  input.checked\:bg-brand-textLink:checked {
+    background: var(--policy-indeterminate) !important;
+  }
+
+  .bg-condition-mint {
+    background: var(--mint) !important;
+  }
+  .bg-condition-near-mint {
+    background: var(--near-mint) !important;
+  }
+  .bg-condition-very-good-plus {
+    background: var(--very-good-plus) !important;
+  }
+  .bg-condition-very-good {
+    background: var(--very-good) !important;
+  }
+  .bg-condition-good-plus {
+    background: var(--good-plus) !important;
+  }
+  .bg-condition-good {
+    background: var(--good) !important;
+  }
+  .bg-condition-fair {
+    background: var(--fair) !important;
+  }
+  .bg-condition-poor {
+    background: var(--poor) !important;
+  }
+  .bg-condition-mint,
+  .bg-condition-near-mint,
+  .bg-condition-very-good-plus,
+  .bg-condition-very-good,
+  .bg-condition-good-plus,
+  .bg-condition-good,
+  .bg-condition-fair,
+  .bg-condition-poor {
+    p {
+      color: var(--main-bg-color) !important;
+    }
+    img {
+      filter: invert(1) !important;
+    }
+  }
 }
