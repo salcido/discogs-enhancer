@@ -65,7 +65,7 @@
             background-color: var(--borders) !important;
           }
           .de-dark-theme [class*=_logo_] svg {
-            fill: var(--white) !important;
+            fill: var(--logo) !important;
           }
           .de-dark-theme button[class*=_bars][class*=_isOpen] {
             background: var(--black) !important;
@@ -213,6 +213,10 @@
           .de-dark-theme nav[class*="_secondary_"] ul li a[role="menuitem"]:hover  {
             background: var(--input-bg) !important;
           }
+          .de-dark-theme nav[class*=_user] [class*="_user-dropdown_"] ul header {
+            color: var(--text-bold) !important;
+          }
+
           .de-dark-theme nav[class*=_user] a[class*="_register_"] {
             color: var(--black) !important;
           }
