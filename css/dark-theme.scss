@@ -7212,6 +7212,10 @@
     border-right: 1px solid var(--borders) !important;
   }
 
+  div[role="dialog"] {
+    border: 1px solid var(--borders) !important;
+  }
+
   input.checked\:bg-brand-textLink:checked {
     background: var(--policy-indeterminate) !important;
   }
