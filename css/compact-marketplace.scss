@@ -1,0 +1,66 @@
+// Release Thumbnails
+.relative.block.shrink-0,
+img.rounded,
+.relative.block[class*="180px"].shrink-0 svg {
+  width: 120px;
+  height: 120px;
+}
+
+.flex.flex-col.items-start {
+  flex-direction: column;
+}
+
+// Padding on each listing
+.border-brand-border01.flex.flex-col.border-solid[class*="py-[24px]"] {
+  padding-top: 10px !important;
+  padding-bottom: 20px !important;
+}
+// Sidebar width
+[class*="w-[277px]"] {
+  width: 225px !important;
+}
+// Listings width
+.w-full[class*="max-w-[987px]"] {
+  max-width: 1037px !important;
+}
+
+.brand-button.w-full.brand-button-secondary {
+  font-size: 12px;
+}
+
+.brand-select {
+  padding: 4px 20px 4px 12px;
+}
+
+.brand-button,
+.brand-input {
+  padding: 4px 8px;
+  height: 35px;
+}
+
+[class*="h-[40px]"][class*="w-[40px]"] {
+  height: 35px;
+  width: 35px;
+}
+
+[class*="top-[11px]"] {
+  top: 6px;
+}
+
+.bg-brand-green700,
+.bg-brand-secondaryMain {
+  height: 35px;
+}
+
+// seller name
+p.text-brand-textSecondary .brand-item-copy-link {
+  font-weight: bold;
+  font-size: 15px;
+}
+li p.text-brand-textSecondary.brand-item-copy.flex.items-center {
+  margin-bottom: .25rem;
+}
+
+h1.text-2xl {
+  font-size: 1.25rem;
+}

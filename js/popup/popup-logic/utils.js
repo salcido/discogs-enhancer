@@ -43,6 +43,7 @@ export function applySave(message, event, currencyTarget = 'currency') {
         blockSellers: document.getElementById('toggleBlockSellers').checked,
         collectionBoxFix: document.getElementById('toggleCollectionBoxFix').checked,
         compactArtist: document.getElementById('toggleCompactArtist').checked,
+        compactMarketplace: document.getElementById('toggleCompactMarketplace').checked,
         confirmBeforeRemoving: document.getElementById('toggleConfirmBeforeRemoving').checked,
         converter: document.getElementById('toggleConverter').checked,
         darkTheme: document.getElementById('toggleDarkTheme').checked,

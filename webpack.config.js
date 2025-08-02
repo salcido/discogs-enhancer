@@ -147,6 +147,12 @@ module.exports = () => {
             },
           },
           {
+            from: 'css/compact-marketplace.scss', to: 'css/compact-marketplace.css',
+            transform(content, filePath) {
+              return sass.renderSync({ file: filePath }).css.toString();
+            },
+          },
+          {
             from: 'css',
             to: 'css',
             globOptions: {

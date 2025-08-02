@@ -387,6 +387,17 @@ appendFragment([resourceLibrary])
 
       elems.push(compact_artist_css);
 
+      // compact-artist.scss
+      let compact_marketplace_css = document.createElement('link');
+
+      compact_marketplace_css.rel = 'stylesheet';
+      compact_marketplace_css.type = 'text/css';
+      compact_marketplace_css.href = chrome.runtime.getURL('css/compact-marketplace.css');
+      compact_marketplace_css.id = 'compactMarketplaceCss';
+      compact_marketplace_css.disabled = !prefs.compactMarketplace;
+
+      elems.push(compact_marketplace_css);
+
       // baoi-fields.css
       let baoi_css = document.createElement('link');
 

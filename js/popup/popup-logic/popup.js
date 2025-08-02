@@ -14,6 +14,7 @@ require('../../../css/popup/popup.scss');
 import * as absoluteDate from './features/absolute-date.js';
 import * as baoiFields from './features/baoi-fields.js';
 import * as compactArtist from './features/compact-artist.js';
+import * as compactMarketplace from './features/compact-marketplace.js';
 import * as contextualMenus from './features/contextual-menus.js';
 import * as linksInTabs from './features/links-in-new-tabs.js';
 import * as navbarShortcuts from './features/navbar-shortcuts.js';
@@ -80,6 +81,7 @@ window.addEventListener('load', () => {
       toggleBlockBuyers = document.getElementById('toggleBlockBuyers'),
       toggleBlockSellers = document.getElementById('toggleBlockSellers'),
       toggleCompactArtist = document.getElementById('toggleCompactArtist'),
+      toggleCompactMarketplace = document.getElementById('toggleCompactMarketplace'),
       toggleCollectionBoxFix = document.getElementById('toggleCollectionBoxFix'),
       toggleConfirmBeforeRemoving = document.getElementById('toggleConfirmBeforeRemoving'),
       toggleConverter = document.getElementById('toggleConverter'),
@@ -287,6 +289,7 @@ window.addEventListener('load', () => {
   toggleBlockBuyers.addEventListener('change', triggerSave);
   toggleBlockSellers.addEventListener('change', triggerSave);
   toggleCompactArtist.addEventListener('change', compactArtist.toggleCompactArtist);
+  toggleCompactMarketplace.addEventListener('change', compactMarketplace.toggleCompactMarketplace);
   toggleCollectionBoxFix.addEventListener('change', triggerSave);
   toggleConfirmBeforeRemoving.addEventListener('change', triggerSave);
   toggleConverter.addEventListener('change', triggerSave);
@@ -486,6 +489,7 @@ window.addEventListener('load', () => {
       toggleBlockSellers.checked = prefs.blockSellers;
       toggleCollectionBoxFix.checked = prefs.collectionBoxFix;
       toggleCompactArtist.checked = prefs.compactArtist;
+      toggleCompactMarketplace.checked = prefs.compactMarketplace;
       toggleConfirmBeforeRemoving.checked = prefs.confirmBeforeRemoving;
       toggleConverter.checked = prefs.converter;
       toggleDarkTheme.checked = prefs.darkTheme;
