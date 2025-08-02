@@ -13,7 +13,7 @@ module.exports = {
           description: 'More Dark Theme updates for the new Edit Master Release feature and new Collection Fields layout.'
         },
       ],
-      thanks: ['Massive thank you to everyone who donated this year! I really appreciate it :)'],
+      thanks: ['Massive thank you to Joel Yauk for their generous donation!'],
     },
   ],
   previous: []
