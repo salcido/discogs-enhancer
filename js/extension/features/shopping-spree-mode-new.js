@@ -83,7 +83,7 @@ rl.ready(() => {
         let addToCartButton = event.target,
             host = document.querySelector('[id^=__header_root_]'),
             _header = host && host.shadowRoot ? host.shadowRoot.querySelector('div[class^="_amped_"] header') : document,
-            cartLink = _header.querySelector('nav[class*="_user"] a[href^="/sell/cart"]'),
+            cartLink = _header.querySelector('nav[class*="_user"] a[href*="/sell/cart"]'),
             sellerName = addToCartButton
                           .closest('tr.shortcut_navigable')
                           .querySelector('td.seller_info div.seller_block strong a')
@@ -102,7 +102,7 @@ rl.ready(() => {
 
           if (res.ok) {
 
-            let selector = 'nav[class*="_user"] a[href^="/sell/cart"]',
+            let selector = 'nav[class*="_user"] a[href*="/sell/cart"]',
                 cartTotal = _header.querySelector(selector + ' .rnf-unseen-badge__count'),
                 currentCartTotal = Number(cartTotal?.textContent?.trim()) || 0,
                 newCartTotal = currentCartTotal + 1;
