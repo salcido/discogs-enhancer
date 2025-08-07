@@ -23,7 +23,7 @@
   const FORUM_URL = '/forum';
   const GROUPS_URL = '/group';
   const INVENTORY_URL = '/sell/manage';
-  const ITEMSIWANT_URL = `/sell/mywants${itemsIWant}`;
+  const ITEMSIWANT_URL = `/shop/mywants${itemsIWant}`;
   const LISTANITEM_URL = '/sell';
   const ORDERS_URL = '/sell/orders';
   const PROFILE_URL = `/user/${username}`;

@@ -24,6 +24,7 @@ let prefs = {
   confirmBeforeRemoving: false,
   collectionBoxFix: false,
   compactArtist: false,
+  compactMarketplace: false,
   converter: true,
   darkTheme: false,
   darkThemeVariant: '',

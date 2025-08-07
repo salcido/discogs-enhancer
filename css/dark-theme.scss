@@ -6986,7 +6986,7 @@
     }
   }
 
-  /////////////
+  // Shop My Wants
   .text-brand-textDisabled01 {
     opacity: .35;
   }
@@ -7098,6 +7098,10 @@
     }
   }
 
+  .bg-brand-buttonEnabled01 {
+    background-color: var(--button-blue) !important;
+  }
+
   .bg-brand-buttonDisabled {
     background: var(--borders) !important;
 
@@ -7164,6 +7168,30 @@
     border-bottom-color: var(--main-bg-color) !important;
   }
 
+  [class*="bg-[#EEF1E2]"] {
+    background-color: var(--alert-accept-bg) !important;
+  }
+
+  [class*="bg-[#FFF2EF]"] {
+    background-color: var(--alert-error-bg) !important;
+
+    p {
+      color: var(--alert-error-text) !important;
+    }
+  }
+
+  [class*="text-[#58661C]"] p,
+  [class*="text-[#58661C]"] {
+    color: var(--in-collection-bg) !important;
+  }
+  [class*="text-[#58661C]"] svg path {
+    fill: var(--in-collection-bg) !important;
+  }
+
+  .border-b-brand-border01 {
+    border-bottom-color: var(--borders) !important;
+  }
+
   .border-brand-green800 {
     border-color: var(--button-green-border) !important;
   }
@@ -7218,6 +7246,10 @@
 
   input.checked\:bg-brand-textLink:checked {
     background: var(--policy-indeterminate) !important;
+  }
+
+  [class*="bg-black/50"] {
+    background-color: var(--box-shadow-dark) !important;
   }
 
   .bg-condition-mint {
