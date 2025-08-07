@@ -2,9 +2,9 @@ module.exports = {
   current: [
     {
       features: [{
-        name: 'Utility: Backup / Restore',
-        description: 'Introducing a new utility feature for backing up and restoring your Discogs Enhancer configuration. This will allow you to migrate your preferences to separate browsers or restore a specific configuration.',
-        link: '#backupRestore'
+        name: 'Compact Marketplace',
+        description: 'Compact Marketplace reduces the image sizes, white space, buttons, and font sizes on the new Shop My Wants page.',
+        link: '#compactMarketplace'
       }],
       removedFeatures: [],
       updates: [

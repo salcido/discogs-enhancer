@@ -6986,7 +6986,7 @@
     }
   }
 
-  /////////////
+  // Shop My Wants
   .text-brand-textDisabled01 {
     opacity: .35;
   }
@@ -7098,6 +7098,10 @@
     }
   }
 
+  .bg-brand-buttonEnabled01 {
+    background-color: var(--button-blue) !important;
+  }
+
   .bg-brand-buttonDisabled {
     background: var(--borders) !important;
 
@@ -7166,6 +7170,14 @@
 
   [class*="bg-[#EEF1E2]"] {
     background-color: var(--alert-accept-bg) !important;
+  }
+
+  [class*="bg-[#FFF2EF]"] {
+    background-color: var(--alert-error-bg) !important;
+
+    p {
+      color: var(--alert-error-text) !important;
+    }
   }
 
   [class*="text-[#58661C]"] p,

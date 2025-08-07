@@ -2,65 +2,74 @@
 .relative.block.shrink-0,
 img.rounded,
 .relative.block[class*="180px"].shrink-0 svg {
-  width: 120px;
-  height: 120px;
+  width: 120px !important;
+  height: 120px !important;
 }
 
 .flex.flex-col.items-start {
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 // Padding on each listing
 .border-brand-border01.flex.flex-col.border-solid[class*="py-[24px]"] {
   padding-top: 10px !important;
-  padding-bottom: 20px !important;
+  padding-bottom: 10px !important;
 }
 // Sidebar width
 [class*="w-[277px]"] {
-  width: 225px !important;
+  width: 200px !important;
 }
 // Listings width
 .w-full[class*="max-w-[987px]"] {
-  max-width: 1037px !important;
+  max-width: 1062px !important;
 }
 
 .brand-button.w-full.brand-button-secondary {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .brand-select {
-  padding: 4px 20px 4px 12px;
+  padding: 4px 20px 4px 12px !important;
 }
 
 .brand-button,
 .brand-input {
-  padding: 4px 8px;
-  height: 35px;
+  padding: 4px 8px !important;
+  height: 35px !important;
+}
+
+// Applied Filters
+.bg-brand-pill [class*="text-[13px]"] {
+  font-size: 12px !important;
 }
 
 [class*="h-[40px]"][class*="w-[40px]"] {
-  height: 35px;
-  width: 35px;
+  height: 35px !important;
+  width: 35px !important;
 }
 
 [class*="top-[11px]"] {
-  top: 6px;
+  top: 6px !important;
 }
-
+// Add To Cart Buttons
 .bg-brand-green700,
 .bg-brand-secondaryMain {
-  height: 35px;
+  height: 32px !important;
+}
+// Item price
+.text-right .text-2xl {
+  font-size: 1.3rem !important;
 }
 
 // seller name
 p.text-brand-textSecondary .brand-item-copy-link {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 15px !important;
 }
 li p.text-brand-textSecondary.brand-item-copy.flex.items-center {
-  margin-bottom: .25rem;
+  margin-bottom: .25rem !important;
 }
 
 h1.text-2xl {
-  font-size: 1.25rem;
+  font-size: 1.25rem !important;
 }

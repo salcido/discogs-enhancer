@@ -287,6 +287,15 @@ select {
   text-transform: none;
 }
 
+.info-wrap span.announcement {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: #ffc154;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+}
+
 .info-wrap span.feature {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
