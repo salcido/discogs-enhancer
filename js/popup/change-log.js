@@ -10,7 +10,7 @@ module.exports = {
       updates: [
         {
           name: 'Enhancement',
-          description: 'More Dark Theme updates for the new Edit Master Release feature and new Collection Fields layout.'
+          description: 'More Dark Theme updates for the new Create Master Release feature.'
         },
       ],
       thanks: ['Massive thank you to Joel Yauk for their generous donation!'],
