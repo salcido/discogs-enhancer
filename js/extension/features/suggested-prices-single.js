@@ -21,7 +21,6 @@ rl.ready(() => {
   if ( rl.pageIs('allItems', 'seller', 'myWants') ) {
 
     let
-        colorizePrices = rl.options.colorize(),
         difference,
         nodeId,
         percentage,
@@ -174,7 +173,7 @@ rl.ready(() => {
       rl.fade(target);
 
       // Colorize the price if it's under the threshold
-      if ( amount !== 'more' && colorizePrices ) {
+      if (amount !== 'more') {
         target.querySelector('.price').classList.add('green');
       }
     }
