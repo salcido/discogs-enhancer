@@ -61,23 +61,39 @@ rl.ready(() => {
    */
   window.sellerItemsInCart = function sellerItemsInCart({ names }) {
 
-    names.forEach(seller => {
+    let selectors,
+        tag;
 
-      let sellers = document.querySelectorAll('td.seller_info ul li:first-child a');
+    if ( rl.pageIs('shopMyWants') ) {
+        selectors = '.text-brand-textSecondary.brand-item-copy.flex.items-center a.brand-item-copy-link';
+        tag = '.text-brand-textSecondary a';
+    } else {
+      selectors = 'td.seller_info ul li:first-child a';
+      tag = 'li';
+    }
 
-      sellers.forEach(name => {
+    rl.waitForElement(selectors).then(() => {
 
-        if ( name.textContent.trim() ===
-             seller && !name.closest('li').querySelector('.de-items-in-cart') ) {
+      names.forEach(seller => {
 
-          let icon = document.createElement('span');
+        let sellers = document.querySelectorAll(selectors);
 
-          icon.className = 'de-items-in-cart needs_delegated_tooltip';
-          icon.dataset.placement = 'bottom';
-          icon.rel = 'tooltip';
-          icon.title = `There is at least one item from ${seller} in your cart.`;
-          name.closest('li strong').insertAdjacentElement('beforeend', icon);
-        }
+        sellers.forEach(name => {
+
+          if ( name.textContent.trim() ===
+               seller && !name.closest(tag).querySelector('.de-items-in-cart') ) {
+
+            let icon = document.createElement('span'),
+                nameTag = rl.pageIs('shopMyWants') ? tag : 'li strong';
+
+            icon.className = 'de-items-in-cart needs_delegated_tooltip';
+            icon.dataset.placement = 'bottom';
+            icon.rel = 'tooltip';
+            icon.title = `There is at least one item from ${seller} in your cart.`;
+
+            name.closest(nameTag).insertAdjacentElement('beforeend', icon);
+          }
+        });
       });
     });
   };
@@ -105,7 +121,8 @@ rl.ready(() => {
   // ========================================================
 
   // Marketplace wantlists, all items, release pages
-  if ( rl.pageIs('myWants', 'allItems', 'sellRelease') ) {
+  if ( rl.pageIs('shopMyWants', 'allItems', 'sellRelease') ) {
+
     fetchSellersFromCart()
       .then(data => captureSellerNames(data))
       .then(sellersInCart => {
@@ -114,7 +131,10 @@ rl.ready(() => {
             && sellersInCart.names
             && sellersInCart.names.length ) {
           window.sellerItemsInCart(sellersInCart);
+          // Pagination clicks in Old Marketplace
           rl.handlePaginationClicks(window.sellerItemsInCart, sellersInCart);
+          // SMW interactivity
+          rl.handleSMWClicks('.text-brand-textSecondary.brand-item-copy.flex.items-center a.brand-item-copy-link', window.sellerItemsInCart, sellersInCart);
         }
     });
   }
