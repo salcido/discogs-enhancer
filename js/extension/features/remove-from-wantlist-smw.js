@@ -17,11 +17,7 @@
  * The script is initiated with the code that follows the `init / DOM Setup` comment block.
  */
 
-rl.ready(() => {
-
-  let regex = /\/seller\/(.+)\/mywants/gi, // Seller has my wants page
-      marketplace = rl.pageIs('myWants'), // Marketplace Items I Want page
-      sellerHasWants = regex.test(window.location.href);
+ rl.ready(() => {
   // ========================================================
   // Functions
   // ========================================================
@@ -71,7 +67,7 @@ rl.ready(() => {
    * @param  {object} parent [the parent of the event.target element]
    * @return {object}
    */
-  async function removeFromWantlist(id, parent, target) {
+  async function removeFromWantlist(id, target) {
 
     try {
 
@@ -90,7 +86,7 @@ rl.ready(() => {
             }
           };
 
-      let releases = document.querySelectorAll('.item_description .item_release_link'),
+      let releases = document.querySelectorAll('ul.w-full.overflow-hidden li:last-child p.brand-item-copy a.brand-item-copy-link'),
           headers = { 'content-type': 'application/x-www-form-urlencoded' },
           url = 'https://www.discogs.com/service/catalog/api/graphql',
           initObj = {
@@ -105,11 +101,11 @@ rl.ready(() => {
 
         // Go over all the releases to check for duplicates
         releases.forEach(release => {
-          let tr = release.closest('tr.shortcut_navigable');
+          let item = release.closest('.border-brand-border01.flex.flex-col.border-solid');
 
-          if ( tr.dataset.releaseId == id ) {
-            tr.classList.add('hide');
-            setTimeout(() => { tr.style.display = 'none'; }, 300);
+          if ( item.dataset.id == id ) {
+            item.classList.add('hide');
+            setTimeout(() => { item.style.display = 'none'; }, 300);
           }
         });
 
@@ -122,53 +118,26 @@ rl.ready(() => {
     }
   }
 
-  /**
-   * Injects `Remove From Wantlist` links into the DOM
-   *
-   * @method insertRemoveLinks
-   * @return {function}
-   */
-  // attached to window object so it can be called by Everlasting Marketplace
-  window.insertRemoveLinks = function insertRemoveLinks() {
-
-    if ( marketplace || sellerHasWants ) {
-
-      let releases = document.querySelectorAll('.item_release_link');
-
-      releases.forEach(release => {
-
-        let a = document.createElement('a'),
-            div = document.createElement('div'),
-            parent = release.parentElement;
-
-        div.className = 'de-remove-wantlist-wrap';
-
-        a.className = 'de-remove-wantlist';
-        a.dataset.id = release.closest('tr').dataset.releaseId;
-        a.style = 'display:block;';
-        a.textContent = 'Remove From Wantlist';
-
-        div.append(a);
-
-        // don't insert links if they already exist
-        if (!parent.getElementsByClassName('de-remove-wantlist-wrap').length) {
-          release.insertAdjacentElement('beforebegin', div);
-        }
-      });
-    }
-  };
-
   // ========================================================
   // CSS
   // ========================================================
   let rules = /*css*/`
-      .shortcut_navigable {
+      .border-brand-border01.flex.flex-col.border-solid {
         transition: opacity 0.3s;
         transition-timing-function: ease;
       }
 
-      .shortcut_navigable.hide {
+      .border-brand-border01.flex.flex-col.border-solid.hide {
         opacity: 0;
+      }
+      .de-remove-wantlist:hover {
+        text-decoration: underline;
+      }
+      .de-remove-wantlist,
+      .de-remove-yes,
+      .de-remove-no {
+        cursor: pointer;
+        color: #2653d9;
       }
       `;
 
@@ -176,15 +145,15 @@ rl.ready(() => {
   // DOM Setup
   // ========================================================
 
-  if ( marketplace || sellerHasWants ) {
-    rl.attachCss('remove-from-wantlist', rules);
-    window.insertRemoveLinks();
+  if ( rl.pageIs('shopMyWants') ) {
+    // --------------------------------------------------
+    // Attach CSS
+    // --------------------------------------------------
+    rl.attachCss('remove-from-wantlist-smw', rules);
 
-    // Prev/Next clicks
-    // ---------------------------------------------------------------------------
-    rl.handlePaginationClicks(window.insertRemoveLinks);
-
-    // Confirm/negate removal
+    // --------------------------------------------------
+    // Event Listeners
+    // --------------------------------------------------
     document.querySelector('body').addEventListener('click', event => {
 
       let target = event.target,
@@ -198,7 +167,7 @@ rl.ready(() => {
       }
       // Yes, remove this
       if ( target.classList.contains('de-remove-yes') ) {
-        removeFromWantlist(event.target.dataset.id, parent, event.target);
+        removeFromWantlist(event.target.dataset.id, event.target);
       }
       // No, don't remove anything
       if ( target.classList.contains('de-remove-no') ) {
@@ -206,5 +175,43 @@ rl.ready(() => {
         target.parentElement.remove();
       }
     });
+
+    // --------------------------------------------------
+    // Inject links
+    // --------------------------------------------------
+    rl.onSellItemComplete(({ response }) => {
+
+      let viewReleasePageLink = 'ul.w-full.overflow-hidden li:last-child p.brand-item-copy a.brand-item-copy-link';
+
+      rl.waitForElement(viewReleasePageLink).then(() => {
+
+        let itemsForSale = document.querySelectorAll('.border-brand-border01.flex.flex-col.border-solid');
+
+        response.items.forEach((item, i) => {
+
+          let { releaseId } = item.release,
+              button = document.createElement('button'),
+              div = document.createElement('div');
+
+          itemsForSale[i].dataset.id = releaseId;
+          div.className = 'de-remove-wantlist-wrap';
+
+          button.className = 'de-remove-wantlist';
+          button.dataset.id = releaseId;
+          button.style = 'display:block;';
+          button.textContent = 'Remove From Wantlist';
+
+          div.append(button);
+
+          // don't insert links if they already exist
+          if ( !itemsForSale[i].querySelector('.de-remove-wantlist-wrap') ) {
+            itemsForSale[i].querySelector(viewReleasePageLink).insertAdjacentElement('beforebegin', div);
+          }
+        });
+
+      });
+
+    });
+
   }
 });
