@@ -42,6 +42,10 @@
   display: block;
 }
 
+.text-right .text-2xl {
+  transition: color 0.3s ease-in-out;
+}
+
 .red {
   color: #BF3A38;
   font-weight: bold;
