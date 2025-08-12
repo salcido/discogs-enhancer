@@ -11,15 +11,15 @@
  * -------------------------------------------
  *
  * This feature modifies the Add To Cart buttons in the
- * Marketplace such that the user remains on the page
+ * Shop My Wants Marketplace such that the user remains on the page
  * and the item is added via fetch request in the background.
  */
-rl.ready(() => {
+ rl.ready(() => {
 
   let language = rl.language(),
       translations = {
         de: 'Im Warenkorb',
-        en: 'In Cart',
+        en: 'In cart',
         es: 'En el carrito',
         fr: 'Dans le panier',
         it: 'Nel carrello',
@@ -47,10 +47,11 @@ rl.ready(() => {
    */
   function showFetchingStatus(link) {
 
-    let spinner = '<i class="icon icon-spinner icon-spin" aria-hidden="true"></i>';
+    let spinner = rl.css.preloaderSMW;
 
     link.innerHTML = spinner;
-    link.classList.remove('button-green');
+    link.classList.remove('bg-brand-green700');
+    link.classList.add('bg-brand-white', 'text-brand-green700');
     link.style.pointerEvents = 'none';
   }
   /**
@@ -60,33 +61,39 @@ rl.ready(() => {
    * @returns {undefined}
    */
   function showInCartStatus(link) {
+    let markup = `${translations[language]}`;
 
-    let markup = `<i class="icon icon-check" aria-hidden="true"></i>${translations[language]}`;
-
-    link.classList.remove('cart-button');
-    link.classList.add('in-cart-button');
+    link.classList.remove('hover:underline', 'border-brand-green800', 'bg-brand-green700', 'text-brand-white', 'hover:bg-brand-green800');
+    link.classList.add('border-brand-green700', 'bg-brand-white', 'text-brand-green700');
     link.innerHTML = markup;
+    link.removeAttribute('href');
     link.style.pointerEvents = 'auto';
   }
+
+  let rules = /* css */`
+    .de-preloader-sm {
+      width: 14px;
+      height: 14px;
+    }
+  `;
 
   // ========================================================
   // Init / DOM Setup
   // ========================================================
-  let newHeader = document.querySelector('div[id*="__header"]');
-
-  if ( rl.pageIs('myWants', 'allItems', 'seller', 'sellRelease') && newHeader ) {
+  if ( rl.pageIs('shopMyWants') ) {
+    // Add CSS
+    rl.attachCss('shoppingSpreeMode', rules);
 
     document.body.addEventListener('click', (event) => {
 
-      if ( event.target.classList.contains('cart-button') ) {
+      if ( event.target.classList.contains('border-brand-green800') ) {
 
         let addToCartButton = event.target,
             host = document.querySelector('[id^=__header_root_]'),
-            _header = host && host.shadowRoot ? host.shadowRoot.querySelector('div[class^="_amped_"] header') : document,
+            _header = host.shadowRoot.querySelector('div[class^="_amped_"] header'),
             cartLink = _header.querySelector('nav[class*="_user"] a[href*="/sell/cart"]'),
             sellerName = addToCartButton
-                          .closest('tr.shortcut_navigable')
-                          .querySelector('td.seller_info div.seller_block strong a')
+                          .closest('.flex-row.justify-between.gap-4').querySelector('.text-brand-textSecondary.brand-item-copy.flex.items-center a.brand-item-copy-link')
                           .textContent.trim();
 
         event.preventDefault();
@@ -138,10 +145,10 @@ rl.ready(() => {
           }
         })
         .catch((err) => {
-          let markup = '<i class="icon icon-exclamation-triangle" aria-hidden="true"></i> Error';
+          let markup = 'Error';
 
           addToCartButton.innerHTML = markup;
-          console.log('Discogs Enhancer: ' + err);
+          console.error('Discogs Enhancer: ' + err);
         });
       }
     });
