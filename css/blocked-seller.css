@@ -3,12 +3,14 @@
 }
 
 .blocked-seller .seller_info strong a,
+.blocked-seller p.text-brand-textSecondary.brand-item-copy a.brand-item-copy-link,
 .wantlist-card.blocked-seller a,
 .wantlist-card.blocked-seller a strong {
   color: #BF3A38 !important;
 }
 
-.blocked-seller td.item_add_to_cart p::after {
+.blocked-seller td.item_add_to_cart p::after,
+.blocked-seller .border-brand-border01::after {
   display: block;
   content: "Blocked seller";
   font-style: italic;
@@ -18,6 +20,7 @@
 /* override green styles with red ones */
 .blocked-seller a.button.button-green.cart-button,
 .blocked-seller .button.button-green span,
+.blocked-seller .bg-brand-green700,
 .blocked-seller a.wantlist-button {
   background: #982E2C !important;
   background-image: linear-gradient(#BF3A38, #B33635) !important;

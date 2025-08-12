@@ -17,7 +17,7 @@ rl.ready(() => {
   // Functions
   // ========================================================
   /**
-   * Wraps a target element with the sepecified HTML Element.
+   * Wraps a target element with the specified HTML Element.
    * @param {HTMLElement} wrappingElem - The element that will wrap the target
    * @param {HTMLElement} target - The target element that will be wrapped
    */
@@ -48,7 +48,7 @@ rl.ready(() => {
 
   window.blockSellersPopover = function blockSellersPopover() {
     // Grab all non-blocked seller names and wrap them with the
-    // popover wraping div
+    // popover wrapping div
     document.querySelectorAll(sellerSelector).forEach((seller) => {
       if (!seller.closest('tr').classList.contains('blocked-seller')) {
         let wrappingDiv = document.createElement('div');
@@ -86,7 +86,12 @@ rl.ready(() => {
 
       localStorage.setItem('userPreferences', JSON.stringify(up));
 
-      event.target.closest('tr').classList.add('blocked-seller');
+      if ( rl.pageIsNot('shopMyWants') ) {
+        event.target.closest('tr').classList.add('blocked-seller');
+      } else {
+        event.target.closest('.border-brand-border01.flex.flex-col.border-solid').classList.add('blocked-seller');
+      }
+
       event.target.textContent = 'Blocked!';
       event.target.disabled = true;
       event.target.closest('.popover-content').querySelector('.success').classList.remove('hide');
@@ -106,7 +111,6 @@ rl.ready(() => {
       opacity: 0;
       visibility: hidden;
       position: absolute;
-      left: -10px;
       transform: translate(0, 10px);
       background-color: white;
       box-shadow: 0 2px 5px 0 rgb(0 0 0 / 26%);
@@ -128,6 +132,30 @@ rl.ready(() => {
     .popover-content .hide {
       display: none;
     }
+    .button {
+      border-radius: 3px;
+      display: inline-block;
+      border-style: solid;
+      border-width: 1px;
+      vertical-align: middle;
+      height: 2em;
+      line-height: 2em;
+      padding: 0 1em;
+      font-weight: normal;
+      font-size: 14px;
+      font-family: Helvetica, Arial, sans-serif;
+      text-align: center;
+    }
+    .button-red {
+      border-color: #9c2f2e;
+      border-top-color: #a33230;
+      border-bottom-color: #902c2a;
+      background-color: #BF3A38;
+    }
+    .button-small {
+      font-size: 12px;
+      padding: 0 1em;
+    }
     .success {
       margin-top: 1rem;
       width: 200px;
@@ -148,6 +176,29 @@ rl.ready(() => {
 
   rl.attachCss('block-seller-popover', rules);
   rl.handlePaginationClicks(window.blockSellersPopover);
-
   window.blockSellersPopover();
+
+  if ( rl.pageIs('shopMyWants') ) {
+
+    rl.onSellItemComplete(() => {
+      rl.waitForElement('.border-brand-border01.flex.flex-col.border-solid').then(() => {
+        // console.log('popover', response);
+        let itemsForSale = document.querySelectorAll('.border-brand-border01.flex.flex-col.border-solid'),
+            sellerName = '.flex-row.justify-between.gap-4 ul.w-full.overflow-hidden li p a';
+
+        itemsForSale.forEach((item) => {
+          let seller = item.querySelector(sellerName);
+
+          if ( !seller.closest('.border-brand-border01.flex.flex-col.border-solid').classList.contains('blocked-seller')
+                  && !seller.closest('.border-brand-border01.flex.flex-col.border-solid').classList.contains('favorite-seller')) {
+            let wrappingDiv = document.createElement('div');
+            wrappingDiv.classList = 'popover-wrap';
+            wrap(seller, wrappingDiv);
+          }
+        });
+        window.blockSellersPopover();
+      });
+    });
+
+  }
 });
