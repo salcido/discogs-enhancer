@@ -123,19 +123,32 @@ rl.ready(() => {
   // Marketplace wantlists, all items, release pages
   if ( rl.pageIs('shopMyWants', 'allItems', 'sellRelease') ) {
 
+    rl.attachCss('items-in-cart', rules);
+
     fetchSellersFromCart()
       .then(data => captureSellerNames(data))
       .then(sellersInCart => {
-        rl.attachCss('items-in-cart', rules);
         if ( sellersInCart
-            && sellersInCart.names
-            && sellersInCart.names.length ) {
+              && sellersInCart.names
+              && sellersInCart.names.length ) {
           window.sellerItemsInCart(sellersInCart);
           // Pagination clicks in Old Marketplace
           rl.handlePaginationClicks(window.sellerItemsInCart, sellersInCart);
-          // SMW interactivity
-          rl.handleSMWClicks('.text-brand-textSecondary.brand-item-copy.flex.items-center a.brand-item-copy-link', window.sellerItemsInCart, sellersInCart);
         }
+    });
+
+    rl.onSellItemComplete(() => {
+      rl.waitForElement('.text-brand-textSecondary.brand-item-copy.flex.items-center a.brand-item-copy-link').then(() => {
+        fetchSellersFromCart()
+          .then(data => captureSellerNames(data))
+          .then(sellersInCart => {
+            if ( sellersInCart
+                  && sellersInCart.names
+                  && sellersInCart.names.length ) {
+              window.sellerItemsInCart(sellersInCart);
+            }
+        });
+      });
     });
   }
 });
