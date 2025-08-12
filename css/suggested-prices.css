@@ -5,15 +5,33 @@
   margin: 20px auto;
   position: relative;
   font-style: normal;
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+.spin {
+  animation: spin 1.5s infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .de-price,
 .de-dark-theme .de-price {
-  margin-top: 10px !important;
-  padding-top: 10px !important;
   border-top: 1px dotted gray !important;
-  transition: opacity 0.3s ease-in;
+  display: block;
+  font-size: 14px;
+  margin-block: 10px !important;
   opacity: 0;
+  padding-top: 10px !important;
+  transition: opacity 0.3s ease-in;
 }
 
 .de-price.show {
@@ -30,7 +48,14 @@
 }
 
 .green {
-  color: #60C43F;
+  color: #038f0f;
   font-weight: bold;
   transition: color 0.3s ease-in-out;
+}
+
+.please-register {
+  margin-block: 1rem !important;
+  font-size: 13px;
+  line-height: 18px;
+  display: block;
 }

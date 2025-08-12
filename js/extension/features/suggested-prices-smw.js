@@ -17,11 +17,10 @@
  * comment block.
  */
 
-rl.ready(() => {
-  if ( rl.pageIs('allItems', 'seller', 'myWants') ) {
+ rl.ready(() => {
+  if ( rl.pageIs('shopMyWants') ) {
 
     let
-        colorizePrices = rl.options.colorize(),
         difference,
         nodeId,
         percentage,
@@ -36,35 +35,6 @@ rl.ready(() => {
     // ========================================================
     // Functions (In general order of execution)
     // ========================================================
-
-    /**
-     * Insert preloader animation
-     * (attached to window object to allow use with Everlasting Marketplace option)
-     * @method injectPriceLinks
-     * @returns {undefined}
-     */
-    window.injectPriceLinks = function injectPriceLinks() {
-
-      let p = document.querySelectorAll('td.item_price');
-
-      for ( let i = 0; i < p.length; i++ ) {
-
-        let a = document.createElement('a');
-
-        a.className = 'de-price-link';
-        a.style = 'margin: 10px auto; display:block; font-weight: bold; white-space: pre;';
-        a.textContent = 'Show Price\r\nComparison';
-
-        // Only append price comparison links if they do not yet exist on each item
-        if ( p[i].getElementsByClassName('de-price-link').length < 1
-             && p[i].getElementsByClassName('de-price').length < 1
-             && p[i].getElementsByClassName('de-price-preloader').length < 1 ) {
-
-          p[i].appendChild(a);
-        }
-      }
-    };
-
     /**
      * Inject price comparisons
      * @param  {string} releaseId The id of the release to look up
@@ -90,7 +60,7 @@ rl.ready(() => {
         if (redirected && response.url.includes('/settings/seller/')) {
           document.querySelector('.de-price-preloader').remove();
 
-          return target.insertAdjacentHTML('beforeend', rl.css.pleaseRegister);
+          return target.insertAdjacentHTML('beforeend', rl.css.pleaseRegisterSMW);
         }
 
         if ( typeof Element.prototype.setHTMLUnsafe === 'function' ) {
@@ -98,7 +68,9 @@ rl.ready(() => {
         } else {
           div.innerHTML = data;
         }
+
         nodeId = div.querySelector('#dsdata');
+
         priceKey = rl.prepareObj(nodeId.outerHTML);
 
         return div;
@@ -113,7 +85,7 @@ rl.ready(() => {
      * @method generateComparison
      * @returns {undefined}
      */
-    function generateComparison() {
+    function generateComparison(mediaCondition) {
 
       let actual;
 
@@ -124,14 +96,7 @@ rl.ready(() => {
       // Set up comparisons values
       actual = priceContainer[0].convertedPrice;
 
-      if ( priceContainer[0].mediaCondition.includes('\n') ) {
-
-        suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition.split('\n')[0]];
-
-      } else {
-
-        suggested = priceKey['post:suggestedPrices'][priceContainer[0].mediaCondition];
-      }
+      suggested = priceKey['post:suggestedPrices'][mediaCondition];
 
       difference = suggested - actual;
 
@@ -173,10 +138,9 @@ rl.ready(() => {
       target.append(markup);
       rl.fade(target);
 
-      // Colorize the price if it's under the threshold
-      if ( amount !== 'more' && colorizePrices ) {
-        target.querySelector('.price').classList.add('green');
-      }
+      // Colorize the price
+      let _class = amount == 'more' ? 'red' : 'green';
+      target.querySelector('.text-2xl').classList.add(_class);
     }
 
     /**
@@ -214,7 +178,6 @@ rl.ready(() => {
 
       return spanOuter;
     }
-
 
     /**
      * Logs the values used to create the price comparison
@@ -265,32 +228,18 @@ rl.ready(() => {
 
       if ( event.target.classList.contains('de-price-link') ) {
 
-        let
-            link = event.target,
-            href = link
-                       .closest('.shortcut_navigable')
-                       .querySelector('.item_description a.item_release_link').href,
-            slash = href.lastIndexOf('/') + 1,
-            len = href.length,
-            selector = '.item_description .item_condition .condition-label-desktop + span',
-            itemMarkup = document.querySelector(selector).innerHTML,
-            mediaCondition,
-            releaseId = href.substring(slash, len),
-            price = link.closest('.shortcut_navigable').querySelector('.price').textContent;
+        let link = event.target,
+            mediaCondition = link.dataset.mediaCondition,
+            releaseId = link.dataset.id,
+            price = link.closest('.border-brand-border01.flex.flex-col.border-solid').querySelector('.text-right .text-2xl').textContent;
 
-        if ( itemMarkup.includes('has-tooltip') ) {
-          mediaCondition = link.closest('.shortcut_navigable').querySelector(selector).textContent.trim().split('\n')[0];
-        } else {
-          mediaCondition = link.closest('.shortcut_navigable').querySelector(selector).textContent.trim();
-        }
-
-        target = event.target.closest('.item_price');
+        target = event.target.closest('.text-right');
         priceContainer = [{ price: price, mediaCondition: mediaCondition }];
 
         // Run the comparison process...
         getPrice(releaseId).then(div => {
           if (div && div.querySelector('#main_wrapper')) {
-            generateComparison();
+            generateComparison(mediaCondition);
             appendPrice();
           } else {
             handleError();
@@ -299,21 +248,35 @@ rl.ready(() => {
       }
     });
 
-    // Prev/Next clicks
-    rl.handlePaginationClicks(window.injectPriceLinks);
-
     // ========================================================
     // DOM Setup
     // ========================================================
 
-    // Remove mobile clutter
-    document.querySelectorAll('.hide_desktop').forEach(elem => elem.remove());
+    symbol = rl.getSymbols(userCurrency);
 
-    // BUGFIX: allows this feature to work when the user has not enabled the marketplace highlights
-    document.querySelectorAll('.condition-label-mobile').forEach(elem => elem.remove());
+    rl.onSellItemComplete(({ response }) => {
 
-    symbol = rl.getSymbols(userCurrency, symbol);
+      rl.waitForElement('.text-right .text-2xl').then(() => {
 
-    window.injectPriceLinks();
+        let prices = document.querySelectorAll('.text-right .text-2xl'),
+            { items } = response;
+
+        prices.forEach((price, i) => {
+
+          let a = document.createElement('a');
+
+          a.className = 'de-price-link brand-item-copy-link';
+          a.style = 'margin: 1rem auto; display:block; font-weight:bold; white-space:pre; font-size: 14px;';
+          a.dataset.id = items[i].release.releaseId;
+          a.dataset.mediaCondition = items[i].mediaCondition;
+          a.textContent = 'Show Price\r\nComparison';
+
+          price.parentElement.appendChild(a);
+        });
+
+      });
+
+    });
+
   }
 });
