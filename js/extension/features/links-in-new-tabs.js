@@ -53,6 +53,10 @@ rl.ready(() => {
       mpReleases = '.item_description a.item_release_link.hide_mobile',
       mpSellers = '.shortcut_navigable .seller_info li strong a',
       mpThumbs = '.item_picture a',
+      // Shop My Wants
+      // smwItems = '.flex.flex-row.gap-4.pr-4 .w-full.overflow-hidden li a',
+      // smwSellers = '.flex.flex-row.justify-between.gap-4 .w-full.overflow-hidden p.text-brand-textSecondary.brand-item-copy a.brand-item-copy-link',
+      // smwThumbs = '.flex.flex-row.gap-4.pr-4 .relative.block.shrink-0 a',
       // Releases
       relCompanies = '#release-companies a',
       relVersions = '#release-other-versions a',
@@ -235,6 +239,24 @@ rl.ready(() => {
         });
       }
 
+      // Shop My Wants
+      if ( linksInTabs.marketplace && rl.pageIs('shopMyWants') ) {
+
+        let topNav = 'ul.text-brand-textLink.flex.flex-row li a';
+
+        rl.waitForElement(topNav).then(() => {
+          document.querySelectorAll(topNav).forEach(a => a.classList.add('de-ignore'));
+        });
+
+        document.body.addEventListener('mouseover', (event) => {
+          if ( event.target.tagName === 'A'
+               && !event.target.className.startsWith('de-')
+               && ![...event.target.classList].includes('de-ignore') ) {
+
+            event.target.setAttribute('target', '_blank');
+          }
+        });
+      }
     }
   }
 });
