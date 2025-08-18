@@ -229,5 +229,8 @@ Since changes have been made to `webpack`, the extension will need to be rebuilt
 </a>
 
 ## License
+- Version 3.12.x and later are licensed under the View-Only License (see LICENSE).
 
-This project is licensed under the GPL License - see the [LICENSE](LICENSE) file for details
+This change reflects our move to a paid model. You may continue to use older versions under GPL, but
+all new development will happen under the new license.
+
