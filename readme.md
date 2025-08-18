@@ -11,7 +11,6 @@
   <a href="https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn">
     <img src="https://img.shields.io/badge/Rating-4.85%2F5-blue" alt="Chrome Web Store">
   </a>
-  <img src="https://img.shields.io/badge/License-GPL%203.0-blue" alt="License GPL 3.0">
 </p>
 
 ***
