@@ -146,7 +146,7 @@ function migratePreferences() {
 }
 
 /**
- * docuemnt.readyState check via promise
+ * document.readyState check via promise
  * @returns {Promise}
  */
 function documentReady(document) {
@@ -210,7 +210,7 @@ function getCurrentFilterState(prefs) {
 }
 
 /**
- * Gets the specified cookie. Used for retreving the username
+ * Gets the specified cookie. Used for retrieving the username
  * @param {string} name - The name of the cookie
  * @returns {string}
  */
@@ -220,10 +220,10 @@ window.getCookie = function (name) {
 };
 
 // ========================================================
-//  Script Appension
+//  Script Appending
 // ========================================================
 
-// Dark Theme CSS is automatically appened via manifest.json on 'document_start'
+// Dark Theme CSS is automatically appended via manifest.json on 'document_start'
 document.documentElement.classList.add('de-dark-theme', 'de-enabled');
 
 // Get the user's preferences (preferences are created on install in background.js)
@@ -279,6 +279,14 @@ appendFragment([resourceLibrary])
       // ========================================================
       // Preference-agnostic scripts (always appended)
       // ========================================================
+
+      // Dashboard Notification
+      let dashboardNotification = document.createElement('script');
+      dashboardNotification.type = 'text/javascript';
+      dashboardNotification.className = 'de-init';
+      dashboardNotification.src = chrome.runtime.getURL('js/extension/features/dashboard-notification.js');
+
+      elems.push(dashboardNotification);
 
       // GraphQL Hashes
       hashes = document.createElement('script');

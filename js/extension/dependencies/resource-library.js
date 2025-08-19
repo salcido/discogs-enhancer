@@ -1012,6 +1012,44 @@
     },
 
     /**
+     * Set a cookie
+     *
+     * @param {string} name - The name of the cookie
+     * @param {string} value - The value of the cookie
+     * @param {Object} [options] - Optional settings
+     * @param {number} [options.days] - Number of days until the cookie expires
+     * @param {string} [options.path] - The path where the cookie is valid (default: "/")
+     * @param {string} [options.domain] - The domain for the cookie
+     * @param {boolean} [options.secure] - Whether the cookie should only be sent over HTTPS
+     * @param {boolean} [options.sameSite] - "Strict", "Lax", or "None"
+     */
+    setCookie: function(name, value, options = {}) {
+      let cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+
+      if (options.days) {
+        const date = new Date();
+        date.setTime(date.getTime() + options.days * 24 * 60 * 60 * 1000);
+        cookieString += `; expires=${date.toUTCString()}`;
+      }
+
+      cookieString += `; path=${options.path || '/'}`;
+
+      if (options.domain) {
+        cookieString += `; domain=${options.domain}`;
+      }
+
+      if (options.secure) {
+        cookieString += '; secure';
+      }
+
+      if (options.sameSite) {
+        cookieString += `; samesite=${options.sameSite}`;
+      }
+
+      document.cookie = cookieString;
+    },
+
+    /**
      * Convenience method so I don't forget to stringify
      * my values before setting them.
      * @param    {string} name The name to set
