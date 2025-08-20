@@ -64,7 +64,7 @@ rl.ready(() => {
               <span class="alert-message-text">
                   <strong>A Message from Discogs Enhancer</strong>
                   <br>
-                  Discogs Enhancer will soon require a subscription plan. The move to a paid model is necessary due to the amount of work now required to support this extension across the entirety of Discogs. <a href="${forumPost}" class="de-learn-more">Learn more.</a>
+                  Discogs Enhancer will soon be moving to a subscription model. This change is necessary to support the growing amount of work required to keep the extension running across all areas of Discogs.  <a href="${forumPost}" class="de-learn-more">Learn more.</a>
               </span>
             </div>
           </div>
