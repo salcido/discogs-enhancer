@@ -227,10 +227,3 @@ Since changes have been made to `webpack`, the extension will need to be rebuilt
 <a href="https://www.buymeacoffee.com/salcido" rel="nofollow">
  <img src="https://github.com/salcido/Discogs-Enhancer/blob/master/img/learn/coffee-btn.png" alt="Buy Me A Coffee" style="max-width: 100%;">
 </a>
-
-## License
-- Version 3.12.x and later are licensed under the View-Only License (see LICENSE).
-
-This change reflects our move to a paid model. You may continue to use older versions under GPL, but
-all new development will happen under the new license.
-
