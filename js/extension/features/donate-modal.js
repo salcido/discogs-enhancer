@@ -31,7 +31,7 @@ rl.ready(() => {
 
   const disclaimer = 'This message is shown once a year';
 
-  const url = 'https://www.paypal.com/donate/?business=SQ4MHRDMMJQHQ&no_recurring=0&item_name=Thank+you+for+supporting+Discogs+Enhancer!&currency_code=USD';
+  const url = '';
 
   const modal = `
     <div class="de-donate-modal animate-bottom">
