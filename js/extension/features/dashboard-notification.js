@@ -3,7 +3,7 @@ rl.ready(() => {
   if ( rl.pageIs('dashboard') ) {
 
     let dashboard = document.querySelector('#page_aside ul.module_blocks.right'),
-        forumPost = 'https://www.discogs.com/group/thread/1133832',
+        forumPost = 'https://www.discogs.com/group/thread/1136261',
         isAdmin = window.dsdata().userIsAdmin,
         cookieName = 'de-subscription-notice',
         cookie = rl.getCookie(cookieName);
@@ -40,7 +40,7 @@ rl.ready(() => {
         padding: 0px;
       }
 
-      .de-dark-theme .de-dashboard-notification .alert-message a.de-learn-more {
+      .de-dark-theme .de-dashboard-notification .alert-message-announcement.alert-message .alert-message-text a.de-learn-more {
         color: var(--link) !important;
       }
     `;
