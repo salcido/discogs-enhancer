@@ -265,6 +265,7 @@ appendFragment([resourceLibrary])
     // https://github.com/salcido/discogs-enhancer/issues/14
     if (!window.location.href.includes('www')
       || window.location.href.includes('/order/prints?')
+      || window.location.href.includes('merch.discogs.com')
       || window.location.href.includes('discogs.com/company')
       || window.location.href.includes('discogs.com/selling')
       || window.location.href.includes('/company/careers')
