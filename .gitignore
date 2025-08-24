@@ -5,3 +5,4 @@ firefox-dist
 js/chart
 .vscode
 .DS_Store
+.env
