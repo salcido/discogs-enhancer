@@ -664,18 +664,6 @@ appendFragment([resourceLibrary])
         elems.push(demandIndexMP);
       }
 
-      // editing notepad
-      if (prefs.editingNotepad) {
-
-        let editingNotepad = document.createElement('script');
-
-        editingNotepad.type = 'text/javascript';
-        editingNotepad.src = chrome.runtime.getURL('js/extension/features/editing-notepad.js');
-        editingNotepad.className = 'de-init';
-
-        elems.push(editingNotepad);
-      }
-
       // everlasting marketplace
       if (prefs.everlastingMarket) {
 
@@ -1102,18 +1090,6 @@ appendFragment([resourceLibrary])
         sortMarketplaceScript.className = 'de-init';
 
         elems.push(sortMarketplaceScript);
-      }
-
-      if (prefs.sortByTotalPrice) {
-
-        let sortByTotalPriceScript = document.createElement('script');
-
-        sortByTotalPriceScript.type = 'text/javascript';
-        sortByTotalPriceScript.src = chrome.runtime.getURL('js/extension/features/sort-by-total-price.js');
-        sortByTotalPriceScript.id = 'sortbytotal';
-        // sortByTotalPriceScript.className = 'de-init';
-
-        elems.push(sortByTotalPriceScript);
       }
 
       if (prefs.suggestedPrices) {

@@ -87,7 +87,6 @@ window.addEventListener('load', () => {
       toggleConverter = document.getElementById('toggleConverter'),
       toggleDarkTheme = document.getElementById('toggleDarkTheme'),
       toggleDemandIndex = document.getElementById('toggleDemandIndex'),
-      toggleEditingNotepad = document.getElementById( 'toggleEditingNotepad' ),
       toggleEverlastingMarket = document.getElementById('toggleEverlastingMarket'),
       toggleFavoriteSellers = document.getElementById('toggleFavoriteSellers'),
       toggleFeedback = document.getElementById('toggleFeedback'),
@@ -118,7 +117,6 @@ window.addEventListener('load', () => {
       toggleShoppingSpree = document.getElementById('toggleShoppingSpree'),
       toggleShortcuts = document.getElementById('toggleShortcuts'),
       toggleSortBtns = document.getElementById('toggleSortBtns'),
-      toggleSortByTotalPrice = document.getElementById('toggleSortByTotalPrice'),
       toggleTweakDiscrims = document.getElementById('toggleTweakDiscrims'),
       toggleYtPlaylists = document.getElementById('toggleYtPlaylists'),
       userCurrency = document.getElementById('currency'),
@@ -295,7 +293,6 @@ window.addEventListener('load', () => {
   toggleConverter.addEventListener('change', triggerSave);
   toggleDarkTheme.addEventListener('change', darkTheme.useDarkTheme);
   toggleDemandIndex.addEventListener('change', triggerSave);
-  toggleEditingNotepad.addEventListener('change', triggerSave);
   toggleEverlastingMarket.addEventListener('change', triggerSave);
   toggleFavoriteSellers.addEventListener('change', triggerSave);
   toggleFeedback.addEventListener('change', triggerSave);
@@ -326,7 +323,6 @@ window.addEventListener('load', () => {
   toggleShoppingSpree.addEventListener('change', triggerSave);
   toggleShortcuts.addEventListener('change', triggerSave);
   toggleSortBtns.addEventListener('change', triggerSave);
-  toggleSortByTotalPrice.addEventListener('change', triggerSave);
   toggleTweakDiscrims.addEventListener('change', triggerSave);
   toggleYtPlaylists.addEventListener('change', ytPlaylists.toggleYtPlaylists);
   userCurrency.addEventListener('change', () => applySave(null, event));
@@ -494,7 +490,6 @@ window.addEventListener('load', () => {
       toggleConverter.checked = prefs.converter;
       toggleDarkTheme.checked = prefs.darkTheme;
       toggleDemandIndex.checked = prefs.demandIndex;
-      toggleEditingNotepad.checked = prefs.editingNotepad;
       toggleEverlastingMarket.checked = prefs.everlastingMarket;
       toggleFavoriteSellers.checked = prefs.favoriteSellers;
       toggleFeedback.checked = prefs.feedback;
@@ -525,7 +520,6 @@ window.addEventListener('load', () => {
       toggleShoppingSpree.checked = prefs.shoppingSpreeMode,
       toggleShortcuts.checked = prefs.formatShortcuts;
       toggleSortBtns.checked = prefs.sortButtons;
-      toggleSortByTotalPrice.checked = prefs.sortByTotalPrice;
       toggleTweakDiscrims.checked = prefs.tweakDiscrims;
       toggleYtPlaylists.checked = prefs.ytPlaylists;
 
